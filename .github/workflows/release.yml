@@ -1,8 +1,9 @@
 name: Release Creation
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'release-*'
 
 jobs:
   build:
@@ -60,4 +61,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./system.json, ./system.zip"
           tag: ${{ github.event.release.tag_name }}
-          body: ${{ github.event.release.body }}
+          body: |
+            ${{ github.event.release.body }}
+
+            **Installation:** To manually install this release, please use the following manifest URL: ${{ env.RELEASE_INSTALL_URL }}
