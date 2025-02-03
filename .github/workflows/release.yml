@@ -50,7 +50,6 @@ jobs:
 
       # Create a release for this specific version.
       - name: Update Release with Files
-        if: '!github.event.release.prerelease'
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
