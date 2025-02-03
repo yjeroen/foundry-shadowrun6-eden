@@ -11,9 +11,6 @@
 	{
 		"files.associations": {
 			"*.html": "handlebars"
-		},
-		"problems.excludePatterns": [
-				"**/.github/**"
-		]
+		}
 	}	
 }
