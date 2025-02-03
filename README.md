@@ -55,7 +55,7 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ## Patch Notes
 
-See [CHANGELOG](./CHANGELOG.md)
+See [CHANGELOG](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/CHANGELOG.md)
 
 ## Licenses
 
