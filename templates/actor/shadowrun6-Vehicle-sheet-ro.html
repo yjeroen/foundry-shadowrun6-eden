@@ -1,0 +1,20 @@
+<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
+  	{{#if system.genesisID}}
+	<h2>{{localize (concat (concat "vehicle." system.genesisID) ".name")}}</h2>
+	<h4  style="font-style: italic">{{localize (concat (concat "vehicle." system.genesisID) ".src")}}</h4>
+	<div class="data-desc" id="data-desc"/>{{localize (concat (concat "vehicle." system.genesisID) ".desc")}}</div>
+	{{else}}
+	<h2>{{actor.name}}</h2>
+	<div class="data-desc" id="data-desc">{{system.description}}</div>
+   {{/if}}
+
+	{{!-- Sheet Body --}}
+   <section class="sheet-body">
+      <div class="section">
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-stats.html"}}
+            <dl>
+            </dl>
+	   </div>
+   </section>
+   <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="550" />
+</form>

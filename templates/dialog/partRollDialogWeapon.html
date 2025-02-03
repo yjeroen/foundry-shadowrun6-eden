@@ -1,0 +1,67 @@
+    <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.weapon"}}</h4>
+    <table style="background-color: transparent; border: 1px">
+    	<tr>
+			<td rowspan="3" style="width: 70px;">
+				<div class="edge-roll" >
+					<img src="systems/shadowrun6-eden/images/colt-m1911.svg" style="border: 0px; height: auto; width: 48px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
+				</div>
+			</td>
+			<td colspan="6">
+				<table class="spell-table">
+					<tr>
+						<th>{{localize 'shadowrun6.weapon.damage'}}</th>
+						<th>{{localize 'shadowrun6.weapon.firemodes'}}</th>
+						<th>{{localize 'shadowrun6.weapon.attackRating'}}</th>
+						<th>{{localize 'shadowrun6.weapon.ammo'}}</th>
+					</tr>
+					<tr>
+						<td><span name="calcDamage">{{data.calcDamage}}</span>{{#if data.gear.stun}}S{{else}}P{{/if}}</td>
+						<td>{{firemodes data.gear.modes}}</td>
+						<td name="calcAR">{{attackrating data.calcAttackRating}}</td>
+						<td name="calcRounds">{{data.calcRounds}}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		{{#if (or (eq data.skillId "firearms")(eq data.skillId "exotic_weapons"))}}
+		<tr>
+			<td>{{localize "shadowrun6.roll.firemode"}}</td>
+			<td>
+				<select name="fireMode" id="fireMode">
+					{{selectOptions data.getModes selected=data.fireMode localize=true}}
+				</select>
+			</td>     		
+			<td class="onlyFA" style="text-align:right; display:none">{{localize "shadowrun6.roll.fa_area"}}</td>
+			<td class="onlyFA" style="display:none">
+				<select id="fullAutoArea" name="fullAutoArea">
+					<option value="1" data-item-incid="inc0">{{localize "shadowrun6.item.mode_fa_1m"}}</option>
+					<option value="2" data-item-incid="inc1">{{localize "shadowrun6.item.mode_fa_2m"}}</option>
+					<option value="3" data-item-incid="inc2">{{localize "shadowrun6.item.mode_fa_3m"}}</option>
+					<option value="4" data-item-incid="inc2">{{localize "shadowrun6.item.mode_fa_4m"}}</option>
+					<option value="5" data-item-incid="inc2">{{localize "shadowrun6.item.mode_fa_5m"}}</option>
+					<option value="6" data-item-incid="inc2">{{localize "shadowrun6.item.mode_fa_6m"}}</option>
+				</select>
+			</td>   	
+			<td class="onlyBF" style="text-align:right; display:none">{{localize "shadowrun6.roll.bf_type"}}</td>
+			<td class="onlyBF" style="display:none">
+				<select id="bfType" name="bfType">
+					<option value="narrow_burst">{{localize "shadowrun6.roll.bf.narrow_burst"}}</option>
+					<option value="wide_burst"  >{{localize "shadowrun6.roll.bf.wide_burst"}}</option>
+				</select>
+			</td>
+		</tr>
+		{{/if}}
+    	<tr>
+    	  	<td>{{localize "shadowrun6.roll.range"}}</td>
+    	  	<td>
+    	  		<select name="distance" id="distance">
+            	{{#select attackRating}}
+            	{{#each data.calcAttackRating as |rating id|}}
+            		<option value="{{rating}}" data-item-ar="{{rating}}" name="{{id}}">{{localize (concat "shadowrun6.roll.ar_" id)}} - ({{rating}})</option>
+            	{{/each}}
+            	{{/select}}
+        		</select> 
+    	  	</td>
+    	</tr>
+   </table>
+	<hr/>

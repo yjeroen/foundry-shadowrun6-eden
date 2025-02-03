@@ -1,0 +1,376 @@
+.shadowrun6 .window-header::after {
+	display: block;
+	content: "";
+	position: absolute;
+	width: 200px;
+	height: 36px;
+	left: 50%;
+	top: -14px;
+	margin-left: -100px;
+	background: url(../images/SR6Logo2.webp);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center top;
+  pointer-events: none;
+  -webkit-filter: drop-shadow(0px 0px 4px  var(--color-shadow-primary));
+  filter: drop-shadow(0px 0px 4px var(--color-shadow-primary));
+}
+
+.game .system-links {
+  display: inline;  
+}
+.game .system-links a {
+  margin-right: 10px;  
+}
+
+line {
+	width: 100%;
+	display: block;
+}
+
+.section {
+	display: inline-block;
+	background-color: var(--section-background);
+	vertical-align: top;
+	border: solid black 1px;
+	border-radius: 6px;
+	padding: 4px;
+	margin: 5px;
+  width: -webkit-fill-available;
+}
+.section-head {
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid var(--highlight-color);
+	margin: 0 0 0.5rem 0;
+}
+.section-head h2 {
+	border-bottom: 0px;
+	margin: 0 0 0 5px;
+}
+.section-title {
+	color: var(--highlight-color);
+}
+.vehicle-stats-table th {
+	padding-left: 2px;
+	padding-right: 3px;
+}
+.shadowrun6 th {
+	text-shadow: none; 
+}
+table td {
+	padding: 1px;
+}
+th {
+	color: var(--highlight-color);
+	background-color: var(--tablehead-background);
+}
+tfoot th {
+	color: var(--input-color);
+	background-color: var(--tablehead-background);
+}
+.sheet-body * table{
+	background-color: rgba(0,0,0,0);
+	border-top: 0px;
+	border-bottom: 0px;
+}
+.sheet-body * thead {
+	background-color: var(--tablehead-background);
+	text-shadow: none;
+	border-bottom: 0px;
+}
+.game .centered {
+	text-align: center;
+}
+.shadowrun6 input[type="text"]{
+        font-variant-numeric: lining-nums;
+        border: 0px solid black;
+        background: none;
+        color: var(--input-color);
+        
+
+        padding: 2px;
+        padding-bottom: 2px;
+        margin: 0;
+
+        vertical-align: baseline;
+
+        display: inline-block;
+        height: 100%;
+        border-radius: 4px;
+ 
+ }
+ .shadowrun6 .input-symbol-nuyen {
+  position: relative;
+}
+.shadowrun6 .input-symbol-nuyen input {
+  padding-right: 1em;
+}
+.shadowrun6 .input-symbol-nuyen:after {
+  position: absolute;
+  top: 0;
+  content: "¥";
+  right: 0.4em;
+}
+dt {
+  float: left;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+dt::after { 
+  content: ": "; 
+}
+dd::after {
+  clear: left;
+  content: " ";
+  display: block;
+}
+.shadowrun6 input[type="text"].secondary {
+	font-weight: normal;
+}
+.shadowrun6 input::placeholder {
+	color: grey;
+}
+
+.barPhyMax {
+    width: 20rem;
+    background-color: transparent;
+}
+#barPhyCur {
+    background-color: green;
+    width: 60%;
+    height: 100%;
+    text-align: center;
+}
+
+.barStunMax {
+    width: 20rem;
+    background-color: transparent;
+}
+#barStunCur {
+    background-color: blue;
+    width: 60%;
+    height: 100%;
+    text-align: center;
+}
+.monitors .monitor {
+  text-align: center;
+  color: black;
+  text-shadow: 1px 1px 4px #fff, -1px -1px 4px #fff, -1px 1px 5px #fff, 1px -1px 5px #fff;
+  display: flex; 
+  flex-direction: row-reverse; 
+  z-index: 2; 
+  position: absolute; 
+  top: 0em; 
+  width: 100%;
+
+  flex-wrap: wrap;
+}
+.monitors .monitor hr {
+  /* width: 100%; */
+  flex-basis: 100%; 
+  height: 4px; 
+  margin: 0; 
+  border: 0;
+}
+
+.monitors .monitor .monitorBox {
+  flex: 1; 
+  border-left: solid black 0px;
+  container-type: inline-size;
+}
+.monitors .monitor .monitorBox > div {
+  font-size: clamp(0.1rem, 60cqw, 0.87rem);
+  line-height: 16px;
+}
+/* .monitors .monitor .monitorBox:nth-child(3n) > div {
+  background: silver;
+}
+.monitors .monitor .monitorBox:nth-child(3n)::after {
+  content: '';
+  width: 100%;
+} */
+
+.skills ol.item-list {
+  padding-left: 0;
+}
+.skill-name {
+	width: 10em; 
+	flex-grow:6; 
+	align-self: center;
+	justify-content: center;
+}
+
+.skill-attrib {
+	flex-grow:1.5; 
+	align-self: center;
+	justify-content: center;
+	padding: 0em;
+}
+
+.skill-pool {
+	width: 2em; 
+	flex-grow:1; 
+	align-self: center;
+	text-align:center;
+	font-size: 150%;
+}
+.item-controls {
+	align-self: center;
+	padding: 0em;
+	text-align:right;
+}
+.item-controls a, .item-controls span {
+	font-size: 120%;
+	margin: 0 10px 0;
+}
+.item-control {
+	color: var(--highlight-color);
+}
+.middle-column {
+	margin: 0 5px 0;
+}
+.important-column {
+	font-weight: bold;
+}
+.shadowrun6 .sheet-tabs {
+	background-color: rgba(255,255,255,0.5);
+}
+.collapsible-content {
+  padding: 0 8px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  visibility: hidden;
+}
+.collapsible-content.open {
+  max-height: 500px;
+  visibility: visible;
+}
+.shadowrun6 .collapsible-skill {
+	width: 1.5em;
+	padding: 0.1em;
+	margin: 0px;
+	line-height: 10px;
+	background-color: transparent;
+	visibility: hidden;
+}
+.shadowrun6 button.collapsible-skill:before {
+  content: '\025B6'; /* 02795 Unicode character for "plus" sign (+) */
+  visibility: visible;
+  font-size: 13px;
+}
+.shadowrun6 button.collapsible-skill.empty:before {
+  content: '\025B7'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+}
+.shadowrun6 button.collapsible-skill.open:before {
+	content: "\25BC"; /* 2796 Unicode character for "minus" sign (-) */
+}
+.shadowrun6 button.collapsible {
+	width: 1.5em;
+	padding: 0.1em;
+	margin: 0px;
+	line-height: 10px;
+	background-color: transparent;
+	visibility: hidden;
+}
+.shadowrun6 button.collapsible:before {
+  content: '\025B6'; /* 02795 Unicode character for "plus" sign (+) */
+  visibility: visible;
+  font-size: 13px;
+}
+.shadowrun6 button.collapsible.empty:before {
+  content: '\025B7'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+}
+.shadowrun6 button.collapsible.open:before {
+	content: "\25BC"; /* 2796 Unicode character for "minus" sign (-) */
+}
+
+.game .sheet input[type=checkbox], .game .dialog input[type=checkbox] {
+  box-shadow: 0 0 0.05em, 0 0.06em 0.2em 0.01em inset, 0 0 0 0.07em transparent inset;
+  filter: invert(15%) brightness(1.09);
+}
+
+ /* The switch - the box around the slider */
+ .switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height:14px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.shadowrun6-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.shadowrun6-slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.shadowrun6 input:checked + .shadowrun6-slider {
+  background-color: #2196F3;
+}
+
+.shadowrun6 input:focus + .shadowrun6-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.shadowrun6 input:checked + .shadowrun6-slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.shadowrun6-slider.round {
+  border-radius: 6px;
+}
+
+.shadowrun6-slider.round:before {
+  border-radius: 50%;
+} 
+
+h3.highlight, h4.highlight {
+	color: var(--highlight-color)
+}
+
+table.spell-table td {
+	text-align: center;
+}
+
+
+.editor {
+    flex: 1;
+    justify-self: stretch;
+    align-self: stretch;
+    height: 100%;
+    min-height: 200px;
+}

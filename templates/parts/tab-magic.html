@@ -1,0 +1,14 @@
+  <section>
+	  <div style="column-count: 2; margin-right: 5px;">
+			{{> "systems/shadowrun6-eden/templates/parts/section-magicbase.html" showMagic=true}}
+			{{#if system.morDef.useSpells}}
+			  {{> "systems/shadowrun6-eden/templates/parts/section-spells.html"}}
+			  {{> "systems/shadowrun6-eden/templates/parts/section-rituals.html"}}
+			{{/if}}
+			{{#if system.morDef.usePowers}}
+			  {{> "systems/shadowrun6-eden/templates/parts/section-adeptpowers.html"}}
+			{{/if}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-metamagics.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-focus.html"}}
+		</div>
+  </section>

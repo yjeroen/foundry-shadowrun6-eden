@@ -1,0 +1,31 @@
+        	  		<div style="column-count: 2">
+        	   		<table>
+        	   			<tr><th colspan="2">{{localize "shadowrun6.programtype.hacking"}}</th></tr>
+			        	   {{#each config.PROGRAMS as |program id|}}
+			        	   {{#if (eq program.type 1)}}
+        	   			<tr>
+        	   				<td title="{{localize (concat (concat "shadowrun6.program." program.id ) ".desc")}}">{{localize (concat (concat "shadowrun6.program." program.id ) ".name")}}</td>
+        	   				<td>
+								<label class="switch">
+       	<input type="checkbox" data-item-id="{{../item.id}}" data-check="system.program.{{this.id}}" {{checked (lookup ../item.system.program this.id) }} type="checkbox" data-dtype="Boolean"/>
+                        <span class="shadowrun6-slider round"></span>
+                    </label></td>
+        	   			</tr>
+        	   			{{/if}}
+        	   			{{/each}}
+        	   		</table>
+        	   		<table>
+        	   			<tr><th colspan="2">{{localize "shadowrun6.programtype.basic"}}</th></tr>
+        	  				{{#each config.PROGRAMS as |program id|}}
+        	   			{{#if (eq program.type 0)}}
+        	   			<tr>
+        	   				<td title="{{localize (concat (concat "shadowrun6.program." program.id ) ".desc")}}">{{localize (concat (concat "shadowrun6.program." program.id ) ".name")}}</td>
+        	   				<td><label class="switch">
+       	<input type="checkbox" data-item-id="{{../item.id}}" data-check="system.program.{{this.id}}" {{checked (lookup ../item.system.program this.id) }} type="checkbox" data-dtype="Boolean"/>
+                        <span class="shadowrun6-slider round"></span>
+                    </label></td>
+        	   			</tr>
+        	   			{{/if}}
+        	   			{{/each}}
+        	   		</table>
+        	   	</div><!-- column -->

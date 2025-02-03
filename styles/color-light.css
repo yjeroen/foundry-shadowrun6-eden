@@ -1,0 +1,39 @@
+:root {
+	--highlight-color: #892378;
+	--accent-color: #00a8ff;
+	--section-background: #efefeb;
+	--tablehead-background: #e0e0d9;
+	--input-color: #202020;
+	/* Change red Foundry highlights to purple  */
+	--color-text-light-highlight: #ffffff;
+	--color-border-highlight-alt: #960570;
+	--color-border-highlight: #C58FB2;
+	--color-shadow-primary: #960570;
+	--color-shadow-highlight: #C58FB2;	
+	--color-border-dark-secondary: #C58FB2;	
+}
+
+.game .window-app.app.shadowrun6 {
+    box-shadow: 0 0 10px var(--color-shadow-primary);
+	/* 8405c9 */
+}
+
+.app.window-app.shadowrun6 .window-content  {
+	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
+	background-position: right top, left top;
+	background-repeat: no-repeat, repeat;
+}
+
+.app.window-app.dialog .window-content, #chat-form textarea,
+.window-app .window-content,
+.chat-message  {
+	background-image: url("../images/background.webp");
+	background-position: left top;
+	background-repeat: repeat;
+}
+
+button, 
+#chat-controls .roll-type-select,
+.directory .directory-header .header-search input {
+	background: rgba(255, 255, 255, 0.9);
+}

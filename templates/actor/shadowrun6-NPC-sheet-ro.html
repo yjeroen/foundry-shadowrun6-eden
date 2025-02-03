@@ -1,0 +1,45 @@
+<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
+  	{{#if system.genesisID}}
+	<h2>{{localize (concat (concat "npc." system.genesisID) ".name")}}</h2>
+	<h4  style="font-style: italic">{{localize (concat (concat "npc." system.genesisID) ".src")}}</h4>
+	<div class="data-desc" id="data-desc"/>{{localize (concat (concat "npc." system.genesisID) ".desc")}}</div>
+	{{else}}
+	<h2>{{system.name}}</h2>
+	<div class="data-desc" id="data-desc">{{system.description}}</div>
+   {{/if}}
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Basics Tab --}}
+                 <div class="section" style="margin: 5px">
+                    {{> "systems/shadowrun6-eden/templates/parts/npc-attributes.html" attributes=system.attributes}}
+                    <dl>
+                        <dt>{{ localize 'shadowrun6.actor.initiative' }}</dt>
+                        <dd>{{system.initiative.physical.base}} + {{system.initiative.physical.dicePool}}d6</dd>
+                        <dt>{{ localize 'shadowrun6.actor.initiative_astral' }}</dt>
+                        <dd>{{system.initiative.astral.base}} + {{system.initiative.astral.dicePool}}d6</dd>
+                        <dt>{{ localize 'shadowrun6.actor.actions' }}</dt>
+                        <dd>1 {{ localize 'shadowrun6.actor.actions_major' }}, {{system.initiative.actions}} {{localize 'shadowrun6.actor.actions_minor'}}</dd>
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-skills.html" skills=system.skills}}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-spells.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-powers.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-metamagics.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-complex-forms.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-echoes.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-augmentations.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-gear.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-weapons.html" }}
+                    </dl>
+                </div>
+                
+                {{#if system.notes}}
+                <div class="section" style="margin: 5px">
+                    {{system.notes}}                        
+                </div>
+                {{/if}}
+
+    </section>
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="550" />
+
+</form>

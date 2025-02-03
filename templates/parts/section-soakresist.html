@@ -1,0 +1,94 @@
+	<div class="section" style="display: inline-block; width: 38%; margin: 5px; min-width: 290px;">
+		<h2 class="section-title">{{ localize 'shadowrun6.section.defense' }}</h2>
+
+		<table>
+			<tr>
+				<th style="padding: 0 8px 0 2px; text-align: left; width: 135px;">{{ localize 'shadowrun6.label.defense' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
+				<th style="padding: 0 5px 0 5px;"> </th>
+			</tr>
+			<!-- Defense Rating -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.derived.defense_rating' }}</b></td>
+				<td class="centered"><label >{{system.defenserating.physical.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defenserating.physical.mod" type="text" value="{{system.defenserating.physical.mod}}" data-dtype="Number"
+				  style="width: 2em" ></td>
+				<td class="centered" title="{{system.defenserating.physical.modString}}">{{system.defenserating.physical.pool}}</td>
+				<td><span class="item-control defense-roll skill-pool"><i class="fas fa-dice-six" style="opacity: 0"></i></span></td>
+			</tr>
+		</table>
+
+		<table>
+			<tr>
+				<th style="padding: 0 8px 0 2px; text-align: left; width: 135px;">{{ localize 'shadowrun6.label.defense_against' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
+				<th style="padding: 0 5px 0 5px;"></th>
+			</tr>
+			<!-- Defense Test/Pool -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.physical' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.physical.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.physical.mod" type="text" value="{{system.defensepool.physical.mod}}" data-dtype="Number"
+				  style="width: 2em" ></td>
+				<td class="centered" title="{{system.defensepool.physical.modString}}">{{system.defensepool.physical.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.physical.pool}}" data-item-id="physical"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Astral Combat -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.astral' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.astral.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.astral.mod" type="text" value="{{system.defensepool.astral.mod}}" data-dtype="Number"
+				  style="width: 2em" ></td>
+				<td class="centered" title="{{system.defensepool.astral.modString}}">{{system.defensepool.astral.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.astral.pool}}" data-item-id="astral"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Direct Combat spells-->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.spells_direct' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.spells_direct.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.spells_direct.mod" type="text" value="{{system.defensepool.spells_direct.mod}}" data-dtype="Number"
+				  style="width: 2em" ></td>
+				<td class="centered" title="{{system.defensepool.spells_direct.modString}}">{{system.defensepool.spells_direct.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.spells_direct.pool}}" data-item-id="spells_direct"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Indirect Combat spells-->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.spells_indirect' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.spells_indirect.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.spells_indirect.mod" type="text" value="{{system.defensepool.spells_indirect.mod}}" data-dtype="Number"
+				  style="width: 2em" ></td>
+				<td class="centered" title="{{system.defensepool.spells_indirect.modString}}">{{system.defensepool.spells_indirect.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.spells_indirect.pool}}" data-item-id="spells_indirect"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Resist Toxin -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.toxin' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.toxin.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.toxin.mod" type="text" value="{{system.defensepool.toxin.mod}}" data-dtype="Number" style="width: 2em"></td>
+				<td class="centered" title="{{system.defensepool.toxin.modString}}">{{system.defensepool.toxin.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.toxin.pool}}" data-item-id="toxin"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Soak / Resist Damage-->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.damage_physical' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.damage_physical.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.damage_physical.mod" type="text" value="{{system.defensepool.damage_physical.mod}}" data-dtype="Number"
+				  style="width: 2em"></td>
+				<td class="centered" title="{{system.defensepool.damage_physical.modString}}">{{system.defensepool.damage_physical.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.damage_physical.pool}}" data-item-id="damage_physical"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Resist Astral Damage-->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.defense.damage_astral' }}</b></td>
+				<td class="centered"><label >{{system.defensepool.damage_astral.base}}</label></td>
+				<td class="centered"><input class="centered box" data-field="system.defensepool.damage_astral.mod" type="text" value="{{system.defensepool.damage_astral.mod}}" data-dtype="Number"
+				  style="width: 2em"></td>
+				<td class="centered" title="{{system.defensepool.damage_astral.modString}}">{{system.defensepool.damage_astral.pool}}</td>
+				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.damage_astral.pool}}" data-item-id="damage_astral"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+		</table>
+	</div>

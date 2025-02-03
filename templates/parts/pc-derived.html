@@ -1,0 +1,87 @@
+	<div class="section" style="display: inline-block; width:100%">
+		<h2 class="section-title">{{ localize 'shadowrun6.section.derived' }}</h2>
+		<table>
+			<tr>
+				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.attribute' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
+				<th style="padding: 0 5px 0 5px;"> </th>
+			</tr>
+			<tr>
+				<td ><b>{{ localize 'shadowrun6.monitor.physical' }}</b></td>
+				<td class="centered">{{system.physical.base}}</td>
+				<td class="centered">
+					<input class="centered box health-phys calcPHY" data-field="system.physical.mod" type="text" value="{{system.physical.mod}}" data-dtype="Number"
+					id="dataPhyMod" style="width: 2em" title="{{system.physical.modString}}">
+				</td>
+				<td class="centered">{{system.physical.max}}</td>
+                <td><!--a class="item-control heal-roll skill-pool" data-pool="{{system.derived.heal_pool.physical}}" data-item-id="heal.physical"><i class="fas fa-dice-six"></i></a--></td>
+			</tr>
+			<!-- Stun Condition Monitor -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.monitor.stun' }}</b></td>
+				<td class="centered"><label class="centered" >{{system.stun.base}}</label></td>
+				<td class="centered">
+					<input class="centered box health-stun" data-field="system.stun.mod" type="text" value="{{system.stun.mod}}" data-dtype="Number"
+					id="dataStunMod" style="width: 2em" title="{{system.stun.modString}}">
+				</td>
+				<td class="centered">{{system.stun.max}}</td>
+                <td><!--a class="item-control heal-roll skill-pool" data-pool="{{system.derived.heal_pool.stun}}" data-item-id="heal.stun"><i class="fas fa-dice-six"></i></a--></td>
+			</tr>
+			<!-- Attack Rating -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.attack_rating.physical' }}</b></td>
+				<td class="centered"><label >{{system.attackrating.physical.base}}</label></td>
+				<td class="centered">
+					<input class="centered box" data-field="system.attackrating.physical.mod" type="text" value="{{system.attackrating.physical.mod}}" data-dtype="Number"
+					id="derived1" style="width: 2em" title="{{system.attackrating.physical.modString}}">
+				</td>
+				<td class="centered">{{system.attackrating.physical.pool}}</td>
+			</tr>
+			<!-- Composure -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.derived.composure' }}</b></td>
+				<td class="centered"><label >{{system.derived.composure.base}}</label></td>
+				<td class="centered">
+					<input class="centered box" data-field="system.derived.composure.mod" type="text" value="{{system.derived.composure.mod}}" data-dtype="Number"
+					id="derived1" style="width: 2em" title="{{system.derived.composure.modString}}">
+				</td>
+				<td class="centered">{{system.derived.composure.pool}}</td>
+				<td><a class="item-control attributeonly-roll skill-pool" data-pool="{{system.derived.composure.pool}}" data-item-id="composure"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Judge Intentions -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.derived.judge_intentions' }}</b></td>
+				<td class="centered"><label >{{system.derived.judge_intentions.base}}</label></td>
+				<td class="centered">
+					<input class="centered box" data-field="system.derived.judge_intentions.mod" type="text" value="{{system.derived.judge_intentions.mod}}" data-dtype="Number"
+					id="derived1" style="width: 2em" title="{{system.derived.judge_intentions.modString}}">
+				</td>
+				<td class="centered">{{system.derived.judge_intentions.pool}}</td>
+				<td><a class="item-control attributeonly-roll skill-pool" data-pool="{{system.derived.judge_intentions.pool}}" data-item-id="judge_intentions"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Memory -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.derived.memory' }}</b></td>
+				<td class="centered"><label >{{system.derived.memory.base}}</label></td>
+				<td class="centered">
+					<input class="centered box" data-field="system.derived.memory.mod" type="text" value="{{system.derived.memory.mod}}" data-dtype="Number"
+					id="derived1" style="width: 2em" title="{{system.derived.memory.modString}}">
+				</td>
+				<td class="centered">{{system.derived.memory.pool}}</td>
+				<td><a class="item-control attributeonly-roll skill-pool" data-pool="{{system.derived.memory.pool}}" data-item-id="memory"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+			<!-- Lift/Carry -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.derived.lift_carry' }}</b></td>
+				<td class="centered"><label >{{system.derived.lift_carry.base}}</label></td>
+				<td class="centered">
+					<input class="centered box" data-field="system.derived.lift_carry.mod" type="text" value="{{system.derived.lift_carry.mod}}" data-dtype="Number"
+					id="derived1" style="width: 2em" title="{{system.derived.lift_carry.modString}}">
+				</td>
+				<td class="centered">{{system.derived.lift_carry.pool}}</td>
+				<td><a class="item-control attributeonly-roll skill-pool" data-pool="{{system.derived.lift_carry.pool}}" data-item-id="lift_carry"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+		</table>
+	</div>

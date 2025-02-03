@@ -1,0 +1,22 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
+        <div class="section">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.sin.quality'}}</th>
+                </tr>
+                    <td>
+                        <select data-field="system.quality">
+                        {{selectOptions config.SIN_QUALITY selected=item.system.quality localize=true}}
+                    </select>
+                </tr>
+            </table>
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <textarea class="box" type="text" data-field="system.description" cols="50"
+                rows="8">{{item.system.description}}</textarea>
+        </div>
+    </section>
+</form>

@@ -1,0 +1,110 @@
+<form class="pc {{cssClass}}" autocomplete="off">
+	{{ log "Player sheet" this}}
+	{{!-- Sheet Header --}}
+	<header class="sheet-header">
+		<div style="padding-right: 6px;">
+		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" /><br/><br/>
+		</div>
+		<div class="header-fields">
+			<h1><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+			{{!-- Character Summary --}}
+			<div class="description" style="width: 450px;">
+				<input class="autoexpand" data-field="system.metatype" type="text" value="{{system.metatype}}"
+					placeholder="{{localize 'shadowrun6.actor.metatype'}}" />
+				&nbsp;&middot;&nbsp;
+				<input class="autoexpand" data-field="system.gender" type="text" value="{{system.gender}}"
+					placeholder="{{localize 'shadowrun6.label.gender'}}" />
+				&nbsp;&middot;&nbsp;
+            <select data-field="system.mortype" data-field="system.mortype" style="background: rgba(255,255,255,0.25); border: 0px">
+				{{selectOptions config.MOR_TYPES selected=system.mortype localize=true}}
+			</select>
+			</div>
+			<div style="display:flex; flex-direction:row; align-items:center;">
+			{{> "systems/shadowrun6-eden/templates/parts/monitors.html" attributes=system.attributes}}
+			{{> "systems/shadowrun6-eden/templates/parts/edge-token.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/nuyen-token.html"}}
+			</div>
+		</div>
+	</header>
+
+	{{!-- Sheet Tab Navigation --}}
+	<nav class="sheet-tabs tabs" data-group="primary">
+		<a class="item" data-tab="basics">{{ localize 'shadowrun6.actor.nav.basics' }}</a>
+		<a class="item" data-tab="skills">{{ localize 'shadowrun6.actor.nav.skills' }}</a>
+		<a class="item" data-tab="combat">{{ localize 'shadowrun6.actor.nav.combat' }}</a>
+		{{#with (lookup config.MOR_DEFINITIONS system.mortype)}}
+		{{#if magic}}
+		<a class="item" data-tab="magic" >{{ localize 'shadowrun6.actor.nav.magic'  }}</a>
+		{{/if}}
+		{{/with}}
+		<a class="item" data-tab="matrix">{{ localize 'shadowrun6.actor.nav.matrix' }}</a>
+		<a class="item" data-tab="vehicles">{{ localize 'shadowrun6.actor.nav.vehicles' }}</a>
+		<a class="item" data-tab="equip" >{{ localize 'shadowrun6.actor.nav.equip'  }}</a>
+		<a class="item" data-tab="biography">{{ localize 'shadowrun6.actor.nav.biography' }}</a>
+	</nav>
+
+	{{!-- Sheet Body --}}
+	<section class="sheet-body">
+
+		{{!-- Basics Tab --}}
+		<div class="tab basics" data-group="primary" data-tab="basics">
+			<div class="attributes" style="margin-bottom: 10px">
+				{{> "systems/shadowrun6-eden/templates/parts/attributes-augmented.html" attributes=system.attributes}}
+			</div>
+		  <div style="column-count: 2; margin-right: 5px;">
+			{{> "systems/shadowrun6-eden/templates/parts/pc-derived.html" attributes=system.attributes}}
+		   {{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
+		   {{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
+			</div>
+		</div>
+
+		{{!-- Skills Tab --}}
+		<div class="tab skills" data-group="primary" data-tab="skills">
+			{{> "systems/shadowrun6-eden/templates/parts/pc-skillvalues.html" skills=system.skills}}
+		</div>
+
+		{{!-- Gear Tab --}}
+		<div class="tab equip" data-group="primary" data-tab="equip">
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ELECTRONICS" title=(localize 'shadowrun6.section.electronics')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="SOFTWARE" title=(localize 'shadowrun6.gear.subtype.SOFTWARE')}}
+
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="CHEMICALS" title=(localize 'shadowrun6.section.chemicals')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="BIOLOGY" title=(localize 'shadowrun6.section.biology')}}
+
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="SURVIVAL" title=(localize 'shadowrun6.section.survival')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="TOOLS" title=(localize 'shadowrun6.gear.subtype.TOOLS')}}
+			
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ACCESSORY" title=(localize 'shadowrun6.gear.subtype.ACCESSORY')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}}
+
+		</div>
+
+		{{!-- Combat Tab --}}
+		<div class="tab combat" data-group="primary" data-tab="combat">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-combat.html" }}
+		</div>
+
+		{{!-- Magic Tab --}}
+		<div class="tab magic" data-group="primary" data-tab="magic">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-magic.html" }}
+		</div>
+
+		{{!-- Matrix Tab --}}
+		<div class="tab matrix" data-group="primary" data-tab="matrix">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-matrix.html" }}
+		</div>
+
+		{{!-- Vehicle Tab --}}
+		<div class="tab vehicles" data-group="primary" data-tab="vehicles">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-vehicles.html" }}
+		</div>
+
+		{{!-- Biography Tab --}}
+		<div class="tab biography flexrow" data-group="primary" data-tab="biography">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-biography.html"}}
+		</div>
+
+	</section>
+
+</form>

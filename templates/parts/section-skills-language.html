@@ -1,0 +1,28 @@
+	<!-- Language skills -->
+   <div class="section" style="width: 100%;">
+     <div class="section-head">
+     <h2 class="section-title">{{ localize 'shadowrun6.section.skills.language' }}</h2>
+     <a class="item-control skill-language-create" title="{{localize 'shadowrun6.section.skills.language_add' }}"><h2 class="fas fa-plus"></h2></a>
+   </div>
+	<ol class="item-list">
+       {{#each actor.items as |item id|}}
+       {{#iff item.type '==' 'skill'}}
+       {{#iff item.system.genesisID '==' 'language'}}
+       <li class="item flexrow" data-item-id="{{item.id}}">
+         <input type="text" value="{{item.name}}" data-field="name" style="width: 10em; flex-grow:4"/>
+         {{!-- Iterate through all attributes on the item and output buttons for any that are formula. --}}
+         <select data-field="system.points" style="width: 8em; flex-grow:3">
+         	<option value="1" {{#iff item.system.points '==' 1}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.normal' }}</option>
+         	<option value="2" {{#iff item.system.points '==' 2}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.special' }}</option>
+         	<option value="3" {{#iff item.system.points '==' 3}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.expert' }}</option>
+         	<option value="4" {{#iff item.system.points '==' 4}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.native' }}</option>
+         </select>
+         <div class="item-controls" style="flex-grow:1">
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+         </div>
+       </li>
+       {{/iff}}
+       {{/iff}}
+       {{/each}}
+            </ol>
+     </div>

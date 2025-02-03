@@ -1,0 +1,46 @@
+<table style="width: 450px" border="0">
+	<tbody>
+		<tr>
+		  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		  <td></td>
+		  <td>{{ localize 'shadowrun6.label.damage' }}</td>
+		  <td></td>
+		</tr>
+		<tr>
+			<td><img src="systems/shadowrun6-eden/images/heart.svg" style="border: 0px; height: auto; width: 64px" /></td>
+			<td><label for="system.physical"
+				title="{{localize 'shadowrun6.monitor.physical'}}">{{localize 'shadowrun6.monitor.physical'}}</label></td>
+			<td>
+				<input data-field="system.physical.dmg" class="centered health-phys"
+				type="text" value="{{system.physical.dmg}}" data-dtype="Number"
+				id="dataPhyCur"></td>
+			<td class="barPhyMax">
+				<div style="width: 300px;">
+					<div style="position: relative; z-index: 1; border: solid black 1px;">
+						<div id="barPhyCur" style="background-color: #892378; width: 77%;">&nbsp</div>
+						<div id="barPhyBoxes" style="display: flex; z-index: 2; position: absolute; top: 0em; width: 100%">
+						</div>
+					</div>
+					<!-- <div id="barPhyScale" style="display: flex; font-size: x-small"></div> -->
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><img src="systems/shadowrun6-eden/images/brain.svg" style="border: 0px; height: auto; width: 48px" /></td>
+			<td><label for="system.stun" title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>
+			<td><input class="centered health-stun" data-field="system.stun.dmg" type="text" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur"></td>
+			<td class="barStunMax">
+				<!--div id="barStunCur">{{system.stun.value}}/{{system.stun.max}}</div-->
+				<div style="width: 300px;">
+					<div style="position: relative; z-index: 1; border: solid black 1px;">
+						<div id="barStunCur"
+							style="background-color: #00a8ff; width: 78%;">&nbsp</div>
+						<div id="barStunBoxes" style="display: flex; z-index: 2; position: absolute; top: 0em; width: 100%">
+						</div>
+					</div>
+					<!-- <div id="barStunScale" style="display: flex; font-size: x-small"></div> -->
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

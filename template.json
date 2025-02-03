@@ -1,0 +1,754 @@
+{
+	"Actor": {
+		"types": [
+			"Player",
+			"NPC",
+			"Critter",
+			"Spirit"
+		],
+		"templates": {
+			"attribute-template": {
+				"attributes": {
+					"bod": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"agi": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"rea": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"str": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"wil": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"log": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"int": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"cha": {
+						"base": 2,
+						"mod": 0,
+						"modString": "",
+						"augment": 0,
+						"pool": 2
+					},
+					"mag": {
+						"base": 0,
+						"mod": 0,
+						"pool": 0,
+						"min": 0
+					},
+					"res": {
+						"base": 0,
+						"mod": 0,
+						"pool": 0
+					},
+					"edg": {
+						"current": 0,
+						"max": 1
+					},
+					"essence": {
+						"base": 6,
+						"mod": 0,
+						"pool": 6
+					}
+				},
+				"metatype": "human",
+				"type": "mundane",
+				"gender": ""
+			},
+			"derived-template": {
+				"derived": {
+				  "composure": {
+					"mod": 0
+				  },
+				  "judge_intentions": {
+					"mod": 0
+				  },
+				  "memory": {
+					"mod": 0
+				  },
+				  "lift_carry": {
+					"mod": 0
+				  },
+				  "matrix_perception": {
+					"mod": 0
+				  }
+				}
+			},
+			"defenserating-template": {
+				"defenserating": {
+				  "physical": {
+					"mod": 0
+				  },
+				  "matrix": {
+					"mod": 0
+				  },
+				  "vehicle": {
+					"mod": 0
+				  },
+				  "astral": {
+					"mod": 0
+				  },
+				  "social": {
+					"mod": 0
+				  }
+				}
+			},
+			"attackrating-template": {
+				"attackrating": {
+				  "physical": {
+					"mod": 0
+				  },
+				  "astral": {
+					"mod": 0
+				  },
+				  "matrix": {
+					"mod": 0
+				  },
+				  "vehicle": {
+					"mod": 0
+				  },
+				  "social": {
+					"mod": 0
+				  }
+				}
+			},
+			"resist-template": {
+				"defensepool": {
+				  "physical": {
+					 "mod": 0
+				  },
+				  "astral": {
+					 "mod": 0
+				  },
+				  "spells_direct": {
+					 "mod": 0
+				  },
+				  "spells_indirect": {
+					 "mod": 0
+				  },
+				  "spells_other": {
+					 "mod": 0
+				  },
+				  "vehicle": {
+					 "mod": 0
+				  },
+				  "toxin": {
+					 "mod": 0
+				  },
+				  "damage_physical": {
+					 "mod": 0
+				  },
+				  "damage_astral": {
+					 "mod": 0
+				  }
+		      }
+			},
+			"monitor-template": {
+				"physical": {
+					"mod": 0,
+					"modString": "",
+					"value": 9,
+					"dmg": 0,
+					"max": 19
+				},
+				"stun": {
+					"mod": 0,
+					"modString": "",
+					"value": 9,
+					"dmg": 0,
+					"max": 18
+				},
+				"overflow": {
+					"mod": 0,
+					"modString": "",
+					"value": 0,
+                    "dmg": 0,
+					"max": 32
+				},
+				"edge": {
+					"value": 0,
+					"max": 1
+				}
+			},
+			"initiative-template": {
+				"initiative": {
+				  "astral": {
+					"mod": 0,
+					"dice": 1,
+					"diceMod": 0
+				  },
+				  "matrix": {
+					"mod": 0,
+					"dice": 1,
+					"diceMod": 0
+				  },
+				  "physical": {
+					"mod": 0,
+					"dice": 1,
+					"diceMod": 0
+				  },
+				  "actions": 0
+				}
+			},
+			"movement-template": {
+				"walk": 5,
+				"sprint": 10,
+				"perHit": 1
+			},
+			"vehicleskill-template": {
+				"skills": {
+					"piloting": {
+						"points": 0,
+						"modifier": 0,
+						"pool": 0
+					}
+				}
+			},
+			"skill-template": {
+				"skills": {
+					"astral": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"athletics": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"biotech": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"close_combat": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"con": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"conjuring": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"cracking": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"electronics": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"enchanting": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"engineering": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"exotic_weapons": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"firearms": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"influence": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"outdoors": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"perception": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"piloting": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"sorcery": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"stealth": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					},
+					"tasking": {
+						"points": 0,
+						"specialization": "",
+						"expertise": "",
+						"modifier": 0,
+						"augment": 0
+					}
+				}
+			},
+			"magic-template": {
+				"tradition": {
+					"genesisID": "",
+					"name": "",
+					"attribute": "log"
+				}
+			},
+			"persona-template": {
+				"persona": {
+					"device": {
+						"mod": {
+							"a": 0,
+							"s": 0,
+							"d": 0,
+							"f": 0
+						}
+					},
+					"living": {
+						"mod": {
+							"a": 0,
+							"s": 0,
+							"d": 0,
+							"f": 0
+						}
+					}
+				}
+			}
+		},
+		"Player": {
+			"name": "",
+			"templates": [
+				"attribute-template",
+				"monitor-template",
+				"derived-template",
+				"defenserating-template",
+				"resist-template",
+				"initiative-template",
+				"movement-template",
+				"skill-template",
+				"knowledge-template",
+				"magic-template",
+				"movement-template",
+				"persona-template"
+			],
+			"metatype": "",
+			"mortype": "mundane",
+			"matrixIni": "vrcold",
+			"gender": "",
+			"nuyen": 0,
+			"overwatch": 0,
+			"notes": "Write something",
+			"karma": 0,
+			"karma_total": 0,
+			"heat": 0,
+			"reputation": 0
+		},
+		"NPC": {
+			"name": "",
+			"type": "npc",
+			"templates": [
+				"attribute-template",
+				"monitor-template",
+				"derived-template",
+				"defenserating-template",
+				"resist-template",
+				"initiative-template",
+				"movement-template",
+				"skill-template",
+				"knowledge-template",
+				"magic-template",
+				"persona-template"
+			],
+			"mortype": "mundane",
+			"matrixIni": "vrcold",
+			"rating" : 1,
+			"gruntmeta": "",
+			"editmode": false
+		},
+		"Critter": {
+			"name": "",
+			"templates": [
+				"attribute-template",
+				"monitor-template",
+				"initiative-template",
+				"skill-template",
+				"knowledge-template"
+			],
+			"editmode": false
+		},
+		"Spirit": {
+			"name": "",
+			"templates": [
+				"attribute-template",
+				"monitor-template",
+				"initiative-template",
+				"skill-template",
+				"knowledge-template"
+			],
+			"rating" : 1,
+			"spiritType": "",
+			"editmode": false
+		},
+		"Vehicle": {
+			"templates": [
+				"monitor-template",
+				"vehicleskill-template"
+			],
+			"handlOn": 1,
+			"handlOff": 2,
+			"accOn": 3,
+			"accOff": 4,
+			"spdiOn": 5,
+			"spdiOff": 0,
+			"tspd": 0,
+			"bod": 0,
+			"arm": 0,
+			"pil": 0,
+			"sen": 0,
+			"sea": 0,
+			"vtype": "",
+			"vehicle": {
+				"belongs": "",
+				"opMode": "manual",
+				"offRoad": false,
+				"speed": 0
+			},
+			"notes": ""
+		}
+	},
+	"Item": {
+		"types": [
+			"complexform",
+			"contact",
+			"critterpower",
+			"echo",
+			"gear",
+			"lifestyle",
+			"martialartstyle",
+			"martialarttech",
+			"metamagic",
+			"quality",
+			"sin",
+			"skill",
+			"adeptpower",
+			"spell",
+			"ritual",
+			"focus",
+			"software"
+		],
+		"templates": {
+			"genesis": {
+				"genesisID": "",
+				"description": ""
+			},
+			"skill-value": {
+				"points": 0,
+				"modifier": 0
+			},
+			"dice-pool": {
+				"modifier": 0,
+				"wild"    : false,
+				"pool"    : 0
+			},
+			"quality-value": {
+				"value": 0,
+				"explain": "",
+				"modifier": []
+			}
+		},
+		"adeptpower": {
+			"hasLevel": false,
+			"level": 0,
+			"choice": "",
+			"cost": 0.0,
+			"activation": "",
+			"templates": [
+				"genesis"
+			]
+		},
+		"complexform": {
+			"templates": [
+				"genesis"
+			],
+			"duration": "sustained",
+			"fading": 3,
+			"skill": "",
+			"attrib": "res",
+			"threshold": 0,
+			"oppAttr1": "",
+			"oppAttr2": ""
+		},
+		"contact": {
+			"name": "Someone",
+			"rating": 1,
+			"loyalty": 1,
+			"favors": 0,
+			"type": "",
+			"description": ""
+		},
+		"critterpower": {
+			"templates": [
+				"genesis"
+			],
+			"duration": "instantaneous",
+			"action": "",
+			"type": "physical",
+			"range": "self"
+		},
+		"echo": {
+			"templates": [
+				"genesis"
+			]
+		},
+		"focus": {
+			"templates": [
+				"genesis"
+			],
+			"rating": 1
+		},
+		"gear": {
+			"type": "WEAPON_FIREARMS",
+			"subtype": "",
+			"count":  0,
+			"countable": false,
+			"availDef": "",
+			"avail": 0,
+			"ammocap": 0,
+			"ammocount": 0,
+			"priceDef": "",
+			"price": 0,
+			"customName": "",
+			"usedForPool": false,
+			"notes": "",
+			"accessories": "",
+			"needsRating": false,
+			"rating": 0,
+			"skill": "",
+			"skillSpec": "",
+			"dmg": 0,
+			"stun": false,
+			"dmgDef": "",
+			"attackRating": [0,0,0,0,0],
+			"modes": {
+				"BF": false,
+				"FA": false,
+				"SA": false,
+				"SS": false
+			},
+			"defense": 0,
+			"social": 0,
+			"essence": 0,
+			"capacity": 0,
+			"natural" : false,
+			"devRating": 0,
+			"a": 0,
+			"s": 0,
+			"d": 0,
+			"f": 0,
+			"progSlots": 0,
+			"handlOn": 0,
+			"handlOff": 0,
+			"accOn": 0,
+			"accOff": 0,
+			"spdiOn": 0,
+			"spdiOff": 0,
+			"tspd": 0,
+			"bod": 0,
+			"arm": 0,
+			"pil": 0,
+			"sen": 0,
+			"sea": 0,
+			"vtype": "",
+			"vehicle": {
+				"opMode": "manual"
+			},
+			"strWeapon": false,
+			"templates": [
+				"genesis",
+				"dice-pool"
+			]
+		},
+		"lifestyle": {
+			"templates": [
+				"genesis"
+			],
+			"type": "low",
+			"paid": 1,
+			"cost" : 2000,
+			"sin": ""
+		},
+		"martialartstyle": {
+			"category": {
+				"grappling": false,
+				"mobility": false,
+				"ranged"  : false,
+				"striking": false,
+				"weapon": false
+			},
+			"templates": [
+				"genesis"
+			]
+		},
+		"martialarttech": {
+			"templates": [
+				"genesis"
+			],
+			"style": "",
+			"choice": ""
+		},
+		"metamagic": {
+			"templates": [
+				"genesis"
+			],
+			"level": false,
+			"adepts": false,
+			"mages": false
+		},
+		"quality": {
+			"templates": [
+				"genesis",
+				"quality-value"
+			],
+			"category": "",
+			"level": false
+		},
+		"ritual": {
+			"templates": [
+				"genesis"
+			],
+			"threshold": 5,
+			"features": {
+				"anchored": false,
+				"material_link": false,
+				"minion": false,
+				"spell": false,
+				"spotter": false
+			}
+		},
+		"sin": {
+			"name": "Someone",
+			"quality": "REAL_SIN",
+			"description": ""
+		},
+		"skill": {
+			"templates": [
+				"genesis",
+				"skill-value"
+			]
+		},
+		"software": {
+			"templates": [
+				"genesis"
+			],
+			"type": "SOFTWARE",
+			"subtype": "AUTOSOFT",
+			"rating": 1
+		},
+		"spell": {
+			"templates": [
+				"genesis"
+			],
+			"category": "health",
+			"duration": "instantaneous",
+			"drain": 1,
+			"type": "physical",
+			"range": "self",
+			"damage": "physical",
+			"alchemic": false,
+			"multiSense": false,
+			"isOpposed": true,
+			"withEssence": false,
+			"wildDie": false,
+			"isSustained": false
+		}
+	}
+}

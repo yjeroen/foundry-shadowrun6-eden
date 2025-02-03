@@ -1,0 +1,30 @@
+<form class="{{cssClass}}" autocomplete="off">
+	{{!-- Sheet Body --}}
+   <section class="sheet-body">
+		<div style="display:flex; flex-wrap: wrap;">
+      	{{!-- Basics Tab --}}
+         <div class="section">
+         	<h2><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h2>
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-stats.html"}}
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-monitor.html"}}
+
+ 	<p>This sheet is far from finished, but since I don't when/if if will be able to continue working on this, it is committed like it is - at least you can enter vehicle stats. Everything below is under construction.</p>
+             {{> "systems/shadowrun6-eden/templates/parts/vehicle-speed.html"}}
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-accessories.html"}}
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-software.html"}}
+         </div>
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-piloting.html"}}
+            {{> "systems/shadowrun6-eden/templates/parts/vehicle-weapons.html"}}
+			<div style="margin: 5px">
+				<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="360" height="240" /><br/><br/>
+			</div>
+
+		</div>
+		<div style="display:flex; flex-wrap: wrap;">
+         <div>
+			   {{> "systems/shadowrun6-eden/templates/parts/vehicle-brain.html"}}
+			   {{> "systems/shadowrun6-eden/templates/parts/vehicle-weapons.html"}}
+			</div>
+			 </div>
+    </section>
+</form>

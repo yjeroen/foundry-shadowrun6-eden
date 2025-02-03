@@ -1,0 +1,66 @@
+    <h4 class="highlight" style="margin:0px">
+			{{localize "shadowrun6.special.sorcery.spellcasting"}}
+		{{#if (or data.canAmpUpSpell data.canIncreaseArea)}}
+			 - {{localize "shadowrun6.roll.spell.title"}}
+		{{/if}}
+	</h4>
+    <table style="background-color: transparent; border: 1px">
+    	<tr>
+    	  <td rowspan="3" style="width: 70px;">
+    	  	 <div class="edge-roll" >
+    	      <img src="systems/shadowrun6-eden/images/magic-swirl.svg" style="border: 0px; height: auto; width: 48px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
+    	    </div>
+	     </td>
+    	  <td colspan="4">
+   	    <table class="spell-table">
+   	      <tr>
+				<th>{{localize 'shadowrun6.spell.range'}}</th>
+				<th>{{localize 'shadowrun6.spell.type'}}</th>
+				<th>{{localize 'shadowrun6.spell.duration'}}</th>
+				<th>{{localize 'shadowrun6.spell.drain'}}</th>
+				{{#if data.canIncreaseArea}}<th>{{localize 'shadowrun6.spell.area'}}</th>{{/if}}
+				{{#if (eq data.spell.category "combat")}}<th>{{localize 'shadowrun6.spell.damage'}}</th>{{/if}}
+   	      </tr>
+   	  	   <tr>
+				<td>{{spellRangeName data.spell.range}}</td>
+					<td>{{spellTypeName data.spell.type}}</td>
+					<td>{{spellDurationName data.spell.duration}}</td>
+				<td id="spellDrain">{{data.calcDrain}}</td>
+				{{#if data.canIncreaseArea}}
+				<td><span id="spellArea">{{data.calcArea}}</span>m</td>
+				{{/if}}
+				{{#if (eq data.spell.category "combat")}}
+				<td><span id="spellDmg">{{data.calcDamage}}</span> {{localize (concat3 "shadowrun6.spell.damage_" data.spell.damage "_short")}}</td>
+				{{/if}}
+   	  	   </tr>
+   	    </table>
+   	  </td>
+		</tr>
+		<tr>
+			{{#if data.canAmpUpSpell}}
+			<td style="width: 90px;">{{localize "shadowrun6.roll.spell.ampUp.title"}}</td>
+			<td><select name="ampUp" id="ampUp" style="width: 12em;">
+				<option value="0" data-item-ampid="amp0"> - </option>
+				<option value="1" data-item-ampid="amp1">{{localize "shadowrun6.roll.spell.ampUp.1"}}</option>
+				<option value="2" data-item-ampid="amp2">{{localize "shadowrun6.roll.spell.ampUp.2"}}</option>
+				<option value="3" data-item-ampid="amp3">{{localize "shadowrun6.roll.spell.ampUp.3"}}</option>
+				<option value="4" data-item-ampid="amp4">{{localize "shadowrun6.roll.spell.ampUp.4"}}</option>
+			</select></td>
+			{{/if}}
+    	</tr>
+    	<tr>
+			{{#if data.canIncreaseArea}}
+			<td style="width: 90px;">{{localize "shadowrun6.roll.spell.incArea.title"}}</td>
+			<td><select name="incArea" id="incArea" style="width: 12em;">
+				<option value="0" > - </option>
+				<option value="1" >{{localize "shadowrun6.roll.spell.incArea.1"}}</option>
+				<option value="2" >{{localize "shadowrun6.roll.spell.incArea.2"}}</option>
+				<option value="3" >{{localize "shadowrun6.roll.spell.incArea.3"}}</option>
+				<option value="4" >{{localize "shadowrun6.roll.spell.incArea.4"}}</option>
+				<option value="5" >{{localize "shadowrun6.roll.spell.incArea.5"}}</option>
+				<option value="6" >{{localize "shadowrun6.roll.spell.incArea.6"}}</option>
+			</select></td>
+			{{/if}}
+    	</tr>
+    </table>
+	<hr/>

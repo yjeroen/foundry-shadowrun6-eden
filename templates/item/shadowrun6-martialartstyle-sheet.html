@@ -1,0 +1,36 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
+        <div class="section">
+            <h3>{{localize 'shadowrun6.item.category'}}</h3>
+            <table>
+                <tr>
+                    <td><span style="vertical-align: middle;">{{localize 'shadowrun6.item.mastyle.category.grappling'}}</span><input
+                            style="vertical-align: middle;" type="checkbox" {{checked item.system.category.grappling}}
+                            data-field="system.category.grappling"  />
+                    </td>
+                    <td><span style="vertical-align: middle;">{{localize 'shadowrun6.item.mastyle.category.mobility'}}</span><input
+                            style="vertical-align: middle;" type="checkbox" {{checked item.system.category.mobility}}
+                            data-field="system.category.mobility"  />
+                    </td>
+                    <td><span style="vertical-align: middle;">{{localize 'shadowrun6.item.mastyle.category.striking'}}</span><input
+                            style="vertical-align: middle;" type="checkbox" {{checked item.system.category.striking}}
+                            data-field="system.category.striking" />
+                    </td>
+                    <td><span style="vertical-align: middle;">{{localize 'shadowrun6.item.mastyle.category.weapon'}}</span><input
+                            style="vertical-align: middle;" type="checkbox" {{checked item.system.category.weapon}}
+                            data-field="system.category.weapon" />
+                    </td>
+                    <td><span style="vertical-align: middle;">{{localize 'shadowrun6.item.mastyle.category.ranged'}}</span><input
+                            style="vertical-align: middle;" type="checkbox" {{checked item.system.category.ranged}}
+                            data-field="system.category.ranged" />
+                    </td>
+            </table>
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <textarea class="box" type="text" data-field="system.description"
+                cols="20" rows="6">{{item.system.description}}</textarea>
+        </div>
+    </section>
+</form>

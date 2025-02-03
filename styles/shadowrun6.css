@@ -1,0 +1,385 @@
+@import "color-light.css";
+@import "layout.css";
+@import "augmented.css";
+@import "sr-fonts.css";
+
+#logo {
+  box-sizing: border-box;
+  width: 100px;
+  height: 50px;
+  padding-left: 100px;
+  background-image: url("../images/SR6Logo1.webp");
+  background-size: cover;
+}
+
+.shadowrun6.sheet.actor header.sheet-header {
+	align-items: normal;
+  min-width: 796px;
+}
+.shadowrun6.sheet header.sheet-header img {
+  flex: 0 0 120px;
+  height: 120px;
+  object-fit: cover;
+}
+.shadowrun6 header.sheet-header > * {
+  flex: unset;
+}
+
+.shadowrun6 .sheet-header img {
+	height: 120px;
+}
+
+.shadowrun6 .header-fields h1 {
+	width: 80%;
+}
+
+.shadowrun6 .npc-settings {
+  display:flex;
+  margin-left: 2%;
+  height: 30px;
+}
+.shadowrun6 .npc-settings label, .shadowrun6 .npc-settings span, .shadowrun6 .npc-settings select {
+  line-height: 30px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.shadowrun6 .npc-settings span, .shadowrun6 .npc-settings select {
+  width: 90px;
+  margin-right: 20px;
+}
+.shadowrun6 .npc-settings label {
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+.shadowrun6 .npc-settings span {
+  padding-left: 7px;
+}
+
+.sheet-header .description {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.autoexpand {
+ box-sizing: content-box;
+}
+.shadowrun6 .monitors input {
+  background: white;
+  width: 2.5em;
+  padding: 1px;
+}
+.shadowrun6 input.health-phys {
+  border: 1px solid var(--highlight-color);
+}
+.shadowrun6 input.health-stun {
+  border: 1px solid var(--accent-color);
+  margin-bottom: 4px;
+}
+.shadowrun6 input.health-overflow {
+  border: 1px solid #440000;
+  margin-bottom: 4px;
+  background: #b50d0d;
+  color: white;
+  font-weight: bold;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    background-color: #ffe4e1;
+  }
+  50% {
+    background-color: #e95444;
+  }
+}
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+}
+
+.shadowrun6 .monitors .overflow-bar {
+  /* background-color: #ffe4e1; */
+  animation: pulse 4s infinite, pulse-animation 2s infinite;
+}
+.shadowrun6 .monitors .overflow-bar-health {
+  background-color: #e9967a;
+}
+.shadowrun6 .monitors .overflow-bar-dead .overflow-bar-health {
+  background-color: black;
+  color: white;
+}
+
+.shadowrun6 input.box {
+  border: 1px solid var(--highlight-color);
+  background: white;
+  text-align: center;
+}
+
+.dice-tooltip .dice-rolls .die{
+  position: relative;
+  width: 24px;
+  line-height: 24px;
+  float: left;
+  margin-right: 1px;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+
+.dice-tooltip .dice-rolls .die_1{
+  background-image: url(../icons/D6_1.svg);
+}
+
+.dice-tooltip .dice-rolls .die_2{
+  background-image: url(../icons/D6_2.svg);
+}
+.dice-tooltip .dice-rolls .die_3{
+  background-image: url(../icons/D6_3.svg);
+}
+.dice-tooltip .dice-rolls .die_4{
+  background-image: url(../icons/D6_4.svg);
+}
+.dice-tooltip .dice-rolls .die_5{
+  background-image: url(../icons/D6_5.svg);
+}
+.dice-tooltip .dice-rolls .die_6{
+  background-image: url(../icons/D6_6.svg);
+}
+
+.dice-tooltip .dice-rolls .die_1_exploded{
+  background-image: url(../icons/D6_1_Plus.svg);
+}
+.dice-tooltip .dice-rolls .die_2_exploded{
+  background-image: url(../icons/D6_2_Plus.svg);
+}
+.dice-tooltip .dice-rolls .die_3_exploded{
+  background-image: url(../icons/D6_3_Plus.svg);
+}
+.dice-tooltip .dice-rolls .die_4_exploded{
+  background-image: url(../icons/D6_4_Plus.svg);
+}
+.dice-tooltip .dice-rolls .die_5_exploded{
+  background-image: url(../icons/D6_5_Plus.svg);
+}
+.dice-tooltip .dice-rolls .die_6_exploded{
+  background-image: url(../icons/D6_6_Plus.svg);
+}
+
+.dice-tooltip .dice-rolls .die_5_exploded_ignored{
+  background-image: url(../icons/D6_5_Plus_Minus.svg);
+}
+
+.dice-tooltip .dice-rolls .die_5_ignored{
+  background-image: url(../icons/D6_5_Minus.svg);
+}
+
+.dice-tooltip .dice-rolls .die_1_wild{
+  background-image: url(../icons/Wild_1.svg);
+}
+
+.dice-tooltip .dice-rolls .die_2_wild{
+  background-image: url(../icons/Wild_2.svg);
+}
+
+.dice-tooltip .dice-rolls .die_3_wild{
+  background-image: url(../icons/Wild_3.svg);
+}
+
+.dice-tooltip .dice-rolls .die_4_wild{
+  background-image: url(../icons/Wild_4.svg);
+}
+
+.dice-tooltip .dice-rolls .die_5_wild{
+  background-image: url(../icons/Wild_5.svg);
+}
+
+.dice-tooltip .dice-rolls .die_6_wild{
+  background-image: url(../icons/Wild_6.svg);
+}
+
+.edge-roll {
+      width: 48px;
+      height: 48px;
+      text-align: center;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-items: flex-start;
+      position: relative;
+}
+.edge-roll .edge-value {
+		z-index: 1;
+		position:relative;
+		width:48;
+		top: 12px;
+		text-align: center;
+		font-size: large;
+		color: white;
+		font-weight:bold;
+}
+.edge {
+      width: 96px;
+      height: 96px;
+      text-align: center;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-items: flex-start;
+      position: relative;
+}
+.edge input.edge-value {
+    z-index: -1;
+		position:relative;
+		text-align: center;
+		font-size: xx-large;
+		color: white;
+		font-weight:bold;
+}
+.edge input.edge-value:focus {
+	box-shadow: none;
+}
+.edge label.edge-max-label {
+		z-index: 2;
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+		text-align: center;
+		font-size: .75rem;
+    background-color: rgba(239,239,239,0.8);
+}
+.edge input.edge-max {
+		z-index: 2;
+		font-size: .89rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 2em;
+      background-color: var(--section-background);
+}
+
+.edge {
+  display: inline-block;
+  perspective: 600px;
+}
+.edge .edge-coin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+}
+.edge .edge-coin.clickable {
+  cursor: pointer;
+}
+
+.edge-coin__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  backface-visibility: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.edge-coin__face_front {
+  color: crimson;
+}
+
+.edge-coin__face_back {
+  color: slateblue;
+  transform: rotateY(180deg);
+}
+
+.edge-coin.is-flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+.app.window-app.shadowrun6.actor .attributes {
+    height: 5.25rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 1rem;
+}
+.app.window-app.shadowrun6.actor .attributes .attribute {
+  min-width: 5.25rem;
+  text-align: center;
+  padding: .25rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: flex-start;
+  --aug-border: 1px;
+  --aug-inset: 2px;
+  --aug-border-bg: rgb(82, 81, 78);
+  --aug-inset-bg: rgba(255, 255, 255, 0);
+  --aug-b-width: 33%;
+  --aug-b-height: 10px;
+  position: relative;
+  background-color: var(--section-background);
+}
+.app.window-app.shadowrun6.actor .attributes .attribute p {
+  text-align: center;
+  margin: 0; 
+  font-weight: bold;
+}
+.app.window-app.shadowrun6.actor .attributes .attribute span {
+  font-size: 1.125rem;
+  margin-top: .4rem;
+  color: var(--highlight-color);
+}
+.app.window-app.shadowrun6.actor .attributes .attribute .field {
+  display: flex;
+  flex-flow: column nowrap; }
+.app.window-app.shadowrun6.actor .attributes .attribute input::placeholder,
+.app.window-app.shadowrun6.actor .attributes .attribute label {
+  font-size: .6rem;
+  opacity: 0.4;
+}
+.app.window-app.shadowrun6.actor .attributes .attribute .field:nth-of-type(1) {
+  font-size: .89rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2em;
+}
+.app.window-app.shadowrun6.actor .attributes .attribute .field:nth-of-type(2) {
+  font-size: .89rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 2em;
+}
+
+.chat-message .soak-result .damageApplied {
+  color: gray;
+  box-shadow: 0 0 0.05em, 0 0.06em 0.2em 0.01em inset, 0 0 0 0.07em transparent inset;
+  filter: invert(15%) brightness(1.09);
+}
+.chat-message .soak-result .damageApplied > i, .chat-message .soak-result .revertDamageCheck > i {
+  margin-right: 0px;
+}
+.chat-message .soak-result .revertDamageCheck {
+  color: white;
+  background: darkred;
+}
+.chat-message .soak-result .damageApplied .damage-apply-text {
+  display: inline; 
+}
+.chat-message .soak-result .damageApplied .damage-revert-text {
+  display: none; 
+}
+.chat-message .soak-result .revertDamageCheck .damage-apply-text {
+  display: none; 
+}
+.chat-message .soak-result .revertDamageCheck .damage-revert-text {
+  display: inline; 
+}

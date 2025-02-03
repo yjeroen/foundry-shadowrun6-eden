@@ -1,0 +1,16 @@
+   <div class="section" style="width: 58%; margin: 5px;">
+	<div class="section-head">
+     <h2 class="section-title">{{ localize 'shadowrun6.section.vehicleskills.operations' }}</h2>
+	</div>
+	  <table>
+	  	{{log "vehicle-driving" this }}
+       <tr class="draggable item" data-item-id="{{this.id}}" >
+       	<td style="margin-right: 1rem"><label class="skill-value skill-key rollable skill-name skill-roll" data-skill="{{id}}">{{localize "shadowrun6.vehicle.skill.piloting" }}</label></td>
+       	<td><input class="skill-value" type="number" data-field="system.skills.piloting.modifier" value="{{system.skills.piloting.modifier}}"  style="width: 2em" /></td>
+       	<td class="skill-pool">{{system.skills.piloting.pool}}</td>
+         <td class="item-controls" style="width: 3em; flex-grow:2">
+           <a class="item-control vehicleskill-roll" data-skill="piloting" title="Roll"><i class="fas fa-dice-six"></i></a>
+         </td>
+       </tr>
+     </table>
+   </div>

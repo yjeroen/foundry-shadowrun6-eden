@@ -1,0 +1,67 @@
+<table class="monitors" style="width: 450px; height: 83px; border: 0;">
+	<tbody>
+		<tr>
+		  <td style="width: 30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		  <td style="width: 60px;"></td>
+		  <td class="centered" style="width: 40px;"><span style="font-size: 0.7em; color: var(--highlight-color);">{{ localize 'shadowrun6.label.damage' }}</span></td>
+		  <td></td>
+		</tr>
+		{{log "system" system}}
+		{{#unless system.overflow.dmg}}
+		<tr>
+			<td class="centered"><img src="systems/shadowrun6-eden/images/heart.svg" style="border: 0px; height: 25px; width: 25px;" /></td>
+			<td><label title="{{localize 'shadowrun6.monitor.physical'}}">{{localize 'shadowrun6.monitor.physical'}}</label></td>
+			<td class="centered">
+				<input data-field="system.physical.dmg" class="centered health-phys" type="number" value="{{system.physical.dmg}}" data-dtype="Number" id="dataPhyCur">
+			</td>
+			<td class="barPhyMax">
+				<div style="width: 300px;">
+					<div style="position: relative; z-index: 1; border: solid black 1px;">
+						<div id="barPhyCur" style="background-color: #892378; width: 77%;">&nbsp</div>
+						<div id="barPhyBoxes" class="monitor"></div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		{{#iff system.stun.max "!=" 0}}
+		<tr>
+			<td class="centered"><img src="systems/shadowrun6-eden/images/brain.svg" style="border: 0px; height: 25px; width: 25px;" /></td>
+			<td><label title="{{localize 'shadowrun6.monitor.stun'}}">{{localize 'shadowrun6.monitor.stun'}}</label></td>
+			<td class="centered">
+				<input data-field="system.stun.dmg" class="centered health-stun" type="number" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur">
+			</td>
+			<td class="barStunMax">
+				<!--div id="barStunCur">{{system.stun.value}}/{{system.stun.max}}</div-->
+				<div style="width: 300px;">
+					<div style="position: relative; z-index: 1; border: solid black 1px;">
+						<div id="barStunCur" style="background-color: #00a8ff; width: 78%;">&nbsp</div>
+						<div id="barStunBoxes" class="monitor"></div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		{{/iff}}
+		{{/unless}}
+		{{#iff system.overflow.dmg ">" 0}}
+		<tr style="vertical-align: baseline;">
+			<td class="centered"><i class="fas fa-skull" style="font-size: 20px;"></i></td>
+			<td><label title="{{localize 'shadowrun6.monitor.overflow'}}">{{localize 'shadowrun6.monitor.overflow'}}</label></td>
+			<td class="centered"><input class="centered health-overflow" data-field="system.overflow.dmg" type="number" value="{{system.overflow.dmg}}" data-dtype="Number" id="dataOverflowCur"></td>
+			<td id="barOverflowMax">
+				<div style="width: 300px;">
+					{{#iff system.overflow.dmg '>=' system.overflow.max}}
+					<div class="overflow-bar-dead" style="position: relative; z-index: 1; border: solid black 1px;">
+						<div class="overflow-bar-health centered" style="width: 100%;">DEAD</div>
+					</div>
+					{{else}}
+					<div class="overflow-bar" style="position: relative; z-index: 1; border: solid black 1px;">
+						<div class="overflow-bar-health centered" style="width: {{system.overflow.value}}%;">&nbsp</div>
+						<div id="barOverflowBoxes" style="display: flex; z-index: 2; position: absolute; top: 0em; width: 100%"></div>
+					</div>
+					{{/iff}}
+				</div>
+			</td>
+		</tr>
+		{{/iff}}
+	</tbody>
+</table>

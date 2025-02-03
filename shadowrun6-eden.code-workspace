@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "C:/Program Files/Foundry Virtual Tabletop/resources/app"
+		}
+	],
+	"settings": 
+	{
+		"files.associations": {
+			"*.html": "handlebars"
+		}
+	}
+}

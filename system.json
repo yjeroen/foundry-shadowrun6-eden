@@ -1,0 +1,159 @@
+{
+  "id": "shadowrun6-eden",
+  "title": "Shadowrun 6th Edition",
+  "description": "Shadowrun Sixth World RPG system",
+  "version": "3.0.0",
+  "authors": [
+    {
+      "name": "Jeroen",
+      "discord": "yeroon.",
+      "url": "https://github.com/yjeroen/foundry-shadowrun6-eden"
+    },
+    {
+      "name": "Stefan Prelle",
+      "email": "stefan@rpgframework.de",
+      "discord": "taranion#5388"
+    },
+    {
+      "name": "Anja Prelle",
+      "email": "anja@rpgframework.de"
+    }
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12.331",
+    "maximum": "12"
+  },
+  "esmodules": [
+    "module/Shadowrun6.js"
+  ],
+  "styles": [
+    "styles/shadowrun6.css"
+  ],
+  "relationships": [],
+  "languages": [
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json",
+      "flags": {}
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json",
+      "flags": {}
+    },
+    {
+      "lang": "ca",
+      "name": "Català",
+      "path": "lang/ca-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "ko",
+      "name": "한국어 (Korean)",
+      "path": "lang/ko-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "cn",
+      "name": "中文 (Chinese)",
+      "path": "lang/cn-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "zh-tw",
+      "name": "Chinese (Traditional)",
+      "path": "lang/zh-tw-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "ja",
+      "name": "日本語 (Japanese)",
+      "path": "lang/ja-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "ru",
+      "name": "русский (Russian)",
+      "path": "lang/ru-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "cs",
+      "name": "Čeština",
+      "path": "lang/cs-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "it",
+      "name": "Italian",
+      "path": "lang/it-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "ar",
+      "name": "Arabic",
+      "path": "lang/ar-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "sv",
+      "name": "Swedish",
+      "path": "lang/sv-magicl10n.json",
+      "flags": {}
+    },
+    {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "lang/pl-magicl10n.json",
+      "flags": {}
+    }
+  ],
+  "initiative": "1d6",
+  "grid": {
+    "type": 0,
+    "distance": 1,
+    "units": "m",
+    "diagonals": 1
+  },
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/shadowrun6-eden/images/sr6-system.webp",
+      "thumbnail": "systems/shadowrun6-eden/images/sr6-system.webp"
+    }
+  ],
+  "background": "systems/shadowrun6-eden/images/sr6-background.webp",
+  "primaryTokenAttribute": "physical",
+  "secondaryTokenAttribute": "stun",
+  "url": "https://github.com/yjeroen/foundry-shadowrun6-eden",
+  "bugs": "https://github.com/yjeroen/foundry-shadowrun6-eden/issues",
+  "manifest": "https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/releases/latest/download/system.json",
+  "download": "https://github.com/yjeroen/foundry-shadowrun6-eden/releases/download/3.0.0/foundry-shadowrun6-eden.zip"
+}

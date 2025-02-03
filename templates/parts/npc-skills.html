@@ -1,0 +1,22 @@
+<dt>{{ localize 'shadowrun6.actor.skills' }}</dt>
+<dd>
+	<!-- Action skills -->
+    {{log this}}
+   {{#each (skillPointsNotZero skills) as |skill id|}}
+      <label class="skill-key rollable skill-name skill-roll" data-skill="{{id}}">{{localize (concat "skill." id ) }}</label>
+      <label style="font-weight: bold">{{skill.pool}}</label>
+      <a class="item-control skill-roll" data-skill="{{id}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+      {{#if skill.specialization}}
+         ({{localize (concat (concat (concat "shadowrun6.special." id ) ".") skill.specialization) }}
+         <label  style="font-weight: bold">+2</label>
+         <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+         )
+      {{/if}}
+      {{#if skill.expertise}}
+         ({{localize (concat (concat (concat "shadowrun6.special." id ) ".") skill.expertise) }}
+         <label style="font-weight: bold">+3</label>
+         <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.expertise}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+         )
+      {{/if}}{{#unless @last}},&nbsp;{{/unless}}
+   {{/each}}
+</dd>

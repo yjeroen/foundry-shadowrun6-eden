@@ -1,0 +1,29 @@
+	<!-- Edge Boosts and Actions -->
+    <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spending"}}</h4>
+    <table style="background-color: transparent; border: 0px">
+    	<tr>
+			<td rowspan="2" style="width: 70px;">
+				<div class="edge-roll" style="flex: 0.48; margin-right: 10px">
+					<img src="systems/shadowrun6-eden/images/EdgeToken.webp" style="border: 0px; height: auto; width: 48px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
+					{{log "partRollDialogEdge.html" this }}
+					<label class="edge-value" >{{data.edge}}</label>
+				</div>
+			</td>
+			<td style="width: 90px;">Boost</td>
+			<td style="padding-right: 6px;">
+				<select name="edgeBoost" class="edgeBoosts" style="width: 100%;">
+					{{selectOptions data.edgeBoosts valueAttr="id" labelAttr="label" localize=true}}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Action</td>
+			<td style="padding-right: 6px;">
+				<select name="edgeAction" class="edgeActions" style="width: 100%;">
+					<option value="none" data-item-actionid="none"> - </option>
+				</select>
+			</td>
+		</tr>
+	   </table>
+	   <hr/>
+   

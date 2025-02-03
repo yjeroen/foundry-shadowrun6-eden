@@ -1,0 +1,53 @@
+	{{!-- Sheet Header --}}
+	<header class="sheet-header">
+		<div style="padding-right: 6px;">
+		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" />
+		</div>
+		<div class="header-fields" style="flex:3">
+            
+			<h1><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+			<div class="npc-settings">
+            {{#switch actor.type}}
+                {{#case 'Spirit' }} {{> "systems/shadowrun6-eden/templates/parts/npc_usage_spirit.html" }} {{/case}}
+            {{/switch}}
+			</div>
+			<div style="display:flex; flex-direction:row; align-items:center;">
+			{{> "systems/shadowrun6-eden/templates/parts/monitors.html" attributes=system.attributes}}
+			{{> "systems/shadowrun6-eden/templates/parts/edge-token.html"}}
+			</div>
+
+		</div>
+	</header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+                <div class="section" style="width: 90%; margin: 5px">
+                    {{> "systems/shadowrun6-eden/templates/parts/npc-attributes-ro.html" attributes=system.attributes}}
+                    <dl>
+                        <dt>{{ localize 'shadowrun6.actor.initiative' }}</dt>
+                        <dd>{{system.initiative.physical.base}} + {{system.initiative.physical.dicePool}}d6</dd>
+                        <dt>{{ localize 'shadowrun6.actor.initiative_astral' }}</dt>
+                        <dd>{{system.initiative.astral.base}} + {{system.initiative.astral.dicePool}}d6</dd>
+                        <dt>{{ localize 'shadowrun6.actor.actions' }}</dt>
+                        <dd>1 {{ localize 'shadowrun6.actor.actions_major' }}, {{system.initiative.actions}} {{localize 'shadowrun6.actor.actions_minor'}}</dd>
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-skills.html" skills=system.skills}}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-spells.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-powers.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-metamagics.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-complex-forms.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-echoes.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-augmentations.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-gear.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-critterpowers.html" }}
+                        {{> "systems/shadowrun6-eden/templates/parts/npc-weapons.html" }}
+                    </dl>
+                </div>
+                {{#if system.notes}}
+                <div class="section" style="width: 90%; margin: 5px">
+                    <h3 class="section-title">Notes</h3>
+                    {{{system.notes}}}
+                </div>
+                {{/if}}
+    </section>
+    

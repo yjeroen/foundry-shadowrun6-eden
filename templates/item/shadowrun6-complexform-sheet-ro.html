@@ -1,0 +1,29 @@
+<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
+  	{{#if system.genesisID}}
+	<h2>{{localize (concat (concat "complexform." system.genesisID) ".name")}}</h2>
+	<h4  style="font-style: italic">{{localize (concat (concat "complexform." system.genesisID) ".src")}}</h4>
+	{{else}}
+	<h2>{{item.name}}</h2>
+   {{/if}}
+
+   <table class="vehicle-stats-table" style="width: 20em">
+	<thead>
+	<tr>
+		<th>{{localize 'shadowrun6.complexform.fading'}}</th>
+		<th>{{localize 'shadowrun6.spell.duration' }}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr style="text-align:center">
+	  <td>{{item.system.fading}}</td>
+	  <td>{{localize (lookup config.spell_duration item.system.duration )}}</td>
+	</tr>
+	</tbody>
+   </table>
+
+  	{{#if system.genesisID}}
+	<div class="data-desc" id="data-desc"/>
+	{{else}}
+	<div class="data-desc" id="data-desc">{{system.description}}</div>
+   {{/if}}
+</form>

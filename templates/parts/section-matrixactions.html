@@ -1,0 +1,31 @@
+<div class="section" style="display: inline-block; width:60%">
+	<div class="section-head">
+		<h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+	</div>
+	<div style="column-count: 2; background: radial-gradient(circle at center, #B6B6A4 100%, transparent 100%) no-repeat center; background-size: 2px 100%; margin-right: 5px;">
+
+ 		{{#each config.MATRIX_ACTIONS as |action actionId|}}
+       	<div class="draggable item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center;">
+
+       		<label style="flex-grow:6">{{localize (concat 'shadowrun6.matrixaction.' actionId)}}</label>
+         	{{#if (ne (matrixPool actionId ../actor) 0)}}
+         	<div class="skill-pool" style="flex-grow:0.9; text-align:right">
+         		<label class="item-pool">{{matrixPool actionId ../actor}}</label>
+         		<a class="item-control matrix-roll" data-matrix-id="{{actionId}}" 
+					title="{{localize (concat 'skill.' action.skill)}} ({{localize (concat 'shadowrun6.special.cracking.' action.specialization)}})">
+						<i class="fas fa-dice-six"></i>
+				</a>
+         	</div>
+			{{else}}
+         	<div class="skill-pool" style="flex-grow:0.9; text-align:right">
+         		<label class="item-pool"></label>
+         		<label class="item-control matrix-roll" style="opacity:0"><i class="fas fa-dice-six"></i></label>
+         	</div>
+         	{{/if}}
+
+       	</div>
+       {{/each}}
+
+	</div>
+	</table>
+</div>

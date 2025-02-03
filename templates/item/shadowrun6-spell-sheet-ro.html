@@ -1,0 +1,35 @@
+{{log "shadowrun6-spell-sheet-ro.html" system}}
+<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
+    {{!-- Sheet Body --}}
+  	{{#if system.genesisID}}
+	<h2>{{localize (concat (concat "spell." system.genesisID) ".name")}}</h2>
+	<h4  style="font-style: italic">{{localize (concat (concat "spell." system.genesisID) ".src")}}</h4>
+	{{else}}
+	<h2>{{item.name}}</h2>
+   {{/if}}
+
+   <table class="vehicle-stats-table" style="width: 20em">
+	<thead>
+	<tr>
+		<th style="align: center">{{ localize 'shadowrun6.spell.range' }}</th>
+		<th>{{ localize 'shadowrun6.spell.type' }}</th>
+		<th>{{ localize 'shadowrun6.spell.duration' }}</th>
+		<th>{{ localize 'shadowrun6.spell.drain' }}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr style="text-align:center">
+	  <td>{{localize (lookup config.spell_range system.system.range )}}</td>
+	  <td>{{localize (lookup config.spell_type system.system.type )}}</td>
+	  <td>{{localize (lookup config.spell_duration system.system.duration )}}</td>
+	  <td>{{system.system.drain}}</td>
+	</tr>
+	</tbody>
+   </table>
+
+  	{{#if system.genesisID}}
+	<div class="data-desc" id="data-desc"/>
+	{{else}}
+	<div class="data-desc" id="data-desc">{{system.description}}</div>
+   {{/if}}
+</form>

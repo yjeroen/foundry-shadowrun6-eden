@@ -1,0 +1,18 @@
+{{#if (itemTypeInList actor.items 'gear')}}
+<dt>{{ localize 'shadowrun6.section.gear.title' }}</dt>
+<dd>
+	<!-- Gear -->
+	{{#each (itemsOfType actor.items 'gear') as |item id|}}
+      {{#if
+         (and
+            (ne item.system.type "WEAPON_FIREARMS")
+            (ne item.system.type "WEAPON_CLOSE_COMBAT")
+            (ne item.system.type "CYBERWARE")
+            (ne item.system.type "BIOWARE")
+         )
+      }}
+         <label class="skill-key rollable spell-roll" data-skill="{{id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+      {{/if}}
+   {{/each}}
+</dd>
+{{/if}}

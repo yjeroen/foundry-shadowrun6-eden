@@ -1,0 +1,47 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+        {{!-- Sheet Body --}}
+        <section class="sheet-body">
+                <h2><input type="text" value="{{item.name}}" name="name" /></h2>
+                <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
+                <div class="section">
+                        <h3>{{localize 'shadowrun6.item.feature'}}</h3>
+                        <table>
+                                <tr>
+                                        <td><span style="vertical-align: middle;">{{localize
+                                                        'shadowrun6.ritualfeatures.anchored'}}</span><input
+                                                        style="vertical-align: middle;" type="checkbox" {{checked
+                                                        item.system.feature.anchored}}
+                                                        name="system.feature.anchored" />
+                                        </td>
+                                        <td><span style="vertical-align: middle;">{{localize
+                                                        'shadowrun6.ritualfeatures.material_link'}}</span><input
+                                                        style="vertical-align: middle;" type="checkbox" {{checked
+                                                        item.system.feature.material_link}}
+                                                        name="system.feature.material_link" />
+                                        </td>
+                                        <td><span style="vertical-align: middle;">{{localize
+                                                        'shadowrun6.ritualfeatures.minion'}}</span><input
+                                                        style="vertical-align: middle;" type="checkbox" {{checked
+                                                        item.system.feature.minion}} name="system.feature.minion" />
+                                        </td>
+                                        <td><span style="vertical-align: middle;">{{localize
+                                                        'shadowrun6.ritualfeatures.spotter'}}</span><input
+                                                        style="vertical-align: middle;" type="checkbox" {{checked
+                                                        item.system.feature.spotter}} name="system.feature.spotter" />
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <span style="vertical-align: middle;">{{localize
+                                                        'shadowrun6.label.threshold'}}</span>
+                                                <input style="vertical-align: middle;" type="number"
+                                                        name="system.threshold" value="{{item.system.threshold}}" />
+                                        </td>
+                                </tr>
+                        </table>
+                        <h3>{{localize 'shadowrun6.item.description'}}</h3>
+                        <textarea class="box" type="text" name="system.description" cols="20"
+                                rows="6">{{item.system.description}}</textarea>
+                </div>
+        </section>
+</form>

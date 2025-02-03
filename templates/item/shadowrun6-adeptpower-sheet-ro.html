@@ -1,0 +1,16 @@
+<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
+  	{{#if system.genesisID}}
+	<h2>{{localize (concat (concat "adeptpower." system.genesisID) ".name")}}</h2>
+	<h4  style="font-style: italic">{{localize (concat (concat "adeptpower." system.genesisID) ".src")}}</h4>
+
+	<span><b>{{localize 'shadowrun6.adeptpower.cost'}}:</b> {{item.system.cost}} {{localize 'shadowrun6.adeptpower.pp'}}
+	{{#if system.hasLevel}} {{localize 'shadowrun6.adeptpower.perLevel'}} {{/if}}
+	</span>
+	<span><b>{{localize 'shadowrun6.adeptpower.activation'}}:</b> {{localize (lookup config.adeptpower_activation item.system.activation )}}</span>
+	<br/>
+	<div class="data-desc" id="data-desc"/>
+	{{else}}
+	<h2>{{item.name}}</h2>
+	<div class="data-desc" id="data-desc">{{system.description}}</div>
+   {{/if}}
+</form>

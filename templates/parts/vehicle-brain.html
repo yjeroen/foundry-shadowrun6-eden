@@ -1,0 +1,24 @@
+   <div class="section" style="width: 40%; margin: 5px;">
+	<div class="section-head">
+     <h2 class="section-title">{{ localize 'shadowrun6.section.vehicleskills.brain' }}</h2>
+	 <a class="item-control autosoft-create" title="{{localize 'shadowrun6.section.autosoft.add' }}"><h2 class="fas fa-plus"></h2></a>
+	</div>
+	  <table>
+ 		{{#each actor.items as |item id|}}
+		{{#if (eq item.type 'software')}}
+		{{#if (eq item.system.type "SOFTWARE") }}
+       <tr class="draggable item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
+       	<td><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+         <td><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
+       	<td><input type="number" data-field="item.system.rating" value="{{item.system.rating}}"  style="width: 2em" /></td>
+			<td class="item-controls">
+				<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
+					class="fas fa-edit"></i></a> <a class="item-control item-delete"
+				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+         </td>
+       </tr>
+		{{/if}}
+		{{/if}}
+       {{/each}}
+     </table>
+   </div>

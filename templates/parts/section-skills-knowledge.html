@@ -1,0 +1,24 @@
+	<!-- Knowledge skills -->
+   <div class="section" style="width: 100%;">
+   <div class="section-head">
+   <h2 class="section-title">{{ localize 'shadowrun6.section.skills.knowledge' }}</h2>
+   <a class="item-control skill-knowledge-create" title="{{localize 'shadowrun6.section.skills.knowledge_add' }}"><h2 class="fas fa-plus"></h2></a>
+   </div>
+	<ol class="item-list">
+       {{#each actor.items as |item id|}}
+       {{#iff item.type '==' 'skill'}}
+       {{#iff item.system.genesisID '==' 'knowledge'}}
+
+       <li class="item flexrow" data-item-id="{{item.id}}">
+         <input type="text" value="{{item.name}}" data-field="name" style="width: 11em; flex-grow:4" />
+         {{!-- Iterate through all attributes on the item and output buttons for any that are formula. --}}
+                    <div class="item-controls" style="flex-grow:1">
+                        <!--a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a-->
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+	             {{/iff}}
+	             {{/iff}}
+                {{/each}}
+            </ol>
+     </div>

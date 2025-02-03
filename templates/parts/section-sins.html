@@ -1,0 +1,32 @@
+<div class="section" style="display: inline-block; width:100%">
+ <div class="section-head">
+	<h2 class="section-title">{{ localize 'shadowrun6.section.sins.title' }}</h2>
+	<a class="item-control sin-create" title="{{localize 'shadowrun6.section.sins.add' }}">
+		<h2 class="fas fa-plus"></h2>
+	</a>
+</div>
+<table>
+	<thead>
+		<tr>
+		  <th style="text-align:left; width: 14em">{{ localize 'shadowrun6.label.column.name' }}</th>
+		  <th style="width: 10em">{{ localize 'shadowrun6.sin.quality' }}</th>
+		  <th style="width: 2em" colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
+		</tr>
+	  </thead>
+		{{#each actor.items as |item id|}}
+		{{#iff item.type '==' 'sin'}}
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
+			<td class="centered">
+				{{localize (lookup ../config.SIN_QUALITY item.system.quality)}}
+				<!-- <select data-field="item.quality" disabled> -->
+				<!-- {{selectOptions ../config.SIN_QUALITY selected=item.system.quality localize=true}} -->
+			</select>
+			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
+					class="fas fa-edit"></i></a> <a class="item-control item-delete"
+				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+	   </tr>
+		{{/iff}}
+		{{/each}}
+</table>
+</div>

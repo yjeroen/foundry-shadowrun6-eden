@@ -1,0 +1,20 @@
+    <table>
+    	<thead>
+    		<tr>
+    {{#each config.NPC_ATTRIBUTES as |attributeId|}}
+    		  <th class="attribute2" id="{{attributeId}}">
+    		    <label for="system.attributes.{{attributeId}}.current" title="{{localize (concat "attrib." attributeId )}}">{{localize (concat3 "attrib." attributeId "_short" )}}</label>
+    		  </th>
+    {{/each}}
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr>
+    {{#each attributes as |attribute id|}}
+    {{#ifIn id ../config.NPC_ATTRIBUTES}}
+    		  <td class="centered" id="{{id}}">{{attribute.pool}}</td>
+    {{/ifIn}}
+    {{/each}}
+    		</tr>
+    	</tbody>
+    </table>

@@ -1,0 +1,170 @@
+	{{!-- Sheet Header --}}
+	<header class="sheet-header">
+		<div style="padding-right: 6px;">
+		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" />
+		</div>
+		<div class="header-fields" style="flex:3">
+
+			<h1><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+			<div class="npc-settings" style="display:flex">
+			{{#switch actor.type}}
+				{{#case 'Critter'}} {{> "systems/shadowrun6-eden/templates/parts/npc_edit_critter.html"}} {{/case}}
+				{{#case 'NPC'    }} {{> "systems/shadowrun6-eden/templates/parts/npc_edit_grunt.html"  }} {{/case}}
+				{{#case 'Spirit' }} {{> "systems/shadowrun6-eden/templates/parts/npc_edit_spirit.html" }} {{/case}}
+			{{/switch}}
+			</div>
+
+		</div>
+	</header>
+
+	{{!-- Sheet Tab Navigation --}}
+	<nav class="sheet-tabs tabs" data-group="primary">
+		<a class="item" data-tab="basics">{{ localize 'shadowrun6.actor.nav.basics' }}</a>
+		<a class="item" data-tab="skills">{{ localize 'shadowrun6.actor.nav.skills' }}</a>
+		<a class="item" data-tab="combat">{{ localize 'shadowrun6.actor.nav.combat' }}</a>
+
+	{{#with (lookup config.MOR_DEFINITIONS system.mortype)}}
+		{{#if magic}}
+		<a class="item" data-tab="magic" >{{ localize 'shadowrun6.actor.nav.magic'  }}</a>
+		{{/if}}
+	{{/with}}
+		
+	{{#switch actor.type}}
+		{{#case 'Critter'}} {{/case}}
+		{{#case 'NPC'    }}
+		<a class="item" data-tab="matrix">{{ localize 'shadowrun6.actor.nav.matrix' }}</a>
+		<a class="item" data-tab="vehicles">{{ localize 'shadowrun6.actor.nav.vehicles' }}</a>
+		<a class="item" data-tab="equip" >{{ localize 'shadowrun6.actor.nav.equip'  }}</a>
+		{{/case}}
+		{{#case 'Spirit' }} {{/case}}
+	{{/switch}}
+
+		<a class="item" data-tab="biography">{{ localize 'shadowrun6.actor.nav.biography' }}</a>
+
+		<!-- <a class="item" data-tab="description">{{ localize 'shadowrun6.actor.nav.description' }}</a> -->
+		<!-- <a class="item" data-tab="items">{{ localize 'shadowrun6.actor.nav.equip' }}</a> -->
+	</nav>
+
+	{{!-- Sheet Body --}}
+	<section class="sheet-body">
+
+		{{!-- Basics Tab --}}
+		<div class="tab basics" data-group="primary" data-tab="basics">
+			<div class="attributes" style="margin-bottom: 10px">
+				{{> "systems/shadowrun6-eden/templates/parts/attributes-augmented.html" attributes=system.attributes}}
+			</div>
+		  <div style="column-count: 2; margin-right: 5px;">
+			{{> "systems/shadowrun6-eden/templates/parts/pc-derived.html" attributes=system.attributes}}
+		   {{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
+		   {{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
+			</div>
+		</div>
+
+		{{!-- Skills Tab --}}
+		<div class="tab skills" data-group="primary" data-tab="skills">
+			{{> "systems/shadowrun6-eden/templates/parts/pc-skillvalues.html" skills=system.skills}}
+		</div>
+
+		{{!-- Gear Tab --}}
+		<div class="tab equip" data-group="primary" data-tab="equip">
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ELECTRONICS" title=(localize 'shadowrun6.section.electronics')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="SOFTWARE" title=(localize 'shadowrun6.gear.subtype.SOFTWARE')}}
+
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="CHEMICALS" title=(localize 'shadowrun6.section.chemicals')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="BIOLOGY" title=(localize 'shadowrun6.section.biology')}}
+
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="SURVIVAL" title=(localize 'shadowrun6.section.survival')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="TOOLS" title=(localize 'shadowrun6.gear.subtype.TOOLS')}}
+			
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ACCESSORY" title=(localize 'shadowrun6.gear.subtype.ACCESSORY')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}}
+		</div>
+
+		{{!-- Combat Tab --}}
+		<div class="tab combat" data-group="primary" data-tab="combat">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-combat.html" }}
+		</div>
+
+		{{!-- Magic Tab --}}
+		<div class="tab magic" data-group="primary" data-tab="magic">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-magic.html" }}
+		</div>
+
+		{{!-- Matrix Tab --}}
+		<div class="tab matrix" data-group="primary" data-tab="matrix">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-matrix.html" }}
+		</div>
+
+		{{!-- Vehicle Tab --}}
+		<div class="tab vehicles" data-group="primary" data-tab="vehicles">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-vehicles.html" }}
+		</div>
+
+		{{!-- Biography Tab --}}
+		<div class="tab biography flexrow" data-group="primary" data-tab="biography">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-biography.html"}}
+		</div>
+
+		{{!-- Owned Items Tab --}}
+		<div class="tab items" data-group="primary" data-tab="items">
+			<div class="section" style="width: 48%">
+				<h2 class="section-title">{{ localize 'section.attributes'}}</h2>
+				<ol class="item-list">
+					{{#each actor.items as |item id|}}
+					<li class="item flexrow" data-item-id="{{item.id}}">
+						<img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
+						<h4 class="item-name">{{item.name}}</h4>
+						{{!-- Iterate through all attributes on the item and output buttons for any that are formula. --}}
+						<div class="item-buttons">
+							{{#each item.system.attributes as |itemAttr key|}}
+							{{#if itemAttr.dtype}}
+							{{#if itemAttr.isFormula}}
+							{{!-- Use the items.name.key format for shorthand. --}}
+							{{#if ../../shorthand}}
+							<button class="item-button rollable" data-roll="@items.{{slugify item.name}}.{{key}}"
+								data-label="{{ itemAttr.label }}" title="{{itemAttr.value}}">{{itemAttr.label}}</button>
+							{{!-- Use the items.name.attributes.key.value format otherwise. --}}
+							{{else}}
+							<button class="item-button rollable"
+								data-roll="@items.{{slugify item.name}}.attributes.{{key}}.value"
+								data-label="{{ itemAttr.label }}" title="{{itemAttr.value}}">{{itemAttr.label}}</button>
+							{{/if}}
+							{{/if}}
+							{{else}}
+							{{#each itemAttr as |itemGroupedAttr groupedKey|}}
+							{{#if itemGroupedAttr.isFormula}}
+							{{!-- Use the items.name.key format for shorthand. --}}
+							{{#if ../../../shorthand}}
+							<button class="item-button rollable"
+								data-roll="@items.{{slugify item.name}}.{{key}}.{{groupedKey}}"
+								data-label="{{ itemGroupedAttr.label }}"
+								title="{{itemGroupedAttr.value}}">{{itemGroupedAttr.label}}</button>
+							{{!-- Use the items.name.attributes.key.value format otherwise. --}}
+							{{else}}
+							<button class="item-button rollable"
+								data-roll="@items.{{slugify item.name}}.attributes.{{key}}.{{groupedKey}}.value"
+								data-label="{{ itemGroupedAttr.label }}"
+								title="{{itemGroupedAttr.value}}">{{itemGroupedAttr.label}}</button>
+							{{/if}}
+							{{/if}}
+							{{/each}}
+							{{/if}}
+							{{/each}}
+						</div>
+						<div class="skill-points">
+							<span>{{localize (concat3 "attrib." (skillAttr item.id) "_short")}}</span>
+						</div>
+						<div class="skill-points">
+							<input class="skill-value" type="number" data-field="item.system.points" value="{{item.system.points}}" />
+						</div>
+						<div class="item-controls">
+							<a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+							<a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+						</div>
+					</li>
+					{{/each}}
+				</ol>
+			</div>
+		</div>
+	</section>

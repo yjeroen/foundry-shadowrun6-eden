@@ -1,0 +1,9 @@
+{{#if (itemTypeInList actor.items 'adeptpower')}}
+<dt>{{ localize 'shadowrun6.section.complexforms.title' }}</dt>
+<dd>
+	<!-- Complex forms -->
+	{{#each (itemsOfType actor.items 'complexform') as |item id|}} 
+      <label class="skill-key rollable spell-roll" data-skill="{{id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+   {{/each}}
+</dd>
+{{/if}}

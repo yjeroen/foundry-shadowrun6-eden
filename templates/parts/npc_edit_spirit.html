@@ -1,0 +1,10 @@
+<label for="spirit_type">Type</label>
+<select name="spirit_type" name="system.spiritType" data-field="system.spiritType" style="border: 0px">
+	{{selectOptions config.SPIRIT_TYPES selected=system.spiritType localize=true}}
+</select>
+
+<label for="spirit_force">{{localize "shadowrun6.label.force"}}</label>
+<select id="spirit_force" name="system.rating" data-field="system.rating" style="border: 0px">
+	{{selectOptions config.RATING selected=system.rating}}
+</select>
+

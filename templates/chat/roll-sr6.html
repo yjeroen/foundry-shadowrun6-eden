@@ -1,0 +1,243 @@
+<div>
+  {{log "roll-sr6.html this=" this}}
+  {{log "roll-sr6.html data=" data}}
+  {{log "roll-sr6.html prepared=" prepared}}
+  {{log "roll-sr6.html configured=" configured}}
+  <h3>{{actionText}}</h3>
+  {{#if isOpposed}}
+  <div class="chat-edge" style="display:block">
+    <div>{{edge_message}}</div>
+    {{#if edge_use}}
+    <div style="color: var(--highlight-color)">{{edge_use}}</div>
+    {{/if}}
+  <div class="chat-edge-collapsibleDISABLED" style="display:none">
+    <header class="part-header flexrow">
+      <div>{{ localize 'shadowrun6.label.attack_rating'}}: <b>{{attackRating}}</b></div>
+      <br/>
+      <div>{{ localize 'shadowrun6.label.defense_rating'}}: <b>{{defRating}}</b></div>
+    </header>
+  </div>
+  </div>
+  <hr/>
+   {{/if}}
+
+  {{#if publicRoll}}
+  <div>
+    <div class="dice-result">
+      <header class="part-header flexrow chat-edge-post">
+        <div>{{formula}}</div>
+        <br/>
+        {{#if system.extended}}
+            <div class="resulttext" style="flex:2;text-align: right;">{{ localize 'shadowrun6.roll.accumulated' }}: <b>{{system.extendedAccumulate}}</b> / {{system.threshold}}</div>
+        {{else}}
+        		{{#if (eq rollType "initiative")}}
+        		<div class="resulttext" style="flex:2">Total {{total}}</div>
+        		{{else}}
+              {{#if success}}
+              <div class="resulttext" style="flex:2">
+                {{localize 'shadowrun6.roll.success'}}: <b>{{total}}</b> {{localize 'shadowrun6.roll.successes'}}{{#if netHits}}, <b>{{netHits}}</b> {{localize 'shadowrun6.roll.netHits'}}{{/if}}
+              </div>
+              {{else}}
+              <div class="resulttext" style="flex:2">
+                {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
+              </div>
+              {{/if}}
+            {{/if}}
+        {{/if}}
+        <br/>
+        {{#if criticalglitch}}
+        <span style="color: rgb(215, 14, 233); flex:2">{{localize 'shadowrun6.roll.criticalglitch'}}</span><br/>
+        {{else glitch}}
+        <span style="color: rgb(194, 76, 29); flex:2">{{localize 'shadowrun6.roll.glitch'}}</span><br/>
+        {{/if}}
+      </header>
+        {{{tooltip}}}
+    </div>
+   </div>
+
+   {{#if (eq rollType "weapon")}}
+   <!-- Usage Details -->
+   <div class="chat-weapon">
+   	    <table class="spell-table">
+   	      <tr>
+   	    	  <th align="center">{{localize 'shadowrun6.weapon.damage'}}</th>
+   	    	  {{#if configured.fireMode}}
+              <th align="center">{{localize 'shadowrun6.weapon.firemodes'}}</th>
+              {{/if}}
+              <th align="center">{{localize 'shadowrun6.weapon.attackRating'}}</th>
+   	    	  {{#if configured.fireMode}}
+              <th align="center">{{localize 'shadowrun6.item.ammunition'}}</th>
+              {{/if}}
+   	      </tr>
+   	  	   <tr>
+    	  		  <td><span name="calcDamage">{{configured.calcDamage}}</span>{{#if (eq configured.monitor "stun")}}S{{else}}P{{/if}}</td>
+   	    	  {{#if configured.fireMode}}
+   	  		  <td>{{localize (concat "shadowrun6.item.firemode." configured.fireMode)}}</td>
+              {{/if}}
+    	  		  <td name="calcAR">{{attackrating configured.calcAttackRating}}</td>
+   	    	  {{#if configured.fireMode}}
+   	  		  <td name="calcRounds">{{configured.calcRounds}}</td>
+              {{/if}}
+   	  	   </tr>
+   	    </table>
+   </div>
+   {{/if}}
+   
+   {{#if system.matrixAction}}
+   <!-- Matrix -->
+   <hr/>
+   <div>
+     <b>{{localize 'shadowrun6.roll.damage'}}</b> To Do
+   </div>
+   {{/if}}
+
+   {{#if (eq rollType "spell")}}
+   <!-- Spell -->
+   <hr/>
+   <div class="chat-spell">
+   	<table class="spell-table" style="text-align: center">
+   	    <tr>
+   	    	  <th>{{localize 'shadowrun6.spell.range'}}</th>
+            <th>{{localize 'shadowrun6.spell.type'}}</th>
+            <th>{{localize 'shadowrun6.spell.duration_short'}}</th>
+            <th>{{localize 'shadowrun6.spell.drain'}}</th>
+            {{#if (or threshold configured.spell.withEssence)}}
+              {{#unless (or configured.calcDamage (eq defendWith "spells_direct"))}}
+            <th>{{localize 'shadowrun6.roll.threshold'}}</th>
+              {{/unless}}
+            {{/if}}
+            {{#if (or configured.calcDamage (eq defendWith "spells_direct"))}}
+            <th>{{localize 'shadowrun6.spell.damage_short'}}</th>
+            {{/if}}
+   	    </tr>
+   	  	<tr>
+            <td>{{localize (concat (concat 'shadowrun6.spell.range_' configured.spell.range) "_short")}}</td>
+            <td>{{localize (concat (concat 'shadowrun6.spell.type_' configured.spell.type) "_short")}}</td>
+            <td>{{localize (concat (concat 'shadowrun6.spell.duration_' configured.spell.duration) "_short")}}</td>
+            <td>{{configured.calcDrain}}</td>
+            {{#if (or threshold configured.spell.withEssence)}}
+              {{#unless (or configured.calcDamage (eq defendWith "spells_direct"))}}
+            <td>{{threshold}}</td>
+              {{/unless}}
+            {{/if}}
+            {{#if (or configured.calcDamage (eq defendWith "spells_direct"))}}
+            <td>{{configured.calcDamage}}{{#if (or (eq configured.spell.damage "stun") (eq configured.spell.damage "stun_special"))}}S{{else}}P{{/if}}</td>
+            {{/if}}
+   	  		<td></td>
+   	  	</tr>
+   	</table>
+		<div class="chat-spell-collapsible" style="display:none">
+   		{{configured.spellDesc}}
+		</div>
+   </div>
+   <div>
+    <hr>
+  	  <button class="rollable" data-roll-type="soak" data-soak="drain" data-damage="{{configured.calcDrain}}" data-monitor="stun" data-defend-with="{{../defendWith}}"  data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+        {{localize 'shadowrun6.roll.button.drain'}} ({{configured.calcDrain}})
+      </button>
+    </div>
+   {{/if}}
+
+   {{#if (eq rollType "complexform")}}
+   <!-- Complex Form -->
+   <hr/>
+   <div class="chat-spell">
+   	<table class="spell-table" style="text-align: center">
+   	    <tr>
+            {{#if threshold}}
+            <th>{{localize 'shadowrun6.roll.threshold'}}</th>
+            {{/if}}
+            <th>{{localize 'shadowrun6.complexform.fading'}}</th>
+            <th>{{localize 'shadowrun6.complexform.duration'}}</th>
+   	    </tr>
+   	  	<tr>
+            {{#if threshold}}
+            <td>{{threshold}}</td>
+            {{/if}}
+    	  	  <td>{{configured.calcFade}}</td>
+   	  		  <td>{{localize (concat (concat 'shadowrun6.spell.duration_' configured.form.duration) "_short")}}</td>
+   	  	</tr>
+   	</table>
+		<div class="chat-spell-collapsible" style="display:none">
+   		{{configured.formDesc}}
+		</div>
+   </div>
+  	<button class="rollable" data-roll-type="soak" data-soak="fading" data-damage="{{configured.calcFade}}" data-monitor="stun" 
+      data-defend-with="{{../defendWith}}" data-target-actor="{{speaker.actor}}" data-target-token="{{speaker.token}}">
+      {{speaker.alias}}: {{localize 'shadowrun6.defense.fading'}} ({{configured.calcFade}} )
+    </button>
+   {{/if}}
+
+   <!-- Defense possible -->
+{{#if success}}
+   {{#if defendWith}}
+   {{log "************************Defense" this}}
+   <hr/>
+    {{log "**Defense targets " targetIds}}
+    {{log "**Defense targets " targetIds.length}}
+   {{#iff targets.length ">" 0}}
+    <!-- TODO rework multiple targets so they have multiple rolls -->
+     {{#each targets as |token id|}}
+     <div>
+      {{log "Token" id " = " token }}
+     	<button class="rollable" data-roll-type="defense" data-damage="{{../configured.calcDamage}}"  data-monitor="{{../monitor}}" data-defend-with="{{../defendWith}}" data-targetid="{{token.id}}" data-actorId="{{token.actorId}}" data-sceneId="{{token.sceneId}}" data-threshold="{{../threshold}}">{{localize 'shadowrun6.roll.button.defense'}} ({{../threshold}}): {{token.name}}</button>
+     </div>
+     {{/each}}
+   {{else}}
+     <!-- TODO unclear when this ELSE would happen.. -->
+     <div>
+  	   <button class="rollable" data-roll-type="defense" data-damage="{{configured.calcDamage}}"  data-monitor="{{monitor}}" data-defend-with="{{defendWith}}" data-targetid="{{targetId}}" data-threshold="{{threshold}}">{{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})</button>
+     </div>
+   {{/iff}}
+   {{/if}}
+{{/if}}
+   
+   {{#if (eq rollType "defense")}}
+        {{#if success}}
+        <div class="resulttext" style="flex:2; color: darkgreen; line-height: 2em; font-weight: bold;">{{ localize 'shadowrun6.roll.successfulDefense'}}</div>
+        {{else}}
+        <div class="resulttext" style="flex:2; color: firebrick; line-height: 2em; font-weight: bold;">{{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}</div>
+  	     <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+        {{/if}}
+   {{/if}}
+
+   <!-- After Soak / Apply Damage -->
+   {{#if (eq rollType "soak")}}
+   {{log "************************Soak" this}}
+   <!-- Soak Damage -->
+    <hr>
+    <div class="soak-result">
+        {{#if success}}
+          <div class="resulttext" style="flex:2">{{ localize 'shadowrun6.roll.successfulSoak'}}</div>
+        {{else}}
+          <header class="part-header flexrow chat-edge-post">
+            <div>{{ localize 'shadowrun6.roll.failedSoak'}}</div>
+            <br/>
+            {{#if (eq monitor 'physical')}}
+            <div class="resulttext" style="flex:2; color: firebrick; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</div>
+            {{else}}
+            <div class="resulttext" style="flex:2; color: dodgerblue; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</div>
+            {{/if}}
+          </header>
+
+          <hr>
+
+          {{#if (or (eq actor.type "Spirit") (eq actor.type "Vehicle"))}}
+          <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
+          <span style="font-style: italic;">{{localize 'shadowrun6.ui.notifications.apply_manually'}}</span>
+          {{else}}
+          <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+            {{#if damageApplied}}
+              <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+            {{else}}
+              {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{#if (eq monitor "stun")}}S{{else}}P{{/if}})
+            {{/if}}
+          </button>
+          {{/if}}
+
+        {{/if}}
+    </div>
+   {{/if}}
+{{/if}}
+
+</div>

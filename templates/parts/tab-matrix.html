@@ -1,0 +1,16 @@
+  <section style="min-width: 740px;">
+	  <div style="column-count: 2; margin-right: 5px; display:flow;">
+			{{> "systems/shadowrun6-eden/templates/parts/section-matrixbase.html" showResonance=true}}
+
+	   	{{#if system.morDef.resonance}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-matrixdevices.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-complexforms.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-echoes.html"}}
+	   	{{else}}
+		   {{> "systems/shadowrun6-eden/templates/parts/section-matrixdevices.html"}}
+		{{/if}}
+		</div>
+  </section>
+  <section style="padding-top: 10px;">
+	{{> "systems/shadowrun6-eden/templates/parts/section-matrixactions.html"}}
+  </section>

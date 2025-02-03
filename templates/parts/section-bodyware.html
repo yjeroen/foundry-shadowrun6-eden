@@ -1,0 +1,73 @@
+<div class="section" style="display: inline-block; width:100%">
+ <div class="section-head">
+	<h2 class="section-title">{{ localize 'shadowrun6.section.bodyware.title' }}</h2>
+	<a class="item-control bodyware-create" title="{{localize 'shadowrun6.section.bodyware.add' }}">
+		<h2 class="fas fa-plus"></h2>
+	</a>
+</div>
+<table>
+	    <thead>
+	      <tr>
+	        <th>{{ localize 'shadowrun6.label.column.name' }}</th>
+	        <th>{{ localize 'shadowrun6.section.bodyware.column.essence' }}</th>
+	        <th>{{ localize 'shadowrun6.section.bodyware.column.capacity' }}</th>
+	        <th>
+				<!-- {{ localize 'shadowrun6.label.column.action' }} -->
+			</th>
+	      </tr>
+	    </thead>
+	{{#each actor.items as |item id|}}
+	{{#iff item.type '==' 'gear'}}
+		{{#iff item.system.type '==' "CYBERWARE"}}
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
+			<td  class="centered"style="width: 3em"> <input type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
+			<td class="centered" style="width: 2em"> <input class="centered" type="text" value="{{item.system.capacity}}" data-field="system.capacity" data-type="Number" disabled></td>
+			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
+					class="fas fa-edit"></i></a> <a class="item-control item-delete"
+				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+	   </tr>
+		{{/iff}}
+		{{#iff item.system.type '==' "BIOWARE"}}
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
+			<td class="centered" style="width: 3em"> <input class="centered" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
+			<td class="centered"> - </td>
+			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
+					class="fas fa-edit"></i></a> <a class="item-control item-delete"
+				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+	   </tr>
+		{{/iff}}
+		{{#iff item.system.type '==' "NANOWARE"}}
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
+			<td class="centered" style="width: 3em"> <input class="centered" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
+			<td class="centered"> - </td>
+			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
+					class="fas fa-edit"></i></a> <a class="item-control item-delete"
+				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+	   </tr>
+		{{/iff}}
+		{{#iff item.system.type '==' "GENETICS"}}
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
+			<td class="centered" style="width: 3em"> <input class="centered" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
+			<td class="centered"> - </td>
+			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
+					class="fas fa-edit"></i></a> <a class="item-control item-delete"
+				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+	   </tr>
+		{{/iff}}
+	{{/iff}}
+	{{/each}}
+	    <tfoot>
+	      <tr>
+	        <th style="text-align: right; font-weight:normal">{{ localize 'shadowrun6.section.bodyware.footer.total_essence' }}:</th>
+			{{log this}}
+	        <th style="width: 3em">{{actor.system.essence}}</th>
+	        <th></th>
+	        <th></th>
+	      </tr>
+	    </tfoot>
+</table>
+</div>

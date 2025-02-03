@@ -1,0 +1,47 @@
+<section>
+    <table class="skill-table">
+      <thead>
+        <tr class="table-head">
+            <th style="width: 10em">
+                <span>{{localize "label.skill"}}</span>
+            </th>
+            <th style="width: 2.5em">
+                <span>{{localize "label.attribute"}}</span>
+            </th>
+            <th style="width: 2em">
+                <span>{{localize "label.points"}}</span>
+            </th>
+            <th style="width: 2em">
+                <span>{{localize "label.modifier"}}</span>
+            </th>
+            <th style="width: 3em">
+                <span>{{localize "label.value"}}</span>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each skills as |skill id|}}
+        <tr>
+            <td style="width: 30%">
+                <span class="skill-value skill-key rollable skill-name"  data-skill="{{id}}">{{localize (concat "skill." id ) }}</span>
+            </td>
+            <td><span>{{localize (concat3 "attrib." (skillAttr id) "_short")}}</span></td>
+            <td><input class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}" /></td>
+            <td><input class="skill-value" type="number" data-field="system.skills.{{id}}.modifier" value="{{skill.modifier}}" /></td>
+            <td><input class="skill-value" type="number" data-field="system.skills.{{id}}.value" value="{{skill.value}}" data-skill="{{id}}" /></td>
+        </tr>
+        {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>
+          <select data-field="skill-id" id="newskill">
+            <option value="astral">{{localize "skill.astral"}}</option>
+            <option value="athletics">{{localize "skill.athletics"}}</option>
+            <option value="biotech">{{localize "skill.biotech"}}</option>
+          </select></td>
+          <td colspan="2"> <a class="button group-control" data-action="create-group"><i class="fas fa-plus"></i>Add Skill</a></td>
+        </tr>
+      </tfoot>
+    </table>
+</section>

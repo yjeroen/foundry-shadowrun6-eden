@@ -1,0 +1,34 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
+        <div class="section">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.adeptpower.activation'}}</th>
+                    <th>{{localize 'shadowrun6.adeptpower.cost'}}</th>
+                    <th>{{localize 'shadowrun6.adeptpower.haslevel'}}</th>
+                </tr>
+                <tr>
+                    <td>
+                        <select data-field="system.activation">
+                            {{selectOptions config.adeptpower_activation selected=item.system.activation
+                            localize=true}}
+                        </select>
+                    </td>
+                    <td>
+                        <input data-field="system.cost" value="{{item.system.cost}}" type="number" class="box centered" />
+                    </td>
+                    <td>
+                        <input style="vertical-align: middle;" type="checkbox" {{checked item.system.hasLevel}}
+                            data-field="system.hasLevel" />
+                    </td>
+                </tr>
+            </table>
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <textarea class="box" type="text" data-field="system.description" cols="20"
+                rows="6">{{item.system.description}}</textarea>
+        </div>
+    </section>
+</form>

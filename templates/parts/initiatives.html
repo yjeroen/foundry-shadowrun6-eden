@@ -1,0 +1,38 @@
+	<div class="section" style="display: inline-block; width:100%">
+		<h2 class="section-title">{{ localize 'shadowrun6.section.initiative' }}</h2>
+		<table>
+			<tr>
+				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.attribute' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.dice' }}</th>
+			</tr>
+			<!-- Physical initiative -->
+			<tr>
+				<td ><b>{{ localize 'shadowrun6.initiative.physical' }}</b></td>
+				<td style="text-align: right; padding-right: 50px;">{{initiative.physical.base}} + <input class="centered box calcIni" data-field="system.initiative.physical.mod" type="text" value="{{system.initiative.physical.mod}}" data-dtype="Number" id="dataIniPhyMod" style="width: 1.2em" ></td>
+				<td class="centered">
+				( {{system.initiative.physical.dice}} +
+				<input class="centered box calcIni" data-field="system.initiative.physical.diceMod" type="text" value="{{system.initiative.physical.diceMod}}" data-dtype="Number"
+				id="dataIniPhyDiceMod" style="width: 1.2em" > ) {{initiative.physical.dicePool}}d6</td>
+			</tr>
+
+			<!-- Astral initiative -->
+			<tr>
+				<td ><b>{{ localize 'shadowrun6.initiative.astral' }}</b></td>
+				<td style="text-align: right; padding-right: 50px;">{{initiative.astral.base}} + <input class="centered box calcIni" data-field="system.initiative.astral.mod" type="text" value="{{system.initiative.astral.mod}}" data-dtype="Number" id="dataIniAstMod" style="width: 1.2em" ></td>
+				<td class="centered">
+				( {{system.initiative.astral.dice}} +
+				<input class="centered box calcIni" data-field="system.initiative.astral.diceMod" type="text" value="{{system.initiative.astral.diceMod}}" data-dtype="Number"
+				id="dataIniAstDiceMod" style="width: 1.2em" > ) {{initiative.astral.dicePool}}d6</td>
+			</tr>
+			<!-- Matrix Initiative -->
+			<tr>
+				<td ><b>{{ localize 'shadowrun6.initiative.matrix' }}</b></td>
+				<td style="text-align: right; padding-right: 50px;">{{initiative.matrix.base}} + <input class="centered box calcIni" data-field="system.initiative.matrix.mod" type="text" value="{{system.initiative.matrix.mod}}" data-dtype="Number" id="dataIniMatrixMod" style="width: 1.2em" ></td>
+				<td class="centered">
+				( {{system.initiative.matrix.dice}} +
+				<input class="centered box calcIni" data-field="system.initiative.matrix.diceMod" type="text" value="{{system.initiative.matrix.diceMod}}" data-dtype="Number"
+				id="dataIniMatrixDiceMod" style="width: 1.2em" > ) {{initiative.matrix.dicePool}}d6</td>
+			</tr>
+		</table>
+	</div>

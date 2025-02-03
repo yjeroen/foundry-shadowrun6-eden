@@ -1,0 +1,9 @@
+{{#if (itemTypeInList actor.items 'metamagic')}}
+<dt>{{ localize 'shadowrun6.section.metamagic.title' }}</dt>
+<dd>
+	<!-- Metamagic skills -->
+	{{#each (itemsOfType actor.items 'metamagic') as |item id|}} 
+      <label class="skill-key rollable spell-roll" data-skill="{{id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}  
+   {{/each}}
+</dd>
+{{/if}}
