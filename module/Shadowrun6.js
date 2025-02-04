@@ -24,8 +24,8 @@ const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
 /**
  * Change to true for developer mode
  */
-CONFIG.debug.hooks = true;
-CONFIG.debug.dice = true;
+// CONFIG.debug.hooks = true;
+// CONFIG.debug.dice = true;
 
 /**
  * Init hook. Called from Foundry when initializing the world
