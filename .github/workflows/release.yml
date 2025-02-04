@@ -138,14 +138,14 @@ jobs:
       run: zip ${{ env.ZIP_NAME }} -r ${{ steps.archive.outputs.result }}
 
 
-    - name: Fetch Release Body
-      id: release
-      uses: cardinalby/git-get-release-action@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        tag: ${{ env.TAG_NAME }}
-        doNotFailIfNotFound: true
+    # - name: Fetch Release Body
+    #   id: release
+    #   uses: cardinalby/git-get-release-action@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ github.token }}
+    #   with:
+    #     tag: ${{ env.TAG_NAME }}
+    #     doNotFailIfNotFound: true
 
 
     - name: Update Release with Files
@@ -162,6 +162,6 @@ jobs:
         artifacts: './${{ env.PACKAGE_TYPE }}.json, ./${{ env.ZIP_NAME }}'
         tag: ${{ env.TAG_NAME }}
         body: |
-          ${{ steps.release.outputs.body }}
+          ${{ github.event.release.body }}
 
           **Installation:** To manually install this release, please use the following manifest URL: ${{ env.RELEASE_INSTALL_URL }}
