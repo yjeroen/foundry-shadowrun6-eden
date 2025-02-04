@@ -11,11 +11,11 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 ![GitHub contributors](https://img.shields.io/github/contributors/yjeroen/foundry-shadowrun6-eden)
 
-![GitHub downloads](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/total)
-![Github downloads latest version zip](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/latest/foundry-shadowrun6-eden.zip)
+![GitHub downloads](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/total?label=Downloads)
+![GitHub downloads Latest](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/latest/total?label=Downloads%20Latest%20Release)
 ![Forge installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https://forge-vtt.com/api/bazaar/package/shadowrun6-eden)
 
-Chummers! This game system for the BTL [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system support for the Shadowrun Sixth World roleplaying game.
+_Chummers!_ This game system for the BTL [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system support for the Shadowrun Sixth World roleplaying game.
 
 This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
 play games of Shadowrun 6th Edition!
