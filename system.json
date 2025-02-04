@@ -94,8 +94,8 @@
     },
     {
       "lang": "ru",
-      "name": "русский (Russian)",
-      "path": "lang/ru-magicl10n.json",
+      "name": "Русский (Russian)",
+      "path": "lang/ru.json",
       "flags": {}
     },
     {
