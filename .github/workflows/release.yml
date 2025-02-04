@@ -61,6 +61,16 @@ jobs:
         echo "RELEASE_INSTALL_URL=https://github.com/${{ github.repository }}/releases/download/$TAG/$PACKAGE_TYPE.json" >> $GITHUB_ENV
 
 
+    - name: Adjust manifest
+      uses: TomaszKandula/variable-substitution@v1.0.2
+      with:
+        files: "system.json"
+      env:
+        version: ${{ env.TAG_NAME }}
+        download: ${{ env.RELEASE_DOWNLOAD_URL }}
+        flags.hotReload: false
+
+
     # Run some tests to make sure our `system.json` is correct
     # Exit before setting up node if not
     - name: Verify correct naming
@@ -88,14 +98,6 @@ jobs:
           echo "Please fix this and push the tag again."
           exit 1
         fi
-
-
-    - name: Adjust manifest
-      uses: TomaszKandula/variable-substitution@v1.0.2
-      with:
-        files: "system.json"
-      env:
-        flags.hotReload: false
 
 
     - name: Use Node.js ${{ env.NODE_VERSION }}
