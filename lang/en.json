@@ -533,7 +533,7 @@
       "defense_rating": "Defense Rating",
       "delete": "Delete",
       "device_mode": "Device Mode",
-      "devRating": "Device rtg.",
+      "devRating": "Device Rating",
       "dice": "Dice",
       "edit": "Edit",
       "expertise": "Expertise",
@@ -995,12 +995,14 @@
       },
       "matrix_devices": {
         "add": "Add new matrix device",
+        "add_rcc": "Add new Rigger Command Console",
         "column": {
           "action": "Action",
-          "devRating": "Dev.R.",
+          "devRating": "Device Rating",
           "name": "Name"
         },
-        "title": "Matrix Devices"
+        "title": "Matrix Devices",
+        "title_rcc": "RCC"
       },
       "metamagic": {
         "add": "Add new metamagic",
