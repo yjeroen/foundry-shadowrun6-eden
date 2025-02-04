@@ -25,7 +25,7 @@ play games of Shadowrun 6th Edition!
 To install and use the Shadowrun 6E system for Foundry Virtual Tabletop, simply paste the following URL into the 
 **Install System** dialog on the Setup menu of the application.
 
-https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/releases/latest/download/system.json
+https://github.com/yjeroen/foundry-shadowrun6-eden/releases/latest/download/system.json
 
 If you wish to manually install the system, you may do this by cloning the repository or downloading a zip archive from the [Releases Page](https://github.com/yjeroen/foundry-shadowrun6-eden/releases). Then extract it into your Foundry's `Data/systems/shadowrun6-eden` folder. 
 
