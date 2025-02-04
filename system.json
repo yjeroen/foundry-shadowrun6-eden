@@ -154,7 +154,7 @@
   "secondaryTokenAttribute": "stun",
   "url": "https://github.com/yjeroen/foundry-shadowrun6-eden",
   "bugs": "https://github.com/yjeroen/foundry-shadowrun6-eden/issues",
-  "manifest": "https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/releases/latest/download/system.json",
+  "manifest": "https://github.com/yjeroen/foundry-shadowrun6-eden/releases/latest/download/system.json",
   "download": "https://github.com/yjeroen/foundry-shadowrun6-eden/releases/download/release-3.0.0/shadowrun6-eden-release-3.0.0.zip",
   "flags": {
     "hotReload": {
