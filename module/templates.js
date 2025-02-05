@@ -47,6 +47,7 @@ export const preloadHandlebarsTemplates = async function () {
         "systems/shadowrun6-eden/templates/parts/section-adeptpowers.html",
         "systems/shadowrun6-eden/templates/parts/section-ammo.html",
         "systems/shadowrun6-eden/templates/parts/section-armor.html",
+        "systems/shadowrun6-eden/templates/parts/section-autosoft.html",
         "systems/shadowrun6-eden/templates/parts/section-bodyware.html",
         "systems/shadowrun6-eden/templates/parts/section-complexforms.html",
         "systems/shadowrun6-eden/templates/parts/section-drones.html",

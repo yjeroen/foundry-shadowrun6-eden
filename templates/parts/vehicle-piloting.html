@@ -1,16 +1,132 @@
-   <div class="section" style="width: 58%; margin: 5px;">
+   <div class="section" style="width: 100%; margin: 5px;">
 	<div class="section-head">
      <h2 class="section-title">{{ localize 'shadowrun6.section.vehicleskills.operations' }}</h2>
 	</div>
 	  <table>
 	  	{{log "vehicle-driving" this }}
-       <tr class="draggable item" data-item-id="{{this.id}}" >
-       	<td style="margin-right: 1rem"><label class="skill-value skill-key rollable skill-name skill-roll" data-skill="{{id}}">{{localize "shadowrun6.vehicle.skill.piloting" }}</label></td>
-       	<td><input class="skill-value" type="number" data-field="system.skills.piloting.modifier" value="{{system.skills.piloting.modifier}}"  style="width: 2em" /></td>
+
+      <!-- Initiative -->
+      <tr>
+        <td style="margin-right: 1rem">
+          <label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.vehicle.initiative" }}</label>
+        </td>
+        <td>
+          &nbsp;
+        </td>
+        <td class="skill-pool" style="width: 5em;">
+          {{system.initiative.physical.pool}} + {{system.initiative.physical.dicePool}}{{localize "shadowrun6.label.d6" }}
+        </td>
+        <td class="item-controls" style="width: 3em; flex-grow:2">
+          &nbsp;
+        </td>
+      </tr>
+
+      <!-- Attack rating -->
+      <tr>
+        <td style="margin-right: 1rem" colspan="2">
+          <label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.label.attack_rating_using_vehicle" }}</label>
+        </td>
+        <td class="skill-pool">
+          {{system.ar.pool}}
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+
+      <!-- Defense rating -->
+      <tr>
+        <td style="margin-right: 1rem" colspan="2">
+          <label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.derived.defense_rating" }}</label>
+        </td>
+        <td class="skill-pool">
+          {{system.dr.pool}}
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+
+      
+    </table>  
+	  <table>
+      <thead>
+        <tr>
+          <th>{{localize "shadowrun6.actor.skills" }}</th>
+          <th>{{localize "shadowrun6.label.modifier" }}</th>
+          <th>{{localize "shadowrun6.label.pool" }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <!-- Evasion -->
+      <tr>
+       <td style="margin-right: 1rem">
+         <label class="skill-value skill-key rollable skill-name skill-roll">{{localize 'shadowrun6.label.defense'}} ({{localize 'shadowrun6.defense.physical'}})</label>
+       </td>
+       <td style="text-align: center">
+         <input name="{{id}}Evasion" class="centered" type="number" data-field="system.skills.evasion.modifier" data-dtype="Number" value="{{system.skills.evasion.modifier}}"  style="width: 2em" />
+       </td>
+       <td class="skill-pool">
+         {{system.skills.evasion.pool}}
+       </td>
+       <td class="item-controls" style="width: 3em; flex-grow:2">
+         <a class="item-control vehicleskill-roll" data-skill="evasion" data-rollType="skill" data-pool="{{system.skills.evasion.pool}}" data-caption="Defense (Attacks)" title="Roll"><i class="fas fa-dice-six"></i></a>
+       </td>
+     </tr>
+
+      <!-- Piloting -->
+       <tr>
+       	<td style="margin-right: 1rem"><label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.vehicle.skill.piloting" }}</label></td>
+       	<td style="text-align: center"><input name="{{id}}Piloting" class="centered" type="number" data-field="system.skills.piloting.modifier" data-dtype="Number" value="{{system.skills.piloting.modifier}}"  style="width: 2em" /></td>
        	<td class="skill-pool">{{system.skills.piloting.pool}}</td>
          <td class="item-controls" style="width: 3em; flex-grow:2">
-           <a class="item-control vehicleskill-roll" data-skill="piloting" title="Roll"><i class="fas fa-dice-six"></i></a>
+           <a class="item-control vehicleskill-roll" data-skill="piloting" data-rollType="skill" data-pool="{{system.skills.piloting.pool}}" data-threshold="{{#if system.vehicle.offRoad}}{{system.handlOff}}{{else}}{{system.handlOn}}{{/if}}" data-caption="Handling" title="Roll"><i class="fas fa-dice-six"></i></a>
          </td>
        </tr>
+
+      <!-- Perception -->
+      <tr>
+        <td style="margin-right: 1rem">
+          <label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.vehicle.skill.perception" }}</label>
+        </td>
+        <td style="text-align: center">
+          <input name="{{id}}Perception" class="centered" type="number" data-field="system.skills.perception.modifier" data-dtype="Number" value="{{system.skills.perception.modifier}}"  style="width: 2em" />
+        </td>
+        <td class="skill-pool">
+          {{system.skills.perception.pool}}
+        </td>
+        <td class="item-controls" style="width: 3em; flex-grow:2">
+          <a class="item-control vehicleskill-roll" data-skill="perception" data-rollType="skill" data-pool="{{system.skills.perception.pool}}" data-caption="{{localize "shadowrun6.vehicle.skill.perception" }}" title="Roll"><i class="fas fa-dice-six"></i></a>
+        </td>
+      </tr>
+
+      <!-- Cracking -->
+      <tr>
+        <td style="margin-right: 1rem">
+          <label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.vehicle.skill.cracking" }}</label>
+        </td>
+        <td style="text-align: center">
+          <input name="{{id}}Cracking" class="centered" type="number" data-field="system.skills.cracking.modifier" data-dtype="Number" value="{{system.skills.cracking.modifier}}"  style="width: 2em" />
+        </td>
+        <td class="skill-pool">
+          {{system.skills.cracking.pool}}
+        </td>
+        <td class="item-controls" style="width: 3em; flex-grow:2">
+          <a class="item-control vehicleskill-roll" data-skill="cracking" data-rollType="skill" data-pool="{{system.skills.cracking.pool}}" data-caption="{{localize "shadowrun6.vehicle.skill.cracking" }}" title="Roll"><i class="fas fa-dice-six"></i></a>
+        </td>
+      </tr>
+
+      <!-- Stealth -->
+      <tr>
+        <td style="margin-right: 1rem">
+          <label class="skill-value skill-key rollable skill-name skill-roll">{{localize "shadowrun6.vehicle.skill.stealth" }}</label>
+        </td>
+        <td style="text-align: center">
+          <input name="{{id}}Stealth" class="centered" type="number" data-field="system.skills.stealth.modifier" data-dtype="Number" value="{{system.skills.stealth.modifier}}"  style="width: 2em" />
+        </td>
+        <td class="skill-pool">
+          {{system.skills.stealth.pool}}
+        </td>
+        <td class="item-controls" style="width: 3em; flex-grow:2">
+          <a class="item-control vehicleskill-roll" data-skill="stealth" data-rollType="skill" data-pool="{{system.skills.stealth.pool}}" data-caption="{{localize "shadowrun6.vehicle.skill.stealth" }}" title="Roll"><i class="fas fa-dice-six"></i></a>
+        </td>
+      </tr>
+
      </table>
    </div>

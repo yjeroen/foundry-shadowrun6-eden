@@ -401,6 +401,23 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             };
             return this.actor.createEmbeddedDocuments("Item", [itemData]);
         });
+        //autosoft-create
+        html.find(".autosoft-create").click((ev) => {
+            const itemData = {
+                name: game.i18n.localize("shadowrun6.newitem.software"),
+                type: "software",
+                system: {
+                    genesisID: this._create_UUID(),
+                    type: "AUTOSOFT",
+                    subtype: "CLEARSIGHT",
+                }
+            };
+            const context = {
+                renderSheet: true
+            }
+            return this.actor.createEmbeddedDocuments("Item", [itemData], context);
+        });
+
         html.find(".vehicle-create").click((ev) => {
             const itemData = {
                 name: game.i18n.localize("shadowrun6.newitem.vehicles"),
@@ -460,7 +477,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
     }
     //-----------------------------------------------------
     async _setDamage(html, damageClicked, monitorAttributes, monitorType, event) {
-        if (!isLifeform(getSystemData(this.actor)))
+        if (!isLifeform(getSystemData(this.actor)) && !this.actor.type == "Vehicle")
             return;
         console.log("SR6E | setDamage", monitorType, damageClicked, monitorAttributes);
         // if (!event.currentTarget.dataset.value)

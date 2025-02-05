@@ -1,4 +1,4 @@
-   <div class="section" style="width: 58%; margin: 5px;">
+   <div class="section" style="width: 100%; margin: 5px;">
 	<div class="section-head">
      <h2 class="section-title">{{ localize 'shadowrun6.section.weapon.ranged' }}</h2>
 	 <a class="item-control weapon-create" title="{{localize 'shadowrun6.section.weapon.add' }}"><h2 class="fas fa-plus"></h2></a>
@@ -6,11 +6,19 @@
 	  <table>
  		{{#each actor.items as |item id|}}
 		{{#if (eq item.type 'gear')}}
-		{{#if (eq item.system.type "WEAPON_FIREARMS") }}
+		{{#if (or (eq item.system.type "WEAPON_FIREARMS")
+	           (or (eq item.system.type "WEAPON_SPECIAL")
+			    (or (eq item.system.type "WEAPON_CLOSE_COMBAT") (eq item.system.type "WEAPON_RANGED") ))) }}
        <tr class="draggable item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
        	<td style="margin-right: 1rem"><button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
          <td><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
          <td><label class="middle-column" >{{attackrating item.system.attackRating}}</label></td>
+		 <td style="width: 20%; text-align: right; vertical-align: middle">
+			<label class="middle-column">
+				<input name="{{id}}Ammocount" type="text" value="{{item.system.ammocount}}" data-field="data.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
+			</label>
+			<a class="item-control reload-weapon" data-skill="" data-item-id="{{this.id}}" title=""><i class="fas fa-rotate-right"></i></a>
+		</td>
          <td class="skill-pool" style="width: 3em">
          	<label class="item-pool" data-skill="engineering" data-skillspec="gunnery">{{item.system.pool}}</label>
          	<a class="item-control item-roll" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
@@ -24,7 +32,9 @@
        <tr>
          <td colspan="6">
          	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}">
-        	   {{ localize 'shadowrun6.label.modifications' }} <textarea class="box" type="text"     data-item-id="{{this.id}}" data-field="system.accessories" type="text" data-dtype="Text" style="width: 25em">{{item.system.accessories}}</textarea>
+        	   {{ localize 'shadowrun6.label.modifications' }} 
+			   <textarea name="{{id}}Accessories" class="box" type="text"     data-item-id="{{this.id}}" data-field="data.accessories" type="text" data-dtype="Text" style="width: 25em">{{item.system.accessories}}</textarea>
+			   <br/>
          	{{ localize 'shadowrun6.label.firemode_current' }}
          	<select name="firemodeUsed" data-field="firemodeUsed" >
          	{{#select firemodeUsed}}
@@ -36,8 +46,8 @@
          		{{/select}}
          	</select>
 			   <br/>
-         	{{ localize 'shadowrun6.label.wilddie' }} <input class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="system.wild"     type="checkbox" data-dtype="Boolean"/><br/>
-         	{{ localize 'shadowrun6.label.poolmod' }} <input class="centered box" type="text"     data-item-id="{{this.id}}" data-field="system.modifier" type="text"     value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
+         	{{ localize 'shadowrun6.label.wilddie' }} <input name="{{id}}WildDie" class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="data.wild"     type="checkbox" data-dtype="Boolean"/><br/>
+         	{{ localize 'shadowrun6.label.poolmod' }} <input name="{{id}}Modifier" class="centered box" type="text"     data-item-id="{{this.id}}" data-field="data.modifier" type="text"     value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
          	</div>
          </td>
        </tr>

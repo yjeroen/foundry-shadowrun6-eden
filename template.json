@@ -4,7 +4,8 @@
 			"Player",
 			"NPC",
 			"Critter",
-			"Spirit"
+			"Spirit",
+			"Vehicle"
 		],
 		"templates": {
 			"attribute-template": {
@@ -233,6 +234,21 @@
 			"vehicleskill-template": {
 				"skills": {
 					"piloting": {
+						"points": 0,
+						"modifier": 0,
+						"pool": 0
+					},
+					"evasion": {
+						"points": 0,
+						"modifier": 0,
+						"pool": 0
+					},
+					"perception": {
+						"points": 0,
+						"modifier": 0,
+						"pool": 0
+					},
+					"cracking": {
 						"points": 0,
 						"modifier": 0,
 						"pool": 0
@@ -731,6 +747,7 @@
 			],
 			"type": "SOFTWARE",
 			"subtype": "AUTOSOFT",
+			"category": "", 
 			"rating": 1
 		},
 		"spell": {

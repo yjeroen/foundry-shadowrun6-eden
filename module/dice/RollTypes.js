@@ -390,17 +390,11 @@ export class MatrixActionRoll extends SkillRoll {
 }
 export class VehicleRoll extends PreparedRoll {
     rollType = RollType.Vehicle;
-    skillId;
-    skillDef;
-    skillValue;
     /**
      * @param skillVal {Skill}   The actors instance of that skill
      */
-    constructor(actor, skillId) {
+    constructor() {
         super();
-        this.skillId = skillId;
-        this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        this.skillValue = actor.skills[skillId];
     }
 }
 export class ConfiguredWeaponRollData {

@@ -101,12 +101,23 @@ export class Shadowrun6Actor extends Actor {
                 //     this._prepareItemPools();
             }
             if (actorData.type === "Vehicle") {
+                // Get owner actor
+                if (system.vehicle.belongs) {
+                    let owner = game.actors.get(system.vehicle.belongs);
+                    if (owner) {
+                        // It can happen that we pass here before the owner is fully initialized
+                        // Make sure the owner has all the skills prepared
+                        owner.prepareData();  
+                    }
+                }             
+                
                 this._prepareDerivedVehicleAttributes();
                 this._prepareVehicleActorSkills();
+                this._prepareVehicleActorItems();
             }
         }
         catch (err) {
-            console.log("SR6E | Error " + err.stack);
+            console.log(`SR6E | Error ${err.message}`, err.stack);
         }
         console.log("SR6E | Shadowrun6Actor.prepareData() ", actorData.name + " = " + actorData.type);
     }
@@ -934,45 +945,187 @@ export class Shadowrun6Actor extends Actor {
         // Modify with physical monitor
         modifier += Math.floor(system.physical.dmg / 3);
         system.vehicle.modifier = modifier;
-        system.vehicle.kmh = system.vehicle.speed * 1.2;
+        system.vehicle.kmh = Math.round(system.vehicle.speed * 1.2);
     }
     //---------------------------------------------------------
     _prepareVehicleActorSkills() {
-        const system = getSystemData(this);
-        if (!system.skills)
-            system.skills = new VehicleSkills();
-        if (!system.skills.piloting)
-            system.skills.piloting = new VehicleSkill();
-        if (!system.skills.evasion)
-            system.skills.evasion = new VehicleSkill();
-        let controllerActorId = system.vehicle.belongs;
-        if (!controllerActorId) {
-            console.log("SR6E | No actor is controlling this vehicle");
-            return;
-        }
-        console.log("SR6E | _prepareVehicleActorSkills1 ", game.actors);
-        let actor = game.actors.get(controllerActorId);
-        if (!controllerActorId) {
-            throw new Error("Controlled by unknown actor " + controllerActorId);
-        }
-        let person = getSystemData(actor);
-        console.log("SR6E | _prepareVehicleActorSkills", system.vehicle.opMode);
-        switch (system.vehicle.opMode) {
+        console.debug("SR6E | _prepareVehicleActorSkills", this);
+        const vehicleSystem = this.system;
+
+        // Prepare skills for first use
+        if(!vehicleSystem.initiative)
+            vehicleSystem.initiative = { 
+                physical: new Initiative()
+            };
+
+        if (!vehicleSystem.skills)
+            vehicleSystem.skills = new VehicleSkills();
+        if (!vehicleSystem.skills.piloting)
+            vehicleSystem.skills.piloting = new VehicleSkill();
+        if (!vehicleSystem.skills.evasion)
+            vehicleSystem.skills.evasion = new VehicleSkill();
+        if(!vehicleSystem.skills.perception)
+            vehicleSystem.skills.perception = new VehicleSkill();
+        if(!vehicleSystem.skills.cracking)
+            vehicleSystem.skills.cracking = new VehicleSkill();
+
+        if(!vehicleSystem.ar)
+            vehicleSystem.ar = new Pool();  // Attack rating (vehicle as weapon)
+        if(!vehicleSystem.dr)
+            vehicleSystem.dr = new Pool();  // Defense rating        
+        
+        switch (vehicleSystem.vehicle.opMode) {
+            case VehicleOpMode.AUTONOMOUS:
+                vehicleSystem.initiative.physical.base = vehicleSystem.pil * 2;
+                if(isNaN(vehicleSystem.initiative.physical.mod))
+                    vehicleSystem.initiative.physical.mod = 0
+                vehicleSystem.initiative.physical.pool = vehicleSystem.initiative.physical.base + vehicleSystem.initiative.physical.mod;
+
+                vehicleSystem.initiative.physical.dice = 3;
+                if(isNaN(vehicleSystem.initiative.physical.diceMod))
+                    vehicleSystem.initiative.physical.diceMod = 0
+                vehicleSystem.initiative.physical.dicePool = vehicleSystem.initiative.physical.dice + vehicleSystem.initiative.physical.diceMod;
+
+                const maneuverRating = this.getHighestAutosoftRating(this.items, "MANEUVER");
+                vehicleSystem.ar.points = maneuverRating;
+                vehicleSystem.ar.pool = vehicleSystem.ar.points + vehicleSystem.ar.mod + vehicleSystem.pil;
+
+                vehicleSystem.dr.points = maneuverRating;
+                vehicleSystem.dr.pool = maneuverRating + vehicleSystem.dr.mod + vehicleSystem.arm;
+
+                vehicleSystem.skills.piloting.points = maneuverRating;
+                vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier + vehicleSystem.pil;
+
+                vehicleSystem.skills.evasion.points = this.getHighestAutosoftRating(this.items, "EVASION");
+                vehicleSystem.skills.evasion.pool = vehicleSystem.skills.evasion.points + vehicleSystem.skills.evasion.modifier + vehicleSystem.pil;
+
+                vehicleSystem.skills.perception.points = this.getHighestAutosoftRating(this.items, "CLEARSIGHT");
+                vehicleSystem.skills.perception.pool = vehicleSystem.skills.perception.points + vehicleSystem.skills.perception.modifier + vehicleSystem.sen;
+
+                vehicleSystem.skills.cracking.points = this.getHighestAutosoftRating(this.items, "ELECTRONIC_WARFARE");
+                vehicleSystem.skills.cracking.pool = vehicleSystem.skills.cracking.points + vehicleSystem.skills.cracking.modifier + vehicleSystem.sen;
+                
+                vehicleSystem.skills.stealth.points = this.getHighestAutosoftRating(this.items, "STEALTH");
+                vehicleSystem.skills.stealth.pool = vehicleSystem.skills.stealth.points + vehicleSystem.skills.stealth.modifier + vehicleSystem.pil;
+            break;
+
             case VehicleOpMode.MANUAL:
-                console.log("SR6E |   Get MANUAL skills from ", person);
-                system.skills.piloting.points = person.skills.piloting.pool;
-                system.skills.piloting.pool = system.skills.piloting.points + system.skills.piloting.modifier;
-                system.skills.evasion.points = person.skills.piloting.pool;
-                system.skills.evasion.pool = system.skills.evasion.points + system.skills.evasion.modifier;
-                break;
             case VehicleOpMode.RIGGED_AR:
-                console.log("SR6E |   Get RIGGED_AR skills from ", person);
-                system.skills.piloting.points = person.skills.piloting.pool;
-                system.skills.piloting.pool = system.skills.piloting.points + system.skills.piloting.modifier;
-                system.skills.evasion.points = person.skills.piloting.pool;
-                system.skills.evasion.pool = system.skills.evasion.points + system.skills.evasion.modifier;
+            case VehicleOpMode.RIGGED_VR:
+                // Get owner actor
+                let owner = undefined;
+                if (vehicleSystem.vehicle.belongs) {
+                    owner = game.actors.get(vehicleSystem.vehicle.belongs);
+                }             
+
+                if (!owner) {
+                    console.log("SR6E | Controlled by unknown actor " + vehicleSystem.vehicle.belongs);
+                    return;
+                }        
+            
+                let ownerSystem = owner.system;
+                const controlRigRating = ownerSystem.controlRig ? parseInt(ownerSystem.controlRig) : 0;
+
+                const speedAndDamageModifier = vehicleSystem.vehicle.modifier; 
+
+                let ownerPilotingMod = 0;
+                if(ownerSystem.skills.piloting.specialization == vehicleSystem.vtype)
+                    ownerPilotingMod = 2;
+                else if(ownerSystem.skills.piloting.expertise == vehicleSystem.vtype)
+                    ownerPilotingMod = 3;    
+
+                const ownerPilotingPointsSpecialized = ownerSystem.skills.piloting.points + ownerPilotingMod;
+                const physicalAttribute = vehicleSystem.vehicle.opMode !== VehicleOpMode.RIGGED_VR ? "rea" : "int";
+                const opModeDependingValues = { 
+                    initiativeBase: {
+                        manual: ownerSystem.attributes["int"].pool, 
+                        riggedAR: ownerSystem.attributes["int"].base, 
+                        riggedVR: ownerSystem.attributes["int"].pool 
+                    },
+                    initiativeDicePool: { 
+                        manual: ownerSystem.initiative.physical.dicePool, 
+                        riggedAR: 1, 
+                        riggedVR: ownerSystem.initiative.matrix.dicePool 
+                    },
+                    physicalAttributeValue: {
+                        manual: ownerSystem.attributes[physicalAttribute].pool,
+                        riggedAR: ownerSystem.attributes[physicalAttribute].base,
+                        riggedVR: ownerSystem.attributes[physicalAttribute].pool
+                    }
+                };
+
+                vehicleSystem.initiative.physical.base = opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] + opModeDependingValues.initiativeBase[vehicleSystem.vehicle.opMode];
+                if(isNaN(vehicleSystem.initiative.physical.mod))
+                    vehicleSystem.initiative.physical.mod = 0
+                vehicleSystem.initiative.physical.pool = vehicleSystem.initiative.physical.base + vehicleSystem.initiative.physical.mod;
+                
+                vehicleSystem.initiative.physical.dice = opModeDependingValues.initiativeDicePool[vehicleSystem.vehicle.opMode];
+                if(isNaN(vehicleSystem.initiative.physical.diceMod))
+                    vehicleSystem.initiative.physical.diceMod = 0
+                vehicleSystem.initiative.physical.dicePool = vehicleSystem.initiative.physical.dice + vehicleSystem.initiative.physical.diceMod;
+
+                vehicleSystem.ar.points = ownerPilotingPointsSpecialized + vehicleSystem.sen;
+                vehicleSystem.ar.pool = vehicleSystem.ar.points + vehicleSystem.ar.mod;
+
+                vehicleSystem.dr.points = ownerPilotingPointsSpecialized + vehicleSystem.arm;
+                vehicleSystem.dr.pool = vehicleSystem.dr.points + vehicleSystem.dr.mod;
+
+                vehicleSystem.skills.piloting.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
+                vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier;
+
+                vehicleSystem.skills.evasion.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
+                vehicleSystem.skills.evasion.pool = vehicleSystem.skills.evasion.points + vehicleSystem.skills.evasion.modifier;
+
+                vehicleSystem.skills.perception.points = ownerSystem.skills.perception.pool;
+                vehicleSystem.skills.perception.pool = vehicleSystem.skills.perception.points + vehicleSystem.skills.perception.modifier;
+
+                vehicleSystem.skills.cracking.points = ownerSystem.skills.cracking.pool;
+                vehicleSystem.skills.cracking.pool = vehicleSystem.skills.cracking.points + vehicleSystem.skills.cracking.modifier;
+                
+                vehicleSystem.skills.stealth.points = ownerSystem.skills.stealth.pool;
+                vehicleSystem.skills.stealth.pool = vehicleSystem.skills.stealth.points + vehicleSystem.skills.stealth.modifier;
+                break;
+
+            default:
+                console.log("SR6E | Undefined VehicleOpMode", vehicleSystem.vehicle.opMode);
                 break;
         }
+    }
+
+    _prepareVehicleActorItems() {
+        console.debug("SR6E | _prepareVehicleActorItems", this);
+        const vehicleSystem = this.system;
+        const vehicleWeapons = this.items.filter(item => item.type == "gear" && isWeapon(item.system));
+        vehicleWeapons.forEach((item) => {
+            let system = item.system;
+            let gear = system;
+            if (gear.skill && gear.skill != "") {
+                switch (vehicleSystem.vehicle.opMode) {
+                    case "autonomous":
+                        const targetingRating = this.getHighestAutosoftRating(this.items, "TARGETING");
+                        gear.pool = targetingRating + vehicleSystem.sen + gear.modifier;
+                        break;
+                    case "manual":
+                    case "riggedAR":
+                    case "riggedVR":
+                        if (this.system.vehicle.belongs) {
+                            let ownerActor = game.actors.get(this.system.vehicle.belongs);
+                            if (ownerActor) {
+                                gear.pool = ownerActor._getSkillPool("engineering", "gunnery", "log")
+                                    + gear.modifier
+                                    - this.system.vehicle.modifier;
+                            } else {
+                                console.log("SR6E | Vehicle owner not found", this, vehicleSystem.vehicle.belongs);
+                            }
+                        }
+                        break;
+                    default:
+                        console.log("SR6E | Undefined VehicleOpMode", vehicleSystem.vehicle.opMode);
+                        break;
+                }
+                    
+            }
+        });
     }
     //---------------------------------------------------------
     /*
@@ -1148,7 +1301,7 @@ export class Shadowrun6Actor extends Actor {
     //---------------------------------------------------------
     _getVehicleCheckText(roll) {
         // Build test name
-        let rollName = game.i18n.localize("skill." + roll.skillId);
+        let rollName = game.i18n.localize("shadowrun6.vehicle.skill." + roll.skillId);
         if (roll.threshold && roll.threshold > 0) {
             rollName += " (" + roll.threshold + ")";
         }
@@ -1580,17 +1733,18 @@ export class Shadowrun6Actor extends Actor {
     /**
      */
     rollVehicle(roll) {
-        console.log("SR6E | rollVehicle(", roll, ")");
+        console.log("SR6E | rollVehicle", roll);
         roll.actor = this;
-        // Prepare check text
-        roll.checkText = this._getVehicleCheckText(roll);
-        roll.actionText = roll.checkText; // (game as Game).i18n.format("shadowrun6.roll.actionText.skill");
-        // Calculate pool
-        roll.pool = roll.skillValue.pool;
-        console.log("SR6E | rollVehicle(", roll, ")");
+        
+        if(roll.skillValue) {
+            roll.checkText = this._getVehicleCheckText(roll);
+            roll.pool = roll.skillValue.pool;
+        }
+        roll.actionText = roll.checkText;
         roll.allowBuyHits = true;
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
+
     }
     //---------------------------------------------------------
     /**
@@ -1742,6 +1896,29 @@ export class Shadowrun6Actor extends Actor {
     getMaxEdgeGainThisRound() {
         return 2;
     }
+
+    // Calculate autosoft ratings
+    getHighestAutosoftRating(itemList, autosoftCategory) {
+        const autosoftList = itemList.filter(item => item.type == "software" 
+            && item.system.subtype == autosoftCategory 
+            && item.system.type == "AUTOSOFT");
+
+        if(!autosoftList || autosoftList.length == 0) {
+            return 0;
+        }
+        let highestRating = autosoftList.reduce((max, cur) => 
+                                {
+                                    let c = cur.system.rating;
+                                    let m = max.system ? max.system.rating : 0;
+                                    return c > m ? c : m, autosoftList[0];
+                                })?.system.rating;
+        if(!highestRating) 
+            highestRating = 0;
+
+        return highestRating;
+    }
+    
+
     //-------------------------------------------------------------
     async importFromJSON(json) {
         console.log("SR6E | importFromJSON");

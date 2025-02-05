@@ -164,14 +164,18 @@ export class VehicleSkill {
     pool;
 }
 export class VehicleSkills {
-    piloting;
-    evasion;
-    stealth;
+    piloting = new VehicleSkill();
+    evasion = new VehicleSkill();
+    stealth = new VehicleSkill();
+    cracking = new VehicleSkill();
 }
 export class VehicleActor {
     physical = new Monitor();
     stun = new Monitor();
     edge = new Monitor();
+    initiative = {
+        physical: new Initiative()
+    };
     skills = new VehicleSkills();
     handleOn;
     handleOff;
@@ -188,4 +192,6 @@ export class VehicleActor {
     vtype;
     vehicle = new CurrentVehicle();
     notes;
+    ar = new Pool();
+    dr = new Pool();
 }

@@ -1,0 +1,37 @@
+<div class="section" style="display: inline-block; width: 100%;">
+	<!-- Header -->
+	<div class="section-head">
+		<h2 class="section-title">{{ localize 'shadowrun6.section.software.title' }}</h2>
+		<a class="item-control autosoft-create" title="{{localize 'shadowrun6.section.software.add' }}">
+			<h2 class="fas fa-plus"></h2>
+		</a>
+	</div>
+
+	<!-- Items -->
+	<table>
+		<tr>
+			<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.name' }}</th>
+			<th style="padding: 0 0px 0 5px;">{{ localize 'shadowrun6.item.category' }}</th>
+			<th style="padding: 0 0px 0 5px; width: 1em">{{ localize 'shadowrun6.label.column.rating' }}</th>
+			<th style="padding: 0 5px 0 5px; width: 3em"> </th>
+			<th style="padding: 0 5px 0 5px; width: 4rem"> </th>
+		</tr>
+		{{#each actor.items as |item id|}}
+		{{#if (eq item.type 'software')}}
+		{{#if (eq item.system.type 'AUTOSOFT')}} 
+		<tr class="draggable item" data-item-id="{{this.id}}" title="{{item.system.description}}">
+			<td title="{{item.system.description}}"><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{localize (lookup ../config.AUTOSOFT_TYPES item.system.subtype)}}</label></td>
+			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{item.system.rating}}</label></td>
+			<td class="item-controls">
+			    <td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'>
+                    <i class="fas fa-edit"></i></a> <a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'>
+                    <i class="fas fa-trash"></i></a>
+                </td>
+			</td>
+		</tr>
+		{{/if}}
+		{{/if}}
+		{{/each}}
+	</table>
+</div>

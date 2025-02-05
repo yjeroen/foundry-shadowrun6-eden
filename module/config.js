@@ -288,6 +288,24 @@ export class SR6Config {
         exotic_weapons: "skill.exotic_weapons", 
         athletics: "skill.athletics"
     };
+    SOFTWARE_TYPES = {        
+        AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
+        DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
+        HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
+        MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
+        SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
+        STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
+        TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
+        TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
+    };
+    AUTOSOFT_TYPES = {
+        CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
+        ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
+        EVASION: "shadowrun6.autosoft_types.evasion",
+        MANEUVER: "shadowrun6.autosoft_types.maneuver",
+        STEALTH: "shadowrun6.autosoft_types.stealth",
+        TARGETING: "shadowrun6.autosoft_types.targeting"
+    };
     MATRIX_INITIATIVE_TYPES = {
         ar: "shadowrun6.matrixini.ar", 
         vrcold: "shadowrun6.matrixini.vrcold",
