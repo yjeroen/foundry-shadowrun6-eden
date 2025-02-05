@@ -38,21 +38,23 @@
   		},
 	  "Item": {
    		"adeptPower": "Adeptenkraft",
-    		"complexform": "Komplexe Form",
-    		"critterPower": "Critterkraft",
-    		"contact": "Connection",
-    		"echo": "Echo",
-    		"gear": "Ausrüstung",
-    		"lifestyle": "Lebensstil",
-    		"martialartstyle": "Kampfkunststil",
-    		"martialarttech": "Kampfkunstechnik",
-    		"metamagic": "Metamagie",
-    		"quality": "Vor-/Nachteil",
-    		"ritual": "Ritual",
-    		"sin": "SIN",
-    		"skill": "Sprach-/Wissensfertigkeit",
-    		"spell": "Zauber",
-    		"weapon": "Waffe"
+      "complexform": "Komplexe Form",
+      "critterPower": "Critterkraft",
+      "contact": "Connection",
+      "echo": "Echo",
+      "focus": "Fokus",
+      "gear": "Ausrüstung",
+      "lifestyle": "Lebensstil",
+      "martialartstyle": "Kampfkunststil",
+      "martialarttech": "Kampfkunstechnik",
+      "metamagic": "Metamagie",
+      "quality": "Vor-/Nachteil",
+      "ritual": "Ritual",
+      "sin": "SIN",
+      "skill": "Sprach-/Wissensfertigkeit",
+      "software": "Software",
+      "spell": "Zauber",
+      "weapon": "Waffe"
 	  }
   },
   "attrib": {
@@ -125,6 +127,14 @@
       "haslevel": "Hat Stufe",
       "pp": "KP",
       "perLevel": "pro Stufe"
+    },
+    "autosoft_types": {
+      "clearsight": "Clearsight", 
+      "electronic_warfare": "Elektronische Kriegsführung", 
+      "evasion": "Ausweichen", 
+      "maneuver": "Manövrieren", 
+      "stealth": "Stealth", 
+      "targeting": "Zielerfassung"
     },
 	 "critterpower": {
 		"actiontitle": "Aktion",
@@ -386,6 +396,11 @@
         "BASIC_PROGRAM": "Standardprogramme",
         "RIGGER_PROGRAM": "Riggerprogramme",
         "AUTOSOFT": "Autosofts",
+        "DATASOFT": "Datensoft",
+        "MAPSOFT": "Kartensoft",
+        "SHOPSOFT": "Shopsoft",
+        "TALENTSOFT": "Talentsoft",
+        "TEACHSOFT": "Lehrsoft",
         "GROUND": "Bodendrohnen",
         "ANTHRO": "Antropomorphe Drohnen",
         "AIR": "Luftdrohnen",
@@ -490,8 +505,10 @@
       },
       "attack_rating": "Angriffswert",
       "attack_rating_short": "AW",
+      "attack_rating_using_vehicle": "Angriffswert (Fahrzeug als Waffe)",
       "attribute": "Attribut",
       "base": "Basis",
+      "belongs_to": "Gehört zu:",
       "column": {
         "action": "Aktion",
         "count": "Anz.",
@@ -506,9 +523,10 @@
       "d6": "W6",
       "damage": "Schaden",
       "damage_short": "Sch",
+      "defense": "Verteidigung",
       "defense_rating": "Verteidigungswert",
       "delete": "Löschen",
-     "device_mode": "Gerätemodus",
+      "device_mode": "Gerätemodus",
       "devRating": "Geräte-Stufe",
       "dice": "Würfel",
       "edit": "Bearbeiten",
@@ -525,6 +543,7 @@
       "level": "Hat Stufen",
       "mages": "Magier",
       "max": "Maximum",
+      "mode_of_operation": "Betriebsart",
       "modifications": "Modifikationen",
       "modifier": "Mod.",
       "name": "Name",
@@ -537,12 +556,16 @@
       "poolmod": "Pool-Modifikator",
       "programs.short": "P",
       "progSlots": "Programm-Plätze",
+      "rating": "Stufe",
       "rating1": "Stufe 1",
       "rating2": "Stufe 2",
       "rating3": "Stufe 3",
+	    "slower": "Verlangsamen",
       "soaked": "{soaked} von {threshold} Schaden widerstanden",
       "specialization": "Spezialisierung",
+      "speed_detail": "Du bewegst dich mit {speed} km/h ({speedPerTurn} Meter pro Runde). Der Modifikator für Proben beträgt {modifier}.",
       "threshold": "Schwellenwert",
+      "type": "Art",
       "value": "Wert",
       "wilddie": "Schicksalswürfel"
     },
@@ -633,6 +656,7 @@
         "language": "Unverständliches Gemurmel"
       },
       "spell": "Abrakadabra",
+      "software": "Zwielichtige Raubkopie",
       "survival": "Das Schweizer Taschenmesser",
       "vehicles": "Geile Karre",
       "weapon": "Was mit viel Wumms",
@@ -965,6 +989,9 @@
       },
       "qualities": "Vor/Nachteile",
       "qualities_add": "Hinzufügen",
+      "rigging": {
+        "title": "Rigging"
+      },
       "rituals": {
         "add": "Neues Ritual hinzufügen",
         "column.threshold": "Schwell",
@@ -985,6 +1012,10 @@
         "special": "Spezialist"
       },
       "skills.language_add": "Neue Sprache hinzufügen",
+      "software": {
+        "add": "Software hinzufügen",
+        "title": "Software"
+      },
       "spells": {
         "add": "Zauber hinzufügen",
         "column.alchemic": "Alch.",
@@ -1263,13 +1294,21 @@
     },
     "vehicle": {
       "action_label": "Handling / Fahrzeug",
+      "initiative": "Fahrzeug-Initiative",
       "mode_label": "Mode",
       "mode": {
         "manual": "Manuell",
         "riggedAR": "Reingesprungen (AR)",
         "riggedVR": "Reingesprungen (VR)",
         "rcc": "via RCC (To Do)",
-        "autonomous": "Autonom (To Do)"
+        "autonomous": "Autonom"
+      },
+      "skill": {
+        "cracking": "Cracken",
+        "evasion": "Ausweichen",
+        "perception": "Wahrnehmung",
+        "piloting": "Steuern",
+        "stealth": "Heimlichkeit"
       },
       "type": {
         "groundcraft": "Bodenfahrzeuge",

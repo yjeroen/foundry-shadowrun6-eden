@@ -28,13 +28,25 @@ export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
             allVehicleUser: this._getAllVehicleUsers()
         });
     }
+
+    getData() {
+        let data = super.getData();
+// <!-- You are moving with {speed} km/h ({speedPerTurn} Meter per turn). Your modifier for checks is {modifier}. -->
+        data.speed_info = game.i18n.format("shadowrun6.label.speed_detail", {
+                                            speed: data.actor.system.vehicle.kmh,
+                                            speedPerTurn: data.actor.system.vehicle.speed,
+                                            modifier: data.actor.system.vehicle.modifier
+                                        });
+        return data;
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
         //	   if (this.actor && this.actor.isOwner) { console.log("SR6E | is owner"); } else { console.log("SR6E | is not owner");}
         // Owner Only Listeners
         if (this.actor.isOwner) {
-            html.find(".vehicle-slower").click((ev) => this._onDecelerate(ev, html));
-            html.find(".vehicle-faster").click((ev) => this._onAccelerate(ev, html));
+            html.find(".vehicle-slower").click((ev) => this._onSpeedChange(false));
+            html.find(".vehicle-faster").click((ev) => this._onSpeedChange(true));
             html.find(".vehicleskill-roll").click(this._onRollVehicleSkillCheck.bind(this));
         }
     }
@@ -45,25 +57,17 @@ export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
         }
         return allVehicleUser;
     }
-    async _onDecelerate(event, html) {
-        console.log("SR6E | _onDecelerate");
+
+    async _onSpeedChange(acceleration) {
+        console.log("SR6E | _onSpeedChange", this);
         let system = getSystemData(this.actor);
+
         let currentSpeed = system.vehicle.speed;
-        let newSpeed = currentSpeed - (system.vehicle.offRoad ? system.accOff : system.accOn);
-        if (newSpeed < 0)
-            newSpeed = 0;
-        const field = "system.vehicle.speed";
-        await this.actor.updateSource({ [field]: newSpeed });
-    }
-    async _onAccelerate(event, html) {
-        console.log("SR6E | _onAccelerate");
-        let system = getSystemData(this.actor);
-        let currentSpeed = system.vehicle.speed;
-        let newSpeed = currentSpeed + (system.vehicle.offRoad ? system.accOff : system.accOn);
-        if (newSpeed > system.tspd)
-            newSpeed = system.tspd;
-        const field = "vehicle.speed";
-        await this.actor.updateSource({ [field]: newSpeed });
+        let speedChangeFactor = ((system.vehicle.offRoad ? system.accOff : system.accOn) / 2);
+        let newSpeed = currentSpeed + (acceleration ? speedChangeFactor : -speedChangeFactor);
+        newSpeed = Math.max(0, Math.min(newSpeed, system.tspd));
+
+        await this.actor.update({ ["system.vehicle.speed"]: newSpeed });
     }
     //-----------------------------------------------------
     /**
@@ -78,14 +82,17 @@ export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
             return;
         if (!event.currentTarget.dataset)
             return;
-        let dataset = event.currentTarget.dataset;
-        const skillId = dataset.skill;
-        let actorData = getSystemData(this.actor);
-        let vSkill = actorData.skills[skillId];
-        console.log("SR6E | Roll skill " + skillId + " with pool " + vSkill.pool + " and a threshold " + actorData.vehicle.modifier);
-        let roll = new VehicleRoll(actorData, skillId);
-        roll.threshold = actorData.vehicle.modifier;
-        console.log("SR6E | onRollSkillCheck before ", roll);
+
+        let roll = new VehicleRoll();
+        if(event.currentTarget.dataset.pool)
+            roll.pool = parseInt(event.currentTarget.dataset.pool);
+        if(event.currentTarget.dataset.threshold)
+            roll.threshold = parseInt(event.currentTarget.dataset.threshold);
+        if(event.currentTarget.dataset.caption)
+            roll.checkText = event.currentTarget.dataset.caption;
+        if(roll.threshold)
+            roll.checkText += ` (${roll.threshold})`;
+        roll.calcPool = roll.pool;
         this.actor.rollVehicle(roll);
     }
 }

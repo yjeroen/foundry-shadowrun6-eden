@@ -50,9 +50,8 @@ Hooks.once("init", async function () {
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
 
-    //TODO Fix & improve Vehicle Actor & Sheet
-    //TODO add template.json Actor.types."Vehicle"
-    // Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    //TODO Improve Vehicle Actor & Sheet
+    Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
 
     Items.registerSheet("shadowrun6-eden", SR6ItemSheet, {
         types: [
@@ -70,7 +69,8 @@ Hooks.once("init", async function () {
             "sin",
             "contact",
             "lifestyle",
-            "critterpower"
+            "critterpower",
+            "software"
         ],
         makeDefault: true
     });
