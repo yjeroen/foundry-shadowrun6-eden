@@ -1,4 +1,11 @@
 {
+  "SYSTEM": {
+    "Sidebar": {
+      "readme": "README",
+      "bugs": "Bug melden",
+      "feature": "Feature anfragen"
+    }
+  },
   "ACTOR": {
     "TypeCritter": "Critter",
     "TypeNpc"    : "Scherge/NSC",
@@ -135,11 +142,11 @@
 	  }
 	 },
     "attack_rating": {
-      "astral": "Mana Angr.W",
-      "matrix": "Matrix Angr.W",
-      "physical": "Physisch Angr.W",
-      "social": "Sozial Ang.W.",
-      "vehicle": "Fahrzeug Angr.W"
+      "astral": "Mana Angriffswert",
+      "matrix": "Matrix Angriffswert",
+      "physical": "Physisch Angriffswert",
+      "social": "Sozial Angriffswert",
+      "vehicle": "Fahrzeug Angriffswert"
     },
     "combat": {
 		"togglePhysical": "Verwende physische Initiative",
@@ -149,7 +156,6 @@
     "complexform": {
       "duration": "Dauer",
       "fading": "Schwund",
-      "none": "Kein",
       "oppAttr1": "Widerstands-Attr. 1",
       "oppAttr2": "Widerstands-Attr. 2",
       "skill": "Fertigkeit",
@@ -165,23 +171,23 @@
       "type": "Art"
     },
     "defense": {
-      "astral": "Verteidigung: Astralkampf",
+      "astral": "Astralkampf",
       "drain": "Entzug widerstehen",
       "fading": "Schwund widerstehen",
       "damage_astral": "Schadenswiderstand Astral",
       "damage_physical": "Schadenswiderstand",
-      "physical": "Verteidigung: Angriffe",
-      "spells_direct": "Vtd: Direkte K.Zauber",
-      "spells_indirect": "Vtd: Ind. K.Zauber",
-      "spells_other": "Vtd. sonstige Zauber",
+      "physical": "Angriffe",
+      "spells_direct": "Direkte Zauber",
+      "spells_indirect": "Indirekte Zauber",
+      "spells_other": "Sonstige Zauber",
       "toxin": "Toxinwiderstand"
     },
     "defense_rating": {
-      "astral": "Mana Vtd.W",
-      "matrix": "Matrix Vtd.W",
-      "physical": "Physisch Vtd.W",
-      "social": "Sozial Vtd.W",
-      "vehicle": "Fahrzeug Vtd.W"
+      "astral": "Mana Verteidigungswert",
+      "matrix": "Matrix Verteidigungswert",
+      "physical": "Physisch Verteidigungswert",
+      "social": "Sozial Verteidigungswert",
+      "vehicle": "Fahrzeug Verteidigungswert"
     },
     "derived": {
       "composure": "Sebstbeherrschung",
@@ -211,6 +217,7 @@
       "count_2_glitch": "2en zählen als Patzer für den Gegner",
       "create_special": "Rufe spez. Effekt hervor",
       "edge_action": "Edge Handlung - (1-5)",
+      "give_ally_1_edge": "Gibt einem Verbündeten 1 Edge",
       "heal_1_physic": "Heile 1 körperlichen Schaden",
       "heal_1_stun": "Heile 1 Betäubungsschaden",
       "negate_1_edge": "Negiere 1 Edge eines Gegners",
@@ -421,10 +428,10 @@
       "essence": "Essenz",
       "feature": "Merkmale",
       "firemode": {
-        "BF": "Salvenmodus",
-        "FA": "Vollautomatisch",
+        "SS": "Einzelschuss",
         "SA": "Halbautomatisch",
-        "SS": "Einzelschuss"
+        "BF": "Salvenmodus",
+        "FA": "Vollautomatisch"
       },
       "mastyle": {
         "category": {
@@ -436,12 +443,19 @@
         }
       },
       "mode": "Modus",
+      "mode_ss": "EM",
+      "mode_sa": "HM",
       "mode_bf": "SM",
       "mode_fa": "AM",
-      "mode_sa": "HM",
-      "mode_ss": "EM",
+      "mode_fa_1m": "1m Radius",
+      "mode_fa_2m": "2m Radius",
+      "mode_fa_3m": "3m Radius",
+      "mode_fa_4m": "4m Radius",
+      "mode_fa_5m": "5m Radius",
+      "mode_fa_6m": "6m Radius",
       "natural": "Nat. Panzerung",
       "physical_damage": "K",
+      "physical_special_damage": "S",
       "price": "Preis",
       "skill": "Fertigkeit",
       "skillspec": "Spezialisierung",
@@ -468,12 +482,12 @@
       "CYBERWARE": "Cyberware",
       "DRONES": "Drohnen",
       "ELECTRONICS": "Elektronik",
-      "GENETICS": "GENETICS (fehlt noch)",
-      "MAGICAL": "MAGICAL (fehlt noch)",
-      "NANOWARE": "NANOWARE (fehlt noch)",
+      "GENETICS": "Genetisch",
+      "MAGICAL": "Magisch",
+      "NANOWARE": "Nanoware",
       "SOFTWARE": "Software",
       "SURVIVAL": "Überlebensausrüstung",
-      "TOOLS": "TOOLS (fehlt noch)",
+      "TOOLS": "Werkzeuge",
       "VEHICLES": "Fahrzeuge",
       "WEAPON_CLOSE_COMBAT": "Nahkampfwaffen",
       "WEAPON_FIREARMS": "Feuerwaffen",
@@ -494,18 +508,25 @@
       "base": "Basis",
       "column": {
         "action": "Aktion",
-        "count": "Anz.",
+        "count": "#",
         "name": "Name",
-        "rating": "St."
+        "rating": "Stufe"
       },
       "attack.short": "A",
+      "attack.long": "Angriff",
       "sleaze.short": "S",
+      "sleaze.long": "Schleicher",
       "dataproc.short": "D",
+      "dataproc.long": "Datenverarbeitung",
       "firewall.short": "F",
+      "firewall.long": "Firewall",
       "devicerating.short": "DR",
+      "devicerating.long": "Geräte-Stufe",
       "d6": "W6",
       "damage": "Schaden",
       "damage_short": "Sch",
+      "defense": "Verteidigung",
+      "defense_against": "Verteidigung gegen",
       "defense_rating": "Verteidigungswert",
       "delete": "Löschen",
      "device_mode": "Gerätemodus",
@@ -526,10 +547,10 @@
       "mages": "Magier",
       "max": "Maximum",
       "modifications": "Modifikationen",
-      "modifier": "Mod.",
+      "modifier": "Modifikator",
       "name": "Name",
       "none": "-",
-      "not_present": "nicht vorhandel",
+      "not_present": "nicht vorhanden",
       "offroad": "Off-Road",
       "onroad": "Straßen",
       "points": "Punkte",
@@ -608,23 +629,28 @@
     },
     "newitem": {
       "adeptpower": "Wie heisst die Kraft",
+      "accessory": "Glänzendes etwas",
       "ammunition": "Coole Munition",
       "armor": "Das kleine Schwarze",
+      "armor_addition": "Dein Anzug benötigt ein paar Updates",
       "biology": "Biozeugs",
       "bodyware": "Was cooles zum Einbauen",
       "chemicals": "Das gute Zeug",
       "complexform": "Wie komplex ist es denn?",
-      "contact": "Na, wenn kennst du?",
+      "contact": "Na, wen kennst du?",
       "critterpower": "Was ist so besonders an dem Viech?",
       "cyberware": "Was cooles zum Einbauen",
       "drones": "Allsehendes Auge",
+	 	  "echo": "Echooooooo",
       "electronics": "Technikspielzeug",
+      "genetics": "Jeder möchte blaue Augen",
       "focus": "Jeder sollte einen Focus haben",
       "lifestyle": "Lebst du noch oder wohnst du schon?",
       "martialartstyle": "Was ist dein Stil?",
       "martialarttech": "Was für eine Technik hast du drauf?",
       "matrix": "Schau Dir mein Deck an!",
       "metamagic": "Was hast du gelernt?",
+      "nanoware": "Sieben oder auch neun kleine Maschinen",
       "quality": "Was macht dich besonders?",
       "ritual": "Ringelpiez mit Anfassen",
       "sin": "Wer willst du heute sein?",
@@ -633,7 +659,9 @@
         "language": "Unverständliches Gemurmel"
       },
       "spell": "Abrakadabra",
+      "software": "Zwielichtige Raubkopie",      
       "survival": "Das Schweizer Taschenmesser",
+      "tools": "Das eine Lieblingswerkzeug",
       "vehicles": "Geile Karre",
       "weapon": "Was mit viel Wumms",
       "weaponclose": "Etwas fürs Grobe",
@@ -774,11 +802,13 @@
         "soak": {
           "drain": "Widerstehe {damage} Entzug",
           "fading": "Widerstehe {damage} Schwund",
-          "damage_physical": "Widerstehe {damage} körperl. Schaden",
+          "damage_phys": "Widerstehe {damage} körperl. Schaden",
           "damage_stun": "Widerstehe {damage} Betäubungsschaden"
         }
       },
       "apply_damage": "Schaden anwenden",
+      "damage_applied": "Schaden angewendet",
+      "damage_revert": "Schaden rückgängig machen?",
       "ar_0": "Sehr nah",
       "ar_1": "Nah",
       "ar_2": "Mittel",
@@ -820,6 +850,8 @@
       "fa_area": "Fläche",
       "firemode": "Feuermodus",
       "failure": "Fehlschlag",
+      "failedDefense": "Du wurdest getroffen.",
+      "failedSoak": "Du erleidest Schaden",
       "glitch": "Patzer",
       "heal_apply": "Heilung wirken",
       "hits_bought": "Erfolge gekauft",
@@ -834,13 +866,17 @@
       "spec": "Spezialiszierung",
       "spell": {
         "ampUp": {
-          "1": "Schaden+1, Entzug+2",
-          "2": "Schaden+2, Entzug+4",
+          "1": "Schaden+1 / Entzug+2",
+          "2": "Schaden+2 / Entzug+4",
           "title": "Hochdrehen"
         },
         "incArea": {
-          "1": "Radius +2m, Entzug+1",
-          "2": "Radius +4m, Entzuf+2",
+          "1": "Radius +2m / Entzug+1",
+          "2": "Radius +4m / Entzug+2",
+          "3": "Radius +6m / Entzug+3",
+          "4": "Radius +8m / Entzug+4",
+          "5": "Radius +10m / Entzug+6",
+          "6": "Radius +12m / Entzug+8",
           "title": "Fläche vergrößern"
         },
         "title": "Den Zauber anpassen"
@@ -848,6 +884,9 @@
       "subject": "Chat-Nachricht",
       "success": "Erfolgreich",
       "successes": "Erfolge",
+      "netHits": "Nettoerfolge",
+      "successfulDefense": "Du konntest ausweichen",
+      "successfulSoak"   : "Du hast dem Schaden wiederstanden",
       "target": "Ziel",
       "threshold": "Schwellenwert",
       "weapon": "Wie greifst Du an?",
@@ -876,6 +915,7 @@
         },
         "title": "Panzerung"
       },
+      "armor_adds": "Panzerung Mods",
       "biology": "Biologie",
       "bodyware": {
         "add": "Body- oder Cyberware hinzufügen",
@@ -918,7 +958,7 @@
       },
       "focus": {
         "add": "Focus hinzufügen",
-        "column.rating": "St.",
+        "column.rating": "Kraft",
         "title": "Foci"
       },
       "gear" : {
@@ -945,12 +985,14 @@
       },
       "matrix_devices": {
         "add": "Neues Matrixgerät",
+        "add_rcc": "Neue Riggerkonsole hinzufügen",
         "column": {
           "action": "Aktion",
-          "devRating": "Ger.St.",
+          "devRating": "Geräte-Stufe",
           "name": "Name"
         },
-        "title": "Matrixgeräte"
+        "title": "Matrixgeräte",
+        "title_rcc": "RCC"
       },
       "metamagic": {
         "add": "Metamagie hinzufügen",
@@ -967,7 +1009,7 @@
       "qualities_add": "Hinzufügen",
       "rituals": {
         "add": "Neues Ritual hinzufügen",
-        "column.threshold": "Schwell",
+        "column.threshold": "Schwellenwert",
         "title": "Rituale"
       },
       "sins": {
@@ -1003,13 +1045,13 @@
         "column": {
           "handling": "Han",
           "acc": "Bes",
-          "spdi": "G.Int",
+          "spdi": "Int",
           "tspd": "Geschw",
-          "bod": "Rum",
-          "arm": "Pan",
-          "pil": "Pil",
-          "sen": "Sen",
-          "sea": "Sit",
+          "bod": "Rumpf",
+          "arm": "Panz.",
+          "pil": "Pil.",
+          "sen": "Sen.",
+          "sea": "Sitze",
           "vtype": "Art"
         },
         "title": "Fahrzeuge"
@@ -1033,6 +1075,10 @@
       "defaultThreshold": {
         "hint": "Definiert den Standard-Schwellenwert für Fertigkeitsproben",
         "name": "Standard-Schwellenwert"
+      },
+      "hardDiceCap": {
+        "hint": "Im Standardspiel gibt es ein Maximum von 20 Würfeln für jede Probe. Keine Kombination von Fähigkeiten, Fertigkeiten, Effekten oder Modifikationen kann dieses Limit bei einem Wurf überschreiten. <br><b>Ausnahme:</b> Durch Pre-Edging kannst du die 20-Würfel-Grenze mit den durch das Edge gewährten Bonuswürfeln überschreiten.",
+        "name": "Feste Würfelpoolbegrenzung"
       }
     },
     "sin": {
@@ -1108,7 +1154,17 @@
         "lockpicking": "Schlösserknacken",
         "nautical_mechanic": "Seefahrtmechanik"
       },
-      "exotic_weapons": {},
+      "exotic_weapons": {
+        "chainsaws": "Ketensägen",
+        "brawling": "Nahkampf",
+        "air": "Druckluftwaffen",
+        "emitter": "Energiewaffen",
+        "laser": "Laserwaffen",
+        "launchers": "Werfer",
+        "spray": "Sprüher",
+        "whips": "Peitschen",
+        "other": "Sonstige"
+      },
       "firearms": {
         "assault_cannons": "Sturmgewehre",
         "holdouts": "Holdouts",
@@ -1170,6 +1226,7 @@
       }
     },
     "spell": {
+		  "area": "Fläche",
       "category": "Kategorie",
       "category_combat": "Kampf",
       "category_detection": "Wahrnehmung",
@@ -1216,7 +1273,7 @@
       "range_touch_short": "B",
       "type": "Art",
       "type_mana": "Mana",
-      "type_mana_short": "Man",
+      "type_mana_short": "Mana",
       "type_physical": "Physisch",
       "type_physical_short": "K",
       "withEssence": "Gegen Essenz"
@@ -1275,6 +1332,27 @@
         "groundcraft": "Bodenfahrzeuge",
         "watercraft": "Wasserfahrzeuge",
         "aircraft": "Luftfahrzeuge"
+      }
+    },
+    "weapon": {
+      "damage": "Schaden",
+      "attackRating":"Angriffswert",
+      "firemodes": "Feuermodi",
+      "ammo": "Schuss"
+    },
+    "ui": {
+      "notifications": {
+        "You_are_not_owner_of_the_target": "Du bist nicht der Besitzer des Ziels.",
+        "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "Wenn du zwei Tokens anvisierst, kannst du nur \"Breite Salve\" auswählen.",
+        "Target_or_select_a_token_before_rolling": "Markiere (T) ein Ziel oder wähle ein Token vor dem Wurf.",
+        "Target_a_token_before_rolling": "Markiere (T) ein Token vor dem Wurf.",
+        "Dice_roll_evaluation_failed": "Auswertung des Würfelwurfs fehlgeschlagen.",
+        "two_targets_but_wrong_fire_mode": "Du hast zwei Ziele markiert, daher kannst du nur mit \"Breite Salve\" oder \"Vollautomatik\" feuern.",
+        "many_targets_but_not_autofire_fire_mode": "Du hast mehr als zwei Ziele markiert, daher kannst du nur im \"Vollautomatik\"-Modus feuern.",
+        "attack_with_no_AR": "Du versuchst anzugreifen, obwohl dein Angriffswert bei 0 liegt, bspw. aufgrund der Entfernung",
+        "apply_manually": "Schaden manuell anwenden.",
+        "Target_is_not_a_life_form": "Ziel ist kein Lebewesen.",
+        "do_not_revert_damage": "Überlauf in den physischen Monitor. Drehe den Schaden nicht über den Chat-Button zurück, da er nicht korrekt berechnet wird."      
       }
     }
   },
