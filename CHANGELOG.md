@@ -1,3 +1,9 @@
+## 3.0.2
+
+### Bug Fixes
+
+- (yjeroen) Bugfix on Add RCC button and new default funky name for newly created RCCs
+
 ## 3.0.1
 
 ### System Improvements
