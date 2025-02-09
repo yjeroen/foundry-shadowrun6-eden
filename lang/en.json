@@ -530,6 +530,7 @@
         "action": "Action",
         "count": "#",
         "name": "Name",
+        "nameAnimate": "Name",
         "rating": "Rating"
       },
       "attack.short": "A",
@@ -676,6 +677,7 @@
       "genetics": "Everyone wants blue eyes",
       "focus": "Something to stay focussed",
       "lifestyle": "Card board box or suite?",
+      "magical": "Mojo feathers",
       "martialartstyle": "What's your style?",
       "martialarttech": "Technique, which technique?",
       "matrix": "Check out my deck!",

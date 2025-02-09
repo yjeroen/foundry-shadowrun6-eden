@@ -1,4 +1,4 @@
-<form class="flexcol {{cssClass}}" autocomplete="off" style="min-width: 605px;">
+<form class="flexcol {{cssClass}}" autocomplete="off" style="min-width: 605px; min-width: fit-content;">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
@@ -28,7 +28,7 @@
 
                     <td style="text-align: center"><input style="vertical-align: middle;" type="checkbox" {{checked item.system.needsRating}}
                             data-field="system.needsRating" /></td>
-                    <td><input style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}}
+                    <td style="text-align: center"><input style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}}
                             data-field="system.countable" /></td>
 
                     <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered"
@@ -53,8 +53,10 @@
                 </tr>
                 {{log "shadowrun6-gear-sheet.html this=" item.system}}
                 <tr>
-                    <td style="width: 2.5em; text-align: center"><input type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" /></td>
-                    <td style="text-align: center">
+                    <td style="text-align: right">
+                        <input type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width: 2.5em;" />
+                    </td>
+                    <td style="text-align: left">
                         <select data-field="system.stun">
                             {{selectOptions config.WEAPON_STUN_OPTION selected=item.system.stun localize=true}}
                         </select>
