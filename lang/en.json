@@ -530,6 +530,7 @@
         "action": "Action",
         "count": "#",
         "name": "Name",
+        "nameAnimate": "Name",
         "rating": "Rating"
       },
       "attack.short": "A",
