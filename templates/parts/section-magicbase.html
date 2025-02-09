@@ -1,4 +1,4 @@
-<div style="display: flex; width:100%">
+<div class="section" style="display: flex; width:100%; min-width: 394px; border: none; background: none; padding-right: 0px; padding-top: 0px;">
    {{#if showMagic}}
   	<div class="attributes" style="margin-bottom: 10px; margin-top:0.4rem">
    	<div class="attribute" augmented-ui="b-clip-x exe">
@@ -16,14 +16,14 @@
 		</div>
    </div>
    {{/if}}
-		<div class="section" style="width:inherit">
+		<div class="section" style="margin-right: 0px;">
 		<table>
 			<tr>
-				<td><b>{{localize "shadowrun6.tradition.attribute"}}</b></td>
+				<td colspan="2"><b>{{localize "shadowrun6.tradition.attribute"}}</b></td>
 				<td colspan="3">
 					<select data-field="system.tradition.attribute">
-					{{selectOptions config.tradition_attributes localize="true" selected=system.tradition.attribute}}
-      			</select>
+						{{selectOptions config.tradition_attributes localize="true" selected=system.tradition.attribute}}
+      				</select>
 				</td>
 			</tr>
 			<tr>
@@ -36,22 +36,19 @@
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.attack_rating.astral' }}</b></td>
 				<td class="centered">{{system.attackrating.astral.base}}</td>
-				<td class="centered"><input class="centered" data-field="system.attackrating.astral.mod" type="text" value="{{system.attackrating.astral.mod}}" data-dtype="Number"
-				style="width: 2em"></td>
+				<td class="centered"><input class="centered" data-field="system.attackrating.astral.mod" type="text" value="{{system.attackrating.astral.mod}}" data-dtype="Number" style="width: 2em"></td>
 				<td class="centered" title="{{system.attackrating.astral.modString}}">{{system.attackrating.astral.pool}}</td>
 			</tr>
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.defense_rating.astral' }}</b></td>
 				<td class="centered">{{system.defenserating.astral.base}}</td>
-				<td class="centered"><input class="centered" data-field="system.defenserating.astral.mod" type="text" value="{{system.defenserating.astral.mod}}" data-dtype="Number"
-				style="width: 2em"></td>
+				<td class="centered"><input class="centered" data-field="system.defenserating.astral.mod" type="text" value="{{system.defenserating.astral.mod}}" data-dtype="Number" style="width: 2em"></td>
 				<td class="centered" title="{{system.defenserating.astral.modString}}">{{system.defenserating.astral.pool}}</td>
 			</tr>
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.defense.drain' }}</b></td>
 				<td class="centered">{{system.defensepool.drain.base}}</td>
-				<td class="centered"><input class="centered" data-field="system.defensepool.drain.mod" type="text" value="{{system.defensepool.drain.mod}}" data-dtype="Number"
-				style="width: 2em"></td>
+				<td class="centered"><input class="centered" data-field="system.defensepool.drain.mod" type="text" value="{{system.defensepool.drain.mod}}" data-dtype="Number" style="width: 2em"></td>
 				<td class="centered" title="{{system.defensepool.drain.modString}}">{{system.defensepool.drain.pool}}</td>
 				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.drain.pool}}" data-item-id="drain"><i class="fas fa-dice-six"></i></a></td>
 			</tr>

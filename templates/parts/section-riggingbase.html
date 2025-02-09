@@ -1,4 +1,4 @@
-<div class="section" style="display: inline-block; width:39%;">
+<div class="section" style="display: inline-block; width:39%; min-width: 310px;">
 	<div class="section-head">
      <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_devices.title_rcc' }}</h2>
 	 <a class="item-control rcc-create" title="{{localize 'shadowrun6.section.matrix_devices.add_rcc' }}"><h2 class="fas fa-plus"></h2></a>
@@ -32,7 +32,7 @@
 		{{#if (eq item.system.subtype "RIGGER_CONSOLE") }}
       <tr class="draggable item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
        	<td style="margin-right: 1rem"><button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}"></button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
-         <td><label class="middle-column" >{{item.system.devRating}}</label></td>
+         <td class="centered"><label class="middle-column" >{{item.system.devRating}}</label></td>
          <td class="centered">{{item.system.d}}</td>
          <td class="centered">{{item.system.f}}</td>
 			<td class="centered">
