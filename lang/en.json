@@ -107,6 +107,7 @@
       "actions": "Actions",
       "actions_major": "Major",
       "actions_minor": "Minor",
+      "editable": "Editable",
       "initiative": "Initiative",
       "initiative_astral": "Astral Initiative",
       "metatype": "Metatype",
@@ -1002,7 +1003,8 @@
         "title" : "Karma, Heat, Reputation",
         "karma" : "Karma",
         "heat"  : "Heat",
-        "reputation": "Reputation"
+        "reputation": "Reputation",
+        "total": "Total"
       },
       "lifestyles" : {
         "add": "Add new lifestyle",
