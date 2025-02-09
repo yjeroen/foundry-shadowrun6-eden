@@ -109,6 +109,7 @@
 			"actions": "Действия",
 			"actions_major": "Сложное",
 			"actions_minor": "Простое",
+			"editable": "Редактирование",
 			"initiative": "Инициатива",
 			"initiative_astral": "Инициатива в астрале",
 			"metatype": "Метатип",
@@ -1005,7 +1006,8 @@
 				"title" : "Карма, Розыск, Репутация",
 				"karma" : "Карма",
 				"heat"  : "Розыск",
-				"reputation": "Репутация"
+				"reputation": "Репутация",
+				"total": "Итого"
 			},
 			"lifestyles" : {
 				"add": "Добавить уровень жизни",
