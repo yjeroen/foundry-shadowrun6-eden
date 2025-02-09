@@ -1,3 +1,26 @@
+## 3.0.2
+
+### Bug Fixes
+
+- (yjeroen) Bugfix on Add RCC button and new default funky name for newly created RCCs
+
+## 3.0.1
+
+### System Improvements
+
+-   (yjeroen) Added optional rule for Hard Dice Cap (20) and edge coin in roll dial
+
+### Bug Fixes
+
+- (yjeroen) Fix system.json link and shield badge in README
+- (yjeroen) Added Athletics (Free Fall) specialization (#11)
+- (yjeroen) Added add button for RCC's (#8)
+
+### Data Updates
+
+-   (TheFokin) Added Russian translation
+-   (raketenhunddev) Updated German translation
+
 ## 3.0.0
 
 ### System Improvements

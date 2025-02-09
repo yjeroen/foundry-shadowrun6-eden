@@ -13,7 +13,7 @@ export class SR6ItemSheet extends ItemSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["shadowrun6", "sheet", "item"],
-            width: 590
+            width: 605
         });
     }
     get template() {

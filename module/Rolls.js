@@ -97,6 +97,7 @@ async function _showRollDialog(data) {
         }
         
         data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool; 
+        data.checkHardDiceCap();
 
         // Render modal dialog
         let template = "systems/shadowrun6-eden/templates/dialog/configurable-roll-dialog.html";
@@ -186,9 +187,9 @@ async function _showRollDialog(data) {
 }
 async function _dialogClosed(type, form, prepared, dialog, configured) {
     console.log("SR6E | ENTER _dialogClosed(type=" + type + ")##########");
-    console.log("SR6E | dialogClosed: prepared=", prepared);
+    console.log("SR6E | dialogClosed: prepared=", prepared, prepared.calcDamage);
     configured.updateSpecifics(prepared);
-    console.log("SR6E | dialogClosed: configured=", configured);
+    console.log("SR6E | dialogClosed: configured=", configured, configured.calcDamage);
     if (prepared.rollType == "weapon") {
     }
     /* Check if attacker gets edge */
@@ -215,7 +216,7 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             if (configured.edgeBoost && configured.edgeBoost != "none") {
                 console.log("SR6E | Edge Boost selected: " + configured.edgeBoost);
                 if (configured.edgeBoost === "edge_action") {
-                    //TODO: handle edge action on roll
+                    //TODO: handle edge action and costs on roll
                     console.log("SR6E | ToDo: handle edge action");
                 }
                 else {
@@ -256,11 +257,14 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             let sustMod = (form.useSustainedSpellModifier.checked && prepared.actor) ? prepared.actor.getSustainedSpellsModifier() : 0;
             configured.pool = +base + +mod + -woundMod + -sustMod;
             prepared.calcPool = configured.pool;
+            
+            prepared.checkHardDiceCap();
             /* Check for a negative pool! Set to 0 if negative so the universe doesn't explode */
             if (configured.pool < 0)
                 configured.pool = 0;
             /* Build the roll formula */
             formula = createFormula(configured, dialog);
+            configured.pool = configured.checkHardDiceCap(configured.pool);
         }
         console.log("SR6E | _dialogClosed: ", formula);
         // Execute the roll
@@ -283,6 +287,7 @@ function createFormula(roll, dialog) {
     console.log("SR6E | --modifier = " + dialog.modifier);
     dialog.modifier = 0;
     let regular = +(roll.pool ? roll.pool : 0) + (dialog.modifier ? dialog.modifier : 0);
+    regular = roll.checkHardDiceCap(regular);   // adding edgePoolIgnoringCap
     let wild = 0;
     if (roll.useWildDie > 0) {
         regular -= roll.useWildDie;

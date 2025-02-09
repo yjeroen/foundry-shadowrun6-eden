@@ -1,0 +1,1380 @@
+{
+	"Shadowrun6ActorSheetNPC": "Bla",
+	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Пешка/Персонаж ведущего",
+  "SYSTEM": {
+    "Sidebar": {
+      "readme": "Инфо",
+      "bugs": "Сообщить об ошибке",
+      "feature": "Запрос функционала"
+    }
+  },
+	"ACTOR": {
+		"TypeCritter": "Существо",
+		"TypeNpc": "Пешка/Персонаж ведущего",
+		"TypePlayer": "Персонаж игрока",
+		"TypeSpirit": "Дух",
+		"TypeVehicle": "Транспортное средство/дрон"
+	},
+	"ITEM": {
+		"TypeAdeptpower": "Способность адепта",
+		"TypeCritterpower": "Способность существа",
+		"TypeComplexform": "Сложная форма",
+		"TypeContact": "Знакомство",
+		"TypeEcho": "Отголосок",
+		"TypeGear": "Снаряжение",
+		"TypeLifestyle": "Уровень жизни",
+		"TypeMartialartstyle": "Стиль боевого искусства",
+		"TypeMartialarttech": "Техника боевого искусства",
+		"TypeMetamagic": "Метамагия",
+		"TypeQuality": "Качество",
+		"TypeRitual": "Ритуал",
+		"TypeSin": "ГРЕХ",
+		"TypeSkill": "Язык/Знание",
+		"TypeSpell": "Заклинание",
+		"TypeWeapon": "Оружие",
+		"TypeFocus": "Источник",
+		"TypeSoftware": "Программа"
+	},
+	"QUALITY_CATEGORIES": {
+		"ADVANTAGE": "Достоинство",
+		"DISADVANTAGE": "Недостаток"
+	},
+	"TYPES":{
+		"Actor": {
+    		"Critter": "Существо",
+    		"NPC": "Пешка/Персонаж ведущего",
+    		"Player": "Персонаж игрока",
+    		"Spirit": "Дух",
+    		"Vehicle": "Транспортное средство/дрон"
+  		},
+  		"Item": {
+    		"adeptpower": "Способность адепта",
+    		"critterpower": "Способность существа",
+    		"complexform": "Сложная форма",
+    		"contact" : "Знакомство",
+    		"echo": "Отголосок",
+    		"gear": "Снаряжение",
+    		"lifestyle" : "Уровень жизни",
+    		"martialartstyle": "Стиль боевого искусства",
+    		"martialarttech": "Техника боевого искусства",
+    		"metamagic": "Метамагия",
+    		"quality": "Качество",
+    		"ritual": "Ритуал",
+    		"sin" : "ГРЕХ",
+    		"skill": "Язык/Знание",
+    		"spell": "Заклинание",
+    		"weapon": "Оружие",
+			"focus": "Источник"
+  	}
+  },
+	"attrib": {
+		"agi": "Проворство",
+		"agi_short": "ПРО",
+		"bod": "Тело",
+		"bod_short": "ТЕЛ",
+		"cha": "Харизма",
+		"cha_short": "ХАР",
+		"dr": "Значение защиты",
+		"dr_short": "ЗЗ",
+		"edg": "Преимущество",
+		"edg_short": "ПРЕ",
+		"ess": "Сущность",
+		"ess_short": "СУЩ",
+		"ini": "Инициатива",
+		"ini_short": "ИНИ",
+		"inia": "Инициатива в астрале",
+		"inia_short": "А. ИНИ",
+		"inim": "Инициатива в Матрице",
+		"inim_short": "М. ИНИ",
+		"int": "Интуиция",
+		"int_short": "ИНТ",
+		"log": "Логика",
+		"log_short": "ЛОГ",
+		"mag": "Магия",
+		"mag_short": "МАГ",
+		"rea": "Реакция",
+		"rea_short": "РЕА",
+		"res": "Резонанс",
+		"res_short": "РЕЗ",
+		"str": "Сила",
+		"str_short": "СИЛ",
+		"wil": "Воля",
+		"wil_short": "ВОЛ"
+	},
+	"label.skill": "Навык",
+	"section.attributes": "Характеристики",
+	"shadowrun6": {
+		"actor": {
+			"actions": "Действия",
+			"actions_major": "Сложное",
+			"actions_minor": "Простое",
+			"initiative": "Инициатива",
+			"initiative_astral": "Инициатива в астрале",
+			"metatype": "Метатип",
+			"name": "Имя",
+			"nav": {
+				"basics": "Основные сведения",
+				"biography": "Биография",
+				"combat": "Бой",
+				"description": "Описание",
+				"equip": "Обмундирование",
+				"input": "Ввод",
+				"magic": "Магия",
+				"matrix": "Матрица",
+				"overview": "Обзор",
+				"skills": "Навыки",
+				"vehicles": "Транспортные средства"
+			},
+			"skills": "Навыки",
+			"spells": "Заклинания"
+		},
+		"adeptpower": {
+			"activation": "Активация",
+			"activation_major": "Сложное действие",
+			"activation_minor": "Простое действие",
+			"activation_passive": "Пассивная",
+			"cost": "Стоимость",
+			"haslevel": "Есть уровни",
+			"pp": "ОС",
+			"perLevel": "за уровень"
+		},
+		"critterpower": {
+			"actiontitle": "Действие",
+			"action": {
+				"auto": "Автоматическое",
+				"major": "Сложное",
+				"minor": "Простое"
+			}
+		},
+		"attack_rating": {
+			"astral": "Знач. астр. атаки",
+			"matrix": "Знач. матр. атаки",
+			"physical": "Знач. физ. атаки",
+			"social": "Знач. соц. атаки",
+			"vehicle": "Знач. транс. атаки"
+		},
+		"combat": {
+			"togglePhysical": "Исп. физ. инициативу",
+			"toggleMatrix": "Исп. матр. инициативу",
+			"toggleAstral": "Исп. астр. инициативу"
+		},
+		"complexform": {
+			"duration": "Длительность",
+			"fading": "Значение угасания",
+			"none": "Нет",
+			"oppAttr1": "Противостоящ. хар. 1",
+			"oppAttr2": "Противостоящ. хар. 2",
+			"skill": "Характеристика",
+			"threshold": "Порог"
+		},
+		"contact": {
+			"rating_short": "Рейт.",
+			"rating": "Рейтинг",
+			"loyalty": "Лояльность",
+			"loyalty_short": "Лоя.",
+			"favors": "Услуги",
+			"favors_short": "Усл.",
+			"type": "Тип"
+		},
+		"defense": {
+			"astral": "Защита: бой в астрале",
+			"drain": "Сопротивление истощению",
+			"fading": "Сопротивление угасанию",
+			"damage_astral": "Сопротивление астр. урону",
+			"damage_physical": "Сопротивление физ. урону",
+			"physical": "Защита: Атаки",
+			"spells_direct": "Защита: Заклинания пр. дей.",
+			"spells_indirect": "Защита: Заклинания кос. дей.",
+			"spells_other": "Защита: Проч. заклинания",
+			"toxin": "Сопротивление токсинам"
+		},
+		"defense_rating": {
+			"label": "Значение защиты",
+			"astral": "Знач. астр. защиты",
+			"matrix": "Знач. матр. защиты",
+			"physical": "Знач. физ. защиты",
+			"social": "Знач. соц. защиты",
+			"vehicle": "Знач. транс. защиты"
+		},
+		"derived": {
+			"composure": "Самообладание",
+			"defense_rating": "Значение защиты",
+			"judge_intentions": "Проницательность",
+			"lift_carry": "Поднятие тяжестей",
+			"memory": "Память",
+			"matrix_perception": "Внимание в Матрице",
+			"heal": {
+				"physical": "Физическое лечение",
+				"stun": "Умственное лечение"
+			}
+		},
+		"edge_action": {
+			"anticipation": "Загнать в угол",
+			"big_speech": "Высокопарно изъясниться",
+			"bring_the_drama": "Привнести драмы",
+			"called_shot_disarm": "Метко попасть и разоружить",
+			"called_shot_vitals": "Метко попасть в жизненно важную часть",
+			"fire_from_cover": "Стрелять из укрытия",
+			"knockout_blow": "Вырубить ударом",
+			"shank": "Пырнуть"
+		},
+		"edge_boost": {
+			"add_edge_pool": "Добавить преимущество к набору кубиков",
+			"buy_auto_hit": "Добавить 1 успех",
+			"count_2_glitch": "Считать двойки противника за сбои",
+			"create_special": "Придумать собственный поворот событий",
+			"edge_action": "Использовать действие преимущества - (1-5)",
+			"give_ally_1_edge": "Дать 1 очко преимущества союзнику",
+			"heal_1_physic": "Вылечить 1 физический урон",
+			"heal_1_stun": "Вылечить 1 оглушающий урон",
+			"negate_1_edge": "Убрать 1 очко преимущества у противника",
+			"plus_1_roll": "+1 к значению на любом из кубиков",
+			"plus_3_ini": "Добавить 3 к своему показателю инициативы",
+			"reroll_failed": "Перебросить все неуспехи",
+			"reroll_one": "Перебросить один кубик"
+		},
+		"gear": {
+			"subtype": {
+				"ACCESSORY": "Модификации",
+				"AMMUNITION": "Патроны",
+				"ARMOR_BODY": "Броня",
+				"ARMOR_SOCIAL": "Армированная одежда",
+				"ARMOR_CLOTHES": "Обычная одежда",
+				"ARMOR_HELMET": "Шлемы",
+				"ARMOR_SHIELD": "Щиты",
+				"ASSAULT_CANNON": "Штурмовые пушки",
+				"ATVS": "Мотовездеходы",
+				"AUDIO": "Аудиоустройства",
+				"AUDIO_ENHANCEMENT": "Звуковые усиления",
+				"BIKES": "Мотоциклы",
+				"BIOTECH": "Биотехнологии",
+				"BIOWARE_COSMETICS": "Косметические биоимпланты",
+				"BIOWARE_CULTURED": "Культивированные биоимпланты",
+				"BIOWARE_STANDARD": "Обычные биоимпланты",
+				"BIOWARE_IMPLANT_WEAPON": "Биоимплантное оружие",
+				"BLADES": "Клинки",
+				"BOATS": "Лодки",
+				"BOWS": "Луки",
+				"BREAKING": "Устройства взлома",
+				"BTL": "Жучки",
+				"CANNONS_LAUNCHERS": "Пушки и пусковые установки",
+				"CARS": "Автомобили",
+				"CLOSE_COMBAT": "Ближний бой",
+				"CLUBS": "Дробящее оружие",
+				"COMMLINK": "Коммуникаторы",
+				"COMMUNICATION": "Передача данных и контрмеры",
+				"CROSSBOWS": "Арбалеты",
+				"CYBER_BODYWARE": "Телесные импланты",
+				"CYBER_COSMETICS": "Косметические импланты",
+				"CYBER_EARWARE": "Ушные импланты",
+				"CYBER_EYEWARE": "Глазные импланты",
+				"CYBER_HEADWARE": "Церебральные имплатны",
+				"CYBER_IMPLANT_WEAPON": "Киберимплатное оружие",
+				"CYBER_LIMB_ACCESSORY": "Аксессуары для киберконечностей",
+				"CYBER_LIMB_ENHANCEMENT": "Усилители киберконечностей",
+				"CYBER_LIMBS": "Киберконечности",
+				"CYBERDECK": "Кибердеки",
+				"CYBERJACK": "Киберразъёмы",
+				"DRUGS": "Наркотики",
+				"ELECTRONIC_ACCESSORIES": "Аксессуары для электроники",
+				"EXPLOSIVES": "Взрывчатка",
+				"FIREARMS": "Огнестрельное оружие",
+				"FIREARMS_ACCESSORY": "Модификации для оружия",
+				"FIXED_WING": "ЛА с неподвижным крылом",
+				"FOCI_ENCHANTING": "Зачаровывающие",
+				"FOCI_METAMAGIC": "Метамагические источники",
+				"FOCI_POWER": "Источники силы",
+				"FOCI_QI": "Источники Ци",
+				"FOCI_SPELL": "Заклинательные",
+				"FOCI_SPIRIT": "Духовные источники",
+				"FOCI_WEAPON": "Оружейные источники",
+				"GENOM_CHANGES": "Изменения генома",
+				"EXOTIC_METAGENETICS": "Экзотическая метагенетика",
+				"MICRO_ENVIRONADAPT": "Микроадаптации к среде",
+				"COMPLEMENTAL_GENETICS": "Дополнительная генетика",
+				"GRAPPLE_GUN": "Пистолет с кошкой",
+				"GRAV": "Транспорт на гравидвигателе",
+				"GRENADES": "Гранаты",
+				"GRENADES_MINI": "Минигранаты",
+				"HOLDOUTS": "Карманные пистолеты",
+				"HOVERCRAFT": "Судно на воздушной подушке",
+				"ID_CREDIT": "Документы и кредиты",
+				"IMAGING": "Отображение",
+				"INDUSTRIAL_CHEMICALS": "Промышленные химикаты",
+				"INSTRUMENT": "Инструменты",
+				"INSTRUMENT_ACCESSORY": "Аксессуары к инструментам",
+				"LARGE_DRONES": "Большие дроны",
+				"LAUNCHERS": "Пусковые установки",
+				"LAV": "Низколетящие летательные аппараты",
+				"LTAV": "Летательные аппараты легче воздуха",
+				"LIVING_PERSONA": "Живой аватар",
+				"MACHINE_GUNS": "Пулемёты",
+				"MACHINE_PISTOLS": "Автоматические пистолеты",
+				"MAGICAL_FORMULA": "Магические формулы",
+				"MAGIC_SUPPLIES": "Магические товары",
+				"MICRODRONES": "Микродроны",
+				"MINIDRONES": "Мини-дроны",
+				"MEDIUM_DRONES": "Средние дроны",
+				"PREPARATION": "Субстанции",
+				"PREPARATION_EXTENDED": "Субстанции (повышенной эффективности)",
+				"MISSILES": "Ракеты",
+				"MODIFICATION": "Модификации",
+				"MOD_LAYOUT": "Модификации расстановки",
+				"MOD_CORE": "Основные модификации",
+				"MOD_TIRES": "Покрышки",
+				"MOD_HANDLING": "Модификации управления",
+				"MOD_TRAILER": "Прицепы и люльки",
+				"MOD_INTERIOR": "Модификации посадочных и грузовых мест",
+				"MOD_CARGO": "Модификации ГФ",
+				"MOD_FORM": "Формы",
+				"MOD_ARMOR": "Основа",
+				"MOD_ELEMENTS": "Элементы",
+				"MOD_ACC": "Модификации ускорения",
+				"MOD_EFFICIENCY": "Модификации эффективности",
+				"MOD_SPEED": "Модификации скорости",
+				"MOD_COAT": "Покрытия из электронной кожи",
+				"MOD_MISC": "Различные электронные модификации",
+				"MOD_PILOT": "Модификации пилотирования",
+				"MOD_MOUNT": "Станки для оружия",
+				"MOD_RACK": "Гнёзда для дронов",
+				"MOD_OTHERS": "Прочие модификации",
+				"MOD_PROPULSION": "Дополнительные системы ускорения",
+				"NANOWARE_HARD": "Тезнические нанокибернетические системы",
+				"NANOWARE_SOFT": "Программные нанокибернетические системы",
+				"NANO_CYBERWARE": "Нанокибернетические импланты",
+				"NANOTECH_EQUIPMENT": "Снаряжение с нанотехнологиями",
+				"OPTICAL": "Оптические устройства",
+				"OTHER_PROGRAMS": "Прочие программы",
+				"OTHER_CLOSE": "Прочее оружие ближнего боя",
+				"OTHER_SPECIAL": "Особое оружие",
+				"PISTOLS_HEAVY": "Тяжёлые пистолеты",
+				"PISTOLS_LIGHT": "Лёгкие пистолеты",
+				"PROJECTILES": "Метательное оружие/Снаряды",
+				"RFID": "RFID-метки",
+				"#RIFLES": "Винтовки",
+				"RIFLE_ASSAULT": "Штурмовые винтовки",
+				"RIFLE_HUNTING": "Охотничьи винтовки",
+				"RIFLE_SNIPER": "Снайперские винтовки",
+				"RIGGER_CONSOLE": "Консоль риггера",
+				"ROCKETS": "Ракетные снаряды",
+				"ROTORCRAFT": "Винтокрылые ЛА",
+				"SECURITY": "Охранные устройства",
+				"SENSOR": "Сенсоры",
+				"SENSOR_HOUSING": "Гнёзда для сенсоров",
+				"SHOTGUNS": "Дробовики",
+				"SKILLSOFT": "Софт навыка",
+				"SLAP_PATCHES": "Пластыри",
+				"SMALL_DRONES": "Маленькие дроны",
+				"SOFTWARE": "Программы",
+				"SNIPER_RIFLES": "Снайперские винтовки",
+				"SPACECRAFT": "Космолёты",
+				"SPECIAL_WEAPONS": "Особое оружие",
+				"SUBMACHINE_GUNS": "Пистолеты-пулемёты",
+				"SUBMARINES": "Подводные лодки",
+				"SURVIVAL_GEAR": "Снаряжение для выживания",
+				"SYMBIONTS": "Симбионты",
+				"TAC_NET": "Тактическая сеть",
+				"TASERS": "Шокеры",
+				"THROWERS": "Разбрызгиватели",
+				"THROWING": "Метательное оружие",
+				"TRANSGENETICS": "Трансгенетика",
+				"TACNET_PROGRAM": "Программа тактической сети",
+				"TOOLS": "Инструменты",
+				"PLACEHOLDERS": "Стандартные товары",
+				"TOXINS": "Токсины",
+				"TRUCKS": "Пикапы",
+				"TRACKED": "Отслеживаемые ТС",
+				"SPECIAL_VEHICLES": "Особые транспортные средства",
+				"UNARMED": "Рукопашная",
+				"VANS": "Фургоны",
+				"VEHICLE_ACCESSORY": "Модификации транспортных средства",
+				"VISION_ENHANCEMENT": "Визуальные устройства",
+				"VTOL": "СВВП/СУВП",
+				"WALKER": "Шагоходы",
+				"WEAPON_SECURITY": "Опции оружейной безопасности",
+				"WHIPS": "Хлысты",
+				"LMG": "Лёгкие пулемёты",
+				"MMG": "Средние пулемёты (мин. сила 3)",
+				"HMG": "Тяжёлые пулемёты (мин. сила 5)",
+				"HACKING_PROGRAM": "Программы взлома",
+				"BASIC_PROGRAM": "Базовые программы",
+				"RIGGER_PROGRAM": "Программы риггера",
+				"AUTOSOFT": "Автософт",
+				"GROUND": "Наземные дроны",
+				"ANTHRO": "Антропоморфные дроны",
+				"AIR": "Воздушные дроны",
+				"AQUATIC": "Водные дроны",
+				"AMMO_TASER": "Шокер",
+				"AMMO_LIGHT": "Карманный пистолет/Лёгкий пистолет/Автоматический пистолет",
+				"AMMO_HEAVY": "Тяжёлый пистолет/Пистолет-пулемёт",
+				"AMMO_RIFLES": "Винтовка",
+				"AMMO_DARTS": "Инъекционный дротик",
+				"AMMO_CANNONS": "Штурмовая пушка",
+				"AMMO_DMSO": "ДМСО",
+				"AMMO_MACHINE_GUN": "Пулемёт",
+				"AMMO_INJECTION_BOLT": "Инъекционная стрела",
+				"AMMO_BOLT": "Арбалетная стрела"
+			}
+		},
+		"initiative": {
+			"astral": "В астрале",
+			"physical": "Обычная",
+			"matrix": "В Матрице"
+		},
+		"item": {
+			"accessories": "Аксессуары/Модификации",
+			"strWeapon": "Использует Силу",
+			"ammunition": "Боезапас",
+			"attackvalues": "Знач. атаки",
+			"availability": "Доступ.",
+			"capacity": "Ёмкость",
+			"category": "Категория ",
+			"damage": "Сила урона",
+			"defencerating": "Знач. защиты",
+			"description": "Описание",
+			"essence": "Сущность",
+			"feature": "Особенности",
+			"firemode": {
+				"BF": "Длинная очередь",
+				"FA": "Непрерывный огонь",
+				"SA": "Короткая очередь",
+				"SS": "Одиночный выстрел"
+			},
+			"mastyle": {
+				"category": {
+					"grappling": "Захваты",
+					"mobility": "Подвижность",
+					"ranged": "На расстоянии",
+					"striking": "Удары",
+					"weapon": "С оружием"
+				}
+			},
+			"mode": "Режимы",
+			"mode_ss": "ОВ",
+			"mode_sa": "КО",
+			"mode_bf": "ДО",
+			"mode_fa": "НО",
+			"mode_fa_1m": "Радиус 1 м",
+			"mode_fa_2m": "Радиус 2 м",
+			"mode_fa_3m": "Радиус 3 м",
+			"mode_fa_4m": "Радиус 4 м",
+			"mode_fa_5m": "Радиус 5 м",
+			"mode_fa_6m": "Радиус 6 м",
+			"natural": "Ест. броня",
+			"physical_damage": "Ф",
+			"physical_special_damage": "О",
+			"price": "Стоимость",
+			"skill": "Навык",
+			"skillspec": "Специализация",
+			"social": "Социальный",
+			"stun_damage": "О",
+			"subtype": "Подтип",
+			"type": "Тип",
+			"vehicle": {
+				"armor.long": "Броня",
+				"armor.short": "Б",
+				"rigRating.long": "Модуль контроля",
+				"sensor.long": "Сенсор",
+				"sensor.short": "С"
+			}
+		},
+		"itemtype": {
+			"ACCESSORY": "Модификации",
+			"AMMUNITION": "Боеприпасы",
+			"ARMOR": "Броня",
+			"ARMOR_ADDITION": "Модификации брони",
+			"BIOLOGY": "Биотехнологии",
+			"BIOWARE": "Биоимпланты",
+			"CHEMICALS": "Химикаты",
+			"CYBERWARE": "Киберимпланты",
+			"DRONES": "Дроны",
+			"ELECTRONICS": "Электроника",
+			"GENETICS": "ГЕНЕТИКА",
+			"MAGICAL": "Волшебные",
+			"NANOWARE": "НАНОТЕХНОЛОГИИ",
+			"SOFTWARE": "Программа",
+			"SURVIVAL": "Снаряжение для выживания",
+			"TOOLS": "Инструменты",
+			"VEHICLES": "Транспортные средства",
+			"WEAPON_CLOSE_COMBAT": "Оружие, ближний бой",
+			"WEAPON_FIREARMS": "Оружие, огнестрельное",
+			"WEAPON_RANGED": "Оружие, метательное",
+			"WEAPON_SPECIAL": "Оружие, особое"
+		},
+		"label": {
+			"accessories": "Аксессуары",
+			"adepts": "Адепты",
+			"action": "Действие",
+			"actionduration": {
+				"minor.short": "Пр.",
+				"major.short": "Сл."
+			},
+			"attack_rating": "Значение атаки",
+			"attack_rating_short": "ЗА",
+			"attribute": "Характеристика",
+			"base": "Баз.",
+			"column": {
+				"action": "Действие",
+				"count": "Счёт.",
+				"name": "Имя",
+				"rating": "Ртг."
+			},
+			"attack.short": "П",
+			"attack.long": "Проникновение",
+			"sleaze.short": "У",
+			"sleaze.long": "Ускользание",
+			"dataproc.short": "ВМ",
+			"dataproc.long": "Вычислительная мощность",
+			"firewall.short": "СЭ",
+			"firewall.long": "Сетевой экран",
+			"devicerating.short": "РУ",
+			"devicerating.long": "Рейтинг устройства",
+			"d6": "D6",
+			"damage": "Урон",
+			"damage_short": "Урн",
+			"defense": "Защита",
+			"defense_against": "Защита против",
+			"defense_rating": "Значение защиты",
+			"delete": "Удалить",
+			"device_mode": "Режим устройства",
+			"devRating": "Ртг. устройства",
+			"dice": "Кубики",
+			"edit": "Редактировать",
+			"expertise": "Мастерство",
+			"extended_test": "Продолжительная проверка",
+			"faster": "Ускорить",
+			"features": "Особенности",
+			"firemode_current": "Текущий режим",
+			"firemodes": "Режимы",
+			"force": "Мощь",
+			"gender": "Пол",
+			"legality.illegal.short": "З",
+			"legality.legal.short": "Н",
+			"level": "Есть уровни",
+			"mages": "Маги",
+			"max": "Максимум",
+			"modifications": "Модификации",
+			"modifier": "Изм.",
+			"name": "Название",
+			"none": "-",
+			"not_present": "отсутствует",
+			"offroad": "Бездорожье",
+			"onroad": "На дороге",
+			"points": "Очки",
+			"pool": "Набор",
+			"poolmod": "Модификатор набора",
+			"programs.short": "П",
+			"progSlots": "Ячейки прог.",
+			"rating1": "Рейтинг 1",
+			"rating2": "Рейтинг 2",
+			"rating3": "Рейтинг 3",
+			"soaked": "Выдержано {soaked} из {threshold} урона",
+			"slower": "Затормозить",
+			"specialization": "Специализация",
+			"threshold": "Порог",
+			"value": "Значение",
+			"wilddie": "Дикий кубик"
+		},
+		"lifestyle": {
+			"cost": "Стоимость",
+			"paid": "Оплачено",
+			"type": "Тип",
+			"sin": "Привязанный ГРЕХ",
+			"street": "Уличный босяк",
+			"squatter": "Сквоттер",
+			"low": "Беднота",
+			"middle": "Средний класс",
+			"high": "Богач",
+			"luxury": "Элита"
+		},
+		"matrixaction": {
+			"backdoor_entry": "Войти через бэкдор",
+			"brute_force": "Брутфорс",
+			"change_icon": "Сменить образ",
+			"check_os": "Проверить ПН",
+			"control_device": "Контролировать устройство",
+			"crack_file": "Взломать файл",
+			"crash_program": "Остановить программу",
+			"data_spike": "Инфошип",
+			"disarm_data_bomb": "Обезвредить инфобомбу",
+			"edit_file": "Редактировать файл",
+			"encrypt_file": "Зашифровать файл",
+			"enter_host": "Войти на сервер",
+			"erase_matrix_signature": "Стереть след в Матрице",
+			"format_device": "Форматировать устройство",
+			"full_matrix_defense": "Полная защита в Матрице",
+			"hash_check": "Найти хеш",
+			"hide": "Спрятаться",
+			"jack_out": "Отключиться",
+			"jam_signals": "Сгенерировать помехи",
+			"jump_rigged": "Подключиться к ригнутому у.",
+			"matrix_perception": "Внимание в Матрице",
+			"matrix_search": "Поиск в Матрице",
+			"probe": "Зондирование",
+			"reboot_device": "Перезагрузить устройство",
+			"reconfigure": "Реконф. хар. в Матрице",
+			"send_message": "Отправить сообщение",
+			"set_data_bomb": "Заложить инфобомбу",
+			"snoop": "Перехватить трафик",
+			"spoof_command": "Ложная команда",
+			"switch_ifmode": "Переключить режим интерфейса",
+			"tarpit": "Смоляная яма",
+			"trace_icon": "Отследить образ"
+		},
+		"matrixini": {
+			"ar": "ДР",
+			"vrcold": "ВР",
+			"vrhot": "ВР (горячая)"
+		},
+		"monitor": {
+			"matrix": "Состояние Матрицы",
+			"physical": "Здоровье",
+			"stun": "Оглушение",
+			"overflow": "Критический"
+		},
+		"mortype": {
+			"adept": "Адепт",
+			"aspectedmagician": "Аспектный маг",
+			"magician": "Чародей",
+			"mundane": "Простак",
+			"mysticadept": "Мистический адепт",
+			"technomancer": "Техномант"
+		},
+		"newitem": {
+			"adeptpower": "Дай имя своей силе",
+			"accessory": "Блестящая побрякушка",
+			"ammunition": "Бомбезные патроны",
+			"armor": "Модный прикид",
+			"armor_addition": "Тебе бы плащ прокачать",
+			"biology": "Содержит ГМО",
+			"bodyware": "Прикольное улучшение",
+			"chemicals": "То, что доктор прописал",
+			"complexform": "Насколько сложную надо?",
+			"contact": "Таинственный незнакомец",
+			"critterpower": "Ну и чё оно умеет?",
+			"cyberware": "Прикольное кибернетическое улучшение",
+			"drones": "Мой летающий глаз",
+			"echo": "Кликну, а в ответ тишина",
+			"electronics": "Приблуда",
+			"genetics": "Всем хочется голубые глаза",
+			"focus": "Святой источник",
+			"lifestyle": "Картонная коробка или апартаменты?",
+			"martialartstyle": "Какой стиль?",
+			"martialarttech": "Техника? Какая техника?",
+			"matrix": "Зацени мою деку!",
+			"rcc": "Доминатор миньонов X2000",
+			"metamagic": "Чему научился?",
+			"nanoware": "Семь или девять миниатюрных машин",
+			"quality": "Чего умеешь?",
+			"ritual": "И ты попала к настоящему колдуну",
+			"sin": "Ты кто-а-а?!",
+			"skill": {
+				"knowledge": "О чём вещать будешь?",
+				"language": "Тарабарский"
+			},
+			"spell": "Ахалай-махалай",
+			"software": "У лотошника взял?",
+			"survival": "Полезный швейцарский нож",
+			"tools": "Твоя любимая приблуда",
+			"vehicles": "Крутая тачка",
+			"weapon": "Имя добавляет пушке крутизны",
+			"weaponclose": "Кое-что потяжелее",
+			"weaponspecial": "Странная волына"
+		},
+		"npc": {
+			"subtype": {
+				"npc": "Персонаж рассказчика",
+				"critter": "Существо",
+				"spirit": "Дух",
+				"sprite": "Спрайт"
+			},
+			"gruntrules": "Использует правила пешек",
+			"mortype": "Магия/Резонанс"
+		},
+		"numerical": {
+			"base": "баз",
+			"baseString": "Базовый показатель",
+			"max": "Макс.",
+			"mod": "изм"
+		},
+		"programtype": {
+			"basic": "Базовые программы",
+			"hacking": "Программы взлома"
+		},
+		"program": {
+			"baby_monitor": {
+				"name": "Радионяня",
+				"desc": "Сообщает ваш нынешний показатель надзора без затрат действия."
+			},
+			"browse": {
+				"name": "Браузер",
+				"desc": "При поиске в Матрице даёт 1 очко преимущества, которое нужно немедленно потратить на это действие или оно исчезнет."
+			},
+			"configurator": {
+				"name": "Конфигуратор",
+				"desc": "Сохраняет альтернативные настройки деки, которые можно выбрать вместо реконфигурации двух характеристик."
+			},
+			"edit": {
+				"name": "Редактор",
+				"desc": "При выполнении действия Редактировать файл даёт 1 очко преимущества, которое нужно немедленно потратить на этой действие, или оно исчезнет."
+			},
+			"encryption": {
+				"name": "Зашифровка",
+				"desc": "+2 кубика при выполнении действия Зашифровать файл"
+			},
+			"signal_scrubber": {
+				"name": "Очиститель сигнала от шума",
+				"desc": "Понижает уровень шума на 2"
+			},
+			"toolbox": {
+				"name": "Инструментарий",
+				"desc": "+1 к Вычислительной мощности"
+			},
+			"virtual_machine": {
+				"name": "Виртуальная машина",
+				"desc": "даёт 2 дополнительные активные программы; когда вас атакуют, получите дополнительную единицу урона в Матрице (без сопротивления)."
+			},
+			"armor": {
+				"name": "Броня",
+				"desc": "+2 к значению защиты."
+			},
+			"biofeedback": {
+				"name": "Биоотдача",
+				"desc": "Наносит оглушающий (если цель в холодном симе) или физический (если цель в горячем симе) урон при помощи атаки в Матрице. Эта программа связана с характеристикой Проникновения."
+			},
+			"biofeedback_filter": {
+				"name": "Фильтр биоотдачи",
+				"desc": "Позволяет выдерживать урон в Матрице при помощи проверки рейтинга устройства или Тела."
+			},
+			"blackout": {
+				"name": "Нарушение связи",
+				"desc": "Действует аналогично Биоотдаче, но наносит только оглушающий урон. Эта программа связана с характеристикой Проникновения."
+			},
+			"decryption": {
+				"name": "Дешифровка",
+				"desc": "+2 кубика при выполнении действия Взломать файл."
+			},
+			"defuse": {
+				"name": "Обезвреживание",
+				"desc": "Позволяет использовать проверку рейтинга устройства или Теля для выдерживания урона от инфобомбы."
+			},
+			"exploit": {
+				"name": "Эксполйт",
+				"desc": "Понижает значение защиты цели взлома на 2."
+			},
+			"fork": {
+				"name": "Разветвление",
+				"desc": "Позволяет использовать одно действие в Матрице на двух целях без разделения набора кубиков."
+			},
+			"lockdown": {
+				"name": "Локдаун",
+				"desc": "Вызывает залипание, когда вы наносите урон в Матрице."
+			},
+			"overclock": {
+				"name": "Разгон мощности",
+				"desc": "+2 кубика при выполнении любого действия в Матрице. Один из этих кубиков должен быть диким."
+			},
+			"stealth": {
+				"name": "Скрытность",
+				"desc": "При выполнении действия Спрятаться даёт 1 очко преимущества, которое нужно немедленно потратить на этой действие, или оно исчезнет. Эта программа связана с характеристикой Ускользания."
+			},
+			"trace": {
+				"name": "Отслеживание",
+				"desc": "при выполнении действия Отследить образ даёт 1 очко преимущества, которое нужно немедленно потратить на этой действие, или оно исчезнет. Эта программа связана с характеристикой ускользания."
+			}
+		},
+		"qualityedit": {
+			"category": "Категория",
+			"description": "Описание",
+			"explain": "Объяснения",
+			"name": "Название",
+			"new": "Новое"
+		},
+		"ritualfeatures": {
+			"anchored": "Якорь",
+			"material_link": "Материальная связь",
+			"minion": "Приспешник",
+			"spell": "Заклинание",
+			"spotter": "Наблюдатель"
+		},
+		"roll": {
+			"accumulated": "Накопленные",
+			"actionText": {
+				"attack_target_multiple": "Атакует несколько целей, используя {name}",
+				"attack_target_none": "Атакует цель, используя {name}",
+				"attack_target_one": "Атакует {target}, используя {name}",
+				"cast_target_multiple": "Колдует {name} на несколько целей",
+				"cast_target_none": "Колдует {name}",
+				"cast_target_one": "Колдует {name} на {target}",
+				"skill": "Сделать проверку навыка",
+				"thread": "Плетёт {name}",
+				"defense": {
+					"physical": "Защититься от физической атаки",
+					"spells_direct": "Защититься от боевого заклинания прямого действия",
+					"spells_indirect": "Защититься от боевого заклинания непрямого действия"
+				},
+				"soak": {
+					"drain": "Выдержать {damage} Истощения",
+					"fading":"Выдержать {damage} Угасания",
+					"damage_physical":"Выдержать {damage} Физического урона",
+					"damage_stun":"Выдержать {damage} оглушающего урона"
+				}
+			},
+			"apply_damage": "Применить урон",
+			"damage_applied": "Урон применён",
+			"damage_revert": "Отменить урон?",
+			"ar_0": "Вплотную",
+			"ar_1": "Близкая",
+			"ar_2": "Средняя",
+			"ar_3": "Дальняя",
+			"ar_4": "Экстремальная",
+			"attack": "Атака",
+			"attackRating": "Значение атаки",
+			"bf_type": "Тип",
+			"bf": {
+				"narrow_burst": "По одному противнику",
+				"wide_burst": "По двум противникам"
+			},
+			"button": {
+				"defense": "Проверка защиты",
+				"drain": "Выдержать истощение",
+				"soak": "Выдержать урон"
+			},
+			"configure": "Настройте бросок",
+			"wound-modifier": "Использовать модификатор ранения",
+			"sustained-spell-modifier": "Использовать модификатор длительного заклинания",
+			"criticalglitch": "Критический сбой",
+			"heal_apply": "Вылечить",
+			"damage": "Урон: ",
+			"damage_apply": "Применить урон",
+			"defRating": "Защита: ",
+			"edge": {
+				"gain_player": "{name} получает {value} очков преимущества",
+				"gain_player_capped": "{name} получил бы {value} очков преимущества, но не может иметь больше, чем {capped}",
+				"getting": "Получение преимущества",
+				"no_gain": "Никто не получил преимущества",
+				"situational": "Ситуативное преимущество",
+				"spending": "Трата преимущества"
+			},
+			"edge_perform": "Давай",
+			"edgegain": "Получение преимущества (макс.): ",
+			"edgegain_player": " (Игрок)",
+			"exp": "Мастерство",
+			"explode": "Подрываются",
+			"fa_area": "Область",
+			"firemode": "Режим стрельбы",
+			"failure": "Провал",
+			"failedDefense": "По тебе попали, сейчас будет больно",
+			"failedSoak": "Получено урона:",
+			"glitch": "Сбой",
+			"hits_bought": "Успехов гарантировано",
+			"hits": "чистых успехов",
+			"mode": "Режим",
+			"modifier": "Модификаторы набора",
+			"noedgegain": "Преимущества не получено",
+			"nosuccess": "успехов, порог: ",
+			"notarget": "Цель не выбрана",
+			"pool": "Набор кубиков",
+			"range": "Дистанция",
+			"spec": "Специализация",
+			"spell": {
+				"ampUp": {
+					"1": "Урон +1 / Истощение +2",
+					"2": "Урон +2 / Истощение +4",
+					"3": "Урон +3 / Истощение +6",
+					"4": "Урон +4 / Истощение +8",
+					"title": "Насыщение"
+				},
+				"incArea": {
+					"1": "Радиус +2 м, Истощение +1",
+					"2": "Радиус +4 м, Истощение +2",
+					"3": "Радиус +6 м, Истощение +3",
+					"4": "Радиус +8 м, Истощение +4",
+					"5": "Радиус +10 м, Истощение +6",
+					"6": "Радиус +12 м, Истощение +8",
+					"title": "Расширение области"
+				},
+				"title": "Усиливаем заклинание"
+			},
+			"subject": "Сообщение",
+			"success": "Успех",
+			"successes": "чистых успехов",
+			"netHits": "успехов всего",
+			"successfulDefense": "Ты успешно избежал попадания",
+			"successfulSoak": "Ты смог избежать урона",
+			"target": "Цель",
+			"threshold": "Порог",
+			"weapon": "Определи атаку",
+			"wilddie": "Использовать дикий кубик",
+			"with": "с"
+		},
+		"rollType": {
+			"bought": "Гарантировать успехи",
+			"normal": "Бросить кубики"
+		},
+			"section": {
+			"adeptpowers": {
+				"add": "Добавить новую способность",
+				"column.points": "ОС",
+				"title": "Способности адепта"
+			},
+			"ammo": "Боезапас",
+			"ammo_add": "Добавить боеприпасы",
+			"armor": {
+				"add": "Добавить новую броню",
+				"column": {
+					"action": "Действие",
+					"defense": "ЗЗ",
+					"name": "Название",
+					"social": "Социальное"
+				},
+				"title": "Броня"
+			},
+			"armor_adds": "Модификации брони",
+			"biology": "Биотехнологии",
+			"bodyware": {
+				"add": "Добавить новый био- или киберимплант",
+				"column.capacity": "Ёмк.",
+				"column.essence": "Сущ.",
+				"footer.total_essence": "Остаток сущности",
+				"title": "Аугментации"
+			},
+			"chemicals": "Химикаты",
+			"complexforms": {
+				"add": "Добавить новую сложную форму",
+				"column.duration": "Прод.",
+				"column.fade": "Угасание",
+				"title": "Сложные формы"
+			},
+			"contacts": {
+				"add": "Добавить новое знакомство",
+				"title": "Знакомства"
+			},
+			"critterpowers": {
+				"add": "Добавить способность существа",
+				"title": "Способности"
+			},
+			"defense": "Защита и сопротивление",
+			"derived": "Производные значения",
+			"drones": {
+				"add": "Добавить нового дрона",
+				"title": "Дроны"
+			},
+			"electronics": "Электроника",
+			"echo": {
+				"add": "Добавить новый отголосок",
+				"title": "Отголоски"
+			},
+			"initiative": "Инициатива",
+			"martialarts": {
+				"add": "Добавить новый стиль",
+				"tech_add": "Добавить новую технику",
+				"title": "Боевые искусства"
+			},
+			"focus": {
+				"add": "Добавить новый источник",
+				"column.rating": "Ур",
+				"title": "Источники"
+			},
+			"gear": {
+				"title": "Снаряжение"
+			},
+			"karma" : {
+				"title" : "Карма, Розыск, Репутация",
+				"karma" : "Карма",
+				"heat"  : "Розыск",
+				"reputation": "Репутация"
+			},
+			"lifestyles" : {
+				"add": "Добавить уровень жизни",
+				"title": "Уровни жизни"
+			},
+			"matrix_base": {
+				"overwatch": "Надзор"
+			},
+			"matrix_actions": {
+				"title": "Действия в Матрице"
+			},
+			"matrix_combat": {
+				"title": "Бой в Матрице"
+			},
+			"matrix_devices": {
+				"add": "Добавить новое устройство",
+				"column": {
+					"action": "Действие",
+					"devRating": "Рейт. Ус.",
+					"name": "Название"
+				},
+				"title": "Устройства для Матрицы"
+			},
+			"metamagic": {
+				"add": "Добавить новую метамагию",
+				"title": "Метамагия"
+			},
+			"notes": {
+				"title": "Заметки"
+			},
+			"persona": {
+				"distribute": "Распределить",
+				"title": "Аватар"
+			},
+			"qualities": "Качества",
+			"qualities_add": "Добавить",
+			"rituals": {
+				"add": "Добавить новый ритуал",
+				"column.threshold": "Порог",
+				"title": "Ритуалы"
+			},
+			"sins": {
+				"add": "Добавить новый ГРЕХ",
+				"title": "ГРЕХи"
+			},
+			"skills.action": "Навыки",
+			"skills.knowledge": "Знание",
+			"skills.knowledge_add": "Добавить новое знание",
+			"skills.language": "Язык",
+			"skills.language-level": {
+				"expert": "Эксперт",
+				"native": "Родной",
+				"normal": "Обычный",
+				"special": "Знаток"
+			},
+			"skills.language_add": "Добавить новый язык",
+			"spells": {
+				"add": "Добавить новое заклинание",
+				"column.alchemic": "Алх.",
+				"column.drain": "Истощение",
+				"column.range": "Дистанция",
+				"column.sustained": "Длит.",
+				"title": "Заклинания"
+			},
+			"sustained": {
+				"add": "Добавить новое заклинание",
+				"title": "Длительные заклинания"
+			},
+			"survival": "Выживание",
+			"vehicles": {
+				"add": "Добавить новое ТС",
+				"column": {
+					"handling": "Управ.",
+					"acc": "Ускор.",
+					"spdi": "Скор. инт.",
+					"tspd": "Пред. скор",
+					"bod": "Тело",
+					"arm": "Броня",
+					"pil": "Пилот.",
+					"sen": "Сенс.",
+					"sea": "Места",
+					"vtype": "Тип"
+				},
+				"title": "Транспортные средства"
+			},
+			"vehicleskills": {
+		  		"brain": "Электронный мозг",
+				"operations": "Управление"
+			},
+			"weapon": {
+				"add": "Добавить новое оружие",
+				"close": "Оружие ближнего боя",
+				"ranged": "Оружие дальнего боя",
+				"special": "Особое оружие",
+				"title": "Оружие"
+			}
+		},
+		"settings": {
+			"maxEdgePerRound": {
+				"hint": "Максимальное количество очков преимущества, которое персонаж игрока или ведущего может потратить за ход.",
+				"name": "Макс. преимущество за ход"
+			},
+			"importToCompendium": {
+				"hint": "Куда добавлять персонажей при импорте? Во вкладку Актёры или в Библиотеку?",
+				"name": "Импортировать в библиотеки"
+			},
+			"defaultThreshold": {
+				"hint": "Значение порога по умолчанию, которое используется для проверок навыков.",
+				"name": "Порог по умолчанию"
+			}
+		},
+		"sin": {
+			"quality": "Качество",
+			"real_sin": "Настоящий ГРЕХ",
+			"anyone": "Липа",
+			"rough_match": "Сойдёт",
+			"good_match": "Похож на настоящий",
+			"superficially_plausible": "Подозрительно правдоподобный",
+			"highly_plausible": "Очень правдоподобный",
+			"second_life": "Вторая жизнь"
+		},
+		"special": {
+			"astral": {
+				"astral_combat": "Астральный бой",
+				"astral_signatures": "Астральный след",
+				"emotional_stress": "Эмоци. состояние",
+				"spirit_types": "Типы духов"
+			},
+			"athletics": {
+				"archery": "Стрельба из лука",
+				"climbing": "Лазание",
+				"flying": "Полёт",
+				"free_fall": "Свободное падение",
+				"gymnastics": "Гимнастика",
+				"sprinting": "Рывок",
+				"swimming": "Плавание",
+				"throwing": "Метание"
+			},
+			"biotech": {
+				"biotechnology": "Биотехнология",
+				"cybertechnology": "Кибертехнология",
+				"first_aid": "Первая помощь",
+				"medicine": "Медицина"
+			},
+			"close_combat": {
+				"blades": "Клинки",
+				"clubs": "Дробящее оружие",
+				"unarmed": "Безоружное"
+			},
+			"con": {
+				"acting": "Актёрство",
+				"disguise": "Маскировка",
+				"impersonation": "Подражание",
+				"performance": "Выступление"
+			},
+			"conjuring": {
+				"banishing": "Изгнание",
+				"summoning": "Призыв"
+			},
+			"cracking": {
+				"cybercombat": "Кибербой",
+				"electronic_warfare": "Радиоэл. борьба (РЭБ)",
+				"hacking": "Хакинг"
+			},
+			"electronics": {
+				"computer": "Компьютер",
+				"hardware": "Техника",
+				"software": "Программирование",
+				"complex_forms": "Сложные формы"
+			},
+			"enchanting": {
+				"alchemy": "Алхимия",
+				"artificing": "Создание источников",
+				"disenchanting": "Снятие зачарования"
+			},
+			"engineering": {
+				"aeronautics_mechanic": "Авиамеханика",
+				"armorer": "Бронник",
+				"automotive_mechanic": "Автомеханика",
+				"demolitions": "Взрывчатка",
+				"gunnery": "Вооружение",
+				"industrial_mechanic": "Промыш. механика",
+				"lockpicking": "Вскрытие замков",
+				"nautical_mechanic": "Судомеханика"
+			},
+			"exotic_weapons": {
+				"chainsaws": "Бензопилы",
+				"brawling": "Ближний бой",
+				"air": "Пневматика",
+				"emitter": "Энергетическое оружие",
+				"laser": "Лазерное оружие",
+				"launchers": "Пусковые установки",
+				"spray": "Распыляющее оружие",
+				"whips": "Хлысты",
+				"other": "Прочие"
+			},
+			"firearms": {
+				"assault_cannons": "Штурмовая пушка",
+				"holdouts": "Карманный пистолет",
+				"machine_pistols": "Автоматич. пистолет",
+				"pistols_heavy": "Тяжёлый пистолет",
+				"pistols_light": "Лёгкий пистолет",
+				"rifles": "Винтовка",
+				"shotguns": "Дробовик",
+				"submachine_guns": "Пистолет-пулемёт",
+				"machine_guns": "Пулемёт",
+				"tasers": "Шокер"
+			},
+			"influence": {
+				"etiquette": "Этикет",
+				"instruction": "Преподавание",
+				"intimidation": "Запугивание",
+				"leadership": "Лидерство",
+				"negotiation": "Переговоры"
+			},
+			"outdoors": {
+				"navigation": "Навигация",
+				"survival": "Выживание",
+				"tracking_desert": "Окружение — Пустыня",
+				"tracking_other": "Окружение — Другое",
+				"tracking_urban": "Окружение — Город",
+				"tracking_woods": "Окружение — Лес"
+			},
+			"perception": {
+				"aural": "Слух",
+				"perception_desert": "Окружение — Пустыня",
+				"perception_other": "Окружение — Другое",
+				"perception_urban": "Окружение — Город",
+				"perception_woods": "Окружение — Лес",
+				"scent": "Обоняние",
+				"tactile": "Осязание",
+				"taste": "Вкус",
+				"visual": "Зрение"
+			},
+			"piloting": {
+				"aircraft": "Воздушный транспорт",
+				"ground_craft": "Наземный транспорт",
+				"watercraft": "Водный транспорт"
+			},
+			"sorcery": {
+				"counterspelling": "Контрзаклинания",
+				"ritual_spellcasting": "Ритуальные заклинания",
+				"spellcasting": "Сотворение заклинаний"
+			},
+			"stealth": {
+				"camouflage": "Камуфляж",
+				"disguise": "Маскировка",
+				"palming": "Ловкость рук",
+				"sneaking": "Незаметность"
+			},
+			"tasking": {
+				"compiling": "Компиляция",
+				"decompiling": "Декомпиляция",
+				"registering": "Регистрация"
+			}
+		},
+		"spell": {
+			"area": "Область",
+			"category": "Категория",
+			"category_combat": "Боевое",
+			"category_detection": "Обнаружение",
+			"category_health": "Исцеление",
+			"category_illusion": "Иллюзия",
+			"category_manipulation": "Управление",
+			"damage": "Урон",
+			"damage_physical": "Физический",
+			"damage_physical_short": "Ф",
+			"damage_physical_special": "Физический, Особый",
+			"damage_physical_special_short": "Ф, Особый",
+			"damage_short": "Урон",
+			"damage_stun": "Оглушающий",
+			"damage_stun_short": "О",
+			"damage_stun_special": "Оглушающий, Особый",
+			"damage_stun_special_short": "О, Особый",
+			"direct": "Прямого действие",
+			"drain": "Истощение",
+			"drain_short": "СИ",
+			"duration": "Длительность",
+			"duration_instantaneous": "Мгновенная",
+			"duration_instantaneous_short": "М",
+			"duration_immediate": "Мгновенная",
+			"duration_immediate_short": "М",
+			"duration_limited": "Ограниченная",
+			"duration_limited_sort": "О",
+			"duration_permanent": "Постоянная",
+			"duration_permanent_short": "П",
+			"duration_short": "Длит.",
+			"duration_special": "Особая",
+			"duration_special_short": "Особ.",
+			"duration_sustained": "Длительная",
+			"duration_sustained_short": "Д",
+			"duration_always": "Непрерывная",
+			"duration_always_short": "Н",
+			"isOpposed": "Встречная проверка",
+			"range": "Дистанция",
+			"range_line_of_sight": "Видимость",
+			"range_line_of_sight_area": "Видимость (область)",
+			"range_line_of_sight_area_short": "В(О)",
+			"range_line_of_sight_short": "В",
+			"range_self": "На себя",
+			"range_self_area": "На себя (Область)",
+			"range_self_area_short": "С(О)",
+			"range_self_short": "С",
+			"range_touch": "Касание",
+			"range_touch_short": "К",
+			"type": "Тип",
+			"type_mana": "Астральное",
+			"type_mana_short": "Астр.",
+			"type_physical": "Физическое",
+			"type_physical_short": "Физ.",
+			"withEssence": "Против сущности"
+		},
+		"spellfeatures": {
+			"area": "Область",
+			"direct": "Боевое прямого действия",
+			"indirect": "Боевое косвенного действия",
+			"sense_multi": "Несколько способов восприятия",
+			"sense_single": "Один способ восприятия"
+		},
+		"spirittype": {
+			"air": "Воздуха",
+			"beasts": "Зверей",
+			"earth": "Земли",
+			"fire": "Огня",
+			"kin": "Предков",
+			"plant": "Растений",
+			"water": "Воды"
+		},
+		"tradition": {
+			"attribute": "Характеристика традиции"
+		},
+		"vehicle": {
+			"action_label": "Управляемость / Атака или Защита ТС",
+			"mode_label": "Режим",
+			"mode": {
+				"manual": "Ручное управление",
+				"riggedAR": "Подключён (ДР)",
+				"riggedVR": "Подключён (ВР)",
+				"rcc": "через РПУ (не работает)",
+				"autonomous": "Автономное (не работает)"
+			},
+			"skill": {
+				"piloting": "Пилотирование"
+			},
+			"type": {
+				"groundcraft": "Наземное",
+				"watercraft": "Водное",
+				"aircraft": "Воздушное"
+			}
+		},
+		"weapon": {
+			"damage": "СУ",
+			"attackRating":"Знач. атаки",
+			"firemodes": "Режимы",
+			"ammo": "Боеприпасы"
+		},
+		"ui": {
+			"notifications": {
+				"You_are_not_owner_of_the_target": "Вы не являетесь владельцем цели.",
+				"You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "Вы можете стрелять только короткими очередями, если вы прицеливаетесь (T) на два токена.",
+				"Target_or_select_a_token_before_rolling": "Прицельтесь или выберете токен перед броском.",
+				"Target_a_token_before_rolling": "Прицельтесь (T) на токен перед броском.",
+				"Dice_roll_evaluation_failed": "Оценка броска не удалась",
+				"two_targets_but_wrong_fire_mode": "У вас две цели, поэтому вы можете вести огонь только в режиме «Длинна очередь: по двум противникам» или в режиме Непрерывного огня.",
+				"many_targets_but_not_autofire_fire_mode": "У вас больше двух целей, поэтому вы можете вести огонь только в режиме Непрерывного огня.",
+				"attack_with_no_AR": "Вы пытаетесь атаковать со значением атаки 0 (например, из-за расстояния).",
+				"apply_manually": "Примените урон вручную.",
+				"Target_is_not_a_life_form": "Цель не является формой жизни.",
+				"do_not_revert_damage": "Счётчик состояния переполнен. Не отменяйте этот урон при помощи кнопки в чате, он не рассчитается корректно."
+			}
+		}
+	},
+	"skill": {
+		"astral": "Астрал",
+		"athletics": "Атлетика",
+		"biotech": "Биотехнологии",
+		"close_combat": "Ближний бой",
+		"con": "Обман",
+		"conjuring": "Воплощение",
+		"cracking": "Взлом",
+		"electronics": "Электроника",
+		"enchanting": "Зачарование",
+		"engineering": "Инженерное дело",
+		"exotic_weapons": "Экзотическое оружие",
+		"firearms": "Стрельба",
+		"influence": "Убеждение",
+		"outdoors": "Ориентирование",
+		"perception": "Внимание",
+		"piloting": "Пилотирование",
+		"sorcery": "Колдовство",
+		"stealth": "Скрытность",
+		"tasking": "Многозадачность"
+	}
+}

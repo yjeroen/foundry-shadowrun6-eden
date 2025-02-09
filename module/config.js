@@ -480,6 +480,7 @@ export class SR6Config {
         athletics: {
             climbing: "shadowrun6.special.athletics.climbing",
             flying: "shadowrun6.special.athletics.flying",
+            free_fall: "shadowrun6.special.athletics.free_fall",
             gymnastics: "shadowrun6.special.athletics.gymnastics",
             sprinting: "shadowrun6.special.athletics.sprinting",
             swimming: "shadowrun6.special.athletics.swimming",

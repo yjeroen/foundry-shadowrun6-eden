@@ -550,7 +550,7 @@
       "defense_rating": "Defense Rating",
       "delete": "Delete",
       "device_mode": "Device Mode",
-      "devRating": "Device rtg.",
+      "devRating": "Device Rating",
       "dice": "Dice",
       "edit": "Edit",
       "expertise": "Expertise",
@@ -679,6 +679,7 @@
       "martialartstyle": "What's your style?",
       "martialarttech": "Technique, which technique?",
       "matrix": "Check out my deck!",
+      "rcc": "Minion Dominator X2000",
       "metamagic": "What have you learned?",
       "nanoware": "Seven or nine little machines",
       "quality": "What is your feat?",
@@ -1016,12 +1017,14 @@
       },
       "matrix_devices": {
         "add": "Add new matrix device",
+        "add_rcc": "Add new Rigger Command Console",
         "column": {
           "action": "Action",
-          "devRating": "Dev.R.",
+          "devRating": "Device Rating",
           "name": "Name"
         },
-        "title": "Matrix Devices"
+        "title": "Matrix Devices",
+        "title_rcc": "RCC"
       },
       "metamagic": {
         "add": "Add new metamagic",
@@ -1116,6 +1119,10 @@
       "defaultThreshold": {
         "hint": "Defines the default threshold used for any skill check",
         "name": "Default Threshold"
+      },
+      "hardDiceCap": {
+        "hint": "In standard play, there is a maximum of 20 dice for any test. No combination of abilities, skills, effects, or augments can exceed this limit during a roll. <br><b>Exception:</b> Pre-edging a test allows you to exceed the 20-dice cap with the bonus dice granted by Edge.",
+        "name": "Hard Dice Cap"
       }
     },
     "sin" : {
@@ -1145,6 +1152,7 @@
         "archery": "Archery",
         "climbing": "Climbing",
         "flying": "Flying",
+        "free_fall": "Free Fall",
         "gymnastics": "Gymnastics",
         "sprinting": "Sprinting",
         "swimming": "Swimming",

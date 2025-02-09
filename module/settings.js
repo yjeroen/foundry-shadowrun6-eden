@@ -42,4 +42,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "importToCompendium", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "hardDiceCap", {
+        name: "shadowrun6.settings.hardDiceCap.name",
+        hint: "shadowrun6.settings.hardDiceCap.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | hardDiceCap changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "hardDiceCap", toggle);
+        }
+    });
 };

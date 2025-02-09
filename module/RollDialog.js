@@ -332,7 +332,6 @@ export class RollDialog extends Dialog {
     _updateDicePool(data) {
         // Get the value of the user entered modifier ..
         let userModifier = parseInt(document.getElementById("modifier").value);
-        // .. and update the roll
         this.modifier = userModifier ? userModifier : 0;
 
         // Get the value of the checkbox if the calculated wound penality should be used
@@ -347,21 +346,41 @@ export class RollDialog extends Dialog {
             console.log("SR6E | updateDicePool2: ", this.prepared.pool, this.modifier, woundMod, sustainedMod);
         }
         this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0);
+        this.prepared.checkHardDiceCap();
         $("label[name='dicePool']")[0].innerText = this.prepared.calcPool.toString();
     }
     //-------------------------------------------------------------
     _performEdgeBoostOrAction(data, boostOrActionId) {
-        //TODO: performEgdeBoostOrAction
+        let prepared = this.options.prepared;
+        let configured = this.dialogResult;
+        // Get the value of the user entered modifier ..
+        let userModifier = parseInt(document.getElementById("modifier").value);
+        this.modifier = userModifier ? userModifier : 0;
+        
+        // Get edge info
+        let edge = this.actor.system.edge.value;
+        const boostSelected = CONFIG.SR6.EDGE_BOOSTS.find((boost) => boost.id == boostOrActionId);
+        const actionSelected = CONFIG.SR6.EDGE_ACTIONS.find((action) => action.id == boostOrActionId);
+        console.log("SR6E | Selected Edge Boost: `" + game.i18n.localize("shadowrun6.edge_boost." + boostOrActionId) + "`, that costs " + boostSelected?.cost);
+        if (boostSelected && boostSelected?.cost) {
+            edge = this.actor.system.edge.value - boostSelected.cost;
+        } else if (actionSelected && actionSelected?.cost) {
+            edge = this.actor.system.edge.value - actionSelected.cost;
+        }
+        $("label[name='edgePool']")[0].innerText = edge.toString();
+
         console.log("SR6E | TODO: performEgdeBoostOrAction " + boostOrActionId);
         if (boostOrActionId == "edge_action") {
+            //TODO: automate edge actions
+            // Costs are also not automatically substracted in Rolls.js #219
             return;
         }
-        data.explode = false;
-        this.modifier = 0;
         switch (boostOrActionId) {
             case "add_edge_pool":
                 data.explode = true;
-                this.modifier = getSystemData(data.actor).edge.max;
+                console.log("SR6E | add_edge_pool setting edgePoolIgnoringCap to ", getSystemData(data.actor).edge.max);
+                prepared.edgePoolIgnoringCap = getSystemData(data.actor).edge.max;
+                configured.edgePoolIgnoringCap = getSystemData(data.actor).edge.max;
                 break;
         }
         // Update content on dialog

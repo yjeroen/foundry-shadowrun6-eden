@@ -1,4 +1,5 @@
 import { Defense, MonitorType } from "../config.js";
+import { SYSTEM_NAME } from "../constants.js";
 export var RollType;
 (function (RollType) {
     RollType["Common"] = "common";
@@ -72,6 +73,8 @@ class CommonRollData {
     rollMode;
     /* How many dice shall be rolled */
     pool;
+    calcPool;
+    edgePoolIgnoringCap = 0;
     copyFrom(copy) {
         this.speaker = copy.speaker;
         this.rollMode = copy.rollMode;
@@ -85,8 +88,22 @@ class CommonRollData {
         this.threshold = copy.threshold;
         this.useWildDie = copy.useWildDie;
         this.pool = copy.pool;
+        this.edgePoolIgnoringCap = copy.edgePoolIgnoringCap;
     }
     validateDialog() {}
+    checkHardDiceCap(pool) {
+        console.log("SR6E | checkHardDiceCap");
+        // Limiting the dice pool if game settings tells us
+        const hardDiceCap = game.settings.get(SYSTEM_NAME, "hardDiceCap");
+        if (hardDiceCap) {
+            // Devnote - Objects are a mess, apparently there's functions that use pool instead of calcPool..
+            this.calcPool = (this.calcPool > 20) ? 20 : this.calcPool;
+            pool = (pool > 20) ? 20 : pool;
+            console.log("SR6E | limiting calcPool to 20 due to game setting", this.calcPool, pool, this.edgePoolIgnoringCap);
+        }
+        pool = pool + this.edgePoolIgnoringCap;
+        return pool;
+    }
 }
 var PoolUsage;
 (function (PoolUsage) {

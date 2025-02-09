@@ -384,7 +384,19 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 system: {
                     genesisID: this._create_UUID(),
                     type: "ELECTRONICS",
-                    subtype: "COMMLINK"
+                    subtype: "RIGGER_CONSOLE"
+                }
+            };
+            return this.actor.createEmbeddedDocuments("Item", [itemData]);
+        });
+        html.find(".rcc-create").click((ev) => {
+            const itemData = {
+                name: game.i18n.localize("shadowrun6.newitem.rcc"),
+                type: "gear",
+                system: {
+                    genesisID: this._create_UUID(),
+                    type: "ELECTRONICS",
+                    subtype: "RIGGER_CONSOLE"
                 }
             };
             return this.actor.createEmbeddedDocuments("Item", [itemData]);
