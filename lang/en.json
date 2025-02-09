@@ -51,6 +51,7 @@
     		"complexform": "Complex Form",
     		"contact" : "Contact",
     		"echo": "Echo",
+        "focus": "Focus",
     		"gear": "Gear",
     		"lifestyle" : "Lifestyle",
     		"martialartstyle": "Martial Art Style",
@@ -60,6 +61,7 @@
     		"ritual": "Ritual",
     		"sin" : "SIN",
     		"skill": "Language/Knowledge Skill",
+        "software": "Software",
     		"spell": "Spell",
     		"weapon": "Weapon"
   	}
@@ -134,6 +136,14 @@
       "haslevel": "Has level",
       "pp": "PP",
       "perLevel": "per level"
+    },
+    "autosoft_types": {
+      "clearsight": "Clearsight", 
+      "electronic_warfare": "Electronic Warfare", 
+      "evasion": "Evasion", 
+      "maneuver": "Maneuver", 
+      "stealth": "Stealth", 
+      "targeting": "Targeting"
     },
 	 "critterpower": {
 		"actiontitle": "Action",
@@ -396,6 +406,11 @@
         "BASIC_PROGRAM": "Basicprograms",
         "RIGGER_PROGRAM": "Riggerprograms",
         "AUTOSOFT": "Autosofts",
+        "DATASOFT": "Datasoft",
+        "MAPSOFT": "Mapsoft",
+        "SHOPSOFT": "Shopsoft",
+        "TALENTSOFT": "Talentsoft",
+        "TEACHSOFT": "Teachsoft",
         "GROUND": "Ground Drones",
         "ANTHRO": "Antropomorph Drones",
         "AIR": "Air Drones",
@@ -507,8 +522,10 @@
       },
       "attack_rating": "Attack Rating",
       "attack_rating_short": "AR",
+      "attack_rating_using_vehicle": "Attack Rating (Vehicle as Weapon)",
       "attribute": "Attribute",
       "base": "Base",
+      "belongs_to": "Belongs to",
       "column": {
         "action": "Action",
         "count": "#",
@@ -538,36 +555,40 @@
       "edit": "Edit",
       "expertise": "Expertise",
       "extended_test": "Extended Test",
-	   "faster": "Accelerate",
+	    "faster": "Accelerate",
       "features": "Features",
       "firemode_current": "Current Firemode",
       "firemodes": "Firemodes",
       "force": "Force",
       "gender": "Gender",
-       "legality.illegal.short": "I",
+      "legality.illegal.short": "I",
       "legality.legal.short": "L",
       "level": "Has levels",
       "mages": "Mages",
       "max": "Maximum",
+      "mode_of_operation": "Mode of Operation",
       "modifications": "Modifications",
       "modifier": "Adjust",
       "name": "Name",
       "none": "-",
       "not_present": "not present",
-	  "offroad": "Off-Road",
-	  "onroad": "On-Road",
+	    "offroad": "Off-Road",
+	    "onroad": "On-Road",
       "points": "Points",
       "pool": "Pool",
       "poolmod": "Pool modifier",
       "programs.short": "P",
       "progSlots": "Prog. slots",
-	  "rating1": "Rating 1",
-	  "rating2": "Rating 2",
-	  "rating3": "Rating 3",
+      "rating": "Rating",
+	    "rating1": "Rating 1",
+	    "rating2": "Rating 2",
+	    "rating3": "Rating 3",
+	    "slower": "Decelerate",
       "soaked": "Soaked {soaked} of {threshold} damage",
-	  "slower": "Decelerate",
       "specialization": "Specialization",
+      "speed_detail": "You are moving with {speed} km/h ({speedPerTurn} Meter per turn). Your modifier for checks is {modifier}.",
       "threshold": "Threshold",
+      "type": "Type",
       "value": "Value",
       "wilddie": "Wild Die"
     },
@@ -1018,6 +1039,9 @@
       },
       "qualities": "Qualities",
       "qualities_add": "Add",
+      "rigging": {
+        "title": "Rigging"
+      },
       "rituals": {
         "add": "Add new ritual",
         "column.threshold": "Threshold",
@@ -1038,6 +1062,10 @@
         "special": "Specialist"
       },
       "skills.language_add": "Add new language skill",
+      "software": {
+        "add": "Add new software",
+        "title": "Software"
+      },
       "spells": {
         "add": "Add new spell",
         "column.alchemic": "Alch.",
@@ -1106,6 +1134,12 @@
       "superficially_plausible": "Superficially plausible",
       "highly_plausible" : "High plausible",
       "second_life" : "Second life"
+    },
+    "softwareedit": {
+      "description": "Description",
+      "category": "Category",
+      "basic": "Standard",
+      "hacking": "Hacking"
     },
     "special": {
       "astral": {
@@ -1318,16 +1352,21 @@
     },
     "vehicle": {
       "action_label": "Handling / Vehicle Attack or Defense",
+      "initiative": "Vehicle initiative",
       "mode_label": "Mode",
       "mode": {
         "manual": "Manual",
         "riggedAR": "Jumped in (AR)",
         "riggedVR": "Jumped in (VR)",
         "rcc": "via RCC (To Do)",
-        "autonomous": "Autonomous (To Do)"
+        "autonomous": "Autonomous"
       },
       "skill": {
-        "piloting": "Piloting"
+        "cracking": "Cracking",
+        "evasion": "Evasion",
+        "perception": "Perception",
+        "piloting": "Piloting",
+        "stealth": "Stealth"
       },
       "type": {
         "groundcraft": "Groundcraft",

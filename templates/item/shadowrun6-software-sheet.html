@@ -1,0 +1,44 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+    <section class="sheet-body">
+        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.item.type'}}</th>
+                    <th>
+                        {{#if (eq item.system.type 'AUTOSOFT')}}
+                            {{localize 'shadowrun6.item.subtype'}}
+                        {{/if}}
+                    </th>
+                    <th>{{localize 'shadowrun6.label.column.rating'}}</th>
+                    <th>{{localize 'shadowrun6.item.availability'}}</th>
+                    <th>{{localize 'shadowrun6.item.price'}}</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <select data-field="system.type" class="typeselect">
+                            {{selectOptions config.SOFTWARE_TYPES selected=item.system.type localize=true}}
+                        </select>
+                    </td>
+                    <td style="text-align: center">
+                        {{#if (eq item.system.type 'AUTOSOFT')}}
+                        <select data-field="system.subtype" class="typeselect">
+                            {{selectOptions config.AUTOSOFT_TYPES selected=item.system.subtype localize=true}}
+                        </select>
+                        {{/if}}
+                    </td>
+                    <td style="text-align: center">
+                        {{#if (eq item.system.type 'AUTOSOFT')}}
+                        <input type="number" data-dtype="number" name="{{item.id}}Rating" value="{{item.system.rating}}" data-field="system.rating" class="box centered" style="width: 2em" />
+                        {{/if}}
+                    </td>
+                    <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2em" /></td>
+                    <td style="text-align: center"><input type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered" style="width: 3.4em" /></td>
+                </tr>
+            </table>
+        <div class="section">
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <textarea class="box" type="text" data-field="system.description" cols="60" rows="6">{{item.system.description}}</textarea>
+        </div>
+    </section>
+</form>
