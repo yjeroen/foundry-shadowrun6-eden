@@ -304,6 +304,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".GENETICS-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "GENETICS"));
         html.find(".ACCESSORY-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "ACCESSORY"));
         html.find(".ARMOR_ADDITION-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "ARMOR_ADDITION"));
+        html.find(".MAGICAL-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "MAGICAL"));
         html.find(".armor-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "ARMOR"));
         html.find(".ammunition-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "AMMUNITION"));
         html.find(".bodyware-create").click((ev) => this._onCreateNewEmbeddedItem("gear", "CYBERWARE"));
