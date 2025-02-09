@@ -532,7 +532,8 @@
 			"column": {
 				"action": "Действие",
 				"count": "Счёт.",
-				"name": "Имя",
+				"name": "Название",
+				"nameAnimate": "Имя",
 				"rating": "Ртг."
 			},
 			"attack.short": "П",
