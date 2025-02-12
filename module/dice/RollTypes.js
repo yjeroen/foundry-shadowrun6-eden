@@ -487,6 +487,8 @@ export class SR6ChatMessageData {
     edge_message;
     edgeAdjusted;
     edge_use;
+    /** How much edge has the rolling actor left */
+    edge_remaining;
     /** Edge action selected  */
     edgeAction;
     /** How many dice have been rolled */
@@ -522,6 +524,7 @@ export class SR6ChatMessageData {
         this.isOpposed = this.defendWith != undefined;
         this.edge_message = copy.edge_message;
         this.edge_use = copy.edge_use;
+        this.edge_remaining = copy.edge_remaining;
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;

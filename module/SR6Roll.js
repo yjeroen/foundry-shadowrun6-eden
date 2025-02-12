@@ -31,7 +31,7 @@ export default class SR6Roll extends Roll {
             // Hits have been bought
             console.log("SR6E | BOUGHT HITS for pool", this.configured.pool);
             let noOfDice = Math.floor(this.configured.pool / 4);
-            let formula = this.createFormula(noOfDice, -1, false);
+            let formula = SR6Roll.createFormula(noOfDice, -1, false);
             let die = await new Roll(formula).evaluate();
             this.results = die.terms[0].results;
             this.results.forEach((result) => {
@@ -128,6 +128,11 @@ export default class SR6Roll extends Roll {
             console.log("SR6E | _evaluateTotal: calculate remaining damage");
             this.finished.damage = this.configured.damage + (this.configured.threshold - total);
             console.log("SR6E | _evaluateTotal: remaining damage = " + this.finished.damage);
+        }
+        
+        if(this.configured.actor) {
+            const actor = game.actors.get(this.configured.actor._id);
+            this.finished.edge_remaining = actor.system.edge.value;
         }
         console.log("SR6E | _evaluateTotal: return ", this.finished);
         return total;
@@ -277,7 +282,7 @@ export default class SR6Roll extends Roll {
      * @param limit A limit, if any. Negative for no limit.
      * @param explode If the dice should explode on sixes.
      */
-    createFormula(count, limit = -1, explode = false) {
+    static createFormula(count, limit = -1, explode = false) {
         console.log("SR6E | createFormula-------------------------------");
         if (!count) {
             throw new Error("createFormula: Number of dice not set");

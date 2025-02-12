@@ -3,7 +3,7 @@
         <div class="dice">
             <ol class="dice-rolls">
                 {{#each results as |result id|}}
-                <li class="{{result.classes}}">&nbsp;</li>
+                <li class="{{#if (lt result.result 6)}}draggable {{/if}}{{result.classes}}" data-index="{{id}}">&nbsp;</li>
                 {{/each}}
             </ol>
         </div>
@@ -11,6 +11,7 @@
 	{{#unless system.edge_use}}
 	<div class="spend_edge">
     <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spending"}}</h4>
+    {{!-- 
     <form>
     <table style="background-color: transparent; border: 0px;">
     	<tr>
@@ -44,6 +45,16 @@
     	<tr><td style="color:red" colspan="3">Work in progress: Edge Actions not working yet</td></tr>
     </table>
     </form>
+    --}}
+    <button name="edgePerform" class="edgePerform" data-roll-type="reroll_one">
+        [1] {{localize "shadowrun6.edge_boost.reroll_one"}}
+    </button>
+    <button name="edgePerform" class="edgePerform" data-roll-type="plus_1_roll">
+        [2] {{localize "shadowrun6.edge_boost.plus_1_roll"}}
+    </button>
+    <button name="edgePerform" class="edgePerform" data-roll-type="reroll_failed">
+        [4] {{localize "shadowrun6.edge_boost.reroll_failed"}}
+    </button>
     </div>
     {{/unless}}
     </section>

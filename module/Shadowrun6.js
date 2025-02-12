@@ -490,6 +490,41 @@ Hooks.once("init", async function () {
             }
         });
 
+        // Implement drag & drop for dies
+        const draggableElement = html.find(".draggable.die");
+        if (draggableElement.length) {
+            draggableElement.attr("draggable", true);
+            draggableElement.on("dragstart", (event) => {
+                const dragData = {
+                    type: "Die",
+                    id: data.message._id,
+                    dieIndex: event.currentTarget.dataset.index
+                };
+                event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+            });
+        }
+
+        const dragTargets = html.find(".edgePerform");
+        if (dragTargets.length) {
+            dragTargets.on("drop", (event) => {
+                const dragData = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+                if(dragData.id == data.message._id)
+                {
+                    const boostTitle = game.i18n.localize(`shadowrun6.edge_boost.plus_1_roll`)
+                    let chatMsg = game.messages.get(dragData.id);
+                    switch (event.currentTarget.dataset["rollType"]) {
+                        case "plus_1_roll":
+                            EdgeUtil.plusOneOnIndex(boostTitle, dragData.dieIndex, chatMsg, 2, game.actors.get(chatMsg.rolls[0].finished.actor._id))
+                            break;
+                    
+                        default:
+                            console.error(`Edge Action not implemented ${event.currentTarget.dataset['rollType']}`);
+                            break;
+                    }
+                }
+            });
+        }
+
         console.log("SR6E | LEAVE renderChatMessage");
     });
     /**
@@ -606,23 +641,16 @@ $.fn.closestData = function (dataName, defaultValue = "") {
     return value ? value : defaultValue;
 };
 /* -------------------------------------------- */
-function registerChatMessageEdgeListener(event, chatMsg, html, data) {
-    if (!chatMsg.isOwner) {
-        console.log("SR6E | I am not owner of that chat message from " + data.alias);
-        return;
-    }
-    // React to changed edge boosts and actions
-    let boostSelect = html.find(".edgeBoosts");
-    let edgeActions = html.find(".edgeActions");
-    if (boostSelect) {
-        boostSelect.change((event) => EdgeUtil.onEdgeBoostActionChange(event, "POST", chatMsg, html, data));
-        boostSelect.keyup((event) => EdgeUtil.onEdgeBoostActionChange(event, "POST", chatMsg, html, data));
-    }
+function registerChatMessageEdgeListener(event, chatMsg, html, data) {    
     // chatMsg.roll is a SR6Roll
     let btnPerform = html.find(".edgePerform");
     let roll = getRoll(chatMsg);
     if (btnPerform && roll) {
-        btnPerform.click((event) => EdgeUtil.peformPostEdgeBoost(chatMsg, html, data, btnPerform, boostSelect, edgeActions));
+        btnPerform.click((event) => {
+            const edgeType = event.currentTarget.dataset["rollType"];
+            const chatMsgId = event.target.closest("[data-message-id]").dataset.messageId;
+            EdgeUtil.peformPostEdgeBoost(chatMsgId, edgeType);
+        });
     }
 }
 function _onRenderVehicleSheet(application, html, data) {

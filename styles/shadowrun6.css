@@ -563,3 +563,8 @@ a.item-control.disabled-roll:hover {
   content : "\25BC";
   color: lightgray;
 }
+
+
+.chat-message .edgePerform {
+  margin-bottom: 0.5em;
+}
