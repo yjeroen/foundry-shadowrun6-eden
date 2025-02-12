@@ -1,7 +1,7 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
         {{!-- Sheet Body --}}
         <section class="sheet-body">
-                <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+                <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
                 <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
                 <div class="section">
 
@@ -16,25 +16,25 @@
                                 </tr>
                                 <tr style="text-align:center">
                                         <td class="centered">
-                                                <input data-field="system.threshold" value="{{item.system.threshold}}" type="number" class="box centered" style="width:2em"/>
+                                                <input name="threshold" data-field="system.threshold" value="{{item.system.threshold}}" type="number" class="box centered" style="width:2em"/>
                                         </td>
                                         <td class="centered">
-                                                <input style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.anchored}} data-field="feature.anchored" />
+                                                <input name="anchored" style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.anchored}} data-field="feature.anchored" />
                                         </td>
                                         <td class="centered">
-                                                <input style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.material_link}} data-field="feature.material_link" />
+                                                <input name="materialLink" style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.material_link}} data-field="feature.material_link" />
                                         </td>
                                         <td class="centered">
-                                                <input style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.minion}} data-field="feature.minion" />
+                                                <input name="minion" style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.minion}} data-field="feature.minion" />
                                         </td>
                                         <td class="centered">
-                                                <input style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.spotter}} data-field="feature.spotter" />
+                                                <input name="spotter" style="vertical-align: middle;" type="checkbox" {{checked item.system.feature.spotter}} data-field="feature.spotter" />
                                         </td>
                                 </tr>
                         </table>
 
                         <h3>{{localize 'shadowrun6.item.description'}}</h3>
-                        <textarea class="box" type="text" data-field="system.description" cols="20" rows="6">{{item.system.description}}</textarea>
+                        <textarea name="description" class="box" type="text" data-field="system.description" cols="20" rows="6">{{item.system.description}}</textarea>
 
                 </div>
         </section>

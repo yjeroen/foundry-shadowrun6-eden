@@ -20,7 +20,7 @@
 		{{#if (eq item.type 'gear')}}
 		{{#if (eq item.system.type "DRONES") }}
        <tr class="draggable item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
-       	<td style="margin-right: 1rem"><button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+       	<td style="margin-right: 1rem"><button type="button" name="collapseDrone{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
          <td class="centered"><label class="small-column" >{{item.system.handlOn}}/{{item.system.handlOff}}</label></td>
          {{#if (eq item.system.accOn item.system.accOff)}}
          <td class="centered"><label class="small-column" >{{item.system.accOn}}</label></td>
@@ -50,7 +50,7 @@
         	   	<tr>
         	   		<td>{{ localize 'shadowrun6.vehicle.mode_label' }}:</td>
         	   		<td>
-        	   			<select data-field="system.vehicle.opMode" data-field="system.vehicle.opMode" data-item-id="{{this.id}}">
+        	   			<select name="vehicleOpMode{{id}}" data-field="system.vehicle.opMode" data-field="system.vehicle.opMode" data-item-id="{{this.id}}">
                      {{selectOptions ../config.VEHICLE_MODE selected=system.vehicle.opMode localize=true}}
          				</select>
         	   		</td>

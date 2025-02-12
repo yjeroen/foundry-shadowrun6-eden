@@ -7,7 +7,7 @@
         	   				<td title="{{localize (concat (concat "shadowrun6.program." program.id ) ".desc")}}">{{localize (concat (concat "shadowrun6.program." program.id ) ".name")}}</td>
         	   				<td>
 								<label class="switch">
-       	<input type="checkbox" data-item-id="{{../item.id}}" data-check="system.program.{{this.id}}" {{checked (lookup ../item.system.program this.id) }} type="checkbox" data-dtype="Boolean"/>
+       	<input name="hackingProgrammChecked{{id}}" type="checkbox" data-item-id="{{../item.id}}" data-check="system.program.{{this.id}}" {{checked (lookup ../item.system.program this.id) }} type="checkbox" data-dtype="Boolean"/>
                         <span class="shadowrun6-slider round"></span>
                     </label></td>
         	   			</tr>
@@ -21,7 +21,7 @@
         	   			<tr>
         	   				<td title="{{localize (concat (concat "shadowrun6.program." program.id ) ".desc")}}">{{localize (concat (concat "shadowrun6.program." program.id ) ".name")}}</td>
         	   				<td><label class="switch">
-       	<input type="checkbox" data-item-id="{{../item.id}}" data-check="system.program.{{this.id}}" {{checked (lookup ../item.system.program this.id) }} type="checkbox" data-dtype="Boolean"/>
+       	<input name="standardProgrammChecked{{id}}" type="checkbox" data-item-id="{{../item.id}}" data-check="system.program.{{this.id}}" {{checked (lookup ../item.system.program this.id) }} type="checkbox" data-dtype="Boolean"/>
                         <span class="shadowrun6-slider round"></span>
                     </label></td>
         	   			</tr>

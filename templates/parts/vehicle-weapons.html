@@ -46,8 +46,8 @@
          		{{/select}}
          	</select>
 			   <br/>
-         	{{ localize 'shadowrun6.label.wilddie' }} <input name="{{id}}WildDie" class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="data.wild"     type="checkbox" data-dtype="Boolean"/><br/>
-         	{{ localize 'shadowrun6.label.poolmod' }} <input name="{{id}}Modifier" class="centered box" type="text"     data-item-id="{{this.id}}" data-field="data.modifier" type="text"     value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
+         	{{ localize 'shadowrun6.label.wilddie' }} <input name="vehicleWeaponWildDie{{id}}" class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="system.wild" type="checkbox" data-dtype="Boolean"/><br/>
+         	{{ localize 'shadowrun6.label.poolmod' }} <input name="vehicleWeaponMod{{id}}" class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text"     value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
          	</div>
          </td>
        </tr>

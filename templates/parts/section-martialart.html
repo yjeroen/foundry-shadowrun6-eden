@@ -10,7 +10,7 @@
     {{#iff item.type '==' 'martialartstyle'}}
 		{{log "genesisID" item.system.genesisID}}
 		<tr class="item list-item" data-item-id="{{item.id}}" data-style-id="{{item.system.genesisID}}">
-			<td style="width: 85%" colspan="2"> <div class="section-head"><input type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}"/>
+			<td style="width: 85%" colspan="2"> <div class="section-head"><input name="martialArtName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}"/>
 			</div></td>
 			<td style="width: 15%">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
@@ -24,8 +24,8 @@
 		{{#iff subitem.type '==' 'martialarttech'}}
 		{{#iff subitem.system.style '==' item.system.genesisID}}
 		<tr class="item list-item" data-item-id="{{subitem.id}}">
-			<td style="width: 60%"><input style="font-weight: normal; padding-left: 10px" type="text" value="{{subitem.name}}" data-field="name" title="{{subitem.system.description}}"/></td>
-			<td style="width: 25%"><input type="text" value="{{subitem.system.choice}}" data-field="system.choice" class="secondary" placeholder="?"/></td>
+			<td style="width: 60%"><input name="martialArtDescription{{id}}" style="font-weight: normal; padding-left: 10px" type="text" value="{{subitem.name}}" data-field="name" title="{{subitem.system.description}}"/></td>
+			<td style="width: 25%"><input name="martialArtChoice{{id}}" type="text" value="{{subitem.system.choice}}" data-field="system.choice" class="secondary" placeholder="?"/></td>
 			<td><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
 					class="fas fa-edit"></i></a> <a class="item-control item-delete"
 				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>

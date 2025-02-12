@@ -2,12 +2,14 @@
 
 <form class="{{cssClass}}" autocomplete="off">
   <div class="npc-firstline">
-    <span>Editable <label class="switch">
-       	<input type="checkbox" data-item-id="{{this.id}}" data-check="system.editmode" {{checked this.system.editmode}} type="checkbox" data-dtype="Boolean"/>
-         <span class="shadowrun6-slider round"></span>
-         </label>
-   {{#if system.editmode}}
-   <select data-field="system.subtype" style="background: rgba(255,255,255,0.25); border: 0px">
+    <span>
+      Editable 
+      <label class="switch">
+        <input name="editmode" type="checkbox" data-item-id="{{this.id}}" data-check="system.editmode" {{checked this.system.editmode}} type="checkbox" data-dtype="Boolean"/>
+        <span class="shadowrun6-slider round"></span>
+      </label>
+    {{#if system.editmode}}
+    <select name="critterSubtype" data-field="system.subtype" style="background: rgba(255,255,255,0.25); border: 0px">
 				{{#select system.subtype}}
 					{{#each config.NPC_SUBTYPES as |type id|}}
 						<option value="{{@type}}" name=system.subtype>{{localize (concat "shadowrun6.npc.subtype." type)}}</option>
@@ -17,9 +19,9 @@
       {{/if}}
     </span>
   </div>
-   {{#if system.editmode}}
-		{{> "systems/shadowrun6-eden/templates/parts/npc_full_edit_sheet.html" }}
-   {{else}}
+  {{#if system.editmode}}
+    {{> "systems/shadowrun6-eden/templates/parts/npc_full_edit_sheet.html" }}
+  {{else}}
 		{{> "systems/shadowrun6-eden/templates/parts/npc_usage_sheet.html" }}
-   {{/if}}
+  {{/if}}
 </form>

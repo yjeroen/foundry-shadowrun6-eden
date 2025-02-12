@@ -17,9 +17,9 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'complexform'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
+			<td> <input name="complexFormName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
 			<td class="centered" style="width: 3em"> {{localize (concat "shadowrun6.spell.duration_" (concat  item.system.duration "_short"))}}</td>
-			<td class="centered"style="width: 3em"> <input type="text" value="{{item.system.fading}}" data-field="system.fading" data-type="Number" disabled></td>
+			<td class="centered"style="width: 3em"> <input name="complexFormFading{{id}}" type="text" value="{{item.system.fading}}" data-field="system.fading" data-type="Number" disabled></td>
 			<td class="centered">
 				{{#iff item.system.fading ">" 0}}
 				<a class="item-control complexform-roll"   data-item-id="{{item.id}}"  title="Roll"><i class="fas fa-dice-six"></i></a>

@@ -15,16 +15,16 @@
         {{else}}
        <li class="item flexrow" data-skill-id="{{id}}">
 		    {{#if skill.specialization }}
-       	<button type="button" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" data-item-id="{{this.id}}">+</button>
+       	<button type="button" name="collapseSkillAction{{id}}" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" data-item-id="{{this.id}}">+</button>
         {{else}}
-       	<button type="button" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}} empty" data-item-id="{{this.id}}">+</button>
+       	<button type="button" name="collapseSkillAction{{id}}" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}} empty" data-item-id="{{this.id}}">+</button>
         {{/if}}
          <label class="skill-value skill-key rollable skill-name skill-roll" data-skill="{{id}}">{{localize (concat "skill." id ) }}</label>
          <div class="skill-attrib">
            <span>{{localize (concat3 "attrib." (skillAttr id) "_short")}}</span>
          </div>
          <div class="skill-points centered" style="width: 2em;">
-           <input class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}"  style="width: 2em" />
+           <input name="skillActionPoints{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}"  style="width: 2em" />
          </div>
          <div class="skill-pool" style="flex-grow:2;">
            <span>{{skill.pool}}</span>
@@ -44,7 +44,7 @@
          	    <tr>
          	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
          	    	<td>
-         	    		<select data-field="system.skills.{{id}}.specialization" style="width: -webkit-fill-available;">
+         	    		<select name="skillSpecialization{{id}}" data-field="system.skills.{{id}}.specialization" style="width: -webkit-fill-available;">
                    {{selectOptions (lookup ../config.skill_special id) selected=skill.specialization blank=(localize "shadowrun6.label.none") localize=true}}
                		</select>
                	</td>
@@ -68,7 +68,7 @@
                   {{/if}}              
                 </td>
          	    	<td>
-         	    		<select data-field="system.skills.{{id}}.expertise" style="width: -webkit-fill-available;">
+         	    		<select name="skillExpertise{{id}}" data-field="system.skills.{{id}}.expertise" style="width: -webkit-fill-available;">
                    {{selectOptions (lookup ../config.skill_special id) selected=skill.expertise blank=(localize "shadowrun6.label.none") localize=true}}
                		</select>
                	</td>

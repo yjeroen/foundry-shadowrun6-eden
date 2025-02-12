@@ -1,7 +1,7 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
         <div class="section">
             <table>
@@ -11,22 +11,23 @@
                     <th>{{localize 'shadowrun6.lifestyle.paid'}}</th>
                     <th>{{localize 'shadowrun6.lifestyle.sin'}}</th>
                 </tr>
+                <tr>
                     <td>
-                        <select data-field="system.type">
-                        {{selectOptions config.LIFESTYLE_TYPE selected=item.system.type localize=true}}
-                    </select>
-                    <td class="centered">
-                        <span class="input-symbol-nuyen"><input class="box" type="number" value="{{item.system.cost}}" data-field="system.cost" /></span>
+                        <select name="lifestyleVtype" data-field="system.type">
+                            {{selectOptions config.LIFESTYLE_TYPE selected=item.system.type localize=true}}
+                        </select>
                     </td>
                     <td class="centered">
-                        <span class="input-symbol-nuyen"><input class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
+                        <span class="input-symbol-nuyen"><input name="cost" class="box" type="number" value="{{item.system.cost}}" data-field="system.cost" /></span>
                     </td>
-                    <td><input class="box" type="text" value="{{item.system.sin}}" data-field="system.sin" /></td>
+                    <td class="centered">
+                        <span class="input-symbol-nuyen"><input name="paid" class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
+                    </td>
+                    <td><input name="sin" class="box" type="text" value="{{item.system.sin}}" data-field="system.sin" /></td>
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea class="box" type="text" data-field="system.description" cols="50"
-                rows="8">{{item.system.description}}</textarea>
+            <textarea name="description" class="box" type="text" data-field="system.description" cols="50" rows="8">{{item.system.description}}</textarea>
         </div>
     </section>
 </form>

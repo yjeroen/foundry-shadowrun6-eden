@@ -1,19 +1,19 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
         <div class="section">
         <dl>
             <dt>{{localize 'shadowrun6.qualityedit.explain'}}</dt>
-            <dd><input type="text" value="{{item.system.explain}}" data-field="system.explain" /></dd>
+            <dd><input name="explain" type="text" value="{{item.system.explain}}" data-field="system.explain" /></dd>
             <dt>{{localize 'shadowrun6.qualityedit.description'}}:</dt>
             <dd>
-                <textarea type="text" data-field="system.description" class="secondary" placeholder="Details" cols="20" rows="6">{{item.system.description}}</textarea>
+                <textarea name="description" type="text" data-field="system.description" class="secondary" placeholder="Details" cols="20" rows="6">{{item.system.description}}</textarea>
            </dd>
             <dt>{{localize 'shadowrun6.qualityedit.category'}}</dt>
             <dd>
-                <select data-field="system.category">
+                <select name="qualityCategory" data-field="system.category">
                     {{selectOptions config.QUALITY_CATEGORIES selected=item.system.category localize=true}}
               </select></dd>
         </dl>

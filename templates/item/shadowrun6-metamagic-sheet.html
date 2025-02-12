@@ -1,8 +1,8 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)" />
         <div class="section">
             <table>
                 <tr>
@@ -11,17 +11,19 @@
                     <th colspan="2">{{localize 'shadowrun6.label.mages'}}</th>
                 </tr>
                 <tr style="text-align:center">
-                    <td><input style="vertical-align: middle;" type="checkbox" {{checked item.system.level}}
-                        data-field="system.level" /></td>
-                    <td><input style="vertical-align: middle;" type="checkbox" {{checked item.system.adepts}}
-                            data-field="system.adepts" /></td>
-                    <td colspan="2"><input style="vertical-align: middle;" type="checkbox" {{checked item.system.mages}}
-                            data-field="system.mages" /></td>
+                    <td>
+                        <input name="level" style="vertical-align: middle;" type="checkbox" {{checked item.system.level}} data-field="system.level" />
+                    </td>
+                    <td>
+                        <input name="adepts" style="vertical-align: middle;" type="checkbox" {{checked item.system.adepts}} data-field="system.adepts" />
+                    </td>
+                    <td colspan="2">
+                        <input name="mages" style="vertical-align: middle;" type="checkbox" {{checked item.system.mages}} data-field="system.mages" />
+                    </td>
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea class="box" type="text" data-field="system.description" cols="20"
-                rows="8">{{item.system.description}}</textarea>
+            <textarea name="description" class="box" type="text" data-field="system.description" cols="20" rows="8">{{item.system.description}}</textarea>
         </div>
     </section>
 </form>

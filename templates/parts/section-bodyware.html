@@ -17,48 +17,27 @@
 	      </tr>
 	    </thead>
 	{{#each actor.items as |item id|}}
-	{{#iff item.type '==' 'gear'}}
-		{{#iff item.system.type '==' "CYBERWARE"}}
+	{{#if (eq item.type 'gear')}}
+		{{#if (or (eq item.system.type "CYBERWARE") 
+		          (or (eq item.system.type "BIOWARE")
+				      (or (eq item.system.type "NANOWARE") 
+					      (eq item.system.type "GENETICS")
+			)))
+		}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
-			<td  class="centered"style="width: 3em"> <input type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
-			<td class="centered" style="width: 2em"> <input class="centered" type="text" value="{{item.system.capacity}}" data-field="system.capacity" data-type="Number" disabled></td>
-			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-	   </tr>
-		{{/iff}}
-		{{#iff item.system.type '==' "BIOWARE"}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
-			<td class="centered" style="width: 3em"> <input class="centered" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
+			<td> <input name="bodywareName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
+			<td  class="centered"style="width: 3em"> <input name="bodywareEssence{{id}}" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
+			{{#if (eq item.system.type "CYBERWARE") }}
+			<td class="centered" style="width: 2em"> <input name="bodywareCapacity{{id}}" class="centered" type="text" value="{{item.system.capacity}}" data-field="system.capacity" data-type="Number" disabled></td>
+			{{else}}
 			<td class="centered"> - </td>
+			{{/if}}
 			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
 					class="fas fa-edit"></i></a> <a class="item-control item-delete"
 				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
 	   </tr>
-		{{/iff}}
-		{{#iff item.system.type '==' "NANOWARE"}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
-			<td class="centered" style="width: 3em"> <input class="centered" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
-			<td class="centered"> - </td>
-			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-	   </tr>
-		{{/iff}}
-		{{#iff item.system.type '==' "GENETICS"}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system 'item'}}" disabled></td>
-			<td class="centered" style="width: 3em"> <input class="centered" type="text" value="{{item.system.essence}}" data-field="system.essence" data-type="Number" disabled></td>
-			<td class="centered"> - </td>
-			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-	   </tr>
-		{{/iff}}
-	{{/iff}}
+		{{/if}}
+	{{/if}}
 	{{/each}}
 	    <tfoot>
 	      <tr>

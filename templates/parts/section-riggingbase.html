@@ -31,7 +31,7 @@
 		{{#if (eq item.system.type "ELECTRONICS") }}
 		{{#if (eq item.system.subtype "RIGGER_CONSOLE") }}
       <tr class="draggable item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
-       	<td style="margin-right: 1rem"><button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}"></button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+       	<td style="margin-right: 1rem"><button type="button" name="collapseRiggerConsole{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}"></button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
          <td class="centered"><label class="middle-column" >{{item.system.devRating}}</label></td>
          <td class="centered">{{item.system.d}}</td>
          <td class="centered">{{item.system.f}}</td>

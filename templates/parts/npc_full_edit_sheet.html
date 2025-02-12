@@ -5,7 +5,7 @@
 		</div>
 		<div class="header-fields" style="flex:3">
 
-			<h1><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+			<h1><input name="name" data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
 			<div class="npc-settings" style="display:flex">
 			{{#switch actor.type}}
 				{{#case 'Critter'}} {{> "systems/shadowrun6-eden/templates/parts/npc_edit_critter.html"}} {{/case}}
@@ -122,11 +122,12 @@
 							{{#if itemAttr.isFormula}}
 							{{!-- Use the items.name.key format for shorthand. --}}
 							{{#if ../../shorthand}}
-							<button class="item-button rollable" data-roll="@items.{{slugify item.name}}.{{key}}"
+							<button class="item-button rollable" name="itemButton{{id}}" 
+								data-roll="@items.{{slugify item.name}}.{{key}}"
 								data-label="{{ itemAttr.label }}" title="{{itemAttr.value}}">{{itemAttr.label}}</button>
 							{{!-- Use the items.name.attributes.key.value format otherwise. --}}
 							{{else}}
-							<button class="item-button rollable"
+							<button class="item-button rollable" name="itemButton{{id}}" 
 								data-roll="@items.{{slugify item.name}}.attributes.{{key}}.value"
 								data-label="{{ itemAttr.label }}" title="{{itemAttr.value}}">{{itemAttr.label}}</button>
 							{{/if}}
@@ -136,13 +137,13 @@
 							{{#if itemGroupedAttr.isFormula}}
 							{{!-- Use the items.name.key format for shorthand. --}}
 							{{#if ../../../shorthand}}
-							<button class="item-button rollable"
+							<button class="item-button rollable" name="itemButton{{id}}" 
 								data-roll="@items.{{slugify item.name}}.{{key}}.{{groupedKey}}"
 								data-label="{{ itemGroupedAttr.label }}"
 								title="{{itemGroupedAttr.value}}">{{itemGroupedAttr.label}}</button>
 							{{!-- Use the items.name.attributes.key.value format otherwise. --}}
 							{{else}}
-							<button class="item-button rollable"
+							<button class="item-button rollable" name="itemButton{{id}}"
 								data-roll="@items.{{slugify item.name}}.attributes.{{key}}.{{groupedKey}}.value"
 								data-label="{{ itemGroupedAttr.label }}"
 								title="{{itemGroupedAttr.value}}">{{itemGroupedAttr.label}}</button>
@@ -156,7 +157,7 @@
 							<span>{{localize (concat3 "attrib." (skillAttr item.id) "_short")}}</span>
 						</div>
 						<div class="skill-points">
-							<input class="skill-value" type="number" data-field="item.system.points" value="{{item.system.points}}" />
+							<input name="skillPoints{{id}}" class="skill-value" type="number" data-field="item.system.points" value="{{item.system.points}}" />
 						</div>
 						<div class="item-controls">
 							<a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>

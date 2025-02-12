@@ -16,13 +16,13 @@
                 </tr>
                 <tr>
                     <td style="text-align: center">
-                        <select data-field="system.type" class="typeselect">
+                        <select name="softwareType" data-field="system.type" class="typeselect">
                             {{selectOptions config.SOFTWARE_TYPES selected=item.system.type localize=true}}
                         </select>
                     </td>
                     <td style="text-align: center">
                         {{#if (eq item.system.type 'AUTOSOFT')}}
-                        <select data-field="system.subtype" class="typeselect">
+                        <select name="softwareSubtype" data-field="system.subtype" class="typeselect">
                             {{selectOptions config.AUTOSOFT_TYPES selected=item.system.subtype localize=true}}
                         </select>
                         {{/if}}

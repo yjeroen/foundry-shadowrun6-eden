@@ -5,7 +5,7 @@
 		</div>
 		<div class="header-fields" style="flex:3">
             
-			<h1><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+			<h1><input name="name" data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
 			<div class="npc-settings">
             {{#switch actor.type}}
                 {{#case 'Spirit' }} {{> "systems/shadowrun6-eden/templates/parts/npc_usage_spirit.html" }} {{/case}}

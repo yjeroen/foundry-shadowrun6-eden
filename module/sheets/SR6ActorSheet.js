@@ -1,4 +1,6 @@
 import { WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../dice/RollTypes.js";
+import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
+
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -820,5 +822,13 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         const cform = getSystemData(formRaw);
         let roll = new ComplexFormRoll(caster, item, itemId, cform);
         this.actor.rollComplexForm(roll);
+    }
+
+    async _render(...args) {
+        await super._render(...args);
+
+        // Preselect text on focusedElement to quickly enter values in combination with tabbing
+        const focusedElement = $(this.element).find(':focus')?.[0];
+        selectAllTextOnElement(focusedElement);
     }
 }

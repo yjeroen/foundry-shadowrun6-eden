@@ -1,7 +1,7 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <div class="section">
             <table>
                 <tr>
@@ -12,30 +12,29 @@
                 </tr>
                 <tr>
                     <td>
-                        <select data-field="system.type">
+                        <select name="critterPowerType" data-field="system.type">
                             {{selectOptions config.spell_type selected=item.system.type localize=true}}
                         </select>
                     </td>
                     <td>
-                        <select data-field="system.action">
+                        <select name="critterPowerAction" data-field="system.action">
                             {{selectOptions config.adeptpower_activation selected=item.system.action
                             localize=true}}
                         </select>
                     </td>
                     <td>
-                        <select data-field="system.range">
+                        <select name="critterPowerRange" data-field="system.range">
                             {{selectOptions config.spell_range selected=item.system.range localize=true}}
                         </select>
                     </td>
                     <td>
-                    <select data-field="system.duration">
+                    <select name="critterPowerDuration" data-field="system.duration">
                         {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                     </select>
                 </td>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea class="box" type="text" data-field="system.description" cols="20"
-                rows="8">{{item.system.description}}</textarea>
+            <textarea name="description" class="box" type="text" data-field="system.description" cols="20" rows="8">{{item.system.description}}</textarea>
         </div>
     </section>
 </form>

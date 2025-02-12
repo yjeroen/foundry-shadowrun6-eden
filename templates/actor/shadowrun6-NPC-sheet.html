@@ -1,14 +1,16 @@
 <form class="{{cssClass}}" autocomplete="off">
   <div class="npc-firstline">
-    <span>{{localize 'shadowrun6.actor.editable'}} <label class="switch">
-       	<input type="checkbox" data-item-id="{{this.id}}" data-check="system.editmode" {{checked this.system.editmode}} type="checkbox" data-dtype="Boolean"/>
-         <span class="shadowrun6-slider round"></span>
-         </label>
+    <span>
+      {{localize 'shadowrun6.actor.editable'}} 
+      <label class="switch">
+       	<input name="editmode" type="checkbox" data-item-id="{{this.id}}" data-check="system.editmode" {{checked this.system.editmode}} type="checkbox" data-dtype="Boolean"/>
+        <span class="shadowrun6-slider round"></span>
+      </label>
     </span>
   </div>
-   {{#if system.editmode}}
-		{{> "systems/shadowrun6-eden/templates/parts/npc_full_edit_sheet.html" }}
-   {{else}}
+  {{#if system.editmode}}
+	  {{> "systems/shadowrun6-eden/templates/parts/npc_full_edit_sheet.html" }}
+  {{else}}
 		{{> "systems/shadowrun6-eden/templates/parts/npc_usage_sheet.html" }}
-   {{/if}}
+  {{/if}}
 </form>

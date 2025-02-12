@@ -12,7 +12,7 @@
 			<td class="centered"><img src="systems/shadowrun6-eden/images/heart.svg" style="border: 0px; height: 25px; width: 25px;" /></td>
 			<td><label title="{{localize 'shadowrun6.monitor.physical'}}">{{localize 'shadowrun6.monitor.physical'}}</label></td>
 			<td class="centered">
-				<input data-field="system.physical.dmg" class="centered health-phys" type="number" value="{{system.physical.dmg}}" data-dtype="Number" id="dataPhyCur">
+				<input name="physicalMonitorDmg" data-field="system.physical.dmg" class="centered health-phys" type="number" value="{{system.physical.dmg}}" data-dtype="Number" id="dataPhyCur">
 			</td>
 			<td class="barPhyMax">
 				<div style="width: 300px;">
@@ -28,7 +28,7 @@
 			<td class="centered"><img src="systems/shadowrun6-eden/images/brain.svg" style="border: 0px; height: 25px; width: 25px;" /></td>
 			<td><label title="{{localize 'shadowrun6.monitor.stun'}}">{{localize 'shadowrun6.monitor.stun'}}</label></td>
 			<td class="centered">
-				<input data-field="system.stun.dmg" class="centered health-stun" type="number" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur">
+				<input  name="stunMonitorDmg" data-field="system.stun.dmg" class="centered health-stun" type="number" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur">
 			</td>
 			<td class="barStunMax">
 				<!--div id="barStunCur">{{system.stun.value}}/{{system.stun.max}}</div-->
@@ -46,7 +46,7 @@
 		<tr style="vertical-align: baseline;">
 			<td class="centered"><i class="fas fa-skull" style="font-size: 20px;"></i></td>
 			<td><label title="{{localize 'shadowrun6.monitor.overflow'}}">{{localize 'shadowrun6.monitor.overflow'}}</label></td>
-			<td class="centered"><input class="centered health-overflow" data-field="system.overflow.dmg" type="number" value="{{system.overflow.dmg}}" data-dtype="Number" id="dataOverflowCur"></td>
+			<td class="centered"><input name="overflowMonitorDmg" class="centered health-overflow" data-field="system.overflow.dmg" type="number" value="{{system.overflow.dmg}}" data-dtype="Number" id="dataOverflowCur"></td>
 			<td id="barOverflowMax">
 				<div style="width: 300px;">
 					{{#iff system.overflow.dmg '>=' system.overflow.max}}

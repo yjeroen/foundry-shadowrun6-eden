@@ -10,7 +10,7 @@
        {{#iff item.system.genesisID '==' 'knowledge'}}
 
        <li class="item flexrow" data-item-id="{{item.id}}">
-         <input type="text" value="{{item.name}}" data-field="name" style="width: 11em; flex-grow:4" />
+         <input name="skillKnowledgeName{{id}}" type="text" value="{{item.name}}" data-field="name" style="width: 11em; flex-grow:4" />
          {{!-- Iterate through all attributes on the item and output buttons for any that are formula. --}}
                     <div class="item-controls" style="flex-grow:1">
                         <!--a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a-->

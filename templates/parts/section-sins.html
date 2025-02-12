@@ -16,7 +16,7 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'sin'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
+			<td> <input name="sinName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
 			<td class="centered">
 				{{localize (lookup ../config.SIN_QUALITY item.system.quality)}}
 				<!-- <select data-field="item.quality" disabled> -->
