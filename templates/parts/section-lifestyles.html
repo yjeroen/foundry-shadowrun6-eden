@@ -18,13 +18,13 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'lifestyle'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td><input type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
+			<td><input name="lifestyleName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
 			<td class="centered">
 				{{localize (lookup ../config.LIFESTYLE_TYPE item.system.type)}}
 			</td>
 			<td class="centered">{{nuyen item.system.cost}}</td>
 			<td class="centered">
-				<span class="input-symbol-nuyen"><input class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
+				<span class="input-symbol-nuyen"><input name="lifestylePaid{{id}}" class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
 			</td>
 			<td class="centered">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a> 

@@ -4,16 +4,16 @@
 	<div class="edge-coin clickable" data-translatex="0" data-rotatey="0" style="transform: translateX(0%) rotateY(0deg); transition: transform 0.6s;">
 		<div class="edge-coin__face edge-coin__face_front">
 			<img src="systems/shadowrun6-eden/images/EdgeToken.webp" style="border: 0px; height: auto; width: 96px; z-index: -1; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-			<input class="edge-value" type="text" data-dtype="Number" data-field="system.edge.value" value="{{system.edge.value}}" disabled>
+			<input name="edgeValueFront" class="edge-value" type="text" data-dtype="Number" data-field="system.edge.value" value="{{system.edge.value}}" disabled>
 		</div>
 		<div class="edge-coin__face edge-coin__face_back">
 			<img src="systems/shadowrun6-eden/images/EdgeToken.webp" style="border: 0px; height: auto; width: 96px; z-index: -1; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-			<input class="edge-value" type="text" data-dtype="Number" data-field="system.edge.value" value="{{system.edge.value}}" disabled>
+			<input name="edgeValueBack" class="edge-value" type="text" data-dtype="Number" data-field="system.edge.value" value="{{system.edge.value}}" disabled>
 		</div>
 	</div>
 
 	<div class="field edgeChanged">
 		<label class="edge-max-label"> {{localize 'attrib.edg'}} </label>
-		<input class="edge-max" type="number" data-dtype="Number" data-field="system.edge.max" value="{{system.edge.max}}" placeholder="max" title="{{localize 'attrib.edg'}}" min="1" max="6">
+		<input name="edgeMax" class="edge-max" type="number" data-dtype="Number" data-field="system.edge.max" value="{{system.edge.max}}" placeholder="max" title="{{localize 'attrib.edg'}}" min="1" max="6">
 	</div>
 </div>

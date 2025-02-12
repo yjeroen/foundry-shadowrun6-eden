@@ -9,8 +9,8 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'quality'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
-			<td> <input type="text" value="{{item.system.explain}}" data-field="system.explain" class="secondary" placeholder="Details" disabled></td>
+			<td> <input name="qualitiesName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
+			<td> <input name="qualitiesExplain{{id}}" type="text" value="{{item.system.explain}}" data-field="system.explain" class="secondary" placeholder="Details" disabled></td>
 			<td><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
 					class="fas fa-edit"></i></a> <a class="item-control item-delete"
 				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>

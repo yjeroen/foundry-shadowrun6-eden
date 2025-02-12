@@ -6,16 +6,16 @@
 		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" /><br/><br/>
 		</div>
 		<div class="header-fields">
-			<h1><input data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+			<h1><input name="name" data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
 			{{!-- Character Summary --}}
 			<div class="description" style="width: 450px;">
-				<input class="autoexpand" data-field="system.metatype" type="text" value="{{system.metatype}}"
+				<input name="metatype" class="autoexpand" data-field="system.metatype" type="text" value="{{system.metatype}}"
 					placeholder="{{localize 'shadowrun6.actor.metatype'}}" />
 				&nbsp;&middot;&nbsp;
-				<input class="autoexpand" data-field="system.gender" type="text" value="{{system.gender}}"
+				<input name="gender" class="autoexpand" data-field="system.gender" type="text" value="{{system.gender}}"
 					placeholder="{{localize 'shadowrun6.label.gender'}}" />
 				&nbsp;&middot;&nbsp;
-            <select data-field="system.mortype" data-field="system.mortype" style="background: rgba(255,255,255,0.25); border: 0px">
+            <select name="mortype" data-field="system.mortype" data-field="system.mortype" style="background: rgba(255,255,255,0.25); border: 0px">
 				{{selectOptions config.MOR_TYPES selected=system.mortype localize=true}}
 			</select>
 			</div>

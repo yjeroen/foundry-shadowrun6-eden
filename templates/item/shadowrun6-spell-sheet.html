@@ -1,7 +1,7 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92" style="background-color: var(--highlight-color)"/>
         <div class="section">
             <table>
@@ -13,17 +13,17 @@
                 </tr>
                 <tr style="text-align:center">
                     <td colspan="2">
-                        <select data-field="system.category">
+                        <select name="spellCategory" data-field="system.category">
                             {{selectOptions config.spell_category selected=item.system.category localize=true}}
                         </select>
                     </td>
                     <td colspan="2">
-                        <select data-field="system.type">
+                        <select name="spellType" data-field="system.type">
                             {{selectOptions config.spell_type selected=item.system.type localize=true}}
                         </select>
                     </td>
-                    <td><input style="vertical-align: middle;" type="checkbox" {{checked item.system.isOpposed}} data-field="system.isOpposed" /></td>
-                    <td><input style="vertical-align: middle;" type="checkbox" {{checked item.system.withEssence}} data-field="system.withEssence" /></td>
+                    <td><input name="isOpposed" style="vertical-align: middle;" type="checkbox" {{checked item.system.isOpposed}} data-field="system.isOpposed" /></td>
+                    <td><input name="withEssence" style="vertical-align: middle;" type="checkbox" {{checked item.system.withEssence}} data-field="system.withEssence" /></td>
                 </tr>
                 <tr style="text-align:center">
                     <th colspan="2">{{localize 'shadowrun6.spell.range'}}</th>
@@ -44,17 +44,17 @@
                 </tr>
                 <tr style="text-align:center">
                     <td colspan="2">
-                        <select data-field="system.range">
+                        <select name="spellRange" data-field="system.range">
                             {{selectOptions config.spell_range selected=item.system.range localize=true}}
                         </select>
                     </td>
                     <td colspan="2">
-                        <select data-field="system.duration">
+                        <select name="spellDuration" data-field="system.duration">
                             {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                         </select>
                     </td>
                     <td class="centered">
-                        <input data-field="system.drain" value="{{item.system.drain}}" type="number" class="box centered" style="width:2em"/>
+                        <input name="drain" data-field="system.drain" value="{{item.system.drain}}" type="number" class="box centered" style="width:2em"/>
                     </td>
 
                     <!-- {{#if (eq item.system.threshold "//no spells have a static threshold//")}}
@@ -67,7 +67,7 @@
 
                     {{#if (eq item.system.category "combat")}}
                     <td>
-                        <select data-field="system.damage">
+                        <select name="spellDamage" data-field="system.damage">
                             {{selectOptions config.spell_damage selected=item.system.damage localize=true}}
                         </select>
                     </td>
@@ -77,7 +77,7 @@
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea class="box" type="text" data-field="system.description" cols="20" rows="8">{{item.system.description}}</textarea>
+            <textarea name="description" class="box" type="text" data-field="system.description" cols="20" rows="8">{{item.system.description}}</textarea>
         </div>
     </section>
 </form>
