@@ -1,3 +1,5 @@
+import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
+
 function getSystemData(obj) {
     if (game.release.generation >= 10)
         return obj.system;
@@ -145,5 +147,13 @@ export class SR6ItemSheet extends ItemSheet {
             /* Update the value of 'array' with newValue */
             await this.object.update({ [array]: newValue });
         });
+    }
+    
+    async _render(...args) {
+        await super._render(...args);
+
+        // Preselect text on focusedElement to quickly enter values in combination with tabbing
+        const focusedElement = $(this.element).find(':focus')?.[0];
+        selectAllTextOnElement(focusedElement);
     }
 }

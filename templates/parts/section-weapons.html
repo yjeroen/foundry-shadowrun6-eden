@@ -9,7 +9,7 @@
         {{#if (or (eq item.system.type "WEAPON_FIREARMS") (eq item.system.type "WEAPON_RANGED"))}}
         <tr class="draggable item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
             <td style="margin-right: 1rem; width: 5%">
-                <button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
+                <button type="button" name="collapseWeapon{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
             </td>
             <td style="width: 30%">
                 <label class="item-name" data-skill="{{id}}">{{item.name}}</label>
@@ -18,7 +18,7 @@
             <td style="width: 15%"><label class="middle-column" >{{attackrating item.system.attackRating}}</label></td>
             <td style="width: 20%; text-align: right; vertical-align: middle">
                 <label class="middle-column">
-                    <input type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
+                    <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
                 </label>
                 <a class="item-control item-roll" data-skill="" data-item-id="{{this.id}}" title=""><i class="fas fa-rotate-right"></i></a>
             </td>
@@ -51,14 +51,14 @@
                             <td>
                                 <div style="display: flex; align-items: center; vertical-align: middle;">
          	                        {{ localize 'shadowrun6.label.wilddie' }}: 
-                                    <input class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="system.wild" type="checkbox" data-dtype="Boolean"/>
+                                    <input name="weaponWildDie{{id}}" class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="system.wild" type="checkbox" data-dtype="Boolean"/>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 {{ localize 'shadowrun6.label.poolmod' }}:
-                                <input class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text" value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
+                                <input name="weaponMod{{id}}" class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text" value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
                             </td>
                         </tr>
                     </table>
@@ -80,7 +80,7 @@
         {{#iff item.system.type '==' "WEAPON_CLOSE_COMBAT"}}
         <tr class="draggable item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
             <td style="margin-right: 1rem; width: 5%">
-                <button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
+                <button type="button" name="collapseCloseCombatWeapon{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
             </td>
             <td style="width: 30%">
                 <label class="item-name" data-skill="{{id}}">{{item.name}}</label>
@@ -112,14 +112,14 @@
                             <td>
                                 <div style="display: flex; align-items: center; vertical-align: middle;">
                                     {{ localize 'shadowrun6.label.wilddie' }}:
-                                    <input class="centered box" type="checkbox" {{checked item.system.wild}} data-item-id="{{this.id}}" data-check="system.wild" type="checkbox" data-dtype="Boolean"/>
+                                    <input name="weaponWildDie{{id}}" class="centered box" type="checkbox" {{checked item.system.wild}} data-item-id="{{this.id}}" data-check="system.wild" type="checkbox" data-dtype="Boolean"/>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 {{ localize 'shadowrun6.label.poolmod' }}: 
-                                <input class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text" value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
+                                <input name="weaponMod{{id}}"  class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text" value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
                             </td>
                         </tr>
                     </table>
@@ -144,7 +144,7 @@
         {{#iff item.system.type '==' "WEAPON_SPECIAL"}}
         <tr class="draggable item" data-item-id="{{this.id}}" title="{{sr6_description item.system 'item'}}">
             <td style="margin-right: 1rem; width: 5%">
-                <button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
+                <button type="button" name="collapseSpecialWeapon{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
             </td>
             <td style="width: 30%">
                 <label class="item-name" data-skill="{{id}}">{{item.name}}</label>
@@ -157,7 +157,7 @@
             </td>
             <td style="width: 20%; text-align: right; vertical-align: middle">
                 <label class="middle-column">
-                    <input type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
+                    <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
                 </label>
                 <a class="item-control item-roll" data-skill="" data-item-id="" title=""><i class="fa-solid fa-rotate-right"></i></a>
             </td>
@@ -185,14 +185,14 @@
                             <td>
                                 <div style="display: flex; align-items: center; vertical-align: middle;">
                                     {{ localize 'shadowrun6.label.wilddie' }}:
-                                    <input class="centered box" type="checkbox" {{checked item.system.wild}} data-item-id="{{this.id}}" data-check="system.wild" type="checkbox" data-dtype="Boolean"/>
+                                    <input name="weaponWildDie{{id}}" class="centered box" type="checkbox" {{checked item.system.wild}} data-item-id="{{this.id}}" data-check="system.wild" type="checkbox" data-dtype="Boolean"/>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 {{ localize 'shadowrun6.label.poolmod' }}:
-                                <input class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text" value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
+                                <input name="weaponMod{{id}}" class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text" value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
                             </td>
                         </tr>
                     </table>

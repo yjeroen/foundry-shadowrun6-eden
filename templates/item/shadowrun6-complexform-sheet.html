@@ -1,7 +1,7 @@
 <form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <h2><input type="text" value="{{item.name}}" data-field="name" /></h2>
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="92" width="92"
             style="background-color: var(--highlight-color)" />
         <div class="section">
@@ -14,17 +14,17 @@
                 <tr>
                     <!--// select leer, electronics, cracking -->
                     <td class="box centered">
-                        <select data-field="system.skill">
+                        <select name="complexFormSkill" data-field="system.skill">
                             {{selectOptions config.COMPLEX_FORMS.skills selected=item.system.skill blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select data-field="system.oppAttr1">
+                        <select name="complexFormOppAttr1" data-field="system.oppAttr1">
                             {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr1 blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select data-field="system.oppAttr2">
+                        <select name="complexFormOppAttr1" data-field="system.oppAttr2">
                             {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr2 blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
@@ -37,21 +37,20 @@
                 </tr>
                 <tr>
                     <td class="box centered">
-                        <select data-field="system.duration">
+                        <select name="complexFormDuration" data-field="system.duration">
                             {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <input data-field="system.fading" value="{{item.system.fading}}" type="text" class="box centered" style="width:2em" />
+                        <input name="fading" data-field="system.fading" value="{{item.system.fading}}" type="text" class="box centered" style="width:2em" />
                     </td>
                     <td class="box centered">
-                        <input data-field="system.threshold" value="{{item.system.threshold}}" type="text" class="box centered" style="width:2em" />
+                        <input name="threshold" data-field="system.threshold" value="{{item.system.threshold}}" type="text" class="box centered" style="width:2em" />
                     </td>
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea class="box" type="text" data-field="system.description" cols="50"
-                rows="8">{{item.system.description}}</textarea>
+            <textarea name="description" class="box" type="text" data-field="system.description" cols="50" rows="8">{{item.system.description}}</textarea>
         </div>
     </section>
 </form>

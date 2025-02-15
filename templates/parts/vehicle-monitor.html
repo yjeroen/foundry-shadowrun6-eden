@@ -11,7 +11,7 @@
 			<td><label for="system.physical"
 				title="{{localize 'shadowrun6.monitor.physical'}}">{{localize 'shadowrun6.monitor.physical'}}</label></td>
 			<td>
-				<input data-field="system.physical.dmg" class="centered health-phys"
+				<input name="vehiclePhyDmg" data-field="system.physical.dmg" class="centered health-phys"
 				type="text" value="{{system.physical.dmg}}" data-dtype="Number"
 				id="dataPhyCur"></td>
 			<td class="barPhyMax">
@@ -28,7 +28,7 @@
 		<tr>
 			<td><img src="systems/shadowrun6-eden/images/brain.svg" style="border: 0px; height: auto; width: 48px" /></td>
 			<td><label for="system.stun" title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>
-			<td><input class="centered health-stun" data-field="system.stun.dmg" type="text" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur"></td>
+			<td><input name="vehicleStunDmg" class="centered health-stun" data-field="system.stun.dmg" type="text" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur"></td>
 			<td class="barStunMax">
 				<!--div id="barStunCur">{{system.stun.value}}/{{system.stun.max}}</div-->
 				<div style="width: 300px;">
