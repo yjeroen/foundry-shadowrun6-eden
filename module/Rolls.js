@@ -195,8 +195,8 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
     /* Check if attacker gets edge */
     if (configured.actor && configured.edgePlayer > 0) {
         console.log("SR6E | Actor " + configured.actor.name + " " + configured.actor._id + " gets " + configured.edgePlayer + " Edge");
-        let newEdge = getSystemData(configured.actor).edge.value + configured.edgePlayer;
-        await configured.actor.update({ ["system.edge.value"]: newEdge });
+        prepared.edge = getSystemData(configured.actor).edge.value + configured.edgePlayer;
+        await configured.actor.update({ ["system.edge.value"]: prepared.edge });
         let combat = game.combat;
         if (combat) {
             console.log("SR6E | In combat: mark edge gained in combatant " + configured.edgePlayer + " Edge");

@@ -358,16 +358,15 @@ export class RollDialog extends Dialog {
         this.modifier = userModifier ? userModifier : 0;
         
         // Get edge info
-        let edge = this.actor.system.edge.value;
         const boostSelected = CONFIG.SR6.EDGE_BOOSTS.find((boost) => boost.id == boostOrActionId);
         const actionSelected = CONFIG.SR6.EDGE_ACTIONS.find((action) => action.id == boostOrActionId);
         console.log("SR6E | Selected Edge Boost: `" + game.i18n.localize("shadowrun6.edge_boost." + boostOrActionId) + "`, that costs " + boostSelected?.cost);
         if (boostSelected && boostSelected?.cost) {
-            edge = this.actor.system.edge.value - boostSelected.cost;
+            this.edge = this.edge - boostSelected.cost;
         } else if (actionSelected && actionSelected?.cost) {
-            edge = this.actor.system.edge.value - actionSelected.cost;
+            this.edge = this.edge - actionSelected.cost;
         }
-        $("label[name='edgePool']")[0].innerText = edge.toString();
+        $("label[name='edgePool']")[0].innerText = this.edge.toString();
 
         console.log("SR6E | TODO: performEgdeBoostOrAction " + boostOrActionId);
         if (boostOrActionId == "edge_action") {
