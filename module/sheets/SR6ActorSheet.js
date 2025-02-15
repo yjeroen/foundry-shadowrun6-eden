@@ -660,6 +660,9 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         if (classList.contains("defense-roll")) {
             roll.actionText = game.i18n.localize("shadowrun6.defense." + event.currentTarget.dataset.itemId);
         }
+        else if (classList.contains("attributeonly-roll") && classList.contains("attribute-poolmod")) {
+            roll.actionText = game.i18n.localize("attrib." + event.currentTarget.dataset.itemId);
+        }
         else if (classList.contains("attributeonly-roll")) {
             roll.actionText = game.i18n.localize("shadowrun6.derived." + event.currentTarget.dataset.itemId);
         }
@@ -676,6 +679,9 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         }
         else if (classList.contains("attributeonly-roll")) {
             roll.allowBuyHits = true;
+            roll.useAttributeMod = classList.contains("attribute-poolmod");
+            roll.attributeTested = event.currentTarget.dataset.itemId;
+            roll.checkText = roll.actionText;
             dialogConfig = {
                 useModifier: true,
                 useThreshold: true
@@ -689,6 +695,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 useThreshold: true
             };
         }
+        //TODO rework dialogConfig because its not used..
         this.actor.rollCommonCheck(roll, dialogConfig);
     }
     //-----------------------------------------------------

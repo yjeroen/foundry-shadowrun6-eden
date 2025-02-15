@@ -1,7 +1,11 @@
     {{#each attributes as |attribute id|}}
     {{#ifIn id ../config.PRIMARY_ATTRIBUTES}}
     <div class="attribute" augmented-ui="b-clip-x exe">
-         <p>{{localize (concat "attrib." id )}}</p>
+         <p>
+				<a class="attributeonly-roll attribute-poolmod" data-pool="{{attribute.pool}}" data-item-id="{{id}}">
+               {{localize (concat "attrib." id )}}
+            </a>
+         </p>
          <span>{{attribute.pool}}</span>
          <input name="attributesPool{{id}}" type="hidden" data-dtype="Number" data-field="system.attributes.{{id}}.pool" value="8" />
          <div class="field {{id}}Changed">

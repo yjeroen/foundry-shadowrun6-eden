@@ -558,6 +558,19 @@ export class RollDialog extends Dialog {
             prepared.attrib = newAttrib;
             actor.updateSkillRoll(prepared, newAttrib);
             prepared.actionText = prepared.checkText;
+        } else if (prepared.useAttributeMod) {
+            console.log("SR6E | is Attribute Roll ", prepared.actionText);
+            const attribSelect = event.currentTarget;
+            let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
+            console.log("SR6E |  use attribute = " + newAttrib);
+            prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
+            prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested)
+            if (newAttrib) {
+                prepared.checkText += ' + ' + game.i18n.localize("attrib." + newAttrib);
+                prepared.pool += this.actor.system.attributes[newAttrib].pool;
+            }
+            prepared.calcPool = prepared.pool;
+            prepared.actionText = prepared.checkText;
         }
         console.log("SR6E | new check: " + prepared.checkText);
         console.log("SR6E | new pool: " + prepared.pool);

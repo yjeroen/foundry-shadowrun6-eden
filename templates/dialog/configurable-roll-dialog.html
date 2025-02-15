@@ -4,12 +4,12 @@
 <form>
 	 <div style="display:flex; align-content: space-between">
       <h3 style="flex:4; display:inline; align-self: flex-start">{{data.actionText}}</h3>
-      {{#if data.attrib}}
-      <span style="flex:2; display:inline">
-         {{localize "shadowrun6.label.attribute"}}
+      {{#if (or data.attrib data.useAttributeMod)}}
+      <span style="flex:2.2; display:inline">
+         + {{localize "shadowrun6.label.attribute"}}
          <select name="attrib" class="rollAttributeSelector">
             <!-- used to be selected=data.skillDef.attrib  -->
-            {{selectOptions CONFIG.SR6.ATTRIBUTES_SELECTOPTIONS selected=data.attrib localize=true}}
+            {{selectOptions CONFIG.SR6.ATTRIBUTES_SELECTOPTIONS selected=data.attrib localize=true blank=(localize "shadowrun6.label.none") }}
          </select>
        </span>
         {{/if}}
