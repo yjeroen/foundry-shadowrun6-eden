@@ -384,6 +384,10 @@
   display: inline; 
 }
 
+#chat-controls .chat-control-icon:hover {
+  text-shadow: 0 0 8px var(--color-shadow-primary);
+}
+
 #token-hud .status-effects {
   width: 222px;
   grid-template-columns: repeat(5, 20%);
