@@ -383,3 +383,39 @@
 .chat-message .soak-result .revertDamageCheck .damage-revert-text {
   display: inline; 
 }
+
+#token-hud .status-effects {
+  width: 222px;
+  grid-template-columns: repeat(5, 20%);
+}
+#token-hud .status-effects .effect-control {
+  width: 42px;
+  height: 42px;
+  padding: 2px;
+  opacity: 0.4;
+}
+#token-hud .status-effects .effect-control:hover {
+  opacity: 0.9;
+}
+#token-hud .status-effects .effect-control-wrapper {
+  display: grid;
+  position: relative;
+}
+
+#token-hud .status-effects .effect-control-wrapper .badge {
+  font-size: var(--font-size-14);
+  font-style: unset;
+  font-weight: bolder;
+  line-height: var(--font-size-13);
+  background: white;
+  border-radius: 50%;
+  border: 0.1em solid darkred;
+  height: 0.85rem;
+  pointer-events: none;
+  position: absolute;
+  right: -3px;
+  text-align: center;
+  top: -3px;
+  width: 0.85rem;
+  z-index: 1;
+}

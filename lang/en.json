@@ -1398,6 +1398,30 @@
         "Target_is_not_a_life_form": "Target is not a life form.",
         "do_not_revert_damage": "Overflow into Physical monitor. Do not revert back this damage via chat button, as it won't calculate correctly."
       }
+    },
+    "EFFECT": {
+      "sensorLock": "Sensor Locked",
+      "chilled": "Chilled",
+      "confused": "Confused",
+      "corrosive": "Corrosive",
+      "cover": "Cover",
+      "dazed": "Dazed",
+      "deafened": "Deafened",
+      "fatigued": "Fatigued",
+      "frightened": "Frightened",
+      "hazed": "Hazed",
+      "hobbled": "Hobbled",
+      "immobilized": "Immobilized",
+      "invisible_improved": "Invisible (Improved)",
+      "nauseated": "Nauseated",
+      "panicked": "Panicked",
+      "petrified": "Petrified",
+      "poisoned": "Poisoned",
+      "silent": "Silent",
+      "silent_improved": "Silent (Improved)",
+      "stilled": "Stilled",
+      "wet": "Wet",
+      "zapped": "Zapped"
     }
   },
   "skill": {

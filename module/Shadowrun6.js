@@ -18,21 +18,28 @@ import { doRoll } from "./Rolls.js";
 import EdgeUtil from "./util/EdgeUtil.js";
 import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
+import statusEffects from "./statusEffects.js";
+import SR6TokenHUD from "./SR6TokenHUD.js";
+import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
+import * as utils from "./util/helper.js";
 import Importer from "./util/Importer.js";
 const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
 
-/**
- * Change to true for developer mode
- */
-// CONFIG.debug.hooks = true;
-// CONFIG.debug.dice = true;
 
 /**
  * Init hook. Called from Foundry when initializing the world
  */
 Hooks.once("init", async function () {
+    /**
+     * Change to true for developer mode
+     */
+    game.debug = false;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
+    if (game.debug) {
+        CONFIG.debug.hooks = true;
+        CONFIG.debug.dice = true;
+    }
 
     CONFIG.SR6 = new SR6Config();
 
@@ -42,6 +49,11 @@ Hooks.once("init", async function () {
     CONFIG.ui.combat = Shadowrun6CombatTracker;
     CONFIG.Actor.documentClass = Shadowrun6Actor;
     CONFIG.Dice.rolls = [SR6Roll];
+
+    CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));
+    CONFIG.Token.hudClass = SR6TokenHUD;
+    CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
+
     //	(CONFIG as any).compatibility.mode = 0;
     getData(game).initiative = "@initiative.physical.pool + (@initiative.physical.dicePool)d6";
     registerSystemSettings();
@@ -49,8 +61,6 @@ Hooks.once("init", async function () {
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
-
-    //TODO Improve Vehicle Actor & Sheet
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
 
     Items.registerSheet("shadowrun6-eden", SR6ItemSheet, {
