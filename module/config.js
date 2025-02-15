@@ -456,6 +456,7 @@ export class SR6Config {
         stun_special: "shadowrun6.spell.damage_stun_special"
     };
     tradition_attributes = {
+        bod: "attrib.bod",
         log: "attrib.log",
         cha: "attrib.cha",
         int: "attrib.int"
