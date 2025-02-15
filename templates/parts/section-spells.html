@@ -20,8 +20,8 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'spell'}}
 		<tr class="draggable item list-item" data-item-id="{{item.id}}">
-      	<td style="width:1rem"><button type="button" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button></td>
-			<td> <input type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
+      	<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button></td>
+			<td> <input name="spellName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
 			<td class="centered" style="width: 3em"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
 			<td class="centered" style="width: 1em">
 				{{#if item.system.alchemic}}
@@ -31,12 +31,12 @@
 			<td class="centered">
 				{{#iff item.system.duration '==' 'sustained'}}
 				<label class="switch">
-					<input type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
+					<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
 						<span class="shadowrun6-slider round"></span>
 				</label>
 				{{/iff}}
 			</td>
-			<td class="centered"style="width: 3em"> <input type="text" value="{{item.system.drain}}" data-field="system.drain" data-type="Number" disabled></td>
+			<td class="centered"style="width: 3em"> <input name="spellDrain{{id}}" type="text" value="{{item.system.drain}}" data-field="system.drain" data-type="Number" disabled></td>
 			<td class="centered">
 				<a class="item-control spell-roll"   data-item-id="{{item.id}}"  title="Roll"><i class="fas fa-dice-six"></i></a>
 				<a class="item-control item-edit"   title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>

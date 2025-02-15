@@ -12,7 +12,7 @@
 				<td ><b>{{ localize 'shadowrun6.monitor.physical' }}</b></td>
 				<td class="centered">{{system.physical.base}}</td>
 				<td class="centered">
-					<input class="centered box health-phys calcPHY" data-field="system.physical.mod" type="text" value="{{system.physical.mod}}" data-dtype="Number"
+					<input name="derivedPhysicalMod" class="centered box health-phys calcPHY" data-field="system.physical.mod" type="text" value="{{system.physical.mod}}" data-dtype="Number"
 					id="dataPhyMod" style="width: 2em" title="{{system.physical.modString}}">
 				</td>
 				<td class="centered">{{system.physical.max}}</td>
@@ -23,7 +23,7 @@
 				<td><b>{{ localize 'shadowrun6.monitor.stun' }}</b></td>
 				<td class="centered"><label class="centered" >{{system.stun.base}}</label></td>
 				<td class="centered">
-					<input class="centered box health-stun" data-field="system.stun.mod" type="text" value="{{system.stun.mod}}" data-dtype="Number"
+					<input name="derivedStunMod" class="centered box health-stun" data-field="system.stun.mod" type="text" value="{{system.stun.mod}}" data-dtype="Number"
 					id="dataStunMod" style="width: 2em" title="{{system.stun.modString}}">
 				</td>
 				<td class="centered">{{system.stun.max}}</td>
@@ -34,7 +34,7 @@
 				<td><b>{{ localize 'shadowrun6.attack_rating.physical' }}</b></td>
 				<td class="centered"><label >{{system.attackrating.physical.base}}</label></td>
 				<td class="centered">
-					<input class="centered box" data-field="system.attackrating.physical.mod" type="text" value="{{system.attackrating.physical.mod}}" data-dtype="Number"
+					<input name="derivedAttackRatingPhysicalMod" class="centered box" data-field="system.attackrating.physical.mod" type="text" value="{{system.attackrating.physical.mod}}" data-dtype="Number"
 					id="derived1" style="width: 2em" title="{{system.attackrating.physical.modString}}">
 				</td>
 				<td class="centered">{{system.attackrating.physical.pool}}</td>
@@ -44,7 +44,7 @@
 				<td><b>{{ localize 'shadowrun6.derived.composure' }}</b></td>
 				<td class="centered"><label >{{system.derived.composure.base}}</label></td>
 				<td class="centered">
-					<input class="centered box" data-field="system.derived.composure.mod" type="text" value="{{system.derived.composure.mod}}" data-dtype="Number"
+					<input name="derivedComposureMod" class="centered box" data-field="system.derived.composure.mod" type="text" value="{{system.derived.composure.mod}}" data-dtype="Number"
 					id="derived1" style="width: 2em" title="{{system.derived.composure.modString}}">
 				</td>
 				<td class="centered">{{system.derived.composure.pool}}</td>
@@ -55,7 +55,7 @@
 				<td><b>{{ localize 'shadowrun6.derived.judge_intentions' }}</b></td>
 				<td class="centered"><label >{{system.derived.judge_intentions.base}}</label></td>
 				<td class="centered">
-					<input class="centered box" data-field="system.derived.judge_intentions.mod" type="text" value="{{system.derived.judge_intentions.mod}}" data-dtype="Number"
+					<input name="derivedJudgeIntentionsMod" class="centered box" data-field="system.derived.judge_intentions.mod" type="text" value="{{system.derived.judge_intentions.mod}}" data-dtype="Number"
 					id="derived1" style="width: 2em" title="{{system.derived.judge_intentions.modString}}">
 				</td>
 				<td class="centered">{{system.derived.judge_intentions.pool}}</td>
@@ -66,7 +66,7 @@
 				<td><b>{{ localize 'shadowrun6.derived.memory' }}</b></td>
 				<td class="centered"><label >{{system.derived.memory.base}}</label></td>
 				<td class="centered">
-					<input class="centered box" data-field="system.derived.memory.mod" type="text" value="{{system.derived.memory.mod}}" data-dtype="Number"
+					<input name="derivedMemoryMod" class="centered box" data-field="system.derived.memory.mod" type="text" value="{{system.derived.memory.mod}}" data-dtype="Number"
 					id="derived1" style="width: 2em" title="{{system.derived.memory.modString}}">
 				</td>
 				<td class="centered">{{system.derived.memory.pool}}</td>
@@ -77,7 +77,7 @@
 				<td><b>{{ localize 'shadowrun6.derived.lift_carry' }}</b></td>
 				<td class="centered"><label >{{system.derived.lift_carry.base}}</label></td>
 				<td class="centered">
-					<input class="centered box" data-field="system.derived.lift_carry.mod" type="text" value="{{system.derived.lift_carry.mod}}" data-dtype="Number"
+					<input name="derivedLiftCarryMod" class="centered box" data-field="system.derived.lift_carry.mod" type="text" value="{{system.derived.lift_carry.mod}}" data-dtype="Number"
 					id="derived1" style="width: 2em" title="{{system.derived.lift_carry.modString}}">
 				</td>
 				<td class="centered">{{system.derived.lift_carry.pool}}</td>

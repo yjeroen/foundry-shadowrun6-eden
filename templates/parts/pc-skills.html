@@ -26,16 +26,16 @@
                 <span class="skill-value skill-key rollable skill-name"  data-skill="{{id}}">{{localize (concat "skill." id ) }}</span>
             </td>
             <td><span>{{localize (concat3 "attrib." (skillAttr id) "_short")}}</span></td>
-            <td><input class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}" /></td>
-            <td><input class="skill-value" type="number" data-field="system.skills.{{id}}.modifier" value="{{skill.modifier}}" /></td>
-            <td><input class="skill-value" type="number" data-field="system.skills.{{id}}.value" value="{{skill.value}}" data-skill="{{id}}" /></td>
+            <td><input name="skillPoints{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}" /></td>
+            <td><input name="skillMod{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.modifier" value="{{skill.modifier}}" /></td>
+            <td><input name="skillValue{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.value" value="{{skill.value}}" data-skill="{{id}}" /></td>
         </tr>
         {{/each}}
       </tbody>
       <tfoot>
         <tr>
           <td>
-          <select data-field="skill-id" id="newskill">
+          <select name="newskill" data-field="skill-id" id="newskill">
             <option value="astral">{{localize "skill.astral"}}</option>
             <option value="athletics">{{localize "skill.athletics"}}</option>
             <option value="biotech">{{localize "skill.biotech"}}</option>

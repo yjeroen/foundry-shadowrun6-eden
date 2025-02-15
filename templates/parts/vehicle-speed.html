@@ -1,15 +1,15 @@
 <label>{{localize 'shadowrun6.label.type' }} </label>
-<select data-field="system.vtype">
+<select name="vehicleType" data-field="system.vtype">
 	{{selectOptions this.config.skill_special.piloting selected=system.vtype localize=true}}
 </select><br/>
 
 <label>{{localize 'shadowrun6.label.belongs_to' }} </label>
-<select class="vehicleUser" data-field="system.vehicle.belongs">
+<select name="vehicleUser" class="vehicleUser" data-field="system.vehicle.belongs">
 	{{selectOptions this.options.allVehicleUser selected=system.vehicle.belongs}}
 </select><br/>
 
 <label>{{localize 'shadowrun6.label.mode_of_operation'}}</label> 
-<select data-field="system.vehicle.opMode" data-field="system.vehicle.opMode" data-item-id="{{this.id}}">
+<select name="vehicleOpMode" data-field="system.vehicle.opMode" data-field="system.vehicle.opMode" data-item-id="{{this.id}}">
 {{selectOptions config.VEHICLE_MODE selected=system.vehicle.opMode localize=true}}
 </select>
 
@@ -18,7 +18,7 @@
 	<tr>
 		<td><img src="systems/shadowrun6-eden/images/road.svg" style="border: 0px; height: auto; width: 48px" /></td>
 		<td style="text-align:center; width: 5em"><label class="switch" title="Huh">
-       	<input type="checkbox" data-check="system.vehicle.offRoad" {{checked system.vehicle.offRoad}} type="checkbox" data-dtype="Boolean"/>
+       	<input name="vehicleRoadType" type="checkbox" data-check="system.vehicle.offRoad" {{checked system.vehicle.offRoad}} type="checkbox" data-dtype="Boolean"/>
                         <span class="shadowrun6-slider round"></span>
                     </label><br/>{{#if system.vehicle.offRoad}}
 		{{localize 'shadowrun6.label.offroad'}}
@@ -28,9 +28,9 @@
 		<td><img src="systems/shadowrun6-eden/images/hills.svg" style="border: 0px; height: auto; width: 48px" /></td>
 		<td style="width: 4em"></td>
 		<td><img src="systems/shadowrun6-eden/images/speedometer.svg" style="border: 0px; height: auto; width: 64px" /></td>
-		<td> <button type="button" class="vehicle-slower">{{localize 'shadowrun6.label.slower'}}</button> </td>
-		<td><input class="centered box" type="text" style="width: 4em"  value="{{system.vehicle.speed}}" data-dtype="Number" data-field="system.vehicle.speed" /></td>
-		<td> <button type="button" class="vehicle-faster">{{localize 'shadowrun6.label.faster'}}</button> </td>
+		<td> <button type="button" name="vehicleSlower" class="vehicle-slower">{{localize 'shadowrun6.label.slower'}}</button> </td>
+		<td><input name="vehicleSpeed" class="centered box" type="text" style="width: 4em"  value="{{system.vehicle.speed}}" data-dtype="Number" data-field="system.vehicle.speed" /></td>
+		<td> <button type="button" name="vehicleFaster" class="vehicle-faster">{{localize 'shadowrun6.label.faster'}}</button> </td>
 	</tr>
 </table>
 <p>{{speed_info}}</p>
