@@ -1397,7 +1397,9 @@
         "attack_with_no_AR": "You're trying to attack while your Attack Rating is 0, e.g. due to distance.",
         "apply_manually": "Apply damage manually.",
         "Target_is_not_a_life_form": "Target is not a life form.",
-        "do_not_revert_damage": "Overflow into Physical monitor. Do not revert back this damage via chat button, as it won't calculate correctly."
+        "do_not_revert_damage": "Overflow into Physical monitor. Do not revert back this damage via chat button, as it won't calculate correctly.",
+        "No_actor_or_tokens_selected": "Assign yourself a Player Character, or select tokens before rolling.",
+        "You_are_not_owner_of_the_tokens": "You are not owner of the selected tokens."
       }
     },
     "EFFECT": {

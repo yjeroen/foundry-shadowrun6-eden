@@ -295,3 +295,37 @@ export function staticId(status) {
     if (status.length >= 16) return status.substring(0, 16);
     return status.padEnd(16, "0");
 }
+
+/**
+ * Create a localized actionTest for a roll
+ * @param {DOMStringMap|string} classList  The html classList of the link/button that initiated the roll.
+ * @param {string} rollId     The rollId, which defines the roll type.
+ * @param {string} skillSpec  Optional, in case this is a skill roll with specialization
+ * @returns {actionText}      A string that is used in the Roll Dialogue and ChatMessage
+ */
+export function rollText(classList, rollId, skillSpec) {
+    let actionText = '';
+    classList = classList?.value ?? classList;
+    if (classList.includes("defense-roll")) {
+        actionText = game.i18n.localize("shadowrun6.defense." + rollId);
+    }
+    else if (classList.includes("attributeonly-roll") && classList.includes("attribute-poolmod")) {
+        actionText = game.i18n.localize("attrib." + rollId);
+    }
+    else if (classList.includes("attributeonly-roll")) {
+        actionText = game.i18n.localize("shadowrun6.derived." + rollId);
+    }
+    else if (classList.includes("skill-roll")) {
+        actionText = game.i18n.localize("skill." + rollId);
+        if (skillSpec !== undefined) {
+            actionText += "/" + game.i18n.localize("shadowrun6.special." + rollId + "." + skillSpec);
+        }
+    }
+    else if (classList.includes("matrix-roll")) {
+        actionText = game.i18n.localize("shadowrun6.actor.nav.matrix") + ': ' + game.i18n.localize("shadowrun6.matrixaction." + rollId);
+    }
+    else {
+        actionText = game.i18n.localize("shadowrun6.rolltext." + rollId);
+    }
+    return actionText;
+}

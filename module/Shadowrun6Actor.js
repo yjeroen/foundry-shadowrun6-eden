@@ -1788,6 +1788,7 @@ export class Shadowrun6Actor extends Actor {
             buyHits: true
         });
         */
+        roll.actor = this;
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
     }

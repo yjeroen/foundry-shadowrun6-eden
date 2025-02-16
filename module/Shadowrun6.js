@@ -22,6 +22,7 @@ import statusEffects from "./statusEffects.js";
 import SR6TokenHUD from "./SR6TokenHUD.js";
 import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
 import * as utils from "./util/helper.js";
+import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
 const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
 
@@ -41,7 +42,10 @@ Hooks.once("init", async function () {
         CONFIG.debug.dice = true;
     }
 
-    CONFIG.SR6 = new SR6Config();
+    game.sr6 = {};
+    game.sr6.config = CONFIG.SR6 = new SR6Config();
+    game.sr6.utils = utils;
+    game.sr6.macros = macros;
 
     CONFIG.ChatMessage.documentClass = SR6RollChatMessage;
     CONFIG.Combat.documentClass = Shadowrun6Combat;
@@ -217,49 +221,50 @@ Hooks.once("init", async function () {
     /*
      * Something has been dropped on the HotBar
      */
-    Hooks.on("hotbarDrop", async (bar, data, slot) => {
-        console.log("SR6E | DROP to Hotbar", data);
+    Hooks.on("hotbarDrop", async (bar, droppedData, slot) => {
+        console.log("SR6E | DROP to Hotbar", droppedData);
         let macroData = {
             name: "",
+            command: "",
             type: "script",
-            img: "icons/svg/dice-target.svg",
-            command: ""
+            img: "icons/svg/dice-target.svg"
         };
+        const { type, ...data } = droppedData;
 
-        // Your own Actor: game.user.character
-        //Use current target token
-        // canvas.tokens.controlled.forEach((target) => {
-        //     token = target;
-        // });
-        // actor = (token?.actor.isOwner) ? token?.actor : null;   
-
-        /*    // For items, memorize the skill check
-    if (data.type === "Item") {
-      console.log("SR6E | Item dropped " + data);
-      if (data.id) {
-        data.data = game.items.get(data.id).data;
-      }
-      if (data.data) {
-        macroData.name = data.data.name;
-        macroData.img = data.data.img;
-
-        let actorId = data.actorId || "";
-
-        if (actorId && game.user.isGM) {
-          const actorName = game.actors.get(actorId)?.data.name;
-          macroData.name += ` (${actorName})`;
+        if (type === 'Roll') {
+            macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
+            macroData.command = `game.sr6.macros.simpletest(${JSON.stringify(data)})`;
+        } 
+        else if (type === 'Other') {
+            console.warn("SR6E | Draggable object not supported to covert onto the hotbar", droppedData);
         }
 
-        macroData.command = `game.shadowrun6.itemCheck("${data.data.type}","${data.data.name}","${actorId}","${data.data.id}")`;
+        // For items, memorize the skill check
+        // if (data.type === "Item") {
+        // console.log("SR6E | Item dropped " + data);
+        // if (data.id) {
+        //     data.data = game.items.get(data.id).data;
+        // }
+        // if (data.data) {
+        //     macroData.name = data.data.name;
+        //     macroData.img = data.data.img;
 
-      }
-    };
+        //     let actorId = data.actorId || "";
 
-    if (macroData.command != "" && macroData.name != "") {
-      let macro = await Macro.create(macroData, { displaySheet: false });
+        //     if (actorId && game.user.isGM) {
+        //     const actorName = game.actors.get(actorId)?.data.name;
+        //     macroData.name += ` (${actorName})`;
+        //     }
 
-      game.user.assignHotbarMacro(macro, slot);
-    }*/
+        //     macroData.command = `game.shadowrun6.itemCheck("${data.data.type}","${data.data.name}","${actorId}","${data.data.id}")`;
+
+        // }
+        // };
+
+        if (macroData.command != "" && macroData.name != "") {
+            let macro = await Macro.create(macroData, { displaySheet: false });
+            game.user.assignHotbarMacro(macro, slot);
+        }
     });
     Hooks.on("renderChatMessage", function (app, html, data) {
         console.log("SR6E | ENTER renderChatMessage");

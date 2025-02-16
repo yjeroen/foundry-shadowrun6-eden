@@ -256,6 +256,8 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             $( "a[draggable='true']" ).on("dragstart", (event) => {
                 const dragData = event.currentTarget.dataset;
                 dragData.classList = event.currentTarget.classList;
+                if (dragData.type === undefined) dragData.type = 'Other';
+                if (dragData.rollId !== undefined || dragData.skill !== undefined || dragData.matrixId !== undefined)  dragData.type = 'Roll';
                 console.log("SR6E | DRAG Link Start", dragData);
                 
                 // If these were items, you'd do something like this:
@@ -668,31 +670,22 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         let roll = new PreparedRoll();
         roll.pool = parseInt(event.currentTarget.dataset.pool);
         roll.rollType = RollType.Common;
-        let classList = event.currentTarget.classList;
-        if (classList.contains("defense-roll")) {
-            roll.actionText = game.i18n.localize("shadowrun6.defense." + event.currentTarget.dataset.rollId);
-        }
-        else if (classList.contains("attributeonly-roll") && classList.contains("attribute-poolmod")) {
-            roll.actionText = game.i18n.localize("attrib." + event.currentTarget.dataset.rollId);
-        }
-        else if (classList.contains("attributeonly-roll")) {
-            roll.actionText = game.i18n.localize("shadowrun6.derived." + event.currentTarget.dataset.rollId);
-        }
-        else {
-            roll.actionText = game.i18n.localize("shadowrun6.rolltext." + event.currentTarget.dataset.rollId);
-        }
+        let classList = event.currentTarget.classList.value;
+        let rollId = event.currentTarget.dataset.rollId;
+        roll.actionText = game.sr6.utils.rollText(classList, rollId);
+
         let dialogConfig;
-        if (classList.contains("defense-roll")) {
+        if (classList.includes("defense-roll")) {
             roll.allowBuyHits = false;
             dialogConfig = {
                 useModifier: true,
                 useThreshold: false
             };
         }
-        else if (classList.contains("attributeonly-roll")) {
+        else if (classList.includes("attributeonly-roll")) {
             roll.allowBuyHits = true;
-            roll.useAttributeMod = classList.contains("attribute-poolmod");
-            roll.attributeTested = event.currentTarget.dataset.rollId;
+            roll.useAttributeMod = classList.includes("attribute-poolmod");
+            roll.attributeTested = rollId;
             roll.checkText = roll.actionText;
             dialogConfig = {
                 useModifier: true,
