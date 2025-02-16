@@ -171,7 +171,6 @@ export class VehicleSkills {
 }
 export class VehicleActor {
     physical = new Monitor();
-    stun = new Monitor();
     edge = new Monitor();
     initiative = {
         physical: new Initiative()

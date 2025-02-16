@@ -43,7 +43,7 @@ export class SR6ItemSheet extends ItemSheet {
             data.item.maxtrixMonitor = Math.ceil(data.item.system.devRating / 2) + 8;
         } else
         if(data.item.system.type === "VEHICLES" || data.item.system.type === "DRONES") {
-            data.item.maxtrixMonitor = Math.ceil(data.item.system.bod / 2) + 8;
+            data.item.maxtrixMonitor = Math.ceil(data.item.system.sen / 2) + 8;
         }
         data.config = CONFIG.SR6;
         data.config.subtypeList = CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];

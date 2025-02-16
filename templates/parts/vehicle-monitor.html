@@ -1,46 +1,58 @@
-<table style="width: 450px" border="0">
+<table class="monitors" style="width: 450px; height: 83px; border: 0;">
 	<tbody>
 		<tr>
-		  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-		  <td></td>
-		  <td>{{ localize 'shadowrun6.label.damage' }}</td>
+		  <td style="width: 30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		  <td style="width: 60px;"></td>
+		  <td class="centered" style="width: 40px;"><span style="font-size: 0.7em; color: var(--highlight-color);">{{ localize 'shadowrun6.label.damage' }}</span></td>
 		  <td></td>
 		</tr>
+		{{log "system" system}}
 		<tr>
-			<td><img src="systems/shadowrun6-eden/images/heart.svg" style="border: 0px; height: auto; width: 64px" /></td>
-			<td><label for="system.physical"
-				title="{{localize 'shadowrun6.monitor.physical'}}">{{localize 'shadowrun6.monitor.physical'}}</label></td>
-			<td>
-				<input name="vehiclePhyDmg" data-field="system.physical.dmg" class="centered health-phys"
-				type="text" value="{{system.physical.dmg}}" data-dtype="Number"
-				id="dataPhyCur"></td>
+			<td class="centered"><img src="systems/shadowrun6-eden/images/heart.svg" style="border: 0px; height: 25px; width: 25px;" /></td>
+			<td><label title="{{localize 'shadowrun6.monitor.physical'}}">{{localize 'shadowrun6.monitor.physical'}}</label></td>
+			<td class="centered">
+				<input name="physicalMonitorDmg" data-field="system.physical.dmg" class="centered health-phys" type="number" value="{{system.physical.dmg}}" data-dtype="Number" id="dataPhyCur">
+			</td>
 			<td class="barPhyMax">
 				<div style="width: 300px;">
 					<div style="position: relative; z-index: 1; border: solid black 1px;">
 						<div id="barPhyCur" style="background-color: #892378; width: 77%;">&nbsp</div>
-						<div id="barPhyBoxes" style="display: flex; z-index: 2; position: absolute; top: 0em; width: 100%">
-						</div>
+						<div id="barPhyBoxes" class="monitor"></div>
 					</div>
-					<!-- <div id="barPhyScale" style="display: flex; font-size: x-small"></div> -->
 				</div>
 			</td>
 		</tr>
+		{{#iff system.stun.max "!=" 0}}
 		<tr>
-			<td><img src="systems/shadowrun6-eden/images/brain.svg" style="border: 0px; height: auto; width: 48px" /></td>
-			<td><label for="system.stun" title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>
-			<td><input name="vehicleStunDmg" class="centered health-stun" data-field="system.stun.dmg" type="text" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur"></td>
+			<td class="centered"><img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" style="border: 0px; height: 25px; width: 25px;" /></td>
+			<td><label title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>
+			<td class="centered">
+				<input  name="stunMonitorDmg" data-field="system.stun.dmg" class="centered health-stun" type="number" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur">
+			</td>
 			<td class="barStunMax">
 				<!--div id="barStunCur">{{system.stun.value}}/{{system.stun.max}}</div-->
 				<div style="width: 300px;">
 					<div style="position: relative; z-index: 1; border: solid black 1px;">
-						<div id="barStunCur"
-							style="background-color: #00a8ff; width: 78%;">&nbsp</div>
-						<div id="barStunBoxes" style="display: flex; z-index: 2; position: absolute; top: 0em; width: 100%">
-						</div>
+						<div id="barStunCur" style="background-color: #00a8ff; width: 78%;">&nbsp</div>
+						<div id="barStunBoxes" class="monitor"></div>
 					</div>
-					<!-- <div id="barStunScale" style="display: flex; font-size: x-small"></div> -->
 				</div>
 			</td>
 		</tr>
+		{{/iff}}
+		{{#iff system.overflow.dmg ">" 0}}
+		<tr style="vertical-align: baseline;">
+			<td class="centered"><i class="fas fa-skull" style="font-size: 20px;"></i></td>
+			<td><label title="{{localize 'shadowrun6.monitor.overflow'}}">{{localize 'shadowrun6.monitor.overflow'}}</label></td>
+			<td class="centered"><input name="overflowMonitorDmg" class="centered health-overflow" data-field="system.overflow.dmg" type="number" value="{{system.overflow.dmg}}" data-dtype="Number" id="dataOverflowCur"></td>
+			<td id="barOverflowMax">
+				<div style="width: 300px;">
+					<div class="overflow-bar-dead" style="position: relative; z-index: 1; border: solid black 1px;">
+						<div class="overflow-bar-health centered" style="width: 100%;">BROKEN DOWN</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		{{/iff}}
 	</tbody>
 </table>
