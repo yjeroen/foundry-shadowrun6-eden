@@ -42,10 +42,8 @@ export default class SR6TokenHUD extends TokenHUD {
 
   toggleStatusTray(active) {
     if (active) {
-      console.log('JEROEN this', this)
       // updating status effects HUD
       this.actor.effects.forEach(effect => {
-        console.log('JEROEN effect', effect);
         if (effect.system.hasLevels) {  
           const [mainStatus] = effect.statuses;
           let effectControl = this.element[0].querySelector("img[data-status-id='"+mainStatus+"']");
@@ -57,7 +55,6 @@ export default class SR6TokenHUD extends TokenHUD {
           badge.setAttribute("class", "badge");
           badge.appendChild(document.createTextNode(effect.system.level));
           wrapper.appendChild(badge);
-          console.log('JEROEN effectControl', wrapper);
         }
 
       });
