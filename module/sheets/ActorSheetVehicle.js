@@ -20,7 +20,7 @@ export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["shadowrun6", "sheet", "actor"],
             template: "systems/shadowrun6-eden/templates/actor/shadowrun6-Vehicle-sheet.html",
-            width: 600,
+            width: 620,
             height: 800,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],
             scrollY: [".items", ".attributes"],

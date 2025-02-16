@@ -27,13 +27,13 @@
 			<td class="centered"><img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" style="border: 0px; height: 25px; width: 25px;" /></td>
 			<td><label title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>
 			<td class="centered">
-				<input  name="stunMonitorDmg" data-field="system.stun.dmg" class="centered health-stun" type="number" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur">
+				<input  name="stunMonitorDmg" data-field="system.stun.dmg" class="centered health-stun" type="number" value="{{system.stun.dmg}}" data-dtype="Number" id="dataStunCur" style="border-color: rgb(0 200 50);">
 			</td>
 			<td class="barStunMax">
 				<!--div id="barStunCur">{{system.stun.value}}/{{system.stun.max}}</div-->
 				<div style="width: 300px;">
 					<div style="position: relative; z-index: 1; border: solid black 1px;">
-						<div id="barStunCur" style="background-color: #00a8ff; width: 78%;">&nbsp</div>
+						<div id="barStunCur" style="background-color: rgb(0 200 50); width: 78%;">&nbsp</div>
 						<div id="barStunBoxes" class="monitor"></div>
 					</div>
 				</div>

@@ -453,14 +453,29 @@ Hooks.once("init", async function () {
      * If a player actor is created, change default token settings
      */
     Hooks.on("preCreateActor", (actor, createData, options, userId) => {
-        actor.prototypeToken.updateSource({ displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER });
+        actor.prototypeToken.updateSource({ 
+            displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+            displayBars: CONST.TOKEN_DISPLAY_MODES.NONE
+        });
         if (actor.type === "Player") {
-            actor.prototypeToken.updateSource({ actorLink: true });
-            actor.prototypeToken.updateSource({ 'sight.enabled': true });
-            actor.prototypeToken.updateSource({ disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY });
+            actor.prototypeToken.updateSource({
+                actorLink: true,
+                'sight.enabled': true,
+                disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY
+            });
         } else if (actor.type === "NPC") {
-            actor.prototypeToken.updateSource({ prependAdjective: true });
+            actor.prototypeToken.updateSource({
+                prependAdjective: true
+            });
+        } else if (actor.type === "Vehicle") {
+            actor.prototypeToken.updateSource({
+                'sight.enabled': true,
+                disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+                width: 2,
+                height: 2
+            });
         }
+
     });
     Hooks.on("preUpdateCombatant", (combatant, createData, options, userId) => {
         console.log("SR6E | Combatant with initiative " + createData.initiative);

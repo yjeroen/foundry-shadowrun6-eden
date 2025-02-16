@@ -57,6 +57,29 @@ line {
 	padding-left: 2px;
 	padding-right: 3px;
 }
+.vehicle-sheet .vehicle-stats tr {
+	text-align: center;
+}
+.vehicle-stats-table input {
+	text-align: center;
+  width: 2em;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.vehicle-sheet .section {
+  padding: 5px;
+}
+.vehicle-sheet .vehicle-section {
+	margin: 5px 0 5px 0;
+}
+.vehicle-sheet .vehicle-section label {
+  display: inline-block;
+	width: 135px;
+}
+.vehicle-sheet .vehicle-section select {
+	width: 125px;
+}
+
 .shadowrun6 th {
 	text-shadow: none; 
 }
