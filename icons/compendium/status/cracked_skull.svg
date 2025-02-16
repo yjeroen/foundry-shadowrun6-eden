@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg2"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   sodipodi:docname="cracked-skull.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="1.2056723"
+     inkscape:cx="144.73253"
+     inkscape:cy="237.62676"
+     inkscape:window-width="1716"
+     inkscape:window-height="1414"
+     inkscape:window-x="3160"
+     inkscape:window-y="587"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1562" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g8">
+    <g
+       id="g882"
+       transform="matrix(0.93117317,0,0,0.93117317,13.47045,24.508904)"
+       style="stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
+      <g
+         id="g1675"
+         transform="translate(0.06540535,1.1331528)"
+         style="stroke:none">
+        <g
+           id="g1562"
+           style="stroke:none">
+          <path
+             id="path869"
+             style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:66.5471;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+             d="m 222.31727,-0.17586612 v 0.00233 l -4.50618,38.29656812 36.25402,28.423497 26.34141,-55.49072 C 260.28158,0.91625347 241.2865,0.28109007 222.31727,-0.17586612 Z M 156.5324,40.7588 c -26.8939,3.249715 -47.63597,17.631109 -65.298669,37.500957 h 0.03258 L 198.19289,147.68306 Z m 148.75922,30.673086 20.69298,94.829494 -101.03157,-26.47865 44.98719,92.67994 -155.93605,-99.1263 c -4.39876,5.40695 -8.53962,11.05814 -12.44372,16.94756 -31.935937,48.20781 -46.64198,112.13642 -47.588058,173.82111 44.50003,21.76867 70.810478,44.51921 82.111278,68.27873 10.15619,21.35053 6.07263,43.32154 -7.03492,60.16904 27.96531,25.9334 76.12798,41.73631 125.50259,42.52823 49.70289,0.79524 99.78896,-13.401 131.56739,-43.01445 -6.6913,-7.69395 -11.54694,-15.91121 -13.86278,-24.88509 -3.10553,-12.03392 -1.0569,-25.01598 5.75309,-36.91239 13.0399,-22.7835 41.75522,-43.54767 88.79957,-66.20361 C 465.83258,265.65603 451.44021,201.80243 419.66953,152.81269 393.71618,112.79016 356.95101,82.48203 305.29162,71.431886 Z M 172.99606,258.69937 c 30.77802,0 55.73498,24.95697 55.73498,55.73499 0,30.77803 -24.95696,55.73266 -55.73498,55.73266 -30.78024,0 -55.73266,-24.95463 -55.73266,-55.73266 0,-30.77802 24.95242,-55.73499 55.73266,-55.73499 z m 165.77888,0 c 30.77803,0 55.73266,24.95697 55.73266,55.73499 0,30.77803 -24.95463,55.73266 -55.73266,55.73266 -30.77801,0 -55.73264,-24.95463 -55.73264,-55.73266 0,-30.77802 24.95463,-55.73499 55.73264,-55.73499 z m -164.60872,30.0473 a 26.882069,27.03114 0 0 0 -26.88111,27.03234 26.882069,27.03114 0 0 0 26.88111,27.02999 26.882069,27.03114 0 0 0 26.88111,-27.02999 26.882069,27.03114 0 0 0 -26.88111,-27.03234 z m 162.8151,0.80492 a 24.846291,25.422857 0 0 0 -24.84554,25.4225 24.846291,25.422857 0 0 0 24.84554,25.42248 24.846291,25.422857 0 0 0 24.84555,-25.42248 24.846291,25.422857 0 0 0 -24.84555,-25.4225 z m -81.11327,64.67054 c 15.23928,32.16997 27.3411,64.35557 33.34142,96.52775 -16.38943,14.30207 -45.76165,16.37723 -66.68517,0 8.11321,-32.17218 17.87932,-64.35778 33.34375,-96.52775 z" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

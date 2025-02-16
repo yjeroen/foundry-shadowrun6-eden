@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="wounded_seriously.svg"
+   width="512" height="512"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="false"
+     showgrid="false"
+     units="mm"
+     inkscape:zoom="0.5020182"
+     inkscape:cx="429.26731"
+     inkscape:cy="212.1437"
+     inkscape:window-width="1716"
+     inkscape:window-height="1413"
+     inkscape:window-x="3160"
+     inkscape:window-y="673"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="371.50048,272.96484"
+       orientation="0,-1"
+       id="guide2112" />
+  </sodipodi:namedview>
+  <path
+     d="m 371.28,18.906 c -40.78,0.092 -82.526,21.026 -110.624,65.813 -35.57,-51.667 -93.288,-71.73 -143.5,-61.47 -54.427,11.12 -99.783,58.946 -97.47,134.688 2.17,70.978 43.028,120.858 91.25,168.53 48.225,47.674 104.27,94.2 141.97,159.5 L 261,500 l 8.094,-14.03 c 37.55,-65.042 95.404,-109.375 144.625,-156.064 49.22,-46.69 90.167,-97.202 87.905,-172.53 C 499.49,86.238 455.06,36.64 401.875,22.81 391.903,20.217 381.623,18.88 371.281,18.904 Z m -0.06,18.532 c 8.754,0.06 17.462,1.233 25.936,3.437 45.197,11.753 83.9,53.345 85.813,117.063 2.054,68.423 -33.94,112.727 -82.095,158.406 -44.992,42.678 -100.275,85.296 -139.844,147 C 221.764,401.494 168.346,356.934 124.094,313.188 76.731,266.365 40.334,221.508 38.374,157.375 36.29,89.075 74.47,51.05 120.907,41.562 c 46.437,-9.487 101.338,10.72 131.938,65.844 l 8.5,15.375 8,-15.655 C 294.42,57.898 333.28,37.17 371.22,37.437 Z M 480.27012,239.03516 48.556893,238.82502 c 4.058955,29.07294 -0.408829,-1.77907 68.061147,74.46929 48.28764,53.77325 115.63182,105.82177 144.41196,150.04969 28.976,-43.9 118.41453,-111.2289 139.844,-147 43.41788,-22.81476 72.94472,-47.54891 79.39612,-77.30884 z"
+     fill="#960570"
+     fill-opacity="1"
+     id="path2"
+     sodipodi:nodetypes="ccccccccccscccccccccccccccccsccc"
+     style="fill:#ffffff" />
+</svg>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="512" height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="wolvers.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter893"
+       x="-0.16711539"
+       y="-0.1646791"
+       width="1.3253571"
+       height="1.3206348">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(58,63,94)"
+         result="flood"
+         id="feFlood883" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite885" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="15"
+         result="blur"
+         id="feGaussianBlur887" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset889" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="composite2"
+         id="feComposite891" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter937"
+       x="-0.065312177"
+       y="-0.06436862"
+       width="1.1306244"
+       height="1.1287372">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(58,63,94)"
+         result="flood"
+         id="feFlood927" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite929" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="12.3821"
+         result="blur"
+         id="feGaussianBlur931" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset933" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="composite2"
+         id="feComposite935" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.7558594"
+     inkscape:cx="256"
+     inkscape:cy="256"
+     inkscape:window-width="1716"
+     inkscape:window-height="1414"
+     inkscape:window-x="3160"
+     inkscape:window-y="587"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <path
+     d="M0 0h512v512H0z"
+     fill="#b90202"
+     fill-opacity="1"
+     id="path2"
+     style="fill:#1b1f21;fill-opacity:0" />
+  <g
+     class=""
+     style="fill:#960570;fill-opacity:1;filter:url(#filter937)"
+     transform="translate(0,0)"
+     id="g6">
+    <path
+       d="M280.3 30.04c-33.4 19.78-70.7 55.47-104.5 97.06-47.4 58.3-88.85 127.5-109.81 176.6l1.69 8.9 7.61-1.4.83-1.5c16.57-30.5 41.98-66 72.18-101.7 38.3-61.4 84.1-127.56 132-177.96zm113.9 2.72c-43 15.92-96.3 52.79-146.1 97.94-64.9 59-124.9 131.3-154.73 185.2l1.6 11.6 12.93-5.8c8.3-9.9 17-19.9 24.4-28 64.8-85.2 170.9-189.4 261.9-260.94zM473 81.09c-47.5 7.72-106.6 38.31-163.9 79.31-71.2 50.9-140 116.6-183.9 168.7l1.4 19.5L151 347c73.7-85.1 198.4-193.7 322-265.91zM47.34 303L18 344v144l37.32-14s50.58 17.1 72.68 17.7c31.5.8 72.7-48.2 74.7-57.7 1.6-7.9-3.8-14.7-8.8-21.4-19.9 14.2-35.1 20.7-61.8 6.5 30.6-6.1 34.2-5.7 53.6-21.9 10-9 12.3-19.8 11.5-29.5-.5-6-14.3-10.5-22.4-20.5-5.6 6.2-10 11.3-15.1 17.2l-49.7 3.4-1.9-26.5-28.48 10-2.58-22.1-23.74 4.2c-1.9-10.6-4.11-21.6-5.96-30.4z"
+       fill="#ffffff"
+       fill-opacity="1"
+       stroke="#ffffff"
+       stroke-opacity="1"
+       stroke-width="0"
+       id="path4"
+       style="fill:#960570;fill-opacity:1" />
+  </g>
+</svg>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#3A3F5EFF"
+   height="512px"
+   width="512px"
+   version="1.1"
+   id="Layer_1"
+   viewBox="0 0 512 512"
+   xml:space="preserve"
+   sodipodi:docname="kiroshi_monovision.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs213">
+
+
+
+
+
+
+		<filter
+   style="color-interpolation-filters:sRGB;"
+   inkscape:label="Drop Shadow"
+   id="filter1345"
+   x="-0.08082052"
+   y="-0.20140747"
+   width="1.161641"
+   height="1.4028149"><feFlood
+     flood-opacity="1"
+     flood-color="rgb(58,63,94)"
+     result="flood"
+     id="feFlood1335" /><feComposite
+     in="flood"
+     in2="SourceGraphic"
+     operator="out"
+     result="composite1"
+     id="feComposite1337" /><feGaussianBlur
+     in="composite1"
+     stdDeviation="15"
+     result="blur"
+     id="feGaussianBlur1339" /><feOffset
+     dx="0"
+     dy="0"
+     result="offset"
+     id="feOffset1341" /><feComposite
+     in="offset"
+     in2="SourceGraphic"
+     operator="atop"
+     result="composite2"
+     id="feComposite1343" /></filter></defs><sodipodi:namedview
+   id="namedview211"
+   pagecolor="#1b1f21"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="1"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="1.18"
+   inkscape:cx="273.72881"
+   inkscape:cy="366.10169"
+   inkscape:window-width="1716"
+   inkscape:window-height="1402"
+   inkscape:window-x="3160"
+   inkscape:window-y="684"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<rect
+   style="fill:#1b1f21;stroke-width:0.204094;stroke-linejoin:bevel;fill-opacity:1"
+   id="rect294"
+   width="526.66968"
+   height="529.74304"
+   x="-6.0844808"
+   y="-5.4104047" /><g
+   id="g777"
+   style="fill:#960570;fill-opacity:1;filter:url(#filter1345)"
+   transform="translate(-0.39417611,21.568277)"><g
+     id="g664"
+     style="fill:#960570;fill-opacity:1"><path
+       d="M 464.97192,167.89789 C 449.03192,147.18789 418.867,145.067 390.775,145.067 h -269.55 c -28.092,0 -56.545648,-0.93081 -72.486648,19.77919 -17.23566,19.18446 -16.053782,51.88597 -13.767094,76.90223 L 35.857,255.147 c 7.927,38.903 42.402,68.267 83.61,68.267 273.0472,-0.33453 152.60863,1.02282 273.066,0 41.207,0 75.682,-29.363 83.61,-68.267 1.18063,-32.55414 10.41244,-55.66503 -11.17108,-87.24911 z M 452.267,238.08 c 0,32.93 -26.803,59.733 -59.733,59.733 -272.76059,0.42725 -1.39957,0.26509 -273.066,0 -32.93,0 -59.697988,-26.80301 -59.733,-59.733 L 59.69183,197.47686 C 59.663715,171.03344 87.315,170.667 121.226,170.667 h 269.551 c 33.911,0 61.491,-1.03438 61.491,23.091 v 44.322 z"
+       id="path200"
+       sodipodi:nodetypes="cssccccccccccssssscc"
+       style="fill:#960570;fill-opacity:1" /><path
+       d="m 390.775,187.734 h -269.55 c -43.875457,0 -43.913707,0.32405 -44.109057,19.43632 L 76.8,238.081 c -0.24045,23.52478 19.14,42.667 42.667,42.667 272.43145,-1.12122 167.38155,1.75318 273.067,0 23.526,0 43.00396,-19.14241 42.667,-42.667 l -0.50662,-35.36874 C 434.61181,187.96696 434.35101,187.734 390.775,187.734 Z M 93.867,247.468 c -2.185,0 -4.369,-0.836 -6.033,-2.5 -3.337,-3.337 -3.337,-8.73 0,-12.066 l 34.133,-34.133 c 3.337,-3.337 8.73,-3.337 12.066,0 3.336,3.336 3.336,8.73 0,12.066 L 99.9,244.967 c -1.664,1.664 -3.849,2.501 -6.033,2.501 z m 82.833,-36.634 -59.733,59.733 c -1.664,1.664 -3.849,2.5 -6.033,2.5 -2.185,0 -4.369,-0.836 -6.033,-2.5 -3.337,-3.337 -3.337,-8.73 0,-12.066 l 59.733,-59.733 c 3.337,-3.337 8.73,-3.337 12.066,0 3.336,3.336 3.336,8.729 0,12.066 z"
+       id="path202"
+       sodipodi:nodetypes="ssssccscssscscccscssscscc"
+       style="fill:#960570;fill-opacity:1" /></g></g>
+</svg>

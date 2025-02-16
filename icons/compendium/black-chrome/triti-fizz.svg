@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Capa_1"
+   x="0px"
+   y="0px"
+   width="512"
+   height="512"
+   viewBox="0 0 512.00001 512.00001"
+   xml:space="preserve"
+   sodipodi:docname="triti-fizz.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs40"><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter1062"
+     x="-0.18715565"
+     y="-0.18918669"
+     width="1.3643736"
+     height="1.3683517"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood1052" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite1054" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="15"
+       result="blur"
+       id="feGaussianBlur1056" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset1058" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite1060" /></filter><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter1112"
+     x="-0.057819879"
+     y="-0.058455153"
+     width="1.1156398"
+     height="1.1169103"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood1102" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite1104" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="9.78793"
+       result="blur"
+       id="feGaussianBlur1106" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset1108" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite1110" /></filter><filter
+     id="shadow-1"
+     height="1.1521909"
+     width="1.1506625"
+     x="-0.075331264"
+     y="-0.076095458"><feFlood
+       flood-color="rgba(58, 63, 94, 1)"
+       result="flood"
+       id="feFlood21538" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite"
+       id="feComposite21540" /><feGaussianBlur
+       in="composite"
+       stdDeviation="15"
+       result="blur"
+       id="feGaussianBlur21542" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset21544" /><feComposite
+       in2="SourceGraphic"
+       in="offset"
+       operator="atop"
+       id="feComposite21546" /></filter><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter22967"
+     x="-0.044355932"
+     y="-0.033333122"
+     width="1.0887119"
+     height="1.0666662"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood22957" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite22959" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="15"
+       result="blur"
+       id="feGaussianBlur22961" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset22963" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite22965" /></filter><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter24223"
+     x="-0.072281609"
+     y="-0.038558032"
+     width="1.1445632"
+     height="1.0771161"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood24213" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite24215" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="15"
+       result="blur"
+       id="feGaussianBlur24217" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset24219" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite24221" /></filter></defs><sodipodi:namedview
+   id="namedview38"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   showguides="true"
+   inkscape:guide-bbox="true"
+   inkscape:zoom="0.46260284"
+   inkscape:cx="136.18593"
+   inkscape:cy="164.28779"
+   inkscape:window-width="1716"
+   inkscape:window-height="1386"
+   inkscape:window-x="1440"
+   inkscape:window-y="702"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g5"
+   inkscape:showpageshadow="2"
+   inkscape:deskcolor="#505050" />
+<g
+   id="g5"
+   transform="matrix(1.1551802,0,0,1.1551802,-17.36047,-61.694481)">
+	
+<g
+   id="g1914"
+   transform="matrix(0.86566581,0,0,0.86566581,379.47367,-79.040067)"
+   style="fill:#1b1f21;fill-opacity:0"><g
+     id="g439"
+     transform="translate(-421,153)"
+     style="fill:#1b1f21;fill-opacity:0"><g
+       id="g8"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g10"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g12"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g14"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g16"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g18"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g20"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g22"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g24"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g26"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g28"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g30"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g32"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g34"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g36"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g1182"
+       transform="translate(131.26512,78.461363)"
+       style="fill:#1b1f21;fill-opacity:0"><g
+         id="g14-6"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g16-7"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g18-5"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g20-3"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g22-5"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g24-6"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g26-2"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g28-9"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g30-1"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g32-27"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g34-09"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g36-3"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g38"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g40"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g42"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g541"
+         transform="translate(26.047449,-8.0026715)"
+         style="fill:#1b1f21;fill-opacity:0"><g
+           id="g20-6"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g22-7"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g24-5"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g26-3"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g28-5"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g30-6"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g32-2"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g34-9"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g36-1"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g38-2"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g40-7"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g42-0"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g44"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g46"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g48"
+           style="fill:#1b1f21;fill-opacity:0">
+</g><g
+           id="g319"
+           transform="translate(-157.31257,-70.458691)"
+           style="fill:#1b1f21;fill-opacity:0"><g
+             id="g949"
+             style="fill:#1b1f21;fill-opacity:0"><path
+               d="M 0,0 H 512 V 512 H 0 Z"
+               fill="#b90202"
+               fill-opacity="1"
+               id="path902"
+               style="fill:#1b1f21;fill-opacity:0" /><g
+               id="g1524"
+               transform="matrix(0.65299367,0.65095314,-0.65095314,0.65299367,760.96027,405.16803)"
+               style="fill:#1b1f21;fill-opacity:0"><g
+                 class=""
+                 id="g1513"
+                 style="fill:#1b1f21;fill-opacity:0" /></g><g
+               id="g1741"
+               transform="matrix(0.73148951,-0.72519164,0.72519164,0.73148951,174.72172,-127.52936)"
+               style="fill:#1b1f21;fill-opacity:0"><g
+                 class=""
+                 id="g1730"
+                 style="fill:#1b1f21;fill-opacity:0" /></g></g><g
+             id="g10-6"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g12-7"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g14-9"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g16-5"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g18-3"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g20-5"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g22-6"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g24-2"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g26-9"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g28-1"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g30-2"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g32-7"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g34-0"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g36-9"
+             style="fill:#1b1f21;fill-opacity:0">
+</g><g
+             id="g38-3"
+             style="fill:#1b1f21;fill-opacity:0">
+</g></g></g></g><g
+       id="g1551"
+       transform="matrix(0.51222721,0,0,0.51222721,124.85437,126.07888)"
+       style="fill:#1b1f21;fill-opacity:0"><g
+         id="g1478"
+         style="fill:#1b1f21;fill-opacity:0">
+	<g
+   id="g1476"
+   style="fill:#1b1f21;fill-opacity:0">
+		
+	</g>
+</g><g
+         id="g1484"
+         style="fill:#1b1f21;fill-opacity:0">
+	<g
+   id="g1482"
+   style="fill:#1b1f21;fill-opacity:0">
+		
+	</g>
+</g><g
+         id="g1490"
+         style="fill:#1b1f21;fill-opacity:0">
+	<g
+   id="g1488"
+   style="fill:#1b1f21;fill-opacity:0">
+		
+	</g>
+</g><g
+         id="g1492"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1494"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1496"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1498"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1500"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1502"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1504"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1506"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1508"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1510"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1512"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1514"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1516"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1518"
+         style="fill:#1b1f21;fill-opacity:0">
+</g><g
+         id="g1520"
+         style="fill:#1b1f21;fill-opacity:0">
+</g></g></g><g
+     id="g2623"
+     transform="matrix(0.3880947,0,0,0.3880947,-267.37744,341.84037)"
+     style="fill:#1b1f21;fill-opacity:0" /><g
+     id="g366"
+     transform="matrix(0.64942552,0,0,0.64942552,-256.69109,316.54748)"
+     style="fill:#1b1f21;fill-opacity:0"><g
+       id="g309"
+       style="fill:#1b1f21;fill-opacity:0">
+	<g
+   id="g307"
+   style="fill:#1b1f21;fill-opacity:0">
+		
+		
+		
+	</g>
+</g><g
+       id="g311"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g313"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g315"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g317"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g319-3"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g321"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g323"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g325"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g327"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g329"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g331"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g333"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g335"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g337"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g339"
+       style="fill:#1b1f21;fill-opacity:0">
+</g></g><g
+     id="g314"
+     transform="matrix(0.35542189,0,0,0.35542189,-255.98765,318.01253)"
+     style="fill:#1b1f21;fill-opacity:0"><g
+       id="g249"
+       style="fill:#1b1f21;fill-opacity:0">
+	<g
+   id="g247"
+   style="fill:#1b1f21;fill-opacity:0">
+		
+	</g>
+</g><g
+       id="g255"
+       style="fill:#1b1f21;fill-opacity:0">
+	<g
+   id="g253"
+   style="fill:#1b1f21;fill-opacity:0">
+		
+	</g>
+</g><g
+       id="g257"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g259"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g261"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g263"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g265"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g267"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g269"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g271"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g273"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g275"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g277"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g279"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g281"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g283"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g285"
+       style="fill:#1b1f21;fill-opacity:0">
+</g></g></g><g
+   id="g2328"
+   transform="matrix(0.86566581,0,0,0.86566581,149.00753,-16.731636)"><g
+     id="g32-0">
+</g><g
+     id="g2654"
+     transform="matrix(0.58211695,0,0,0.58211695,-47.792018,248.6898)"><g
+       id="g24-61"
+       style="fill:#000000"
+       transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g22-8"
+   style="fill:#000000">
+		
+	</g>
+</g><g
+       id="g2618"><g
+         id="g6"
+         style="fill:#000000"
+         transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g4"
+   style="fill:#000000">
+		
+	</g>
+</g><g
+         id="g12-3"
+         style="fill:#000000"
+         transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g10-60"
+   style="fill:#000000">
+		
+	</g>
+</g><g
+         id="g18-6"
+         style="fill:#000000"
+         transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g16-2"
+   style="fill:#000000">
+		
+	</g>
+</g><g
+         id="g30-7"
+         style="fill:#000000"
+         transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g28-92"
+   style="fill:#000000">
+		
+	</g>
+</g></g></g><g
+     id="g34-2">
+</g><g
+     id="g36-37">
+</g><g
+     id="g38-5">
+</g><g
+     id="g40-9">
+</g><g
+     id="g42-2">
+</g><g
+     id="g44-2">
+</g><g
+     id="g46-8">
+</g><g
+     id="g48-9">
+</g><g
+     id="g50">
+</g><g
+     id="g52">
+</g><g
+     id="g54">
+</g><g
+     id="g56">
+</g><g
+     id="g58">
+</g><g
+     id="g60">
+</g></g><g
+   id="g20750"
+   transform="matrix(0.16222678,-0.09366167,0.09366167,0.16222678,105.22001,297.67993)" /><g
+   class=""
+   id="g21555"
+   transform="matrix(0.31833496,0,0,0.31833496,160.05235,257.19917)" /><g
+   id="g23457"
+   transform="matrix(0.42628742,0,0,0.42628742,-19.132617,-11.947591)"
+   style="fill:#960570;fill-opacity:1;filter:url(#filter24223)"><path
+     d="m 799.32,234.52 h 1.4023 c 6.168,0 11.184,-5.0039 11.184,-11.184 v -5.8086 c 0,-6.1797 -5.0039,-11.184 -11.184,-11.184 h -401.45 c -6.168,0 -11.184,5.0039 -11.184,11.184 v 5.8086 c 0,6.168 5.0039,11.184 11.184,11.184 h 1.4023 c -5.293,29.82 -49.703,67.199 -49.703,114.46 v 713.72 c 0,31.859 17.172,42.227 30.59,49.391 3.4219,1.8242 13.414,10.02 17.711,27.91 h 401.45 c 4.2969,-17.891 14.281,-26.09 17.711,-27.91 13.414,-7.1523 30.59,-17.531 30.59,-49.391 V 348.98 c -0.004,-47.258 -44.414,-84.637 -49.707,-114.46 z"
+     id="path23455"
+     style="fill:#960570;fill-opacity:1" /></g></g>
+<g
+   id="g7">
+</g>
+<g
+   id="g9">
+</g>
+<g
+   id="g11">
+</g>
+<g
+   id="g13">
+</g>
+<g
+   id="g15">
+</g>
+<g
+   id="g17">
+</g>
+<g
+   id="g19">
+</g>
+<g
+   id="g21">
+</g>
+<g
+   id="g23">
+</g>
+<g
+   id="g25">
+</g>
+<g
+   id="g27">
+</g>
+<g
+   id="g29">
+</g>
+<g
+   id="g31">
+</g>
+<g
+   id="g33">
+</g>
+<g
+   id="g35">
+</g>
+</svg>

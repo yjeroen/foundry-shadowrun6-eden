@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 512 512"
+   xml:space="preserve"
+   sodipodi:docname="interface_plugs.svg"
+   width="512"
+   height="512"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs41"><style
+     id="style2">.cls-1{fill:none;}</style><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter941"
+     x="-0.18118403"
+     y="-0.15093357"
+     width="1.3527474"
+     height="1.2938718"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood931" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite933" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="15"
+       result="blur"
+       id="feGaussianBlur935" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset937" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite939" /></filter><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter991"
+     x="-0.072744011"
+     y="-0.060606771"
+     width="1.145488"
+     height="1.1212135"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood981" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite983" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="12.7202"
+       result="blur"
+       id="feGaussianBlur985" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset987" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite989" /></filter></defs><sodipodi:namedview
+   id="namedview39"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="1.7331194"
+   inkscape:cx="251.85801"
+   inkscape:cy="251.85801"
+   inkscape:window-width="1716"
+   inkscape:window-height="1414"
+   inkscape:window-x="3160"
+   inkscape:window-y="587"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+
+<g
+   id="g8">
+</g>
+<g
+   id="g10">
+</g>
+<g
+   id="g12">
+</g>
+<g
+   id="g14">
+</g>
+<g
+   id="g16">
+</g>
+<g
+   id="g18">
+</g>
+<g
+   id="g20">
+</g>
+<g
+   id="g22">
+</g>
+<g
+   id="g24">
+</g>
+<g
+   id="g26">
+</g>
+<g
+   id="g28">
+</g>
+<g
+   id="g30">
+</g>
+<g
+   id="g32">
+</g>
+<g
+   id="g34">
+</g>
+<g
+   id="g36">
+</g>
+<g
+   id="g546"
+   style="fill:#1b1f21;fill-opacity:0"><g
+     id="g20-3"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g22-60"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g24-6"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g26-2"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g28-6"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g30-1"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g32-8"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g34-7"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g36-92"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g38"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g40"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g42"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g44"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g46"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g48"
+     style="fill:#1b1f21;fill-opacity:0">
+</g><g
+     id="g319"
+     style="fill:#1b1f21;fill-opacity:0"><g
+       id="g949"
+       style="fill:#1b1f21;fill-opacity:0"><path
+         d="M 0,0 H 512 V 512 H 0 Z"
+         fill="#b90202"
+         fill-opacity="1"
+         id="path902"
+         style="fill:#1b1f21;fill-opacity:0" /><g
+         id="g1524"
+         transform="matrix(0.65299367,0.65095314,-0.65095314,0.65299367,760.96027,405.16803)"
+         style="fill:#1b1f21;fill-opacity:0"><g
+           class=""
+           id="g1513"
+           style="fill:#1b1f21;fill-opacity:0" /></g><g
+         id="g1741"
+         transform="matrix(0.73148951,-0.72519164,0.72519164,0.73148951,174.72172,-127.52936)"
+         style="fill:#1b1f21;fill-opacity:0"><g
+           class=""
+           id="g1730"
+           style="fill:#1b1f21;fill-opacity:0" /></g></g><g
+       id="g10-6"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g12-7"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g14-0"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g16-5"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g18-3"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g20-5"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g22-6"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g24-2"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g26-9"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g28-1"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g30-2"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g32-7"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g34-0"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g36-9"
+       style="fill:#1b1f21;fill-opacity:0">
+</g><g
+       id="g38-3"
+       style="fill:#1b1f21;fill-opacity:0">
+</g></g></g><g
+   id="g6"
+   transform="matrix(0.86719907,0,0,0.86719907,37.585508,37.589844)"
+   style="fill:#960570;fill-opacity:1;filter:url(#filter991)">
+	<g
+   id="g4"
+   style="fill:#960570;fill-opacity:1">
+		<path
+   d="m 453.3,176.262 h -8.393 v -41.967 c 0,-4.642 -3.752,-8.393 -8.393,-8.393 h -8.393 V 58.754 c 0,-4.642 -3.752,-8.393 -8.393,-8.393 h -8.393 V 25.18 C 411.335,11.297 400.037,0 386.155,0 c -13.882,0 -25.18,11.298 -25.18,25.18 v 25.18 h -8.393 c -4.642,0 -8.393,3.752 -8.393,8.393 v 67.148 h -8.393 c -4.642,0 -8.393,3.752 -8.393,8.393 v 41.967 h -8.393 c -4.642,0 -8.393,3.752 -8.393,8.393 v 142.689 c 0,4.642 3.752,8.393 8.393,8.393 h 25.18 v 33.574 c 0,9.258 7.529,16.787 16.787,16.787 v 16.787 c 0,27.824 -22.587,50.47 -50.361,50.47 H 193.104 c -27.774,0 -50.361,-22.595 -50.361,-50.47 v -16.787 c 9.258,0 16.787,-7.529 16.787,-16.787 v -33.574 h 25.18 c 4.642,0 8.393,-3.752 8.393,-8.393 V 184.656 c 0,-4.642 -3.752,-8.393 -8.393,-8.393 h -8.393 v -41.967 c 0,-4.642 -3.752,-8.393 -8.393,-8.393 h -8.393 V 58.754 c 0,-4.642 -3.752,-8.393 -8.393,-8.393 h -8.393 V 25.18 C 142.745,11.297 131.447,0 117.565,0 103.683,0 92.385,11.298 92.385,25.18 v 25.18 h -8.393 c -4.642,0 -8.393,3.752 -8.393,8.393 v 67.148 h -8.393 c -4.642,0 -8.393,3.752 -8.393,8.393 v 41.967 H 50.42 c -4.642,0 -8.393,3.752 -8.393,8.393 v 142.689 c 0,4.642 3.752,8.393 8.393,8.393 H 75.6 v 33.574 c 0,9.25 7.521,16.77 16.762,16.787 v 16.661 c 0,0.159 0.008,0.369 0.025,0.579 0.185,55.38 45.291,100.377 100.721,100.377 h 117.508 c 55.539,0 100.721,-45.232 100.721,-100.83 v -16.787 c 9.258,0 16.787,-7.529 16.787,-16.787 v -33.574 h 25.18 c 4.642,0 8.393,-3.752 8.393,-8.393 V 184.656 c -0.003,-4.642 -3.755,-8.394 -8.397,-8.394 z M 109.169,25.18 c 0,-4.633 3.76,-8.393 8.393,-8.393 4.633,0 8.393,3.76 8.393,8.393 V 50.36 H 109.168 V 25.18 Z M 75.596,176.262 v -33.574 h 8.393 67.148 8.393 v 33.574 z m 25.155,193.049 h -8.368 v -33.465 h 50.361 l 0.017,33.465 h -8.41 z M 377.759,25.18 c 0,-4.633 3.76,-8.393 8.393,-8.393 4.633,0 8.393,3.76 8.393,8.393 V 50.36 H 377.758 V 25.18 Z m 25.181,344.131 h -33.574 -8.393 v -33.465 h 50.361 l 0.017,33.465 z m 25.18,-193.049 h -83.934 v -33.574 h 8.393 67.148 8.393 z"
+   id="path2"
+   style="fill:#960570;fill-opacity:1" />
+	</g>
+</g></svg>

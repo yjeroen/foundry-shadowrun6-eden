@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 512 512"
+   height="512"
+   width="512"
+   style="enable-background:new 0 0 512 512;"
+   xml:space="preserve"
+   sodipodi:docname="cyberdeck.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs65"><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter939"
+     x="-0.18068708"
+     y="-0.3284784"
+     width="1.3517799"
+     height="1.6395565"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood929" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite931" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="15"
+       result="blur"
+       id="feGaussianBlur933" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset935" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite937" /></filter><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter1105"
+     x="-0.049523954"
+     y="-0.090043631"
+     width="1.0990479"
+     height="1.1800873"><feFlood
+       flood-opacity="1"
+       flood-color="rgb(58,63,94)"
+       result="flood"
+       id="feFlood1095" /><feComposite
+       in="flood"
+       in2="SourceGraphic"
+       operator="out"
+       result="composite1"
+       id="feComposite1097" /><feGaussianBlur
+       in="composite1"
+       stdDeviation="10.5651"
+       result="blur"
+       id="feGaussianBlur1099" /><feOffset
+       dx="0"
+       dy="0"
+       result="offset"
+       id="feOffset1101" /><feComposite
+       in="offset"
+       in2="SourceGraphic"
+       operator="atop"
+       result="composite2"
+       id="feComposite1103" /></filter></defs><sodipodi:namedview
+   id="namedview63"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="1.7050781"
+   inkscape:cx="256"
+   inkscape:cy="256"
+   inkscape:window-width="1716"
+   inkscape:window-height="1414"
+   inkscape:window-x="3160"
+   inkscape:window-y="587"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+
+
+
+<g
+   id="g176"><g
+     id="g949"><path
+       d="M 0,0 H 512 V 512 H 0 Z"
+       fill="#b90202"
+       fill-opacity="1"
+       id="path902"
+       style="fill:#1b1f21;fill-opacity:0" /><g
+       id="g1524"
+       transform="matrix(0.65299367,0.65095314,-0.65095314,0.65299367,760.96027,405.16803)"><g
+         class=""
+         id="g1513" /></g><g
+       id="g1741"
+       transform="matrix(0.73148951,-0.72519164,0.72519164,0.73148951,174.72172,-127.52936)"><g
+         class=""
+         id="g1730" /></g></g><g
+     id="g10-3">
+</g><g
+     id="g12-6">
+</g><g
+     id="g14">
+</g><g
+     id="g16-7">
+</g><g
+     id="g18-5">
+</g><g
+     id="g20">
+</g><g
+     id="g22-3">
+</g><g
+     id="g24-5">
+</g><g
+     id="g26">
+</g><g
+     id="g28-6">
+</g><g
+     id="g30-2">
+</g><g
+     id="g32-9">
+</g><g
+     id="g34-1">
+</g><g
+     id="g36-2">
+</g><g
+     id="g38-7">
+</g></g>
+<g
+   id="g6"
+   style="fill:#960570fff;filter:url(#filter1105)"
+   transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g4"
+   style="fill:#960570fff">
+		<path
+   id="rect2"
+   style="fill:#960570;stroke-width:0.821923;fill-opacity:1"
+   d="M 45.587891 140.27344 L 45.587891 182.35547 L 266.52148 182.35547 L 266.52148 371.72656 L 466.41211 371.72656 L 466.41211 140.27344 L 45.587891 140.27344 z M 366.4668 187.61523 C 404.17416 187.61523 434.84961 218.29345 434.84961 256 C 434.84961 293.70655 404.17334 324.38477 366.4668 324.38477 C 328.76025 324.38477 298.08203 293.70655 298.08203 256 C 298.08203 218.29345 328.75943 187.61523 366.4668 187.61523 z M 45.587891 213.91797 L 45.587891 371.72656 L 87.669922 371.72656 L 87.669922 213.91797 L 45.587891 213.91797 z M 119.23242 213.91797 L 119.23242 371.72656 L 161.31445 371.72656 L 161.31445 213.91797 L 119.23242 213.91797 z M 192.87695 213.91797 L 192.87695 371.72656 L 234.95898 371.72656 L 234.95898 213.91797 L 192.87695 213.91797 z M 366.4668 219.17773 C 346.16283 219.17773 329.64453 235.69603 329.64453 256 C 329.64453 276.30397 346.16283 292.82227 366.4668 292.82227 C 386.77076 292.82227 403.28906 276.30397 403.28906 256 C 403.28906 235.69603 386.77076 219.17773 366.4668 219.17773 z "
+   transform="matrix(1.2166588,0,0,1.2166588,-55.46465,-55.464648)" />
+	</g>
+</g><g
+   id="g12"
+   style="fill:#960570fff"
+   transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g10"
+   style="fill:#960570fff">
+
+	</g>
+</g><g
+   id="g18"
+   style="fill:#960570fff"
+   transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g16"
+   style="fill:#960570fff">
+
+	</g>
+</g><g
+   id="g24"
+   style="fill:#960570fff"
+   transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g22"
+   style="fill:#960570fff">
+
+	</g>
+</g><g
+   id="g30"
+   style="fill:#960570fff"
+   transform="matrix(0.82192313,0,0,0.82192313,45.587679,45.587677)">
+	<g
+   id="g28"
+   style="fill:#960570fff">
+
+	</g>
+</g>
+<g
+   id="g32">
+</g>
+<g
+   id="g34">
+</g>
+<g
+   id="g36">
+</g>
+<g
+   id="g38">
+</g>
+<g
+   id="g40">
+</g>
+<g
+   id="g42">
+</g>
+<g
+   id="g44">
+</g>
+<g
+   id="g46">
+</g>
+<g
+   id="g48">
+</g>
+<g
+   id="g50">
+</g>
+<g
+   id="g52">
+</g>
+<g
+   id="g54">
+</g>
+<g
+   id="g56">
+</g>
+<g
+   id="g58">
+</g>
+<g
+   id="g60">
+</g>
+</svg>

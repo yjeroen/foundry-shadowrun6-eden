@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="512" height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="worm.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter893"
+       x="-0.16008223"
+       y="-0.15924454"
+       width="1.3117391"
+       height="1.3101078">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(58,63,94)"
+         result="flood"
+         id="feFlood883" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite885" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="15"
+         result="blur"
+         id="feGaussianBlur887" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset889" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="composite2"
+         id="feComposite891" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter937"
+       x="-0.062594345"
+       y="-0.062266796"
+       width="1.1251887"
+       height="1.1245336">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(58,63,94)"
+         result="flood"
+         id="feFlood927" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite929" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="12.3821"
+         result="blur"
+         id="feGaussianBlur931" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset933" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="composite2"
+         id="feComposite935" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.7050781"
+     inkscape:cx="256"
+     inkscape:cy="256"
+     inkscape:window-width="1716"
+     inkscape:window-height="1414"
+     inkscape:window-x="3160"
+     inkscape:window-y="587"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <path
+     d="M0 0h512v512H0z"
+     fill="#b90202"
+     fill-opacity="1"
+     id="path2"
+     style="fill:#1b1f21;fill-opacity:0" />
+  <g
+     class=""
+     style="fill:#960570;fill-opacity:1;filter:url(#filter937)"
+     transform="translate(0,0)"
+     id="g6">
+    <path
+       d="M274.594 16.5c-2.147-.007-4.297-.006-6.438.03-15.81.278-31.407 1.78-46.53 4.47-40.333 7.173-77.33 22.934-104.876 47.656-27.545 24.723-45.385 58.75-46.53 100.25-1.453 52.56 27.335 87.403 51.06 117.344 11.864 14.97 22.504 28.927 28.532 43.188 6.03 14.26 7.908 28.588 2.313 46.937-10.285 33.726-36.38 49.367-64.844 52.97-26.328 3.33-53.875-5.06-68.78-19.47v83.875h240.875c91.64-44.99 89.13-179.822 10.156-252.47-25.676-10.105-55.58-12.25-85.686-12.25 48.363-22.474 115.757-16.348 142.97 21.5 5.27 9.6 12.273 17.978 20.998 24.626 19.64 14.966 44.538 17.114 67.282 8.813 22.743-8.302 43.76-26.614 58.656-52.564 29.79-51.9 25.625-117.1-13.656-147.03-.288-.22-.585-.412-.875-.626l.155-.188c-3.3-3.033-6.712-5.958-10.188-8.78-60.71-38.006-120.518 24.125-130.562 87.343-20.896-53.192 26.93-110.032 73.72-121.53-36.918-16.038-77.8-23.96-117.75-24.095zM417 89.344c8.427 23.52 7.12 45.02-.75 65.187 20.403-13.75 32.3-29.77 41.47-46.53 6.046 7.484 10.53 16.85 13.25 27.375-10.75 15.446-23.42 29.015-43.25 35.375 15.52 3.282 31.007 5.977 45.842.97-.972 10.445-3.355 21.135-7.25 31.624-15.414 1.304-30.94-2.482-46.53-8.72 6.592 16.14 17.788 27.9 31.5 37.25-9.654 13.64-21.19 23.85-33.094 30.25l-18.22-52.655c-2.674 19.456-11.002 39.586-20.906 59.874-7.05-1.372-13.75-4.35-19.937-9.063-4.595-3.5-8.605-7.846-12-12.874 13.926-14.232 25.73-30.607 33.094-51.625l-45.345 17.845c-1.42-10.01-1.43-20.735.125-31.656l44.094-11.25-35.75-19.064c2.007-4.827 4.328-9.594 7-14.25 3.587-6.25 7.566-11.914 11.812-17L392.78 148.5c1.72-18.385.54-35.324-4.217-50.5 3.528-1.974 7.1-3.608 10.656-4.906 6.022-2.2 11.98-3.458 17.78-3.75z"
+       fill="#ffffff"
+       fill-opacity="1"
+       stroke="#ffffff"
+       stroke-opacity="1"
+       stroke-width="0"
+       id="path4"
+       style="fill:#960570;fill-opacity:1" />
+  </g>
+</svg>

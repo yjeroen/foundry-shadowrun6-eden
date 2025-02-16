@@ -402,7 +402,12 @@
   opacity: 0.4;
 }
 #token-hud .status-effects .effect-control:hover {
-  opacity: 0.9;
+  opacity: 1;
+  -webkit-filter: drop-shadow( 0px 0px 3px rgba(197, 143, 178, 0.7));
+  filter: drop-shadow( 0px 0px 3px rgba(197, 143, 178, 0.7));
+}
+#token-hud .status-effects .effect-control.active {
+  border: 1px solid white;
 }
 #token-hud .status-effects .effect-control-wrapper {
   display: grid;
@@ -410,19 +415,20 @@
 }
 
 #token-hud .status-effects .effect-control-wrapper .badge {
-  font-size: var(--font-size-14);
+  font-family: 'Signika';
+  font-size: var(--font-size-16);
   font-style: unset;
   font-weight: bolder;
-  line-height: var(--font-size-13);
+  line-height: var(--font-size-14);
   background: white;
   border-radius: 50%;
-  border: 0.1em solid darkred;
-  height: 0.85rem;
+  border: 0.5px solid var(--color-shadow-primary);
+  height: 1rem;
   pointer-events: none;
   position: absolute;
   right: -3px;
   text-align: center;
   top: -3px;
-  width: 0.85rem;
+  width: 1rem;
   z-index: 1;
 }

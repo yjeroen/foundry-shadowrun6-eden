@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 512 512"
+   style="enable-background:new 0 0 512 512;"
+   width="512px"
+   height="512px"
+   xml:space="preserve"
+   sodipodi:docname="Default_Armor_Head.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs930"><filter
+   style="color-interpolation-filters:sRGB;"
+   inkscape:label="Drop Shadow"
+   id="filter1196"
+   x="-0.076923077"
+   y="-0.083117843"
+   width="1.1538462"
+   height="1.1662357"><feFlood
+     flood-opacity="1"
+     flood-color="rgb(58,63,94)"
+     result="flood"
+     id="feFlood1186" /><feComposite
+     in="flood"
+     in2="SourceGraphic"
+     operator="out"
+     result="composite1"
+     id="feComposite1188" /><feGaussianBlur
+     in="composite1"
+     stdDeviation="15"
+     result="blur"
+     id="feGaussianBlur1190" /><feOffset
+     dx="0"
+     dy="0"
+     result="offset"
+     id="feOffset1192" /><feComposite
+     in="offset"
+     in2="SourceGraphic"
+     operator="atop"
+     result="composite2"
+     id="feComposite1194" /></filter>
+	</defs><sodipodi:namedview
+   id="namedview928"
+   pagecolor="#1b1f21"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="1"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="1.1386719"
+   inkscape:cx="113.72899"
+   inkscape:cy="294.2024"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="1912"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<path
+   d="M -22,0 H 490 V 512 H -22 Z"
+   fill="#1b1f21"
+   fill-opacity="0"
+   id="path15"
+   style="enable-background:new 0 0 512 512"
+   transform="translate(22)" /><path
+   d="M 471.251,258.39 C 469.816,200.521 446.603,146.326 405.519,105.242 363.087,62.81 306.67,39.44 246.661,39.44 186.652,39.44 130.234,62.809 87.801,105.242 45.369,147.675 22,204.092 22,264.101 v 110.725 h 142.961 v 97.734 h 74.701 V 331.588 L 490,313.588 Z M 209.232,442.13 h -13.841 v -78.144 l 13.841,-22.081 z m 30.431,-140.971 h -40.8 l -27.106,43.237 h -58.384 c 17.799,-16.89 30.01,-39.615 33.525,-65.08 l 274.212,-18 18.724,21.842 -200.171,18 z"
+   id="path891"
+   sodipodi:nodetypes="csscsccccccccccccccccccccc"
+   style="fill:#960570;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none;filter:url(#filter1196)" />
+</svg>

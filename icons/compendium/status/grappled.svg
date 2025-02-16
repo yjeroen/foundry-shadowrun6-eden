@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg2"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   sodipodi:docname="grappled.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.2056723"
+     inkscape:cx="131.46192"
+     inkscape:cy="302.32095"
+     inkscape:window-width="1716"
+     inkscape:window-height="1414"
+     inkscape:window-x="3160"
+     inkscape:window-y="587"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g827" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g8">
+    <g
+       id="g827"
+       style="fill:#960570">
+      <g
+         id="g882"
+         transform="matrix(1.1333129,0,0,1.1333129,308.12836,-29.860404)"
+         style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:100;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
+        <g
+           class=""
+           id="g871"
+           style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:100;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+           transform="matrix(0.87753862,0,0,0.87753862,-269.58363,26.379569)">
+          <path
+             d="m 243.512,23.29 c -27.105,18.337 -53.533,32.92 -82.274,45.337 -2.843,17.364 -3.948,34.497 -4.05,51.584 28.913,15.41 56.096,32.85 83.33,49.634 l 7.045,4.344 -3.432,7.482 c -12.12,26.572 -24.33,47.087 -46.245,70.3 l -5.184,5.512 -6.46,-3.904 C 153.268,233.605 111.77,214.855 72.869,199.629 l 6.826,-17.374 c 36.79,14.4 75.11,32.32 108.153,51.504 15.396,-17.198 25.326,-33.354 34.713,-52.89 -43.44,-26.91 -86.13,-53.51 -134.69,-70.632 -23.012,20.357 -37.705,45.243 -51.942,70.74 8.324,25.495 6.596,53.376 -6.596,77.46 48.58,-0.593 97.994,2.23 150.666,10.26 l 5.658,0.837 1.787,5.44 c 8.85,26.46 11.79,54.41 8.325,83.588 l -0.987,8.432 -8.466,-0.187 c -40.508,-0.864 -80.175,-2.138 -118.17,0.234 1.634,15.94 -2.31,30.972 -7.724,45.025 13.427,28.54 27.38,55.8 48.29,79.39 41.27,-19.05 73.564,-31.288 115.93,-42.85 -3.407,-13.72 -6.918,-26.36 -11.097,-33.62 -5.122,-8.9 -10.207,-13.057 -17.85,-15.256 -15.284,-4.4 -44.533,2.293 -92.894,19.454 L 96.558,401.59 c 48.907,-17.354 79.702,-26.894 104.283,-19.82 9.133,2.628 16.884,8.004 23.066,15.46 14.487,-7.627 28.415,-16.79 42.053,-26.996 12.34,-45.92 37.29,-81.42 66.626,-112.107 -7.226,-13.52 -13.208,-27.204 -20.563,-40.613 l -3.394,-6.168 5,-4.965 c 23.275,-23.13 47.34,-40.157 71.87,-52.487 l 8.395,16.716 c -20.952,10.53 -41.503,25.913 -61.795,45.152 12.41,23.91 22.263,45.5 39.457,64.826 37.488,-27.124 74.943,-51.39 116.84,-74.938 -13.96,-30.473 -31.345,-58.357 -56.286,-79.462 -32.2,13.38 -62.527,17.39 -92.61,12.29 -14.223,13.25 -30.094,22.23 -48.756,23.337 -29.017,1.722 -60.74,-15.74 -99.174,-57.672 l 6.858,-6.295 0.017,-0.028 0.006,0.006 6.88,-6.314 c 36.702,40.043 63.74,52.87 84.32,51.65 18.514,-1.1 35.03,-14.95 51.684,-35.406 -28.827,-31.81 -64.174,-59.94 -97.822,-84.465 z M 39.324,277.884 c -6.06,0.022 -12.104,0.098 -18.142,0.223 1.673,26.288 5.512,51.288 14.052,73.732 45.88,-5.82 93.308,-4.96 141.15,-3.87 1.518,-21.27 -0.253,-41.69 -6.058,-61.212 -45.528,-6.565 -88.59,-9.03 -131.002,-8.873 z"
+             fill="#000000"
+             fill-opacity="1"
+             stroke="#ffffff"
+             stroke-opacity="1"
+             stroke-width="0"
+             id="path869"
+             style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:100;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

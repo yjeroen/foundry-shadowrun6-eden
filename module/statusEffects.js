@@ -2,245 +2,245 @@ export default [
     {
         id: "dead",
         name: "EFFECT.StatusDead",
-        img: "icons/svg/skull.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/critical_injuries/cracked_skull.svg"
     },
     {
         id: "unconscious",
         name: "EFFECT.StatusUnconscious",
-        img: "icons/svg/unconscious.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/unconscious.svg"
     },
     {
         id: "sleep",
         name: "EFFECT.StatusAsleep",
-        img: "icons/svg/sleep.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/sleep.svg"
     },
     {
         id: "bleeding",
         name: "shadowrun6.EFFECT.bleeding",
-        img: "icons/svg/blood.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/blood.svg"
     },
     {
         id: "blind",
         name: "EFFECT.StatusBlind",
-        img: "icons/svg/blind.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/blind.svg",
         hasLevels: true,
         maxLevel: 3
     },
     {
         id: "burning",
         name: "EFFECT.StatusBurning",
-        img: "icons/svg/fire.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/black-chrome/arasaka-fire.svg",
         hasLevels: true
     },
     {
         id: "chilled",
         name: "shadowrun6.EFFECT.chilled",
-        img: "icons/svg/frozen.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/frozen.svg"
     },
     {
         id: "confused",
         name: "shadowrun6.EFFECT.confused",
-        img: "icons/svg/sun.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/sun.svg",
         hasLevels: true
     },
     {
         id: "corrosive",
         name: "shadowrun6.EFFECT.corrosive",
-        img: "icons/svg/acid.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/programs/poison_flatline.svg",
         hasLevels: true
     },
     {
         id: "cover",
         name: "shadowrun6.EFFECT.cover",
-        img: "icons/svg/holy-shield.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/shield.svg",
         hasLevels: true,
         maxLevel: 4
     },
     {
         id: "dazed",
         name: "shadowrun6.EFFECT.dazed",
-        img: "icons/svg/daze.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/hornets_pharmacy/sedative.svg"
     },
     {
         id: "deafened",
         name: "shadowrun6.EFFECT.deafened",
-        img: "icons/svg/deaf.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/deaf.svg",
         hasLevels: true,
         maxLevel: 3
     },
     {
         id: "disabled",
         name: "shadowrun6.EFFECT.disabled",
-        img: "icons/svg/trap.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/status/broken_leg.svg",
         hasLevels: true,
         maxLevel: 3
     },
     {
         id: "fatigued",
         name: "shadowrun6.EFFECT.fatigued",
-        img: "icons/svg/unconscious.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/status/asphyxiating.svg",
         hasLevels: true,
         maxLevel: 3
     },
     {
         id: "frightened",
         name: "shadowrun6.EFFECT.frightened",
-        img: "icons/svg/terror.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/hornets_pharmacy/berserker.svg"
     },
     {
         id: "hazed",
         name: "shadowrun6.EFFECT.hazed",
-        img: "icons/svg/ice-aura.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/drugs/surge.svg"
     },
     {
         id: "hobbled",
         name: "shadowrun6.EFFECT.hobbled",
-        img: "icons/svg/net.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/programs/superglue.svg"
     },
     {
         id: "immobilized",
         name: "shadowrun6.EFFECT.immobilized",
-        img: "icons/svg/trap.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/status/spinal_injury.svg"
     },
     {
         id: "invisible",
         name: "EFFECT.StatusInvisible",
-        img: "icons/svg/invisible.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/black-chrome/holo-wear.svg",
         hasLevels: true
     },
     {
         id: "invisibleImproved",
         name: "shadowrun6.EFFECT.invisible_improved",
-        img: "icons/svg/mystery-man.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/cowled.svg",
         hasLevels: true,
         statuses: ['invisible']
     },
     {
         id: "irradiated",
         name: "shadowrun6.EFFECT.irradiated",
-        img: "icons/svg/biohazard.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/biohazard.svg",
         hasLevels: true
     },
     {
         id: "muted",
         name: "shadowrun6.EFFECT.muted",
-        img: "icons/svg/sound-off.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/sound-off.svg"
     },
     {
         id: "nauseated",
         name: "shadowrun6.EFFECT.nauseated",
-        img: "icons/svg/sun.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
     },
     {
         id: "offbalance",
         name: "shadowrun6.EFFECT.offbalance",
-        img: "icons/svg/falling.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/must_have_cyberware_deals/perfectfit_cyberfoot.svg"
     },
     {
         id: "panicked",
         name: "shadowrun6.EFFECT.panicked",
-        img: "icons/svg/stoned.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/terror.svg"
     },
     {
         id: "petrified",
         name: "shadowrun6.EFFECT.petrified",
-        img: "icons/svg/paralysis.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/paralysis.svg"
     },
     {
         id: "poisoned",
         name: "shadowrun6.EFFECT.poisoned",
-        img: "icons/svg/pill.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/gear/generic_street_drugs.svg",
         hasLevels: true
     },
     {
         id: "prone",
         name: "EFFECT.StatusProne",
-        img: "icons/svg/falling.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/falling.svg"
     },
     {
         id: "sensorLock",
         name: "shadowrun6.EFFECT.sensorLock",
-        img: "icons/svg/target.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/blackice/src/wisp.svg"
     },
     {
         id: "silent",
         name: "shadowrun6.EFFECT.silent",
-        img: "icons/svg/silenced.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/sound.svg",
         hasLevels: true
     },
     {
         id: "silentImproved",
         name: "shadowrun6.EFFECT.silent_improved",
-        img: "icons/svg/sound-off.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/silenced.svg",
         hasLevels: true,
         statuses: ['silent']
     },
     {
         id: "stilled",
         name: "shadowrun6.EFFECT.stilled",
-        img: "icons/svg/trap.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/critical_injuries/dismembered_leg.svg"
     },
     {
         id: "wet",
         name: "shadowrun6.EFFECT.wet",
-        img: "icons/svg/blood.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/waterfall.svg"
     },
     {
         id: "zapped",
         name: "shadowrun6.EFFECT.zapped",
-        img: "icons/svg/lightning.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/programs/vrizzbolt.svg"
     },
     {
         id: "cerebropathy",
         name: "shadowrun6.EFFECT.cerebropathy",
-        img: "icons/svg/hazard.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/midnight-with-the-upload/bushido_accelerator.svg",
         hasLevels: true
     },
     {
         id: "cybervirus",
-        name: "shadowrun6.EFFECT.cerebropathy",
-        img: "icons/svg/hazard.svg",
+        name: "shadowrun6.EFFECT.cybervirus",
+        img: "systems/shadowrun6-eden/icons/compendium/midnight-with-the-upload/feline_instinct.svg",
         hasLevels: true,
         maxLevel: 3
     },
     {
         id: "psychotropic",
         name: "shadowrun6.EFFECT.psychotropic",
-        img: "icons/svg/hazard.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/midnight-with-the-upload/snaketrap.svg",
         hasLevels: true,
         maxLevel: 4
     },
     {
         id: "aceinthehand",
         name: "shadowrun6.EFFECT.aceinthehand",
-        img: "icons/svg/card-joker.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/card-joker.svg",
         hasLevels: true
     },
     {
         id: "fishoutofwater",
         name: "shadowrun6.EFFECT.fishoutofwater",
-        img: "icons/svg/card-joker.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/night_city_tarot/the_fool.svg"
     },
     {
         id: "misdirected",
         name: "shadowrun6.EFFECT.misdirected",
-        img: "icons/svg/card-joker.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/night_city_tarot/the_devil.svg",
         hasLevels: true
     },
     {
         id: "follower",
         name: "shadowrun6.EFFECT.follower",
-        img: "icons/svg/card-joker.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/night_city_tarot/the_hermit.svg"
     },
     {
         id: "smitten",
         name: "shadowrun6.EFFECT.smitten",
-        img: "icons/svg/card-joker.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/night_city_tarot/the_lovers.svg"
     },
     {
         id: "suckered",
         name: "shadowrun6.EFFECT.suckered",
-        img: "icons/svg/card-joker.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/night_city_tarot/the_high_priestess.svg",
         hasLevels: true
     }
 ];

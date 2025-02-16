@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="512" height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="shrieker.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter3303"
+       x="-0.27641145"
+       y="-0.39182263"
+       width="1.5528229"
+       height="1.7836453">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(58,63,94)"
+         result="flood"
+         id="feFlood3293" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite3295" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="15"
+         result="blur"
+         id="feGaussianBlur3297" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset3299" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="fbSourceGraphic"
+         id="feComposite3301" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3323" />
+      <feFlood
+         id="feFlood3325"
+         flood-opacity="1"
+         flood-color="rgb(58,63,94)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite3327"
+         in="flood"
+         operator="out"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3329"
+         in="composite1"
+         stdDeviation="15"
+         result="blur" />
+      <feOffset
+         id="feOffset3331"
+         dx="0"
+         dy="0"
+         result="offset" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite3333"
+         in="offset"
+         operator="atop"
+         result="composite2" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1"
+     inkscape:cx="206.5"
+     inkscape:cy="70.5"
+     inkscape:window-width="1716"
+     inkscape:window-height="1413"
+     inkscape:window-x="3160"
+     inkscape:window-y="673"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <path
+     d="M 0.00569818,0.00170741 H 512.00571 V 512.00171 H 0.00569818 Z"
+     fill="#1b1f21"
+     fill-opacity="0"
+     id="path15" />
+  <g
+     class=""
+     transform="matrix(1.0635315,-0.00607872,0.00607872,1.0635315,29.346604,-1.8216473)"
+     id="g4"
+     style="fill:#960570;fill-opacity:1;filter:url(#filter3303)">
+    <path
+       d="m 20.951234,399.36271 c 0,0 6.41,-91.63 23.58,-127.08 5.91,-12.21 -4.21,-33.92 -14,-40.92 H 136.64123 v 42.22 c 7,8.67 20.56,14.44 35.45,14.44 23.23,0 42.11,-13.76 42.11,-31 0,-10.78 -7.42,-20.67 -18.66,-25.67 h 14.1 c 7.88148,6.19211 12.50032,15.64711 12.54,25.67 0,21.64 -22.49,39.11 -50.13,39.11 -15.64,0 -29.63,-5.7 -38.83,-14.52 -11.59,4.1 -21.33,23.37 -21.33,35.67 0,10.57 1.66,82.06 1.66,82.06 H 20.931234 Z M 413.25768,162.5 v -16 h 7 v 16 z m -4.69573,11 h -12 v -39 h 10.54 c 0.98323,1.25627 1.49933,2.81519 1.46,4.41 z M 25.58,223.5 h 203.74324 l 0.25631,29.64754 c 95.96931,-0.71276 91.44195,-36.97963 99.1138,-52.28812 C 330.1485,174.77941 354.66,176.61 388.06,176.61 c 1.25,0 2.91,-0.11 3.91,-0.09 V 134.5 l -2.73,-5 L 66.295366,131.05305 49.02284,117.65769 C 54.791542,130.47461 44.011176,131.3086 31.954104,131.21815 25.58,223.5 55.549476,194.55003 25.58,223.5 Z m 119.39,-61.52 c 0,-4.42 4,-7.48 8.38,-7.48 h 146.09 c 11.8873,0.2202 9.63477,16.11525 0,16 H 153.35 c -4.59443,-0.22251 -8.24441,-3.94218 -8.38,-8.54 z m 21.61123,69.38271 h -13 c 0,0 -3.63,32.5 18.49,44.18 -17.49,-19.05 -5.49,-44.18 -5.49,-44.18 z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path2"
+       sodipodi:nodetypes="cccccsscccscsccccccccccccccccccsccccccccsccccccccc"
+       style="fill:#960570;fill-opacity:1" />
+  </g>
+</svg>

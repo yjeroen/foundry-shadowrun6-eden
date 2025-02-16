@@ -173,7 +173,7 @@ Hooks.once("init", async function () {
         let actor = getActorData(item);
         let system = getSystemData(item);
         console.log("SR6E | onCreateItem  " + item.system.type + " with ", options);
-        if (actor.img == "icons/svg/item-bag.svg" && CONFIG.SR6.icons[actor.type]) {
+        if (actor.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[actor.type]) {
             actor.img = CONFIG.SR6.icons[actor.type].default;
             item.updateSource({ ["img"]: actor.img });
         }
@@ -233,7 +233,7 @@ Hooks.once("init", async function () {
             name: "",
             command: "",
             type: "script",
-            img: "icons/svg/dice-target.svg"
+            img: "systems/shadowrun6-eden/icons/compendium/default/Default_Dice.svg"
         };
         const { type, ...data } = droppedData;
 

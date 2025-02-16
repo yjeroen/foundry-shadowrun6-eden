@@ -402,25 +402,25 @@ export class SR6Config {
     }
     icons = {
         adeptpower: {
-            default: "systems/shadowrun6-eden/icons/van-damme-split.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/explosion.svg"
         },
         critterpower: {
-            default: "systems/shadowrun6-eden/icons/wolf-howl.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg"
         },
         gear: {
-            default: "systems/shadowrun6-eden/icons/pistol-gun.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Gear.svg"
         },
         martialartstyle: {
-            default: "systems/shadowrun6-eden/icons/kimono.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
         },
         martialarttech: {
-            default: "systems/shadowrun6-eden/icons/nunchaku.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
         },
         quality: {
-            default: "systems/shadowrun6-eden/icons/skills.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg"
         },
         spell: {
-            default: "systems/shadowrun6-eden/icons/bolt-spell-cast.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/default/acid.svg"
         }
     };
     spell_range = {
