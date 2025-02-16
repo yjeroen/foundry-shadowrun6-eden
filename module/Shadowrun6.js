@@ -15,6 +15,7 @@ import { preloadHandlebarsTemplates } from "./templates.js";
 import { defineHandlebarHelper } from "./util/helper.js";
 import { PreparedRoll, RollType } from "./dice/RollTypes.js";
 import { doRoll } from "./Rolls.js";
+import { SYSTEM_NAME } from "./constants.js";
 import EdgeUtil from "./util/EdgeUtil.js";
 import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
@@ -46,6 +47,7 @@ Hooks.once("init", async function () {
     game.sr6.config = CONFIG.SR6 = new SR6Config();
     game.sr6.utils = utils;
     game.sr6.macros = macros;
+    registerSystemSettings();
 
     CONFIG.ChatMessage.documentClass = SR6RollChatMessage;
     CONFIG.Combat.documentClass = Shadowrun6Combat;
@@ -55,12 +57,16 @@ Hooks.once("init", async function () {
     CONFIG.Dice.rolls = [SR6Roll];
 
     CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));
+    if ( !game.settings.get(SYSTEM_NAME, "bleeding") ) {
+        CONFIG.statusEffects = CONFIG.statusEffects.filter(function(effect) { return effect.id != "bleeding"; });
+    }
+
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
 
     //	(CONFIG as any).compatibility.mode = 0;
     getData(game).initiative = "@initiative.physical.pool + (@initiative.physical.dicePool)d6";
-    registerSystemSettings();
+
     // Register sheet application classes
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });

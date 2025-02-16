@@ -51,8 +51,21 @@ export const registerSystemSettings = () => {
         default: false,
         requiresReload: true,
         onChange: (toggle) => {
-            console.log("SR6E | hardDiceCap changed to " + toggle);
+            console.log("SR6E | Setting hardDiceCap changed to " + toggle);
             game.settings.set(SYSTEM_NAME, "hardDiceCap", toggle);
+        }
+    });
+    game.settings.register(SYSTEM_NAME, "bleeding", {
+        name: "shadowrun6.settings.bleeding.name",
+        hint: "shadowrun6.settings.bleeding.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting bleeding changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "bleeding", toggle);
         }
     });
 };

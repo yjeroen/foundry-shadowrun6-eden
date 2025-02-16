@@ -1126,8 +1126,12 @@
         "name": "Default Threshold"
       },
       "hardDiceCap": {
-        "hint": "In standard play, there is a maximum of 20 dice for any test. No combination of abilities, skills, effects, or augments can exceed this limit during a roll. <br><b>Exception:</b> Pre-edging a test allows you to exceed the 20-dice cap with the bonus dice granted by Edge.",
+        "hint": "In standard play, there is a maximum of 20 dice for any test. No combination of abilities, skills, effects, or augments can exceed this limit during a roll. Exception: Pre-edging a test allows you to exceed the 20-dice cap with the bonus dice granted by Edge.",
         "name": "Hard Dice Cap"
+      },
+      "bleeding": {
+        "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
+        "name": "Bleeding"
       }
     },
     "sin" : {
@@ -1403,7 +1407,6 @@
       }
     },
     "EFFECT": {
-      "sensorLock": "Sensor Locked",
       "chilled": "Chilled",
       "confused": "Confused",
       "corrosive": "Corrosive",
@@ -1424,7 +1427,22 @@
       "silent_improved": "Silent (Improved)",
       "stilled": "Stilled",
       "wet": "Wet",
-      "zapped": "Zapped"
+      "zapped": "Zapped",
+      "sensorLock": "Sensor Locked",
+      "cerebropathy": "Matrix: Cerebropathy",
+      "cybervirus": "Matrix: Cybervirus",
+      "psychotropic": "Matrix: Psychotropic",
+      "bleeding": "Bleeding",
+      "disabled": "Disabled",
+      "muted": "Muted",
+      "offbalance": "Off-Balance",
+      "aceinthehand": "Social: Ace in the Hand",
+      "fishoutofwater": "Social: Fish out of Water",
+      "misdirected": "Social: Misdirected",
+      "follower": "Social: Follower",
+      "smitten": "Social: Smitten",
+      "suckered": "Social: Suckered",
+      "irradiated": "Irradiated"
     }
   },
   "skill": {

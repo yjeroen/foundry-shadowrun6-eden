@@ -15,6 +15,11 @@ export default [
         img: "icons/svg/sleep.svg"
     },
     {
+        id: "bleeding",
+        name: "shadowrun6.EFFECT.bleeding",
+        img: "icons/svg/blood.svg"
+    },
+    {
         id: "blind",
         name: "EFFECT.StatusBlind",
         img: "icons/svg/blind.svg",
@@ -64,6 +69,13 @@ export default [
         maxLevel: 3
     },
     {
+        id: "disabled",
+        name: "shadowrun6.EFFECT.disabled",
+        img: "icons/svg/trap.svg",
+        hasLevels: true,
+        maxLevel: 3
+    },
+    {
         id: "fatigued",
         name: "shadowrun6.EFFECT.fatigued",
         img: "icons/svg/unconscious.svg",
@@ -104,9 +116,25 @@ export default [
         statuses: ['invisible']
     },
     {
+        id: "irradiated",
+        name: "shadowrun6.EFFECT.irradiated",
+        img: "icons/svg/biohazard.svg",
+        hasLevels: true
+    },
+    {
+        id: "muted",
+        name: "shadowrun6.EFFECT.muted",
+        img: "icons/svg/sound-off.svg"
+    },
+    {
         id: "nauseated",
         name: "shadowrun6.EFFECT.nauseated",
         img: "icons/svg/sun.svg"
+    },
+    {
+        id: "offbalance",
+        name: "shadowrun6.EFFECT.offbalance",
+        img: "icons/svg/falling.svg"
     },
     {
         id: "panicked",
@@ -161,5 +189,58 @@ export default [
         id: "zapped",
         name: "shadowrun6.EFFECT.zapped",
         img: "icons/svg/lightning.svg"
+    },
+    {
+        id: "cerebropathy",
+        name: "shadowrun6.EFFECT.cerebropathy",
+        img: "icons/svg/hazard.svg",
+        hasLevels: true
+    },
+    {
+        id: "cybervirus",
+        name: "shadowrun6.EFFECT.cerebropathy",
+        img: "icons/svg/hazard.svg",
+        hasLevels: true,
+        maxLevel: 3
+    },
+    {
+        id: "psychotropic",
+        name: "shadowrun6.EFFECT.psychotropic",
+        img: "icons/svg/hazard.svg",
+        hasLevels: true,
+        maxLevel: 4
+    },
+    {
+        id: "aceinthehand",
+        name: "shadowrun6.EFFECT.aceinthehand",
+        img: "icons/svg/card-joker.svg",
+        hasLevels: true
+    },
+    {
+        id: "fishoutofwater",
+        name: "shadowrun6.EFFECT.fishoutofwater",
+        img: "icons/svg/card-joker.svg"
+    },
+    {
+        id: "misdirected",
+        name: "shadowrun6.EFFECT.misdirected",
+        img: "icons/svg/card-joker.svg",
+        hasLevels: true
+    },
+    {
+        id: "follower",
+        name: "shadowrun6.EFFECT.follower",
+        img: "icons/svg/card-joker.svg"
+    },
+    {
+        id: "smitten",
+        name: "shadowrun6.EFFECT.smitten",
+        img: "icons/svg/card-joker.svg"
+    },
+    {
+        id: "suckered",
+        name: "shadowrun6.EFFECT.suckered",
+        img: "icons/svg/card-joker.svg",
+        hasLevels: true
     }
 ];
