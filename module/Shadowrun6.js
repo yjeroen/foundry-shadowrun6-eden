@@ -218,13 +218,21 @@ Hooks.once("init", async function () {
      * Something has been dropped on the HotBar
      */
     Hooks.on("hotbarDrop", async (bar, data, slot) => {
-        console.log("SR6E | DROP to Hotbar");
+        console.log("SR6E | DROP to Hotbar", data);
         let macroData = {
             name: "",
             type: "script",
             img: "icons/svg/dice-target.svg",
             command: ""
         };
+
+        // Your own Actor: game.user.character
+        //Use current target token
+        // canvas.tokens.controlled.forEach((target) => {
+        //     token = target;
+        // });
+        // actor = (token?.actor.isOwner) ? token?.actor : null;   
+
         /*    // For items, memorize the skill check
     if (data.type === "Item") {
       console.log("SR6E | Item dropped " + data);

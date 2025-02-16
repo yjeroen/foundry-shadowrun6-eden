@@ -14,7 +14,13 @@ export class Shadowrun6ActorSheetPC extends Shadowrun6ActorSheet {
             // height: 900,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "basics" }],
             scrollY: [".biography", ".items", ".attributes"],
-            dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
+            dragDrop: [
+                { dragSelector: ".item-list .item", dropSelector: null }, // possibly also add a.item-roll and a.spell-roll
+                { dragSelector: "a.attributeonly-roll", dropSelector: null }, 
+                { dragSelector: "a.skill-roll", dropSelector: null }, 
+                { dragSelector: "a.defense-roll", dropSelector: null }, 
+                { dragSelector: "a.matrix-roll", dropSelector: null }
+            ]
         });
     }
 }

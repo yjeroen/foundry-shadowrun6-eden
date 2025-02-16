@@ -238,7 +238,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
              */
             $(".draggable")
                 .on("dragstart", (event) => {
-                console.log("SR6E | DRAG START");
+                console.log("SR6E | DRAG Item Start");
                 const itemId = event.currentTarget.dataset.itemId;
                 if (itemId) {
                     console.log("SR6E | Item " + itemId + " dragged");
@@ -251,8 +251,20 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                     event.stopPropagation();
                     return;
                 }
-            })
-                .attr("draggable", "true");
+            }).attr("draggable", "true");
+
+            $( "a[draggable='true']" ).on("dragstart", (event) => {
+                const dragData = event.currentTarget.dataset;
+                dragData.classList = event.currentTarget.classList;
+                console.log("SR6E | DRAG Link Start", dragData);
+                
+                // If these were items, you'd do something like this:
+                // item = fromUuidSync(event.currentTarget.dataset.specUuid)
+                // event.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
+
+                // Instead we just stringify the dataset for use at Hooks.on("hotbarDrop")
+                event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+            });
         }
         else {
             html.find(".rollable").each((i, el) => el.classList.remove("rollable"));
@@ -658,16 +670,16 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         roll.rollType = RollType.Common;
         let classList = event.currentTarget.classList;
         if (classList.contains("defense-roll")) {
-            roll.actionText = game.i18n.localize("shadowrun6.defense." + event.currentTarget.dataset.itemId);
+            roll.actionText = game.i18n.localize("shadowrun6.defense." + event.currentTarget.dataset.rollId);
         }
         else if (classList.contains("attributeonly-roll") && classList.contains("attribute-poolmod")) {
-            roll.actionText = game.i18n.localize("attrib." + event.currentTarget.dataset.itemId);
+            roll.actionText = game.i18n.localize("attrib." + event.currentTarget.dataset.rollId);
         }
         else if (classList.contains("attributeonly-roll")) {
-            roll.actionText = game.i18n.localize("shadowrun6.derived." + event.currentTarget.dataset.itemId);
+            roll.actionText = game.i18n.localize("shadowrun6.derived." + event.currentTarget.dataset.rollId);
         }
         else {
-            roll.actionText = game.i18n.localize("shadowrun6.rolltext." + event.currentTarget.dataset.itemId);
+            roll.actionText = game.i18n.localize("shadowrun6.rolltext." + event.currentTarget.dataset.rollId);
         }
         let dialogConfig;
         if (classList.contains("defense-roll")) {
@@ -680,7 +692,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         else if (classList.contains("attributeonly-roll")) {
             roll.allowBuyHits = true;
             roll.useAttributeMod = classList.contains("attribute-poolmod");
-            roll.attributeTested = event.currentTarget.dataset.itemId;
+            roll.attributeTested = event.currentTarget.dataset.rollId;
             roll.checkText = roll.actionText;
             dialogConfig = {
                 useModifier: true,
