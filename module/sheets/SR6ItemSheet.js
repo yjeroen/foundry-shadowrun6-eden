@@ -39,6 +39,12 @@ export class SR6ItemSheet extends ItemSheet {
         let data = super.getData();
         console.log('SR6E | SR6ItemSheet.getData()', data);
         data.item.system.essence = parseFloat(data.item.system.essence).toFixed(2);
+        if(data.item.system.devRating) {
+            data.item.maxtrixMonitor = Math.ceil(data.item.system.devRating / 2) + 8;
+        } else
+        if(data.item.system.type === "VEHICLES" || data.item.system.type === "DRONES") {
+            data.item.maxtrixMonitor = Math.ceil(data.item.system.bod / 2) + 8;
+        }
         data.config = CONFIG.SR6;
         data.config.subtypeList = CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];
         return data;

@@ -567,6 +567,7 @@
       "legality.legal.short": "L",
       "level": "Has levels",
       "mages": "Mages",
+      "matrixMonitor": "Matrix Monitor",
       "max": "Maximum",
       "mode_of_operation": "Mode of Operation",
       "modifications": "Modifications",
@@ -997,6 +998,7 @@
         "title": "Foci"
       },
       "gear" : {
+        "add" : "Add new gear",
         "title" : "Gear"
       },
       "karma" : {

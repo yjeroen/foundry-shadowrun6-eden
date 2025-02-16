@@ -118,6 +118,9 @@
   background: white;
   text-align: center;
 }
+.shadowrun6 input.box:disabled {
+  background: lightgrey;
+}
 
 .dice-tooltip .dice-rolls .die{
   position: relative;
