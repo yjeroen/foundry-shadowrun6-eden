@@ -52,6 +52,10 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Scene](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-v3-screenshot-scene.webp?raw=true)
 
+> The system includes all possible Sixth World status effects. Including an optional rule (in Settings) for Bleeding. Normal-left-click to increase a status effect, and right click to decrease it. You can ctrl-left-click to add an effect as an overlay on the token.
+
+![FoundryVTT Shadowrun6 StatusEffects](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-status-effects.gif?raw=true)
+
 
 ## Patch Notes
 
@@ -67,6 +71,7 @@ See [CHANGELOG](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/CHA
 
 - The Shadowrun Sixth World RPG is made and by Catalyst Game Labs. No actual content of the RPG is contained within this system. Community Fair Use policy is assumed to automate the ruleset in this FoundryVTT system implementation.
 - The background image is from [kerko](https://www.deviantart.com/kerko) on deviantart, published on May 16, 2020 with Creative Commons Attribution.
+- The icons are based on svg's from FoundryVTT, icons from [Cyberpunk Red Core system](https://gitlab.com/cyberpunk-red-team/fvtt-cyberpunk-red-core), Mirrandin from [reddit/u/](https://old.reddit.com/user/Mirrandin) and Solution from [SolutionMaps](https://www.patreon.com/solutionmaps).
 
 **Virtual Table Top Platform Licenses:**
 
