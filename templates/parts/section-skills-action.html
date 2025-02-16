@@ -13,7 +13,7 @@
           )
         }}
         {{else}}
-       <li class="item flexrow" data-skill-id="{{id}}">
+       <li class="skill-item flexrow" data-skill-id="{{id}}">
 		    {{#if skill.specialization }}
        	<button type="button" name="collapseSkillAction{{id}}" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" data-item-id="{{this.id}}">+</button>
         {{else}}
