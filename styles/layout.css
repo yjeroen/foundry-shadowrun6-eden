@@ -74,10 +74,10 @@ line {
 }
 .vehicle-sheet .vehicle-section label {
   display: inline-block;
-	width: 135px;
+	width: 185px;
 }
 .vehicle-sheet .vehicle-section select {
-	width: 125px;
+	min-width: 200px;
 }
 
 .shadowrun6 th {
