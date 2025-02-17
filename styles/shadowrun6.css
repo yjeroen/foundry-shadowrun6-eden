@@ -416,10 +416,10 @@
 
 #token-hud .status-effects .effect-control-wrapper .badge {
   font-family: 'Signika';
-  font-size: var(--font-size-16);
+  font-size: var(--font-size-15);
   font-style: unset;
   font-weight: bolder;
-  line-height: var(--font-size-14);
+  line-height: var(--font-size-15);
   background: white;
   border-radius: 50%;
   border: 0.5px solid var(--color-shadow-primary);
