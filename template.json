@@ -252,6 +252,11 @@
 						"points": 0,
 						"modifier": 0,
 						"pool": 0
+					},
+					"stealth": {
+						"points": 0,
+						"modifier": 0,
+						"pool": 0
 					}
 				}
 			},
