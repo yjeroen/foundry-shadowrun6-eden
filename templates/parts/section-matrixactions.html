@@ -12,7 +12,7 @@
          	<div class="skill-pool" style="flex-grow:0.9; text-align:right">
          		<label class="item-pool">{{matrixPool actionId ../actor}}</label>
          		<a class="item-control matrix-roll" data-matrix-id="{{actionId}}" 
-					title="{{localize (concat 'skill.' action.skill)}} ({{localize (concat 'shadowrun6.special.cracking.' action.specialization)}})">
+					title="{{localize (concat 'skill.' action.skill)}} ({{localize (concat (concat 'shadowrun6.special.' action.skill) (concat '.' action.specialization) ) }})">
 						<i class="fas fa-dice-six"></i>
 				</a>
          	</div>
