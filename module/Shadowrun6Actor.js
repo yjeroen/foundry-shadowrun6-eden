@@ -460,6 +460,7 @@ export class Shadowrun6Actor extends Actor {
     /*
      * Calculate the attributes like Initiative
      */
+    // TODO possible rework, these are only (re)calculated in certain situations
     _prepareDefenseRatings() {
         const actorData = getActorData(this);
         const system = getSystemData(this);

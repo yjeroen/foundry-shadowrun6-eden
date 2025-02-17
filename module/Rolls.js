@@ -67,6 +67,7 @@ async function _showRollDialog(data) {
                 // Don't use wound modifier on Resist Damage tests
                 if (data.rollType == RollType.Soak) {
                     data.useWoundModifier = false;
+                   
                 }
                 // Only use sustained modifier on action tests
                 if (data.actionText.substring(0,6) == 'Resist') {

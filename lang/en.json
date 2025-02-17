@@ -1134,6 +1134,10 @@
       "bleeding": {
         "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
         "name": "Bleeding"
+      },
+      "armorLessensDmg": {
+        "hint": "Use this rule to reduce the amount of physical damage suffered. After resisting damage (from other sources than toxins or statuses), convert one box of Physical damage to Stun for every 8 full points of DR you have. (SWC p.149)",
+        "name": "Armor Lessens Physical Damage"
       }
     },
     "sin" : {

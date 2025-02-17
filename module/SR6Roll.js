@@ -1,5 +1,6 @@
 import { Defense, MonitorType } from "./config.js";
 import { SR6ChatMessageData, ReallyRoll, RollType, SoakType } from "./dice/RollTypes.js";
+import { SYSTEM_NAME } from "./constants.js";
 /**
  *
  */
@@ -150,6 +151,22 @@ export default class SR6Roll extends Roll {
 
         this.finished.monitor = this.finished.monitor ? this.finished.monitor : MonitorType.PHYSICAL;
         if (this.finished.rollType === RollType.Soak) {
+            this.finished.damage = Math.max(0, this.finished.threshold - this.finished.total);
+
+            if( this.finished.monitor === MonitorType.PHYSICAL && this.finished.damage > 0 && game.settings.get(SYSTEM_NAME, "armorLessensDmg") ) {
+                const armorLessensDmg = Math.floor(this.finished.actor.system.defenserating.physical.pool / 4);
+                console.log("SR6E | armorLessensDmg, reducing damage by", armorLessensDmg);
+                const newDamage = Math.max(0, this.finished.damage - armorLessensDmg);
+                const convertedToStun = this.finished.damage - newDamage;
+                if (newDamage === 0) {
+                    this.finished.damage = convertedToStun;
+                    this.finished.monitor = MonitorType.STUN;
+                } else {
+                    this.finished.damage = newDamage;
+                    this.finished.damageConvertedStun = convertedToStun;
+                }
+            }
+
             if (this.finished.soakType === SoakType.FADING) {
                 if ( (this.finished.threshold - this.result) > this.finished.actor.system.attributes.res.pool) {
                     this.finished.monitor = MonitorType.PHYSICAL;
@@ -162,7 +179,7 @@ export default class SR6Roll extends Roll {
         console.log("SR6E | targetIds in Chat message: ", this.finished.targets);
         if (this.configured.rollType == RollType.Defense) {
             console.log("SR6E | _evaluateTotal: calculate remaining damage");
-            this.finished.damage = this.configured.damage + (this.configured.threshold - this.total);
+            this.finished.damage = Math.max(0, this.configured.damage + (this.configured.threshold - this.total));
             console.log("SR6E | _evaluateTotal: remaining damage = " + this.finished.damage);
         }
     }
@@ -355,14 +372,15 @@ export default class SR6Roll extends Roll {
                 this.finished = new SR6ChatMessageData(this.configured);
             }
             
-            // Threshold modifications that impact the succes of the current roll, must be done above
+            // Threshold modifications that impact the succes of the current roll, must be done above (in _prepareChatMessage)
             this.finished.success = this.isSuccess();
             // Threshold modifications that impact the succes of the future rolls, must be done below
 
             if (this.configured) {
                 this.finished.actionText = isPrivate ? "" : this.configured.actionText;
                 this.finished.allowSoak = this.configured.allowSoak;
-                if (this.finished.rollType == RollType.Soak) {
+                //TODO possible move some of these things to _prepareChatMessage() // rolLType Soak already moved but kept here to keep old chatMessages working
+                if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
                     console.log("SR6E | rollType", RollType.Soak);
                     this.finished.damage = this.finished.threshold - this.finished.total;
                     

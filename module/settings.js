@@ -68,4 +68,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "bleeding", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "armorLessensDmg", {
+        name: "shadowrun6.settings.armorLessensDmg.name",
+        hint: "shadowrun6.settings.armorLessensDmg.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting armorLessensDmg changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "armorLessensDmg", toggle);
+        }
+    });
 };

@@ -35,7 +35,7 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = true;
+    game.debug = false;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
@@ -382,6 +382,11 @@ Hooks.once("init", async function () {
                         button.blur();
                         if (button.classList.contains('revertDamageCheck')) {
                             button.classList.remove("revertDamageCheck");
+                            if (button.classList.contains('damageConvertedStun')) {
+                                roll.finished.damageApplied2 = false;
+                            } else {
+                                roll.finished.damageApplied = false;
+                            }
                             roll.finished.damageApplied = false;
                             chatMessage.update({ 'rolls': [roll] });
                             actor.applyDamage( monitor, damage*-1 );
@@ -392,7 +397,11 @@ Hooks.once("init", async function () {
 
                     } else {
                         button.blur();
-                        roll.finished.damageApplied = true;
+                        if (button.classList.contains('damageConvertedStun')) {
+                            roll.finished.damageApplied2 = true;
+                        } else {
+                            roll.finished.damageApplied = true;
+                        }
                         chatMessage.update({ 'rolls': [roll] });
                         actor.applyDamage( monitor, damage );
                     }
