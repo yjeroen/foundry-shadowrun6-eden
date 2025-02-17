@@ -1,3 +1,13 @@
+## 3.0.4
+
+### Bug Fixes
+
+-   (raketenhunddev) Fixed SVG width/height so canvas loads in Firefox (#35)
+-   (yjeroen) Added default macro dice icon SVG with Firefox support
+-   (yjeroen) Fixed Vehicle Sheet layout so dropdowns use min-width instead of width to support longer localization translations (#37)
+-   (yjeroen) Fix missing stealth skill attribute for Vehicles (#38)
+-   (yjeroen) Fix Vehicle Sheet so Belongs To dropdown only shows actors you're owner of (#39), and the actor list is build on the fly so it shows correct names without reload after they have been changed (#40)
+
 ## 3.0.3
 
 ### System Improvements
