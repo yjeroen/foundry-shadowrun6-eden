@@ -432,3 +432,8 @@
   width: 1rem;
   z-index: 1;
 }
+
+#pause figcaption {
+  font-family: "Rubik Glitch";
+  font-size: 3em;
+}
