@@ -76,13 +76,13 @@
      class=""
      transform="translate(0,0)"
      id="g4"
-     style="fill:#960570;fill-opacity:1;filter:url(#filter1662)">
+     style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter1662)">
     <path
        d="M 406.125,85.417736 V 100.375 H 120.875 L 68.312,153.5 v 76.97 L 22,403.312 116.438,428.624 109.56293,394.64838 91.375,373.624 l 26.844,-59 h 148.936 v 0.094 L 299.53543,218.30054 415.35016,195.98802 441.687,100.373 H 424.812 V 85.416736 h -18.688 z m 39.26624,42.113264 -14.391,52.814 H 494.531 V 127.53 c -8.3696,3.8e-4 -49.13976,0.001 -49.13976,0.001 z m -114.61776,8.064 H 407.779 v 32.97 H 298.97 Z M 152.75,238.78 h 25.438 l 23.43085,8.32296 10.75615,33.02204 6.125,-41.344 h 48.656 v 57.157 H 126.75 l 26,-57.156 z"
        fill="#ffffff"
        fill-opacity="1"
        id="path2"
        sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccc"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
   </g>
 </svg>

@@ -161,21 +161,21 @@
     <g
        id="g882"
        transform="matrix(1.0308413,0,0,1.0308413,-12.488704,-0.26757139)"
-       style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
+       style="fill:#ff0ec0;fill-opacity:1;stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
       <g
          id="g1675"
          transform="translate(0.06540535,1.1331528)"
-         style="fill:#960570;fill-opacity:1;stroke:none">
+         style="fill:#ff0ec0;fill-opacity:1;stroke:none">
         <g
            id="g1562"
-           style="fill:#960570;fill-opacity:1;stroke:none;filter:url(#filter1032)">
+           style="fill:#ff0ec0;fill-opacity:1;stroke:none;filter:url(#filter1032)">
           <g
              id="g1451"
-             style="fill:#960570;fill-opacity:1;stroke:none">
+             style="fill:#ff0ec0;fill-opacity:1;stroke:none">
             <g
                class=""
                id="g871"
-               style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
+               style="fill:#ff0ec0;fill-opacity:1;stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
               <path
                  d="m 226.063,24.188 -4.063,34.53 32.688,25.626 23.75,-50.03 C 260.293,25.172 243.166,24.599 226.063,24.187 Z M 166.75,61.093 c -24.248,2.93 -42.95,15.897 -58.875,33.812 h 0.03 l 96.407,62.594 z M 300.875,88.75 319.531,174.25 228.439,150.375 269,233.938 128.406,144.563 c -3.966,4.875 -7.7,9.97 -11.22,15.28 -28.794,43.465 -42.052,101.104 -42.905,156.72 40.122,19.627 63.843,40.14 74.032,61.562 9.157,19.25 5.475,39.06 -6.343,54.25 25.214,23.382 68.638,37.63 113.155,38.344 44.813,0.717 89.973,-12.083 118.625,-38.783 -6.033,-6.937 -10.412,-14.346 -12.5,-22.437 -2.8,-10.85 -0.952,-22.554 5.188,-33.28 11.757,-20.542 37.646,-39.263 80.062,-59.69 C 445.62,263.866 432.645,206.294 404,162.124 380.6,126.039 347.452,98.712 300.875,88.749 Z m -119.28,168.844 c 27.75,0 50.25,22.5 50.25,50.25 0,27.75 -22.5,50.25 -50.25,50.25 -27.752,0 -50.25,-22.5 -50.25,-50.25 0,-27.75 22.498,-50.25 50.25,-50.25 z m 149.468,0 c 27.75,0 50.25,22.5 50.25,50.25 0,27.75 -22.5,50.25 -50.25,50.25 -27.75,0 -50.25,-22.5 -50.25,-50.25 0,-27.75 22.5,-50.25 50.25,-50.25 z m -74.75,86.125 c 13.74,29.005 24.652,58.023 30.062,87.03 -14.777,12.895 -41.26,14.766 -60.125,0 7.315,-29.007 16.12,-58.025 30.063,-87.03 z"
                  fill="#000000"
@@ -184,10 +184,10 @@
                  stroke-opacity="1"
                  stroke-width="0"
                  id="path869"
-                 style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+                 style="fill:#ff0ec0;fill-opacity:1;stroke:none;stroke-width:60;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
             </g>
             <ellipse
-               style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+               style="fill:#ff0ec0;fill-opacity:1;stroke:none;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
                id="path1112"
                cx="182.64909"
                cy="309.05655"
@@ -195,7 +195,7 @@
                ry="24.371746" />
           </g>
           <ellipse
-             style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+             style="fill:#ff0ec0;fill-opacity:1;stroke:none;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
              id="path1475"
              cx="329.44617"
              cy="308.33191"

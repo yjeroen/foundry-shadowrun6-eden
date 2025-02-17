@@ -324,50 +324,50 @@
   <g
      id="g5535"
      transform="matrix(0.42394818,0,0,0.42394818,1.6501697,1.631092)"
-     style="fill:#960570;fill-opacity:1;filter:url(#filter6126)">
+     style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter6126)">
     <path
        d="M 618.75,442.5 V 375 h -37.5 v 67.5 L 600,461.25 Z"
        id="path5513"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="m 431.25,720 150,90 V 648.75 l -150,-90 z"
        id="path5515"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 768.75,720 V 558.75 l -150,90 V 810 Z"
        id="path5517"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="m 393.75,513.75 150,-90 V 375 H 525 c -31.875,0 -56.25,-24.375 -56.25,-56.25 v -37.5 H 262.5 v 511.88 l 131.25,-73.125 z"
        id="path5519"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 600,513.75 549.375,465 l -101.25,60 151.88,90 151.88,-90 -101.25,-60 z"
        id="path5521"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 682.5,1087.5 H 515.62 c -9.375,0 -16.875,5.625 -18.75,15 l -3.75,22.5 h 213.75 l -5.625,-22.5 c -1.875,-9.375 -9.375,-15 -18.75,-15 z"
        id="path5523"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 1031.2,75 H 168.7 c -11.25,0 -18.75,7.5 -18.75,18.75 v 1012.5 c 0,11.25 7.5,18.75 18.75,18.75 h 285 l 7.5,-31.875 C 466.825,1068.75 489.325,1050 515.575,1050 h 166.88 c 26.25,0 48.75,16.875 54.375,43.125 l 7.5,31.875 h 286.88 c 11.25,0 18.75,-7.5 18.75,-18.75 V 93.75 C 1049.96,82.5 1042.46,75 1031.21,75 Z M 337.45,1012.5 H 281.2 V 975 h 56.25 z m 487.5,0 H 768.7 V 975 h 56.25 z m 93.75,0 H 862.45 V 975 h 56.25 z m 56.25,-131.25 c 0,31.875 -24.375,56.25 -56.25,56.25 H 281.2 c -31.875,0 -56.25,-24.375 -56.25,-56.25 v -675 c 0,-31.875 24.375,-56.25 56.25,-56.25 h 637.5 c 31.875,0 56.25,24.375 56.25,56.25 z"
        id="path5525"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="m 918.75,187.5 h -637.5 c -11.25,0 -18.75,7.5 -18.75,18.75 v 37.5 H 468.75 V 225 h 262.5 v 18.75 H 937.5 v -37.5 C 937.5,195 930,187.5 918.75,187.5 Z"
        id="path5527"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 731.25,318.75 C 731.25,350.625 706.875,375 675,375 h -18.75 v 48.75 l 150,90 V 720 L 937.5,793.125 V 281.245 H 731.25 Z"
        id="path5529"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 693.75,318.75 V 262.5 h -187.5 v 56.25 c 0,11.25 7.5,18.75 18.75,18.75 h 150 c 11.25,0 18.75,-7.5 18.75,-18.75 z"
        id="path5531"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="m 600,866.25 -187.5,-112.5 -150,82.5 v 45 c 0,11.25 7.5,18.75 18.75,18.75 h 637.5 c 11.25,0 18.75,-7.5 18.75,-18.75 v -45 l -150,-82.5 z"
        id="path5533"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
   </g>
 </svg>

@@ -111,7 +111,7 @@
      style="fill:#1b1f21;fill-opacity:0" />
   <g
      class=""
-     style="fill:#960570;fill-opacity:1;filter:url(#filter1231)"
+     style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter1231)"
      transform="translate(41.499983,1.5000221)"
      id="g6">
     <path
@@ -122,6 +122,6 @@
        stroke-opacity="1"
        stroke-width="0"
        id="path4"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
   </g>
 </svg>

@@ -111,7 +111,7 @@
      style="fill:#1b1f21;fill-opacity:0" />
   <g
      class=""
-     style="fill:#960570;fill-opacity:1;filter:url(#filter937)"
+     style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter937)"
      transform="translate(0,0)"
      id="g6">
     <path
@@ -123,6 +123,6 @@
        stroke-width="0"
        id="path4"
        sodipodi:nodetypes="ccccccscccccccccccccccccccccccccccsssccccccscccccccccccccccccccccccccccccc"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
   </g>
 </svg>

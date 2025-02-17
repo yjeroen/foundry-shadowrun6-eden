@@ -132,7 +132,7 @@
      style="fill:#1b1f21;fill-opacity:0">
 </g></g><g
    id="g16"
-   style="fill:#960570;fill-opacity:1;filter:url(#filter929)"
+   style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter929)"
    transform="matrix(0.41876429,0,0,0.41876429,66.425406,66.425406)">
 	<rect
    x="408.10001"
@@ -140,31 +140,31 @@
    width="89.200996"
    height="371.60001"
    id="rect2"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 	<path
    d="m 365.4,44.35 c 0,-19.3 -15.7,-35 -35,-35 H 227 c -19.3,0 -35,15.7 -35,35 v 90.9 h 173.4 z"
    id="path4"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 	<path
    d="m 313.8,591.55 c 0,-28.5 23.1,-51.601 51.6,-51.601 v -370.6 H 140.3 c -19.3,0 -35,15.7 -35,35 v 81.7 c 0,81.5 -18,162 -52.6,235.8 v 0 C 18,595.65 0.1,676.15 0.1,757.65 v 29.5 h 313.8 v -195.6 z"
    id="path6"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 	<path
    d="m 0,861.05 c 0,19.3 15.7,35 35,35 h 243.8 c 19.3,0 35,-15.7 35,-35 v -44.9 H 0 Z"
    id="path8"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 	<path
    d="m 713.4,44.35 c 0,-19.3 -15.701,-35 -35,-35 H 574.9 c -19.301,0 -35,15.7 -35,35 v 90.9 h 173.4 v -90.9 z"
    id="path10"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 	<path
    d="m 905.4,757.65 c 0,-81.5 -18,-162 -52.6,-235.8 v 0 C 818,448.05 800.1,367.55 800.1,286.05 v -81.7 c 0,-19.3 -15.699,-35 -35,-35 H 539.9 v 370.6 0 c 28.5,0 51.6,23.101 51.6,51.601 v 195.5 h 313.801 v -29.4 h 0.099 z"
    id="path12"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 	<path
    d="m 591.6,861.05 c 0,19.3 15.701,35 35,35 h 243.8 c 19.299,0 35,-15.7 35,-35 v -44.9 H 591.6 Z"
    id="path14"
-   style="fill:#960570;fill-opacity:1" />
+   style="fill:#ff0ec0;fill-opacity:1" />
 </g>
 <g
    id="g18">

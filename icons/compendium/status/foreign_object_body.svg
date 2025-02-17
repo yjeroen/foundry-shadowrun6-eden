@@ -41,71 +41,71 @@
      id="g8">
     <g
        id="g845"
-       style="fill:#960570">
+       style="fill:#ff0ec0">
       <g
          id="g8967"
          transform="matrix(0.9714848,0,0,0.9714848,495.57401,53.138526)">
         <g
            id="g955"
            transform="matrix(4.7496645,0,0,4.7496645,-737.15883,-4.3790998)"
-           style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1">
+           style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1">
           <g
              id="g900"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1">
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1">
             <g
                id="g898"
-               style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1">
+               style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1">
               <path
                  id="path896"
-                 style="fill:#960570;fill-opacity:1;stroke:none;stroke-width:14.3302;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+                 style="fill:#ff0ec0;fill-opacity:1;stroke:none;stroke-width:14.3302;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
                  d="m 102.19303,-6.0321533 c 0,0 -12.549791,0.7212054 -10.802831,14.8477635 -0.0043,-0.018198 0.165073,0.6539951 -0.811005,0.8316509 -1.288666,-0.034033 -1.409114,3.1050289 1.378083,5.2501599 0,0 0.648875,3.636676 2.334578,5.008154 0,0 1.160495,5.601759 -0.870065,8.523948 0,0 -1.329198,3.096602 -10.920466,4.523665 0,0 -9.500672,0.0931 -10.792742,12.965024 l -0.179103,18.870612 c 0,0 -0.691005,11.177048 -4.449237,17.168897 0,0 -2.271931,4.992043 -2.523766,13.847089 h 11.64312 c 1.894875,-4.173712 4.31837,-10.87656 4.057903,-15.562253 0,0 -0.09319,-7.419075 2.607793,-11.62199 0,0 1.824181,21.284282 0.525304,27.184243 h 39.490964 c -1.31931,-5.898827 0.55842,-27.180403 0.55842,-27.180403 2.70099,4.202915 2.59772,11.621512 2.59772,11.621512 -0.26927,4.8861 2.27869,11.393362 4.21155,15.558891 h 11.75741 c -0.25524,-8.85618 -2.80323,-13.843729 -2.80323,-13.843729 -3.74349,-5.991849 -4.44779,-17.168897 -4.44779,-17.168897 l -0.16567,-18.870611 c -1.31249,-12.871922 -10.79706,-12.965024 -10.79706,-12.965024 -9.58673,-1.427064 -10.92094,-4.523666 -10.92094,-4.523666 -2.03056,-2.922188 -0.87007,-8.523947 -0.87007,-8.523947 1.68457,-1.370342 2.33458,-5.008155 2.33458,-5.008155 2.7974,-2.14513 2.66055,-5.2841917 1.36848,-5.2501592 -1.02758,0.013126 -0.59539,-1.147037 -0.80236,-0.8316508 1.74923,-14.1299609 -10.79466,-14.8511243 -10.79466,-14.8511243 z m 0.84653,47.3541923 c 3.49248,0 6.29223,0.920788 8.3991,2.761929 2.12586,1.841142 3.1888,4.270519 3.1888,7.288473 0,1.442545 -0.34185,2.81881 -1.02516,4.128487 -0.68331,1.290698 -1.87906,2.752063 -3.58734,4.384418 l -2.50551,2.448857 c -0.8921,0.892099 -1.5281,1.594016 -1.90771,2.106497 -0.36064,0.493502 -0.61642,0.977509 -0.76827,1.452029 -0.11389,0.398598 -0.19947,0.883084 -0.25641,1.452511 -0.057,0.569424 -0.0855,1.347573 -0.0855,2.334577 v 3.501867 h -5.437908 v -4.384415 c 0,-1.917067 0.265616,-3.492543 0.797079,-4.726296 0.531459,-1.233757 1.651459,-2.667074 3.359739,-4.299426 l 2.56218,-2.533851 c 1.0819,-1.005982 1.86005,-1.954817 2.33458,-2.846916 0.4935,-0.892099 0.74041,-1.803537 0.74041,-2.733597 0,-1.689295 -0.62616,-3.055733 -1.87889,-4.099679 -1.23376,-1.043946 -2.87564,-1.565828 -4.92557,-1.565828 -1.49949,0 -3.10349,0.33202 -4.811767,0.99635 -1.689292,0.664327 -3.454632,1.63234 -5.295774,2.904058 v -5.352438 c 1.784199,-1.081907 3.587414,-1.888582 5.409576,-2.420048 1.841139,-0.531463 3.739285,-0.797559 5.694315,-0.797559 z m -4.156817,36.044792 h 5.779787 v 7.231813 h -5.779787 z" />
             </g>
           </g>
           <g
              id="g902"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g904"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g906"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g908"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g910"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g912"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g914"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g916"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g918"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g920"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g922"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g924"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g926"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g928"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
           <g
              id="g930"
-             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#960570;fill-opacity:1" />
+             style="stroke:none;stroke-width:12.6325;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill:#ff0ec0;fill-opacity:1" />
         </g>
       </g>
     </g>

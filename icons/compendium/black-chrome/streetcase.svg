@@ -335,20 +335,20 @@
   <g
      id="g16873"
      transform="matrix(0.40033382,0,0,0.40033382,15.799708,15.799708)"
-     style="fill:#960570;fill-opacity:1;filter:url(#filter17416)">
+     style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter17416)">
     <path
        d="M 775,300 H 425 c -13.801,0 -25,-11.199 -25,-25 V 175 c 0,-41.352 33.648,-75 75,-75 h 250 c 41.352,0 75,33.648 75,75 v 100 c 0,13.801 -11.199,25 -25,25 z M 450,250 h 300 v -75 c 0,-13.801 -11.199,-25 -25,-25 H 475 c -13.801,0 -25,11.199 -25,25 z"
        id="path16867"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
     <path
        d="M 1125,250 H 75 L 0,325 V 550 H 1200 V 325 Z"
        id="path16869"
-       style="fill:#960570;fill-opacity:1"
+       style="fill:#ff0ec0;fill-opacity:1"
        sodipodi:nodetypes="ccccccc" />
     <path
        d="M 950,600 V 700 H 850 V 600 H 350 V 700 H 250 V 600 H 0 v 425 l 75,75 h 1050 l 75,-75 V 600 Z"
        id="path16871"
-       style="fill:#960570;fill-opacity:1"
+       style="fill:#ff0ec0;fill-opacity:1"
        sodipodi:nodetypes="ccccccccccccccc" />
   </g>
 </svg>

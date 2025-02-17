@@ -75,7 +75,7 @@
      id="path2" />
   <g
      class=""
-     style="fill:#960570;fill-opacity:1;filter:url(#filter859)"
+     style="fill:#ff0ec0;fill-opacity:1;filter:url(#filter859)"
      transform="translate(0,0)"
      id="g6">
     <path
@@ -83,6 +83,6 @@
        fill="#ffffff"
        fill-opacity="1"
        id="path4"
-       style="fill:#960570;fill-opacity:1" />
+       style="fill:#ff0ec0;fill-opacity:1" />
   </g>
 </svg>

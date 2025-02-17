@@ -44,12 +44,12 @@
       <g
          id="g1233"
          transform="matrix(1.1773009,0,0,1.1773009,-695.32871,11.37069)"
-         style="fill:#960570;fill-opacity:1;stroke:#ffffff;stroke-width:8.14824;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
+         style="fill:#ff0ec0;fill-opacity:1;stroke:#ffffff;stroke-width:8.14824;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
         <g
            class=""
            id="g1222"
            transform="matrix(1.5757802,0,0,1.5757802,405.89184,-155.99466)"
-           style="fill:#960570;fill-opacity:1;stroke:#ffffff;stroke-width:5.17092;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
+           style="fill:#ff0ec0;fill-opacity:1;stroke:#ffffff;stroke-width:5.17092;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">
           <path
              d="m 208.242,24.629 -52.058,95.205 95.207,52.059 17.271,-31.586 -42.424,-23.198 A 143.26,143.26 0 0 1 256,114 c 78.638,0 142,63.362 142,142 0,78.638 -63.362,142 -142,142 -78.638,0 -142,-63.362 -142,-142 0,-16.46 2.785,-32.247 7.896,-46.928 l -32.32,-16.16 C 82.106,212.535 78,233.798 78,256 c 0,98.093 79.907,178 178,178 98.093,0 178,-79.907 178,-178 0,-98.093 -79.907,-178 -178,-178 -13.103,0 -25.875,1.44 -38.18,4.148 l 22.008,-40.25 -31.586,-17.27 z M 312.512,155.008 247,253.275 V 368 h 18 V 258.725 l 62.488,-93.733 z"
              fill="#000000"
@@ -58,7 +58,7 @@
              stroke-opacity="1"
              stroke-width="0"
              id="path1220"
-             style="fill:#960570;fill-opacity:1;stroke:#ffffff;stroke-width:5.17092;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+             style="fill:#ff0ec0;fill-opacity:1;stroke:#ffffff;stroke-width:5.17092;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
         </g>
       </g>
     </g>
