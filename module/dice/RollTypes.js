@@ -334,6 +334,7 @@ export class WeaponRoll extends SkillRoll {
     burstMode;
     faArea;
     constructor(actor, item, itemId, gear) {
+        if ( ! getSystemData(item).skill ) ui.notifications.error("shadowrun6.ui.notifications.no_weapon_skill_set", { localize: true });
         super(actor, getSystemData(item).skill);
         this.item = item;
         this.itemId = itemId;
