@@ -105,7 +105,7 @@ export default [
     {
         id: "invisible",
         name: "EFFECT.StatusInvisible",
-        img: "systems/shadowrun6-eden/icons/compendium/black-chrome/holo-wear.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/status/hidden.svg",
         hasLevels: true
     },
     {
@@ -124,12 +124,12 @@ export default [
     {
         id: "muted",
         name: "shadowrun6.EFFECT.muted",
-        img: "systems/shadowrun6-eden/icons/compendium/default/sound-off.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/silenced.svg"
     },
     {
         id: "nauseated",
         name: "shadowrun6.EFFECT.nauseated",
-        img: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/status/choking1.svg"
     },
     {
         id: "offbalance",
@@ -171,19 +171,19 @@ export default [
     {
         id: "silentImproved",
         name: "shadowrun6.EFFECT.silent_improved",
-        img: "systems/shadowrun6-eden/icons/compendium/default/silenced.svg",
+        img: "systems/shadowrun6-eden/icons/compendium/default/sound-off.svg",
         hasLevels: true,
         statuses: ['silent']
     },
     {
         id: "stilled",
         name: "shadowrun6.EFFECT.stilled",
-        img: "systems/shadowrun6-eden/icons/compendium/critical_injuries/dismembered_leg.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/hornets_pharmacy/delaying_compound.svg"
     },
     {
         id: "wet",
         name: "shadowrun6.EFFECT.wet",
-        img: "systems/shadowrun6-eden/icons/compendium/default/waterfall.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/night-city-weather/waterproof-jacket-lining.svg"
     },
     {
         id: "zapped",
