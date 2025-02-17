@@ -35,7 +35,7 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = false;
+    game.debug = true;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
@@ -472,7 +472,7 @@ Hooks.once("init", async function () {
                 'sight.enabled': true,
                 disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
                 width: 2,
-                height: 2
+                height: 3
             });
         }
 
