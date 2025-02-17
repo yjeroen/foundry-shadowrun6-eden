@@ -677,8 +677,11 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         let dialogConfig;
         if (classList.includes("defense-roll")) {
             roll.allowBuyHits = false;
+            if (rollId === 'damage_physical' || rollId === 'damage_astral') {
+                roll.rollType = RollType.Soak;
+            }
             dialogConfig = {
-                useModifier: true,
+                useModifier: !(rollId === 'damage_physical' || rollId === 'damage_astral'), 
                 useThreshold: false
             };
         }
