@@ -24,8 +24,7 @@ export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
             height: 800,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],
             scrollY: [".items", ".attributes"],
-            dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
-            allVehicleUser: this._getAllVehicleUsers()
+            dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
         });
     }
 
@@ -50,9 +49,9 @@ export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
             html.find(".vehicleskill-roll").click(this._onRollVehicleSkillCheck.bind(this));
         }
     }
-    static _getAllVehicleUsers() {
+    get allVehicleUser() {
         const allVehicleUser = { 0: "-" };
-        for (const actor of game.actors.filter((actor) => actor.type == "Player" || actor.type == "NPC")) {
+        for (const actor of game.actors.filter((actor) => actor.isOwner && (actor.type == "Player" || actor.type == "NPC") )) {
             allVehicleUser[actor.id] = actor.name;
         }
         return allVehicleUser;
