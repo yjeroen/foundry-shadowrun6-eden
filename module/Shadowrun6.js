@@ -5,6 +5,7 @@ import SR6Roll, { SR6RollChatMessage } from "./SR6Roll.js";
 import { registerSystemSettings } from "./settings.js";
 import Shadowrun6Combat from "./Shadowrun6Combat.js";
 import { Shadowrun6Actor } from "./Shadowrun6Actor.js";
+import SR6Item from "./documents/SR6Item.js";
 import { SR6Config } from "./config.js";
 import { Shadowrun6ActorSheetPC } from "./sheets/ActorSheetPC.js";
 import { Shadowrun6ActorSheetNPC } from "./sheets/ActorSheetNPC.js";
@@ -35,7 +36,7 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = false;
+    game.debug = true;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
@@ -54,6 +55,7 @@ Hooks.once("init", async function () {
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
     CONFIG.Actor.documentClass = Shadowrun6Actor;
+    CONFIG.Item.documentClass = SR6Item;
     CONFIG.Dice.rolls = [SR6Roll];
 
     CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));

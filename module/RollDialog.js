@@ -494,7 +494,7 @@ export class RollDialog extends Dialog {
         let poolMod = 0;    //not used?
 
         // Calculate reduced attack rating
-        prepared.calcAttackRating = [...prepared.weapon.attackRating];
+        prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
         prepared.calcAttackRating.forEach((element, index) => {
             prepared.calcAttackRating[index] = parseInt(element) + parseInt(arMod);
             if (prepared.calcAttackRating[index] <= 0)

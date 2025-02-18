@@ -84,7 +84,7 @@ async function _showRollDialog(data) {
         data.edgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= data.edge);
         if (data.rollType == RollType.Weapon) {
             data.calcPool = data.pool;
-            data.calcAttackRating = [...data.weapon.attackRating];
+            data.calcAttackRating = [...data.item.calculated.attackRating];
             data.calcDamage = data.weapon.dmg;
         }
         data.edgeBoosts.unshift({ id:'none', label: ' - ' });
