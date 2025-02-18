@@ -1117,7 +1117,7 @@
     "settings": {
       "maxEdgePerRound": {
         "hint": "Defines the maximum egde a player or NPC can gain per turn.",
-        "name": "Max. Edge per turn"
+        "name": "Maximum Edge earned per turn"
       },
       "importToCompendium": {
         "hint": "Define if imported NPCs should be added as actors or as entries to the NPCs compendium",
@@ -1138,6 +1138,10 @@
       "armorLessensDmg": {
         "hint": "Use this rule to reduce the amount of physical damage suffered. After resisting damage (from other sources than toxins or statuses), convert one box of Physical damage to Stun for every 8 full points of DR you have. (SWC p.149)",
         "name": "Armor Lessens Physical Damage"
+      },
+      "rollStrengthCombat": {
+        "hint": "Close Combat attacks may roll Strength instead of Agility for any unarmed attacks or if the weapon relies on both mass and momentum. When using this, add Agility to Attack Rating in place of Strength. When relevant to the weapon, it must be wielded in both hands.  (SWC p.150)",
+        "name": "Rolling Strength Instead Of Agility In Close Combat"
       }
     },
     "sin" : {

@@ -11,9 +11,13 @@ export default class SR6Item extends Item {
    * Augment the basic Item data model with additional dynamic data.
    */
   prepareData() {
+    console.log("SR6E | SR6Item prepareData()");
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
+    
+    // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
+    this.actor?._prepareAttributes();
     this.calcAttackRating();
   }
 
@@ -21,8 +25,12 @@ export default class SR6Item extends Item {
     if (this.system.attackRating === undefined) return;
 
     this.calculated.attackRating = foundry.utils.deepClone(this.system.attackRating);
-    if (this.system.skill === "close_combat") {
-      this.calculated.attackRating[0] = parseInt(this.calculated.attackRating[0]) + this.actor.system.attributes.str.pool;
+    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
+      let closeCombatAttackRatingAttribute = this.actor.system.attributes.str.pool;
+      if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && this.system.strWeapon === true) {
+        closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
+      }
+      this.calculated.attackRating[0] = parseInt(this.calculated.attackRating[0]) + closeCombatAttackRatingAttribute;
     }
   }
 

@@ -1,4 +1,5 @@
 import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
+import { SYSTEM_NAME } from "../constants.js";
 
 function getSystemData(obj) {
     if (game.release.generation >= 10)
@@ -45,6 +46,9 @@ export class SR6ItemSheet extends ItemSheet {
         if(data.item.system.type === "VEHICLES" || data.item.system.type === "DRONES") {
             data.item.maxtrixMonitor = Math.ceil(data.item.system.sen / 2) + 8;
         }
+        if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat")) {
+            data.rollStrengthCombat = true;
+        }
         data.config = CONFIG.SR6;
         data.config.subtypeList = CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];
         return data;
@@ -54,7 +58,8 @@ export class SR6ItemSheet extends ItemSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
-        super.activateListeners(html);
+        // Unclear why super is called; TODO rework whole itemsheet so it uses Foundry listeners instead
+        // super.activateListeners(html);
         if (this.actor && this.actor.isOwner) {
             console.log("SR6E | is owner");
         }
@@ -135,20 +140,20 @@ export class SR6ItemSheet extends ItemSheet {
                 return;
             /* Duplicate the data from the object. Sets null & NaN to 0 */
             if (field) {
-                newValue = duplicate(
+                newValue = foundry.utils.duplicate(
                 //array.split(".").reduce(function (prev, curr) {
                 //	return prev ? prev[curr] : null;
                 //}, (this.object as any).system) //getActorData(this.object))
                 this.object.system[array.split(".")[1]]);
-                newValue[idx][field] = element.value;
+                newValue[idx][field] = parseInt(element.value);
             }
             else {
-                newValue = duplicate(
+                newValue = foundry.utils.duplicate(
                 //array.split(".").reduce(function (prev, curr) {
                 //	return prev ? prev[curr] : null;
                 //}, (this.object as any).system)
                 this.object.system[array.split(".")[1]]);
-                newValue[idx] = element.value;
+                newValue[idx] = parseInt(element.value);
             }
             /* Update the value of 'array' with newValue */
             await this.object.update({ [array]: newValue });

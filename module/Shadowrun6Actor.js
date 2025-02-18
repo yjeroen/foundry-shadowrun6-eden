@@ -1,4 +1,5 @@
 import { Attribute, Derived, DefensePool, Pool, Ratings, Monitor, CurrentVehicle, Initiative, VehicleOpMode, VehicleSkills, VehicleSkill } from "./ActorTypes.js";
+import { SYSTEM_NAME } from "./constants.js";
 import { Defense, MonitorType } from "./config.js";
 import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "./ItemTypes.js";
 //import { doRoll } from "./dice/CommonRoll.js";
@@ -756,7 +757,8 @@ export class Shadowrun6Actor extends Actor {
                 let gear = system;
                 if (gear.skill && gear.skill != "") {
                     //item.data.pool = tmpItem.actor.system.skills[item.data.skill].pool;
-                    gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, itemUser.skills[gear.skill].attrib);
+                    const strWeapon = (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && item.system.strWeapon) ? 'str' : undefined;
+                    gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, strWeapon);
                     gear.pool = gear.pool + +gear.modifier;
                 }
             }

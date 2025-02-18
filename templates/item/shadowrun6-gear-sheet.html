@@ -89,11 +89,16 @@
                 <tr>
                     <th>{{localize 'shadowrun6.item.skill'}}</th>
                     <th>{{localize 'shadowrun6.item.skillspec'}}</th>
-                    {{#if (eq item.system.type "WEAPON_CLOSE_COMBAT")}}
-                    <th>{{localize 'shadowrun6.item.strWeapon'}}</th>
-                    {{else}}
-                    <th>{{localize 'shadowrun6.item.ammunition'}}</th>
-                    {{/if}}
+                    
+                    <th>
+                        {{#if (or (eq item.system.skill "close_combat") (eq item.system.skillSpec "brawling")) }}
+                        {{#if rollStrengthCombat}}
+                            {{localize 'shadowrun6.item.strWeapon'}}
+                        {{/if}}
+                        {{else}}
+                            {{localize 'shadowrun6.item.ammunition'}}
+                        {{/if}}
+                    </th>
                 </tr>
                 <tr>
                     <td style="text-align: center">
@@ -110,10 +115,12 @@
                          {{/if}}
                     </td>
                     <td style="text-align: center">
-                        {{#if (eq item.system.type "WEAPON_CLOSE_COMBAT")}}
-                        <input name="strWeapon" style="vertical-align: middle;" type="checkbox" {{checked item.system.strWeapon}} data-field="system.strWeapon" />
+                        {{#if (or (eq item.system.skill "close_combat") (eq item.system.skillSpec "brawling")) }}
+                        {{#if rollStrengthCombat}}
+                            <input name="strWeapon" style="vertical-align: middle;" type="checkbox" {{checked item.system.strWeapon}} data-field="system.strWeapon" />
+                        {{/if}}
                         {{else}}
-                        <input name="ammocap" type="text" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
+                            <input name="ammocap" type="text" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
                 </tr>

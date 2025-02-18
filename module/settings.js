@@ -81,4 +81,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "armorLessensDmg", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "rollStrengthCombat", {
+        name: "shadowrun6.settings.rollStrengthCombat.name",
+        hint: "shadowrun6.settings.rollStrengthCombat.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting rollStrengthCombat changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "rollStrengthCombat", toggle);
+        }
+    });
 };
