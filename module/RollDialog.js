@@ -513,7 +513,7 @@ export class RollDialog extends Dialog {
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage
-        prepared.calcDamage = prepared.weapon.dmg + dmgMod;
+        prepared.calcDamage = prepared.item.calculated.dmg + dmgMod;
         this.html.find("span[name='calcDamage']").text(prepared.calcDamage.toString());
         // Calculate modified pool
         prepared.calcPool = prepared.pool + poolMod;

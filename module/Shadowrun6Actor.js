@@ -774,7 +774,7 @@ export class Shadowrun6Actor extends Actor {
                 let suffix = system.stun
                     ? game.i18n.localize("shadowrun6.item.stun_damage")
                     : game.i18n.localize("shadowrun6.item.physical_damage");
-                system.dmgDef = system.dmg + suffix;
+                system.dmgDef = item.calculated.dmg + suffix;
             }
             if (tmpItem.type == "complexform" && isComplexForm(system)) {
                 if (!system.skill) {

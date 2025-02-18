@@ -19,6 +19,7 @@ export default class SR6Item extends Item {
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     this.actor?._prepareAttributes();
     this.calcAttackRating();
+    this.calcDamage();
   }
 
   calcAttackRating() {
@@ -31,6 +32,18 @@ export default class SR6Item extends Item {
         closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
       }
       this.calculated.attackRating[0] = parseInt(this.calculated.attackRating[0]) + closeCombatAttackRatingAttribute;
+    }
+  }
+
+  calcDamage() {
+    if (this.system.dmg === undefined) return;
+
+    this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
+    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
+      if (game.settings.get(SYSTEM_NAME, "highStrengthAddsDamage")) {
+        this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 7 ) ? 1 : 0;
+        this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 10 ) ? 1 : 0;
+      }
     }
   }
 

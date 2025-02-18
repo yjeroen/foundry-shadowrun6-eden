@@ -1140,8 +1140,12 @@
         "name": "Armor Lessens Physical Damage"
       },
       "rollStrengthCombat": {
-        "hint": "Close Combat attacks may roll Strength instead of Agility for any unarmed attacks or if the weapon relies on both mass and momentum. When using this, add Agility to Attack Rating in place of Strength. When relevant to the weapon, it must be wielded in both hands.  (SWC p.150)",
+        "hint": "Close Combat attacks may roll Strength instead of Agility for any unarmed attacks or if the weapon relies on both mass and momentum. When using this, add Agility to Attack Rating in place of Strength. When relevant to the weapon, it must be wielded in both hands. (SWC p.150)",
         "name": "Rolling Strength Instead Of Agility In Close Combat"
+      },
+      "highStrengthAddsDamage": {
+        "hint": "If your Strength is at least 7, increase your melee DV by 1. If your Strength is 10 or higher, increase your melee DV by 2. Weapons that do not benefit from high strength do not increase DV. (SWC p.150)",
+        "name": "High Strength Adds To Damage"
       }
     },
     "sin" : {

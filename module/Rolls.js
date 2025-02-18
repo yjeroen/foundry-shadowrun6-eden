@@ -85,7 +85,7 @@ async function _showRollDialog(data) {
         if (data.rollType == RollType.Weapon) {
             data.calcPool = data.pool;
             data.calcAttackRating = [...data.item.calculated.attackRating];
-            data.calcDamage = data.weapon.dmg;
+            data.calcDamage = data.item.calculated.dmg;
         }
         data.edgeBoosts.unshift({ id:'none', label: ' - ' });
         data.edgeBoosts.push({ id:'edge_action', label: 'shadowrun6.edge_boost.edge_action' });

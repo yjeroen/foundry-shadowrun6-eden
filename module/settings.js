@@ -94,4 +94,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "rollStrengthCombat", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "highStrengthAddsDamage", {
+        name: "shadowrun6.settings.highStrengthAddsDamage.name",
+        hint: "shadowrun6.settings.highStrengthAddsDamage.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting highStrengthAddsDamage changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "highStrengthAddsDamage", toggle);
+        }
+    });
 };
