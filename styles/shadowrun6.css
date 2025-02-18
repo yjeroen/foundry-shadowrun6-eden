@@ -437,3 +437,11 @@
   font-family: "Rubik Glitch";
   font-size: 3em;
 }
+
+.package-configuration .category[data-category="system"] label {
+  flex: 20;
+  font-weight: bold;
+}
+.package-configuration .category[data-category="system"] input {
+  text-align: center;
+}
