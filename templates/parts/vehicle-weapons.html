@@ -37,6 +37,8 @@
 			   <br/>
          	{{ localize 'shadowrun6.label.firemode_current' }}
          	<select name="firemodeUsed" data-field="firemodeUsed" >
+		
+			<!-- TODO rework #select -->
          	{{#select firemodeUsed}}
             {{#each item.system.modes as |available id|}}
             {{#if available}}

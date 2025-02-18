@@ -55,6 +55,8 @@
     	  	<td>{{localize "shadowrun6.roll.range"}}</td>
     	  	<td>
     	  		<select name="distance" id="distance">
+
+				<!-- TODO rework #select -->
             	{{#select attackRating}}
             	{{#each data.calcAttackRating as |rating id|}}
             		<option value="{{rating}}" data-item-ar="{{rating}}" name="{{id}}">{{localize (concat "shadowrun6.roll.ar_" id)}} - ({{rating}})</option>
