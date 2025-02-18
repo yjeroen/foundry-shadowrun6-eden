@@ -493,6 +493,15 @@ export class RollDialog extends Dialog {
         let prepared = this.options.prepared;
         let poolMod = 0;    //not used?
 
+        if (game.settings.get(SYSTEM_NAME, "highStrengthReducesRecoil") && this.dialogResult.dualHand && arMod < 0) {
+            const actorStrength = this.actor.system.attributes.str.pool;
+            let strengthArReduction = 0;
+            strengthArReduction += ( actorStrength >= 7 ) ? 1 : 0;
+            strengthArReduction += ( actorStrength >= 10 ) ? 1 : 0;
+            arMod = Math.min(0, arMod + strengthArReduction);
+            console.log('SR6E | _prepareFireModeAR: dual handedness, changing arMod to', arMod);
+        }
+
         // Calculate reduced attack rating
         prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
         prepared.calcAttackRating.forEach((element, index) => {

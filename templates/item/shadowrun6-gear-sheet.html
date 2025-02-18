@@ -99,6 +99,11 @@
                             {{localize 'shadowrun6.item.ammunition'}}
                         {{/if}}
                     </th>
+                    {{#if highStrengthReducesRecoil}}
+                    <th>
+                        {{localize 'shadowrun6.label.dual_hand'}}
+                    </th>
+                    {{/if}}
                 </tr>
                 <tr>
                     <td style="text-align: center">
@@ -123,6 +128,11 @@
                             <input name="ammocap" type="text" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
+                    {{#if highStrengthReducesRecoil}}
+                    <td style="text-align: center">
+                        <input name="dualHand" style="vertical-align: middle;" type="checkbox" {{checked item.system.dualHand}} data-field="system.dualHand" />
+                    </td>
+                    {{/if}}
                 </tr>
             </table>
             {{/if}}

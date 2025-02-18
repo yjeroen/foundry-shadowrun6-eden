@@ -1,6 +1,7 @@
 import { RollDialog } from "./RollDialog.js";
 import SR6Roll from "./SR6Roll.js";
 import { ConfiguredRoll, ReallyRoll, RollType } from "./dice/RollTypes.js";
+import { SYSTEM_NAME } from "./constants.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -86,6 +87,9 @@ async function _showRollDialog(data) {
             data.calcPool = data.pool;
             data.calcAttackRating = [...data.item.calculated.attackRating];
             data.calcDamage = data.item.calculated.dmg;
+            if (game.settings.get(SYSTEM_NAME, "highStrengthReducesRecoil") ) {
+                data.dualHand = data.item.system.dualHand;
+            }
         }
         data.edgeBoosts.unshift({ id:'none', label: ' - ' });
         data.edgeBoosts.push({ id:'edge_action', label: 'shadowrun6.edge_boost.edge_action' });

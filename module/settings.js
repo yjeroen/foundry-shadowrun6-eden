@@ -107,4 +107,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "highStrengthAddsDamage", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "highStrengthReducesRecoil", {
+        name: "shadowrun6.settings.highStrengthReducesRecoil.name",
+        hint: "shadowrun6.settings.highStrengthReducesRecoil.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting highStrengthReducesRecoil changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "highStrengthReducesRecoil", toggle);
+        }
+    });
 };

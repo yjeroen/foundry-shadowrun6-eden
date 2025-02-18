@@ -89,6 +89,7 @@ class CommonRollData {
         this.useWildDie = copy.useWildDie;
         this.pool = copy.pool;
         this.edgePoolIgnoringCap = copy.edgePoolIgnoringCap;
+        if (copy.dualHand) this.dualHand = copy.dualHand;
     }
     validateDialog() {}
     checkHardDiceCap(pool) {

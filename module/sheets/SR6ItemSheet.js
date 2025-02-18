@@ -49,6 +49,9 @@ export class SR6ItemSheet extends ItemSheet {
         if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat")) {
             data.rollStrengthCombat = true;
         }
+        if (game.settings.get(SYSTEM_NAME, "highStrengthReducesRecoil") && data.item.system.skill !== "close_combat" && data.item.system.skillSpec !== "brawling") {
+            data.highStrengthReducesRecoil = true;
+        }
         data.config = CONFIG.SR6;
         data.config.subtypeList = CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];
         return data;

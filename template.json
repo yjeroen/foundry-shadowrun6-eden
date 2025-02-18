@@ -673,6 +673,7 @@
 				"opMode": "manual"
 			},
 			"strWeapon": false,
+			"dualHand": false,
 			"templates": [
 				"genesis",
 				"dice-pool"

@@ -553,6 +553,7 @@
       "delete": "Delete",
       "device_mode": "Device Mode",
       "devRating": "Device Rating",
+      "dual_hand": "Dual-Hand",
       "dice": "Dice",
       "edit": "Edit",
       "expertise": "Expertise",
@@ -1146,6 +1147,10 @@
       "highStrengthAddsDamage": {
         "hint": "If your Strength is at least 7, increase your melee DV by 1. If your Strength is 10 or higher, increase your melee DV by 2. Weapons that do not benefit from high strength do not increase DV. (SWC p.150)",
         "name": "High Strength Adds To Damage"
+      },
+      "highStrengthReducesRecoil": {
+        "hint": "The AR penalties for firing mode attacks are lessened by 1 if the attacker’s strength is 7 or higher, and by 2 at 10 strength or higher. Both hands must be used to control the firearm. (SWC p.150)",
+        "name": "High Strength Reduces Recoil"
       }
     },
     "sin" : {
