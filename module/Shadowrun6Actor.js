@@ -1022,7 +1022,7 @@ export class Shadowrun6Actor extends Actor {
                 }             
 
                 if (!owner) {
-                    console.log("SR6E | Controlled by unknown actor " + vehicleSystem.vehicle.belongs);
+                    console.log("SR6E | Vehicle", this.name,"doesn't have an owner set yet", vehicleSystem.vehicle.belongs);
                     return;
                 }        
             

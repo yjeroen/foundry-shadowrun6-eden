@@ -41,7 +41,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         data.actor.system.essence = parseFloat(data.actor.system.essence).toFixed(2);
         data.matrixAccess = this._matrixAccess();
         data.matrixActionAvailable = this._matrixActionAvailable();
-        console.log("SR6E | getData1() ", data);
+        console.log("SR6E | Shadowrun6ActorSheet.getData()", data);
         return data;
     }
     get template() {
@@ -869,12 +869,11 @@ export class Shadowrun6ActorSheet extends ActorSheet {
     _matrixActionAvailable() {
         const matrixActions = Object.fromEntries(Object.entries(CONFIG.SR6.MATRIX_ACTIONS).filter(([actionId, action]) => {
             if (action.linkedAttr === undefined) return true;
-            if (action.linkedAttr === "a" && this.actor.system.persona.device.mod.a > 0) return true;
-            if (action.linkedAttr === "s" && this.actor.system.persona.device.mod.s > 0) return true;
+            if (action.linkedAttr === "a" && this.actor.system.persona?.device?.mod?.a > 0) return true;
+            if (action.linkedAttr === "s" && this.actor.system.persona?.device?.mod?.s > 0) return true;
             return false;
           }));
 
-        console.log('JEROEN matrixActions', matrixActions);
         return matrixActions;
     }
 
