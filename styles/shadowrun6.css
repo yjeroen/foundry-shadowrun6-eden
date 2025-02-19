@@ -445,3 +445,68 @@
 .package-configuration .category[data-category="system"] input {
   text-align: center;
 }
+
+.matrix-section .skill-pool {
+  flex-grow: 0.9;
+  text-align: right;
+  min-width: 70px;
+}
+.matrix-section .illegal-true {
+  color: darkred;
+}
+.matrix-section .illegal-false {
+  color: darkgreen;
+}
+.item-control.disabled-roll {
+  color: grey;
+}
+a.item-control.disabled-roll:hover {
+  text-shadow: unset;
+  cursor: unset;
+}
+
+.matrix-access-switch input[type="radio"],
+.matrix-access-switch input[type="checkbox"] {
+  display:none;
+  cursor: pointer;
+}
+.matrix-access-switch {
+  position: relative;
+  /* height: 50px; */
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+  background: rgb(0 66 17);
+  border: 2px solid #1e1e1e;
+  border-radius: 12px;
+}
+.matrix-access-switch label{
+  padding: 0.2rem;
+  z-index: 1;
+  cursor: pointer;
+  width: 76px;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Play';
+}
+.matrix-access-switch #active-label {
+  position: absolute;
+  left: 0;
+  width: 34%;
+  height: 100%;
+  background: #14142a;
+  border: 1px solid rgb(0 200 50);
+  border-radius: 12px;
+  opacity: .5;
+  transition: .5s left ease;
+}
+#matrix-access-switch-radio1:checked ~ #active-label{
+  left: 0;
+}
+#matrix-access-switch-radio2:checked ~ #active-label{
+  left: 33%;
+}
+#matrix-access-switch-radio3:checked ~ #active-label {
+  left: 66%;
+}

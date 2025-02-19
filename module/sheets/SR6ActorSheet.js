@@ -39,6 +39,8 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             data.system = data.data.data.data;
         }
         data.actor.system.essence = parseFloat(data.actor.system.essence).toFixed(2);
+        data.matrixAccess = this._matrixAccess();
+        data.matrixActionAvailable = this._matrixActionAvailable();
         console.log("SR6E | getData1() ", data);
         return data;
     }
@@ -66,6 +68,9 @@ export class Shadowrun6ActorSheet extends ActorSheet {
     activateListeners(html) {
         // Owner Only Listeners
         if (this.actor.isOwner) {
+            // Matrix action view
+            html.find(".matrix-access-switch input").click(this._onMatrixAccessSwitch.bind(this));
+
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
             // Roll Skill Checks
@@ -838,6 +843,39 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         const cform = getSystemData(formRaw);
         let roll = new ComplexFormRoll(caster, item, itemId, cform);
         this.actor.rollComplexForm(roll);
+    }
+
+    async _onMatrixAccessSwitch(event, html) {
+        console.log("SR6E | _onMatrixAccessSwitch to:", event.currentTarget.value);
+        await new Promise(resolve => setTimeout(resolve, 500)); // wait until CSS effect is ready
+        this.actor.setFlag("shadowrun6-eden", "matrix-access", event.currentTarget.value)
+    }
+    _matrixAccess() {
+        let matrixAccess = {
+            outsider: false,
+            user: false,
+            admin: false
+        };
+        const matrixAccessLevel = this.actor.getFlag("shadowrun6-eden", "matrix-access");
+        if (matrixAccessLevel === "admin") {
+            matrixAccess.admin = true;
+        } else if (matrixAccessLevel === "user") {
+            matrixAccess.user = true;
+        } else {
+            matrixAccess.outsider = true;
+        }
+        return matrixAccess;
+    }
+    _matrixActionAvailable() {
+        const matrixActions = Object.fromEntries(Object.entries(CONFIG.SR6.MATRIX_ACTIONS).filter(([actionId, action]) => {
+            if (action.linkedAttr === undefined) return true;
+            if (action.linkedAttr === "a" && this.actor.system.persona.device.mod.a > 0) return true;
+            if (action.linkedAttr === "s" && this.actor.system.persona.device.mod.s > 0) return true;
+            return false;
+          }));
+
+        console.log('JEROEN matrixActions', matrixActions);
+        return matrixActions;
     }
 
     async _render(...args) {

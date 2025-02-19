@@ -34,13 +34,15 @@ export class ComplexForm extends GenesisData {
     duration = Duration.sustained;
     fading = 3;
     skill = "";
+    skillSpec = "";
     attrib = "res";
     threshold = 0;
     oppAttr1 = "";
     oppAttr2 = "";
-    constructor(skill, attr1, attr2, threshold = 0) {
+    constructor(skill, skillSpec, attr1, attr2, threshold = 0) {
         super();
         this.skill = skill;
+        this.skillSpec = skillSpec;
         this.oppAttr1 = attr1;
         this.oppAttr2 = attr2;
         this.threshold = threshold;

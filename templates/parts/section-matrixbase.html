@@ -101,8 +101,8 @@
 				<td class="centered" title="{{system.derived.matrix_perception.modString}}">{{system.derived.matrix_perception.pool}}</td>
 			</tr>
 			<tr>
-				<th>{{localize 'shadowrun6.label.device_mode' }}</th>
-            <td colspan="3">
+			<th style="border: 1px solid var(--tablehead-background);">{{localize 'shadowrun6.label.device_mode' }}</th>
+            <td colspan="3" style="border: 1px solid var(--tablehead-background);">
 				<select name="matrixIni" data-field="system.matrixIni" data-field="system.matrixIni" style="background: rgba(255,255,255,0.25); border: 0px; width: 100%">
 					{{selectOptions config.MATRIX_INITIATIVE_TYPES selected=system.matrixIni localize=true}}
 			   </select>

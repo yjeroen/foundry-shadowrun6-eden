@@ -116,6 +116,28 @@ export const defineHandlebarHelper = async function () {
         return nuyen;
     });
     
+    Handlebars.registerHelper('matrixAction', function (matrixAction) {
+        const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
+        const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');
+        const actionTypeIcon = matrixAction.major ? '&#10687;' : '&#10686;';
+        const accessLevel = [];
+        if (matrixAction.outsider) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.outsider') );
+        if (matrixAction.user) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.user') );
+        if (matrixAction.admin) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.admin') );
+        
+        const actionIcon = `<span title="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
+        return new Handlebars.SafeString(actionIcon);
+    });
+    Handlebars.registerHelper("matrixAccessLevel", function (currentAccess, matrixAction) {
+        let actionAllowed = false;
+        if (matrixAction.outsider && matrixAction.outsider === currentAccess.outsider) actionAllowed = true;
+        if (matrixAction.user && matrixAction.user === currentAccess.user) actionAllowed = true;
+        if (matrixAction.admin && matrixAction.admin === currentAccess.admin) actionAllowed = true;
+        
+        if (actionAllowed === false) {
+            return '-disabled disabled-roll';
+        }
+    });
 
     // Allows {if X = Y} type syntax in html using handlebars
     Handlebars.registerHelper("iff", function (a, operator, b, opts) {

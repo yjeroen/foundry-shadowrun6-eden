@@ -56,8 +56,9 @@ export class MatrixAction {
     admin;
     opposedAttr1;
     opposedAttr2;
+    linkedAttr;
     threshold;
-    constructor(id, skill, specialization, attrib, illegal, major, outsider, user, admin, attr1, attr2, threshold = 0) {
+    constructor(id, skill, specialization, attrib, illegal, major, outsider, user, admin, attr1, attr2, linkedAttr, threshold = 0) {
         this.id = id;
         this.skill = skill;
         this.specialization = specialization;
@@ -69,6 +70,7 @@ export class MatrixAction {
         this.admin = admin;
         this.opposedAttr1 = attr1;
         this.opposedAttr2 = attr2;
+        this.linkedAttr = linkedAttr;
         this.threshold = threshold;
     }
 }
