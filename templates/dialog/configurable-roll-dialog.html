@@ -44,9 +44,14 @@
 		      <label class="edge-value" name="dicePool">{{data.calcPool}}</label>
 	       </div>
 	     </td>
-        {{#if data.threshold}}
+        {{#if (or data.threshold data.cantDodgeBullets)}}
     		<td>{{localize "shadowrun6.roll.threshold"}}</td>
-    		<td><input type="number" name="threshold" value="{{data.threshold}}" style="width: 3em;" class="centered"/></td>
+    		<td>
+          <input type="number" id="threshold" name="threshold" value="{{data.threshold}}" style="width: 3em;" class="centered"/>
+        {{#if data.cantDodgeBullets}}
+    		<td colspan="3"><span style="font-style: italic; font-size: var(--font-size-11);">{{localize "shadowrun6.roll.cantDodgeBullets"}}</span></td>
+        {{/if}}
+        </td>
         {{/if}}
     	</tr>
       <tr>

@@ -427,6 +427,7 @@ export class ConfiguredRoll extends CommonRollData {
     edgeAction;
     /** Target tokens */
     targetIds;
+    threshold;
     /* This methods is a horrible crime - there must be a better solution */
     updateSpecifics(copy) {
         this.targetIds = copy.targets;
@@ -463,6 +464,7 @@ export class ConfiguredRoll extends CommonRollData {
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
 
+        this.threshold = copy.threshold;
         this.soakType = copy.soakType;
         this.monitor = copy.monitor;
     }

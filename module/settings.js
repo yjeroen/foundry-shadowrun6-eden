@@ -120,4 +120,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "highStrengthReducesRecoil", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "cantDodgeBullets", {
+        name: "shadowrun6.settings.cantDodgeBullets.name",
+        hint: "shadowrun6.settings.cantDodgeBullets.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting cantDodgeBullets changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "cantDodgeBullets", toggle);
+        }
+    });
 };

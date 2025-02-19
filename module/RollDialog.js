@@ -105,6 +105,12 @@ export class RollDialog extends Dialog {
         const options = this.options;
         let prepared = options.prepared;
         const distanceElement = document.getElementById("distance");
+        if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") ) {
+            const optionSelected = distanceElement.options[distanceElement.selectedIndex];
+            this.dialogResult.threshold = this.prepared.cantDodgeBulletsBaseThreshold + parseInt(optionSelected.dataset.distance);
+            prepared.threshold = this.dialogResult.threshold;
+            document.getElementById("threshold").value = this.dialogResult.threshold;
+        }
         if (!distanceElement)
             return;
         let ar = parseInt(distanceElement.value);

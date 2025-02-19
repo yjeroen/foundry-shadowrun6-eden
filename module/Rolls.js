@@ -90,6 +90,18 @@ async function _showRollDialog(data) {
             if (game.settings.get(SYSTEM_NAME, "highStrengthReducesRecoil") ) {
                 data.dualHand = data.item.system.dualHand;
             }
+            if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") ) {
+                data.cantDodgeBullets = true;
+                data.threshold = 0;
+                console.warn('JEROEN', data)
+                // Calculating the highest defense pool of all targets
+                let targetDefensePool = 0
+                game.user.targets.forEach((token) => {
+                    targetDefensePool = Math.max(targetDefensePool, token.actor.system.defensepool.physical.pool);
+                });
+                data.threshold += Math.floor( targetDefensePool / 6 );
+                data.cantDodgeBulletsBaseThreshold = data.threshold;
+            }
         }
         data.edgeBoosts.unshift({ id:'none', label: ' - ' });
         data.edgeBoosts.push({ id:'edge_action', label: 'shadowrun6.edge_boost.edge_action' });

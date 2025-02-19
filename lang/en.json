@@ -1,6 +1,6 @@
 {
-	"Shadowrun6ActorSheetNPC": "Bla",
-	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Blubb",
+	"Shadowrun6ActorSheetNPC": "Grunty",
+	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Grunty Redshirt",
   "SYSTEM": {
     "Sidebar": {
       "readme": "README",
@@ -886,6 +886,7 @@
         "drain"  : "Resist Drain",
         "soak"   : "Soak damage"
       },
+      "cantDodgeBullets": "Increase threshold by circumstances after setting distance",
       "configure": "Configure your roll",
       "wound-modifier": "Use wound modifier",
       "sustained-spell-modifier": "Use sustained spell modifier",
@@ -1175,6 +1176,10 @@
       "highStrengthReducesRecoil": {
         "hint": "The AR penalties for firing mode attacks are lessened by 1 if the attacker’s strength is 7 or higher, and by 2 at 10 strength or higher. Both hands must be used to control the firearm. (SWC p.150)",
         "name": "High Strength Reduces Recoil"
+      },
+      "cantDodgeBullets": {
+        "hint": "Any Opposed test for an attack is instead a Simple test against a threshold that is set by distance and the size of the target defensepool. The target of the attack may still use Edge Boosts against the attacker's dice. (SWC p.151)",
+        "name": "You Can't Dodge Bullets"
       }
     },
     "sin" : {
