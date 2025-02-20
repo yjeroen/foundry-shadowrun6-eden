@@ -247,7 +247,6 @@ export class Shadowrun6Actor extends Actor {
      * Calculate the final attribute values
      */
     _prepareAttributes() {
-        console.log("SR6E | Shadowrun6Actor._prepareAttributes()");
         const data = getSystemData(this);
         // Only run on lifeforms
         if (isLifeform(data)) {
@@ -1874,6 +1873,7 @@ export class Shadowrun6Actor extends Actor {
             [`system.` + monitor + `.dmg`]: newDmg,
             [`system.overflow.dmg`]: newOverflow
         });
+        await this.checkUnconscious();
         console.log("SR6E | applyDamage | Added " + damage + " to monitor " + monitor + " of " + this.name + " which results in overflow " + newOverflow + " on " + this.name);
         this._prepareDerivedAttributes();
 
@@ -1882,6 +1882,14 @@ export class Shadowrun6Actor extends Actor {
             console.log("SR6E | applyDamage | Overflowing stun into physical of " + physicalOverflow + " on " + this.name);
             await this.applyDamage('physical', physicalOverflow);
             ui.notifications.warn("shadowrun6.ui.notifications.do_not_revert_damage", { localize: true });
+        }
+    }
+
+    async checkUnconscious() {
+        if (this.system.physical.dmg === this.system.physical.max || this.system.stun.dmg === this.system.stun.max) {
+            await this.toggleStatusEffect('unconscious', {active:true});
+        } else {
+            await this.toggleStatusEffect('unconscious', {active:false});
         }
     }
     //-------------------------------------------------------------

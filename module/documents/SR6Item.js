@@ -11,7 +11,6 @@ export default class SR6Item extends Item {
    * Augment the basic Item data model with additional dynamic data.
    */
   prepareData() {
-    console.log("SR6E | SR6Item prepareData()");
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();

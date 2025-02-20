@@ -3,7 +3,6 @@
   {{log "roll-sr6.html data=" data}}
   {{log "roll-sr6.html prepared=" prepared}}
   {{log "roll-sr6.html configured=" configured}}
-      {{log 'JEROEN success? cantDodgeBullets?' success cantDodgeBullets}}
   <h3>{{actionText}}</h3>
   {{#if isOpposed}}
   <div class="chat-edge" style="display:block">
@@ -198,7 +197,6 @@
         {{#if success}}
           {{#iff targets.length ">" 0}}
           {{#each targets as |target|}}
-          {{log 'JEROEN target' soakType ../soakType}}
             <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
             <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
           {{/each}}

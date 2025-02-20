@@ -33,20 +33,35 @@ export default class SR6ActiveEffectModel extends foundry.abstract.TypeDataModel
   async increase(increaseBy = 1) {
     const maxLevel = this.maxLevel ?? 99;
     if (!this.hasLevels || this.level === maxLevel) return;
+    console.log(`SR6E | Increasing statusEffect ${this.parent.name} by`, increaseBy, this);
+    const newLevel = this.level + increaseBy;
+    await this._checkBlinded(newLevel);
     await this.parent.update({
-      "system.level": Math.min(maxLevel, this.level + increaseBy)
+      "system.level": Math.min(maxLevel, newLevel)
     });
   }
 
   async decrease(decreaseBy = 1) {
     if (!this.hasLevels) return;
+    console.log(`SR6E | Decreasing statusEffect ${this.name} by`, decreaseBy);
     const newLevel = Math.max(0, this.level - decreaseBy)
+    await this._checkBlinded(newLevel);
     if (newLevel === 0) {
       await this.parent.delete();
     }
     await this.parent.update({
       "system.level": newLevel
     });
+  }
+
+  async _checkBlinded(newLevel) {
+    if(this.parent.id === game.sr6.utils.staticId('blinding')) {
+      if(newLevel === this.maxLevel){
+        await this.parent.target.toggleStatusEffect('blind', {active:true});
+      } else {
+        await this.parent.target.toggleStatusEffect('blind', {active:false});
+      }
+    }
   }
 
 }

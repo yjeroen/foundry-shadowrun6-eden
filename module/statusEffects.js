@@ -7,7 +7,8 @@ export default [
     {
         id: "unconscious",
         name: "EFFECT.StatusUnconscious",
-        img: "systems/shadowrun6-eden/icons/compendium/default/unconscious.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/default/unconscious.svg",
+        statuses: ['prone', 'blind']
     },
     {
         id: "sleep",
@@ -21,6 +22,12 @@ export default [
     },
     {
         id: "blind",
+        name: "EFFECT.StatusBlind",
+        img: "systems/shadowrun6-eden/icons/compendium/default/blind.svg",
+        hud: false
+    },
+    {
+        id: "blinding",
         name: "EFFECT.StatusBlind",
         img: "systems/shadowrun6-eden/icons/compendium/default/blind.svg",
         hasLevels: true,

@@ -535,6 +535,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 }
                 break;
         }
+        this.actor.checkUnconscious();
     }
     //-----------------------------------------------------
     _redrawBar(html, monitorType, monitorAttributes) {

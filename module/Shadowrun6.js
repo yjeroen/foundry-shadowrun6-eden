@@ -36,7 +36,7 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = false;
+    game.debug = true;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
