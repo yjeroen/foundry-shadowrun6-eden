@@ -284,13 +284,15 @@ export class Shadowrun6Actor extends Actor {
         // Don't calculate monitors and initiative for spirits
         if (actorData.type != "Spirit") {
             if (data.physical) {
-                data.physical.max = 8 + Math.round(data.attributes["bod"].pool / 2) + data.physical.mod;
+                data.physical.base = 8 + Math.round(data.attributes["bod"].pool / 2);
+                data.physical.max = data.physical.base + data.physical.mod;
                 data.physical.value = data.physical.max - data.physical.dmg;
                 data.overflow.max = data.attributes["bod"].pool * 2;
                 data.overflow.value = 100-Math.round(data.overflow.dmg / data.overflow.max * 100);
             }
             if (data.stun) {
-                data.stun.max = 8 + Math.round(data.attributes["wil"].pool / 2) + data.stun.mod;
+                data.stun.base = 8 + Math.round(data.attributes["wil"].pool / 2);
+                data.stun.max = data.stun.base + data.stun.mod;
                 data.stun.value = data.stun.max - data.stun.dmg;
             }
             if (data.initiative) {

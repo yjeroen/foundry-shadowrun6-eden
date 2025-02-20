@@ -181,13 +181,15 @@
 			},
 			"monitor-template": {
 				"physical": {
+					"base": 9,
 					"mod": 0,
 					"modString": "",
 					"value": 9,
 					"dmg": 0,
-					"max": 19
+					"max": 18
 				},
 				"stun": {
+					"base": 9,
 					"mod": 0,
 					"modString": "",
 					"value": 9,
