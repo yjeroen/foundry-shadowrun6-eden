@@ -525,6 +525,8 @@
       "attack_rating_short": "AR",
       "attack_rating_using_vehicle": "Attack Rating (Vehicle as Weapon)",
       "attribute": "Attribute",
+      "trait": "Trait",
+      "trait_pool": "Trait / Pool",
       "base": "Base",
       "belongs_to": "Belongs to",
       "column": {
@@ -672,6 +674,7 @@
 			"vrhot": "VR Hot-Sim"
 	   },
     "monitor": {
+		  "label": "Monitor",
 		  "matrix": "Matrix",
       "physical": "Physical",
       "stun": "Stun",

@@ -2,14 +2,14 @@
 		<h2 class="section-title">{{ localize 'shadowrun6.section.derived' }}</h2>
 		<table>
 			<tr>
-				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.attribute' }}</th>
+				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.trait_pool' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
 				<th style="padding: 0 5px 0 5px;"> </th>
 			</tr>
 			<tr>
-				<td ><b>{{ localize 'shadowrun6.monitor.physical' }}</b></td>
+				<td ><b>{{ localize 'shadowrun6.monitor.physical' }} {{ localize 'shadowrun6.monitor.label' }}</b></td>
 				<td class="centered">{{system.physical.base}}</td>
 				<td class="centered">
 					<input name="derivedPhysicalMod" class="centered box health-phys calcPHY" data-field="system.physical.mod" type="text" value="{{system.physical.mod}}" data-dtype="Number"
@@ -20,7 +20,7 @@
 			</tr>
 			<!-- Stun Condition Monitor -->
 			<tr>
-				<td><b>{{ localize 'shadowrun6.monitor.stun' }}</b></td>
+				<td><b>{{ localize 'shadowrun6.monitor.stun' }} {{ localize 'shadowrun6.monitor.label' }}</b></td>
 				<td class="centered"><label class="centered" >{{system.stun.base}}</label></td>
 				<td class="centered">
 					<input name="derivedStunMod" class="centered box health-stun" data-field="system.stun.mod" type="text" value="{{system.stun.mod}}" data-dtype="Number"

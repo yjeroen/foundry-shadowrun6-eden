@@ -17,17 +17,17 @@
    </div>
    {{/if}}
 		<div class="section" style="margin-right: 0px;">
-		<table>
+		<table style="margin-top: 0; margin-bottom:0;">
 			<tr>
-				<td colspan="2"><b>{{localize "shadowrun6.tradition.attribute"}}</b></td>
+				<td colspan="2"><div style="font-weight: bold; margin-bottom: 4px;">{{localize "shadowrun6.tradition.attribute"}}</div></td>
 				<td colspan="3">
-					<select name="traditionAttribute" data-field="system.tradition.attribute">
+					<select name="traditionAttribute" data-field="system.tradition.attribute" style="margin-bottom: 4px;">
 						{{selectOptions config.tradition_attributes localize="true" selected=system.tradition.attribute}}
       				</select>
 				</td>
 			</tr>
 			<tr>
-				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.attribute' }}</th>
+				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.trait_pool' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
