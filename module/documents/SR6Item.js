@@ -32,8 +32,11 @@ export default class SR6Item extends Item {
     if (this.system.attackRating === undefined) return;
 
     this.calculated.attackRating = foundry.utils.deepClone(this.system.attackRating);
-    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
+    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling" || this.system.skillSpec === "whips") {
       let closeCombatAttackRatingAttribute = this.actor.system.attributes.str.pool;
+      if (this.system.skillSpec === "whips") {
+        closeCombatAttackRatingAttribute = this.actor.system.attributes.rea.pool;
+      }
       if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && this.system.strWeapon === true) {
         closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
       }
