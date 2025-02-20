@@ -25,12 +25,14 @@
 		</tr>
 		{{#if (or (eq data.skillId "firearms")(eq data.skillId "exotic_weapons"))}}
 		<tr>
+			{{#iff data.getModes ">" 0}}
 			<td>{{localize "shadowrun6.roll.firemode"}}</td>
 			<td>
 				<select name="fireMode" id="fireMode">
 					{{selectOptions data.getModes selected=data.fireMode localize=true}}
 				</select>
-			</td>     		
+			</td>
+			{{/iff}}
 			<td class="onlyFA" style="text-align:right; display:none">{{localize "shadowrun6.roll.fa_area"}}</td>
 			<td class="onlyFA" style="display:none">
 				<select id="fullAutoArea" name="fullAutoArea">
