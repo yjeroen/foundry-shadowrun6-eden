@@ -29,8 +29,8 @@ export default {
         });
 
         // Use own Actor if no tokens selected
-        if (rollWith.length !== 0 && game.user.character !== null) {
-            rollWith.push( game.user.character.sheet );
+        if (rollWith.length === 0 && game.user.character !== null) {
+            actorSheet = rollWith.push( game.user.character.sheet );
         }
 
         rollWith.forEach((actorSheet) => {
