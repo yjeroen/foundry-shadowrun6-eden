@@ -243,22 +243,13 @@ export class Shadowrun6ActorSheet extends ActorSheet {
              */
             $(".draggable")
                 .on("dragstart", (event) => {
-                console.log("SR6E | DRAG Item Start");
-                const itemId = event.currentTarget.dataset.itemId;
-                if (itemId) {
-                    console.log("SR6E | Item " + itemId + " dragged");
-                    const itemData = getActorData(this.actor).items.find((el) => el.id === itemId);
-                    event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify({
-                        type: "Item",
-                        data: itemData,         //TODO: unclear if this line also needs a change to system:
-                        actorId: this.actor.id
-                    }));
-                    event.stopPropagation();
-                    return;
-                }
+                const item = fromUuidSync(event.currentTarget.dataset.uuid);
+                console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
+                event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
             }).attr("draggable", "true");
 
             $( "a[draggable='true']" ).on("dragstart", (event) => {
+                console.log("SR6E | a[draggable='true'] DRAG Item Start");
                 const dragData = event.currentTarget.dataset;
                 dragData.classList = event.currentTarget.classList;
                 if (dragData.type === undefined) dragData.type = 'Other';

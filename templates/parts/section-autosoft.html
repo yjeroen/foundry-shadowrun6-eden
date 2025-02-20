@@ -19,8 +19,8 @@
 		{{#each actor.items as |item id|}}
 		{{#if (eq item.type 'software')}}
 		{{#if (eq item.system.type 'AUTOSOFT')}} 
-		<tr class="draggable item" data-item-id="{{this.id}}" title="{{item.system.description}}">
-			<td title="{{item.system.description}}"><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+		<tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
+			<td title="{{item.system.description}}"><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
 			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{localize (lookup ../config.AUTOSOFT_TYPES item.system.subtype)}}</label></td>
 			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{item.system.rating}}</label></td>
 			<td class="item-controls">

@@ -7,6 +7,7 @@ import * as ItemTypes from "../ItemTypes.js";
  */
 export default class SR6Item extends Item {
   calculated = {}
+
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
@@ -14,11 +15,16 @@ export default class SR6Item extends Item {
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
+    this._migrateCleanUp();
     
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     this.actor?._prepareAttributes();
     this.calcAttackRating();
     this.calcDamage();
+  }
+
+  _migrateCleanUp() {
+    if (this.calculated === undefined) this.calculated = {};      
   }
 
   calcAttackRating() {
@@ -35,7 +41,7 @@ export default class SR6Item extends Item {
   }
 
   calcDamage() {
-    if (this.system.dmg === undefined) return;
+    if (this.system?.dmg === undefined) return;
 
     this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {

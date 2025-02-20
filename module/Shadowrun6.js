@@ -239,12 +239,14 @@ Hooks.once("init", async function () {
         };
         const { type, ...data } = droppedData;
 
-        if (type === 'Roll') {
+        if (type === 'Item') {
+            // Do nothing, FoundryVTT Native
+            return;
+        } if (type === 'Roll') {
             macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
             macroData.command = `game.sr6.macros.simpletest(${JSON.stringify(data)})`;
-        } 
-        else if (type === 'Other') {
-            console.warn("SR6E | Draggable object not supported to covert onto the hotbar", droppedData);
+        } else {
+            console.warn("SR6E | Draggable object not supported to convert onto the hotbar", droppedData);
         }
 
         // For items, memorize the skill check
@@ -274,6 +276,10 @@ Hooks.once("init", async function () {
             game.user.assignHotbarMacro(macro, slot);
         }
     });
+    Hooks.on("preCreateMacro", (macro, data, options, user) => {
+        macro.updateSource({ img: "systems/shadowrun6-eden/icons/compendium/default/Default_Container.svg" });
+    });
+
     Hooks.on("renderChatMessage", function (app, html, data) {
         console.log("SR6E | ENTER renderChatMessage");
         registerChatMessageEdgeListener(this, app, html, data);

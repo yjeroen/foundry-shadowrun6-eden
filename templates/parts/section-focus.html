@@ -15,8 +15,8 @@
 		</thead>
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'focus'}}
-		<tr class="draggable item list-item" data-item-id="{{item.id}}">
-			<td><input name="focusName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td><input name="focusName{{id}}" class="draggable" data-uuid="{{item.uuid}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
 			<td class="centered" style="width: 2em"> <input name="focusRating{{id}}" class="centered" type="text"
 					value="{{item.system.rating}}" data-field="system.rating" data-type="Number" disabled></td>
 			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i

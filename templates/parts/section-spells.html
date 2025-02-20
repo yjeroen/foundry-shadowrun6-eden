@@ -19,9 +19,9 @@
 	    </thead>
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'spell'}}
-		<tr class="draggable item list-item" data-item-id="{{item.id}}">
+		<tr class="item list-item" data-item-id="{{item.id}}">
       	<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button></td>
-			<td> <input name="spellName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
+			<td> <input name="spellName{{id}}" class="draggable" data-uuid="{{item.uuid}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
 			<td class="centered" style="width: 3em"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
 			<td class="centered" style="width: 1em">
 				{{#if item.system.alchemic}}

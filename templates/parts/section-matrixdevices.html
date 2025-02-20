@@ -26,8 +26,8 @@
 		 (eq item.system.subtype "RIGGER_CONSOLE")
          (eq item.system.subtype "CYBERJACK"))
 		}}
-       <tr class="draggable item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseMatrixDevice{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+       <tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
+       	<td style="margin-right: 1rem"><button type="button" name="collapseMatrixDevice{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
          <td><label class="middle-column" >{{item.system.devRating}}</label></td>
          <td><label class="middle-column" >-</label></td>
          <td><label class="middle-column" >-</label></td>
@@ -56,8 +56,8 @@
        </tr>
 		{{/if}}
 		{{#if (eq item.system.subtype "CYBERDECK") }}
-       <tr class="draggable item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseDeck{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name" data-skill="{{id}}">{{item.name}}</label></td>
+       <tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
+       	<td style="margin-right: 1rem"><button type="button" name="collapseDeck{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
          <td><label class="middle-column" >{{item.system.devRating}}</label></td>
          <td><label class="middle-column" >{{item.system.a}}</label></td>
          <td><label class="middle-column" >{{item.system.s}}</label></td>
