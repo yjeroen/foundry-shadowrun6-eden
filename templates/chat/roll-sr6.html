@@ -3,6 +3,7 @@
   {{log "roll-sr6.html data=" data}}
   {{log "roll-sr6.html prepared=" prepared}}
   {{log "roll-sr6.html configured=" configured}}
+      {{log 'JEROEN success? cantDodgeBullets?' success cantDodgeBullets}}
   <h3>{{actionText}}</h3>
   {{#if isOpposed}}
   <div class="chat-edge" style="display:block">
@@ -170,7 +171,7 @@
 
    <!-- Defense possible -->
 {{#if success}}
-   {{#if defendWith}}
+   {{#if (and defendWith (not cantDodgeBullets))}}
    {{log "************************Defense" this}}
    <hr/>
     {{log "**Defense targets " targetIds}}
@@ -184,7 +185,7 @@
      </div>
      {{/each}}
    {{else}}
-     <!-- TODO unclear when this ELSE would happen.. -->
+     <!-- When no targets have been selected -->
      <div>
   	   <button class="rollable" data-roll-type="defense" data-damage="{{configured.calcDamage}}"  data-monitor="{{monitor}}" data-defend-with="{{defendWith}}" data-targetid="{{targetId}}" data-threshold="{{threshold}}">{{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})</button>
      </div>
@@ -192,13 +193,30 @@
    {{/if}}
 {{/if}}
    
-   {{#if (eq rollType "defense")}}
+   {{#if (or (eq rollType "defense") cantDodgeBullets)}}
+      {{#if cantDodgeBullets}}
         {{#if success}}
-        <div class="resulttext" style="flex:2; color: darkgreen; line-height: 2em; font-weight: bold;">{{ localize 'shadowrun6.roll.successfulDefense'}}</div>
+          {{#iff targets.length ">" 0}}
+          {{#each targets as |target|}}
+          {{log 'JEROEN target' soakType ../soakType}}
+            <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+            <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+          {{/each}}
+          {{else}}
+            <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" >{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+          {{/iff}}
         {{else}}
-        <div class="resulttext" style="flex:2; color: firebrick; line-height: 2em; font-weight: bold;">{{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}</div>
-  	     <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+          <div class="resulttext" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
         {{/if}}
+      {{else}}
+        {{#if success}}
+        <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold;">{{ localize 'shadowrun6.roll.successfulDefense'}}</div>
+        {{else}}
+        <div class="resulttext" style="flex:2; color: firebrick; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}</div>
+  	    <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+        {{/if}}
+      {{/if}}
    {{/if}}
 
    <!-- After Soak / Apply Damage -->

@@ -949,6 +949,8 @@
       "netHits": "net hits",
       "successfulDefense": "You successfully avoided being hit",
       "successfulSoak"   : "You managed to ignore the damage",
+      "missedAttack"   : "You missed chummer!",
+      "succesfulHit"   : "You hit 'em chummer!",
       "target": "Target",
       "threshold": "Threshold",
 		"weapon":  "Define your attack",

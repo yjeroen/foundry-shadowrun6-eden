@@ -149,6 +149,16 @@ export default class SR6Roll extends Roll {
             this.finished.total = this.total;
         }
 
+        if (game.settings.get(SYSTEM_NAME, "cantDodgeBullets") && this.finished.defendWith === Defense.PHYSICAL) {
+            console.log("SR6E | cantDodgeBullets: calculating damage", this.configured.calcDamage, '+ (', this.finished.total, '-', this.finished.threshold, ')');
+            this.finished.cantDodgeBullets = true;
+            if (this.finished.success) {
+                this.finished.netHits = Math.max(0, this.finished.total - this.finished.threshold);
+                this.finished.damage = this.configured.calcDamage + this.finished.netHits;
+                this.finished.soakType = (this.finished.monitor === MonitorType.PHYSICAL) ? SoakType.DAMAGE_PHYSICAL : SoakType.DAMAGE_STUN ;
+            }
+        }
+
         this.finished.monitor = this.finished.monitor ? this.finished.monitor : MonitorType.PHYSICAL;
         if (this.finished.rollType === RollType.Soak) {
             this.finished.damage = Math.max(0, this.finished.threshold - this.finished.total);

@@ -93,7 +93,6 @@ async function _showRollDialog(data) {
             if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") ) {
                 data.cantDodgeBullets = true;
                 data.threshold = 0;
-                console.warn('JEROEN', data)
                 // Calculating the highest defense pool of all targets
                 let targetDefensePool = 0
                 game.user.targets.forEach((token) => {

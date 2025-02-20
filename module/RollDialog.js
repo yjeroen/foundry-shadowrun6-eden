@@ -53,9 +53,9 @@ export class RollDialog extends Dialog {
     /** Dice added or substracted to the pool */
     modifier = 0;
     constructor(data, options) {
+        console.log("SR6E | RollDialog<init>()", options);
         super(data, options);
         let rOptions = options;
-        console.log("SR6E | In RollDialog<init>()", rOptions);
         this.actor = rOptions.actor;
         this.prepared = rOptions.prepared;
         this.dialogResult = rOptions.dialogResult;
@@ -102,10 +102,9 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _recalculateBaseAR() {
-        const options = this.options;
-        let prepared = options.prepared;
+        let prepared = this.options ? this.options.prepared : this.prepared;
         const distanceElement = document.getElementById("distance");
-        if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") ) {
+        if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") && distanceElement) {
             const optionSelected = distanceElement.options[distanceElement.selectedIndex];
             this.dialogResult.threshold = this.prepared.cantDodgeBulletsBaseThreshold + parseInt(optionSelected.dataset.distance);
             prepared.threshold = this.dialogResult.threshold;
@@ -554,7 +553,7 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _onAttribChange(event) {
-        console.log("SR6E | _onAttribChange ", this.options);
+        console.log("SR6E | _onAttribChange ", this);
         let actor = this.options.actor;
         let prepared = this.options.prepared;
         let configured = this.options.dialogResult;
