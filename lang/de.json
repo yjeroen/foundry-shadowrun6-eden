@@ -602,38 +602,194 @@
       "luxury": "Luxus"
     },
     "matrixaction": {
-      "backdoor_entry": "Hintertür benutzen",
-      "brute_force": "Brute Force",
-      "change_icon": "Icon verändern",
-      "check_os": "Overwatch-Wert best.",
-      "control_device": "Gerät steuern",
-      "crack_file": "Datei Cracken",
-      "crash_program": "Progr. abstürzen l.",
-      "data_spike": "Datenspike",
-      "disarm_data_bomb": "Datenbombe entsch.",
-      "edit_file": "Datei editieren",
-      "encrypt_file": "Datei verschlüsseln",
-      "enter_host": "Host betreten/verlassen",
-      "erase_matrix_signature": "Matrixsign. löschen",
-      "format_device": "Gerät formatieren",
-      "full_matrix_defense": "Volle Matrixabwehr",
-      "hash_check": "Püfsummensuche",
-      "hide": "Verstecken",
-      "jack_out": "Ausstöpseln",
-      "jam_signals": "Signal stören",
-      "jump_rigged": "Hineinspringen",
-      "matrix_perception": "Matrixwahrnehmung",
-      "matrix_search": "Matrixsuche",
-      "probe": "Sondieren",
-      "reboot_device": "Gerät neu starten",
-      "reconfigure": "Matrixattr. austauschen",
-      "send_message": "Nachricht übermitteln",
-      "set_data_bomb": "Datenbombe legen",
-      "snoop": "Übertragung abfang.",
-      "spoof_command": "Befehl vortäuschen",
-      "switch_ifmode": "Interfacemodus wechseln",
-      "tarpit": "Teergrube",
-      "trace_icon": "Icon aufspüren"
+      "backdoor_entry": {
+        "name": "Hintertür benutzen",
+        "hint": "Bekomme auf leise Art Admin Zugriff auf einen Host oder ein Gerät. Führe zuerst erfolgreich eine Sondieren-Aktion aus und addiere dann deine Nettoerfolge als Würfelpoolbonus auf diese Probe.",
+      },
+      "brute_force": {
+        "name": "Brute Force",
+        "hint": "Die Brecheisen-Variante für schnellen Zugriff auf ein Ziel. Wenn du direkt von Gast auf Admin-Zugang wechseln willst, bekommt die Gegenseite zwei Bonuswürfel und plus vier auf den Verteidigungswert - In jedem Fall wird ein Alarm beim Besitzer ausgelöst.",
+      },
+      "calibration": {
+        "name": "Kalibrierung",
+        "hint": "Addiere eins auf das Matrix-Initiativeergebnis von dir und deinen Teammitgliedern (Die einen AR-Feed mit deinem PAN teilen) für je zwei Erfolge. Das Maximum einer Persona ist dein Wert auf Datenverarbeitung.",
+      },
+      "change_icon": {
+        "name": "Icon verändern",
+        "hint": "Ersetze ein Icon mit einem anderen. Das hilft allerdings nicht dabei dein eigenes Icon zu verschleiern, wenn jemand gezielt nach dir sucht.",
+      },
+      "check_os": {
+        "name": "Overwatch-Wert bestimmen",
+        "hint": "Wirf einen Blick auf deinen Overwatch-Wert. Ironischerweise steigt durch diese Handlung dein OW.",
+      },
+      "control_device": {
+        "name": "Gerät steuern",
+        "hint": "Übernimm die Kontrolle über ein Gerät als wärest du der Besitzer, bis du es aus freien Stücken abgibst, es ausschaltest oder jemand anderes dich herauswirft.",
+      },
+      "crack_file": {
+        "name": "Datei cracken",
+        "hint": "Mache mit dieser Aktion eine verschlüsselte Datei wieder lesbar.",
+      },
+      "crash_program": {
+        "name": "Programm abstürzen lassen",
+        "hint": "Nutze eine Matrixwahrnehmung um herauszufinden, welche Programme dein Gegner laufen hat. Dann nutze diese Aktion um es gezielt zum Absturz zu bringen.",
+      },
+      "data_spike": {
+        "name": "Datenspike",
+        "hint": "Die Standardattacke, um Matrixschaden an einem Gerät oder einer Persona zu machen.",
+      },
+      "disarm_data_bomb": {
+        "name": "Datenbombe entschärfen",
+        "hint": "Hiermit kannst du mit Matrixwahrnehmung gefundene Datenbomben entschärfen. Ohne einen Nettoerfolg fliegt dir das Ding um die Ohren.",
+      },
+      "device_lock": {
+        "name": "Gerätesperre",
+        "hint": "Für soviele Kampfrunden wie du Nettoerfolge hattest, kann der Besitzer das Gerät nicht von der Matrix trennen. Kann einmalig durch Abgabe einer Nebenhandlung um eine Kampfrunde verlängert werden.",
+      },
+      "denial_of_service": {
+        "name": "Dienstverweigerung",
+        "hint": "Alle Proben, die mit diesem Wifi-fähigen Gerät ausgeführt werden, bekommen einen Würfelpoolmalus von [Nettoerfolge] mal zwei.",
+      },
+      "delayed_command": {
+        "name": "Verzögerter Befehl",
+        "hint": "Sende einen Befehl mitsamt einer Zeitangabe an ein Gerät. Bei Erfolg sieht es den Befehl als legitim an. Nach Ablauf der Zeit wird der Befehl ausgeführt, auch wenn das Gerät von der Matrix getrennt wurde. Ein vorheriger Neustart löscht den Befehl allerdings.",
+      },
+      "edit_file": {
+        "name": "Datei editieren",
+        "hint": "Erstelle, editiere, kopiere oder lösche eine Datei. Während eines Kampfes kann pro ausgeführter Aktion nur ein Detail geändert werden. Verschlüsselte Dateien können nicht kopiert werden.",
+      },
+      "encrypt_file": {
+        "name": "Datei verschlüsseln",
+        "hint": "Diese Handlung macht eine Datei unlesbar, ohne sie vorherig zu entschlüsseln. Die Verschlüsselungsstufe entspricht der Erfolge bei diesem Wurf.",
+      },
+      "enter_host": {
+        "name": "Host betreten/verlassen",
+        "hint": "Host betreten oder verlassen.",
+      },
+      "erase_matrix_signature": {
+        "name": "Matrixsignatur löschen",
+        "hint": "Wenn du das Attribut Ressonanz hast, kannst du hiermit Matrixspuren eines Technomancers oder Sprites löschen.",
+      },
+      "format_device": {
+        "name": "Gerät formatieren",
+        "hint": "Du ersetzt den Bootsektoreines Geräts mit deinem eigenen Code, sodass es bei einem Neustart nicht mehr hochfährt.",
+      },
+      "full_matrix_defense": {
+        "name": "Volle Matrixabwehr",
+        "hint": "Addiere deinen Wert auf Firewall zu allen Verteidigungsproben in der Matrix.",
+      },
+      "garbage_in_out": {
+        "name": "Garbage In/Garbage Out",
+        "hint": "Spiele mit den Funktionen eines Gerätes herum. Zum Beispiel wird wenn der Benutzer ein Programm starten will stattdessen das zuletzt gemachte Bild gelöscht.",
+      },
+      "hash_check": {
+        "name": "Prüfsummensuche",
+        "hint": "Suche auf einem Host oder Gerät nach einer verschlüsselten Datei mit einem bestimmten Inhalt. Die Chancen steigen nicht unerheblich, wenn du im Vorfeld dafür eine valide Prüfsumme gestellt bekommen hast.",
+      },
+      "hide": {
+        "name": "Verstecken",
+        "hint": "Versuche, einen Verfolger in der Matrix abzuschütteln. Funktioniert nicht, wenn dieser User- oder Adminrechte auf einem deiner Geräte hat.",
+      },
+      "jack_out": {
+        "name": "Ausstöpseln",
+        "hint": "Entkoppel dich von der Matrix durch einen Neustart deines Geräts. Bei einer Linksperre ist es eine vergleichende Probe. Bist du vorher nicht auf AR gewechselt, erleidest du Auswurfschock.",
+      },
+      "jam_signals": {
+        "name": "Signal stören",
+        "hint": "Solange du dein Gerät nicht anderweitig nutzt, sendet es ein Rauschen in der Höhe deiner Erfolge innerhalb 100 Metern aus.",
+      },
+      "jump_rigged": {
+        "name": "Hineinspringen",
+        "hint": "Das Fahrzeug oder die Drone braucht ein Riggerinterface, niemand anders darf bereits hineingesprungen sein und du brauchst eine Riggerkonsole. Abhängig davon ob du der Besitzer bist und welche Zugangsberechtigungen du hast, musst du eventuell würfeln.",
+      },
+      "known_exploit": {
+        "name": "Hintertür mit bekanntem Exploit benutzen",
+        "hint": "Du versuchst, bekannte Fehler zu Nutzen um Admin zu werden. Deine Chancen sinken auf gut gewarteten Hosts und Geräten. Dies kombiniert die Sondieren- und Hintertür benutzen Aktionen, du kannst allerdings hierfür kein Edge erhalten oder ausgeben während die Gegenseite gratis ein temporäres Edge bekommt.",
+      },
+      "masquerade": {
+        "name": "Maskerade",
+        "hint": "Gib für [Nettoerfolge] Kampfrunden aus, in der Matrix jemand anders zu sein. Die Matrix lässt sich allerdings nicht einfach überlisten, sodass du damit nicht einfach der Eigentümer von Geräten werden oder Banking betreiben kannst.",
+      },
+      "matrix_perception": {
+        "name": "Matrixwahrnehmung",
+        "hint": "Finde ein Icon auf Schleichfahrt oder sammel Informationen über ein Ziel, sein Icon und Gerätestufe, laufende Geräte, Programme sowie speziellere Informationen.",
+      },
+      "matrix_search": {
+        "name": "Matrixsuche",
+        "hint": "Scanne die öffentliche Matrix nach Informationen über ein Subjekt.",
+      },
+      "metahuman_middle": {
+        "name": "Mittelsmetamensch",
+        "hint": "Die gesamte Kommunikation und Matrixhandlungen des Ziels laufen für [Nettoerfolge] Runden über dein Gerät.",
+      },
+      "modify_icon": {
+        "name": "Icon modifizieren",
+        "hint": "Modeliere ein Icon, zu dem du Adminzugriff hast, um zu etwas, das es nicht repräsentiert. Zum Beispiel sieht danach das Icon deiner Waffe aus wie Blumen.",
+      },
+      "probe": {
+        "name": "Sondieren",
+        "hint": "Versuche, Schwachstellen zu finden um sie später als Hintertür zu benutzen. Dies braucht seine Zeit, alarmiert im Gegensatz zu Brute Force allerdings nicht das Ziel.",
+      },
+      "pop_up": {
+        "name": "Pop-Up",
+        "hint": "Überschwämme dein Gegenüber mit ARO Fenstern, sodass er für [Nettoerfolge] Runden kein Edge ausgeben kann.",
+      },
+      "reboot_device": {
+        "name": "Gerät neu starten",
+        "hint": "Schneide ein Gerät vom Zugang zur Matrix ab, indem es neu startet. Am Ende der folgenden Kampfrunde ist es wieder online.",
+      },
+      "reconfigure": {
+        "name": "Matrixattribute austauschen",
+        "hint": "Vertausche zwei Matrixattribute deiner Matrix Persona, egal von welcher Quelle (Kommlink, Cyberbuchse, ...) sie kommen.",
+      },
+      "send_message": {
+        "name": "Nachricht übermitteln",
+        "hint": "Versende eine Audio oder Textnachricht oder starte eine Live-Übertragung.",
+      },
+      "set_data_bomb": {
+        "name": "Datenbombe legen",
+        "hint": "Klebe eine Datenbombe an eine Datei, um sorglose Hacker virtuell in die Luft zu jagen. Die Stufe kann maximal deinen Nettoerfolgen entsprechen. Wähle dann, ob die Bombe auch die Datei zerstört oder nicht.",
+      },
+      "snoop": {
+        "name": "Übertragung abfangen",
+        "hint": "Bekomme Zugriff auf den Datenverkehr zwischen dem Ziel und der Matrix.",
+      },
+      "spoof_command": {
+        "name": "Befehl vortäuschen",
+        "hint": "Sende einen Befehl an ein Gerät, der vorgibt vom Besitzer verschickt worden zu sein.",
+      },
+      "squelch": {
+        "name": "Ersticken",
+        "hint": "Verhindere, dass das Ziel für [Nettoerfolge] Kampfrunden Nachrichten verschicken oder jemanden anrufen kann.",
+      },
+      "subvert_infrastructure": {
+        "name": "Infrastruktur unterwandern",
+        "hint": "Versetze dich durch diese Handlung in die Lage einer Gruppe ähnlicher, einfacher Wifigeräte eines Hosts einfache Befehle zu schicken. Damit kannst du zum Beispiel Straßenlaternen ausschalten oder alle Sicherheitskameras nach links drehen.",
+      },
+      "switch_ifmode": {
+        "name": "Interfacemodus wechseln",
+        "hint": "Wechsel zwischen dem AR und dem VR Modus deines Interfaces.",
+      },
+      "tarpit": {
+        "name": "Teergrube",
+        "hint": "Verlangsame dein Ziel, indem du ihm etwas Schaden machst und seine Datenverarbeitung senkst.",
+      },
+      "threat_analysis": {
+        "name": "Bedrohungsanalyse",
+        "hint": "Markiere schädliche Ziele und teile diese per AR Feed mit deinen Kumpanen, sodass diese deine Erfolge als Würfelpoolbonus bei ihren Verteidigungswürfen bekommen. Funktioniert sowohl in der physischen Welt wie in der Matrix.",
+      },
+      "trace_icon": {
+        "name": "Icon aufspüren",
+        "hint": "Mache den physischen Ort eines Gerätes oder einer Persona ausfindig.",
+      },
+      "virtual_aim": {
+        "name": "Virtuelles Zielen",
+        "hint": "Gibt dir einen Bonuswürfel für Angriffe wie Datenspike oder Teergrube. Einmal pro Runde ausführbar, addiert aber jede Runde auf, bis du keine Aktion Virtuelles Zielen mehr in einer Runde ausführst oder attackierst. Der Maximale Bonus entspricht deiner Willenskraft.",
+      },
+      "watchdog": {
+        "name": "Stalking",
+        "hint": "Erlaubt dir, während [Nettoerfolge] Runden die Handlungen einer Matrix Persona oder einem Gerät zu verfolgen, antizipieren und unterbechen. Außerdem kannst du, während Stalking läuft, eine Bedrohungsanalyse als Nebenhandlung ausführen.",
+      },
     },
     "monitor": {
       "matrix": "Matrix",
