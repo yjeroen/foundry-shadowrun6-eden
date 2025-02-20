@@ -243,7 +243,15 @@ Hooks.once("init", async function () {
             // Do nothing, FoundryVTT Native
             return;
         } if (type === 'Roll') {
-            macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
+            if (data.classList.includes('weapon-roll')) {
+                const item = await fromUuidSync(data.uuid);
+                macroData.img = (data.skill==="firearms") ? "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg" 
+                                : (data.skill==="close_combat") ? "systems/shadowrun6-eden/icons/compendium/weapons/unarmed.svg"
+                                : "systems/shadowrun6-eden/icons/compendium/cyberweapons/wolvers.svg";
+                macroData.name = item.name;
+            } else {
+                macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
+            }
             macroData.command = `game.sr6.macros.simpletest(${JSON.stringify(data)})`;
         } else {
             console.warn("SR6E | Draggable object not supported to convert onto the hotbar", droppedData);
@@ -277,7 +285,9 @@ Hooks.once("init", async function () {
         }
     });
     Hooks.on("preCreateMacro", (macro, data, options, user) => {
-        macro.updateSource({ img: "systems/shadowrun6-eden/icons/compendium/default/Default_Container.svg" });
+        if (macro.img === "icons/svg/book.svg") {
+            macro.updateSource({ img: "systems/shadowrun6-eden/icons/compendium/default/Default_Container.svg" });
+        }
     });
 
     Hooks.on("renderChatMessage", function (app, html, data) {

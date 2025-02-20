@@ -71,13 +71,14 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             // Matrix action view
             html.find(".matrix-access-switch input").click(this._onMatrixAccessSwitch.bind(this));
 
+            //TODO add .weapon-ammo-reload
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
             // Roll Skill Checks
             html.find(".skill-roll").click(this._onRollSkillCheck.bind(this));
             html.find(".spell-roll").click(this._onRollSpellCheck.bind(this));
             html.find(".ritual-roll").click(this._onRollRitualCheck.bind(this));
-            html.find(".item-roll").click(this._onRollItemCheck.bind(this));
+            html.find(".weapon-roll").click(this._onRollWeaponCheck.bind(this));
             html.find(".defense-roll").click(this._onCommonCheck.bind(this));
             html.find(".matrix-roll").click(this._onMatrixAction.bind(this));
             html.find(".complexform-roll").click(this._onRollComplexFormCheck.bind(this));
@@ -242,23 +243,19 @@ export class Shadowrun6ActorSheet extends ActorSheet {
              * Drag & Drop
              */
             $(".draggable")
-                .on("dragstart", (event) => {
-                const item = fromUuidSync(event.currentTarget.dataset.uuid);
+                .on("dragstart", async (event) => {
+                const item = await fromUuidSync(event.currentTarget.dataset.uuid);
                 console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
                 event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
             }).attr("draggable", "true");
 
             $( "a[draggable='true']" ).on("dragstart", (event) => {
-                console.log("SR6E | a[draggable='true'] DRAG Item Start");
+                console.log("SR6E | a[draggable='true'] DRAG Item Start", event.currentTarget);
                 const dragData = event.currentTarget.dataset;
                 dragData.classList = event.currentTarget.classList;
                 if (dragData.type === undefined) dragData.type = 'Other';
                 if (dragData.rollId !== undefined || dragData.skill !== undefined || dragData.matrixId !== undefined)  dragData.type = 'Roll';
                 console.log("SR6E | DRAG Link Start", dragData);
-                
-                // If these were items, you'd do something like this:
-                // item = fromUuidSync(event.currentTarget.dataset.specUuid)
-                // event.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
 
                 // Instead we just stringify the dataset for use at Hooks.on("hotbarDrop")
                 event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
@@ -728,17 +725,17 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         this.actor.rollSkill(roll);
     }
     //-----------------------------------------------------
-    _onRollItemCheck(event, html) {
-        console.log("SR6E | _onRollItemCheck");
+    _onRollWeaponCheck(event, html) {
+        console.log("SR6E | _onRollWeaponCheck");
         event.preventDefault();
         const attacker = getSystemData(this.actor);
         const itemId = event.currentTarget.dataset.itemId;
         let item = this.actor.items.get(itemId);
         if (!item) {
-            throw new Error("onRollItemCheck for non-existing item");
+            throw new Error("_onRollWeaponCheck for non-existing item");
         }
         if (!isGear(getSystemData(item))) {
-            throw new Error("onRollItemCheck: No skill for item");
+            throw new Error("_onRollWeaponCheck: No skill for item");
         }
         if (isWeapon(getSystemData(item))) {
             console.log("SR6E | is weapon", item);
@@ -746,7 +743,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         const gear = getSystemData(item);
         let roll = new WeaponRoll(attacker, item, itemId, gear);
         roll.useWildDie = gear.wild ? 1 : 0;
-        console.log("SR6E | _onRollItemCheck before ", roll);
+        console.log("SR6E | _onRollWeaponCheck before ", roll);
         this.actor.rollItem(roll);
     }
     //-----------------------------------------------------

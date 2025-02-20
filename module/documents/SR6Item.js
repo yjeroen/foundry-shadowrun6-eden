@@ -7,6 +7,7 @@ import * as ItemTypes from "../ItemTypes.js";
  */
 export default class SR6Item extends Item {
   calculated = {}
+  static DEFAULT_ICON = "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg";
 
   /**
    * Augment the basic Item data model with additional dynamic data.

@@ -11,7 +11,8 @@ export default {
                     pool: rollData.pool,
                     skill: rollData.skill,
                     skillspec: rollData.skillspec,
-                    matrixId: rollData.matrixId
+                    matrixId: rollData.matrixId,
+                    itemId: rollData.itemId
                 } 
             }
         }
@@ -19,7 +20,7 @@ export default {
         // NOT implemented via this macro:
         // html.find(".spell-roll").click(this._onRollSpellCheck.bind(this));
         // html.find(".ritual-roll").click(this._onRollRitualCheck.bind(this));
-        // html.find(".item-roll").click(this._onRollItemCheck.bind(this));
+        // html.find(".weapon-roll").click(this._onRollWeaponCheck.bind(this));
         // html.find(".complexform-roll").click(this._onRollComplexFormCheck.bind(this));
 
         // Use currently selected token(s)
@@ -40,6 +41,8 @@ export default {
                 actorSheet._onRollSkillCheck(eventSub);
             } else if (classList.includes('matrix-roll')) {
                 actorSheet._onMatrixAction(eventSub);
+            } else if (classList.includes('weapon-roll')) {
+                actorSheet._onRollWeaponCheck(eventSub);
             }
         });
 
