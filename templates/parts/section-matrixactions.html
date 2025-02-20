@@ -17,10 +17,8 @@
 		</div>
 	</div>
 	<div style="column-count: 2; background: radial-gradient(circle at center, #B6B6A4 100%, transparent 100%) no-repeat center; background-size: 2px 100%; margin-right: 5px;">
-		{{log 'JEROEN a' actor.system.persona.device.mod.a}}
-		{{log 'JEROEN s' actor.system.persona.device.mod.s}}
+
  		{{#each matrixActionAvailable as |action actionId|}}
-		{{log 'JEROEN' action}}
        	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center;">
        		<label style="width: 15px; margin-right: 2px;">{{matrixAction action}}</label>
 			<label style="flex-grow:10">{{localize (concat 'shadowrun6.matrixaction.' actionId)}}</label>
