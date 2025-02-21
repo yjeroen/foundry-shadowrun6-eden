@@ -791,6 +791,11 @@
         "hint": "Erlaubt dir, während [Nettoerfolge] Runden die Handlungen einer Matrix Persona oder einem Gerät zu verfolgen, antizipieren und unterbechen. Außerdem kannst du, während Stalking läuft, eine Bedrohungsanalyse als Nebenhandlung ausführen.",
       },
     },
+    "matrixini": {
+			"ar": "AR",
+			"vrcold": "VR",
+			"vrhot": "VR, heiß"
+	   },
     "monitor": {
       "matrix": "Matrix",
       "physical": "Körperlich",
@@ -827,6 +832,7 @@
       "martialartstyle": "Was ist dein Stil?",
       "martialarttech": "Was für eine Technik hast du drauf?",
       "matrix": "Schau Dir mein Deck an!",
+      "rcc": "Minion Dominator X2000",
       "metamagic": "Was hast du gelernt?",
       "nanoware": "Sieben oder auch neun kleine Maschinen",
       "quality": "Was macht dich besonders?",
@@ -847,12 +853,12 @@
     },
     "npc": {
     	"subtype": {
-      	"npc": "NSC/Scherge",
+      	"npc": "NSC",
       	"critter": "Critter",
       	"spirit": "Geist",
       	"sprite": "Sprite"
       },
-      "gruntrules": "Scherge",
+      "gruntrules": "Nutze Schergenregeln",
       "mortype": "Magie/Resonanz"
     },
     "numerical": {
@@ -1008,6 +1014,7 @@
       "wound-modifier": "Verwende Wundabzug",
       "sustained-spell-modifier": "Abzug durch aufr. Zauber",
       "criticalglitch": "Kritischer Patzer",
+      "heal_apply": "Heilung wirken",
       "damage": "Schaden: ",
       "damage_apply": "Schaden zufügen",
       "defRating": "Verteidigungswert",
@@ -1031,7 +1038,6 @@
       "failedDefense": "Du wurdest getroffen.",
       "failedSoak": "Du erleidest Schaden",
       "glitch": "Patzer",
-      "heal_apply": "Heilung wirken",
       "hits_bought": "Erfolge gekauft",
       "hits": "Erfolge",
       "mode": "Modus",
@@ -1046,6 +1052,8 @@
         "ampUp": {
           "1": "Schaden+1 / Entzug+2",
           "2": "Schaden+2 / Entzug+4",
+          "3": "Schaden+3 / Entzug+6",
+          "4": "Schaden+4 / Entzug+8",
           "title": "Hochdrehen"
         },
         "incArea": {
@@ -1241,11 +1249,16 @@
         },
         "title": "Fahrzeuge"
       },
+      "vehicleskills": {
+		  		"brain": "Elektronisches Gehirn",
+				"operations": "Handlungen"
+	   },
       "weapon": {
         "add": "Neue Waffe hinzufügen",
         "close": "Nahkampf",
         "ranged": "Fernkampf",
-        "special": "Spezielle Waffen"
+        "special": "Spezielle Waffen",
+		    "title": "Waffen"
       }
     },
     "settings": {
@@ -1262,8 +1275,12 @@
         "name": "Standard-Schwellenwert"
       },
       "hardDiceCap": {
-        "hint": "Im Standardspiel gibt es ein Maximum von 20 Würfeln für jede Probe. Keine Kombination von Fähigkeiten, Fertigkeiten, Effekten oder Modifikationen kann dieses Limit bei einem Wurf überschreiten. <br><b>Ausnahme:</b> Durch Pre-Edging kannst du die 20-Würfel-Grenze mit den durch das Edge gewährten Bonuswürfeln überschreiten.",
+        "hint": "Im Standardspiel gibt es ein Maximum von 20 Würfeln für jede Probe. Keine Kombination von Fähigkeiten, Fertigkeiten, Effekten oder Modifikationen kann dieses Limit bei einem Wurf überschreiten. Ausnahme: Durch Pre-Edging kannst du die 20-Würfel-Grenze mit den durch das Edge gewährten Bonuswürfeln überschreiten.",
         "name": "Feste Würfelpoolbegrenzung"
+      },
+      "bleeding": {
+        "hint": "Aktiviere diese Regel um laufenden Schaden von schweren Verletzungen zu abzubilden. (Schattenkompendium, S. 158)",
+        "name": "Blutungen"
       }
     },
     "sin": {
@@ -1275,6 +1292,12 @@
       "superficially_plausible": "Oberflächlich Plausibel",
       "highly_plausible": "Hohe Plausibilität",
       "second_life": "Zweites Leben"
+    },
+    "softwareedit": {
+      "description": "Beschreibung",
+      "category": "Kategorie",
+      "basic": "Standard",
+      "hacking": "Hacking"
     },
     "special": {
       "astral": {
@@ -1354,12 +1377,13 @@
       "firearms": {
         "assault_cannons": "Sturmgewehre",
         "holdouts": "Holdouts",
-        "machine_pistols": "Maschinenpistolen",
+        "machine_pistols": "Automatikpistolen",
         "pistols_heavy": "Schwere Pistolen",
         "pistols_light": "Leichte Pistolen",
         "rifles": "Gewehre",
         "shotguns": "Schrotflinten",
-        "submachine_guns": "Maschinengewehre",
+        "submachine_guns": "Maschinenpistolen",
+        "machine_guns": "Maschinengewehre",
         "tasers": "Taser",
         "whips": "Whips"
       },
@@ -1483,27 +1507,6 @@
     "tradition": {
       "attribute": "Traditionsattribut"
     },
-    "skill": {
-      "astral": "Astral",
-      "athletics": "Athletik",
-      "biotech": "Biotech",
-      "close_combat": "Nahkampf",
-      "con": "Überreden",
-      "conjuring": "Beschwören",
-      "cracking": "Cracken",
-      "electronics": "Elektronik",
-      "enchanting": "Verzaubern",
-      "engineering": "Mechanik",
-      "exotic_weapons": "Exotische Waffen",
-      "firearms": "Feuerwaffen",
-      "influence": "Einfluss",
-      "outdoors": "Natur",
-      "perception": "Wahrnehmung",
-      "piloting": "Steuern",
-      "sorcery": "Hexerei",
-      "stealth": "Heimlichkeit",
-      "tasking": "Tasken"
-    },
     "vehicle": {
       "action_label": "Handling / Fahrzeug",
       "initiative": "Fahrzeug-Initiative",
@@ -1546,8 +1549,48 @@
         "attack_with_no_AR": "Du versuchst anzugreifen, obwohl dein Angriffswert bei 0 liegt, bspw. aufgrund der Entfernung",
         "apply_manually": "Schaden manuell anwenden.",
         "Target_is_not_a_life_form": "Ziel ist kein Lebewesen.",
-        "do_not_revert_damage": "Überlauf in den physischen Monitor. Drehe den Schaden nicht über den Chat-Button zurück, da er nicht korrekt berechnet wird."      
+        "do_not_revert_damage": "Überlauf in den physischen Monitor. Drehe den Schaden nicht über den Chat-Button zurück, da er nicht korrekt berechnet wird.",
+        "No_actor_or_tokens_selected": "Weise dir einen Charakter zu, oder wähle einen Token, bevor du würfelst.",
+        "You_are_not_owner_of_the_tokens": "Du bist nicht der Besitzer des ausgewählten Tokens."
       }
+    },
+    "EFFECT": {
+      "chilled": "Unterkühlt",
+      "confused": "Verwirrt",
+      "corrosive": "Verätzt",
+      "cover": "Deckung",
+      "dazed": "Benommen",
+      "deafened": "Ertaubt",
+      "fatigued": "Erschöpft",
+      "frightened": "Verängstigt",
+      "hazed": "Verschleiert",
+      "hobbled": "Humpelnd",
+      "immobilized": "Bewegungsunfähig",
+      "invisible_improved": "Unsichtbar (Verbessert)",
+      "nauseated": "Übelkeit",
+      "panicked": "Panisch",
+      "petrified": "Versteinert",
+      "poisoned": "Vergiftet",
+      "silent": "Geräuschlos",
+      "silent_improved": "Geräuschlos (Verbessert)",
+      "stilled": "Erstarrt",
+      "wet": "Nass",
+      "zapped": "Gebrutzelt",
+      "sensorLock": "Erfasst",
+      "cerebropathy": "Matrix: Zerebropathie",
+      "cybervirus": "Matrix: Cybervirus",
+      "psychotropic": "Matrix: Psychotrope Konditionierung",
+      "bleeding": "Blutend",
+      "disabled": "Gelähmt",
+      "muted": "Verstummt",
+      "offbalance": "Ausser Balance",
+      "aceinthehand": "Social: Ace in the Hand",
+      "fishoutofwater": "Social: Fish out of Water",
+      "misdirected": "Social: Misdirected",
+      "follower": "Social: Follower",
+      "smitten": "Social: Smitten",
+      "suckered": "Social: Suckered",
+      "irradiated": "Irradiated"
     }
   },
   "skill": {
