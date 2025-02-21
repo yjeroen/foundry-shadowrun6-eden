@@ -55,6 +55,19 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "hardDiceCap", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "hackSlashMatrix", {
+        name: "shadowrun6.settings.hackSlashMatrix.name",
+        hint: "shadowrun6.settings.hackSlashMatrix.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting hackSlashMatrix changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "hackSlashMatrix", toggle);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "bleeding", {
         name: "shadowrun6.settings.bleeding.name",
         hint: "shadowrun6.settings.bleeding.hint",

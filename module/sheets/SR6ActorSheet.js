@@ -862,13 +862,18 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         return matrixAccess;
     }
     _matrixActionAvailable() {
-        const matrixActions = Object.fromEntries(Object.entries(CONFIG.SR6.MATRIX_ACTIONS).filter(([actionId, action]) => {
-            if (action.linkedAttr === undefined) return true;
+        let matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS).filter(([actionId, action]) => {
+            action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name')
+            if (action.linkedAttr === null || action.linkedAttr === undefined) return true;
             if (action.linkedAttr === "a" && this.actor.system.persona?.device?.mod?.a > 0) return true;
             if (action.linkedAttr === "s" && this.actor.system.persona?.device?.mod?.s > 0) return true;
             return false;
-          }));
-
+        });  
+        matrixActions = Object.fromEntries(matrixActions.sort(function (a, b) {
+            var textA = a[1].name.toUpperCase();
+            var textB = b[1].name.toUpperCase();
+            return textA.localeCompare(textB);
+        }));
         return matrixActions;
     }
 

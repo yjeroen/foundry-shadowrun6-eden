@@ -58,6 +58,10 @@ Hooks.once("init", async function () {
     CONFIG.Item.documentClass = SR6Item;
     CONFIG.Dice.rolls = [SR6Roll];
 
+    if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
+        CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
+    }
+    
     CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));
     if ( !game.settings.get(SYSTEM_NAME, "bleeding") ) {
         CONFIG.statusEffects = CONFIG.statusEffects.filter(function(effect) { return effect.id != "bleeding"; });
