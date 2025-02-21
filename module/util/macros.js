@@ -17,12 +17,6 @@ export default {
             }
         }
 
-        // NOT implemented via this macro:
-        // html.find(".spell-roll").click(this._onRollSpellCheck.bind(this));
-        // html.find(".ritual-roll").click(this._onRollRitualCheck.bind(this));
-        // html.find(".weapon-roll").click(this._onRollWeaponCheck.bind(this));
-        // html.find(".complexform-roll").click(this._onRollComplexFormCheck.bind(this));
-
         // Use currently selected token(s)
         canvas.tokens.controlled.forEach((target) => {
             token = target;
@@ -43,6 +37,12 @@ export default {
                 actorSheet._onMatrixAction(eventSub);
             } else if (classList.includes('weapon-roll')) {
                 actorSheet._onRollWeaponCheck(eventSub);
+            } else if (classList.includes('spell-roll')) {
+                actorSheet._onRollSpellCheck(eventSub);
+            } else if (classList.includes('ritual-roll')) {
+                actorSheet._onRollRitualCheck(eventSub);
+            } else if (classList.includes('complexform-roll')) {
+                actorSheet._onRollComplexFormCheck(eventSub);
             }
         });
 

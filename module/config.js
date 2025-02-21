@@ -408,7 +408,7 @@ export class SR6Config {
             default: "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg"
         },
         gear: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Gear.svg"
+            default: "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg"
         },
         martialartstyle: {
             default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
@@ -421,6 +421,12 @@ export class SR6Config {
         },
         spell: {
             default: "systems/shadowrun6-eden/icons/compendium/default/acid.svg"
+        },
+        ritual: {
+            default: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
+        },
+        complexform: {
+            default: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
         }
     };
     spell_range = {

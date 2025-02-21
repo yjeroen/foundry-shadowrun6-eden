@@ -256,7 +256,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             }).attr("draggable", "true");
 
             $( "a[draggable='true']" ).on("dragstart", (event) => {
-                console.log("SR6E | a[draggable='true'] DRAG Item Start", event.currentTarget);
+                console.log("SR6E | a[draggable='true'] DRAG Item Start");
                 const dragData = event.currentTarget.dataset;
                 dragData.classList = event.currentTarget.classList;
                 if (dragData.type === undefined) dragData.type = 'Other';

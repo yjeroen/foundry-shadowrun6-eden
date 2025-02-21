@@ -247,12 +247,24 @@ Hooks.once("init", async function () {
             // Do nothing, FoundryVTT Native
             return;
         } if (type === 'Roll') {
-            if (data.classList.includes('weapon-roll')) {
+            if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll')) {
                 const item = await fromUuidSync(data.uuid);
-                macroData.img = (data.skill==="firearms") ? "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg" 
-                                : (data.skill==="close_combat") ? "systems/shadowrun6-eden/icons/compendium/weapons/unarmed.svg"
-                                : "systems/shadowrun6-eden/icons/compendium/cyberweapons/wolvers.svg";
                 macroData.name = item.name;
+                if (data.skill==="firearms") {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg";
+                } else if (data.skill==="close_combat") {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/weapons/unarmed.svg"
+                } else if (data.classList.includes('spell-roll')) {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/default/acid.svg"
+                } else if (data.classList.includes('ritual-roll')) {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
+                } else if (data.classList.includes('complexform-roll')) {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
+                }
+                else {
+                    // special weapons
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/cyberweapons/wolvers.svg";
+                }
             } else {
                 macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
             }
