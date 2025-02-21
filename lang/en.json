@@ -525,6 +525,7 @@
       "attack_rating_short": "AR",
       "attack_rating_using_vehicle": "Attack Rating (Vehicle as Weapon)",
       "attribute": "Attribute",
+      "details": "Details..",
       "trait": "Trait",
       "trait_pool": "Trait / Pool",
       "base": "Base",
