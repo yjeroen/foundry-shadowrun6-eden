@@ -548,6 +548,7 @@
       "delete": "Löschen",
       "device_mode": "Gerätemodus",
       "devRating": "Geräte-Stufe",
+      "dual_hand": "Beidhändig",
       "dice": "Würfel",
       "edit": "Bearbeiten",
       "extended_test": "Ausgedehnte Probe",
@@ -559,7 +560,9 @@
       "force": "Kraftstufe",
       "gender": "Geschlecht",
       "legality.illegal.short": "I",
+      "legality.illegal.long": "Illegal",
       "legality.legal.short": "L",
+      "legality.legal.long": "Legal",
       "level": "Hat Stufen",
       "mages": "Magier",
       "max": "Maximum",
@@ -600,6 +603,13 @@
       "middle": "Mittelschicht",
       "high": "Oberschicht",
       "luxury": "Luxus"
+    },
+    "matrix": {
+      "accessLevel": {
+        "outsider": "GAST",
+        "user": "USER",
+        "admin": "ADMIN"
+      }
     },
     "matrixaction": {
       "backdoor_entry": {
@@ -793,10 +803,11 @@
     },
     "matrixini": {
 			"ar": "AR",
-			"vrcold": "VR",
-			"vrhot": "VR, heiß"
+			"vrcold": "VR, kalte SIM",
+			"vrhot": "VR, heiße SIM"
 	   },
     "monitor": {
+      "label": "Monitor",
       "matrix": "Matrix",
       "physical": "Körperlich",
       "stun": "Geistig",
@@ -1010,6 +1021,7 @@
 			"drain"  : "Entzug widerstehen",
 			"soak"   : "Schaden widerstehen"
 		},
+      "cantDodgeBullets": "Setze den Schwellenwert entsprechend der Gegebenheiten bis zum Ziel",
       "configure": "Justiere deinen Wurf",
       "wound-modifier": "Verwende Wundabzug",
       "sustained-spell-modifier": "Abzug durch aufr. Zauber",
@@ -1073,6 +1085,8 @@
       "netHits": "Nettoerfolge",
       "successfulDefense": "Du konntest ausweichen",
       "successfulSoak"   : "Du hast dem Schaden wiederstanden",
+      "missedAttack"   : "Daneben, Chummer!",
+      "succesfulHit"   : "Volltreffer, Chummer!",
       "target": "Ziel",
       "threshold": "Schwellenwert",
       "weapon": "Wie greifst Du an?",
@@ -1264,7 +1278,7 @@
     "settings": {
       "maxEdgePerRound": {
         "hint": "Definiert wieviel Edge jemand pro Kampfrunde maximal erhalten kann",
-        "name": "Max. Edge pro Runde"
+        "name": "Maximal sammelbares Edge pro Runde"
       },
       "importToCompendium": {
         "hint": "Sollen NSCs in das Kompendium (statt in die Actor-Liste) importiert werden?",
@@ -1281,6 +1295,30 @@
       "bleeding": {
         "hint": "Aktiviere diese Regel um laufenden Schaden von schweren Verletzungen zu abzubilden. (Schattenkompendium, S. 158)",
         "name": "Blutungen"
+      },
+      "hackSlashMatrix": {
+        "hint": "Aktiviere die Matrixhandlungen aus dem Auswurfschock-Regelbuch. (Auswurfschock, S.29)",
+        "name": "Auswurfschock-Matrixhandlungen"
+      },
+      "armorLessensDmg": {
+        "hint": "Nutze diese Regel um den körperlichen Schaden zu reduzieren, den du erleidest. Nachdem du dem Schaden wiederstanden hast (ausgenommen von Toxinen oder Status), wandelst du für jeden 8ten Punkt Verteidigungswert ein Kästchen körperlichen Schaden in Betäubungsschaden um. (Schattenkompendium S.163)",
+        "name": "Panzerung senkt körperlichen Schaden"
+      },
+      "rollStrengthCombat": {
+        "hint": "Nahkampfangriffe können mit Stärke statt Agilität gewürfelt werden, sofern die Waffe auf Masse und Wucht basiert. Nutze Agilität statt Stärke für den Angriffswert. Die Waffe muss in beiden Händen gehalten werden. (Schattenkompendium S.163)",
+        "name": "Stärke statt Geschicklichkeit im Nahkampf"
+      },
+      "highStrengthAddsDamage": {
+        "hint": "Wenn deine Stärke mindestens 7 beträgt, erhöhe deinen Nahkampfschaden um 1. Wenn deine Stärke 10 oder höher ist, erhöhe deinen Nahkampfschaden um 2. Waffen, die nicht von hoher Stärke profitieren, erhöhen den Schaden nicht. (Schattenkompendium S.164)",
+        "name": "Hohe Stärke erhöht den Schaden"
+      },
+      "highStrengthReducesRecoil": {
+        "hint": "Der Angriffswertmalus für Feuerwaffenangriffe ist um 1 verringert, wenn die Stärke des Angreifers 7 oder höher ist und um 2, sobald die Stärke 10 oder höher beträgt. Beide Hände müssen verwendet werden, um die Schusswaffe zu kontrollieren. (Schattenkompendium S.164)",
+        "name": "Rückstossdämpfung durch hohe Stärke"
+      },
+      "cantDodgeBullets": {
+        "hint": "Jede Vergleichsprobe für einen Angriff ist stattdessen eine einfache Probe gegen einen Schwellenwert, der durch die Entfernung und die Größe des Verteidigungspools des Ziels festgelegt wird. Das Ziel des Angriffs kann immer noch Edge-Boosts gegen die Würfel des Angreifers verwenden. (Schattenkompendium S.165)",
+        "name": "Man kann Kugeln nicht ausweichen"
       }
     },
     "sin": {
@@ -1551,7 +1589,8 @@
         "Target_is_not_a_life_form": "Ziel ist kein Lebewesen.",
         "do_not_revert_damage": "Überlauf in den physischen Monitor. Drehe den Schaden nicht über den Chat-Button zurück, da er nicht korrekt berechnet wird.",
         "No_actor_or_tokens_selected": "Weise dir einen Charakter zu, oder wähle einen Token, bevor du würfelst.",
-        "You_are_not_owner_of_the_tokens": "Du bist nicht der Besitzer des ausgewählten Tokens."
+        "You_are_not_owner_of_the_tokens": "Du bist nicht der Besitzer des ausgewählten Tokens.",
+        "no_weapon_skill_set": "Bitte bearbeite die Waffe, um die verknüpfte Fertigkeit für den Wurf zu hinterlegen."
       }
     },
     "EFFECT": {
