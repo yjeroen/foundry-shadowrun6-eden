@@ -125,7 +125,8 @@ async function _showRollDialog(data) {
         };
 
         const html = await renderTemplate(template, dialogData);
-        const title = data.title ? data.actor.name + ': ' + data.title : data.actor.name + ': Roll Dialog';
+        const rollTitle = data.title ? data.title : 'Roll Dialog';
+        const title = data.actor ? data.actor.name + ': ' + rollTitle : rollTitle;
         // Also prepare a ConfiguredRoll
         console.log("SR6E | ###Create ConfiguredRoll");
         let dialogResult = new ConfiguredRoll();
