@@ -4,10 +4,10 @@
 		<div class="matrix-access-container">
 			<div class="matrix-access-switch">
 				<input type="radio" id="matrix-access-switch-radio1" name="matrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
-				<label for="matrix-access-switch-radio1">Outsider</label>
+				<label for="matrix-access-switch-radio1">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
 				
 				<input type="radio" id="matrix-access-switch-radio2" name="matrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}}  />
-				<label for="matrix-access-switch-radio2">User</label>
+				<label for="matrix-access-switch-radio2">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
 				
 				<input type="radio" id="matrix-access-switch-radio3" name="matrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}}  />
 				<label for="matrix-access-switch-radio3">Admin</label>
