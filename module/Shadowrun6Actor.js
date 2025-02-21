@@ -111,7 +111,9 @@ export class Shadowrun6Actor extends Actor {
                         owner.prepareData();  
                     }
                 }             
-                
+
+                this._prepareVehicleAttackRatings();
+                this._prepareVehicleDefenseRatings();
                 this._prepareDerivedVehicleAttributes();
                 this._prepareVehicleActorSkills();
                 this._prepareVehicleActorItems();
@@ -357,20 +359,9 @@ export class Shadowrun6Actor extends Actor {
         const system = getSystemData(this);
         if (!isLifeform(system))
             return;
-        if (!system.attackrating)
-            system.attackrating = new Ratings();
-        if (!system.attackrating.physical)
-            system.attackrating.physical = new Attribute();
-        if (!system.attackrating.astral)
-            system.attackrating.astral = new Attribute();
-        if (!system.attackrating.vehicle)
-            system.attackrating.vehicle = new Attribute();
-        if (!system.attackrating.matrix)
-            system.attackrating.matrix = new Attribute();
-        if (!system.attackrating.social)
-            system.attackrating.social = new Attribute();
-        if (!system.attackrating.resonance)
-            system.attackrating.resonance = new Attribute();
+
+        this.createAttackRatingProperties(system);
+        
         /* Physical Attack Rating - used for unarmed combat */
         system.attackrating.physical.base = system.attributes["rea"].pool + system.attributes["str"].pool;
         system.attackrating.physical.modString = game.i18n.localize("attrib.rea_short") + " " + system.attributes["rea"].pool + " ";
@@ -457,7 +448,8 @@ export class Shadowrun6Actor extends Actor {
             }
         });
         */
-    }
+    }    
+
     //---------------------------------------------------------
     /*
      * Calculate the attributes like Initiative
@@ -472,20 +464,9 @@ export class Shadowrun6Actor extends Actor {
         const items = actorData.items;
         if (!isLifeform(data))
             return;
-        if (!data.defenserating)
-            data.defenserating = new Ratings();
-        if (!data.defenserating.physical)
-            data.defenserating.physical = new Attribute();
-        if (!data.defenserating.astral)
-            data.defenserating.astral = new Attribute();
-        if (!data.defenserating.vehicle)
-            data.defenserating.vehicle = new Attribute();
-        if (!data.defenserating.matrix)
-            data.defenserating.matrix = new Attribute();
-        if (!data.defenserating.social)
-            data.defenserating.social = new Attribute();
-        if (!data.defenserating.resonance)
-            data.defenserating.resonance = new Attribute();
+
+        this.createDefenseRatingProperties(system);
+        
         // Store volatile
         // Physical Defense Rating
         data.defenserating.physical.base = data.attributes["bod"].pool;
@@ -523,15 +504,6 @@ export class Shadowrun6Actor extends Actor {
                 data.defenserating.matrix.modString += " + " + data.defenserating.matrix.mod;
             }
         }
-        // Vehicles Defense Rating (Pilot + Armor)
-        data.defenserating.vehicle.base = data.skills["piloting"].pool;
-        data.defenserating.vehicle.modString = game.i18n.localize("skill.piloting") + " " + data.skills["piloting"].pool;
-        //data.defenserating.vehicle.modString += " "+(game as Game).i18n.localize("attrib.int_short") + " " + data.attributes["int"].pool;
-        data.defenserating.vehicle.pool = data.defenserating.vehicle.base;
-        if (data.defenserating.vehicle.mod) {
-            data.defenserating.vehicle.pool += data.defenserating.vehicle.mod;
-            data.defenserating.vehicle.modString += " + " + data.defenserating.vehicle.mod;
-        }
         // Social Defense Rating
         data.defenserating.social.base = data.attributes["cha"].pool;
         data.defenserating.social.modString = game.i18n.localize("attrib.cha_short") + " " + data.attributes["cha"].pool;
@@ -551,6 +523,7 @@ export class Shadowrun6Actor extends Actor {
             });
             */
     }
+
     //---------------------------------------------------------
     /*
      * Calculate the final attribute values
@@ -604,7 +577,8 @@ export class Shadowrun6Actor extends Actor {
                 }
             });
         }
-    }
+    }    
+
     //---------------------------------------------------------
     /*
      * Calculate the attributes like Initiative
@@ -918,6 +892,15 @@ export class Shadowrun6Actor extends Actor {
             }
         });
     }
+
+    _prepareVehicleAttackRatings() {
+        this.createAttackRatingProperties(this.system);
+    }
+
+    _prepareVehicleDefenseRatings() {
+        this.createDefenseRatingProperties(this.system);
+    }
+
     //---------------------------------------------------------
     /*
      * Calculate the attributes like Initiative
@@ -977,6 +960,8 @@ export class Shadowrun6Actor extends Actor {
             vehicleSystem.ar = new Pool();  // Attack rating (vehicle as weapon)
         if(!vehicleSystem.dr)
             vehicleSystem.dr = new Pool();  // Defense rating        
+
+        let dr = vehicleSystem.defenserating.physical;
         
         switch (vehicleSystem.vehicle.opMode) {
             case VehicleOpMode.AUTONOMOUS:
@@ -991,11 +976,14 @@ export class Shadowrun6Actor extends Actor {
                 vehicleSystem.initiative.physical.dicePool = vehicleSystem.initiative.physical.dice + vehicleSystem.initiative.physical.diceMod;
 
                 const maneuverRating = this.getHighestAutosoftRating(this.items, "MANEUVER");
+
                 vehicleSystem.ar.points = maneuverRating;
                 vehicleSystem.ar.pool = vehicleSystem.ar.points + vehicleSystem.ar.mod + vehicleSystem.pil;
 
-                vehicleSystem.dr.points = maneuverRating;
-                vehicleSystem.dr.pool = maneuverRating + vehicleSystem.dr.mod + vehicleSystem.arm;
+                dr.base = maneuverRating + vehicleSystem.arm;                
+                if(!dr.mod) 
+                    dr.mod = 0;
+                dr.pool = dr.base + dr.mod;
 
                 vehicleSystem.skills.piloting.points = maneuverRating;
                 vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier + vehicleSystem.pil;
@@ -1071,8 +1059,10 @@ export class Shadowrun6Actor extends Actor {
                 vehicleSystem.ar.points = ownerPilotingPointsSpecialized + vehicleSystem.sen;
                 vehicleSystem.ar.pool = vehicleSystem.ar.points + vehicleSystem.ar.mod;
 
-                vehicleSystem.dr.points = ownerPilotingPointsSpecialized + vehicleSystem.arm;
-                vehicleSystem.dr.pool = vehicleSystem.dr.points + vehicleSystem.dr.mod;
+                dr.base = ownerPilotingPointsSpecialized + vehicleSystem.arm;
+                if(!dr.mod) 
+                    dr.mod = 0;
+                dr.pool = dr.base + dr.mod;
 
                 vehicleSystem.skills.piloting.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
                 vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier;
@@ -1931,7 +1921,40 @@ export class Shadowrun6Actor extends Actor {
 
         return highestRating;
     }
-    
+
+    createAttackRatingProperties(system) {
+        if (!system.attackrating)
+            system.attackrating = new Ratings();
+        if (!system.attackrating.physical)
+            system.attackrating.physical = new Attribute();
+        if (!system.attackrating.astral)
+            system.attackrating.astral = new Attribute();
+        if (!system.attackrating.vehicle)
+            system.attackrating.vehicle = new Attribute();
+        if (!system.attackrating.matrix)
+            system.attackrating.matrix = new Attribute();
+        if (!system.attackrating.social)
+            system.attackrating.social = new Attribute();
+        if (!system.attackrating.resonance)
+            system.attackrating.resonance = new Attribute();
+    }
+
+    createDefenseRatingProperties(system) {
+        if (!system.defenserating)
+            system.defenserating = new Ratings();
+        if (!system.defenserating.physical)
+            system.defenserating.physical = new Attribute();
+        if (!system.defenserating.astral)
+            system.defenserating.astral = new Attribute();
+        if (!system.defenserating.vehicle)
+            system.defenserating.vehicle = new Attribute();
+        if (!system.defenserating.matrix)
+            system.defenserating.matrix = new Attribute();
+        if (!system.defenserating.social)
+            system.defenserating.social = new Attribute();
+        if (!system.defenserating.resonance)
+            system.defenserating.resonance = new Attribute();
+    }
 
     //-------------------------------------------------------------
     async importFromJSON(json) {
