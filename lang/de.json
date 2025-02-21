@@ -1020,6 +1020,7 @@
       "defRating": "Verteidigungswert",
       "defense_button": "Würfle Verteidigung",
       "edge": {
+        "add_manually_to_target": "(Manuell eintragen) Ziel",
         "gain_player": "{name} erhält {value} Edge",
         "gain_player_capped": "{name} würde {value} Edge, can aber nicht mehr als {capped} bekommen.",
         "getting": "Edge erhalten",

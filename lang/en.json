@@ -1040,6 +1040,7 @@
 	    "damage_apply": "Apply damage",
       "defRating": "Defense Rating",
       "edge": {
+        "add_manually_to_target": "(Add manually) Target",
         "gain_player": "{name} gets {value} Edge",
         "gain_player_capped": "{name} would {value} Edge, but cannot get more than {capped}",
         "getting": "Gaining Edge",

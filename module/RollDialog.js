@@ -142,7 +142,7 @@ export class RollDialog extends Dialog {
             }
             const drElement = document.getElementById("dr");
             if (drElement) {
-                const dr = parseInt(drElement.value);
+                const dr = drElement.value ? parseInt(drElement.value) : 0;
                 const arModElem = document.getElementById("arMod");
                 if (isItemRoll(prepared)) {
                     const arElement = document.getElementById("baseAR");
@@ -222,8 +222,11 @@ export class RollDialog extends Dialog {
             if (configured.edgeTarget != 0) {
                 //configured.targets
                 //TODO automatic target - name recognition & edge increase
-                let targetName = "(Add manually) Target"; //this.targetName ? this.targetName : (game as Game).i18n.localize("shadowrun6.roll.target");
-                innerText += "  " + game.i18n.format("shadowrun6.roll.edge.gain_player", { name: targetName, value: configured.edgeTarget });
+                let targetName = game.i18n.localize("shadowrun6.roll.edge.add_manually_to_target"); //this.targetName ? this.targetName : (game as Game).i18n.localize("shadowrun6.roll.target");
+                if(innerText != "") {
+                    innerText += "\r\n";
+                }
+                innerText += game.i18n.format("shadowrun6.roll.edge.gain_player", { name: targetName, value: configured.edgeTarget });
             }
             if (configured.edgePlayer == 0 && configured.edgeTarget == 0) {
                 innerText += "  " + game.i18n.localize("shadowrun6.roll.edge.no_gain");
@@ -235,7 +238,7 @@ export class RollDialog extends Dialog {
             }
         }
         catch (err) {
-            console.log("SR6E | Oh NO! " + err.stack);
+            console.log("SR6E | Exception: " + err.message , err);
         }
     }
     //-------------------------------------------------------------

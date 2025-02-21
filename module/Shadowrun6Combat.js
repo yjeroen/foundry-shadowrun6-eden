@@ -34,8 +34,11 @@ export default class Shadowrun6Combat extends Combat {
             console.log("SR6E | getMaxEdgeGain: Combat not yet started - allow max");
             return max;
         }
-        let actorData = getActorData(actor);
-        let comb = this.getCombatantByActor(actorData._id);
+        let comb = this.getCombatantsByActor(actor)[0];
+        if(!comb) {
+            // Actor might not be in combat, so use actor itself as combatant
+            comb = actor;
+        }
         if (comb) {
             max -= Math.max(0, comb.edgeGained);
         }
