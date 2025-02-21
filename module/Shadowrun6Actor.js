@@ -1764,7 +1764,7 @@ export class Shadowrun6Actor extends Actor {
         roll.skillSpec = action.specialization;
         roll.threshold = action.threshold;
         // Prepare action text
-        roll.actionText = game.i18n.localize("shadowrun6.matrixaction." + action.id);
+        roll.actionText = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".name");
         // Prepare check text
         if (!action.skill) {
             //TODO matrix actions without a test

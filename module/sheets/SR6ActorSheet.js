@@ -196,8 +196,14 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 const element = event.currentTarget;
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
                 const item = this.actor.items.get(itemId);
-                if (!item)
+
+                if (!item) {
+                    //matrix actions collapsible
+                    const content = element.parentElement.nextElementSibling;
+                    content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+                    content.classList.toggle("open");
                     return;
+                }
                 //				console.log("SR6E | Collapsible: old styles are '"+element.classList+"'' and flag is "+item.getFlag("shadowrun6-eden","collapse-state"));
                 element.classList.toggle("open");
                 let content = element.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild;

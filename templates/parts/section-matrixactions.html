@@ -21,7 +21,7 @@
  		{{#each matrixActionAvailable as |action actionId|}}
        	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center;">
        		<label style="width: 15px; margin-right: 2px;">{{matrixAction action}}</label>
-			<label style="flex-grow:10">{{localize (concat 'shadowrun6.matrixaction.' actionId)}}</label>
+			<label style="flex-grow:10" class="collapsible">{{localize (concat3 'shadowrun6.matrixaction.' actionId '.name')}}</label>
          	{{#if (ne (matrixPool actionId ../actor) 0)}}
          	<div class="skill-pool">
          		<label class="item-pool">{{matrixPool actionId ../actor}}</label>
@@ -38,6 +38,9 @@
          	{{/if}}
 
        	</div>
+       	<div class="collapsible-content closed" style="font-size: var(--font-size-11); text-align:left; color: rgb(0 66 17); margin-bottom: 4px;">
+			{{localize (concat3 'shadowrun6.matrixaction.' actionId '.hint')}}
+		</div>
        {{/each}}
 
 	</div>
