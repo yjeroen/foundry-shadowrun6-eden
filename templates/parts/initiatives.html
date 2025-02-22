@@ -26,6 +26,7 @@
 				id="dataIniAstDiceMod" style="width: 1.2em" > ) {{initiative.astral.dicePool}}d6</td>
 			</tr>
 			<!-- Matrix Initiative -->
+			{{#if (and (ne actor.type 'Critter') (ne actor.type 'Spirit'))}}
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.initiative.matrix' }} <label style="font-size: var(--font-size-10);">[{{localize (concat 'shadowrun6.matrixini.' system.matrixIni)}}]</label></b></td>
 				<td style="text-align: right; padding-right: 50px;">{{initiative.matrix.base}} + <input name="matrixMod" class="centered box calcIni" data-field="system.initiative.matrix.mod" type="text" value="{{system.initiative.matrix.mod}}" data-dtype="Number" id="dataIniMatrixMod" style="width: 1.2em" ></td>
@@ -34,5 +35,6 @@
 				<input name="matrixDiceMod" class="centered box calcIni" data-field="system.initiative.matrix.diceMod" type="text" value="{{system.initiative.matrix.diceMod}}" data-dtype="Number"
 				id="dataIniMatrixDiceMod" style="width: 1.2em" > ) {{initiative.matrix.dicePool}}d6</td>
 			</tr>
+			{{/if}}
 		</table>
 	</div>
