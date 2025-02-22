@@ -56,6 +56,18 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 StatusEffects](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-status-effects.gif?raw=true)
 
+> You can drag any diceroll link from your sheet to your hotbar.
+
+![FoundryVTT Shadowrun6 macros](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-drag-roll-macros.gif?raw=true)
+
+> Only your available Matrix Actions are shown depending on your Matrix Attributes. (enable H&S Actions in the Foundry Game Settings) Furthermore, they are greyed out depending on your Matrix Access Level. And you can Reconfigure your Persona's Matrix Attributes by clicking on two of them, switching them.
+
+![FoundryVTT Shadowrun6 matrix](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-matrix.gif?raw=true)
+
+> Most of the favorite optional rules can be enabled in the FoundryVTT Game Settings.
+
+![FoundryVTT Shadowrun6 settings](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-game-settings.webp?raw=true)
+
 
 ## Patch Notes
 

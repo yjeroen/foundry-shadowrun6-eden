@@ -1,3 +1,48 @@
+## 3.1.0
+
+### System Improvements
+- Optional Rule: You Can't Dodge Bullets (#7)
+- Optional Rule: High Strength Reduces Recoil (#7)
+- Optional Rule: High Strength Adds to Damage (#7)
+- Optional Rule: Rolling Strength instead of Agility in Close Combat (#7)
+- Optional Rule: Armor Lessens Physical Damage (SWC)
+- Optional Rule: H&S Matrix Actions
+- Multiple Matrix Improvements, a.o. Switchable Matrix Access Levels, Major/Minor Action icons, Matrix Initiative, Action descriptions, Actions filtered depending on A/S Attribute, (switcheable) Configurable persona Matrix Attributes
+- New feature: Drag simple/weapons/spell/ritual/complexform rolls to your hotbar (#45)
+- Condition improvements: BLIND III now causing full blind on token vision; UNCONCIOUS causes PRONE and full BLIND conditions; Full physical/stun monitor now causes UNCONCIOUS.
+- Add UI error if trying to roll for a weapon without an assigned skill
+- Change game-pause font
+- Simple Defense Tests now have a default thresholf of 1 so you can manually adjust these in the dialog
+- Change default vehicle token size of 2x3 gridspaces
+
+### Bug Fixes
+- Fix to not show matrix initiative for Critters and Spirits (#59)
+- Fixed some integer conversion (#57)
+- Bugfix error on contact sheet close (#54)
+- Bugfix for localization to placeholder field of Qualities (#53)
+- Calculate edge even if actor is not in combat (raketenhunddev)
+- Fixed bug where vehicles/drones can't be targeted (raketenhunddev)
+- Fixed bug preventing roll dialog to open on custom rolls (raketenhunddev)
+- Fix Physical and Stun Monitor base values are now shown on the Derived Values section of the actor sheet
+- Fix weapons showing firemodes if weapons don't have any
+- Fix whips adding Reaction to their Attack Rating
+- Fix Item drag & drop
+- Fix roll hotbar macro so it also works when a character is assigned in User Configuration (#48)
+- Fix ordering of Matrix Actions by localized language; (#47)
+- Fixed SVGs that prevent foundry from loading in Firefox (raketenhunddev)
+- Fix close combat weapons not adding Strength to Attack Rating (#41)
+- Fix matrix actions button titles
+- Fix overwatch input field
+- Fix Resist Dmg rolls so they won't use wound modifiers
+- Minor textual Actor Sheet updates (feedback Ork the Bork)
+- Improve SR6 System Settings UX
+- Changed some statusEffect icons for improved recognition and increased pink brightness of all icons for improved visibility
+- Tweaked condition # number in the token HUD for improved visibility.
+
+### Data Updates
+- German translation updates (raketenhunddev)
+- Russian translation updates (TheFokin)
+
 ## 3.0.4
 
 ### Bug Fixes
