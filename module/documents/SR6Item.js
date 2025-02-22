@@ -95,9 +95,9 @@ export default class SR6Item extends Item {
   }
 
   async _checkPersonaChanges(changed) {
-    console.log("SR6E | SR6Item._checkPersonaChanges()");
+    console.log("SR6E | SR6Item._checkPersonaChanges()", changed);
     if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
-      if (changed.delete === true || changed.system.usedForPool !== undefined) {
+      if (changed.delete === true || changed.system?.usedForPool !== undefined) {
         await this.parent.updatePersona();
       }
     }
