@@ -1,4 +1,4 @@
-<div class="section matrix-section" style="display: inline-block; width:60%; min-width: 383px;">
+<div class="section matrix-section" style="display: inline-block; width:90%; min-width: 383px;">
 	<div class="section-head">
 		<h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
 		<div class="matrix-access-container">
@@ -10,7 +10,7 @@
 				<label for="matrix-access-switch-radio2">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
 				
 				<input type="radio" id="matrix-access-switch-radio3" name="matrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}}  />
-				<label for="matrix-access-switch-radio3">Admin</label>
+				<label for="matrix-access-switch-radio3">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
 				
 				<span id="active-label"></span>
 			</div>
@@ -20,7 +20,7 @@
 
  		{{#each matrixActionAvailable as |action actionId|}}
 		<div style="break-inside: avoid;">
-       	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center;">
+       	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center; border-bottom: 0.5px dashed rgba(255, 255, 255, 0.5);">
        		<label style="width: 15px; margin-right: 2px;">{{matrixAction action}}</label>
 			<label style="flex-grow:10" class="collapsible">{{action.name}}</label>
          	{{#if (ne (matrixPool actionId ../actor) 0)}}
@@ -39,7 +39,7 @@
          	{{/if}}
 
        	</div>
-       	<div class="collapsible-content closed" style="font-size: var(--font-size-11); text-align:left; color: rgb(0 66 17); margin-bottom: 4px;">
+       	<div class="collapsible-content closed" style="font-size: var(--font-size-11); text-align:left; color: rgb(0 66 17); margin-bottom: 4px; ">
 			{{localize (concat3 'shadowrun6.matrixaction.' actionId '.hint')}}
 		</div>
 		</div>
