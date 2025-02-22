@@ -1,70 +1,88 @@
 <div id="section-matrixbase" style="display: inline-flex; width:100%;">
 	<div style="display: flex; flex-direction: column; align-items: center;">
-   {{#if showResonance}}
-   {{#if system.morDef.resonance}}
-  	<div class="attributes" style="margin-bottom: 10px; margin-top:0.4rem">
-   	<div class="attribute" augmented-ui="b-clip-x exe">
-      	<p>{{localize "attrib.res" }}</p>
-         <span>{{system.attributes.res.pool}}</span>
-         <input name="matrixAttResPool" type="hidden" data-dtype="Number" data-field="system.attributes.res.pool" value="8" />
-         <div class="field {{id}}Changed">
-            <label>{{localize 'shadowrun6.numerical.base'}}</label>
-            <input name="matrixAttResBase" type="number" data-dtype="Number" data-field="system.attributes.res.base" value="{{system.attributes.res.base}}" placeholder="base" title="{{localize 'shadowrun6.numerical.baseString'}}" min="1" max="6" />
-         </div>
-         <div class="field {{id}}Changed">
-            <label>{{localize 'shadowrun6.numerical.mod'}}</label>
-            <input name="matrixAttResMod" type="number" data-dtype="Number" data-field="system.attributes.res.mod" value="{{system.attributes.res.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
-         </div>
+	{{#if showResonance}}
+	{{#if system.morDef.resonance}}
+		<div class="attributes" style="margin-bottom: 10px; margin-top:0.4rem">
+		<div class="attribute" augmented-ui="b-clip-x exe">
+			<p>{{localize "attrib.res" }}</p>
+			<span>{{system.attributes.res.pool}}</span>
+			<input name="matrixAttResPool" type="hidden" data-dtype="Number" data-field="system.attributes.res.pool" value="8" />
+			<div class="field {{id}}Changed">
+				<label>{{localize 'shadowrun6.numerical.base'}}</label>
+				<input name="matrixAttResBase" type="number" data-dtype="Number" data-field="system.attributes.res.base" value="{{system.attributes.res.base}}" placeholder="base" title="{{localize 'shadowrun6.numerical.baseString'}}" min="1" max="6" />
+			</div>
+			<div class="field {{id}}Changed">
+				<label>{{localize 'shadowrun6.numerical.mod'}}</label>
+				<input name="matrixAttResMod" type="number" data-dtype="Number" data-field="system.attributes.res.mod" value="{{system.attributes.res.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
+			</div>
+			</div>
+	</div>
+	{{/if}}
+	{{/if}}
+		<div class="centered rubik-glitch-regular" style="padding: 0.5rem 0 0.2rem 0;">
+			{{ localize 'shadowrun6.section.matrix_base.overwatch' }}
+		</div>     
+		<div class="edge" style="width: 80px; height:80px">
+			<img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" style="border: 0px; height: auto; width: 80px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
+			<input name="matrixOverwatch" class="edge-value" style="z-index: 2;" type="text" data-dtype="Number" data-field="system.overwatch" value="{{system.overwatch}}" />
 		</div>
-   </div>
-   {{/if}}
-   {{/if}}
-    <div class="centered rubik-glitch-regular" style="padding: 0.5rem 0 0.2rem 0;">
-		{{ localize 'shadowrun6.section.matrix_base.overwatch' }}
-	</div>     
-    <div class="edge" style="width: 80px; height:80px">
-		<img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" style="border: 0px; height: auto; width: 80px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-		<input name="matrixOverwatch" class="edge-value" style="z-index: 2;" type="text" data-dtype="Number" data-field="system.overwatch" value="{{system.overwatch}}" />
-    </div>
-   </div>
-		<div class="section" style="width:inherit; margin-right: -5px; min-width: 275px;">
-	<table>
-		<thead>
-			<tr>
-				<th style="padding: 0 0px 0 5px; width: 1em">{{ localize 'shadowrun6.section.persona.distribute' }}</th>
-				<th style="padding: 0 0px 0 5px; width: 1em">{{ localize 'shadowrun6.label.attack.short' }}</th>
-				<th style="padding: 0 0px 0 0px; width: 1em">{{ localize 'shadowrun6.label.sleaze.short' }}</th>
-				<th style="padding: 0 0px 0 0px; width: 1em">{{ localize 'shadowrun6.label.dataproc.short' }}</th>
-				<th style="padding: 0 5px 0 0px; width: 1em">{{ localize 'shadowrun6.label.firewall.short' }}</th>
-			</tr>
-		</thead>
-		<tbody>
-     <tr class="item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
-		   {{#if system.morDef.resonance}}
-          <td class="centered">{{system.persona.living.devRating}} &#8608;</td>
-         <td class="centered">{{system.persona.living.base.a}}+<input name="matrixPersonaLivingModA" class="box" data-field="system.persona.living.mod.a" type="text" value="{{system.persona.living.mod.a}}" data-dtype="Number"
-				style="width: 1.5em;" ></td>
-         <td class="centered">{{system.persona.living.base.s}}+<input name="matrixPersonaLivingModS" class="box" data-field="system.persona.living.mod.s" type="text" value="{{system.persona.living.mod.s}}" data-dtype="Number"
-				style="width: 1.5em;" ></td>
-         <td class="centered">{{system.persona.living.base.d}}+<input name="matrixPersonaLivingModD" class="box" data-field="system.persona.living.mod.d" type="text" value="{{system.persona.living.mod.d}}" data-dtype="Number"
-				style="width: 1.5em;" ></td>
-         <td class="centered">{{system.persona.living.base.f}}+<input name="matrixPersonaLivingModF" class="box" data-field="system.persona.living.mod.f" type="text" value="{{system.persona.living.mod.f}}" data-dtype="Number"
-				style="width: 1.5em;" ></td>
-        {{else}}
-         <td class="centered">{{system.persona.device.base.a}}/{{system.persona.device.base.s}}/{{system.persona.device.base.d}}/{{system.persona.device.base.f}} &#8608;</td>
-         <td class="centered"><input name="matrixPersonaDeviceA" class="box" data-field="system.persona.device.mod.a" type="text" value="{{system.persona.device.mod.a}}" data-dtype="Number"
-				style="width: 2em;" ></td>
-         <td class="centered"><input name="matrixPersonaDeviceS" class="box" data-field="system.persona.device.mod.s" type="text" value="{{system.persona.device.mod.s}}" data-dtype="Number"
-				style="width: 2em;" ></td>
-         <td class="centered"><input name="matrixPersonaDeviceD" class="box" data-field="system.persona.device.mod.d" type="text" value="{{system.persona.device.mod.d}}" data-dtype="Number"
-				style="width: 2em;" ></td>
-         <td class="centered"><input name="matrixPersonaDeviceF" class="box" data-field="system.persona.device.mod.f" type="text" value="{{system.persona.device.mod.f}}" data-dtype="Number"
-				style="width: 2em;" ></td>
-    {{/if}}
-      </tr>
+	</div>
+	<div class="section" style="width:inherit; margin-right: -5px; min-width: 275px;">
+		<div class="matrix-persona-header" >
+			<div style="flex-grow: 3; width: 6em;">{{ localize 'shadowrun6.section.persona.title' }}</div>
+			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.attack.short' }}</div>
+			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.sleaze.short' }}</div>
+			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.dataproc.short' }}</div>
+			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.firewall.short' }}</div>
+		</div>
+		<div class="matrix-persona-attributes" >
+			<div style="order: 1; flex-grow: 3; width: 6em;" class="collapsible">{{ localize 'section.attributes' }}</div>
+			<div style="order: 2; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedA" class="box" data-field="system.persona.used.a" type="text" value="{{system.persona.used.a}}" data-dtype="Number" disabled></div>
+			<div style="order: 3; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedS" class="box" data-field="system.persona.used.s" type="text" value="{{system.persona.used.s}}" data-dtype="Number" disabled></div>
+			<div style="order: 4; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedD" class="box" data-field="system.persona.used.d" type="text" value="{{system.persona.used.d}}" data-dtype="Number" disabled></div>
+			<div style="order: 5; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedF" class="box" data-field="system.persona.used.f" type="text" value="{{system.persona.used.f}}" data-dtype="Number" disabled></div>
+		</div>
+		<div class="collapsible-content closed">
+			<div class="matrix-persona-header" style="margin-top: 7px;">
+				<div style="flex-grow: 3; width: 6em;"></div>
+				<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.attack.short' }}</div>
+				<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.sleaze.short' }}</div>
+				<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.dataproc.short' }}</div>
+				<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.firewall.short' }}</div>
+			</div>
+		{{#if system.morDef.resonance}}
+			<div class="matrix-persona-attributes" >
+				<div style="order: 1; flex-grow: 3; width: 6em;">{{ localize 'shadowrun6.label.base' }}</div>
+				<div style="order: 2; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingBaseA" data-field="system.persona.living.base.a" type="text" value="{{system.persona.living.base.a}}" data-dtype="Number" disabled></div>
+				<div style="order: 3; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingBaseS" data-field="system.persona.living.base.s" type="text" value="{{system.persona.living.base.s}}" data-dtype="Number" disabled></div>
+				<div style="order: 4; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingBaseD" data-field="system.persona.living.base.d" type="text" value="{{system.persona.living.base.d}}" data-dtype="Number" disabled></div>
+				<div style="order: 5; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingBaseF" data-field="system.persona.living.base.f" type="text" value="{{system.persona.living.base.f}}" data-dtype="Number" disabled></div>
+			</div>
+			<div class="matrix-persona-attributes" style="margin-bottom: 4px;">
+				<div style="order: 1; flex-grow: 3; width: 6em;">{{ localize 'shadowrun6.label.modifier' }}</div>
+				<div style="order: 2; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingModA" data-field="system.persona.living.mod.a" type="text" value="{{system.persona.living.mod.a}}" data-dtype="Number" class="box"></div>
+				<div style="order: 3; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingModS" data-field="system.persona.living.mod.s" type="text" value="{{system.persona.living.mod.s}}" data-dtype="Number" class="box"></div>
+				<div style="order: 4; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingModD" data-field="system.persona.living.mod.d" type="text" value="{{system.persona.living.mod.d}}" data-dtype="Number" class="box"></div>
+				<div style="order: 5; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaLivingModF" data-field="system.persona.living.mod.f" type="text" value="{{system.persona.living.mod.f}}" data-dtype="Number" class="box"></div>
+			</div>
+		{{else}}
+			<div class="matrix-persona-attributes" >
+				<div style="order: 1; flex-grow: 3; width: 6em;">{{ localize 'shadowrun6.label.base' }}</div>
+				<div style="order: 2; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceBaseA" data-field="system.persona.device.base.a" type="text" value="{{system.persona.device.base.a}}" data-dtype="Number" disabled></div>
+				<div style="order: 3; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceBaseS" data-field="system.persona.device.base.s" type="text" value="{{system.persona.device.base.s}}" data-dtype="Number" disabled></div>
+				<div style="order: 4; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceBaseD" data-field="system.persona.device.base.d" type="text" value="{{system.persona.device.base.d}}" data-dtype="Number" disabled></div>
+				<div style="order: 5; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceBaseF" data-field="system.persona.device.base.f" type="text" value="{{system.persona.device.base.f}}" data-dtype="Number" disabled></div>
+			</div>
+			<div class="matrix-persona-attributes" style="margin-bottom: 4px;">
+				<div style="order: 1; flex-grow: 3; width: 6em;">{{ localize 'shadowrun6.label.modifier' }}</div>
+				<div style="order: 2; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceModA" data-field="system.persona.device.mod.a" type="text" value="{{system.persona.device.mod.a}}" data-dtype="Number" class="box"></div>
+				<div style="order: 3; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceModS" data-field="system.persona.device.mod.s" type="text" value="{{system.persona.device.mod.s}}" data-dtype="Number" class="box"></div>
+				<div style="order: 4; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceModD" data-field="system.persona.device.mod.d" type="text" value="{{system.persona.device.mod.d}}" data-dtype="Number" class="box"></div>
+				<div style="order: 5; flex-grow: 1;" class="matrix-attribute-mod"><input name="matrixPersonaDeviceModF" data-field="system.persona.device.mod.f" type="text" value="{{system.persona.device.mod.f}}" data-dtype="Number" class="box"></div>
+			</div>
+		{{/if}}
+		</div>
 
-		</tbody>
-	</table>
 		<table>
 			<tr>
 				<th style="padding: 0 5px 0 5px; text-align: left;">{{ localize 'shadowrun6.label.trait_pool' }}</th>
@@ -77,8 +95,7 @@
 				<td ><b>{{ localize 'shadowrun6.attack_rating.matrix' }}</b></td>
 				<td class="centered">{{system.attackrating.matrix.base}}</td>
 				<td class="centered">
-					<input name="matrixArMatrixMod" class="centered" data-field="system.attackrating.matrix.mod" type="text" value="{{system.attackrating.matrix.mod}}" data-dtype="Number"
-					style="width: 2em;">
+					<input name="matrixArMatrixMod" class="centered" data-field="system.attackrating.matrix.mod" type="text" value="{{system.attackrating.matrix.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
 				<td class="centered" title="{{system.attackrating.matrix.modString}}">{{system.attackrating.matrix.pool}}</td>
 			</tr>
@@ -86,8 +103,7 @@
 				<td ><b>{{ localize 'shadowrun6.defense_rating.matrix' }}</b></td>
 				<td class="centered">{{system.defenserating.matrix.base}}</td>
 				<td class="centered">
-					<input name="matrixDrMatrixMod" class="centered" data-field="system.defenserating.matrix.mod" type="text" value="{{system.defenserating.matrix.mod}}" data-dtype="Number"
-					style="width: 2em;">
+					<input name="matrixDrMatrixMod" class="centered" data-field="system.defenserating.matrix.mod" type="text" value="{{system.defenserating.matrix.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
 				<td class="centered" title="{{system.defenserating.matrix.modString}}">{{system.defenserating.matrix.pool}}</td>
 			</tr>
@@ -95,8 +111,7 @@
 				<td ><b>{{ localize 'shadowrun6.derived.matrix_perception' }}</b></td>
 				<td class="centered">{{system.derived.matrix_perception.base}}</td>
 				<td class="centered">
-					<input name="matrixDerivedPerceptionMod" class="centered" data-field="system.derived.matrix_perception.mod" type="text" value="{{system.derived.matrix_perception.mod}}" data-dtype="Number"
-					style="width: 2em;">
+					<input name="matrixDerivedPerceptionMod" class="centered" data-field="system.derived.matrix_perception.mod" type="text" value="{{system.derived.matrix_perception.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
 				<td class="centered" title="{{system.derived.matrix_perception.modString}}">{{system.derived.matrix_perception.pool}}</td>
 			</tr>
@@ -113,13 +128,12 @@
 				<td ><b>{{ localize 'shadowrun6.defense.fading' }}</b></td>
 				<td class="centered">{{system.defensepool.fading.base}}</td>
 				<td class="centered">
-					<input name="matrixDpFadingMod" class="centered" data-field="system.defensepool.fading.mod" type="text" value="{{system.defensepool.fading.mod}}" data-dtype="Number"
-					style="width: 2em;">
+					<input name="matrixDpFadingMod" class="centered" data-field="system.defensepool.fading.mod" type="text" value="{{system.defensepool.fading.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
 				<td class="centered" title="{{system.defensepool.fading.modString}}">{{system.defensepool.fading.pool}}</td>
 				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.fading.pool}}" data-roll-id="fading"><i class="fas fa-dice-six"></i></a></td>
 			</tr>
 			{{/if}}
 		</table>
-		</div>
+	</div>
 </div>

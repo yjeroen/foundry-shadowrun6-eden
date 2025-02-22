@@ -24,6 +24,85 @@ export default class SR6Item extends Item {
     this.calcDamage();
   }
 
+  /**
+   * Pre-process an update operation for a single Document instance. Pre-operation events only occur for the client
+   * which requested the operation.
+   *
+   * @param {object} changes            The candidate changes to the Document
+   * @param {object} options            Additional options which modify the update request
+   * @param {documents.BaseUser} user   The User requesting the document update
+   * @returns {Promise<boolean|void>}   A return value of false indicates the update operation should be cancelled.
+   * @internal
+   */
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    console.log("SR6E | SR6Item._preUpdate()");
+    if ( allowed === false ) return false;
+
+    // Forward to type data model
+    if ( this.system instanceof foundry.abstract.TypeDataModel ) {
+      return this.system._preUpdate(changes, options, user);
+    }
+
+  }
+  /**
+   * Post-process an update operation for a single Document instance. Post-operation events occur for all connected
+   * clients.
+   *
+   * @param {object} changed            The differential data that was changed relative to the documents prior values
+   * @param {object} options            Additional options which modify the update request
+   * @param {string} userId             The id of the User requesting the document update
+   * @internal
+   */
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+    console.log("SR6E | SR6Item._onUpdate()");
+    this._checkPersonaChanges(changed);
+  }
+
+ /**
+   * Pre-process a deletion operation for a single Document instance. Pre-operation events only occur for the client
+   * which requested the operation.
+   *
+   * @param {object} options            Additional options which modify the deletion request
+   * @param {documents.BaseUser} user   The User requesting the document deletion
+   * @returns {Promise<boolean|void>}   A return value of false indicates the deletion operation should be cancelled.
+   * @internal
+   */
+  async _preDelete(options, user) {
+    const allowed = await super._preDelete(options, user);
+    console.log("SR6E | SR6Item._preDelete()");
+    if ( allowed === false ) return false;
+
+    // Forward to type data model
+    if ( this.system instanceof foundry.abstract.TypeDataModel ) {
+      return this.system._preDelete(options, user);
+    }
+  }
+
+  /**
+   * Post-process a deletion operation for a single Document instance. Post-operation events occur for all connected
+   * clients.
+   *
+   * @param {object} options            Additional options which modify the deletion request
+   * @param {string} userId             The id of the User requesting the document update
+   * @internal
+   */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    console.log("SR6E | SR6Item._onDelete()");
+    this._checkPersonaChanges({delete: true});
+  }
+
+  async _checkPersonaChanges(changed) {
+    console.log("SR6E | SR6Item._checkPersonaChanges()");
+    if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
+      if (changed.delete === true || changed.system.usedForPool !== undefined) {
+        await this.parent.updatePersona();
+      }
+    }
+  }
+  
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};      
   }

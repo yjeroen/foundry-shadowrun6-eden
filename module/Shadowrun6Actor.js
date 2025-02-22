@@ -124,6 +124,41 @@ export class Shadowrun6Actor extends Actor {
         }
         console.log("SR6E | Shadowrun6Actor.prepareData() ", actorData.name + " = " + actorData.type);
     }
+    /**
+     * @Override
+     * Pre-process an update operation for a single Document instance. Pre-operation events only occur for the client
+     * which requested the operation.
+     *
+     * @param {object} changes            The candidate changes to the Document
+     * @param {object} options            Additional options which modify the update request
+     * @param {documents.BaseUser} user   The User requesting the document update
+     * @returns {Promise<boolean|void>}   A return value of false indicates the update operation should be cancelled.
+     * @internal
+     */
+    async _preUpdate(changes, options, user) {
+        const allowed = await super._preUpdate(changes, options, user);
+        console.log("SR6E | Shadowrun6Actor._preUpdate()");
+        if ( allowed === false ) return false;
+    
+        // Forward to type data model
+        if ( this.system instanceof foundry.abstract.TypeDataModel ) {
+          return this.system._preUpdate(changes, options, user);
+        }
+    }
+    /**
+     * Post-process an update operation for a single Document instance. Post-operation events occur for all connected
+     * clients.
+     *
+     * @param {object} changed            The differential data that was changed relative to the documents prior values
+     * @param {object} options            Additional options which modify the update request
+     * @param {string} userId             The id of the User requesting the document update
+     * @internal
+     */
+    _onUpdate(changed, options, userId) {
+        super._onUpdate(changed, options, userId);
+        console.log("SR6E | SR6Item._onUpdate()");
+        this._checkPersonaChanges(changed);
+    }
     //---------------------------------------------------------
     /**
      * Apply the force rating as a attribute and skill modifier
@@ -1125,7 +1160,42 @@ export class Shadowrun6Actor extends Actor {
     /*
      *
      */
+    async _checkPersonaChanges(changes) {
+        console.log("SR6E | Shadowrun6Actor._checkPersonaChanges()");
+        if (this.system.mortype == "technomancer") {
+            if (changes.system.attributes !== undefined || changes.system.persona?.living?.mod !== undefined) {
+                await this.updatePersona();
+            }
+        } else {
+            if (changes.system.persona?.device?.mod !== undefined) {
+                await this.updatePersona();
+            }
+        }
+      }
+    async updatePersona() {
+        console.debug("SR6E | updatePersona after enabling/disabling matrix device");
+        const system = getSystemData(this);
+        let updatedPersona = {};
+        this._preparePersona();
+        if (system.mortype == "technomancer") {
+            updatedPersona = {
+                [`system.persona.used.a`]: (system.persona.living.base.a??0) + (system.persona.living.mod.a??0),
+                [`system.persona.used.s`]: (system.persona.living.base.s??0) + (system.persona.living.mod.s??0),
+                [`system.persona.used.d`]: (system.persona.living.base.d??0) + (system.persona.living.mod.d??0),
+                [`system.persona.used.f`]: (system.persona.living.base.f??0) + (system.persona.living.mod.f??0)
+            };
+        } else {
+            updatedPersona = {
+                [`system.persona.used.a`]: (system.persona.device.base.a??0) + (system.persona.device.mod.a??0),
+                [`system.persona.used.s`]: (system.persona.device.base.s??0) + (system.persona.device.mod.s??0),
+                [`system.persona.used.d`]: (system.persona.device.base.d??0) + (system.persona.device.mod.d??0),
+                [`system.persona.used.f`]: (system.persona.device.base.f??0) + (system.persona.device.mod.f??0)
+            };
+        }
+        await this.update(updatedPersona);
+    }
     _preparePersona() {
+        //TODO figure out what devRating is still used for
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (!system.persona)
@@ -1146,6 +1216,10 @@ export class Shadowrun6Actor extends Actor {
             system.persona.monitor = new Monitor();
         if (!system.persona.initiative)
             system.persona.initiative = new Initiative();
+        system.persona.device.base.a = 0;
+        system.persona.device.base.s = 0;
+        system.persona.device.base.d = 0;
+        system.persona.device.base.f = 0;
         actorData.items.forEach((tmpItem) => {
             const systemItem = getSystemData(tmpItem);
             if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
@@ -1169,10 +1243,6 @@ export class Shadowrun6Actor extends Actor {
             }
         });
         console.log("SR6E | preparePersona: device=", system.persona.device);
-        system.persona.used.a = system.persona.device.mod.a;
-        system.persona.used.s = system.persona.device.mod.s;
-        system.persona.used.d = system.persona.device.mod.d;
-        system.persona.used.f = system.persona.device.mod.f;
         // Living persona
         if (system.mortype == "technomancer") {
             if (!system.persona.living)
@@ -1189,10 +1259,6 @@ export class Shadowrun6Actor extends Actor {
             // Initiative: Data processing + Intuition
             system.persona.initiative = new Initiative();
             system.persona.initiative.base = system.persona.living.base.d + system.attributes["int"].pool;
-            system.persona.used.a = system.persona.living.base.a + system.persona.living.mod.a;
-            system.persona.used.s = system.persona.living.base.s + system.persona.living.mod.s;
-            system.persona.used.d = system.persona.living.base.d + system.persona.living.mod.d;
-            system.persona.used.f = system.persona.living.base.f + system.persona.living.mod.f;
         }
         /*
         if (actorData.skills) {
