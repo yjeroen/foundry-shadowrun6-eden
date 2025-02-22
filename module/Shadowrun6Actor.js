@@ -1186,10 +1186,10 @@ export class Shadowrun6Actor extends Actor {
             };
         } else {
             updatedPersona = {
-                [`system.persona.used.a`]: (system.persona.device.base.a??0) + (system.persona.device.mod.a??0),
-                [`system.persona.used.s`]: (system.persona.device.base.s??0) + (system.persona.device.mod.s??0),
-                [`system.persona.used.d`]: (system.persona.device.base.d??0) + (system.persona.device.mod.d??0),
-                [`system.persona.used.f`]: (system.persona.device.base.f??0) + (system.persona.device.mod.f??0)
+                [`system.persona.used.a`]: (system.persona.device.base.a??0) + (system.persona.device.base.a??(system.persona.device.mod.a??0)),
+                [`system.persona.used.s`]: (system.persona.device.base.s??0) + (system.persona.device.base.s??(system.persona.device.mod.s??0)),
+                [`system.persona.used.d`]: (system.persona.device.base.d??0) + (system.persona.device.base.d??(system.persona.device.mod.d??0)),
+                [`system.persona.used.f`]: (system.persona.device.base.f??0) + (system.persona.device.base.f??(system.persona.device.mod.f??0))
             };
         }
         await this.update(updatedPersona);
