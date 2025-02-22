@@ -102,7 +102,7 @@ export class SR6ItemSheet extends ItemSheet {
                         value = parseFloat(element.value);
                         console.log('SR6E | system.essence', value);
                     } else {
-                        value = parseInt(element.value);
+                        value = isNaN(parseInt(element.value)) ? 0 : parseInt(element.value);
                     }
                 }
                 if (this.item) {

@@ -494,7 +494,7 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _prepareFireModeAR(arMod, dmgMod, rounds) {
-        console.log('SR6E | _prepareFireModeAR: arMod',arMod ,'dmgMod', dmgMod,'rounds', rounds);
+        console.log('SR6E | _prepareFireModeAR: arMod', arMod ,'dmgMod', dmgMod,'rounds', rounds);
         let prepared = this.options.prepared;
         let poolMod = 0;    //not used?
 
@@ -527,7 +527,7 @@ export class RollDialog extends Dialog {
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage
-        prepared.calcDamage = prepared.item.calculated.dmg + dmgMod;
+        prepared.calcDamage = parseInt(prepared.item.calculated.dmg) + dmgMod;
         this.html.find("span[name='calcDamage']").text(prepared.calcDamage.toString());
         // Calculate modified pool
         prepared.calcPool = prepared.pool + poolMod;
