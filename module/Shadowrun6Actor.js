@@ -1163,11 +1163,11 @@ export class Shadowrun6Actor extends Actor {
     async _checkPersonaChanges(changes) {
         console.log("SR6E | Shadowrun6Actor._checkPersonaChanges()", changes);
         if (this.system.mortype == "technomancer") {
-            if (changes.system.attributes !== undefined || changes.system.persona?.living?.mod !== undefined) {
+            if (changes.system?.attributes !== undefined || changes.system?.persona?.living?.mod !== undefined) {
                 await this.updatePersona();
             }
         } else {
-            if (changes.system.persona?.device?.mod !== undefined) {
+            if (changes.system?.persona?.device?.mod !== undefined) {
                 await this.updatePersona();
             }
         }
@@ -1192,7 +1192,6 @@ export class Shadowrun6Actor extends Actor {
                 [`system.persona.used.f`]: (system.persona.device.base.f??0) + (system.persona.device.base.f?(system.persona.device.mod.f??0):0)
             };
         }
-        console.log('JEROEN updatepersona update(', updatedPersona);
         await this.update(updatedPersona);
     }
     _preparePersona() {
