@@ -1179,17 +1179,17 @@ export class Shadowrun6Actor extends Actor {
         this._preparePersona();
         if (system.mortype == "technomancer") {
             updatedPersona = {
-                [`system.persona.used.a`]: (system.persona.living.base.a??0) + (system.persona.living.mod.a??0),
-                [`system.persona.used.s`]: (system.persona.living.base.s??0) + (system.persona.living.mod.s??0),
-                [`system.persona.used.d`]: (system.persona.living.base.d??0) + (system.persona.living.mod.d??0),
-                [`system.persona.used.f`]: (system.persona.living.base.f??0) + (system.persona.living.mod.f??0)
+                [`system.persona.used.a`]: parseInt(system.persona.living.base.a??0) + parseInt(system.persona.living.mod.a??0),
+                [`system.persona.used.s`]: parseInt(system.persona.living.base.s??0) + parseInt(system.persona.living.mod.s??0),
+                [`system.persona.used.d`]: parseInt(system.persona.living.base.d??0) + parseInt(system.persona.living.mod.d??0),
+                [`system.persona.used.f`]: parseInt(system.persona.living.base.f??0) + parseInt(system.persona.living.mod.f??0)
             };
         } else {
             updatedPersona = {
-                [`system.persona.used.a`]: (system.persona.device.base.a??0) + (system.persona.device.base.a?(system.persona.device.mod.a??0):0),
-                [`system.persona.used.s`]: (system.persona.device.base.s??0) + (system.persona.device.base.s?(system.persona.device.mod.s??0):0),
-                [`system.persona.used.d`]: (system.persona.device.base.d??0) + (system.persona.device.base.d?(system.persona.device.mod.d??0):0),
-                [`system.persona.used.f`]: (system.persona.device.base.f??0) + (system.persona.device.base.f?(system.persona.device.mod.f??0):0)
+                [`system.persona.used.a`]: parseInt(system.persona.device.base.a??0) + parseInt(system.persona.device.base.a?(system.persona.device.mod.a??0):0),
+                [`system.persona.used.s`]: parseInt(system.persona.device.base.s??0) + parseInt(system.persona.device.base.s?(system.persona.device.mod.s??0):0),
+                [`system.persona.used.d`]: parseInt(system.persona.device.base.d??0) + parseInt(system.persona.device.base.d?(system.persona.device.mod.d??0):0),
+                [`system.persona.used.f`]: parseInt(system.persona.device.base.f??0) + parseInt(system.persona.device.base.f?(system.persona.device.mod.f??0):0)
             };
         }
         await this.update(updatedPersona);
@@ -1226,18 +1226,18 @@ export class Shadowrun6Actor extends Actor {
                 let item = getSystemData(tmpItem);
                 if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE") {
                     if (item.usedForPool) {
-                        system.persona.device.base.d = item.d;
-                        system.persona.device.base.f = item.f;
+                        system.persona.device.base.d = parseInt(item.d);
+                        system.persona.device.base.f = parseInt(item.f);
                         if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = (item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2 + 8;
+                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2 + 8;
                         }
                     }
                 }
                 if (item.subtype == "CYBERDECK") {
                     if (item.usedForPool) {
-                        system.persona.device.base.a = item.a;
-                        system.persona.device.base.s = item.s;
-                        system.persona.monitor.max = item.devRating / 2 + 8;
+                        system.persona.device.base.a = (item.a);
+                        system.persona.device.base.s = (item.s);
+                        system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
                     }
                 }
             }
@@ -1251,14 +1251,14 @@ export class Shadowrun6Actor extends Actor {
                 system.persona.living.base = new MatrixDevice();
             if (!system.persona.living.mod)
                 system.persona.living.mod = new MatrixDevice();
-            system.persona.living.base.a = system.attributes["cha"].pool;
-            system.persona.living.base.s = system.attributes["int"].pool;
-            system.persona.living.base.d = system.attributes["log"].pool;
-            system.persona.living.base.f = system.attributes["wil"].pool;
-            system.persona.living.base.devRating = system.attributes["res"].pool;
+            system.persona.living.base.a = parseInt(system.attributes["cha"].pool);
+            system.persona.living.base.s = parseInt(system.attributes["int"].pool);
+            system.persona.living.base.d = parseInt(system.attributes["log"].pool);
+            system.persona.living.base.f = parseInt(system.attributes["wil"].pool);
+            system.persona.living.base.devRating = parseInt(system.attributes["res"].pool);
             // Initiative: Data processing + Intuition
             system.persona.initiative = new Initiative();
-            system.persona.initiative.base = system.persona.living.base.d + system.attributes["int"].pool;
+            system.persona.initiative.base = system.persona.living.base.d + parseInt(system.attributes["int"].pool);
         }
         /*
         if (actorData.skills) {
