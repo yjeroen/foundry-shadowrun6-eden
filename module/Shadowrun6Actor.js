@@ -1224,7 +1224,7 @@ export class Shadowrun6Actor extends Actor {
             const systemItem = getSystemData(tmpItem);
             if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
                 let item = getSystemData(tmpItem);
-                if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK") {
+                if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE") {
                     if (item.usedForPool) {
                         system.persona.device.base.d = item.d;
                         system.persona.device.base.f = item.f;
