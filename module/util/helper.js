@@ -344,7 +344,7 @@ export function rollText(classList, rollId, skillSpec) {
         }
     }
     else if (classList.includes("matrix-roll")) {
-        actionText = game.i18n.localize("shadowrun6.actor.nav.matrix") + ': ' + game.i18n.localize("shadowrun6.matrixaction." + rollId);
+        actionText = game.i18n.localize("shadowrun6.actor.nav.matrix") + ': ' + game.i18n.localize("shadowrun6.matrixaction." + rollId + ".name");
     }
     else {
         actionText = game.i18n.localize("shadowrun6.rolltext." + rollId);
