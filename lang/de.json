@@ -105,6 +105,7 @@
       "actions": "Handlungen",
       "actions_major": "Haupt",
       "actions_minor": "Neben",
+      "editable": "Editierbar",
       "initiative": "Initiative",
       "initiative_astral": "Astrale Initiative",
       "metatype": "Metatyp",
@@ -194,6 +195,7 @@
     },
     "defense_rating": {
       "astral": "Mana Verteidigungswert",
+      "label": "Verteidigungswert",
       "matrix": "Matrix Verteidigungswert",
       "physical": "Physisch Verteidigungswert",
       "social": "Sozial Verteidigungswert",
@@ -527,6 +529,7 @@
         "action": "Aktion",
         "count": "#",
         "name": "Name",
+        "nameAnimate": "Name",
         "rating": "Stufe"
       },
       "attack.short": "A",
@@ -546,6 +549,7 @@
       "defense_against": "Verteidigung gegen",
       "defense_rating": "Verteidigungswert",
       "delete": "Löschen",
+      "details": "Details...",
       "device_mode": "Gerätemodus",
       "devRating": "Geräte-Stufe",
       "dual_hand": "Beidhändig",
@@ -565,6 +569,7 @@
       "legality.legal.long": "Legal",
       "level": "Hat Stufen",
       "mages": "Magier",
+      "matrixMonitor": "Matrix Monitor",
       "max": "Maximum",
       "mode_of_operation": "Betriebsart",
       "modifications": "Modifikationen",
@@ -588,6 +593,8 @@
       "specialization": "Spezialisierung",
       "speed_detail": "Du bewegst dich mit {speed} km/h ({speedPerTurn} Meter pro Runde). Der Modifikator für Proben beträgt {modifier}.",
       "threshold": "Schwellenwert",
+      "trait": "Eigenschaft",
+      "trait_pool": "Eigenschaft / Pool",
       "type": "Art",
       "value": "Wert",
       "wilddie": "Schicksalswürfel"
@@ -840,6 +847,7 @@
       "genetics": "Jeder möchte blaue Augen",
       "focus": "Jeder sollte einen Focus haben",
       "lifestyle": "Lebst du noch oder wohnst du schon?",
+      "magical": "Hex Hex!",
       "martialartstyle": "Was ist dein Stil?",
       "martialarttech": "Was für eine Technik hast du drauf?",
       "matrix": "Schau Dir mein Deck an!",
@@ -1030,7 +1038,6 @@
       "damage": "Schaden: ",
       "damage_apply": "Schaden zufügen",
       "defRating": "Verteidigungswert",
-      "defense_button": "Würfle Verteidigung",
       "edge": {
         "add_manually_to_target": "(Manuell eintragen) Ziel",
         "gain_player": "{name} erhält {value} Edge",
@@ -1163,18 +1170,21 @@
         "title": "Foci"
       },
       "gear" : {
+        "add": "Neue Ausrüstung hinzufügen",
         "title" : "Ausrüstung"
       },
       "karma" : {
         "title" : "Karma, Fahndungsstufe, Ruf",
         "karma" : "Karma",
         "heat"  : "Fahndungsstufe",
-        "reputation": "Ruf"
+        "reputation": "Ruf",
+        "total": "Gesamt"
       },
       "lifestyles": {
         "add": "Neuen Lebensstil hinzufügen",
         "title": "Lebensstile"
       },
+      "magical": "Magisch",
       "matrix_base": {
         "overwatch": "Overwatch"
       },
@@ -1423,8 +1433,7 @@
         "shotguns": "Schrotflinten",
         "submachine_guns": "Maschinenpistolen",
         "machine_guns": "Maschinengewehre",
-        "tasers": "Taser",
-        "whips": "Whips"
+        "tasers": "Taser"
       },
       "influence": {
         "etiquette": "Gebräuche",
@@ -1496,6 +1505,8 @@
       "drain": "Entzug",
       "drain_short": "Entz",
       "duration": "Dauer",
+      "duration_always": "Immer",
+      "duration_always_short": "I",
       "duration_instantaneous": "Sofort",
       "duration_instantaneous_short": "S",
       "duration_immediate": "Sofort",
@@ -1633,6 +1644,8 @@
       "irradiated": "Irradiated"
     }
   },
+  "shadowrun6-eden.Shadowrun6ActorSheetNPC": "Scherge in rotem Hemd",
+  "Shadowrun6ActorSheetNPC": "Scherge",
   "skill": {
     "astral": "Astral",
     "athletics": "Athletik",
