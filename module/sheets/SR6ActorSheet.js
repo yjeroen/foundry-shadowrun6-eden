@@ -202,7 +202,11 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                     //matrix actions collapsible
                     const content = element.parentElement.nextElementSibling;
                     content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+                    content.classList.toggle("closed");
                     content.classList.toggle("open");
+                    if (element.parentElement.classList.contains("matrix-persona-attributes")) {
+                        this.options.flags.collapseMatrixAttr = content.classList.contains("open") ? "open" : "closed";
+                    }
                     return;
                 }
                 //				console.log("SR6E | Collapsible: old styles are '"+element.classList+"'' and flag is "+item.getFlag("shadowrun6-eden","collapse-state"));

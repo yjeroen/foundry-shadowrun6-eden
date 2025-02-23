@@ -22,7 +22,7 @@
 		<div style="break-inside: avoid;">
        	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center; border-bottom: 0.5px dashed rgba(255, 255, 255, 0.5);">
        		<label style="width: 15px; margin-right: 2px;">{{matrixAction action}}</label>
-			<label style="flex-grow:10" class="collapsible">{{action.name}}</label>
+			<label style="flex-grow:10" class="collapsible"><label>{{action.name}}</label></label>
          	{{#if (ne (matrixPool actionId ../actor) 0)}}
          	<div class="skill-pool">
          		<label class="item-pool">{{matrixPool actionId ../actor}}</label>

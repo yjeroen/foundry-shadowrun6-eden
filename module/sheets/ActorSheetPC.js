@@ -24,7 +24,10 @@ export class Shadowrun6ActorSheetPC extends Shadowrun6ActorSheet {
                 { dragSelector: "a.spell-roll", dropSelector: null }, 
                 { dragSelector: "a.ritual-roll", dropSelector: null }, 
                 { dragSelector: "a.complexform-roll", dropSelector: null }
-            ]
+            ],
+            flags: {
+                collapseMatrixAttr: 'closed'
+            }
         });
     }
 }

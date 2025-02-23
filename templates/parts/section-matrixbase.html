@@ -42,7 +42,7 @@
 			<div style="order: 4; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedD" class="box" data-field="system.persona.used.d" type="text" value="{{system.persona.used.d}}" data-dtype="Number" disabled></div>
 			<div style="order: 5; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedF" class="box" data-field="system.persona.used.f" type="text" value="{{system.persona.used.f}}" data-dtype="Number" disabled></div>
 		</div>
-		<div class="collapsible-content closed">
+		<div class="collapsible-content {{options.flags.collapseMatrixAttr}}">
 			<div class="matrix-persona-header" style="margin-top: 7px;">
 				<div style="flex-grow: 3; width: 6em;"></div>
 				<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.attack.short' }}</div>
