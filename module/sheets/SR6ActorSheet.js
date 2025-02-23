@@ -201,7 +201,8 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 if (!item) {
                     //matrix actions collapsible
                     const content = element.parentElement.nextElementSibling;
-                    content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+                    // content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+                    content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
                     content.classList.toggle("closed");
                     content.classList.toggle("open");
                     if (element.parentElement.classList.contains("matrix-persona-attributes")) {
