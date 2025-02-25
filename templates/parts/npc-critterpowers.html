@@ -4,8 +4,7 @@
 	<!-- Powers -->
 	{{#each actor.items as |item id|}}
 	{{#iff item.type '==' 'critterpower'}}
-   <label class="" data-skill="{{id}}">{{item.name}}</label>
-    ,
+   <label class="" data-skill="{{id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
    {{/iff}}
    {{/each}}
 </dd>
