@@ -11,9 +11,12 @@
     	<tbody>
     		<tr>
     {{#each attributes as |attribute id|}}
-    {{#ifIn id ../config.NPC_ATTRIBUTES}}
+    	{{#ifIn id ../config.NPC_ATTRIBUTES}}
     		  <td class="centered" id="{{id}}">{{attribute.pool}}</td>
-    {{/ifIn}}
+    	{{/ifIn}}
+		{{#iff id '==' 'essence'}}
+    		  <td class="centered" id="{{id}}">{{../actor.system.essence}}</td>
+		{{/iff}}
     {{/each}}
     		</tr>
     	</tbody>
