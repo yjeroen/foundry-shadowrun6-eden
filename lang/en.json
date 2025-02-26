@@ -820,7 +820,9 @@
 		  "matrix": "Matrix",
       "physical": "Physical",
       "stun": "Stun",
-      "overflow": "Overflow"
+      "overflow": "Overflow",
+      "dead": "DEAD",
+      "broken": "BROKEN DOWN"
     },
     "mortype": {
       "adept": "Adept",
