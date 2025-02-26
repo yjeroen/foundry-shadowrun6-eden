@@ -1,7 +1,14 @@
 <section>
+
 {{> "systems/shadowrun6-eden/templates/parts/section-weapons.html" }}
 {{> "systems/shadowrun6-eden/templates/parts/section-soakresist.html" }}
-{{> "systems/shadowrun6-eden/templates/parts/section-armor.html" }}
-{{> "systems/shadowrun6-eden/templates/parts/section-ammo.html" }}
-{{> "systems/shadowrun6-eden/templates/parts/section-martialart.html" }}
+
+{{#if (or (eq actor.type 'Critter') (eq actor.type 'Spirit'))}}
+    {{> "systems/shadowrun6-eden/templates/parts/section-critterpower.html" }}
+{{else}}
+    {{> "systems/shadowrun6-eden/templates/parts/section-armor.html" }}
+    {{> "systems/shadowrun6-eden/templates/parts/section-ammo.html" }}
+    {{> "systems/shadowrun6-eden/templates/parts/section-martialart.html" }}
+{{/if}}
+
 </section>

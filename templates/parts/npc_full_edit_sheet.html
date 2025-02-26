@@ -46,18 +46,22 @@
 	</nav>
 
 	{{!-- Sheet Body --}}
-	<section class="sheet-body">
+	<section class="sheet-body" style="min-width: 810px">
 
 		{{!-- Basics Tab --}}
 		<div class="tab basics" data-group="primary" data-tab="basics">
 			<div class="attributes" style="margin-bottom: 10px">
 				{{> "systems/shadowrun6-eden/templates/parts/attributes-augmented.html" attributes=system.attributes}}
 			</div>
-		  <div style="column-count: 2; margin-right: 5px;">
-			{{> "systems/shadowrun6-eden/templates/parts/pc-derived.html" attributes=system.attributes}}
-		   {{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
-			{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
-		   {{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
+		  	<div style="column-count: 2; margin-right: 5px;">
+				{{> "systems/shadowrun6-eden/templates/parts/pc-derived.html" attributes=system.attributes}}
+		   		{{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
+				{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
+				{{#if (or (eq actor.type 'Critter') (eq actor.type 'Spirit'))}}
+					{{> "systems/shadowrun6-eden/templates/parts/section-critterpower.html" }}
+				{{else}}
+		   			{{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
+				{{/if}}
 			</div>
 		</div>
 
