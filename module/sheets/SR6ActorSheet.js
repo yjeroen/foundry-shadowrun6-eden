@@ -303,6 +303,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".complexform-create").click((ev) => this._onCreateNewEmbeddedItem("complexform"));
         html.find(".metamagic-create").click((ev) => this._onCreateNewEmbeddedItem("metamagic"));
         html.find(".spell-create").click((ev) => this._onCreateNewEmbeddedItem("spell"));
+        html.find(".critterpower-create").click((ev) => this._onCreateNewEmbeddedItem("critterpower"));
         html.find(".ritual-create").click((ev) => this._onCreateNewEmbeddedItem("ritual"));
         html.find(".focus-create").click((ev) => this._onCreateNewEmbeddedItem("focus"));
         html.find(".weapon-create").click((ev) => {
@@ -346,13 +347,6 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 system: {
                     type: "WEAPON_SPECIAL"
                 }
-            };
-            return this.actor.createEmbeddedDocuments("Item", [itemData]);
-        });
-        html.find('.critterpower-create').click(ev => {
-            const itemData = {
-                name: game.i18n.localize("shadowrun6.newitem.critterpower"),
-                type: "critterpower",
             };
             return this.actor.createEmbeddedDocuments("Item", [itemData]);
         });
