@@ -1,3 +1,21 @@
+## 3.1.3
+
+### System Improvements
+- Player sheet Matrix Attributes now stays open when you change a modifier field and added hover icon UX to Matrix Attribute section and Matrix Actions (#65)
+- Added Notes section to Vehicle/Drone sheet (#71)
+- Critter/Spirit editable sheet improvements: Don't show augments/armor/ammo, but do show Powers; Allow + button to add powers (#69)
+
+### Bug Fixes
+- Fix matrix localization key (raketenhunddev) (#64)
+- Fix matrix attribute open/close if the state was already open and you re-opened sheet
+- Fix readonly NPC sheet to show essence (#70)
+- Fix critter powers having a comma at the end of the list on the NPC readonly sheet (#69)
+- Increased size of Speed field on Vehicle/Drone sheet (#72)
+- Fix localization of monitor DEAD and BROKEN DOWN states (#74)
+
+### Data Updates
+- German translation structure fixes (RastaTux) (#67)
+
 ## 3.1.2
 
 ### Bug Fixes
