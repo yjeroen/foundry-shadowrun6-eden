@@ -15,7 +15,7 @@
          <td><label class="middle-column" >{{attackrating item.system.attackRating}}</label></td>
 		 <td style="width: 20%; text-align: right; vertical-align: middle">
 			<label class="middle-column">
-				<input name="{{id}}Ammocount" type="text" value="{{item.system.ammocount}}" data-field="data.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
+				<input name="{{id}}Ammocount" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
 			</label>
 			<a class="item-control reload-weapon" data-skill="" data-item-id="{{this.id}}" title=""><i class="fas fa-rotate-right"></i></a>
 		</td>
@@ -33,22 +33,8 @@
          <td colspan="6">
          	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}">
         	   {{ localize 'shadowrun6.label.modifications' }} 
-			   <textarea name="{{id}}Accessories" class="box" type="text"     data-item-id="{{this.id}}" data-field="data.accessories" type="text" data-dtype="Text" style="width: 25em">{{item.system.accessories}}</textarea>
+			   <textarea name="{{id}}Accessories" class="box" type="text"     data-item-id="{{this.id}}" data-field="system.accessories" type="text" data-dtype="Text" style="width: 25em">{{item.system.accessories}}</textarea>
 			   <br/>
-         	{{ localize 'shadowrun6.label.firemode_current' }}
-         	<select name="firemodeUsed" data-field="firemodeUsed" >
-		
-			<!-- TODO rework #select -->
-         	{{#select firemodeUsed}}
-            {{#each item.system.modes as |available id|}}
-            {{#if available}}
-             <option value="{{id}}" data-item-firemode="{{id}}">{{localize (concat "shadowrun6.item.firemode." id)}}</option>
-            {{/if}}
-            {{/each}}
-         		{{/select}}
-         	</select>
-			   <br/>
-         	{{ localize 'shadowrun6.label.wilddie' }} <input name="vehicleWeaponWildDie{{id}}" class="centered box" type="checkbox" data-item-id="{{this.id}}" {{checked item.system.wild}} data-check="system.wild" type="checkbox" data-dtype="Boolean"/><br/>
          	{{ localize 'shadowrun6.label.poolmod' }} <input name="vehicleWeaponMod{{id}}" class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.modifier" type="text"     value="{{item.system.modifier}}" data-dtype="Number" style="width: 1.5em"/>
          	</div>
          </td>

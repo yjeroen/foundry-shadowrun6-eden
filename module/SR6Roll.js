@@ -1,6 +1,7 @@
 import { Defense, MonitorType } from "./config.js";
 import { SR6ChatMessageData, ReallyRoll, RollType, SoakType } from "./dice/RollTypes.js";
 import { SYSTEM_NAME } from "./constants.js";
+import EdgeUtil from "./util/EdgeUtil.js";
 /**
  *
  */
@@ -97,46 +98,7 @@ export default class SR6Roll extends Roll {
         });
         return total;
     }
-    //**********************************************
-    oldEvaluateTotal() {
-        console.log("SR6E | -----evaluateTotal");
-        let normalTotal = super._evaluateTotal();
-        let total = 0;
-        this.dice.forEach((term) => {
-            let addedByExplosion = false;
-            console.log("SR6E | -----evaluateTotal : ", term.results);
-            term.results.forEach((die) => (total += die.count));
-        });
-        console.log("SR6E | -----evaluateTotal.2:", total, " -", normalTotal);
-        console.log("SR6E | _evaluateTotal: create SR6ChatMessageData", this);
-        this.finished = new SR6ChatMessageData(this.configured);
-        this.finished.glitch = this.isGlitch();
-        this.finished.criticalglitch = this.isCriticalGlitch();
-        this.finished.success = this.isSuccess();
-        this.finished.threshold = this.configured.threshold;
-        //this.finished.rollMode = this.configured.rollMode;
-        if (this.configured.rollType === RollType.Initiative) {
-            this.finished.threshold = 0;
-            this.finished.success = true;
-            this.finished.formula = this._formula;
-            this.finished.total = total;
-            this._total = total;
-        }
-        // ToDO: Detect real monitor
-        // this.finished.monitor = MonitorType.PHYSICAL;
-        if (this.configured.rollType == RollType.Defense) {
-            console.log("SR6E | _evaluateTotal: calculate remaining damage");
-            this.finished.damage = this.configured.damage + (this.configured.threshold - total);
-            console.log("SR6E | _evaluateTotal: remaining damage = " + this.finished.damage);
-        }
-        
-        if(this.configured.actor) {
-            const actor = game.actors.get(this.configured.actor._id);
-            this.finished.edge_remaining = actor.system.edge.value;
-        }
-        console.log("SR6E | _evaluateTotal: return ", this.finished);
-        return total;
-    }
+    
     //**********************************************
     _prepareChatMessage() {
         console.log("SR6E | _prepareChatMessage: create SR6ChatMessageData", this);
@@ -257,12 +219,12 @@ export default class SR6Roll extends Roll {
                     if (result.classes.includes("_wild")) {
                         result.classes = result.classes.substring(0, result.classes.length - 5);
                     }
-                    if (!result.classes.includes("_exploded")) {
-                        result.classes += "_exploded";
+                    if (!result.classes.includes(" exploded")) {
+                        result.classes += " exploded";
                     }
                 }
-                if (result.result == 5 && ignoreFives && result.classes.indexOf("_ignored") < 0) {
-                    result.classes += "_ignored";
+                if (result.result == 5 && ignoreFives && result.classes.indexOf(" ignored") < 0) {
+                    result.classes += " ignored";
                     result.success = false;
                     result.count = 0;
                 }
@@ -365,7 +327,15 @@ export default class SR6Roll extends Roll {
     getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE, { parts, finished: this.finished, data: this.data, results: this.results, total: this._total });
+        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE, 
+            { 
+                parts, 
+                finished: this.finished, 
+                data: this.data, 
+                results: this.results, 
+                total: this._total,
+                postEdgeBoosts: EdgeUtil.postEdgeBoosts
+            });
     }
     /*****************************************
      * Render to Chat message

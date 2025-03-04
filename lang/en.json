@@ -1049,7 +1049,9 @@
         "getting": "Gaining Edge",
         "no_gain": "No one gets Edge",
         "situational": "Situational Edge",
-        "spending": "Spending Edge"
+        "spending": "Spending Edge",
+        "spend_edge": "Spend edge",
+        "edge_spent": "Edge spent: {boostTitle}"
       },
       "edge_perform": "Do it",
       "edgegain": "Edge-Gain (max): ",
@@ -1563,6 +1565,7 @@
     },
     "vehicle": {
       "action_label": "Handling / Vehicle Attack or Defense",
+      "has_no_owner": "Vehicle/Drone has no owner assigned",
       "initiative": "Vehicle initiative",
       "mode_label": "Mode",
       "mode": {
@@ -1606,7 +1609,16 @@
         "do_not_revert_damage": "Overflow into Physical monitor. Do not revert back this damage via chat button, as it won't calculate correctly.",
         "No_actor_or_tokens_selected": "Assign yourself a Player Character, or select tokens before rolling.",
         "You_are_not_owner_of_the_tokens": "You are not owner of the selected tokens.",
-        "no_weapon_skill_set": "Please edit the weapon to assign a linked skill, before rolling."
+        "no_weapon_skill_set": "Please edit the weapon to assign a linked skill, before rolling.",
+        "vehicle_has_no_owner": "Vehicle has no owner assigned.",
+        "only_owner_is_allowed_to_spend_edge": "Only the characters owner is allowed to spend edge.",
+        "edge_boost_is_not_post_edge": "'{boostTitle}' is no post roll edge boost",
+        "you_require_more_edge": "You require {edge} more edge for this boost.",
+        "no_die_with_a_4": "Your roll does not have a 4.",
+        "cant_increase_die": "You can't increase this die.",
+        "all_dice_are_successes": "All dice are already successes.",
+        "character_has_spent_edge": "{actor} has spent {edge} edge.",
+        "reduce_edge_from_actor": "Please reduce characters edge by {edge}."
       }
     },
     "EFFECT": {

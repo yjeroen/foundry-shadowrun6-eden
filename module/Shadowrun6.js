@@ -26,6 +26,7 @@ import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
+import { migrateWorld } from "./util/Migrations.js";
 const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
 
 
@@ -204,6 +205,8 @@ Hooks.once("init", async function () {
         chatDiceIcon.setAttribute("class", "fas fa-dice");
     });
     Hooks.on("ready", () => {
+        migrateWorld();
+
         // Render a dice roll dialog on click
         $(document).on("click", diceIconSelector, (ev) => {
             console.log("SR6E | diceIconSelector clicked  ", ev);
@@ -308,6 +311,7 @@ Hooks.once("init", async function () {
 
     Hooks.on("renderChatMessage", function (app, html, data) {
         console.log("SR6E | ENTER renderChatMessage");
+        
         registerChatMessageEdgeListener(this, app, html, data);
 
         html.on("click", ".chat-edge", (ev) => {
@@ -510,20 +514,13 @@ Hooks.once("init", async function () {
                 const dragData = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
                 if(dragData.id == data.message._id)
                 {
-                    const boostTitle = game.i18n.localize(`shadowrun6.edge_boost.plus_1_roll`)
-                    let chatMsg = game.messages.get(dragData.id);
-                    switch (event.currentTarget.dataset["rollType"]) {
-                        case "plus_1_roll":
-                            EdgeUtil.plusOneOnIndex(boostTitle, dragData.dieIndex, chatMsg, 2, game.actors.get(chatMsg.rolls[0].finished.actor._id))
-                            break;
-                    
-                        default:
-                            console.error(`Edge Action not implemented ${event.currentTarget.dataset['rollType']}`);
-                            break;
-                    }
+                    const boostId = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
+                    EdgeUtil.peformPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
                 }
             });
         }
+
+
 
         console.log("SR6E | LEAVE renderChatMessage");
     });
@@ -647,7 +644,7 @@ function registerChatMessageEdgeListener(event, chatMsg, html, data) {
     let roll = getRoll(chatMsg);
     if (btnPerform && roll) {
         btnPerform.click((event) => {
-            const edgeType = event.currentTarget.dataset["rollType"];
+            const edgeType = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
             const chatMsgId = event.target.closest("[data-message-id]").dataset.messageId;
             EdgeUtil.peformPostEdgeBoost(chatMsgId, edgeType);
         });

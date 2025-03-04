@@ -5,6 +5,7 @@ import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "./ItemTypes
 //import { doRoll } from "./dice/CommonRoll.js";
 import { doRoll } from "./Rolls.js";
 import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData } from "./dice/RollTypes.js";
+import { getActor } from "./util/helper.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -1155,6 +1156,18 @@ export class Shadowrun6Actor extends Actor {
                     
             }
         });
+    }
+
+    _getOwnerActor(sceneId = null, tokenId = null) {
+        let actor = null;
+        if(this.type == "Vehicle") {
+            if(this.system.vehicle.belongs) {
+                //Todo: Can only assign actors directly, not (unlinked) token actors
+                actor = getActor(this.system.vehicle.belongs);
+            }
+        }
+
+        return actor;
     }
     //---------------------------------------------------------
     /*
