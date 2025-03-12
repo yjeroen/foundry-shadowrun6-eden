@@ -1,3 +1,4 @@
+import { RollType } from "../dice/RollTypes.js";
 import SR6Roll from "../SR6Roll.js";
 import { getActor } from "./helper.js";
 
@@ -246,29 +247,38 @@ export default class EdgeUtil {
 
         const rerollFormula = SR6Roll.createFormula(rerollPool);
 
-        let rerollData = roll.data;
+        let rerollData = JSON.parse(JSON.stringify(roll.data));
         rerollData.edge_use = boostTitle;
         rerollData.pool = rerollPool;
         
         let reroll = new SR6Roll(rerollFormula, rerollData);
-        reroll.configured = roll.configured;
+        reroll.configured = JSON.parse(JSON.stringify(roll.configured));
         reroll.configured.edge_use = rerollData.edge_use;
         reroll.configured.pool = rerollPool;
         reroll.configured.edge_message = "";
         reroll.data.useWildDie = false;
         reroll.data.explode = false;
+        reroll.finished.threshold = 0;
         await reroll.evaluate();                
         reroll._total += roll.total;
+        reroll.finished.total += roll.total;
         let newMessage = await reroll.toMessage({ speaker: chatMsg.speaker});
-        newMessage.rolls[0].results.forEach(element => {
+        let newRoll = newMessage.rolls[0];
+        newRoll.results.forEach(element => {
             element.classes = `die die_${element.result} edged`;
-        });
+        });    
+        if([RollType.Weapon, RollType.Spell].includes(newRoll.finished.rollType)) {        
+            newRoll.finished.threshold = roll.finished.total + newRoll.finished.total;
+        }
         newMessage.update({
             [`rolls`]: newMessage.rolls,
         });
 
         if(chatMsg) {
             const msg = game.i18n.format("shadowrun6.roll.edge.edge_spent", {boostTitle: boostTitle});
+            // Reset threshold to configured because attacks set threshold to successes + 1
+            // resulting in a "Failed" marking of the post edged roll.
+            roll.finished.threshold = roll.configured.threshold; 
             roll.finished.edge_use = msg;
             roll.data.edge_use = roll.finished.edge_use;
             // if(index) {

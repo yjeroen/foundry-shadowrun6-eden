@@ -9,10 +9,11 @@ export default class SR6Roll extends Roll {
     finished;
     prepared;
     configured;
+    results;
+
     static CHAT_TEMPLATE = "systems/shadowrun6-eden/templates/chat/roll-sr6.html";
     static TOOLTIP_TEMPLATE = "systems/shadowrun6-eden/templates/chat/tooltip.html";
-    //_total: number;
-    results;
+
     constructor(formula, data, options) {
         super(formula, data, options);
         this.configured = data;
@@ -22,9 +23,82 @@ export default class SR6Roll extends Roll {
             this.configured.rollType = RollType.Initiative;
         }
         console.log("SR6E | In SR6Roll<init>1(" + formula + " , ", data);
-        //console.log("SR6E | In SR6Roll<init>2(", options);
     }
+
     async evaluate(options) {
+        if(!options?.oldmethod?.value) 
+            return this.evaluate_new(options);
+        else        
+            return this.evaluate_old(options);        
+    }
+
+    async evaluate_new(options) {
+        console.log("SR6E | New Evaluation");
+        let die = undefined;
+
+        if (this.configured.buttonType === ReallyRoll.AUTOHITS) {
+            let noOfDice = Math.floor(this.configured.pool / 4);
+            let formula = SR6Roll.createFormula(noOfDice, -1, false);
+            die = await new Roll(formula).evaluate();
+            this._total = noOfDice;
+        } else {
+            die = await new Roll(this._formula).evaluate();
+            this._total = die.total;
+        }
+
+        if (this.data.useWildDie) {
+            // this.dice[1].options.colorset = "SR6_light";
+            this.results = die.terms[0].results.concat(die.terms[2].results);
+        } else {
+            this.results = die.terms[0].results;
+        }
+        this.terms = die.terms;
+        return this.evaluateResult();
+    }
+
+    evaluateResult() {
+        if (this.configured.buttonType === ReallyRoll.AUTOHITS) {
+            // Hits have been bought, roll was just a pseudo roll (for DiceSoNice?)
+            // Turn every dice into a success
+            this.results.forEach((result) => {
+                result.result = 6;
+                result.success = true;
+                result.count = 1;
+                result.classes = "die die_" + result.result;
+            });
+            this._formula = game.i18n.localize("shadowrun6.roll.hits_bought");
+        } 
+
+        try {
+            // Mark wild dice and assign count values to single die
+            if(!this._evaluated) {
+                this.modifyResults();
+                if (this.configured.rollType && this.configured.rollType != RollType.Initiative) {
+                    this._total = this.calculateTotal();
+                    this._formula = this.data.pool + "d6";
+                }
+                else {
+                    this._formula = this.formula;
+                }
+                this._evaluated = true;
+                this._prepareChatMessage();
+            }
+            return this;
+        }
+        finally {
+            console.log("SR6E | LEAVE evaluate()");
+        }
+    }
+
+    mergeRolls(roll) {
+        this._total += roll.total;
+        this.terms = this.terms.concat(roll.terms);
+        this.results = this.results.concat(roll.results);
+        this.configured.pool += roll.configured.pool;
+        return this.evaluateResult();
+    }
+
+    async evaluate_old(options) {
         console.log("SR6E | ENTER evaluate()");
         console.log("SR6E |    this: ", this);
         console.log("SR6E |    formula: ", this._formula);
@@ -55,6 +129,7 @@ export default class SR6Roll extends Roll {
             // In case of a wild die, color the wild die
             // and merge results
             if (this.data.useWildDie) {
+                console.log("THIS.DICE", this.dice);
                 this.dice[1].options.colorset = "SR6_light";
                 this.results = this.results.concat(die.terms[2].results);
             }
@@ -98,7 +173,7 @@ export default class SR6Roll extends Roll {
         });
         return total;
     }
-    
+
     //**********************************************
     _prepareChatMessage() {
         console.log("SR6E | _prepareChatMessage: create SR6ChatMessageData", this);
@@ -122,7 +197,7 @@ export default class SR6Roll extends Roll {
             if (this.finished.success) {
                 this.finished.netHits = Math.max(0, this.finished.total - this.finished.threshold);
                 this.finished.damage = this.configured.calcDamage + this.finished.netHits;
-                this.finished.soakType = (this.finished.monitor === MonitorType.PHYSICAL) ? SoakType.DAMAGE_PHYSICAL : SoakType.DAMAGE_STUN ;
+                this.finished.soakType = (this.finished.monitor === MonitorType.PHYSICAL) ? SoakType.DAMAGE_PHYSICAL : SoakType.DAMAGE_STUN;
             }
         }
 
@@ -130,7 +205,7 @@ export default class SR6Roll extends Roll {
         if (this.finished.rollType === RollType.Soak) {
             this.finished.damage = Math.max(0, this.finished.threshold - this.finished.total);
 
-            if( this.finished.monitor === MonitorType.PHYSICAL && this.finished.damage > 0 && game.settings.get(SYSTEM_NAME, "armorLessensDmg") ) {
+            if (this.finished.monitor === MonitorType.PHYSICAL && this.finished.damage > 0 && game.settings.get(SYSTEM_NAME, "armorLessensDmg")) {
                 const armorLessensDmg = Math.floor(this.finished.actor.system.defenserating.physical.pool / 4);
                 console.log("SR6E | armorLessensDmg, reducing damage by", armorLessensDmg);
                 const newDamage = Math.max(0, this.finished.damage - armorLessensDmg);
@@ -145,7 +220,7 @@ export default class SR6Roll extends Roll {
             }
 
             if (this.finished.soakType === SoakType.FADING) {
-                if ( (this.finished.threshold - this.result) > this.finished.actor.system.attributes.res.pool) {
+                if ((this.finished.threshold - this.result) > this.finished.actor.system.attributes.res.pool) {
                     this.finished.monitor = MonitorType.PHYSICAL;
                 }
                 // TODO add drain daamge
@@ -200,9 +275,6 @@ export default class SR6Roll extends Roll {
                 lastExploded = die.exploded;
                 console.debug("Die " + die.result + " = " + ignoreFives);
             });
-        }
-        else {
-            console.error("SR6E | Wild die check not working in V10");
         }
         return ignoreFives;
     }
@@ -327,12 +399,12 @@ export default class SR6Roll extends Roll {
     getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE, 
-            { 
-                parts, 
-                finished: this.finished, 
-                data: this.data, 
-                results: this.results, 
+        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
+            {
+                parts,
+                finished: this.finished,
+                data: this.data,
+                results: this.results,
                 total: this._total,
                 postEdgeBoosts: EdgeUtil.postEdgeBoosts
             });
@@ -356,7 +428,7 @@ export default class SR6Roll extends Roll {
                 console.log("SR6E | #####this.finished not set#############");
                 this.finished = new SR6ChatMessageData(this.configured);
             }
-            
+
             // Threshold modifications that impact the succes of the current roll, must be done above (in _prepareChatMessage)
             this.finished.success = this.isSuccess();
             // Threshold modifications that impact the succes of the future rolls, must be done below
@@ -368,7 +440,7 @@ export default class SR6Roll extends Roll {
                 if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
                     console.log("SR6E | rollType", RollType.Soak);
                     this.finished.damage = this.finished.threshold - this.finished.total;
-                    
+
                 } else if (this.finished.rollType === RollType.Weapon) {
                     console.log("SR6E | rollType", RollType.Weapon);
                     // this.finished.total = Attacker hits in this roll
@@ -380,12 +452,12 @@ export default class SR6Roll extends Roll {
                     // this.finished.thresholds = Attacker hits +1 
                     // this.finished.total = Defender hits in this roll
                     if (this.finished.total <= this.finished.threshold) {
-                        this.finished.damage = this.data.calcDamage + (this.finished.threshold-1) - this.finished.total;
+                        this.finished.damage = this.data.calcDamage + (this.finished.threshold - 1) - this.finished.total;
                     }
                     if (this.finished.allowSoak === false) {
                         this.finished.rollType = RollType.Soak;
                     }
-                } else if (this.finished.rollType === RollType.Spell) {     
+                } else if (this.finished.rollType === RollType.Spell) {
                     console.log("SR6E | rollType", RollType.Spell);
                     if (this.configured.spell.category === "combat") {
                         console.log("SR6E | Spell Category combat");
@@ -397,7 +469,7 @@ export default class SR6Roll extends Roll {
                             // Defender must have more hits than the attacker for success, not the same
                             this.finished.threshold = this.finished.total + 1;
                         }
-                    } 
+                    }
                     if (this.configured.spell.withEssence) {
                         this.finished.netHits = this.finished.total - this.configured.threshold;
                     }
@@ -419,7 +491,7 @@ export default class SR6Roll extends Roll {
                 (this.finished.publicRoll = !isPrivate);
             this.finished.tooltip = isPrivate ? "" : await this.getTooltip();
             this.finished.publicRoll = !isPrivate;
-            
+
             // Fixing rollMode
             this.finished.rollMode = this.data.rollMode;
 
@@ -428,19 +500,5 @@ export default class SR6Roll extends Roll {
         finally {
             console.log("SR6E | LEAVE render");
         }
-    }
-}
-export class SR6RollChatMessage extends ChatMessage {
-    hello;
-    total;
-    dice;
-    constructor(data, context) {
-        super(data, context);
-        //console.log("SR6E | In SR6RollChatMessage<init>(", data, " , context,", context);
-        let prepared = data;
-    }
-    getHTML() {
-        //console.log("SR6E | In SR6RollChatMessage.getHTML()", this);
-        return super.getHTML();
     }
 }
