@@ -49,6 +49,7 @@ Hooks.once("init", async function () {
     game.sr6.config = CONFIG.SR6 = new SR6Config();
     game.sr6.utils = utils;
     game.sr6.macros = macros;
+    game.sr6.sr6roll = SR6Roll;
     registerSystemSettings();
 
     CONFIG.Combat.documentClass = Shadowrun6Combat;
