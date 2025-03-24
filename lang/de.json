@@ -1047,7 +1047,8 @@
         "situational": "Situatives Edge",
         "spending": "Edge ausgeben",
         "spend_edge": "Edge ausgeben",
-        "edge_spent": "Edge ausgegeben: {boostTitle}"
+        "edge_spent": "Edge ausgegeben: {boostTitle}",
+        "spend": "Ausgeben!"
       },
       "edge_perform": "Ausführen",
       "edgegain": "Edge-Erhalt (max): ",
@@ -1613,7 +1614,8 @@
         "cant_increase_die": "Du kannst den Würfel nicht erhöhen.",
         "all_dice_are_successes": "Alle Würfel sind bereits Erfolge.",
         "character_has_spent_edge": "{actor} hat {edge} Edge ausgegeben.",
-        "reduce_edge_from_actor": "Bitte ziehe {edge} Edge vom Charakter ab"
+        "reduce_edge_from_actor": "Bitte ziehe {edge} Edge vom Charakter ab",
+        "reroll_failed_requires_index": "Ziehe den Würfel auf den `Einsetzen`-Button."
       }
     },
     "EFFECT": {

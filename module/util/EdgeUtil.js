@@ -112,7 +112,7 @@ export default class EdgeUtil {
      * @param {Number} dieIndex An optional die index to be affected by the edge boost (drag & drop)
      * @returns 
      */
-    static peformPostEdgeBoost(chatMsgId, edgeBoost, dieIndex = null) {
+    static async peformPostEdgeBoost(chatMsgId, edgeBoost, dieIndex = null) {
         let chatMsg = game.messages.get(chatMsgId);
         console.log("SR6E | Performing edge boost with type " + edgeBoost, chatMsg);
 
@@ -159,6 +159,8 @@ export default class EdgeUtil {
             return;
         }
 
+        let edgeSpent = false;
+
         switch (edgeBoost) {
             case "plus_1_roll":
                 let index = dieIndex;
@@ -179,15 +181,15 @@ export default class EdgeUtil {
                     }
                 }
 
-                EdgeUtil.plusOneOnIndex(chatMsg, boostTitle, index);
+                edgeSpent = EdgeUtil.plusOneOnIndex(chatMsg, boostTitle, index);
                 break;
 
             case "reroll_one":
-                EdgeUtil.reRoll(chatMsg, boostTitle, 1, dieIndex);
+                edgeSpent = await EdgeUtil.reRoll(chatMsg, boostTitle, 1, dieIndex);
                 break;
 
             case "reroll_failed":
-                EdgeUtil.reRoll(chatMsg, boostTitle, -1);
+                edgeSpent = await EdgeUtil.reRoll(chatMsg, boostTitle, -1);
                 break;
 
             default:
@@ -195,7 +197,7 @@ export default class EdgeUtil {
                 return;
         }
 
-        if (edgeCost)
+        if (edgeCost && edgeSpent)
             EdgeUtil.payEdge(edgeCost, actor);
     }
 
@@ -208,7 +210,7 @@ export default class EdgeUtil {
         if (element.result == 6) {
             ui.notifications.error("shadowrun6.ui.notifications.cant_increase_die", { localize: true });
             console.error("SR6E | Can't increase roll!");
-            return;
+            return false;
         }
 
         element.result++;
@@ -223,12 +225,21 @@ export default class EdgeUtil {
         chatMsg.update({
             [`rolls`]: chatMsg.rolls,
         });
-    }
+
+        return true;
+    } 
 
     static async reRoll(chatMsg, boostTitle, limit, index = null) {
         // Get dice to reroll  and calculate reroll pool
         let roll = chatMsg.rolls[0];
         let rerolled = null;
+
+        // When a limit is given, ensure the player has selected a dice to reroll
+        if(limit >= 0 && !index) {
+            ui.notifications.error("shadowrun6.ui.notifications.reroll_failed_requires_index", { localize: true });
+            return false;
+        }
+
         if (index) {
             rerolled = [roll.finished.results[index]];
         } else {
@@ -238,7 +249,7 @@ export default class EdgeUtil {
         let rerollPool = rerolled.length;
         if (rerollPool == 0) {
             ui.notifications.info("shadowrun6.ui.notifications.all_dice_are_successes", { localize: true });
-            return;
+            return false;
         } else {
             if (limit > 0) {
                 rerollPool = Math.min(limit, rerollPool);
@@ -270,7 +281,7 @@ export default class EdgeUtil {
             game.dice3d.showForRoll(reroll, game.user, true);
         }
 
-        EdgeUtil.markRollResultEdged(reroll.results, true, false);
+        EdgeUtil.markRollResultEdged(reroll.results, true, true);
 
         // Merge results of original and reroll
         roll.mergeRolls(reroll);
@@ -286,6 +297,8 @@ export default class EdgeUtil {
         chatMsg.update({
             [`rolls`]: chatMsg.rolls,
         });
+
+        return true;
     }
 
     static markRollResultEdged(rollResult, active, edged) {

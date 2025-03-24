@@ -1051,7 +1051,8 @@
         "situational": "Situational Edge",
         "spending": "Spending Edge",
         "spend_edge": "Spend edge",
-        "edge_spent": "Edge spent: {boostTitle}"
+        "edge_spent": "Edge spent: {boostTitle}",
+        "spend": "Spend!"
       },
       "edge_perform": "Do it",
       "edgegain": "Edge-Gain (max): ",
@@ -1618,7 +1619,8 @@
         "cant_increase_die": "You can't increase this die.",
         "all_dice_are_successes": "All dice are already successes.",
         "character_has_spent_edge": "{actor} has spent {edge} edge.",
-        "reduce_edge_from_actor": "Please reduce characters edge by {edge}."
+        "reduce_edge_from_actor": "Please reduce characters edge by {edge}.",
+        "reroll_failed_requires_index": "Drag a die to reroll on the `Spend` button."
       }
     },
     "EFFECT": {
