@@ -257,7 +257,7 @@ export default class EdgeUtil {
         }
 
         // Mark rerolled dice as inactive + edged
-        EdgeUtil.markRollResultEdged(rerolled, true, true);
+        EdgeUtil.markRollResultEdged(rerolled, false, true);
 
         // Prepare + evaluate reroll
         const rerollFormula = SR6Roll.createFormula(rerollPool);
