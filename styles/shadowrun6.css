@@ -138,16 +138,20 @@
 
 .dice-tooltip .dice-rolls .die_1{
   background-image: url(../icons/D6_1.svg);
+  opacity: 0.3;
 }
 
 .dice-tooltip .dice-rolls .die_2{
   background-image: url(../icons/D6_2.svg);
+  opacity: 0.3;
 }
 .dice-tooltip .dice-rolls .die_3{
   background-image: url(../icons/D6_3.svg);
+  opacity: 0.3;
 }
 .dice-tooltip .dice-rolls .die_4{
   background-image: url(../icons/D6_4.svg);
+  opacity: 0.3;
 }
 .dice-tooltip .dice-rolls .die_5{
   background-image: url(../icons/D6_5.svg);
@@ -158,18 +162,22 @@
 
 .dice-tooltip .dice-rolls .die_1_wild{
   background-image: url(../icons/Wild_1.svg);
+  opacity: 0.3;
 }
 
 .dice-tooltip .dice-rolls .die_2_wild{
   background-image: url(../icons/Wild_2.svg);
+  opacity: 0.3;
 }
 
 .dice-tooltip .dice-rolls .die_3_wild{
   background-image: url(../icons/Wild_3.svg);
+  opacity: 0.3;
 }
 
 .dice-tooltip .dice-rolls .die_4_wild{
   background-image: url(../icons/Wild_4.svg);
+  opacity: 0.3;
 }
 
 .dice-tooltip .dice-rolls .die_5_wild{
@@ -185,7 +193,15 @@
   background-image: url("../icons/die_exploded.svg");
   background-size: 12px;
 }
-.dice-rolls .ignored::after {
+
+.dice-rolls .edged {
+  filter: brightness(0.5) sepia(1) hue-rotate(-70deg) saturate(5);
+}
+.dice-rolls .ignored {
+  filter: grayscale(1) opacity(0.5);
+}
+
+/* .dice-rolls .ignored::after {
   background-position: bottom right;
   background-image: url("../icons/die_ignored.svg");
   background-size: 12px;
@@ -215,7 +231,7 @@
   width: 24px;
   height: 24px;
   margin-left: -12px;
-}
+} */
 
 .edge-roll {
       width: 48px;
@@ -574,12 +590,32 @@ a.item-control.disabled-roll:hover {
   color: lightgray;
 }
 
+.chat-message .dice.edgeable .selectableDie {
+  cursor: pointer;
+}
+.chat-message .dice .selectedDie {
+  filter: hue-rotate(210deg);
+  opacity: 1;
+}
+.chat-message .dice .wild.selectedDie {
+  filter: hue-rotate(315deg) brightness(0.6);
+  opacity: 1;
+}
 .chat-message .edgeBoostSelect {
   width: 100%;
-  margin-bottom: 0.5em;
+  margin-top: 0.5em;
   text-align: center;
 }
-
 .chat-message .edgePerform {
-  margin-bottom: 0.5em;
+  margin: 0.5em 0;
+}
+.edgeToken {
+  background-image: url(../images/EdgeToken.webp);
+  background-size: 1.5em 1.5em;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.3em;
+  margin-bottom: 2px;
 }
