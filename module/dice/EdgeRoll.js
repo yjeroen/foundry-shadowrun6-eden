@@ -237,7 +237,6 @@ export default class EdgeRoll {
     static plusOneOnIndex(chatMsg, boostTitle, index) {
         // Change dice
         let roll = chatMsg.rolls[0];
-
         const element = roll.finished.results[index];
 
         if (element.result == 6) {
