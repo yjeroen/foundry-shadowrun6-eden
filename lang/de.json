@@ -1045,7 +1045,10 @@
         "getting": "Edge erhalten",
         "no_gain": "Niemand bekommt Edge",
         "situational": "Situatives Edge",
-        "spending": "Edge ausgeben"
+        "spending": "Edge ausgeben",
+        "spend_edge": "Edge ausgeben",
+        "edge_spent": "Edge ausgegeben: {boostTitle}",
+        "spend": "Ausgeben!"
       },
       "edge_perform": "Ausführen",
       "edgegain": "Edge-Erhalt (max): ",
@@ -1602,7 +1605,17 @@
         "do_not_revert_damage": "Überlauf in den physischen Monitor. Drehe den Schaden nicht über den Chat-Button zurück, da er nicht korrekt berechnet wird.",
         "No_actor_or_tokens_selected": "Weise dir einen Charakter zu, oder wähle einen Token, bevor du würfelst.",
         "You_are_not_owner_of_the_tokens": "Du bist nicht der Besitzer des ausgewählten Tokens.",
-        "no_weapon_skill_set": "Bitte bearbeite die Waffe, um die verknüpfte Fertigkeit für den Wurf zu hinterlegen."
+        "no_weapon_skill_set": "Bitte bearbeite die Waffe, um die verknüpfte Fertigkeit für den Wurf zu hinterlegen.",
+        "vehicle_has_no_owner": "Fahrzeug hat keinen Besitzer.",
+        "only_owner_is_allowed_to_spend_edge": "Nur der Besitzer des Charakters darf diese Aktion durchführen.",
+        "edge_boost_is_not_post_edge": "'{boostTitle}' ist keine Handlung, die nach einem Wurf durchgeführt werden kann.",
+        "you_require_more_edge": "Du benötigst noch {edge} Edge für diese Handlung.",
+        "no_die_with_a_4": "Dein Wurf enthält keine 4.",
+        "cant_increase_die": "Du kannst den Würfel nicht erhöhen.",
+        "all_dice_are_successes": "Alle Würfel sind bereits Erfolge.",
+        "character_has_spent_edge": "{actor} hat {edge} Edge ausgegeben.",
+        "reduce_edge_from_actor": "Bitte ziehe {edge} Edge vom Charakter ab",
+        "reroll_failed_requires_index": "Ziehe den Würfel auf den `Einsetzen`-Button."
       }
     },
     "EFFECT": {

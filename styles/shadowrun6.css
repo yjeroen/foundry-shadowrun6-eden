@@ -156,33 +156,6 @@
   background-image: url(../icons/D6_6.svg);
 }
 
-.dice-tooltip .dice-rolls .die_1_exploded{
-  background-image: url(../icons/D6_1_Plus.svg);
-}
-.dice-tooltip .dice-rolls .die_2_exploded{
-  background-image: url(../icons/D6_2_Plus.svg);
-}
-.dice-tooltip .dice-rolls .die_3_exploded{
-  background-image: url(../icons/D6_3_Plus.svg);
-}
-.dice-tooltip .dice-rolls .die_4_exploded{
-  background-image: url(../icons/D6_4_Plus.svg);
-}
-.dice-tooltip .dice-rolls .die_5_exploded{
-  background-image: url(../icons/D6_5_Plus.svg);
-}
-.dice-tooltip .dice-rolls .die_6_exploded{
-  background-image: url(../icons/D6_6_Plus.svg);
-}
-
-.dice-tooltip .dice-rolls .die_5_exploded_ignored{
-  background-image: url(../icons/D6_5_Plus_Minus.svg);
-}
-
-.dice-tooltip .dice-rolls .die_5_ignored{
-  background-image: url(../icons/D6_5_Minus.svg);
-}
-
 .dice-tooltip .dice-rolls .die_1_wild{
   background-image: url(../icons/Wild_1.svg);
 }
@@ -205,6 +178,43 @@
 
 .dice-tooltip .dice-rolls .die_6_wild{
   background-image: url(../icons/Wild_6.svg);
+}
+
+.dice-rolls .exploded::after {
+  background-position: top right;
+  background-image: url("../icons/die_exploded.svg");
+  background-size: 12px;
+}
+.dice-rolls .ignored::after {
+  background-position: bottom right;
+  background-image: url("../icons/die_ignored.svg");
+  background-size: 12px;
+}
+.dice-rolls .edged::after {
+  background-position: top left;
+  background-image: url("../images/EdgeToken.webp");
+  background-size: 12px;
+}
+.dice-rolls .ignored.edged::after {
+  background-image: url("../images/EdgeToken.webp"), url("../icons/die_ignored.svg");
+  background-position: top left, bottom right;
+  background-size: 12px 12px;
+}
+.dice-rolls .exploded.ignored.edged::after {
+  background-image: url("../icons/die_exploded.svg"), url("../images/EdgeToken.webp"), url("../icons/die_ignored.svg");
+  background-position: top right, top left, bottom right;
+  background-size: 12px 12px;
+}
+
+.dice-rolls .exploded::after,
+.dice-rolls .ignored::after,
+.dice-rolls .edged::after {
+  content: "";
+  position: absolute;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
 }
 
 .edge-roll {
@@ -562,4 +572,14 @@ a.item-control.disabled-roll:hover {
   position: absolute;
   content : "\25BC";
   color: lightgray;
+}
+
+.chat-message .edgeBoostSelect {
+  width: 100%;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.chat-message .edgePerform {
+  margin-bottom: 0.5em;
 }

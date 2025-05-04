@@ -1,6 +1,7 @@
 import { Defense, MonitorType } from "./config.js";
 import { SR6ChatMessageData, ReallyRoll, RollType, SoakType } from "./dice/RollTypes.js";
 import { SYSTEM_NAME } from "./constants.js";
+import EdgeUtil from "./util/EdgeUtil.js";
 /**
  *
  */
@@ -8,10 +9,11 @@ export default class SR6Roll extends Roll {
     finished;
     prepared;
     configured;
+    results;
+
     static CHAT_TEMPLATE = "systems/shadowrun6-eden/templates/chat/roll-sr6.html";
     static TOOLTIP_TEMPLATE = "systems/shadowrun6-eden/templates/chat/tooltip.html";
-    //_total: number;
-    results;
+
     constructor(formula, data, options) {
         super(formula, data, options);
         this.configured = data;
@@ -21,117 +23,89 @@ export default class SR6Roll extends Roll {
             this.configured.rollType = RollType.Initiative;
         }
         console.log("SR6E | In SR6Roll<init>1(" + formula + " , ", data);
-        //console.log("SR6E | In SR6Roll<init>2(", options);
     }
+
     async evaluate(options) {
-        console.log("SR6E | ENTER evaluate()");
-        console.log("SR6E |    this: ", this);
-        console.log("SR6E |    formula: ", this._formula);
+        console.log("SR6E | New Evaluation");
+        let die = undefined;
+
         if (this.configured.buttonType === ReallyRoll.AUTOHITS) {
-            // Hits have been bought
-            console.log("SR6E | BOUGHT HITS for pool", this.configured.pool);
             let noOfDice = Math.floor(this.configured.pool / 4);
-            let formula = this.createFormula(noOfDice, -1, false);
-            let die = await new Roll(formula).evaluate();
-            this.results = die.terms[0].results;
+            let formula = SR6Roll.createFormula(noOfDice, -1, false);
+            die = await new Roll(formula).evaluate();
+            this._total = noOfDice;
+        } else {
+            die = await new Roll(this._formula).evaluate();
+            this._total = die.total;
+        }
+
+        this.results = die.terms[0].results;
+
+        if (this.data.useWildDie) {
+            // terms[2] contains the results for the seperate wild die
+            // Attach wild-property to each result to distignuish dice later on
+            const wildDiceResult = die.terms[2].results.map(item => {
+                item.wild = true;
+                return item;
+            });
+            // Append wild dice results to regular dice results
+            this.results = this.results.concat(wildDiceResult)
+        }
+        this.terms = die.terms;
+
+        return this.evaluateResult();
+    }
+
+    evaluateResult(force=false) {
+        if (this.configured.buttonType === ReallyRoll.AUTOHITS) {
+            // Hits have been bought, roll was just a pseudo roll (for DiceSoNice?)
+            // Turn every dice into a success
             this.results.forEach((result) => {
                 result.result = 6;
                 result.success = true;
                 result.count = 1;
                 result.classes = "die die_" + result.result;
             });
-            this._total = noOfDice;
             this._formula = game.i18n.localize("shadowrun6.roll.hits_bought");
-            this._evaluated = true;
-            this.terms = die.terms;
         }
-        else if (this.configured.buttonType === ReallyRoll.ROLL) {
-            let die = await new Roll(this._formula).evaluate();
-            console.log("SR6E | Nested roll has a total of " + die.total, die);
-            this.results = die.terms[0].results;
-            this._total = die._total;
-            this.terms = die.terms;
-            // In case of a wild die, color the wild die
-            // and merge results
-            if (this.data.useWildDie) {
-                this.dice[1].options.colorset = "SR6_light";
-                this.results = this.results.concat(die.terms[2].results);
-            }
-            else {
-                this.results = die.terms[0].results;
-            }
-        }
-        else {
-            console.log("SR6E | Unmodified roll " + this._formula);
-            let die = await new Roll(this._formula).evaluate();
-            this.results = die.terms[0].results;
-            this._total = die._total;
-            this.terms = die.terms;
-        }
-        this._evaluated = true;
+
         try {
             // Mark wild dice and assign count values to single die
-            this.modifyResults();
-            if (this.configured.rollType && this.configured.rollType != RollType.Initiative) {
-                this._total = this.calculateTotal();
+            if (!this._evaluated || force) {
+                this.modifyResults();
+                if (this.configured.rollType && this.configured.rollType != RollType.Initiative) {
+                    this._total = this.calculateTotal();
+                    this._formula = this.data.pool + "d6";
+                }
+                else {
+                    this._formula = this.formula;
+                }
                 this._evaluated = true;
-                this._formula = this.data.pool + "d6";
+                this._prepareChatMessage();
             }
-            else {
-                this._formula = this.formula;
-            }
-            this._prepareChatMessage();
             return this;
         }
         finally {
             console.log("SR6E | LEAVE evaluate()");
         }
     }
+
+    mergeRolls(roll) {
+        this._total += roll.total;
+        //this.terms = this.terms.concat(roll.terms);
+        this.results = this.results.concat(roll.results);
+        this.configured.pool += roll.configured.pool;
+        this._evaluated = false;
+        return this.evaluateResult();
+    }
+
     /**********************************************
      */
     calculateTotal() {
         console.log("SR6E | LEAVE calculateTotal", this);
-        let total = 0;
-        this.dice.forEach((term) => {
-            term.results.forEach((die) => (total += die.count));
-        });
-        return total;
+        return this.results.filter(item => item.active).reduce((n, { count }) => n + count, 0);
     }
-    //**********************************************
-    oldEvaluateTotal() {
-        console.log("SR6E | -----evaluateTotal");
-        let normalTotal = super._evaluateTotal();
-        let total = 0;
-        this.dice.forEach((term) => {
-            let addedByExplosion = false;
-            console.log("SR6E | -----evaluateTotal : ", term.results);
-            term.results.forEach((die) => (total += die.count));
-        });
-        console.log("SR6E | -----evaluateTotal.2:", total, " -", normalTotal);
-        console.log("SR6E | _evaluateTotal: create SR6ChatMessageData", this);
-        this.finished = new SR6ChatMessageData(this.configured);
-        this.finished.glitch = this.isGlitch();
-        this.finished.criticalglitch = this.isCriticalGlitch();
-        this.finished.success = this.isSuccess();
-        this.finished.threshold = this.configured.threshold;
-        //this.finished.rollMode = this.configured.rollMode;
-        if (this.configured.rollType === RollType.Initiative) {
-            this.finished.threshold = 0;
-            this.finished.success = true;
-            this.finished.formula = this._formula;
-            this.finished.total = total;
-            this._total = total;
-        }
-        // ToDO: Detect real monitor
-        // this.finished.monitor = MonitorType.PHYSICAL;
-        if (this.configured.rollType == RollType.Defense) {
-            console.log("SR6E | _evaluateTotal: calculate remaining damage");
-            this.finished.damage = this.configured.damage + (this.configured.threshold - total);
-            console.log("SR6E | _evaluateTotal: remaining damage = " + this.finished.damage);
-        }
-        console.log("SR6E | _evaluateTotal: return ", this.finished);
-        return total;
-    }
+
     //**********************************************
     _prepareChatMessage() {
         console.log("SR6E | _prepareChatMessage: create SR6ChatMessageData", this);
@@ -141,7 +115,6 @@ export default class SR6Roll extends Roll {
         this.finished.success = this.isSuccess();
         this.finished.threshold = this.configured.threshold;
         this.finished.total = this.total;
-        //this.finished.rollMode = this.configured.rollMode;
         if (this.configured.rollType === RollType.Initiative) {
             this.finished.threshold = 0;
             this.finished.success = true;
@@ -155,7 +128,7 @@ export default class SR6Roll extends Roll {
             if (this.finished.success) {
                 this.finished.netHits = Math.max(0, this.finished.total - this.finished.threshold);
                 this.finished.damage = this.configured.calcDamage + this.finished.netHits;
-                this.finished.soakType = (this.finished.monitor === MonitorType.PHYSICAL) ? SoakType.DAMAGE_PHYSICAL : SoakType.DAMAGE_STUN ;
+                this.finished.soakType = (this.finished.monitor === MonitorType.PHYSICAL) ? SoakType.DAMAGE_PHYSICAL : SoakType.DAMAGE_STUN;
             }
         }
 
@@ -163,7 +136,7 @@ export default class SR6Roll extends Roll {
         if (this.finished.rollType === RollType.Soak) {
             this.finished.damage = Math.max(0, this.finished.threshold - this.finished.total);
 
-            if( this.finished.monitor === MonitorType.PHYSICAL && this.finished.damage > 0 && game.settings.get(SYSTEM_NAME, "armorLessensDmg") ) {
+            if (this.finished.monitor === MonitorType.PHYSICAL && this.finished.damage > 0 && game.settings.get(SYSTEM_NAME, "armorLessensDmg")) {
                 const armorLessensDmg = Math.floor(this.finished.actor.system.defenserating.physical.pool / 4);
                 console.log("SR6E | armorLessensDmg, reducing damage by", armorLessensDmg);
                 const newDamage = Math.max(0, this.finished.damage - armorLessensDmg);
@@ -178,7 +151,7 @@ export default class SR6Roll extends Roll {
             }
 
             if (this.finished.soakType === SoakType.FADING) {
-                if ( (this.finished.threshold - this.result) > this.finished.actor.system.attributes.res.pool) {
+                if ((this.finished.threshold - this.result) > this.finished.actor.system.attributes.res.pool) {
                     this.finished.monitor = MonitorType.PHYSICAL;
                 }
                 // TODO add drain daamge
@@ -196,78 +169,64 @@ export default class SR6Roll extends Roll {
     /**
      * Assign base css classes
      */
-    _assignBaseCSS() {
-        this.dice.forEach((term) => {
-            term.results.forEach((die) => {
-                die.classes = "die die_" + die.result;
-            });
+    applyDiceCss() {
+        this.results.forEach((result) => {
+            result.classes = "die die_" + result.result;
+            if (!result.active)
+                result.classes += ' ignored';
+            if(result.edged)
+                result.classes += ' edged';
         });
     }
     /************************
-     * If there are wild die, assign them the
-     * appropriate CSS class and increase the
+     * If there are wild die, assign them the appropriate CSS class and increase the
      * value of the count
      * @returns TRUE, when 5s shall be ignored
      ************************/
-    _markWildDie() {
+    markWildDie() {
         let ignoreFives = false;
-        if (this.dice.length == 1) {
-            console.log("SR6E | Not a wild die roll");
-            return ignoreFives;
-        }
-        console.log("SR6E | markWildDie: ", this.dice[1]);
-        if (this.dice[1]) {
+
+        this.results.forEach(result => {
             let lastExploded = false;
-            this.dice[1].results.forEach((die) => {
+            if (result.wild) {
                 if (!lastExploded) {
-                    die.classes += "_wild";
-                    die.wild = true;
+                    result.classes += "_wild";
+                    result.wild = true;
                     // A 5 or 6 counts as 3 hits
-                    if (die.success) {
-                        die.count = 3;
+                    if (result.success) {
+                        result.count = 3;
                     }
-                    else if (die.result === 1) {
+                    else if (result.result === 1) {
                         ignoreFives = true;
                     }
                 }
-                lastExploded = die.exploded;
-                console.debug("Die " + die.result + " = " + ignoreFives);
-            });
-        }
-        else {
-            console.error("SR6E | Wild die check not working in V10");
-        }
+                lastExploded = result.exploded;
+            }
+        });
         return ignoreFives;
     }
     /*****************************
      * @override
      */
     modifyResults() {
-        this._assignBaseCSS();
-        let ignoreFives = this._markWildDie();
-        this.dice.forEach((term) => {
-            let addedByExplosion = false;
-            term.results.forEach((result) => {
-                if (addedByExplosion) {
-                    if (result.classes.includes("_wild")) {
-                        result.classes = result.classes.substring(0, result.classes.length - 5);
-                    }
-                    if (!result.classes.includes("_exploded")) {
-                        result.classes += "_exploded";
-                    }
+        this.applyDiceCss();
+        let ignoreFives = this.markWildDie();
+        let addedByExplosion = false;
+        this.results.forEach((result) => {
+            if (addedByExplosion) {
+                if (result.classes.includes("_wild")) {
+                    result.classes = result.classes.substring(0, result.classes.length - 5);
                 }
-                if (result.result == 5 && ignoreFives && result.classes.indexOf("_ignored") < 0) {
-                    result.classes += "_ignored";
-                    result.success = false;
-                    result.count = 0;
+                if (!result.classes.includes(" exploded")) {
+                    result.classes += " exploded";
                 }
-                if (result.exploded) {
-                    addedByExplosion = true;
-                }
-                else {
-                    addedByExplosion = false;
-                }
-            });
+            }
+            if (result.result == 5 && ignoreFives && result.classes.indexOf(" ignored") < 0) {
+                result.classes += " ignored";
+                result.success = false;
+                result.count = 0;
+            }
+            addedByExplosion = result.exploded;
         });
     }
     /**
@@ -277,7 +236,7 @@ export default class SR6Roll extends Roll {
      * @param limit A limit, if any. Negative for no limit.
      * @param explode If the dice should explode on sixes.
      */
-    createFormula(count, limit = -1, explode = false) {
+    static createFormula(count, limit = -1, explode = false) {
         console.log("SR6E | createFormula-------------------------------");
         if (!count) {
             throw new Error("createFormula: Number of dice not set");
@@ -360,7 +319,15 @@ export default class SR6Roll extends Roll {
     getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE, { parts, finished: this.finished, data: this.data, results: this.results, total: this._total });
+        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
+            {
+                parts,
+                finished: this.finished,
+                data: this.data,
+                results: this.results,
+                total: this._total,
+                postEdgeBoosts: EdgeUtil.postEdgeBoosts
+            });
     }
     /*****************************************
      * Render to Chat message
@@ -381,7 +348,7 @@ export default class SR6Roll extends Roll {
                 console.log("SR6E | #####this.finished not set#############");
                 this.finished = new SR6ChatMessageData(this.configured);
             }
-            
+
             // Threshold modifications that impact the succes of the current roll, must be done above (in _prepareChatMessage)
             this.finished.success = this.isSuccess();
             // Threshold modifications that impact the succes of the future rolls, must be done below
@@ -393,7 +360,7 @@ export default class SR6Roll extends Roll {
                 if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
                     console.log("SR6E | rollType", RollType.Soak);
                     this.finished.damage = this.finished.threshold - this.finished.total;
-                    
+
                 } else if (this.finished.rollType === RollType.Weapon) {
                     console.log("SR6E | rollType", RollType.Weapon);
                     // this.finished.total = Attacker hits in this roll
@@ -405,12 +372,12 @@ export default class SR6Roll extends Roll {
                     // this.finished.thresholds = Attacker hits +1 
                     // this.finished.total = Defender hits in this roll
                     if (this.finished.total <= this.finished.threshold) {
-                        this.finished.damage = this.data.calcDamage + (this.finished.threshold-1) - this.finished.total;
+                        this.finished.damage = this.data.calcDamage + (this.finished.threshold - 1) - this.finished.total;
                     }
                     if (this.finished.allowSoak === false) {
                         this.finished.rollType = RollType.Soak;
                     }
-                } else if (this.finished.rollType === RollType.Spell) {     
+                } else if (this.finished.rollType === RollType.Spell) {
                     console.log("SR6E | rollType", RollType.Spell);
                     if (this.configured.spell.category === "combat") {
                         console.log("SR6E | Spell Category combat");
@@ -422,7 +389,7 @@ export default class SR6Roll extends Roll {
                             // Defender must have more hits than the attacker for success, not the same
                             this.finished.threshold = this.finished.total + 1;
                         }
-                    } 
+                    }
                     if (this.configured.spell.withEssence) {
                         this.finished.netHits = this.finished.total - this.configured.threshold;
                     }
@@ -444,7 +411,7 @@ export default class SR6Roll extends Roll {
                 (this.finished.publicRoll = !isPrivate);
             this.finished.tooltip = isPrivate ? "" : await this.getTooltip();
             this.finished.publicRoll = !isPrivate;
-            
+
             // Fixing rollMode
             this.finished.rollMode = this.data.rollMode;
 
@@ -453,19 +420,5 @@ export default class SR6Roll extends Roll {
         finally {
             console.log("SR6E | LEAVE render");
         }
-    }
-}
-export class SR6RollChatMessage extends ChatMessage {
-    hello;
-    total;
-    dice;
-    constructor(data, context) {
-        super(data, context);
-        //console.log("SR6E | In SR6RollChatMessage<init>(", data, " , context,", context);
-        let prepared = data;
-    }
-    getHTML() {
-        //console.log("SR6E | In SR6RollChatMessage.getHTML()", this);
-        return super.getHTML();
     }
 }

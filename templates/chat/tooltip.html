@@ -1,51 +1,27 @@
- <div class="dice-tooltip chat-edge-post-collapsible" style="display:none">
+<div class="dice-tooltip chat-edge-post-collapsible" style="display:none">
     <section class="tooltip-part">
         <div class="dice">
             <ol class="dice-rolls">
                 {{#each results as |result id|}}
-                <li class="{{result.classes}}">&nbsp;</li>
+                <li class="{{#if (lt result.result 6)}}draggable {{/if}}{{result.classes}}" data-index="{{id}}">&nbsp;</li>
                 {{/each}}
             </ol>
         </div>
-	<!-- Edge Boosts and Actions -->
-	{{#unless system.edge_use}}
-	<div class="spend_edge">
-    <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spending"}}</h4>
-    <form>
-    <table style="background-color: transparent; border: 0px;">
-    	<tr>
-    	  <td rowspan="2"  style="width: 38px; vertical-align:top ">
-    	    <div class="edge-roll" style="margin-right: 5px; width:32px; height:32px">
-	         <img src="systems/shadowrun6-eden/images/EdgeToken.webp" style="border: 0px; height: auto; width: 32px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-		      <label class="edge-value" style="top: 5px; width:32px">{{system.edge}}</label>
-	       </div>
-	     </td>
-	     <td>Boost</td>
-	     <td><select name="edgeBoost" class="edgeBoosts">
-            <option value="none" data-item-boostid="none"> - </option>
-            {{#each system.edgeBoosts as |boost id|}}
-            <option value="{{boost.id}}" data-item-boostid="{{boost.id}}">{{localize (concat "shadowrun6.edge_boost."
-                boost.id)}} - ({{boost.cost}})</option>
-            {{/each}}
-            <option value="edge_action" data-item-boostid="edge_action">{{localize "shadowrun6.edge_boost.edge_action"}}</option>
-        </select></td>
-    	</tr>
-    	<tr>
-    		<td>Action</td>
-    		<td><select name="edgeAction" id="edgeActions">
-             <option value="none" data-item-actionid="none"> - </option>
-        </select></td>
-    	</tr>
-    	<tr>
-    		<td colspan="3">
-     			<input type="button" name="edgePerform" class="edgePerform" data-roll-type="edgePerform" style="width: 4em" value="{{localize "shadowrun6.roll.edge_perform"}}" />
-    		</td>
-    	</tr>
-    	<tr><td style="color:red" colspan="3">Work in progress: Edge Actions not working yet</td></tr>
-    </table>
-    </form>
-    </div>
-    {{/unless}}
+
+	    <!-- Edge Boosts and Actions -->
+	    {{#unless data.edge_use}}
+	    {{#if (isOwner data.speaker) }}
+	    <div class="spend_edge">
+            <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spending"}}</h4>
+            <form>
+                <select name="edgeBoostSelect">
+                    {{selectOptions postEdgeBoosts valueAttr="id" labelAttr="label" localize=true}}
+                </select>
+                <button name="edgePerform" class="edgePerform" type="button">{{localize "shadowrun6.roll.edge.spend"}}</button>
+            </form>
+        </div>
+        {{/if}}
+        {{/unless}}
     </section>
 </div>
 

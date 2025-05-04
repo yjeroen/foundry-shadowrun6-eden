@@ -194,6 +194,14 @@ export const defineHandlebarHelper = async function () {
             return options.fn(this);
         }
     });
+    Handlebars.registerHelper('isOwner', function (value, options) {
+        if(value) {
+            if(getActor(value.actor, value.scene, value.token)?.isOwner) {
+                return true
+            }
+        }
+        return false
+    });
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
@@ -350,4 +358,23 @@ export function rollText(classList, rollId, skillSpec) {
         actionText = game.i18n.localize("shadowrun6.rolltext." + rollId);
     }
     return actionText;
+}
+
+export function getActor(actorId, sceneId, tokenId) {
+    let actor = null;
+    if (actorId && sceneId && tokenId) {
+        console.debug("SR6E | Target is a token");
+        // If scene and token ID is given, resolve token
+        const scene = game.scenes.get(sceneId);
+        if (scene) {
+            const token = scene.tokens.get(tokenId);
+            console.log("SR6E | Token ", token);
+            actor = token.actor;
+        }
+    } else if (actorId) {
+        console.debug("SR6E | Target isn't a token but actorId is known");
+        actor = game.actors.get(actorId);
+    }
+
+    return actor;
 }

@@ -1,7 +1,7 @@
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
-import SR6Roll, { SR6RollChatMessage } from "./SR6Roll.js";
+import SR6Roll from "./SR6Roll.js";
 import { registerSystemSettings } from "./settings.js";
 import Shadowrun6Combat from "./Shadowrun6Combat.js";
 import { Shadowrun6Actor } from "./Shadowrun6Actor.js";
@@ -26,6 +26,7 @@ import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
+import { migrateWorld } from "./util/Migrations.js";
 const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
 
 
@@ -48,9 +49,9 @@ Hooks.once("init", async function () {
     game.sr6.config = CONFIG.SR6 = new SR6Config();
     game.sr6.utils = utils;
     game.sr6.macros = macros;
+    game.sr6.sr6roll = SR6Roll;
     registerSystemSettings();
 
-    CONFIG.ChatMessage.documentClass = SR6RollChatMessage;
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
@@ -204,6 +205,8 @@ Hooks.once("init", async function () {
         chatDiceIcon.setAttribute("class", "fas fa-dice");
     });
     Hooks.on("ready", () => {
+        migrateWorld();
+
         // Render a dice roll dialog on click
         $(document).on("click", diceIconSelector, (ev) => {
             console.log("SR6E | diceIconSelector clicked  ", ev);
@@ -308,6 +311,7 @@ Hooks.once("init", async function () {
 
     Hooks.on("renderChatMessage", function (app, html, data) {
         console.log("SR6E | ENTER renderChatMessage");
+        
         registerChatMessageEdgeListener(this, app, html, data);
 
         html.on("click", ".chat-edge", (ev) => {
@@ -490,6 +494,34 @@ Hooks.once("init", async function () {
             }
         });
 
+        // Implement drag & drop for dies
+        const draggableElement = html.find(".draggable.die");
+        if (draggableElement.length) {
+            draggableElement.attr("draggable", true);
+            draggableElement.on("dragstart", (event) => {
+                const dragData = {
+                    type: "Die",
+                    id: data.message._id,
+                    dieIndex: event.currentTarget.dataset.index
+                };
+                event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+            });
+        }
+
+        const dragTargets = html.find(".edgePerform");
+        if (dragTargets.length) {
+            dragTargets.on("drop", (event) => {
+                const dragData = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+                if(dragData.id == data.message._id)
+                {
+                    const boostId = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
+                    EdgeUtil.peformPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
+                }
+            });
+        }
+
+
+
         console.log("SR6E | LEAVE renderChatMessage");
     });
     /**
@@ -606,23 +638,16 @@ $.fn.closestData = function (dataName, defaultValue = "") {
     return value ? value : defaultValue;
 };
 /* -------------------------------------------- */
-function registerChatMessageEdgeListener(event, chatMsg, html, data) {
-    if (!chatMsg.isOwner) {
-        console.log("SR6E | I am not owner of that chat message from " + data.alias);
-        return;
-    }
-    // React to changed edge boosts and actions
-    let boostSelect = html.find(".edgeBoosts");
-    let edgeActions = html.find(".edgeActions");
-    if (boostSelect) {
-        boostSelect.change((event) => EdgeUtil.onEdgeBoostActionChange(event, "POST", chatMsg, html, data));
-        boostSelect.keyup((event) => EdgeUtil.onEdgeBoostActionChange(event, "POST", chatMsg, html, data));
-    }
+function registerChatMessageEdgeListener(event, chatMsg, html, data) {    
     // chatMsg.roll is a SR6Roll
     let btnPerform = html.find(".edgePerform");
     let roll = getRoll(chatMsg);
     if (btnPerform && roll) {
-        btnPerform.click((event) => EdgeUtil.peformPostEdgeBoost(chatMsg, html, data, btnPerform, boostSelect, edgeActions));
+        btnPerform.click((event) => {
+            const edgeType = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
+            const chatMsgId = event.target.closest("[data-message-id]").dataset.messageId;
+            EdgeUtil.peformPostEdgeBoost(chatMsgId, edgeType);
+        });
     }
 }
 function _onRenderVehicleSheet(application, html, data) {
