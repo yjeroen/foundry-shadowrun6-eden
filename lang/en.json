@@ -238,7 +238,7 @@
       "plus_1_roll": "+1 to a single die",
       "plus_3_ini": "Add 3 to your Initiative Score",
       "reroll_failed": "Reroll all failed dice",
-      "reroll_one": "Reroll one die"
+      "reroll_one": "Reroll die"
     },
     "gear": {
       "subtype": {
@@ -1050,7 +1050,7 @@
         "no_gain": "No one gets Edge",
         "situational": "Situational Edge",
         "spending": "Spending Edge",
-        "spend_edge": "Spend edge",
+        "spend_edge": "Spend Edge",
         "edge_spent": "Edge spent: {boostTitle}",
         "spend": "Spend!"
       },
@@ -1615,12 +1615,13 @@
         "only_owner_is_allowed_to_spend_edge": "Only the characters owner is allowed to spend edge.",
         "edge_boost_is_not_post_edge": "'{boostTitle}' is no post roll edge boost",
         "you_require_more_edge": "You require {edge} more edge for this boost.",
-        "no_die_with_a_4": "Your roll does not have a 4.",
+        "no_die_with_a_1_or_4": "Your roll does not have a 1 or 4.",
         "cant_increase_die": "You can't increase this die.",
         "all_dice_are_successes": "All dice are already successes.",
         "character_has_spent_edge": "{actor} has spent {edge} edge.",
         "reduce_edge_from_actor": "Please reduce characters edge by {edge}.",
-        "reroll_failed_requires_index": "Drag a die to reroll on the `Spend` button."
+        "reroll_failed_requires_index": "Select one or more dice before clicking on the `Spend` button.",
+        "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled."
       }
     },
     "EFFECT": {
@@ -1660,6 +1661,13 @@
       "smitten": "Social: Smitten",
       "suckered": "Social: Suckered",
       "irradiated": "Irradiated"
+    },
+    "dice": {
+      "hit": "Hit!",
+      "failed": "Failed!",
+      "wild": "Wild die - 3 hits!",
+      "edge_rerolled": "Rerolled with edge.",
+      "edge_rolled": "Edge dice roll."
     }
   },
   "skill": {

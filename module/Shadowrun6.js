@@ -17,7 +17,7 @@ import { defineHandlebarHelper } from "./util/helper.js";
 import { PreparedRoll, RollType } from "./dice/RollTypes.js";
 import { doRoll } from "./Rolls.js";
 import { SYSTEM_NAME } from "./constants.js";
-import EdgeUtil from "./util/EdgeUtil.js";
+import EdgeRoll from "./dice/EdgeRoll.js";
 import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
@@ -494,33 +494,45 @@ Hooks.once("init", async function () {
             }
         });
 
-        // Implement drag & drop for dies
-        const draggableElement = html.find(".draggable.die");
-        if (draggableElement.length) {
-            draggableElement.attr("draggable", true);
-            draggableElement.on("dragstart", (event) => {
-                const dragData = {
-                    type: "Die",
-                    id: data.message._id,
-                    dieIndex: event.currentTarget.dataset.index
-                };
-                event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+        // Implement drag & drop for dice in chat
+        // const draggableElement = html.find(".draggable.die");
+        // if (draggableElement.length) {
+        //     draggableElement.attr("draggable", true);
+        //     draggableElement.on("dragstart", (event) => {
+        //         const dragData = {
+        //             type: "Die",
+        //             id: data.message._id,
+        //             dieIndex: event.currentTarget.dataset.index
+        //         };
+        //         event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+        //         console.log("SR6E | DRAG Edge Dice Start", dragData);
+        //     });
+        // }
+        // const dragTargets = html.find(".edgePerform");
+        // if (dragTargets.length) {
+        //     dragTargets.on("drop", (event) => {
+        //         const dragData = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+        //         console.log("SR6E | Drop Edge Dice", dragData);
+        //         if(dragData.id == data.message._id)
+        //         {
+        //             const boostId = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
+        //             EdgeRoll.peformPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
+        //         }
+        //     });
+        // }
+        
+        // Implement selecting dice in chat
+        const selectableElement = html.find(".edgeable .selectableDie");
+        if (selectableElement.length) {
+            selectableElement.on("click", (event) => {
+                let selected = event.currentTarget.classList.toggle("selectedDie");
+                let chatMsg = game.messages.get(data.message._id);
+                let roll = chatMsg.rolls[0];
+                let die = roll.finished.results[ event.currentTarget.dataset.index ];
+                die.selectedDie = selected;
+                console.log("SR6E | Dice clicked for Edge boost", roll, die);
             });
         }
-
-        const dragTargets = html.find(".edgePerform");
-        if (dragTargets.length) {
-            dragTargets.on("drop", (event) => {
-                const dragData = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
-                if(dragData.id == data.message._id)
-                {
-                    const boostId = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
-                    EdgeUtil.peformPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
-                }
-            });
-        }
-
-
 
         console.log("SR6E | LEAVE renderChatMessage");
     });
@@ -646,7 +658,7 @@ function registerChatMessageEdgeListener(event, chatMsg, html, data) {
         btnPerform.click((event) => {
             const edgeType = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
             const chatMsgId = event.target.closest("[data-message-id]").dataset.messageId;
-            EdgeUtil.peformPostEdgeBoost(chatMsgId, edgeType);
+            EdgeRoll.peformPostEdgeBoost(chatMsgId, edgeType);
         });
     }
 }

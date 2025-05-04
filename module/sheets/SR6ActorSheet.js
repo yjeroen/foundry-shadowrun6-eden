@@ -107,7 +107,6 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                     return;
                 }
 
-                console.log("SR6E | Edge coin  flip ====================", coin);
                 let translateX = parseInt(coin.dataset.translatex); // -100 ~ 0
                 let rotateY = parseInt(coin.dataset.rotatey);       // -180 ~ 0 ~ 180
                 coin.classList.remove('clickable');
@@ -254,7 +253,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             /*
              * Drag & Drop
              */
-            $(".draggable")
+            $(".sheet .draggable")
                 .on("dragstart", async (event) => {
                 const item = await fromUuidSync(event.currentTarget.dataset.uuid);
                 console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);

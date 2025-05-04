@@ -1,9 +1,9 @@
 <div class="dice-tooltip chat-edge-post-collapsible" style="display:none">
     <section class="tooltip-part">
-        <div class="dice">
+        <div class="dice{{#unless data.edge_use}} edgeable{{/unless}}">
             <ol class="dice-rolls">
                 {{#each results as |result id|}}
-                <li class="{{#if (lt result.result 6)}}draggable {{/if}}{{result.classes}}" data-index="{{id}}">&nbsp;</li>
+                <li class="{{#iff result.result "<" 5}}selectableDie {{/iff}}{{result.classes}}" data-index="{{id}}" title="{{result.title}}">&nbsp;</li>
                 {{/each}}
             </ol>
         </div>
@@ -12,12 +12,15 @@
 	    {{#unless data.edge_use}}
 	    {{#if (isOwner data.speaker) }}
 	    <div class="spend_edge">
-            <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spending"}}</h4>
+            <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spend_edge"}}</h4>
             <form>
-                <select name="edgeBoostSelect">
+                <select name="edgeBoostSelect" class="edgeBoostSelect">
                     {{selectOptions postEdgeBoosts valueAttr="id" labelAttr="label" localize=true}}
                 </select>
-                <button name="edgePerform" class="edgePerform" type="button">{{localize "shadowrun6.roll.edge.spend"}}</button>
+                <button name="edgePerform" class="edgePerform" type="button">
+                    <div class="edgeToken"></div>
+                    {{localize "shadowrun6.roll.edge.spend"}}
+                </button>
             </form>
         </div>
         {{/if}}

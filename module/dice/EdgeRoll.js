@@ -1,8 +1,8 @@
-import { RollType } from "../dice/RollTypes.js";
+import { RollType } from "./RollTypes.js";
 import SR6Roll from "../SR6Roll.js";
-import { getActor } from "./helper.js";
+import { getActor } from "../util/helper.js";
 
-export default class EdgeUtil {
+export default class EdgeRoll {
     static get postEdgeBoosts() {
         return CONFIG.SR6.EDGE_BOOSTS.filter(boost => boost.when == "POST");
     }
@@ -152,44 +152,77 @@ export default class EdgeUtil {
             return;
         }
 
-        const edgeCost = CONFIG.SR6.EDGE_BOOSTS.filter(boost => boost.id == edgeBoost)[0].cost;
-        if (actor?.system.edge.value < edgeCost) {
-            const msg = game.i18n.format("shadowrun6.ui.notifications.you_require_more_edge", { edge: edgeCost - actor.system.edge.value });
-            ui.notifications.error(msg);
+        let edgeCost = CONFIG.SR6.EDGE_BOOSTS.filter(boost => boost.id == edgeBoost)[0].cost;
+
+        if (!EdgeRoll.enoughEdge(actor, edgeCost)){
             return;
         }
-
         let edgeSpent = false;
 
         switch (edgeBoost) {
             case "plus_1_roll":
-                let index = dieIndex;
-                if (!index) {
-                    // Turn a 4 into a 5 by default
+                if (!dieIndex) {
+                    // Check if there are 1's or 4's, else provide a warning
                     let rollResults = roll.finished.results;
                     for (let i = 0; i < rollResults.length; i++) {
-                        const element = rollResults[i];
-                        if (element.result == 4) {
-                            index = i;
+                        if (rollResults[i].result == 1 || rollResults[i].result == 4) {
+                            dieIndex = i;
                             break;
                         }
                     }
-
-                    if (index == null) {
-                        ui.notifications.error("shadowrun6.ui.notifications.no_die_with_a_4", { localize: true });
+                    if (dieIndex == null) {
+                        ui.notifications.error("shadowrun6.ui.notifications.no_die_with_a_1_or_4", { localize: true });
                         return;
                     }
-                }
+                    //bump selected dice
+                    let dice = chatMsg.rolls[0].finished.results;
+                    let numberOfDice = dice.filter(die => die.selectedDie === true).length;
+                    if (numberOfDice == 0) {
+                        ui.notifications.error("shadowrun6.ui.notifications.reroll_failed_requires_index", { localize: true });
+                        return;
+                    }
+                    if (!EdgeRoll.enoughEdge(actor, edgeCost * numberOfDice)){
+                        return;
+                    } else {
+                        edgeCost = edgeCost * numberOfDice;
+                    }
+                    await Promise.all(dice.map(async (die, dieIndex) => {
+                        if (die.selectedDie === true) {
+                            edgeSpent = EdgeRoll.plusOneOnIndex(chatMsg, boostTitle, dieIndex);
+                        }
+                    }));
 
-                edgeSpent = EdgeUtil.plusOneOnIndex(chatMsg, boostTitle, index);
+                } else {
+                    edgeSpent = EdgeRoll.plusOneOnIndex(chatMsg, boostTitle, dieIndex);
+                }
                 break;
 
             case "reroll_one":
-                edgeSpent = await EdgeUtil.reRoll(chatMsg, boostTitle, 1, dieIndex);
+                if (!dieIndex) {
+                    let dice = chatMsg.rolls[0].finished.results;
+                    let numberOfDice = dice.filter(die => die.selectedDie === true).length;
+                    if (numberOfDice == 0) {
+                        ui.notifications.error("shadowrun6.ui.notifications.reroll_failed_requires_index", { localize: true });
+                        return;
+                    }
+                    if (!EdgeRoll.enoughEdge(actor, edgeCost * numberOfDice)){
+                        return;
+                    } else {
+                        edgeCost = edgeCost * numberOfDice;
+                    }
+                    await Promise.all(dice.map(async (die, dieIndex) => {
+                        if (die.selectedDie === true) {
+                            edgeSpent = await EdgeRoll.reRoll(chatMsg, boostTitle, 1, dieIndex);
+                        }
+                    }));
+
+                } else {
+                    edgeSpent = await EdgeRoll.reRoll(chatMsg, boostTitle, 1, dieIndex);
+                }
                 break;
 
             case "reroll_failed":
-                edgeSpent = await EdgeUtil.reRoll(chatMsg, boostTitle, -1);
+                edgeSpent = await EdgeRoll.reRoll(chatMsg, boostTitle, -1);
                 break;
 
             default:
@@ -198,7 +231,7 @@ export default class EdgeUtil {
         }
 
         if (edgeCost && edgeSpent)
-            EdgeUtil.payEdge(edgeCost, actor);
+            EdgeRoll.payEdge(actor, edgeCost);
     }
 
     static plusOneOnIndex(chatMsg, boostTitle, index) {
@@ -216,7 +249,7 @@ export default class EdgeUtil {
         element.result++;
         element.success = element.result > 4;
         element.count = element.success ? 1 : 0;
-        EdgeUtil.markRollResultEdged([element], true, true);
+        EdgeRoll.markRollResultEdged([element], true, true);
         roll.evaluateResult(true);
 
         roll.finished.edge_use = boostTitle;
@@ -229,18 +262,34 @@ export default class EdgeUtil {
         return true;
     } 
 
+    static enoughEdge(actor, edgeCost) {
+        if (actor?.system.edge.value < edgeCost) {
+            const msg = game.i18n.format("shadowrun6.ui.notifications.you_require_more_edge", { edge: edgeCost - actor.system.edge.value });
+            ui.notifications.error(msg);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     static async reRoll(chatMsg, boostTitle, limit, index = null) {
         // Get dice to reroll  and calculate reroll pool
         let roll = chatMsg.rolls[0];
         let rerolled = null;
 
+        // This Edge Boost cannot be used if a glitch or critical glitch is rolled.
+        if (limit < 0 && roll.finished.glitch) {
+            ui.notifications.error("shadowrun6.ui.notifications.edge_boost_cannot_be_used_glitch", { localize: true });
+            return;
+        }
+
         // When a limit is given, ensure the player has selected a dice to reroll
-        if(limit >= 0 && !index) {
+        if(limit >= 0 && index === null) {
             ui.notifications.error("shadowrun6.ui.notifications.reroll_failed_requires_index", { localize: true });
             return false;
         }
 
-        if (index) {
+        if (index >= 0) {
             rerolled = [roll.finished.results[index]];
         } else {
             rerolled = roll.finished.results.filter(result => result.result < 5);
@@ -257,7 +306,7 @@ export default class EdgeUtil {
         }
 
         // Mark rerolled dice as inactive + edged
-        EdgeUtil.markRollResultEdged(rerolled, false, true);
+        EdgeRoll.markRollResultEdged(rerolled, false, true);
 
         // Prepare + evaluate reroll
         const rerollFormula = SR6Roll.createFormula(rerollPool);
@@ -281,7 +330,7 @@ export default class EdgeUtil {
             game.dice3d.showForRoll(reroll, game.user, true);
         }
 
-        EdgeUtil.markRollResultEdged(reroll.results, true, true);
+        EdgeRoll.markRollResultEdged(reroll.results, true, true);
 
         // Merge results of original and reroll
         roll.mergeRolls(reroll);
@@ -308,7 +357,7 @@ export default class EdgeUtil {
         });
     }
 
-    static payEdge(edgeCost, actor) {
+    static payEdge(actor, edgeCost) {
         if (edgeCost > 0) {
             if (actor) {
                 actor.update({ system: { edge: { value: actor.system.edge.value - edgeCost } } });

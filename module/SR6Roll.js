@@ -1,7 +1,7 @@
 import { Defense, MonitorType } from "./config.js";
 import { SR6ChatMessageData, ReallyRoll, RollType, SoakType } from "./dice/RollTypes.js";
 import { SYSTEM_NAME } from "./constants.js";
-import EdgeUtil from "./util/EdgeUtil.js";
+import EdgeRoll from "./dice/EdgeRoll.js";
 /**
  *
  */
@@ -171,11 +171,34 @@ export default class SR6Roll extends Roll {
      */
     applyDiceCss() {
         this.results.forEach((result) => {
-            result.classes = "die die_" + result.result;
+            result.classes = 'die die_' + result.result;
             if (!result.active)
                 result.classes += ' ignored';
             if(result.edged)
                 result.classes += ' edged';
+        });
+    }
+    /**
+     * Assign dice tooltips
+     */
+    applyDiceTooltips() {
+        let title = "";
+        this.results.forEach((result) => {
+
+            if (result.result >= 5) 
+                if (result.wild) 
+                    title = game.i18n.localize("shadowrun6.dice.wild");
+                else
+                title = game.i18n.localize("shadowrun6.dice.hit");
+            else 
+            title = game.i18n.localize("shadowrun6.dice.failed");
+            
+            if (!result.active)
+                title += " " + game.i18n.localize("shadowrun6.dice.edge_rerolled");
+            else if(result.edged)
+                title += " " + game.i18n.localize("shadowrun6.dice.edge_rolled");
+
+            result.title = title;
         });
     }
     /************************
@@ -190,7 +213,7 @@ export default class SR6Roll extends Roll {
             let lastExploded = false;
             if (result.wild) {
                 if (!lastExploded) {
-                    result.classes += "_wild";
+                    result.classes += "_wild wild";
                     result.wild = true;
                     // A 5 or 6 counts as 3 hits
                     if (result.success) {
@@ -210,6 +233,7 @@ export default class SR6Roll extends Roll {
      */
     modifyResults() {
         this.applyDiceCss();
+        this.applyDiceTooltips();
         let ignoreFives = this.markWildDie();
         let addedByExplosion = false;
         this.results.forEach((result) => {
@@ -326,7 +350,7 @@ export default class SR6Roll extends Roll {
                 data: this.data,
                 results: this.results,
                 total: this._total,
-                postEdgeBoosts: EdgeUtil.postEdgeBoosts
+                postEdgeBoosts: EdgeRoll.postEdgeBoosts
             });
     }
     /*****************************************
