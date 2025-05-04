@@ -27,6 +27,7 @@ import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
 import { migrateWorld } from "./util/Migrations.js";
+import SR6SocketHandler from './util/SR6SocketHandler.js';
 const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
 
 
@@ -50,6 +51,7 @@ Hooks.once("init", async function () {
     game.sr6.utils = utils;
     game.sr6.macros = macros;
     game.sr6.sr6roll = SR6Roll;
+    game.sr6.sockets = new SR6SocketHandler();
     registerSystemSettings();
 
     CONFIG.Combat.documentClass = Shadowrun6Combat;
@@ -70,6 +72,9 @@ Hooks.once("init", async function () {
 
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
+
+    // Initialize socket handler
+    game.sr6.sockets.registerSocketListeners();
 
     //	(CONFIG as any).compatibility.mode = 0;
     getData(game).initiative = "@initiative.physical.pool + (@initiative.physical.dicePool)d6";
@@ -358,7 +363,7 @@ Hooks.once("init", async function () {
                 actor = (token?.actor.isOwner) ? token?.actor : null;
             } else {
                 console.log("SR6E | No targets, selecting current token selected");
-                //Use current target token
+                //Use currently selected token
                 canvas.tokens.controlled.forEach((target) => {
                     token = target;
                 });
@@ -522,17 +527,26 @@ Hooks.once("init", async function () {
         // }
         
         // Implement selecting dice in chat
-        const selectableElement = html.find(".edgeable .selectableDie");
-        if (selectableElement.length) {
-            selectableElement.on("click", (event) => {
-                let selected = event.currentTarget.classList.toggle("selectedDie");
-                let chatMsg = game.messages.get(data.message._id);
-                let roll = chatMsg.rolls[0];
-                let die = roll.finished.results[ event.currentTarget.dataset.index ];
-                die.selectedDie = selected;
-                console.log("SR6E | Dice clicked for Edge boost", roll, die);
-            });
-        }
+        html.on("click", ".edgeable .selectableDie", (event) => {
+            console.log("SR6E | Dice clicked for Edge boost");
+            event.preventDefault();
+            let selected = event.currentTarget.classList.toggle("selectedDie");
+            let chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
+            let roll = chatMsg.rolls[0];
+            let die = roll.finished.results[ event.currentTarget.dataset.index ];
+            die.selectedDie = selected;
+        });
+        // const selectableElement = html.find(".edgeable .selectableDie");
+        // if (selectableElement.length) {
+        //     selectableElement.on("click", (event) => {
+        //         let selected = event.currentTarget.classList.toggle("selectedDie");
+        //         let chatMsg = game.messages.get(data.message._id);
+        //         let roll = chatMsg.rolls[0];
+        //         let die = roll.finished.results[ event.currentTarget.dataset.index ];
+        //         die.selectedDie = selected;
+        //         console.log("SR6E | Dice clicked for Edge boost", die);
+        //     });
+        // }
 
         console.log("SR6E | LEAVE renderChatMessage");
     });

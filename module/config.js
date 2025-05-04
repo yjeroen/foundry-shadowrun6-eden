@@ -359,7 +359,7 @@ export class SR6Config {
         ["tasking", new SkillDefinition("res", false)]
     ]);
     EDGE_BOOSTS = [
-        new EdgeBoost(1, "reroll_one", "POST"),
+        new EdgeBoost(1, "reroll_one", "POST", "OPPONENT"),
         new EdgeBoost(1, "plus_3_ini", "ANYTIME"),
         new EdgeBoost(2, "plus_1_roll", "POST"),
         new EdgeBoost(2, "give_ally_1_edge", "ANYTIME"),
@@ -369,7 +369,7 @@ export class SR6Config {
         new EdgeBoost(4, "add_edge_pool", "PRE"),
         new EdgeBoost(4, "heal_1_physic", "ANYTIME"),
         new EdgeBoost(4, "reroll_failed", "POST"),
-        new EdgeBoost(5, "count_2_glitch", "PRE"),
+        new EdgeBoost(5, "count_2_glitch", "PRE", "OPPONENT"),
         new EdgeBoost(5, "create_special", "ANYTIME")
     ];
     EDGE_ACTIONS = [

@@ -238,6 +238,7 @@
       "plus_1_roll": "+1 to a single die",
       "plus_3_ini": "Add 3 to your Initiative Score",
       "reroll_failed": "Reroll all failed dice",
+      "reroll_opponent_one": "Reroll opponents die",
       "reroll_one": "Reroll die"
     },
     "gear": {
@@ -1052,7 +1053,8 @@
         "spending": "Spending Edge",
         "spend_edge": "Spend Edge",
         "edge_spent": "Edge spent: {boostTitle}",
-        "spend": "Spend!"
+        "spend": "Spend!",
+        "original_test": "Original test by:"
       },
       "edge_perform": "Do it",
       "edgegain": "Edge-Gain (max): ",
@@ -1598,8 +1600,10 @@
     "ui": {
       "notifications": {
         "You_are_not_owner_of_the_target": "You are not owner of the target.",
+        "You_are_not_owner_of_the_token": "You are not owner of the token.",
         "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "You can only choose Wide Burst when you target (T) two tokens.",
         "Target_or_select_a_token_before_rolling": "Target or select a token before rolling.",
+        "Select_a_token_first": "Select a token first, or configure your Player Character actor in your User Configuration.",
         "Target_a_token_before_rolling": "Target (T) a token before rolling.",
         "Dice_roll_evaluation_failed": "Dice roll evaluation failed",
         "two_targets_but_wrong_fire_mode": "You have two targets, so you can only fire using Burst Fire: Wide Burst, or using Full Auto mode.",
@@ -1612,13 +1616,13 @@
         "You_are_not_owner_of_the_tokens": "You are not owner of the selected tokens.",
         "no_weapon_skill_set": "Please edit the weapon to assign a linked skill, before rolling.",
         "vehicle_has_no_owner": "Vehicle has no owner assigned.",
-        "only_owner_is_allowed_to_spend_edge": "Only the characters owner is allowed to spend edge.",
+        "only_owner_is_allowed_to_spend_edge": "Only the characters owner is allowed to spend edge on this edge boost.",
         "edge_boost_is_not_post_edge": "'{boostTitle}' is no post roll edge boost",
-        "you_require_more_edge": "You require {edge} more edge for this boost.",
+        "you_require_more_edge": "Not enough Edge available. You require {edge} more for this boost.",
         "no_die_with_a_1_or_4": "Your roll does not have a 1 or 4.",
         "cant_increase_die": "You can't increase this die.",
         "all_dice_are_successes": "All dice are already successes.",
-        "character_has_spent_edge": "{actor} has spent {edge} edge.",
+        "character_has_spent_edge": "{actor} has spent {edge} edge on the Edge Boost <b>{edgeBoost}</b>.",
         "reduce_edge_from_actor": "Please reduce characters edge by {edge}.",
         "reroll_failed_requires_index": "Select one or more dice before clicking on the `Spend` button.",
         "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled."

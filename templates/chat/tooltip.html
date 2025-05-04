@@ -10,12 +10,15 @@
 
 	    <!-- Edge Boosts and Actions -->
 	    {{#unless data.edge_use}}
-	    {{#if (isOwner data.speaker) }}
 	    <div class="spend_edge">
             <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spend_edge"}}</h4>
             <form>
                 <select name="edgeBoostSelect" class="edgeBoostSelect">
+	            {{#if (isOwner data.speaker) }}
                     {{selectOptions postEdgeBoosts valueAttr="id" labelAttr="label" localize=true}}
+                {{else}}
+                    {{selectOptions postEdgeBoostsOpponent valueAttr="id" labelAttr="label" localize=true}}
+                {{/if}}
                 </select>
                 <button name="edgePerform" class="edgePerform" type="button">
                     <div class="edgeToken"></div>
@@ -23,7 +26,6 @@
                 </button>
             </form>
         </div>
-        {{/if}}
         {{/unless}}
     </section>
 </div>

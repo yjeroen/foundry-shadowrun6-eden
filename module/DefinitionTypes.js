@@ -22,11 +22,13 @@ export class EdgeBoost {
     cost;
     id;
     when;
+    opponent;
     label;
-    constructor(cost, id, when) {
+    constructor(cost, id, when, opponent) {
         this.cost = cost;
         this.id = id;
         this.when = when;
+        this.opponent = opponent;
         this.label = 'shadowrun6.edge_boost.'+id
     }
 }

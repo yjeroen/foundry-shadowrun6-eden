@@ -609,6 +609,10 @@ a.item-control.disabled-roll:hover {
 .chat-message .edgePerform {
   margin: 0.5em 0;
 }
+.chat-message .message-header .flavor-text {
+  color: var(--highlight-color);
+  font-size: var(--font-size-14);
+}
 .edgeToken {
   background-image: url(../images/EdgeToken.webp);
   background-size: 1.5em 1.5em;

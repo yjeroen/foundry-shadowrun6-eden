@@ -378,3 +378,27 @@ export function getActor(actorId, sceneId, tokenId) {
 
     return actor;
 }
+
+export function getSelectedActor(defaultedActor = null) {
+    let actor = null;
+
+    //Use currently selected token
+    if (canvas.tokens.controlled.length) {
+        canvas.tokens.controlled.forEach((selectedToken) => {
+            actor = selectedToken.isOwner ? selectedToken.actor : null;
+        });
+    } 
+
+    // Else get the player's character actor
+    if (!actor) {
+        actor = game.user.character; // returns null if GM or not set
+    }
+    
+    if (actor === null && defaultedActor === null) {
+        console.log("SR6E | No target actor found");
+        ui.notifications.warn("shadowrun6.ui.notifications.Select_a_token_first", { localize: true });
+    }
+
+    // Else use the defaulted actor if its there else return null
+    return actor ?? defaultedActor;
+}

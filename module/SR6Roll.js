@@ -350,7 +350,8 @@ export default class SR6Roll extends Roll {
                 data: this.data,
                 results: this.results,
                 total: this._total,
-                postEdgeBoosts: EdgeRoll.postEdgeBoosts
+                postEdgeBoosts: EdgeRoll.postEdgeBoosts,
+                postEdgeBoostsOpponent: EdgeRoll.postEdgeBoostsOpponent
             });
     }
     /*****************************************

@@ -22,8 +22,9 @@
   "compatibility": {
     "minimum": "12",
     "verified": "12.331",
-    "maximum": ""
+    "maximum": "13"
   },
+  "socket": true,
   "esmodules": [
     "module/Shadowrun6.js"
   ],
