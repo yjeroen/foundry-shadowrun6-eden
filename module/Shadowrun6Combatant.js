@@ -1,11 +1,14 @@
 import { InitiativeType } from "./dice/RollTypes.js";
 export default class Shadowrun6Combatant extends Combatant {
     edgeGained = 0;
-    constructor(data, context) {
-        super(data, context);
-        console.log("SR6E | Shadowrun6Combatant.<init>");
-        this.setFlag("shadowrun6-eden", "iniType", InitiativeType.PHYSICAL);
-    }
+
+    async _preCreate(data, options, user) {
+        await super._preCreate(data, options, user);
+        console.log("SR6E | Shadowrun6Combatant.preCreate");
+      
+        return this.updateSource({ 'flags.shadowrun6-eden.iniType': InitiativeType.PHYSICAL });
+      }
+
     get initiativeType() {
         return this.getFlag("shadowrun6-eden", "iniType");
     }
