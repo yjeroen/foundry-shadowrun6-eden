@@ -76,8 +76,9 @@ export class Shadowrun6Actor extends Actor {
         }
         try {
             if (actorData.type === "Spirit") {
-                this._applySpiritPreset();
-                this._applyForce();
+                const force = parseInt(system.rating);
+                this._applySpiritPreset(force);
+                this._applyForce(force);
             }
             this._prepareAttributes();
             this._prepareDerivedAttributes();
@@ -164,77 +165,118 @@ export class Shadowrun6Actor extends Actor {
     /**
      * Apply the force rating as a attribute and skill modifier
      */
-    _applySpiritPreset() {
-        const data = getSystemData(this);
+    _applySpiritPreset(force) {
+        const system = getSystemData(this);
         // Only run on spirits
-        if (!isSpiritOrSprite(data))
+        if (!isSpiritOrSprite(system))
             return;
-        switch (data.spiritType) {
+        if (!system.defenserating)
+            system.defenserating = new Ratings();
+        switch (system.spiritType) {
             case 'air':
-                data.attributes.bod.base = 2;
-                data.attributes.agi.base = 3;
-                data.attributes.rea.base = 3;
-                data.attributes.str.base = 0;
-                data.attributes.wil.base = 0;
-                data.attributes.log.base = 0;
-                data.attributes.int.base = 0;
-                data.attributes.cha.base = 0;
-                data.attributes.mag.base = 0;
+                system.attributes.bod.mod = -2;
+                system.attributes.agi.mod = 3;
+                system.attributes.rea.mod = 4;
+                system.attributes.str.mod = -3;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+2;
+                system.initiative.physical.base = (force * 2)+4;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
                 break;
             case 'beasts':
-                data.attributes.bod.base = 2;
-                data.attributes.agi.base = 1;
-                data.attributes.rea.base = 0;
-                data.attributes.str.base = 2;
-                data.attributes.wil.base = 0;
-                data.attributes.log.base = 0;
-                data.attributes.int.base = 0;
-                data.attributes.cha.base = 0;
-                data.attributes.mag.base = 0;
+                system.attributes.bod.mod = 2;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 0;
+                system.attributes.str.mod = 2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+2;
+                system.initiative.physical.base = (force * 2);
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
                 break;
             case 'earth':
-                data.attributes.bod.base = 4;
-                data.attributes.agi.base = 2;
-                data.attributes.rea.base = -1;
-                data.attributes.str.base = 4;
-                data.attributes.wil.base = 0;
-                data.attributes.log.base = -1;
-                data.attributes.int.base = 0;
-                data.attributes.cha.base = 0;
-                data.attributes.mag.base = 0;
+                system.attributes.bod.mod = 4;
+                system.attributes.agi.mod = -2;
+                system.attributes.rea.mod = -1;
+                system.attributes.str.mod = 4;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = -1;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+4;
+                system.initiative.physical.base = (force * 2)-1;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
                 break;
             case 'fire':
-                data.attributes.bod.base = 1;
-                data.attributes.agi.base = 2;
-                data.attributes.rea.base = 3;
-                data.attributes.str.base = 2;
-                data.attributes.wil.base = 0;
-                data.attributes.log.base = 0;
-                data.attributes.int.base = 1;
-                data.attributes.cha.base = 0;
-                data.attributes.mag.base = 0;
+                system.attributes.bod.mod = 1;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 3;
+                system.attributes.str.mod = -2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+1;
+                system.initiative.physical.base = (force * 2)+4;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
                 break;
             case 'kin':
-                data.attributes.bod.base = 1;
-                data.attributes.agi.base = 0;
-                data.attributes.rea.base = 2;
-                data.attributes.str.base = -2;
-                data.attributes.wil.base = 0;
-                data.attributes.log.base = 0;
-                data.attributes.int.base = 1;
-                data.attributes.cha.base = 0;
-                data.attributes.mag.base = 0;
+                system.attributes.bod.mod = 1;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = -2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+1;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
                 break;
             case 'water':
-                data.attributes.bod.base = 0;
-                data.attributes.agi.base = 1;
-                data.attributes.rea.base = 2;
-                data.attributes.str.base = 0;
-                data.attributes.wil.base = 0;
-                data.attributes.log.base = 0;
-                data.attributes.int.base = 1;
-                data.attributes.cha.base = 0;
-                data.attributes.mag.base = 0;
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2);
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["athletics"].specialization = "swimming";
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
                 break;
         }
     }
@@ -242,42 +284,43 @@ export class Shadowrun6Actor extends Actor {
     /**
      * Apply the force rating as a attribute and skill modifier
      */
-    _applyForce() {
-        const data = getSystemData(this);
+    _applyForce(force) {
+        const system = getSystemData(this);
         // Only run on spirits
-        if (isSpiritOrSprite(data)) {
-            const force = parseInt(data.rating);
-            data.mortype = "mysticadept";
-            CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
-                data.attributes[attr].mod = force;
+        if (isSpiritOrSprite(system)) {
+            system.mortype = "mysticadept";
+            CONFIG.SR6.PRIMARY_ATTRIBUTES.forEach((attr) => {
+                system.attributes[attr].base = force;
             });
             CONFIG.SR6.ATTRIB_BY_SKILL.forEach(function (skillDef, id) {
-                let skill = data.skills[id];
+                let skill = system.skills[id];
                 skill.modifier = 0;
                 if (skill.points > 0) {
                     skill.points = force;
                 }
             });
             // Magic rating
-            data.attributes.mag.base = 0;
-            data.essence = force;
-            if (!data.defenserating)
-                data.defenserating = new Ratings();
-            data.defenserating.physical.base = force;
-            data.defenserating.astral.base = force;
-            data.initiative.physical.base = force * 2;
-            data.initiative.physical.pool = data.initiative.physical.base + data.initiative.physical.mod;
-            data.initiative.physical.dicePool = Math.min(5, data.initiative.physical.dice + data.initiative.physical.diceMod);
-            data.initiative.actions = data.initiative.physical.dicePool + 1;
-            data.initiative.astral.base = force * 2;
-            data.initiative.astral.pool = data.initiative.astral.base + data.initiative.astral.mod;
-            data.initiative.astral.dicePool = data.initiative.astral.dice + data.initiative.astral.diceMod;
-            data.physical.max = 8 + Math.round(data.attributes.wil.pool / 2) + data.physical.mod;
-            data.physical.value = data.physical.max - data.physical.dmg;
-            data.stun.max = 0;
-            data.stun.value = 0;
-            data.stun.dmg = 0;
-            data.stun.mod = 0;
+            system.attributes.mag.base = force;
+            system.essence = force;
+            //Set initiative dice to 2d6 for phy and 3d6 for astral
+            system.initiative.physical.dice = 2;
+            system.initiative.astral.dice = 3;
+            
+            system.defenserating.astral.base = force;
+            system.initiative.physical.base = force * 2;
+            system.initiative.physical.pool = system.initiative.physical.base + system.initiative.physical.mod;
+            system.initiative.physical.dicePool = Math.min(5, system.initiative.physical.dice + system.initiative.physical.diceMod);
+            system.initiative.actions = system.initiative.physical.dicePool + 1;
+            system.initiative.astral.base = force * 2;
+            system.initiative.astral.pool = system.initiative.astral.base + system.initiative.astral.mod;
+            system.initiative.astral.dicePool = system.initiative.astral.dice + system.initiative.astral.diceMod;
+
+            system.physical.max = 8 + Math.round(force / 2) + system.physical.mod;
+            system.physical.value = system.physical.max - system.physical.dmg;
+            system.stun.max = 0;
+            system.stun.value = 0;
+            system.stun.dmg = 0;
+            system.stun.mod = 0;
         }
     }
     //---------------------------------------------------------
@@ -285,19 +328,19 @@ export class Shadowrun6Actor extends Actor {
      * Calculate the final attribute values
      */
     _prepareAttributes() {
-        const data = getSystemData(this);
+        const system = getSystemData(this);
         // Only run on lifeforms
-        if (isLifeform(data)) {
+        if (isLifeform(system)) {
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
-                if (!(data.attributes[attr].base) || data.attributes[attr].base < 1)
-                    data.attributes[attr].base = 1;
-                if (!(data.attributes[attr].mod) || data.attributes[attr].mod < 0)
-                    data.attributes[attr].mod = 0;
+                if (!(system.attributes[attr].base) || system.attributes[attr].base < 1)
+                    system.attributes[attr].base = 1;
+                if (!(system.attributes[attr].mod) || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system)))
+                    system.attributes[attr].mod = 0;
 
-                data.attributes[attr].pool = data.attributes[attr].base + parseInt(data.attributes[attr].mod);
+                system.attributes[attr].pool = system.attributes[attr].base + Math.max(0, parseInt(system.attributes[attr].mod));
             });
-            if (data.edge.value > 7) {
-                data.edge.value = 7;
+            if (system.edge.value > 7) {
+                system.edge.value = 7;
             }
         }
     }

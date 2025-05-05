@@ -504,7 +504,7 @@
 				"knowledge-template"
 			],
 			"rating" : 1,
-			"spiritType": "",
+			"spiritType": "air",
 			"editmode": false
 		},
 		"Vehicle": {
