@@ -345,6 +345,12 @@ export function rollText(classList, rollId, skillSpec) {
     else if (classList.includes("attributeonly-roll")) {
         actionText = game.i18n.localize("shadowrun6.derived." + rollId);
     }
+    else if (rollId === "legwork") {
+        if (classList.includes("legwork-roll"))
+            actionText = game.i18n.localize("shadowrun6.legwork.legwork_rolltext");
+        else 
+            actionText = game.i18n.localize("shadowrun6.legwork.loyalty_rolltext");
+    }
     else if (classList.includes("skill-roll")) {
         actionText = game.i18n.localize("skill." + rollId);
         if (skillSpec !== undefined) {

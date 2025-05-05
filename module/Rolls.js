@@ -62,8 +62,8 @@ async function _showRollDialog(data) {
         if (!data.calcPool || data.calcPool == 0) {
             data.calcPool = data.pool;
             if (data.actor) {
-                data.useWoundModifier = true;
-                data.useSustainedSpellModifier = true;
+                data.useWoundModifier = data.dialogConfig?.useWoundModifier === false ? false : true;
+                data.useSustainedSpellModifier = data.dialogConfig?.useSustainedSpellModifier === false ? false : true;
 
                 // Don't use wound modifier on Resist Damage tests
                 if (data.rollType == RollType.Soak) {

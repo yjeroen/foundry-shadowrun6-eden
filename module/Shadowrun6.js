@@ -336,13 +336,16 @@ Hooks.once("init", async function () {
             console.log("SR6E | ENTER renderChatMessage.rollable.click -> event.currentTarget = ", event.currentTarget);
             const button = event.currentTarget;
             const dataset = button.dataset;
+            const actorUuid = dataset.actorUuid;
             let actorId = dataset["actorid"] ? dataset["actorid"] : dataset["targetActor"];
             let sceneId = dataset["sceneid"];
             let tokenId = dataset["targetid"] ? dataset["targetid"] : dataset["targetToken"];
             let actor;
             let token;
 
-            if (actorId && sceneId && tokenId) {
+            if (actorUuid) {
+                actor = game.actors.get(actorUuid);
+            } else if (actorId && sceneId && tokenId) {
                 console.log("SR6E | Target is a token");
                 // If scene and token ID is given, resolve token
                 let scene = game.scenes.get(sceneId);
@@ -395,6 +398,22 @@ Hooks.once("init", async function () {
             console.log("SR6E | Target actor ", actor);
             console.log("SR6E | Target actor ", actor.name);
             switch (rollType) {
+                case RollType.Legwork:
+                    console.log("SR6E | Processing Rollable Chatbutton for Legwork");
+                    const loyaltyRoll = new PreparedRoll();
+                    loyaltyRoll.pool = actor.system.skills.influence.pool + parseInt(dataset.loyalty);
+                    loyaltyRoll.rollType = RollType.Legwork;
+                    loyaltyRoll.actionText = game.sr6.utils.rollText('', 'legwork');
+                    loyaltyRoll.allowBuyHits = true;
+                    loyaltyRoll.threshold = 1;
+                    loyaltyRoll.checkText = game.i18n.format("shadowrun6.legwork.loyalty_description", { name: dataset.contact });
+                    loyaltyRoll.legwork = { legworkResult: parseInt(dataset.legworkResult) };
+                    const dialogConfig = {
+                        useWoundModifier: false,
+                        useSustainedSpellModifier: false
+                    };
+                    actor.rollCommonCheck(loyaltyRoll, dialogConfig);
+                    break;
                 case RollType.Defense:
                     /* Avoid being hit/influenced */
                     console.log("SR6E | TODO: call rollDefense with threshold " + threshold);

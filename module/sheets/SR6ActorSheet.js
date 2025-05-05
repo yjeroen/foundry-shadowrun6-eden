@@ -84,6 +84,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".matrix-roll").click(this._onMatrixAction.bind(this));
             html.find(".complexform-roll").click(this._onRollComplexFormCheck.bind(this));
             html.find(".attributeonly-roll").click(this._onCommonCheck.bind(this));
+            html.find(".legwork-roll").click(this._onCommonCheck.bind(this));
             this.activateCreationListener(html);
             html.find(".item-delete").click((event) => {
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
@@ -666,11 +667,12 @@ export class Shadowrun6ActorSheet extends ActorSheet {
     _onCommonCheck(event, html) {
         console.log("SR6E | onCommonCheck");
         event.preventDefault();
-        let roll = new PreparedRoll();
-        roll.pool = parseInt(event.currentTarget.dataset.pool);
-        roll.rollType = RollType.Common;
+        const data = event.currentTarget.dataset;
         let classList = event.currentTarget.classList.value;
-        let rollId = event.currentTarget.dataset.rollId;
+        let rollId = data.rollId;
+        let roll = new PreparedRoll();
+        roll.pool = parseInt(data.pool);
+        roll.rollType = RollType.Common;
         roll.actionText = game.sr6.utils.rollText(classList, rollId);
 
         let dialogConfig;
@@ -695,6 +697,21 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 useThreshold: true
             };
         }
+        else if (rollId = "legwork") {
+            roll.rollType = RollType.Legwork;
+            roll.pool = parseInt(data.connection) * 2;
+            roll.allowBuyHits = true;
+            roll.threshold = 1;
+            roll.legwork = { loyalty: parseInt(data.loyalty), contact: data.contact };
+            if (classList.includes("legwork-roll"))
+                roll.checkText = game.i18n.format("shadowrun6.legwork.legwork_description", { name: data.contact });
+            else
+                roll.checkText = game.i18n.format("shadowrun6.legwork.loyalty_description", { name: data.contact });
+            dialogConfig = {
+                useWoundModifier: false,
+                useSustainedSpellModifier: false
+            };
+        }
         else {
             roll.allowBuyHits = true;
             roll.useWildDie = 1;
@@ -703,7 +720,7 @@ export class Shadowrun6ActorSheet extends ActorSheet {
                 useThreshold: true
             };
         }
-        //TODO rework dialogConfig because its not used..
+        //TODO dialogConfig.useModifier and useThreshold aren't used in Rolls._showRollDialog
         this.actor.rollCommonCheck(roll, dialogConfig);
     }
     //-----------------------------------------------------

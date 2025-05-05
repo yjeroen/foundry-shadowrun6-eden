@@ -62,6 +62,52 @@
     </div>
    </div>
 
+   {{#if (eq rollType "legwork")}}
+   <!-- Legwork Details -->
+   <div class="chat-legwork">
+      <hr>
+      <h4>{{ configured.checkText }}</h4>
+      {{#if configured.legwork.loyalty}}
+        <ul>
+          {{#iff total ">=" 10}}<li>{{localize 'shadowrun6.legwork.results.10' }}</li>{{/iff}}
+          {{#iff total ">=" 9}}<li>{{localize 'shadowrun6.legwork.results.9' }}</li>{{/iff}}
+          {{#iff total ">=" 8}}<li>{{localize 'shadowrun6.legwork.results.8' }}</li>{{/iff}}
+          {{#iff total ">=" 7}}<li>{{localize 'shadowrun6.legwork.results.7' }}</li>{{/iff}}
+          {{#iff total ">=" 6}}<li>{{localize 'shadowrun6.legwork.results.6' }}</li>{{/iff}}
+          {{#iff total ">=" 5}}<li>{{localize 'shadowrun6.legwork.results.5' }}</li>{{/iff}}
+          {{#iff total ">=" 4}}<li>{{localize 'shadowrun6.legwork.results.4' }}</li>{{/iff}}
+          {{#iff total ">=" 3}}<li>{{localize 'shadowrun6.legwork.results.3' }}</li>{{/iff}}
+          {{#iff total ">=" 2}}<li>{{localize 'shadowrun6.legwork.results.2' }}</li>{{/iff}}
+          {{#iff total ">=" 1}}<li>{{localize 'shadowrun6.legwork.results.1' }}</li>{{/iff}}
+          {{#iff total "==" 0}}<li>{{localize 'shadowrun6.legwork.results.0' }}</li>{{/iff}}
+        </ul>
+        <hr>
+        <button class="rollable loyalty-roll" data-roll-type="legwork" data-loyalty="{{configured.legwork.loyalty}}" data-contact="{{configured.legwork.contact}}" data-legwork-result="{{total}}"
+                data-targetid="{{configured.speaker.token}}" data-actorId="{{configured.speaker.actor}}" data-sceneId="{{configured.speaker.scene}}">
+          {{localize 'shadowrun6.contact.loyalty'}} ({{configured.legwork.loyalty}})
+        </button>
+      {{else}}
+        <ul>
+          {{#iff legwork.legworkResult ">=" 10}}{{#iff total ">=" 10}}<li>{{localize 'shadowrun6.legwork.results.10' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 9}}{{#iff total ">=" 9}}<li>{{localize 'shadowrun6.legwork.results.9' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 8}}{{#iff total ">=" 8}}<li>{{localize 'shadowrun6.legwork.results.8' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 7}}{{#iff total ">=" 7}}<li>{{localize 'shadowrun6.legwork.results.7' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 6}}{{#iff total ">=" 6}}<li>{{localize 'shadowrun6.legwork.results.6' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 5}}{{#iff total ">=" 5}}<li>{{localize 'shadowrun6.legwork.results.5' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 4}}{{#iff total ">=" 4}}<li>{{localize 'shadowrun6.legwork.results.4' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 3}}{{#iff total ">=" 3}}<li>{{localize 'shadowrun6.legwork.results.3' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 2}}{{#iff total ">=" 2}}<li>{{localize 'shadowrun6.legwork.results.2' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult ">=" 1}}{{#iff total ">=" 1}}<li>{{localize 'shadowrun6.legwork.results.1' }}</li>{{/iff}}{{/iff}}
+          {{#iff legwork.legworkResult "==" 0}}{{#iff total "==" 0}}<li>{{localize 'shadowrun6.legwork.results.0' }}</li>{{/iff}}{{/iff}}
+        </ul>
+        {{#iff legwork.legworkResult ">" total}}
+          <hr>
+          <div class="payformore">{{localize 'shadowrun6.legwork.payformore' }}</div>
+        {{/iff}}
+      {{/if}}
+   </div>
+   {{/if}}
+
    {{#if (eq rollType "weapon")}}
    <!-- Usage Details -->
    <div class="chat-weapon">

@@ -175,12 +175,13 @@
       "threshold": "Threshold"
     },
     "contact": {
-      "rating_short": "Rtg",
-      "rating": "Rating",
+      "rating_short": "Conn",
+      "rating": "Connection",
       "loyalty": "Loyalty",
       "loyalty_short": "Loy",
       "favors": "Favors",
       "favors_short": "Fav",
+      "legwork": "Legwork",
       "type": "Type"
     },
     "defense": {
@@ -1679,6 +1680,26 @@
       "wild": "Wild die - 3 hits!",
       "edge_rerolled": "Rerolled with edge.",
       "edge_rolled": "Edge dice roll."
+    },
+    "legwork": {
+      "legwork_rolltext": "Legwork // Connection",
+      "loyalty_rolltext": "Legwork // Loyalty",
+      "legwork_description": "How much does {name} know or can find out via their network?",
+      "loyalty_description": "How willing is {name} to share what they know or can find out with you?",
+      "payformore": "«You know, I've got expenses that I need to cover. For some extra nuyen I can help you with more information..»",
+      "results": {
+        "0": "No useful information.",
+        "1": "Basic, broadly available background information.",
+        "2": "A few nuggets of information gleaned from casual study.",
+        "3": "Information from previous coursework or loose professional knowledge.",
+        "4": "More esoteric knowledge, some whispers of gossip.",
+        "5": "Deep academic familiarity, strong professional knowledge, behind-the-scenes familiarity.",
+        "6": "Knowledge of secrets and hidden information.",
+        "7": "High-level information, solid understanding of history.",
+        "8": "Almost encyclopedic knowledge, including some deep secrets.",
+        "9": "Rare knowledge only available to a select few.",
+        "10": "Deep secrets others actively try to hide."
+      }
     }
   },
   "skill": {

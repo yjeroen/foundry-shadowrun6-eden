@@ -17,6 +17,7 @@ export var RollType;
     /** Directly apply the given damage */
     RollType["Damage"] = "damage";
     RollType["Initiative"] = "initiative";
+    RollType["Legwork"] = "legwork";
 })(RollType || (RollType = {}));
 export var SoakType;
 (function (SoakType) {
@@ -75,6 +76,7 @@ class CommonRollData {
     pool;
     calcPool;
     edgePoolIgnoringCap = 0;
+    legwork;
     copyFrom(copy) {
         this.speaker = copy.speaker;
         this.rollMode = copy.rollMode;
@@ -90,6 +92,7 @@ class CommonRollData {
         this.pool = copy.pool;
         this.edgePoolIgnoringCap = copy.edgePoolIgnoringCap;
         if (copy.dualHand) this.dualHand = copy.dualHand;
+        if (copy.legwork) this.legwork = copy.legwork;
     }
     validateDialog() {}
     checkHardDiceCap(pool) {
@@ -429,6 +432,7 @@ export class ConfiguredRoll extends CommonRollData {
     /** Target tokens */
     targetIds;
     threshold;
+    legwork;
     /* This methods is a horrible crime - there must be a better solution */
     updateSpecifics(copy) {
         this.targetIds = copy.targets;
@@ -468,6 +472,7 @@ export class ConfiguredRoll extends CommonRollData {
         this.threshold = copy.threshold;
         this.soakType = copy.soakType;
         this.monitor = copy.monitor;
+        if (copy.legwork) this.legwork = copy.legwork;
     }
 }
 /**
@@ -513,6 +518,7 @@ export class SR6ChatMessageData {
     monitor;
     damageAfterSoakAlreadyApplied;
     nettoHits;
+    legwork;
     constructor(copy) {
         console.log("SR6E | ####SR6ChatMessageData####1###", copy);
         this.speaker = copy.speaker;
@@ -532,6 +538,7 @@ export class SR6ChatMessageData {
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;
         this.monitor = copy.monitor;
+        if (copy.legwork) this.legwork = copy.legwork;
         console.log("SR6E | ####SR6ChatMessageData####2###", this);
     }
 }

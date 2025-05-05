@@ -20,31 +20,31 @@
     font-weight: 400;
 }
 
-.play-regular {
+.game .play-regular {
     font-family: "Play", serif;
     font-weight: 400;
     font-style: normal;
   }
   
-  .play-bold {
+  .game .play-bold {
     font-family: "Play", serif;
     font-weight: 700;
     font-style: normal;
   }
 
-  .rubik-glitch-regular {
+  .game .rubik-glitch-regular {
     font-family: "Rubik Glitch", serif;
     font-weight: 400;
     font-style: normal;
   }
 
-  .syncopate-regular {
+  .game .syncopate-regular {
     font-family: "Syncopate", serif;
     font-weight: 400;
     font-style: normal;
   }
   
-  .syncopate-bold {
+  .game .syncopate-bold {
     font-family: "Syncopate", serif;
     font-weight: 700;
     font-style: normal;

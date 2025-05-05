@@ -2080,6 +2080,7 @@ export class Shadowrun6Actor extends Actor {
      */
     rollCommonCheck(roll, dialogConfig, options = {}) {
         console.log("SR6E | rollCommonCheck");
+        roll.dialogConfig = dialogConfig;
         roll.actor = this;
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
