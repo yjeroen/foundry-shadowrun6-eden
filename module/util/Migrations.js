@@ -35,7 +35,7 @@ function migrateChatMessage(chatMessage) {
 
         // Migrate dice css from individual badged-images to css badges
         if(chatMessage.rolls) {
-            chatMessage.rolls[0].results.forEach(result => {
+            chatMessage.rolls[0]?.results?.forEach(result => {
                 result.classes = result.classes.replace(/(die_[1-6])_exploded_ignored/, "$1 exploded ignored");
                 result.classes = result.classes.replace(/(die_[1-6])_exploded/, "$1 exploded");
                 result.classes = result.classes.replace(/(die_[1-6])_ignored/, "$1 ignored");
