@@ -111,29 +111,28 @@ Hooks.once("init", async function () {
     document.addEventListener('paste', (e) => Importer.pasteEventhandler(e), false);
 
     Hooks.once("diceSoNiceReady", (dice3d) => {
-        dice3d.addSystem({ id: "SR6", name: "Shadowrun 6 - Eden" }, "default");
+        dice3d.addSystem({ id: "SR6", name: "Shadowrun 6 - Eden", defaultValue: true }, true, "default");
         dice3d.addDicePreset({
             type: "d6",
             labels: [
-                "",
+                "1",
                 "2",
                 "3",
                 "4",
-                "5",
-                "6"
-                //        "systems/shadowrun6-eden/icons/SR6_D6_5_o.png",
-                //        "systems/shadowrun6-eden/icons/SR6_D6_6_o.png"
+                "systems/shadowrun6-eden/icons/SR6_D6_5_o.png",
+                "systems/shadowrun6-eden/icons/SR6_D6_6_o.png"
             ],
             bumpMaps: [
                 ,
                 ,
                 ,
-                ,
-                , //        "systems/shadowrun6-eden/icons/SR6_D6_5_o.png",
-                //        "systems/shadowrun6-eden/icons/SR6_D6_6_o.png"
+                , 
+                "systems/shadowrun6-eden/icons/SR6_D6_5_o_map.png",
+                "systems/shadowrun6-eden/icons/SR6_D6_6_o_map.png"
             ],
             colorset: "SR6_dark",
             system: "SR6"
+            , defaultValue: true
         });
         dice3d.addDicePreset({
             type: "dc",
@@ -141,29 +140,13 @@ Hooks.once("init", async function () {
             bumpMaps: [,],
             colorset: "SR6_dark",
             system: "SR6"
+            , defaultValue: true
         });
-        dice3d.addColorset({
-            name: "SR6_light",
-            description: "SR 6 Pink",
-            category: "SR6",
-            foreground: "#470146",
-            background: "#f7c8f6",
-            outline: "#2e2b2e",
-            texture: "none",
-            edge: "#9F8003",
-            material: "glass",
-            font: "Arial Black",
-            fontScale: {
-                d6: 1.1,
-                df: 2.5
-            },
-            visibility: "hidden"
-        }, "no");
         dice3d.addColorset({
             name: "SR6_dark",
             description: "SR 6 Pink Dark",
-            category: "SR6",
-            foreground: "#470146",
+            category: "Colors",
+            foreground: "#660265",
             background: "#000000",
             outline: "#2e2b2e",
             texture: "none",
@@ -174,7 +157,9 @@ Hooks.once("init", async function () {
                 d6: 1.1,
                 df: 2.5
             },
-            visibility: "visible"
+            visibility: "visible",
+            system: "SR6"
+            , defaultValue: true
         }, "default");
 
     });
