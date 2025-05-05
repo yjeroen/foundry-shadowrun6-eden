@@ -144,7 +144,7 @@ Hooks.once("init", async function () {
         });
         dice3d.addColorset({
             name: "SR6_dark",
-            description: "SR 6 Pink Dark",
+            description: "- Shadowrun 6 -",
             category: "Colors",
             foreground: "#660265",
             background: "#000000",
@@ -501,7 +501,7 @@ Hooks.once("init", async function () {
             }
             else {
                 const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
-                chatMsg.rolls[0].finished.results.forEach((die) => {
+                chatMsg.rolls[0]?.finished?.results?.forEach((die) => {
                     die.selectedDie = false;
                 });
                 tip.find('li').removeClass("selectedDie");
@@ -606,16 +606,6 @@ Hooks.once("init", async function () {
             });
         }
 
-    });
-    Hooks.on("preUpdateCombatant", (combatant, createData, options, userId) => {
-        console.log("SR6E | Combatant with initiative " + createData.initiative);
-    });
-    Hooks.on("preUpdateCombat", (combat, createData, options, userId) => {
-        let realCombat = getData(combat);
-        console.log("SR6E | Combat with turn " + createData.turn + " in round " + realCombat.round);
-    });
-    Hooks.on("deleteCombat", (combat, createData, userId) => {
-        console.log("SR6E | End Combat");
     });
     Hooks.once("dragRuler.ready", (SpeedProvider) => {
         class FictionalGameSystemSpeedProvider extends SpeedProvider {
