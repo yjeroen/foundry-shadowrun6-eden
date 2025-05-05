@@ -9,18 +9,23 @@ export default class Shadowrun6CombatTracker extends CombatTracker {
         }
     }
     async getData(options) {
-        let data = super.getData(options);
-        data.then(function (data) {
-            if (data != undefined) {
-                data.turns.forEach(function (turn) {
-                    let combatant = data.combat?.combatants.get(turn.id);
-                    turn.isPhysical = combatant.initiativeType == InitiativeType.PHYSICAL;
-                    turn.isMatrix = combatant.initiativeType == InitiativeType.MATRIX;
-                    turn.isAstral = combatant.initiativeType == InitiativeType.ASTRAL;
-                });
-            }
-            return data;
-        });
+        let data = await super.getData(options);
+        if (data != undefined) {
+            data.combats.forEach(function (combat) {
+                if (combat.active) {
+                    combat.turns.forEach(function (combatant) {
+                        let iniType = combatant.getFlag("shadowrun6-eden", "iniType");
+                        data.turns.forEach(function (activeTrackerCombatant) {
+                            if (combatant.id === activeTrackerCombatant.id) {
+                                activeTrackerCombatant.isPhysical = iniType == InitiativeType.PHYSICAL;
+                                activeTrackerCombatant.isMatrix = iniType == InitiativeType.MATRIX;
+                                activeTrackerCombatant.isAstral = iniType == InitiativeType.ASTRAL;
+                            }
+                        });
+                    });
+                }
+            });
+        }
         return data;
     }
     /**
