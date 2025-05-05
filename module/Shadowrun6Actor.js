@@ -405,7 +405,7 @@ export class Shadowrun6Actor extends Actor {
                 if (!(system.attributes[attr].mod) || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system)))
                     system.attributes[attr].mod = 0;
 
-                system.attributes[attr].pool = system.attributes[attr].base + Math.max(0, parseInt(system.attributes[attr].mod));
+                system.attributes[attr].pool = Math.max(1, system.attributes[attr].base + parseInt(system.attributes[attr].mod));
             });
             if (system.edge.value > 7) {
                 system.edge.value = 7;
