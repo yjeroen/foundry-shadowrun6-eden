@@ -334,8 +334,11 @@ export class SR6Config {
         earth: "shadowrun6.spirittype.earth", 
         fire: "shadowrun6.spirittype.fire", 
         kin: "shadowrun6.spirittype.kin", 
+        water: "shadowrun6.spirittype.water",
         plant: "shadowrun6.spirittype.plant", 
-        water: "shadowrun6.spirittype.water"
+        guardian: "shadowrun6.spirittype.guardian", 
+        guidance: "shadowrun6.spirittype.guidance", 
+        task: "shadowrun6.spirittype.task", 
     };
     ATTRIB_BY_SKILL = new Map([
         ["astral", new SkillDefinition("int", false)],

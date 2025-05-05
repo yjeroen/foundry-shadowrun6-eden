@@ -1562,8 +1562,11 @@
       "earth": "Earth",
       "fire": "Fire",
       "kin": "Kin",
+      "water": "Water",
       "plant": "Plant",
-      "water": "Water"
+      "guardian": "Guardian",
+      "guidance": "Guidance",
+      "task": "Task"
     },
     "tradition": {
       "attribute": "Tradition Attribute"

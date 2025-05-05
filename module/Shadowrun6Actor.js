@@ -278,6 +278,74 @@ export class Shadowrun6Actor extends Actor {
                 system.skills["exotic_weapons"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
+            case 'plant':
+                system.attributes.bod.mod = 2;
+                system.attributes.agi.mod = -1;
+                system.attributes.rea.mod = 0;
+                system.attributes.str.mod = 1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = -1;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+2;
+                system.initiative.physical.base = (force * 2);
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'guardian':
+                system.attributes.bod.mod = 1;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 3;
+                system.attributes.str.mod = 2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = (force * 2)+1;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'guidance':
+                system.attributes.bod.mod = 3;
+                system.attributes.agi.mod = -1;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+3;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'task':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
         }
     }
     //---------------------------------------------------------
