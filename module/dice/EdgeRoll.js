@@ -137,19 +137,6 @@ export default class EdgeRoll {
         }
         console.log("SR6E | Actor that is trying to spend edge:", actor);
 
-        // if (!chatMsg.isOwner || speaker.actor !== actor?.id) {
-        //     console.log("SR6E | Current user isn't owner of the ChatMessage so can't edit it directly");
-        //     let rollData = JSON.parse(chatMsg._source.rolls);
-        //     console.log('JEROEN', chatMsg.id, chatMsg.author.id);
-        //     // rollData.configured.actionText += ' ('+chatMsg.speaker.alias+')';
-        //     // rollData.configured.opponentEdgeReroll = true;
-        //     // const newChatMsg = await ChatMessage.create({
-        //     //     speaker: ChatMessage.getSpeaker({ token: tokenSelected }),
-        //     //     rolls: JSON.stringify(rollData)
-        //     // });
-        //     return;
-        // }
-
         //TODO add later "Count 2s as glitches for the target"
         if (!actor.isOwner && edgeBoost !== 'reroll_one') {
             ui.notifications.error("shadowrun6.ui.notifications.only_owner_is_allowed_to_spend_edge", { localize: true });
@@ -247,8 +234,11 @@ export default class EdgeRoll {
                 return;
         }
 
-        if (edgeCost && edgeSpent)
+        if (edgeCost && edgeSpent) {
             EdgeRoll.payEdge(actor, edgeCost, edgeBoost, chatMsg.isOwner);
+        } else {
+            ui.notifications.error("shadowrun6.ui.notifications.owner_not_logged_in", { localize: true });
+        }
     }
 
     static plusOneOnIndex(chatMsg, boostTitle, index) {
@@ -363,9 +353,12 @@ export default class EdgeRoll {
             await chatMsg.update({
                 [`rolls`]: chatMsg.rolls,
             });
-        } else {
+        } else if (game.users.get( chatMsg.author.id ).active) {
+            // game.i18n.localize("shadowrun6.roll.edge.opponent")
             game.sr6.sockets.edgeRerollDice(chatMsg.author.id, chatMsg.id, JSON.stringify(chatMsg.rolls));
-        }        
+        } else {
+            return false;
+        }
 
         return true;
     }
