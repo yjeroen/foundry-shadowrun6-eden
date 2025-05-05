@@ -338,7 +338,7 @@ export class SR6Config {
         plant: "shadowrun6.spirittype.plant", 
         guardian: "shadowrun6.spirittype.guardian", 
         guidance: "shadowrun6.spirittype.guidance", 
-        task: "shadowrun6.spirittype.task", 
+        task: "shadowrun6.spirittype.task"
     };
     ATTRIB_BY_SKILL = new Map([
         ["astral", new SkillDefinition("int", false)],
