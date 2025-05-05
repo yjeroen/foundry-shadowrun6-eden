@@ -31,7 +31,7 @@
   {{#if publicRoll}}
   <div>
     <div class="dice-result">
-      <header class="part-header flexrow chat-edge-post">
+      <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}">
         <div>{{formula}}</div>
         <br/>
         {{#if system.extended}}
