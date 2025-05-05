@@ -651,3 +651,7 @@ a.item-control.disabled-roll:hover {
   color: revert;
   text-shadow: revert;
 }
+.game .combat-sidebar li.combatant .roll {
+  background: url(../images/dice-pool-white.webp) no-repeat 50% 50%;
+  background-size: 32px;
+}
