@@ -40,6 +40,7 @@ function migrateChatMessage(chatMessage) {
                 result.classes = result.classes.replace(/(die_[1-6])_exploded/, "$1 exploded");
                 result.classes = result.classes.replace(/(die_[1-6])_ignored/, "$1 ignored");
             });
+            chatMessage.rolls[0]?.applyDiceCss();
 
             updatedMsg.rolls = chatMessage.rolls;
             // Todo: Transition from terms to result

@@ -172,6 +172,11 @@ export default class SR6Roll extends Roll {
     applyDiceCss() {
         this.results.forEach((result) => {
             result.classes = 'die die_' + result.result;
+            if (result.result >= 5) 
+                result.classes += ' hit';
+            else 
+                result.classes += ' miss';
+
             if (!result.active)
                 result.classes += ' ignored';
             if(result.edged)
