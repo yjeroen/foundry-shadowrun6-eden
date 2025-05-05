@@ -170,7 +170,7 @@ export default class SR6Roll extends Roll {
      * Assign base css classes
      */
     applyDiceCss() {
-        this.results.forEach((result) => {
+        this.results?.forEach((result) => {
             result.classes = 'die die_' + result.result;
             if (result.result >= 5) 
                 result.classes += ' hit';
@@ -188,7 +188,7 @@ export default class SR6Roll extends Roll {
      */
     applyDiceTooltips() {
         let title = "";
-        this.results.forEach((result) => {
+        this.results?.forEach((result) => {
 
             if (result.result >= 5) 
                 if (result.wild) 
@@ -214,7 +214,7 @@ export default class SR6Roll extends Roll {
     markWildDie() {
         let ignoreFives = false;
 
-        this.results.forEach(result => {
+        this.results?.forEach(result => {
             let lastExploded = false;
             if (result.wild) {
                 if (!lastExploded) {
@@ -241,7 +241,7 @@ export default class SR6Roll extends Roll {
         this.applyDiceTooltips();
         let ignoreFives = this.markWildDie();
         let addedByExplosion = false;
-        this.results.forEach((result) => {
+        this.results?.forEach((result) => {
             if (addedByExplosion) {
                 if (result.classes.includes("_wild")) {
                     result.classes = result.classes.substring(0, result.classes.length - 5);
