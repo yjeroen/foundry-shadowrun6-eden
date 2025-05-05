@@ -317,7 +317,7 @@ Hooks.once("init", async function () {
     Hooks.on("renderChatMessage", function (app, html, data) {
         console.log("SR6E | ENTER renderChatMessage");
         
-        registerChatMessageEdgeListener(this, app, html, data);
+        // registerChatMessageEdgeListener(this, app, html, data);
 
         html.on("click", ".chat-edge", (ev) => {
             let event = ev;
@@ -475,14 +475,33 @@ Hooks.once("init", async function () {
                 tip.slideUp(200);
             }
         });
+        // Collapsible Chat Dice tooltip
         html.on("click", ".chat-edge-post", (event) => {
             event.preventDefault();
             let roll = $(event.currentTarget.parentElement);
             let tip = roll.find(".chat-edge-post-collapsible");
             if (!tip.is(":visible")) {
+                const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
+                const chatSpeakerActor = game.sr6.utils.getActor(chatMsg.speaker.actor, chatMsg.speaker.scene, chatMsg.speaker.token);
+                const selectedActor = game.sr6.utils.getSelectedActor();
+                chatMsg.edgeTooltipUsedBy = selectedActor?.uuid;
+                
+                if (chatSpeakerActor?.uuid === selectedActor?.uuid && selectedActor?.isOwner) {
+                    if (!chatMsg.rolls[0]?.finished.edge_use)
+                        tip.addClass("edgeable edge-own-roll");
+                } else if (chatSpeakerActor?.uuid !== selectedActor?.uuid && selectedActor?.isOwner) {
+                    if (!chatMsg.rolls[0]?.finished.edge_use_opponent)
+                        tip.addClass("edgeable edge-opponent-roll");
+                }
                 tip.slideDown(200);
             }
             else {
+                const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
+                chatMsg.rolls[0].finished.results.forEach((die) => {
+                    die.selectedDie = false;
+                });
+                tip.find('li').removeClass("selectedDie");
+                tip.removeClass("edgeable edge-own-roll edge-opponent-roll");
                 tip.slideUp(200);
             }
         });
@@ -521,33 +540,39 @@ Hooks.once("init", async function () {
         //         if(dragData.id == data.message._id)
         //         {
         //             const boostId = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
-        //             EdgeRoll.peformPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
+        //             EdgeRoll.performPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
         //         }
         //     });
         // }
         
         // Implement selecting dice in chat
-        html.on("click", ".edgeable .selectableDie", (event) => {
+        html.on("click", ".edgeable.edge-own-roll .die.miss, .edgeable.edge-opponent-roll .die.hit", (event) => {
             console.log("SR6E | Dice clicked for Edge boost");
             event.preventDefault();
-            let selected = event.currentTarget.classList.toggle("selectedDie");
-            let chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
-            let roll = chatMsg.rolls[0];
-            let die = roll.finished.results[ event.currentTarget.dataset.index ];
-            die.selectedDie = selected;
+            const selected = event.currentTarget.classList.toggle("selectedDie");
+            const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
+            const roll = chatMsg.rolls[0];
+            const die = roll.finished.results[ event.currentTarget.dataset.index ];
+            die.selectedDie = selected; // true or false dependent on .toggle
         });
-        // const selectableElement = html.find(".edgeable .selectableDie");
-        // if (selectableElement.length) {
-        //     selectableElement.on("click", (event) => {
-        //         let selected = event.currentTarget.classList.toggle("selectedDie");
-        //         let chatMsg = game.messages.get(data.message._id);
-        //         let roll = chatMsg.rolls[0];
-        //         let die = roll.finished.results[ event.currentTarget.dataset.index ];
-        //         die.selectedDie = selected;
-        //         console.log("SR6E | Dice clicked for Edge boost", die);
-        //     });
-        // }
+        // Implement Edge Boost button in chat
+        html.on("click", ".dice-tooltip.edgeable .edgePerform", (event) => {
+            console.log("SR6E | Edge Boost button clicked in chat");
+            event.preventDefault();
+            const edgeType = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
+            const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
+            const roll = chatMsg.rolls[0];
+            const selectedActor = game.sr6.utils.getSelectedActor();
 
+            if (chatMsg?.edgeTooltipUsedBy === selectedActor?.uuid) {
+                EdgeRoll.performPostEdgeBoost(chatMsg.id, edgeType);
+            } else {
+                html.find(".chat-edge-post").trigger( "click" );
+                const msg = game.i18n.format("shadowrun6.ui.notifications.reopen_dice_tooltip");
+                ui.notifications.warn(msg);
+            }
+        });
+        
         console.log("SR6E | LEAVE renderChatMessage");
     });
     /**
@@ -664,7 +689,11 @@ $.fn.closestData = function (dataName, defaultValue = "") {
     return value ? value : defaultValue;
 };
 /* -------------------------------------------- */
-function registerChatMessageEdgeListener(event, chatMsg, html, data) {    
+function registerChatMessageEdgeListener(event, chatMsg, html, data) {
+    console.warn(chatMsg?.edgeTooltipUsedBy); 
+    const selectedActor = game.sr6.utils.getSelectedActor();
+    console.warn(selectedActor); 
+    return;
     // chatMsg.roll is a SR6Roll
     let btnPerform = html.find(".edgePerform");
     let roll = getRoll(chatMsg);
@@ -672,7 +701,7 @@ function registerChatMessageEdgeListener(event, chatMsg, html, data) {
         btnPerform.click((event) => {
             const edgeType = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
             const chatMsgId = event.target.closest("[data-message-id]").dataset.messageId;
-            EdgeRoll.peformPostEdgeBoost(chatMsgId, edgeType);
+            EdgeRoll.performPostEdgeBoost(chatMsgId, edgeType);
         });
     }
 }

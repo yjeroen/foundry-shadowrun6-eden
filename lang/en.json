@@ -1053,6 +1053,8 @@
         "spending": "Spending Edge",
         "spend_edge": "Spend Edge",
         "edge_spent": "Edge spent: {boostTitle}",
+        "opponent": "Opponent",
+        "opponent_edge_boost": "Opponent Edge Boost",
         "spend": "Spend!",
         "original_test": "Original test by:"
       },
@@ -1617,15 +1619,17 @@
         "no_weapon_skill_set": "Please edit the weapon to assign a linked skill, before rolling.",
         "vehicle_has_no_owner": "Vehicle has no owner assigned.",
         "only_owner_is_allowed_to_spend_edge": "Only the characters owner is allowed to spend edge on this edge boost.",
+        "owner_not_logged_in": "Edge Boost is not possible, e.g. due to person who rolled the test not being online.",
         "edge_boost_is_not_post_edge": "'{boostTitle}' is no post roll edge boost",
-        "you_require_more_edge": "Not enough Edge available. You require {edge} more for this boost.",
+        "you_require_more_edge": "Not enough Edge available. You require {edge} more to perform this boost.",
         "no_die_with_a_1_or_4": "Your roll does not have a 1 or 4.",
         "cant_increase_die": "You can't increase this die.",
         "all_dice_are_successes": "All dice are already successes.",
         "character_has_spent_edge": "{actor} has spent {edge} edge on the Edge Boost <b>{edgeBoost}</b>.",
         "reduce_edge_from_actor": "Please reduce characters edge by {edge}.",
         "reroll_failed_requires_index": "Select one or more dice before clicking on the `Spend` button.",
-        "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled."
+        "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled.",
+        "reopen_dice_tooltip": "You switched selected tokens. Re-open the dice section in the chat to perform an Edge Boost."
       }
     },
     "EFFECT": {

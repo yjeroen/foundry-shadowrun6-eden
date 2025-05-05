@@ -423,6 +423,7 @@ export class ConfiguredRoll extends CommonRollData {
     edge_message;
     edgeAdjusted;
     edge_use;
+    edge_use_opponent;
     /** Edge action selected  */
     edgeAction;
     /** Target tokens */
@@ -487,6 +488,7 @@ export class SR6ChatMessageData {
     edge_message;
     edgeAdjusted;
     edge_use;
+    edge_use_opponent;
     /** How much edge has the rolling actor left */
     edge_remaining;
     /** Edge action selected  */
@@ -524,6 +526,7 @@ export class SR6ChatMessageData {
         this.isOpposed = this.defendWith != undefined;
         this.edge_message = copy.edge_message;
         this.edge_use = copy.edge_use;
+        this.edge_use_opponent = copy.edge_use_opponent;
         this.edge_remaining = copy.edge_remaining;
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;

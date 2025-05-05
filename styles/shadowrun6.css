@@ -590,8 +590,17 @@ a.item-control.disabled-roll:hover {
   color: lightgray;
 }
 
-.chat-message .dice.edgeable .selectableDie {
+.chat-message .edgeable.edge-own-roll .die.miss,
+.chat-message .edgeable.edge-opponent-roll .die.hit {
   cursor: pointer;
+}
+.chat-message .edgeable.edge-own-roll .own-edge-options {
+  /* hidden by default */
+  display: block;
+}
+.chat-message .edgeable.edge-opponent-roll .opponent-edge-options {
+  /* hidden by default */
+  display: block;
 }
 .chat-message .dice .selectedDie {
   filter: hue-rotate(210deg);

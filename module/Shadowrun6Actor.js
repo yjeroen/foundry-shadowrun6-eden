@@ -307,7 +307,7 @@ export class Shadowrun6Actor extends Actor {
      */
     _prepareDerivedAttributes() {
         console.log("SR6E | Shadowrun6Actor._prepareDerivedAttributes()");
-        //TODO JEROEN validate attributes max and integere
+        //TODO validate attributes max and integere
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (!isLifeform(system))

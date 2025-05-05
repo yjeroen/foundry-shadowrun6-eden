@@ -3,16 +3,10 @@
   {{log "roll-sr6.html data=" data}}
   {{log "roll-sr6.html prepared=" prepared}}
   {{log "roll-sr6.html configured=" configured}}
-  
-  {{#if configured.opponentEdgeReroll}}
-  <header class="message-header flexrow">
-    <h4 class="message-sender">{{localize 'shadowrun6.roll.edge.original_test'}} {{configured.speaker.alias}}</h4>
-  </header>
-  {{/if}}
 
   <h3>{{actionText}}</h3>
 
-  {{#if (or edge_use isOpposed)}}
+  {{#if (or (or edge_use edge_use_opponent) isOpposed)}}
   <div class="chat-edge" style="display:block">    
     {{#if isOpposed}}
     <div>{{edge_message}}</div>
@@ -26,6 +20,9 @@
     {{/if}}
     {{#if edge_use}}
     <div style="color: var(--highlight-color)">{{edge_use}}</div>
+    {{/if}}
+    {{#if edge_use_opponent}}
+    <div style="color: var(--highlight-color)">{{edge_use_opponent}}</div>
     {{/if}}
   </div>
   <hr/>

@@ -1,29 +1,33 @@
 <div class="dice-tooltip chat-edge-post-collapsible" style="display:none">
     <section class="tooltip-part">
-        <div class="dice{{#unless data.edge_use}} edgeable{{/unless}}">
+        <div class="dice">
             <ol class="dice-rolls">
                 {{#each results as |result id|}}
-                <li class="{{#iff result.result "<" 5}}selectableDie {{/iff}}{{result.classes}}" data-index="{{id}}" title="{{result.title}}">&nbsp;</li>
+                    <li class="{{result.classes}}" data-index="{{id}}" title="{{result.title}}">&nbsp;</li>
                 {{/each}}
             </ol>
         </div>
 
 	    <!-- Edge Boosts and Actions -->
-	    {{#unless data.edge_use}}
-	    <div class="spend_edge">
+        {{#unless data.edge_use}}
+        <div class="spend_edge own-edge-options hidden">
             <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spend_edge"}}</h4>
             <form>
                 <select name="edgeBoostSelect" class="edgeBoostSelect">
-	            {{#if (isOwner data.speaker) }}
                     {{selectOptions postEdgeBoosts valueAttr="id" labelAttr="label" localize=true}}
-                {{else}}
-                    {{selectOptions postEdgeBoostsOpponent valueAttr="id" labelAttr="label" localize=true}}
-                {{/if}}
                 </select>
-                <button name="edgePerform" class="edgePerform" type="button">
-                    <div class="edgeToken"></div>
-                    {{localize "shadowrun6.roll.edge.spend"}}
-                </button>
+                <button name="edgePerform" class="edgePerform" type="button"><div class="edgeToken"></div>{{localize "shadowrun6.roll.edge.spend"}}</button>
+            </form>
+        </div>
+        {{/unless}}
+        {{#unless data.edge_use_opponent}}
+        <div class="spend_edge opponent-edge-options hidden">
+            <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spend_edge"}}</h4>
+            <form>
+                <select name="edgeBoostSelect" class="edgeBoostSelect">
+                    {{selectOptions postEdgeBoostsOpponent valueAttr="id" labelAttr="label" localize=true}}
+                </select>
+                <button name="edgePerform" class="edgePerform" type="button"><div class="edgeToken"></div>{{localize "shadowrun6.roll.edge.spend"}}</button>
             </form>
         </div>
         {{/unless}}

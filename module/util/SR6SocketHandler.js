@@ -5,8 +5,8 @@ export default class SR6SocketHandler {
         game.socket.on(this.identifier, (data) => {
             console.log('SR6 | Socket Listener Event | type:', data.type);
             switch (data.type) {
-                case "opponentEdgeReroll":
-                    this.#opponentEdgeReroll(data);
+                case "opponentEdgeUpdateRolls":
+                    this.#opponentEdgeUpdateRolls(data);
                     break;
                 default:
                     throw new Error('unknown type');
@@ -19,21 +19,22 @@ export default class SR6SocketHandler {
         return game.socket.emit(this.identifier, data);
     }
 
-    edgeRerollDice(userId, chatMsgId, rolls) {
-        console.log('SR6 | Socket send | edgeRerollDice send to:', game.users.get(userId).name);
+    edgeUpdateDice(userId, chatMsgId, rolls) {
+        console.log('SR6 | Socket send | edgeUpdateDice send to:', game.users.get(userId).name);
         rolls = (typeof rolls === "string") ? rolls : JSON.stringify(chatMsg.rolls);
         this.emit({ 
-            type: 'opponentEdgeReroll', 
+            type: 'opponentEdgeUpdateRolls', 
             userId: userId,
             chatMsgId: chatMsgId,
             rolls: rolls 
         });
     }    
 
-    async #opponentEdgeReroll(data) {
-        console.log('SR6 | Socket message received | opponentEdgeReroll for:', game.users.get(data.userId).name);
+    async #opponentEdgeUpdateRolls(data) {
+        console.log('SR6 | Socket message received | opponentEdgeUpdateRolls for:', game.users.get(data.userId).name);
         if (game.userId !== data.userId) return;
-        console.log('SR6 | Socket processing | opponentEdgeReroll data', data);
+        console.log('SR6 | Socket processing | opponentEdgeUpdateRolls data', data);
+        console.log('SR6 | Socket processing | opponentEdgeUpdateRolls rolls', JSON.parse(data.rolls));
         const chatMsg = game.messages.get(data.chatMsgId);
         await chatMsg.update({
             [`rolls`]: JSON.parse(data.rolls),
