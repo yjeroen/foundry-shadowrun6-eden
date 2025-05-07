@@ -22,6 +22,7 @@ import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
 import SR6TokenHUD from "./SR6TokenHUD.js";
+import SR6Token from "./placeables/SR6Token.js";
 import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
@@ -71,6 +72,7 @@ Hooks.once("init", async function () {
     }
 
     CONFIG.Token.hudClass = SR6TokenHUD;
+    CONFIG.Token.objectClass = SR6Token;
     CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
 
     // Initialize socket handler

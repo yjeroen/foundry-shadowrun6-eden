@@ -770,3 +770,16 @@ a.item-control.disabled-roll:hover {
 .chat-message .tooltip-part .threshold {
   margin: 5px 0;
 }
+
+/* Physical Monitor */
+#token-hud .attribute.bar1 input {
+  border: 2px solid rgb(137, 35, 120);
+}
+/* Stun Monitor */
+#token-hud .attribute.bar2 input {
+  border: 2px solid rgb(0, 168, 255);
+}
+/* Matrix Monitor */
+#token-hud.Vehicle-hud .attribute.bar2 input {
+  border: 2px solid rgb(0, 200, 50);
+}
