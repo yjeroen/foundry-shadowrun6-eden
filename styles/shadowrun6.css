@@ -191,13 +191,13 @@
 .dice-tooltip .dice-rolls li.exploded::after {
   content: '';
   position: absolute;
-  background-position: top right;
+  background-position: top left;
   background-image: url(../icons/die_exploded.svg);
   background-size: 12px;
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
-  margin-left: -12px;
+  margin-left: -16px;
 }
 
 .dice-rolls .edged {
