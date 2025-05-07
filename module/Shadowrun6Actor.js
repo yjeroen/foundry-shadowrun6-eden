@@ -141,7 +141,9 @@ export class Shadowrun6Actor extends Actor {
         const allowed = await super._preUpdate(changes, options, user);
         console.log("SR6E | Shadowrun6Actor._preUpdate()");
         if ( allowed === false ) return false;
-    
+
+        changes = this._tokenBarsToMonitorDmg(changes);
+
         // Forward to type data model
         if ( this.system instanceof foundry.abstract.TypeDataModel ) {
           return this.system._preUpdate(changes, options, user);
@@ -161,6 +163,24 @@ export class Shadowrun6Actor extends Actor {
         console.log("SR6E | Shadowrun6Actor._onUpdate()");
         this._checkPersonaChanges(changed);
     }
+    
+    /**
+     * Called to change physical and stun total value to damage
+     * system.physical.value = system.physical.max - system.physical.dmg;
+     * @param {object} changes          Changes object from preUpdate
+     */
+    _tokenBarsToMonitorDmg(changes) {
+        if (changes.system?.physical?.value >= 0) {
+            console.log("SR6E | changing physical.value to phsyical.dmg");
+            changes.system.physical = { dmg: this.system.physical.max - changes.system.physical.value }
+        }
+        if (changes.system?.stun?.value >= 0) {
+            console.log("SR6E | changing stun.value to stun.dmg");
+            changes.system.stun = { dmg: this.system.stun.max - changes.system.stun.value }
+        }
+        return changes;
+    }
+
     //---------------------------------------------------------
     /**
      * Apply the force rating as a attribute and skill modifier
