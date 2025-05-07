@@ -93,7 +93,7 @@ export default class SR6Roll extends Roll {
                 termIndex += 2;
                 this.evaluateResult(false, true);
             }
-            console.log('SR6E | End Extended Test', JSON.parse(JSON.stringify(this.results)));
+            console.log('SR6E | End Extended Test');
         }
 
         this.terms = die.terms;
@@ -134,7 +134,7 @@ export default class SR6Roll extends Roll {
             return this;
         }
         finally {
-            console.log("SR6E | LEAVE evaluate()", JSON.parse(JSON.stringify(this.results)));
+            console.log("SR6E | LEAVE evaluate()");
         }
     }
 
