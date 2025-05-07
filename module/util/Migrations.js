@@ -24,7 +24,8 @@ function migrateChatMessage(chatMessage) {
     const messageVersion = chatMessage.getFlag(SYSTEM_NAME, "version");
 
     // 3.1.3 - Migrate dice css from individual badged-images to css badges
-    if(isVersionBelow(messageVersion, 3, 1, 3)) {
+    if(isVersionBelow(chatMessage._stats.systemVersion, 3, 1, 4) && !isVersionBelow(messageVersion, 3, 1, 4)) {
+        console.log("SR6E | Migration | migrateChatMessage", messageVersion, chatMessage)
         let updatedMsg = {
             flags: {
                 [SYSTEM_NAME]: {
@@ -47,6 +48,5 @@ function migrateChatMessage(chatMessage) {
         }
 
         chatMessage.update(updatedMsg);
-        console.log("SR6E | Migration | migrateChatMessage", chatMessage.id)
     }
 }

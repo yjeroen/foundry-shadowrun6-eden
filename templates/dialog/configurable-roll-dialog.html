@@ -38,56 +38,59 @@
     <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.configure"}}</h4>
     <table style="background-color: transparent; border: 0px">
     	<tr>
-    	  <td rowspan="5" style="width: 70px;">
-    	    <div class="edge-roll" style="flex: 0.48; margin-right: 10px">
-	         <img src="systems/shadowrun6-eden/images/BlankDice.webp" style="border: 0px; height: auto; width: 48px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-		      <label class="edge-value" name="dicePool">{{data.calcPool}}</label>
-	       </div>
-	     </td>
-        {{#if (or data.threshold data.cantDodgeBullets)}}
-    		<td>{{localize "shadowrun6.roll.threshold"}}</td>
-    		<td>
-          <input type="number" id="threshold" name="threshold" value="{{data.threshold}}" style="width: 3em;" class="centered"/>
-        {{#if data.cantDodgeBullets}}
-    		<td colspan="3"><span style="font-style: italic; font-size: var(--font-size-11);">{{localize "shadowrun6.roll.cantDodgeBullets"}}</span></td>
-        {{/if}}
+        <td rowspan="5" style="width: 70px;">
+          <div class="edge-roll" style="flex: 0.48; margin-right: 10px">
+            <img src="systems/shadowrun6-eden/images/BlankDice.webp" style="border: 0px; height: auto; width: 48px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
+          <label class="edge-value" name="dicePool">{{data.calcPool}}</label>
+          </div>
         </td>
+
+        {{#if data.cantDodgeBullets}}
+          <td colspan="3">{{localize "shadowrun6.roll.threshold"}}</td>
+          <td><input type="number" id="threshold" name="threshold" value="{{data.threshold}}" oninput="this.value|=0" style="width: 3em;" class="centered"/></td>
+
+          <td style="text-align: right;"><span style="font-style: italic; font-size: var(--font-size-11);">{{localize "shadowrun6.roll.cantDodgeBullets"}}</span></td>
+          <td></td>
         {{/if}}
     	</tr>
       <tr>
+        <td colspan="3" style="width: 112px;">{{localize "shadowrun6.roll.modifier"}}</td>
+        <td><input type="number" name="modifier" id="modifier" value="{{data.modifier}}" style="width: 3em" class="centered"/></td>
+
         <td colspan="4"></td>
+      </tr>
+      <tr>
+        {{#unless data.cantDodgeBullets}}
+        <td colspan="3"><span class="threshold needed-for-extended{{#unless data.extended}} hidden{{/unless}}">{{localize "shadowrun6.roll.threshold"}}</span></td>
+        <td><span class="threshold needed-for-extended{{#unless data.extended}} hidden{{/unless}}"><input type="number" id="threshold" name="threshold" value="{{data.threshold}}" oninput="this.value|=0" style="width: 3em;" class="centered"/></span></td>
+        {{else}}
+          <td colspan="4"></td>
+        {{/unless}}
+
         <td style="text-align:right">{{localize "shadowrun6.roll.sustained-spell-modifier"}}</td>
         <td><input type="checkbox" id="useSustainedSpellModifier" {{checked data.useSustainedSpellModifier}} /></td>
       </tr>
       <tr>
-        <td colspan="4"></td>
-        <td style="text-align:right">{{localize "shadowrun6.roll.wound-modifier"}}</td>
-        {{log 'useWoundModifier'}}
-        {{log data.useWoundModifier}}
+        <td colspan="3"><span class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}">{{localize "shadowrun6.roll.interval"}}</span></td>
+        <td><span class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}"><input type="number" id="interval" name="interval" value="{{data.interval}}" oninput="this.value|=0" style="width: 3em;" class="centered"/></span></td>
+        
+        <td style="text-align:right; width: 190px;">{{localize "shadowrun6.roll.wound-modifier"}}</td>
         <td><input type="checkbox" id="useWoundModifier" {{checked data.useWoundModifier}} /></td>
       </tr>
-      <tr>
-        <td style="width: 90px;">{{localize "shadowrun6.roll.modifier"}}</td>
-        <td colspan="3"><input type="number" name="modifier" id="modifier" value="{{data.modifier}}" style="width: 3em" class="centered"/></td>
+    	<tr>
+        {{#if data}} {{!-- add check on if extended possible --}}
+          <td colspan="3">{{localize "shadowrun6.roll.extended"}}</td>
+          <td><input type="checkbox" class="extended-test" name="extended" {{checked data.extended}} style="margin-left: 0;"/></td>
+        {{/if}}
+
         <td style="text-align:right">{{localize "shadowrun6.roll.wilddie"}}</td>
         <td><input type="checkbox" name="useWildDie" {{checked data.useWildDie}} /></td>
-      </tr>
-    	<tr>
-     		<td>{{localize "shadowrun6.roll.mode"}}</td>
-     		<td colspan="3">
-          <select name="rollMode">
-            {{selectOptions rollModes selected=data.rollMode localize=true}}
-          </select>
-        </td>
-    		<td style="text-align:right">{{localize "shadowrun6.roll.explode"}}</td>
-    		<td><input type="checkbox" name="explode" value="{{data.explode}}" /></td>
-    	</tr>
-    	<tr>
-        {{#if data.threshold}}
-    		<!--td style="text-align:right">{{localize "shadowrun6.roll.extended"}}</td>
-            <td><input type="checkbox" name="extended" {{checked data.extended}} /></td-->
-        {{/if}}
     	</tr>
     </table>
+
+    <div class="hidden"> {{!-- hidden for js to still work --}}
+      <input type="checkbox" name="explode" value="{{data.explode}}" />
+      <select name="rollMode">{{selectOptions rollModes selected=data.rollMode localize=true}}</select>
+    </div>
 
 </form>

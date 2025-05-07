@@ -50,6 +50,8 @@ async function _showRollDialog(data) {
         let dia2;
         data.rollMode = game.settings.get('core', 'rollMode');
 
+        if (!data.interval)
+            data.interval = 1;
         if (!data.modifier)
             data.modifier = 0;
         if (data.actor) {
@@ -144,16 +146,18 @@ async function _showRollDialog(data) {
                         icon: '<i class="fas fa-dollar-sign"></i>',
                         label: game.i18n.localize("shadowrun6.rollType.bought"),
                         callback: (html) => {
-                            data.validateDialog(); // XxxRoll.validateDialog()
-                            resolve(_dialogClosed(ReallyRoll.AUTOHITS, html[0].querySelector("form"), data, dia2, dialogResult));
+                            const form = html[0].querySelector("form");
+                            data.validateDialog(form); // XxxRoll.validateDialog()
+                            resolve(_dialogClosed(ReallyRoll.AUTOHITS, form, data, dia2, dialogResult));
                         }
                     },
                     normal: {
                         icon: '<i class="fas fa-dice-six"></i>',
                         label: game.i18n.localize("shadowrun6.rollType.normal"),
                         callback: (html) => {
-                            data.validateDialog(); // XxxRoll.validateDialog()
-                            resolve(_dialogClosed(ReallyRoll.ROLL, html[0].querySelector("form"), data, dia2, dialogResult));
+                            const form = html[0].querySelector("form");
+                            data.validateDialog(form); // XxxRoll.validateDialog()
+                            resolve(_dialogClosed(ReallyRoll.ROLL, form, data, dia2, dialogResult));
                         }
                     }
                 };
@@ -184,7 +188,7 @@ async function _showRollDialog(data) {
                 default: "normal"
             };
             const myDialogOptions = {
-                width: 520,
+                width: 550,
                 jQuery: true,
                 resizeable: true,
                 actor: data.actor,
@@ -258,9 +262,11 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
         if (form) {
             console.log("SR6E | ---prepared.targets = ", prepared.targets);
             console.log("SR6E | ---configured.targetIds = ", configured.targetIds);
-            configured.threshold = form.threshold ? parseInt(form.threshold.value) : 0;
+            configured.threshold = (typeof form.threshold.value === "number" || (typeof form.threshold.value === "string" && form.threshold.value.length > 0)) ? parseInt(form.threshold.value) : 0;
             configured.useWildDie = form.useWildDie.checked ? 1 : 0;
             configured.explode = form.explode.checked;
+            configured.extended = form.extended.checked;
+            configured.interval = parseInt(form.interval.value);
             configured.buttonType = type;
             dialog.modifier = parseInt(form.modifier.value);
             if (!dialog.modifier)
@@ -280,7 +286,9 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             if (configured.pool < 0)
                 configured.pool = 0;
             /* Build the roll formula */
+            console.log("SR6E | _dialogClosed configured", configured);
             formula = createFormula(configured, dialog);
+
             configured.pool = configured.checkHardDiceCap(configured.pool);
         }
         console.log("SR6E | _dialogClosed: ", formula);
@@ -303,24 +311,40 @@ function createFormula(roll, dialog) {
     console.log("SR6E | --pool = " + roll.pool);
     console.log("SR6E | --modifier = " + dialog.modifier);
     dialog.modifier = 0;
-    let regular = +(roll.pool ? roll.pool : 0) + (dialog.modifier ? dialog.modifier : 0);
+    let regular = (roll.pool ? roll.pool : 0) + (dialog.modifier ? dialog.modifier : 0);
     regular = roll.checkHardDiceCap(regular);   // adding edgePoolIgnoringCap
     let wild = 0;
-    if (roll.useWildDie > 0) {
-        regular -= roll.useWildDie;
-        wild = roll.useWildDie;
-    }
-    let formula = `${regular}d6`;
-    if (roll.explode) {
-        formula += "x6";
-    }
-    formula += "cs>=5";
-    if (wild > 0) {
-        formula += " + " + wild + "d6";
+    let formula = '';
+
+    let originalDicePool = regular;
+    //check for Extended Test
+    let dicepoolThrows = roll.extended ? originalDicePool : 1;
+
+    while (dicepoolThrows > 0) {
+        if (roll.extended && dicepoolThrows < originalDicePool) {
+            formula += " + "
+            regular = dicepoolThrows;
+        }
+
+        if (roll.useWildDie > 0) {
+            regular -= roll.useWildDie;
+            wild = roll.useWildDie;
+        }
+        formula += `${regular}d6`;
         if (roll.explode) {
             formula += "x6";
         }
         formula += "cs>=5";
+        if (wild > 0) {
+            formula += " + " + wild + "d6";
+            if (roll.explode) {
+                formula += "x6";
+            }
+            formula += "cs>=5";
+        }
+
+        dicepoolThrows--;
     }
+
     return formula;
 }

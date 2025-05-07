@@ -22,14 +22,16 @@ export default class SR6Roll extends Roll {
         if (formula.indexOf("@initiative") > -1) {
             this.configured.rollType = RollType.Initiative;
         }
-        console.log("SR6E | In SR6Roll<init>1(" + formula + " , ", data);
+        console.log("SR6E | In SR6Roll<init>", formula, data);
     }
 
     async evaluate(options) {
-        console.log("SR6E | New Evaluation");
+        console.log("SR6E | New Evaluation", this._formula);
         let die = undefined;
 
-        if (this.configured.buttonType === ReallyRoll.AUTOHITS) {
+        console.log("SR6E | SR6Roll.evaluate | rolling the dice via Roll.evaluate()");
+        //TODO remove this autohits block in favor of evaluateResults?
+        if (this.configured.buttonType === ReallyRoll.AUTOHITS) { //AUTOHITS: 1
             let noOfDice = Math.floor(this.configured.pool / 4);
             let formula = SR6Roll.createFormula(noOfDice, -1, false);
             die = await new Roll(formula).evaluate();
@@ -37,31 +39,73 @@ export default class SR6Roll extends Roll {
         } else {
             die = await new Roll(this._formula).evaluate();
             this._total = die.total;
-        }
+        }        
+        console.log("SR6E | SR6Roll.evaluate | Roll.evaluate() finished");
 
         this.results = die.terms[0].results;
+        let termIndex = 0;
 
         if (this.data.useWildDie) {
             // terms[2] contains the results for the seperate wild die
             // Attach wild-property to each result to distignuish dice later on
-            const wildDiceResult = die.terms[2].results.map(item => {
-                item.wild = true;
-                return item;
+            const wildDiceResult = die.terms[2].results.map(dieResult => {
+                dieResult.wild = true;
+                return dieResult;
             });
             // Append wild dice results to regular dice results
             this.results = this.results.concat(wildDiceResult)
+            termIndex += 2;
         }
-        this.terms = die.terms;
+        // Extended Tests
+        if (this.data.extended) {
+            console.log('SR6E | Start Extended Test', die.terms);
+            this.data.timePassed = this.data.interval;
+            this.evaluateResult(false, true);
+            this.results.map(dieResult => {
+                dieResult.timeInterval = this.data.timePassed;
+                return dieResult;
+            });
 
+            termIndex += 2;
+            while (this._total < this.data.threshold && termIndex < die.terms.length) {
+                this.data.timePassed += this.data.interval;
+                if (die.terms[termIndex].results.length > 0) {
+                    die.terms[termIndex].results[0].firstDieOfNextInterval = true;
+                }
+                die.terms[termIndex].results.map(dieResult => {
+                    dieResult.timeInterval = this.data.timePassed;
+                    return dieResult;
+                });
+
+                this.results = this.results.concat(die.terms[termIndex].results);
+                if (this.data.useWildDie) {
+                    termIndex += 2;
+                    if (termIndex === die.terms.length-1) {
+                        die.terms[termIndex].results[0].firstDieOfNextInterval = true;
+                    }
+                    const wildDiceResult = die.terms[termIndex].results.map(dieResult => {
+                        dieResult.wild = true;
+                        dieResult.timeInterval = this.data.timePassed;
+                        return dieResult;
+                    });
+                    this.results = this.results.concat(wildDiceResult);
+                }
+                termIndex += 2;
+                this.evaluateResult(false, true);
+            }
+            console.log('SR6E | End Extended Test');
+        }
+
+        this.terms = die.terms;
         return this.evaluateResult();
     }
 
-    evaluateResult(force=false) {
+    evaluateResult(force=false, evalOnly=false) {
         if (this.configured.buttonType === ReallyRoll.AUTOHITS) {
             // Hits have been bought, roll was just a pseudo roll (for DiceSoNice?)
             // Turn every dice into a success
             this.results.forEach((result) => {
-                result.result = 6;
+                result.result = 5;
                 result.success = true;
                 result.count = 1;
                 result.classes = "die die_" + result.result;
@@ -74,14 +118,18 @@ export default class SR6Roll extends Roll {
             if (!this._evaluated || force) {
                 this.modifyResults();
                 if (this.configured.rollType && this.configured.rollType != RollType.Initiative) {
+                    console.log("SR6E | recalculating _formula based on dice pool", this.data.pool);
                     this._total = this.calculateTotal();
                     this._formula = this.data.pool + "d6";
                 }
                 else {
+                    console.log("SR6E | using _formula", this.formula);
                     this._formula = this.formula;
                 }
-                this._evaluated = true;
-                this._prepareChatMessage();
+                if(!evalOnly) {
+                    this._evaluated = true;
+                    this._prepareChatMessage();
+                }
             }
             return this;
         }
@@ -171,7 +219,7 @@ export default class SR6Roll extends Roll {
      */
     applyDiceCss() {
         this.results?.forEach((result) => {
-            result.classes = 'die die_' + result.result;
+            result.classes = 'die';
             if (result.result >= 5) 
                 result.classes += ' hit';
             else 
@@ -181,6 +229,8 @@ export default class SR6Roll extends Roll {
                 result.classes += ' ignored';
             if(result.edged)
                 result.classes += ' edged';
+
+            result.classes += ' die_' + result.result;
         });
     }
     /**
@@ -212,7 +262,7 @@ export default class SR6Roll extends Roll {
      * @returns TRUE, when 5s shall be ignored
      ************************/
     markWildDie() {
-        let ignoreFives = false;
+        let ignoreFives = [];
 
         this.results?.forEach(result => {
             let lastExploded = false;
@@ -225,12 +275,13 @@ export default class SR6Roll extends Roll {
                         result.count = 3;
                     }
                     else if (result.result === 1) {
-                        ignoreFives = true;
+                        ignoreFives.push(result.timeInterval??true);
                     }
                 }
                 lastExploded = result.exploded;
             }
         });
+        ignoreFives = [...new Set(ignoreFives)].sort();
         return ignoreFives;
     }
     /*****************************
@@ -250,10 +301,14 @@ export default class SR6Roll extends Roll {
                     result.classes += " exploded";
                 }
             }
-            if (result.result == 5 && ignoreFives && result.classes.indexOf(" ignored") < 0) {
-                result.classes += " ignored";
-                result.success = false;
-                result.count = 0;
+            if (result.result == 5 && ignoreFives.length > 0 && result.classes.indexOf(" ignored") < 0) {
+                if (ignoreFives.includes(result.timeInterval) || ignoreFives[0] === true) {
+                    result.classes += " ignored";
+                    result.classes.replace("hit", "miss");
+                    result.title = game.i18n.localize("shadowrun6.dice.wild_ignored");
+                    result.success = false;
+                    result.count = 0;
+                }
             }
             addedByExplosion = result.exploded;
         });
@@ -261,6 +316,7 @@ export default class SR6Roll extends Roll {
     /**
      * Build a formula for a Shadowrun dice roll.
      * Assumes roll will be valid (e.g. you pass a positive count).
+     * Used by AUTOHITS
      * @param count The number of dice to roll.
      * @param limit A limit, if any. Negative for no limit.
      * @param explode If the dice should explode on sixes.
@@ -318,9 +374,8 @@ export default class SR6Roll extends Roll {
      * @override
      */
     toJSON() {
-        console.log("SR6E | toJSON ", this);
+        console.log("SR6E | SR6Roll toJSON ", this);
         const json = super.toJSON();
-        //console.log("SR6E | toJSON: json=",json);
         json.data = this.data;
         json.configured = this.configured;
         json.finished = this.finished;
@@ -369,6 +424,7 @@ export default class SR6Roll extends Roll {
         console.log("SR6E | this = ", this);
         console.log("SR6E | this.data = ", this.data);
         console.log("SR6E | this.finished = ", this.finished);
+        // console.log("SR6E | this.results = ", this.results);
         try {
             if (!this._evaluated) {
                 await this.evaluate({ async: true });
@@ -386,7 +442,13 @@ export default class SR6Roll extends Roll {
             if (this.configured) {
                 this.finished.actionText = isPrivate ? "" : this.configured.actionText;
                 this.finished.allowSoak = this.configured.allowSoak;
-                //TODO possible move some of these things to _prepareChatMessage() // rolLType Soak already moved but kept here to keep old chatMessages working
+                if (this.configured.extended) {
+                    if (this.finished.success)
+                        this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_success", { timePassed: this.configured.timePassed });
+                    else
+                        this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_failure", { timePassed: this.configured.timePassed });
+                }
+                //TODO possible move some of these things to _prepareChatMessage() // rollType Soak already moved but kept here to keep old chatMessages working
                 if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
                     console.log("SR6E | rollType", RollType.Soak);
                     this.finished.damage = this.finished.threshold - this.finished.total;

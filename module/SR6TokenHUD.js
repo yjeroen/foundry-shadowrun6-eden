@@ -1,6 +1,16 @@
 import * as utils from "./util/helper.js";
 export default class SR6TokenHUD extends TokenHUD {
 
+  /** @inheritDoc */
+  getData(options={}) {
+    let data = super.getData(options);
+
+    // Player, NPC, Critter, Spirit, Vehicle
+    data.classes += ' ' + this.actor.type + '-hud';
+
+    return data;
+  }
+
   activateListeners(html) {
       super.activateListeners(html);
       const effectsTray = html.find(".status-effects");

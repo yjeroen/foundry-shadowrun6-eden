@@ -1064,6 +1064,8 @@
       "edgegain_player": " (Player)",
       "exp": "Expertise",
       "explode": "Explode",
+      "extended": "Extended Test",
+      "interval": "Interval",
 	   "fa_area": "Area",
 		"firemode": "Firemode",
       "failure": "Failure",
@@ -1633,7 +1635,8 @@
         "reduce_edge_from_actor": "Please reduce characters edge by {edge}.",
         "reroll_failed_requires_index": "Select one or more dice before clicking on the `Spend` button.",
         "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled.",
-        "reopen_dice_tooltip": "You switched selected tokens. Re-open the dice section in the chat to perform an Edge Boost."
+        "reopen_dice_tooltip": "You switched selected tokens. Re-open the dice section in the chat to perform an Edge Boost.",
+        "extended_test_validation": "When performing an Extended Test, Threshold and Interval must be 1 or larger."
       }
     },
     "EFFECT": {
@@ -1677,9 +1680,14 @@
     "dice": {
       "hit": "Hit!",
       "failed": "Failed!",
-      "wild": "Wild die - 3 hits!",
+      "wild": "Wild Die - 3 hits!",
+      "wild_ignored": "Hit cancelled due to a 1 rolled while rolling with a Wild Die.",
       "edge_rerolled": "Rerolled with edge.",
-      "edge_rolled": "Edge dice roll."
+      "edge_rolled": "Edge dice roll.",
+      "extended_success": "In total {timePassed} [minutes/hours/days] have passed, and you succeeded with your task.",
+      "extended_failure": "In total {timePassed} [minutes/hours/days] have passed, but you failed at your task.",
+      "extended_first_interval": "First Interval",
+      "extended_next_interval": "Next Interval"
     },
     "legwork": {
       "legwork_rolltext": "Legwork // Connection",

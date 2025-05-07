@@ -22,6 +22,7 @@ import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
 import SR6TokenHUD from "./SR6TokenHUD.js";
+import SR6Token from "./placeables/SR6Token.js";
 import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
@@ -71,6 +72,7 @@ Hooks.once("init", async function () {
     }
 
     CONFIG.Token.hudClass = SR6TokenHUD;
+    CONFIG.Token.objectClass = SR6Token;
     CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
 
     // Initialize socket handler
@@ -487,7 +489,12 @@ Hooks.once("init", async function () {
             if (!tip.is(":visible")) {
                 const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
                 const chatSpeakerActor = game.sr6.utils.getActor(chatMsg.speaker.actor, chatMsg.speaker.scene, chatMsg.speaker.token);
-                const selectedActor = game.sr6.utils.getSelectedActor();
+                let selectedActor;
+                
+                // Don't do edge boosts when its an extended test (complicated implementation & only for riggers)
+                if (!chatMsg.rolls[0].configured.extended) {
+                    selectedActor = game.sr6.utils.getSelectedActor();
+                }
                 chatMsg.edgeTooltipUsedBy = selectedActor?.uuid;
                 
                 if (chatSpeakerActor?.uuid === selectedActor?.uuid && selectedActor?.isOwner) {
@@ -634,7 +641,14 @@ Hooks.once("init", async function () {
         // @ts-ignore
         dragRuler.registerSystem("shadowrun6-eden", FictionalGameSystemSpeedProvider);
     });
-
+    // Shadowrun Pause button
+    Hooks.on("renderPause", async function () {
+	
+        $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
+        $('#pause img').attr('class', 'fa-beat-fade');
+        $('#pause figcaption').attr('class', 'glitch');
+        
+    });
     Hooks.on("preCreateScene", (scene, createData, options, userId) => {
         // Default Grid Opacity
         scene.updateSource({ 'grid.alpha': 0 })
