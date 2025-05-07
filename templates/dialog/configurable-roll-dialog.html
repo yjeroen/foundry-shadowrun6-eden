@@ -57,8 +57,7 @@
         <td colspan="3" style="width: 112px;">{{localize "shadowrun6.roll.modifier"}}</td>
         <td><input type="number" name="modifier" id="modifier" value="{{data.modifier}}" style="width: 3em" class="centered"/></td>
 
-        <td style="text-align:right">{{localize "shadowrun6.roll.sustained-spell-modifier"}}</td>
-        <td><input type="checkbox" id="useSustainedSpellModifier" {{checked data.useSustainedSpellModifier}} /></td>
+        <td colspan="4"></td>
       </tr>
       <tr>
         {{#unless data.cantDodgeBullets}}
@@ -68,14 +67,15 @@
           <td colspan="4"></td>
         {{/unless}}
 
-        <td style="text-align:right; width: 190px;">{{localize "shadowrun6.roll.wound-modifier"}}</td>
-        <td><input type="checkbox" id="useWoundModifier" {{checked data.useWoundModifier}} /></td>
+        <td style="text-align:right">{{localize "shadowrun6.roll.sustained-spell-modifier"}}</td>
+        <td><input type="checkbox" id="useSustainedSpellModifier" {{checked data.useSustainedSpellModifier}} /></td>
       </tr>
       <tr>
         <td colspan="3"><span class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}">{{localize "shadowrun6.roll.interval"}}</span></td>
         <td><span class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}"><input type="number" id="interval" name="interval" value="{{data.interval}}" oninput="this.value|=0" style="width: 3em;" class="centered"/></span></td>
-        <td style="text-align:right">{{localize "shadowrun6.roll.wilddie"}}</td>
-        <td><input type="checkbox" name="useWildDie" {{checked data.useWildDie}} /></td>
+        
+        <td style="text-align:right; width: 190px;">{{localize "shadowrun6.roll.wound-modifier"}}</td>
+        <td><input type="checkbox" id="useWoundModifier" {{checked data.useWoundModifier}} /></td>
       </tr>
     	<tr>
         {{#if data}} {{!-- add check on if extended possible --}}
@@ -83,11 +83,14 @@
           <td><input type="checkbox" class="extended-test" name="extended" {{checked data.extended}} style="margin-left: 0;"/></td>
         {{/if}}
 
-    		<td style="text-align:right">{{localize "shadowrun6.roll.explode"}}</td>
-    		<td><input type="checkbox" name="explode" value="{{data.explode}}" /></td>
+        <td style="text-align:right">{{localize "shadowrun6.roll.wilddie"}}</td>
+        <td><input type="checkbox" name="useWildDie" {{checked data.useWildDie}} /></td>
     	</tr>
     </table>
 
-    <div class="hidden"><select name="rollMode">{{selectOptions rollModes selected=data.rollMode localize=true}}</select></div>
+    <div class="hidden"> {{!-- hidden for js to still work --}}
+      <input type="checkbox" name="explode" value="{{data.explode}}" />
+      <select name="rollMode">{{selectOptions rollModes selected=data.rollMode localize=true}}</select>
+    </div>
 
 </form>
