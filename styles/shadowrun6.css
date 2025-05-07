@@ -188,10 +188,16 @@
   background-image: url(../icons/Wild_6.svg);
 }
 
-.dice-rolls .exploded::after {
+.dice-tooltip .dice-rolls li.exploded::after {
+  content: '';
+  position: absolute;
   background-position: top right;
-  background-image: url("../icons/die_exploded.svg");
+  background-image: url(../icons/die_exploded.svg);
   background-size: 12px;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
 }
 
 .dice-rolls .edged {
