@@ -639,7 +639,14 @@ Hooks.once("init", async function () {
         // @ts-ignore
         dragRuler.registerSystem("shadowrun6-eden", FictionalGameSystemSpeedProvider);
     });
-
+    // Shadowrun Pause button
+    Hooks.on("renderPause", async function () {
+	
+        $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
+        $('#pause img').attr('class', 'fa-beat-fade');
+        $('#pause figcaption').attr('class', 'glitch');
+        
+    });
     Hooks.on("preCreateScene", (scene, createData, options, userId) => {
         // Default Grid Opacity
         scene.updateSource({ 'grid.alpha': 0 })
