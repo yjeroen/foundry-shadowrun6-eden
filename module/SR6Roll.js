@@ -424,7 +424,7 @@ export default class SR6Roll extends Roll {
         console.log("SR6E | this = ", this);
         console.log("SR6E | this.data = ", this.data);
         console.log("SR6E | this.finished = ", this.finished);
-        console.log("SR6E | this.results = ", this.results);
+        // console.log("SR6E | this.results = ", this.results);
         try {
             if (!this._evaluated) {
                 await this.evaluate({ async: true });
@@ -448,7 +448,7 @@ export default class SR6Roll extends Roll {
                     else
                         this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_failure", { timePassed: this.configured.timePassed });
                 }
-                //TODO possible move some of these things to _prepareChatMessage() // rolLType Soak already moved but kept here to keep old chatMessages working
+                //TODO possible move some of these things to _prepareChatMessage() // rollType Soak already moved but kept here to keep old chatMessages working
                 if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
                     console.log("SR6E | rollType", RollType.Soak);
                     this.finished.damage = this.finished.threshold - this.finished.total;
