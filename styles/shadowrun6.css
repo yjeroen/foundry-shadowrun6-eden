@@ -634,9 +634,17 @@ a.item-control.disabled-roll:hover {
   margin-bottom: 2px;
 }
 
-.chat-message .chat-legwork h4 {
+.chat-message .message-content h4 {
   color: var(--highlight-color);
   font-style: italic;
+  font-weight: 700;
+}
+.chat-message .message-content .success {
+  color: darkgreen;
+  font-weight: 700;
+}
+.chat-message .message-content .failure {
+  color: firebrick;
   font-weight: 700;
 }
 .chat-message .chat-legwork .payformore {
@@ -655,4 +663,12 @@ a.item-control.disabled-roll:hover {
 .game .combat-sidebar li.combatant .roll {
   background: url(../images/dice-pool-white.webp) no-repeat 50% 50%;
   background-size: 32px;
+}
+.chat-message .tooltip-part .dice span,
+.chat-message .tooltip-part .threshold span {
+  font-weight: 700;
+}
+
+.chat-message .tooltip-part .threshold {
+  margin: 5px 0;
 }

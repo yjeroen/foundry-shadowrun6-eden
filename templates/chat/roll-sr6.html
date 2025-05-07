@@ -4,7 +4,9 @@
   {{log "roll-sr6.html prepared=" prepared}}
   {{log "roll-sr6.html configured=" configured}}
 
+  {{#if configured.extended}}<h3>{{localize 'shadowrun6.label.extended_test'}}</h3>{{/if}}
   <h3>{{actionText}}</h3>
+
 
   {{#if (or (or edge_use edge_use_opponent) isOpposed)}}
   <div class="chat-edge" style="display:block">    
@@ -61,6 +63,14 @@
         {{{tooltip}}}
     </div>
    </div>
+
+   
+  {{#if configured.extended}}
+   <div class="chat-extended-test">
+      <hr>
+      <div class="{{#if success}}success{{else}}failure{{/if}}" > {{extendedResultMsg}} </div>
+    </div>
+  {{/if}}
 
    {{#if (eq rollType "legwork")}}
    <!-- Legwork Details -->
@@ -250,21 +260,21 @@
         {{#if success}}
           {{#iff targets.length ">" 0}}
           {{#each targets as |target|}}
-            <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+            <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
             <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
           {{/each}}
           {{else}}
-            <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+            <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
             <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" >{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
           {{/iff}}
         {{else}}
-          <div class="resulttext" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
+          <div class="resulttext failure" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
         {{/if}}
       {{else}}
         {{#if success}}
-        <div class="resulttext" style="flex:2; color: darkgreen; font-weight: bold;">{{ localize 'shadowrun6.roll.successfulDefense'}}</div>
+        <div class="resulttext success" style="flex:2;">{{ localize 'shadowrun6.roll.successfulDefense'}}</div>
         {{else}}
-        <div class="resulttext" style="flex:2; color: firebrick; font-weight: bold; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}</div>
+        <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}</div>
   	    <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
         {{/if}}
       {{/if}}
@@ -284,7 +294,7 @@
             <br/>
             {{#if (eq monitor 'physical')}}
               <div class="resulttext" style="flex:2; display: flex; flex-direction: column;">
-                <span style="color: firebrick; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+                <span class="failure" style="line-height: 2em; font-size: 1.2em;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
                 {{#if damageConvertedStun}}
                 <span style="color: dodgerblue; font-size: 1.2em; font-weight: bold;">{{damageConvertedStun}} {{localize 'shadowrun6.monitor.stun'}}</span>
                 {{/if}}

@@ -69,6 +69,8 @@ class CommonRollData {
         return this.defendWith != undefined;
     }
     threshold;
+    interval;
+    extended;
     /* Use a wild die */
     useWildDie = 0;
     rollMode;
@@ -93,8 +95,17 @@ class CommonRollData {
         this.edgePoolIgnoringCap = copy.edgePoolIgnoringCap;
         if (copy.dualHand) this.dualHand = copy.dualHand;
         if (copy.legwork) this.legwork = copy.legwork;
+        if (copy.interval) this.interval = copy.interval;
+        if (copy.extended) this.extended = copy.extended;
     }
-    validateDialog() {}
+    validateDialog(form) {
+        const threshold = (typeof form.threshold.value === "number" || (typeof form.threshold.value === "string" && form.threshold.value.length > 0)) ? parseInt(form.threshold.value) : 0;
+        const extended = form.extended.checked;
+        const interval = parseInt(form.interval.value);
+        if (extended === true && (threshold < 1 || interval < 1)) {
+            throw new Error(game.i18n.localize("shadowrun6.ui.notifications.extended_test_validation"));     
+        }
+    }
     checkHardDiceCap(pool) {
         console.log("SR6E | checkHardDiceCap");
         // Limiting the dice pool if game settings tells us
@@ -420,6 +431,8 @@ export class ConfiguredRoll extends CommonRollData {
     buttonType;
     edgeBoost;
     explode;
+    extended;
+    interval;
     defRating;
     edgePlayer;
     edgeTarget;

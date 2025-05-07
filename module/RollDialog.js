@@ -99,6 +99,8 @@ export class RollDialog extends Dialog {
         html.find("#useSustainedSpellModifier").change(this._updateDicePool.bind(this));
         // React to change in modifier
         html.find("#modifier").change(this._updateDicePool.bind(this));
+        // Show Threshold and Interval fields when extended tests is enabled.
+        html.find(".extended-test").change(this._onExtendedTestCheckbox.bind(this));
     }
     //-------------------------------------------------------------
     _recalculateBaseAR() {
@@ -288,6 +290,33 @@ export class RollDialog extends Dialog {
             elem.appendChild(opt);
         });
     }
+
+    /**
+     * Called when the Extended Test checkbox is clicked
+     * @param {event} event 
+     */
+    _onExtendedTestCheckbox(event) {
+        console.log("SR6E | _onExtendedTestCheckbox");
+        const checked = event.target.checked;
+        const elements = this.html.find('.needed-for-extended');
+        const threshold = this.html.find('#threshold');
+
+        elements.each(function() {
+            if ( checked ) {
+                this.classList.remove('hidden')
+            } else {
+                // checking ==false instead of ===, so it also hides when value is 0
+                if ( this.classList.contains('threshold') && threshold.val()==false ) {
+                    this.classList.add('hidden')
+                } else if ( !this.classList.contains('threshold') ) {
+                    this.classList.add('hidden')
+                }
+            }
+        });
+
+        
+    }
+
     //-------------------------------------------------------------
     /*
      * Called when a change happens in the Edge Action or Edge Action

@@ -487,7 +487,12 @@ Hooks.once("init", async function () {
             if (!tip.is(":visible")) {
                 const chatMsg = game.messages.get( event.currentTarget.closest("[data-message-id]").dataset.messageId );
                 const chatSpeakerActor = game.sr6.utils.getActor(chatMsg.speaker.actor, chatMsg.speaker.scene, chatMsg.speaker.token);
-                const selectedActor = game.sr6.utils.getSelectedActor();
+                let selectedActor;
+                
+                // Don't do edge boosts when its an extended test (complicated implementation & only for riggers)
+                if (!chatMsg.rolls[0].configured.extended) {
+                    selectedActor = game.sr6.utils.getSelectedActor();
+                }
                 chatMsg.edgeTooltipUsedBy = selectedActor?.uuid;
                 
                 if (chatSpeakerActor?.uuid === selectedActor?.uuid && selectedActor?.isOwner) {
