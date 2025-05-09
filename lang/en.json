@@ -1636,7 +1636,7 @@
         "reroll_failed_requires_index": "Select one or more dice before clicking on the `Spend` button.",
         "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled.",
         "reopen_dice_tooltip": "You switched selected tokens. Re-open the dice section in the chat to perform an Edge Boost.",
-        "extended_test_validation": "When performing an Extended Test, Threshold and Interval must be 1 or larger."
+        "extended_test_validation": "When performing an Extended Test, Threshold and Interval must be 0 or larger."
       }
     },
     "EFFECT": {
@@ -1684,10 +1684,29 @@
       "wild_ignored": "Hit cancelled due to a 1 rolled while rolling with a Wild Die.",
       "edge_rerolled": "Rerolled with edge.",
       "edge_rolled": "Edge dice roll.",
-      "extended_success": "In total {timePassed} [minutes/hours/days] have passed, and you succeeded with your task.",
-      "extended_failure": "In total {timePassed} [minutes/hours/days] have passed, but you failed at your task.",
+      "extended_success": "In total {timePassed} {intervalScale} passed, and you succeeded with your task.",
+      "extended_failure": "In total {timePassed} {intervalScale} passed, but you failed at your task.",
       "extended_first_interval": "First Interval",
-      "extended_next_interval": "Next Interval"
+      "extended_next_interval": "Next Interval",
+      "extended": {
+        "intervalScale": {
+          "minute_short": "m",
+          "minute_long": "minute",
+          "minutes_long": "minutes",
+          "hour_short": "h",
+          "hour_long": "hour",
+          "hours_long": "hours",
+          "day_short": "d",
+          "day_long": "day",
+          "days_long": "days",
+          "week_short": "w",
+          "week_long": "week",
+          "weeks_long": "weeks",
+          "month_short": "M",
+          "month_long": "month",
+          "months_long": "months"
+        }
+      }
     },
     "legwork": {
       "legwork_rolltext": "Legwork // Connection",

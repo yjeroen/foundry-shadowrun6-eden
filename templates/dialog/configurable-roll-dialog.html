@@ -39,7 +39,7 @@
     <table style="background-color: transparent; border: 0px">
     	<tr>
         <td rowspan="5" style="width: 70px;">
-          <div class="edge-roll" style="flex: 0.48; margin-right: 10px">
+          <div class="edge-roll" style="flex: 0.48; margin-right: 10px;">
             <img src="systems/shadowrun6-eden/images/BlankDice.webp" style="border: 0px; height: auto; width: 48px; z-index: 0; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
           <label class="edge-value" name="dicePool">{{data.calcPool}}</label>
           </div>
@@ -55,7 +55,7 @@
     	</tr>
       <tr>
         <td colspan="3" style="width: 112px;">{{localize "shadowrun6.roll.modifier"}}</td>
-        <td><input type="number" name="modifier" id="modifier" value="{{data.modifier}}" style="width: 3em" class="centered"/></td>
+        <td style="width: 92px;"><input type="number" name="modifier" id="modifier" value="{{data.modifier}}" style="width: 3em" class="centered"/></td>
 
         <td colspan="4"></td>
       </tr>
@@ -72,7 +72,14 @@
       </tr>
       <tr>
         <td colspan="3"><span class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}">{{localize "shadowrun6.roll.interval"}}</span></td>
-        <td><span class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}"><input type="number" id="interval" name="interval" value="{{data.interval}}" oninput="this.value|=0" style="width: 3em;" class="centered"/></span></td>
+        <td>
+          <div class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}">
+              <input type="number" id="interval" name="interval" value="{{data.interval}}" oninput="this.value|=0" style="width: 3em;" class="centered"/>
+              <select name="interval_scale">
+                {{selectOptions CONFIG.SR6.EXTENDED_INTERVALS localize=true }}
+              </select>
+            </div>
+        </td>
         
         <td style="text-align:right; width: 190px;">{{localize "shadowrun6.roll.wound-modifier"}}</td>
         <td><input type="checkbox" id="useWoundModifier" {{checked data.useWoundModifier}} /></td>

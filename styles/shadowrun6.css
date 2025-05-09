@@ -783,3 +783,7 @@ a.item-control.disabled-roll:hover {
 #token-hud.Vehicle-hud .attribute.bar2 input {
   border: 2px solid rgb(0, 200, 50);
 }
+
+.dialog-content .interval select {
+  height: var(--form-field-height);
+}

@@ -766,4 +766,11 @@ export class SR6Config {
         HIGHLY_PLAUSIBLE: "shadowrun6.sin.highly_plausible",
         SECOND_LIFE: "shadowrun6.sin.second_life"
     };
+    EXTENDED_INTERVALS = {
+        minute: "shadowrun6.dice.extended.intervalScale.minute_short",
+        hour: "shadowrun6.dice.extended.intervalScale.hour_short",
+        day: "shadowrun6.dice.extended.intervalScale.day_short",
+        week: "shadowrun6.dice.extended.intervalScale.week_short",
+        month: "shadowrun6.dice.extended.intervalScale.month_short",
+    };
 }

@@ -102,7 +102,7 @@ class CommonRollData {
         const threshold = (typeof form.threshold.value === "number" || (typeof form.threshold.value === "string" && form.threshold.value.length > 0)) ? parseInt(form.threshold.value) : 0;
         const extended = form.extended.checked;
         const interval = parseInt(form.interval.value);
-        if (extended === true && (threshold < 1 || interval < 1)) {
+        if (extended === true && (threshold < 0 || interval < 1)) {
             throw new Error(game.i18n.localize("shadowrun6.ui.notifications.extended_test_validation"));     
         }
     }

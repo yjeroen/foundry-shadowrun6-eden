@@ -304,6 +304,9 @@ export class RollDialog extends Dialog {
         elements.each(function() {
             if ( checked ) {
                 this.classList.remove('hidden')
+                if ( this.classList.contains('threshold') && threshold.val()==false ) {
+                    threshold.val(0);
+                }
             } else {
                 // checking ==false instead of ===, so it also hides when value is 0
                 if ( this.classList.contains('threshold') && threshold.val()==false ) {

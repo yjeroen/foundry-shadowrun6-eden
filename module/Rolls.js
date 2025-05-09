@@ -266,7 +266,10 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             configured.useWildDie = form.useWildDie.checked ? 1 : 0;
             configured.explode = form.explode.checked;
             configured.extended = form.extended.checked;
-            configured.interval = parseInt(form.interval.value);
+            if (configured.extended) {
+                configured.interval = parseInt(form.interval.value);
+                configured.intervalScale = form.interval_scale.value;
+            }
             configured.buttonType = type;
             dialog.modifier = parseInt(form.modifier.value);
             if (!dialog.modifier)
