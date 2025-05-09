@@ -304,8 +304,6 @@ Hooks.once("init", async function () {
     Hooks.on("renderChatMessage", function (app, html, data) {
         console.log("SR6E | ENTER renderChatMessage");
         
-        // registerChatMessageEdgeListener(this, app, html, data);
-
         html.on("click", ".chat-edge", (ev) => {
             let event = ev;
             event.preventDefault();
@@ -697,22 +695,6 @@ $.fn.closestData = function (dataName, defaultValue = "") {
     return value ? value : defaultValue;
 };
 /* -------------------------------------------- */
-function registerChatMessageEdgeListener(event, chatMsg, html, data) {
-    console.warn(chatMsg?.edgeTooltipUsedBy); 
-    const selectedActor = game.sr6.utils.getSelectedActor();
-    console.warn(selectedActor); 
-    return;
-    // chatMsg.roll is a SR6Roll
-    let btnPerform = html.find(".edgePerform");
-    let roll = getRoll(chatMsg);
-    if (btnPerform && roll) {
-        btnPerform.click((event) => {
-            const edgeType = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
-            const chatMsgId = event.target.closest("[data-message-id]").dataset.messageId;
-            EdgeRoll.performPostEdgeBoost(chatMsgId, edgeType);
-        });
-    }
-}
 function _onRenderVehicleSheet(application, html, data) {
     console.log("SR6E | _onRenderVehicleSheet for " + data.actor);
 }

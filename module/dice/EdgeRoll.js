@@ -180,23 +180,23 @@ export default class EdgeRoll {
                     //bump selected dice
                     let dice = chatMsg.rolls[0].finished.results;
                     let numberOfDice = dice.filter(die => die.selectedDie === true).length;
+
                     if (numberOfDice == 0) {
                         ui.notifications.error("shadowrun6.ui.notifications.reroll_failed_requires_index", { localize: true });
                         return;
                     }
                     if (!EdgeRoll.enoughEdge(actor, edgeCost * numberOfDice)){
                         return;
-                    } else {
-                        edgeCost = edgeCost * numberOfDice;
                     }
+                    numberOfDice = 0; // Reset to count how many dice we spend edge on
                     await Promise.all(dice.map(async (die, dieIndex) => {
                         if (die.selectedDie === true) {
-                            edgeSpent = EdgeRoll.plusOneOnIndex(chatMsg, boostTitle, dieIndex);
+                            edgeSpent = await EdgeRoll.plusOneOnIndex(chatMsg, boostTitle, dieIndex);
+                            if (edgeSpent) numberOfDice++;
                         }
                     }));
+                    edgeCost = edgeCost * numberOfDice;
 
-                } else {
-                    edgeSpent = EdgeRoll.plusOneOnIndex(chatMsg, boostTitle, dieIndex);
                 }
                 break;
 
@@ -216,6 +216,7 @@ export default class EdgeRoll {
                     await Promise.all(dice.map(async (die, dieIndex) => {
                         if (die.selectedDie === true) {
                             edgeSpent = await EdgeRoll.reRoll(chatMsg, boostTitle, 1, dieIndex, spendEdgeSelf);
+                            if (!edgeSpent) return;
                         }
                     }));
 
@@ -244,11 +245,16 @@ export default class EdgeRoll {
     static async plusOneOnIndex(chatMsg, boostTitle, index) {
         // Change dice
         let roll = chatMsg.rolls[0];
-        const element = roll.finished.results[index];
+        // const element = roll.finished.results[index];
+        const element = roll.results[index];
 
         if (element.result == 6) {
             ui.notifications.error("shadowrun6.ui.notifications.cant_increase_die", { localize: true });
-            console.error("SR6E | Can't increase roll!");
+            console.error("SR6E | Can't increase roll, as it's a 6");
+            return false;
+        } else if ([2,3,5].indexOf(element.result) !== -1) {
+            ui.notifications.error("shadowrun6.ui.notifications.cant_increase_die", { localize: true });
+            console.error("SR6E | Can't increase roll, as it wouldn't result in a change of successes");
             return false;
         }
 
@@ -389,8 +395,9 @@ export default class EdgeRoll {
 
     static async payEdge(actor, edgeCost, edgeBoost, spendEdgeSelf) {
         if (edgeCost > 0) {
+            let msg = '';
             if (actor) {
-                const msg = game.i18n.format("shadowrun6.ui.notifications.character_has_spent_edge", { actor: actor.name, edge: edgeCost, edgeBoost: game.i18n.localize("shadowrun6.edge_boost." + edgeBoost) });
+                msg = game.i18n.format("shadowrun6.ui.notifications.character_has_spent_edge", { actor: actor.name, edge: edgeCost, edgeBoost: game.i18n.localize("shadowrun6.edge_boost." + edgeBoost) });
                 await actor.update({
                     system: {
                         edge: { value: actor.system.edge.value - edgeCost }
@@ -404,9 +411,9 @@ export default class EdgeRoll {
                     });
                 }
             } else {
-                const msg = game.i18n.format("shadowrun6.ui.notifications.reduce_edge_from_actor", { edge: edgeCost });
-                ui.notifications.info(msg);
+                msg = game.i18n.format("shadowrun6.ui.notifications.reduce_edge_from_actor", { edge: edgeCost });
             }
+            ui.notifications.info(msg);
         }
     }
 }

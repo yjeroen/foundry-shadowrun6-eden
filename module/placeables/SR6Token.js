@@ -29,10 +29,6 @@ export default class SR6Token extends Token {
     if ( number === 0 ) color = Color.fromRGB([1 - (pct / 2), pct, 0]);
     else color = Color.fromRGB([0.5 * pct, 0.7 * pct, 0.5 + (pct / 2)]);
     
-    console.log('JEROEN this', this)
-    console.log('JEROEN this.actor', this.actor)
-    console.log('JEROEN this.actor.type', this.actor.type)
-    
     // Physical Monitor assumed
     if ( number === 0 ) {
         color = Color.fromRGB([0.54, 0.14, 0.47]);
