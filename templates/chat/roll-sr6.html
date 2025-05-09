@@ -40,16 +40,21 @@
             <div class="resulttext" style="flex:2;text-align: right;">{{ localize 'shadowrun6.roll.accumulated' }}: <b>{{system.extendedAccumulate}}</b> / {{system.threshold}}</div>
         {{else}}
         		{{#if (eq rollType "initiative")}}
-        		<div class="resulttext" style="flex:2">Total {{total}}</div>
+        		<div class="resulttext" style="flex:2">{{localize 'shadowrun6.section.karma.total'}}: {{total}}</div>
         		{{else}}
-              {{#if success}}
-              <div class="resulttext" style="flex:2">
-                {{localize 'shadowrun6.roll.success'}}: <b>{{total}}</b> {{localize 'shadowrun6.roll.successes'}}{{#if netHits}}, <b>{{netHits}}</b> {{localize 'shadowrun6.roll.netHits'}}{{/if}}
-              </div>
+              {{#if (and configured.extended (not configured.threshold))}}
+                  <div class="resulttext" style="flex:2">{{total}} {{localize 'shadowrun6.roll.hits'}}
+                  </div>
               {{else}}
-              <div class="resulttext" style="flex:2">
-                {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
-              </div>
+                  {{#if success}}
+                  <div class="resulttext" style="flex:2">
+                    {{localize 'shadowrun6.roll.success'}}: <b>{{total}}</b> {{localize 'shadowrun6.roll.successes'}}{{#if netHits}}, <b>{{netHits}}</b> {{localize 'shadowrun6.roll.netHits'}}{{/if}}
+                  </div>
+                  {{else}}
+                  <div class="resulttext" style="flex:2">
+                    {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
+                  </div>
+                  {{/if}}
               {{/if}}
             {{/if}}
         {{/if}}
@@ -68,7 +73,17 @@
   {{#if configured.extended}}
    <div class="chat-extended-test">
       <hr>
-      <div class="{{#if success}}success{{else}}failure{{/if}}" > {{extendedResultMsg}} </div>
+      {{#if configured.threshold}}
+        <div class="{{#if success}}success{{else}}failure{{/if}}" > {{extendedResultMsg}} </div>
+      {{else}}
+        <div class="continue-extended-test">
+          <div class="resulttext success">{{extendedResultMsg}}</div>
+          <button class="rollable" data-roll-type="continue_extended" data-pool="{{configured.pool}}" data-interval="{{configured.interval}}" data-interval-scale="{{configured.intervalScale}}" 
+                  data-time-passed="{{configured.timePassed}}" data-hits="{{configured.extendedTotal}}" data-action-text="{{configured.actionText}}" 
+                  data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.dice.extended.continue'}}?
+          </button>
+        </div>
+      {{/if}}
     </div>
   {{/if}}
 

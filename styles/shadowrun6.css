@@ -787,3 +787,7 @@ a.item-control.disabled-roll:hover {
 .dialog-content .interval select {
   height: var(--form-field-height);
 }
+
+.chat-message .continue-extended-test .success {
+  padding-bottom: 5px;
+}

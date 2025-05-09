@@ -76,7 +76,7 @@
           <div class="interval needed-for-extended{{#unless data.extended}} hidden{{/unless}}">
               <input type="number" id="interval" name="interval" value="{{data.interval}}" oninput="this.value|=0" style="width: 3em;" class="centered"/>
               <select name="interval_scale">
-                {{selectOptions CONFIG.SR6.EXTENDED_INTERVALS localize=true }}
+                {{selectOptions CONFIG.SR6.EXTENDED_INTERVALS selected=data.intervalScale localize=true }}
               </select>
             </div>
         </td>
@@ -98,6 +98,10 @@
     <div class="hidden"> {{!-- hidden for js to still work --}}
       <input type="checkbox" name="explode" value="{{data.explode}}" />
       <select name="rollMode">{{selectOptions rollModes selected=data.rollMode localize=true}}</select>
+      {{#if (eq data.rollType "continue_extended")}}
+        <input type="number" name="timePassed" value="{{data.timePassed}}" />
+        <input type="number" name="extendedTotal" value="{{data.extendedTotal}}" />
+      {{/if}}
     </div>
 
 </form>

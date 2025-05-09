@@ -18,6 +18,7 @@ export var RollType;
     RollType["Damage"] = "damage";
     RollType["Initiative"] = "initiative";
     RollType["Legwork"] = "legwork";
+    RollType["ContinueExtendedTest"] = "continue_extended";
 })(RollType || (RollType = {}));
 export var SoakType;
 (function (SoakType) {
@@ -95,7 +96,6 @@ class CommonRollData {
         this.edgePoolIgnoringCap = copy.edgePoolIgnoringCap;
         if (copy.dualHand) this.dualHand = copy.dualHand;
         if (copy.legwork) this.legwork = copy.legwork;
-        if (copy.interval) this.interval = copy.interval;
         if (copy.extended) this.extended = copy.extended;
     }
     validateDialog(form) {
@@ -486,6 +486,13 @@ export class ConfiguredRoll extends CommonRollData {
         this.soakType = copy.soakType;
         this.monitor = copy.monitor;
         if (copy.legwork) this.legwork = copy.legwork;
+        if (this.extended) {
+            this.interval = copy.interval;
+            this.allowBuyHits = copy.allowBuyHits;
+            this.intervalScale = copy.intervalScale;
+            this.timePassed = copy.timePassed;
+            this.extendedTotal = copy.extendedTotal;
+        }
     }
 }
 /**

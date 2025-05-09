@@ -59,7 +59,7 @@ export default class SR6Roll extends Roll {
         // Extended Tests
         if (this.data.extended) {
             console.log('SR6E | Start Extended Test', die.terms);
-            this.data.timePassed = this.data.interval;
+            this.data.timePassed = (this.data.timePassed??0) + this.data.interval;
             this.evaluateResult(false, true);
             this.results.map(dieResult => {
                 dieResult.timeInterval = this.data.timePassed;
@@ -92,6 +92,11 @@ export default class SR6Roll extends Roll {
                 }
                 termIndex += 2;
                 this.evaluateResult(false, true);
+            }
+            // Open ended extended test
+            if (this.data.threshold === 0) {
+                this.configured.extendedTotal = (this.data.extendedTotal??0) + this.total;
+                this.configured.timePassed = this.data.timePassed;
             }
             console.log('SR6E | End Extended Test');
         }
@@ -443,16 +448,25 @@ export default class SR6Roll extends Roll {
                 this.finished.actionText = isPrivate ? "" : this.configured.actionText;
                 this.finished.allowSoak = this.configured.allowSoak;
                 if (this.configured.extended) {
-                    if (this.finished.success)
+                    if (this.configured.threshold === 0) {
+                        this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended.desc", { 
+                            timePassed: this.configured.timePassed, 
+                            intervalScale: game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${this.configured.intervalScale}${this.configured.timePassed==1?'':'s'}_long` ),
+                            hits: this.configured.extendedTotal
+                        });
+                    } 
+                    else if (this.finished.success) {
                         this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_success", { 
                             timePassed: this.configured.timePassed, 
                             intervalScale: game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${this.configured.intervalScale}${this.configured.timePassed==1?'':'s'}_long` ) 
                         });
-                    else
+                    }
+                    else {
                         this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_failure", { 
                             timePassed: this.configured.timePassed, 
                             intervalScale: game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${this.configured.intervalScale}${this.configured.timePassed==1?'':'s'}_long` ) 
                         });
+                    }
                 }
                 //TODO possible move some of these things to _prepareChatMessage() // rollType Soak already moved but kept here to keep old chatMessages working
                 if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {

@@ -382,7 +382,29 @@ Hooks.once("init", async function () {
             const damage = dataset.damage ? parseInt(dataset.damage) : 0;
             console.log("SR6E | Target actor ", actor);
             console.log("SR6E | Target actor ", actor.name);
+            let dialogConfig;
             switch (rollType) {
+                case RollType.ContinueExtendedTest:
+                    console.log("SR6E | Processing Rollable Chatbutton for Continueing an open ended Extended Test");
+                    const extendedRoll = new PreparedRoll();
+                    extendedRoll.pool = parseInt(dataset.pool) - 1;
+                    extendedRoll.rollType = RollType.ContinueExtendedTest;
+                    extendedRoll.extendedTotal = parseInt(dataset.hits);
+                    extendedRoll.extended = true;
+                    extendedRoll.actionText = dataset.actionText;
+                    extendedRoll.checkText = game.i18n.format("shadowrun6.dice.extended.continue");
+                    extendedRoll.allowBuyHits = false;
+                    extendedRoll.threshold = 0;
+                    extendedRoll.interval = parseInt(dataset.interval);
+                    extendedRoll.intervalScale = dataset.intervalScale;
+                    extendedRoll.timePassed = parseInt(dataset.timePassed);
+                    dialogConfig = {
+                        useWoundModifier: false,
+                        useSustainedSpellModifier: false
+                    };
+                    actor.rollCommonCheck(extendedRoll, dialogConfig);
+
+                    break;
                 case RollType.Legwork:
                     console.log("SR6E | Processing Rollable Chatbutton for Legwork");
                     const loyaltyRoll = new PreparedRoll();
@@ -393,7 +415,7 @@ Hooks.once("init", async function () {
                     loyaltyRoll.threshold = 1;
                     loyaltyRoll.checkText = game.i18n.format("shadowrun6.legwork.loyalty_description", { name: dataset.contact });
                     loyaltyRoll.legwork = { legworkResult: parseInt(dataset.legworkResult) };
-                    const dialogConfig = {
+                    dialogConfig = {
                         useWoundModifier: false,
                         useSustainedSpellModifier: false
                     };

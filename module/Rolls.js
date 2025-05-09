@@ -104,6 +104,9 @@ async function _showRollDialog(data) {
                 data.cantDodgeBulletsBaseThreshold = data.threshold;
             }
         }
+        else if (data.RollType == RollType.ContinueExtendedTest) {
+            // possible add things here? Currently they're in shadowrun6.js
+        }
         data.edgeBoosts.unshift({ id:'none', label: ' - ' });
         data.edgeBoosts.push({ id:'edge_action', label: 'shadowrun6.edge_boost.edge_action' });
 
@@ -269,6 +272,7 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             if (configured.extended) {
                 configured.interval = parseInt(form.interval.value);
                 configured.intervalScale = form.interval_scale.value;
+                configured.timePassed = (form.timePassed?.value === undefined) ? 0 : parseInt(form.timePassed.value);
             }
             configured.buttonType = type;
             dialog.modifier = parseInt(form.modifier.value);
@@ -321,10 +325,11 @@ function createFormula(roll, dialog) {
 
     let originalDicePool = regular;
     //check for Extended Test
-    let dicepoolThrows = roll.extended ? originalDicePool : 1;
+    //only extend within this throw if it isnt an open ended extended test
+    let dicepoolThrows = (roll.extended && roll.threshold>0) ? originalDicePool : 1;
 
     while (dicepoolThrows > 0) {
-        if (roll.extended && dicepoolThrows < originalDicePool) {
+        if ((roll.extended && roll.threshold>0) && dicepoolThrows < originalDicePool) {
             formula += " + "
             regular = dicepoolThrows;
         }

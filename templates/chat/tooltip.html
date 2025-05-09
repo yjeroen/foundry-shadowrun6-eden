@@ -4,7 +4,7 @@
         <div class="threshold"><span>{{ localize 'shadowrun6.label.threshold'}}: </span> {{finished.threshold}}</div>
         {{/iff}}
         <div class="dice">
-            {{#if finished.configured.extended}}<span>{{ localize 'shadowrun6.dice.extended_first_interval'}}:</span>{{/if}}
+            {{#if (and finished.configured.extended finished.configured.threshold)}}<span>{{ localize 'shadowrun6.dice.extended_first_interval'}}:</span>{{/if}}
             <ol class="dice-rolls">
             {{#each results as |result id|}}
                 {{#if result.firstDieOfNextInterval}}

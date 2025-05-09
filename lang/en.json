@@ -1689,6 +1689,8 @@
       "extended_first_interval": "First Interval",
       "extended_next_interval": "Next Interval",
       "extended": {
+        "continue": "Continue with Extended Test",
+        "desc": "In total {timePassed} {intervalScale} passed, and you have {hits} hits in total.",
         "intervalScale": {
           "minute_short": "m",
           "minute_long": "minute",
