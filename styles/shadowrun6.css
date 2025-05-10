@@ -422,6 +422,11 @@
 #chat-controls .chat-control-icon:hover {
   text-shadow: 0 0 8px var(--color-shadow-primary);
 }
+.foundry-modern #chat h3 {
+  font-size: 1.25em;
+  margin: 0 0 0.5rem;
+  border-bottom: 1px solid var(--color-underline-header);
+}
 
 #token-hud .status-effects {
   width: 222px;
@@ -465,9 +470,26 @@
   z-index: 1;
 }
 
+#pause.paused {
+  height: 220px;
+  animation: none;
+  gap: unset;
+}
+#pause img {
+  position: absolute;
+  height: 140px;
+  width: 140px;
+}
 #pause figcaption {
   font-family: "Rubik Glitch";
+  color: #eee;
   font-size: 3em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  top: 50px;
+}
+.foundry-modern #pause figcaption {
+  top: 20px;
 }
 .glitch {
   font-size: 8rem;
@@ -794,4 +816,7 @@ a.item-control.disabled-roll:hover {
 .sheet.item img {
   max-height: 92px;
   width: auto;
+}
+#scene-navigation .scene-navigation-menu .scene {
+  font-weight: 600;
 }

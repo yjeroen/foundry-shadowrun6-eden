@@ -1,4 +1,6 @@
-:root {
+:root,
+.themed.theme-light,
+.themed.theme-dark {
 	--highlight-color: #892378;
 	--accent-color: #00a8ff;
 	--section-background: #efefeb;
@@ -11,9 +13,28 @@
 	--color-shadow-primary: #960570;
 	--color-shadow-highlight: #C58FB2;	
 	--color-border-dark-secondary: #C58FB2;	
+	--color-underline-header: #892378;
+	--color-warm-1: #892378;
+	--color-warm-2: #892378;
+	--toggle-border-color: #892378;
+    --toggle-active-bg-color: #892378;
+    --toggle-active-border-color: #C58FB2;
+	--color-light-5: #C58FB2;
+}
+.themed.theme-light {
+	--sidebar-background: url("/systems/shadowrun6-eden/images/background.webp");
+}
+.foundry-modern hr {
+	background-image: linear-gradient(90deg, transparent 0%, #892378 50%, transparent 100%);
+	margin: 0.5em 0;
+}
+.foundry-modern .chat-message hr {
+	border-top: 1px solid #b5b3a4;
+    border-bottom: 1px solid #f0f0e0;
 }
 
-.game .window-app.app.shadowrun6 {
+.game .window-app.app.shadowrun6,
+#sidebar-content .tab {
     box-shadow: 0 0 10px var(--color-shadow-primary);
 	/* 8405c9 */
 }
@@ -24,16 +45,37 @@
 	background-repeat: no-repeat, repeat;
 }
 
-.app.window-app.dialog .window-content, #chat-form textarea,
-.window-app .window-content,
+.themed.theme-light .app.window-app.dialog .window-content, 
+.themed.theme-light #chat-form textarea,
+.themed.theme-light .window-app .window-content,
+.themed.theme-light .application .window-content,
+body.game .app.window-app .window-content,
 .chat-message  {
-	background-image: url("../images/background.webp");
+	background-image: url("/systems/shadowrun6-eden/images/background.webp");
 	background-position: left top;
 	background-repeat: repeat;
 }
 
-button, 
-#chat-controls .roll-type-select,
-.directory .directory-header .header-search input {
-	background: rgba(255, 255, 255, 0.9);
+button.ui-control[aria-pressed=true], a.ui-control[aria-pressed=true], li.ui-control[aria-pressed=true], .placeable-hud .control-icon[aria-pressed=true], .placeable-hud input[aria-pressed=true] {
+	border: 1px solid var(--color-border-highlight-alt);
+    border-bottom: 1px solid var(--color-border-highlight);
+    box-shadow: 0 0 10px var(--color-shadow-highlight);
+}
+
+.theme-light .directory .directory-item img {
+	margin: 2px;
+	border-radius: 5px;
+	box-shadow: 0 0 5px 0px #892378, inset 0 0 20px #000;
+}
+body.game .app table tr:nth-child(even) {
+	background-color: unset;
+}
+table thead, table tfoot {
+	border: 0;
+}
+body.game .app table tr th:first-child {
+	padding-left: 3px;
+}
+.foundry-modern .settings-sidebar .info .title {
+	font-size: var(--font-size-24);
 }

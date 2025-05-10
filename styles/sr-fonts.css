@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Rubik+Glitch&family=Syncopate:wght@400;700&display=swap');
 
-:root body {
+:root body,
+body.game.foundry-modern .app {
     --font-primary: "Play", serif;
     --font-body: "Play", serif;
     --font-blockquote: "Play", serif;
     --font-monospace: "Play", serif;
     --font-h1: "Rubik Glitch", serif;
-    --font-h2: "Syncopate", serif;
+    --font-h2: "Play", serif;
     --font-h3: "Play", serif;
     --font-h4: "Syncopate", serif;
     --font-h5: "Play", serif;
     --font-h6: "Rubik Glitch", serif;
+    --font-sans: "Play", serif;
 }
 
 .game h1, h2, h3, h4 {
