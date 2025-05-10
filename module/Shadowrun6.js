@@ -29,8 +29,6 @@ import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
 import { migrateWorld } from "./util/Migrations.js";
 import SR6SocketHandler from './util/SR6SocketHandler.js';
-const diceIconSelector = "#chat-controls .chat-control-icon .fa-dice";
-
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -108,9 +106,16 @@ Hooks.once("init", async function () {
         ],
         makeDefault: true
     });
+
+    if (game.release.generation >= 13) {
+        document.body.classList.add('foundry-modern');
+    }
+
     preloadHandlebarsTemplates();
     defineHandlebarHelper();
     document.addEventListener('paste', (e) => Importer.pasteEventhandler(e), false);
+
+    $('#pause img').attr('class', 'fa-beat-fade');
 
     Hooks.once("diceSoNiceReady", (dice3d) => {
         dice3d.addSystem({ id: "SR6", name: "Shadowrun 6 - Eden", defaultValue: true }, true, "default");
@@ -190,18 +195,34 @@ Hooks.once("init", async function () {
     
     /*
      * Change chat dice icon
+     * Called via var $(document).on("click", "sr6-dice-roll"
      */
     Hooks.on("renderChatLog", (doc, options, userId) => {
         // Replace D20 chat icon with D6's
-        let chatDiceIcon = document.querySelector(".chat-control-icon .fas.fa-dice-d20");
-        chatDiceIcon.setAttribute("class", "fas fa-dice");
+        if (game.release.generation < 13) {
+            let chatDiceIcon = document.querySelector(".chat-control-icon .fas.fa-dice-d20");
+            chatDiceIcon.setAttribute("class", "fas fa-dice sr6-dice-roll");
+            chatDiceIcon.setAttribute("title", game.i18n.localize("shadowrun6.roll.create"));
+        }
     });
+    Hooks.on("getSceneControlButtons", (controls) => {    
+        if (game.release.generation >= 13) {
+            const shadowrunRoll = {
+                icon: "fa-solid fa-dice sr6-dice-roll",
+                name: "shadowrun_roll",
+                order: 99,
+                title: "shadowrun6.roll.create"
+            };
+            controls.tokens.tools.shadowrunRoll = shadowrunRoll;
+        }
+    });
+
     Hooks.on("ready", () => {
         migrateWorld();
 
         // Render a dice roll dialog on click
-        $(document).on("click", diceIconSelector, (ev) => {
-            console.log("SR6E | diceIconSelector clicked  ", ev);
+        $(document).on("click", ".sr6-dice-roll", (ev) => {
+            console.log("SR6E | sr6-dice-roll clicked  ", ev);
             ev.preventDefault();
             // Roll and return
             let roll = new PreparedRoll();
@@ -661,13 +682,17 @@ Hooks.once("init", async function () {
         // @ts-ignore
         dragRuler.registerSystem("shadowrun6-eden", FictionalGameSystemSpeedProvider);
     });
-    // Shadowrun Pause button
-    Hooks.on("renderPause", async function () {
-	
+    // Shadowrun Pause button for V12
+    Hooks.on("renderPause", async function (Pause, html, paused) {
         $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
         $('#pause img').attr('class', 'fa-beat-fade');
-        $('#pause figcaption').attr('class', 'glitch');
-        
+        $('#pause figcaption').attr('class', 'glitch'); 
+    });
+    // Shadowrun Pause button for V13
+    Hooks.on("renderGamePause", async function (GamePause, html, options, renderOptions) {
+        $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
+        $('#pause img').attr('class', 'fa-beat-fade');
+        $('#pause figcaption').attr('class', 'glitch'); 
     });
     Hooks.on("preCreateScene", (scene, createData, options, userId) => {
         // Default Grid Opacity
@@ -675,12 +700,12 @@ Hooks.once("init", async function () {
     });
 
     Hooks.on("renderSettings", async (_app, $html) => {
-        const html = $html[0];
+        const html = $html instanceof jQuery ? $html[0] : $html;
         // Additional system information resources
-        const systemRow = html.querySelector(".settings-sidebar li.system");
+        const systemRow = html.querySelector(".settings-sidebar .system");
         const systemInfo = systemRow?.cloneNode(false);
-        if (!(systemInfo instanceof HTMLLIElement)) {
-            throw ErrorPF2e("Unexpected error attaching system information to settings sidebar");
+        if (!(systemInfo instanceof HTMLElement)) {
+            console.error("SR6 | Unexpected error attaching system information to settings sidebar");
         }
 
         systemInfo.classList.remove("system");

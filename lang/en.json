@@ -1016,6 +1016,7 @@
         }
       },
       "apply_damage": "Apply damage",
+      "create": "Create your own Shadowrun Dice Pool",
       "damage_applied": "Damage applied",
       "damage_revert": "Revert damage back?",
       "ar_0": "Close",
