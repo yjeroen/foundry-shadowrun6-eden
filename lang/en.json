@@ -1694,19 +1694,19 @@
         "intervalScale": {
           "minute_short": "m",
           "minute_long": "minute",
-          "minutes_long": "minutes",
+          "minute_long_plural": "minutes",
           "hour_short": "h",
           "hour_long": "hour",
-          "hours_long": "hours",
+          "hour_long_plural": "hours",
           "day_short": "d",
           "day_long": "day",
-          "days_long": "days",
+          "day_long_plural": "days",
           "week_short": "w",
           "week_long": "week",
-          "weeks_long": "weeks",
+          "week_long_plural": "weeks",
           "month_short": "M",
           "month_long": "month",
-          "months_long": "months"
+          "month_long_plural": "months"
         }
       }
     },
