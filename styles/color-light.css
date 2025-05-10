@@ -19,7 +19,16 @@
 	--toggle-border-color: #892378;
     --toggle-active-bg-color: #892378;
     --toggle-active-border-color: #C58FB2;
+	--color-cool-4: #501446;
+	--control-hover-border-color: #892378;
 	--color-light-5: #C58FB2;
+}
+.themed.theme-dark .ui-control, .themed.theme-dark .placeable-hud, .themed.theme-dark #measurement .waypoint-label {
+	--color-cool-4: #31092b;
+	--control-border-color: #31092b;
+	--control-hover-border-color: #892378;
+}
+button.ui-control.toggle, a.ui-control.toggle, li.ui-control.toggle, .placeable-hud .control-icon.toggle, .placeable-hud input.toggle {
 }
 .themed.theme-light {
 	--sidebar-background: url("/systems/shadowrun6-eden/images/background.webp");
@@ -78,4 +87,14 @@ body.game .app table tr th:first-child {
 }
 .foundry-modern .settings-sidebar .info .title {
 	font-size: var(--font-size-24);
+	font-weight: 400;
+}
+.foundry-modern .settings-sidebar h4 {
+	font-size: var(--font-size-14);
+}
+.foundry-modern #hotbar {
+	--hotbar-size: 46px;
+}
+.foundry-modern #hotbar #action-bar .slot {
+	border-radius: 5px;
 }
