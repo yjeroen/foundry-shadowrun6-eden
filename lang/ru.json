@@ -1699,19 +1699,19 @@
                 "intervalScale": {
                     "minute_short": "мин.",
                     "minute_long": "минута",
-                    "minutes_long": "минут",
+                    "minute_long_plural": "минут",
                     "hour_short": "ч.",
                     "hour_long": "час",
-                    "hours_long": "часов",
+                    "hour_long_plural": "часов",
                     "day_short": "дн.",
                     "day_long": "день",
-                    "days_long": "дней",
+                    "day_long_plural": "дней",
                     "week_short": "нед.",
                     "week_long": "неделя",
-                    "weeks_long": "недель",
+                    "week_long_plural": "недель",
                     "month_short": "мес.",
                     "month_long": "месяц",
-                    "months_long": "месяцев"
+                    "month_long_plural": "месяцев"
                 }
             }
         },
