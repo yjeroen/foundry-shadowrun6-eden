@@ -195,23 +195,25 @@ Hooks.once("init", async function () {
     
     /*
      * Change chat dice icon
-     * Called via var $(document).on("click", "sr6-dice-roll"
+     * Called via var $(document).on("click", "sr6-dice-roll-v12"
      */
     Hooks.on("renderChatLog", (doc, options, userId) => {
         // Replace D20 chat icon with D6's
         if (game.release.generation < 13) {
             let chatDiceIcon = document.querySelector(".chat-control-icon .fas.fa-dice-d20");
-            chatDiceIcon.setAttribute("class", "fas fa-dice sr6-dice-roll");
+            chatDiceIcon.setAttribute("class", "fas fa-dice sr6-dice-roll-v12");
             chatDiceIcon.setAttribute("title", game.i18n.localize("shadowrun6.roll.create"));
         }
     });
     Hooks.on("getSceneControlButtons", (controls) => {    
         if (game.release.generation >= 13) {
             const shadowrunRoll = {
-                icon: "fa-solid fa-dice sr6-dice-roll",
-                name: "shadowrun_roll",
+                name: "shadowrunRoll",
                 order: 99,
-                title: "shadowrun6.roll.create"
+                title: "shadowrun6.roll.create",
+                icon: "fa-solid fa-dice",
+                onClick: () => _onClickDiceRoll(),
+                button: true
             };
             controls.tokens.tools.shadowrunRoll = shadowrunRoll;
         }
@@ -220,16 +222,9 @@ Hooks.once("init", async function () {
     Hooks.on("ready", () => {
         migrateWorld();
 
-        // Render a dice roll dialog on click
-        $(document).on("click", ".sr6-dice-roll", (ev) => {
-            console.log("SR6E | sr6-dice-roll clicked  ", ev);
-            ev.preventDefault();
-            // Roll and return
-            let roll = new PreparedRoll();
-            roll.pool = 0;
-            roll.speaker = ChatMessage.getSpeaker({ actor: this });
-            roll.rollType = RollType.Common;
-            doRoll(roll);
+        // Render a dice roll dialog on click for V12
+        $(document).on("click", ".sr6-dice-roll-v12", (ev) => {
+            _onClickDiceRoll();
         });
     });
     Hooks.on("renderShadowrun6ActorSheetPC", (doc, options, userId) => {
@@ -524,6 +519,7 @@ Hooks.once("init", async function () {
         });
         // Collapsible Chat Dice tooltip
         html.on("click", ".chat-edge-post", (event) => {
+            console.log("SR6E | Chat roll tooltip clicked for Edge");
             event.preventDefault();
             let roll = $(event.currentTarget.parentElement);
             let tip = roll.find(".chat-edge-post-collapsible");
@@ -747,6 +743,14 @@ function _onRenderVehicleSheet(application, html, data) {
 }
 function _onRenderItemSheet(sheet, html, item) {
     console.log("SR6E | _onRenderItemSheet for ", item);
+}
+function _onClickDiceRoll (ev) {
+    console.log("SR6E | sr6-dice-roll clicked  ");
+    let roll = new PreparedRoll();
+    roll.pool = 0;
+    roll.speaker = ChatMessage.getSpeaker({ actor: this });
+    roll.rollType = RollType.Common;
+    doRoll(roll);
 }
 function getData(obj) {
     if (game.release.generation >= 10)
