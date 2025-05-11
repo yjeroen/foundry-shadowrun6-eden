@@ -22,13 +22,13 @@
 	--color-cool-4: #501446;
 	--control-hover-border-color: #892378;
 	--color-light-5: #C58FB2;
+	--font-h4-size: var(--font-size-14);
+	--chat-input-height: 124px;
 }
 .themed.theme-dark .ui-control, .themed.theme-dark .placeable-hud, .themed.theme-dark #measurement .waypoint-label {
 	--color-cool-4: #31092b;
 	--control-border-color: #31092b;
 	--control-hover-border-color: #892378;
-}
-button.ui-control.toggle, a.ui-control.toggle, li.ui-control.toggle, .placeable-hud .control-icon.toggle, .placeable-hud input.toggle {
 }
 .themed.theme-light {
 	--sidebar-background: url("/systems/shadowrun6-eden/images/background.webp");
@@ -41,11 +41,22 @@ button.ui-control.toggle, a.ui-control.toggle, li.ui-control.toggle, .placeable-
 	border-top: 1px solid #b5b3a4;
     border-bottom: 1px solid #f0f0e0;
 }
+.foundry-modern .chat-message a.button,
+.foundry-modern .chat-message button {
+	--button-background-color: rgba(255, 255, 240, 0.8);
+	width: 100%;
+}
+.themed.theme-light input, .themed.theme-light select, .themed.theme-light textarea {
+	--input-background-color: rgba(255, 255, 240, 0.8);
+}
 
 .game .window-app.app.shadowrun6,
 #sidebar-content .tab {
     box-shadow: 0 0 10px var(--color-shadow-primary);
 	/* 8405c9 */
+}
+.sr6-dice-roll-v12 {
+	cursor: pointer;
 }
 
 .app.window-app.shadowrun6 .window-content  {
@@ -97,4 +108,25 @@ body.game .app table tr th:first-child {
 }
 .foundry-modern #hotbar #action-bar .slot {
 	border-radius: 5px;
+}
+.foundry-modern #chat-notifications .chat-input {
+	height: 46px;	
+}
+.foundry-modern #chat-notifications .chat-input:focus {
+    height: var(--chat-input-height);
+}
+.foundry-modern .chat-log table {
+	--color-border-light-tertiary: #7a7971;
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--color-border-light-tertiary);
+    border-bottom: 1px solid var(--color-border-light-tertiary);
+    margin: 0.5em 0;
+}
+.foundry-modern .chat-log table th {
+    padding: 0.25em 0;
+}
+.foundry-modern .chat-log table tbody tr {
+    background-color: unset;
 }

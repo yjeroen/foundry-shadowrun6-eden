@@ -17,6 +17,8 @@ body.game.foundry-modern .app {
 
 .game h1, h2, h3, h4 {
     font-weight: 700;
+    margin: 0 0 0.5rem;
+    padding: 0;
 }
 .game h4 {
     font-weight: 400;

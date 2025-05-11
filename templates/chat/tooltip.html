@@ -20,7 +20,7 @@
         {{#unless finished.configured.extended}}
 	    <!-- Edge Boosts and Actions -->
         {{#unless data.edge_use}}
-        <div class="spend_edge own-edge-options hidden">
+        <div class="spend_edge own-edge-options">
             <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spend_edge"}}</h4>
             <form>
                 <select name="edgeBoostSelect" class="edgeBoostSelect">
@@ -31,7 +31,7 @@
         </div>
         {{/unless}}
         {{#unless data.edge_use_opponent}}
-        <div class="spend_edge opponent-edge-options hidden">
+        <div class="spend_edge opponent-edge-options">
             <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.edge.spend_edge"}}</h4>
             <form>
                 <select name="edgeBoostSelect" class="edgeBoostSelect">

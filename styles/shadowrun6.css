@@ -718,6 +718,14 @@ a.item-control.disabled-roll:hover {
 .chat-message .edgeable.edge-opponent-roll .die.hit {
   cursor: pointer;
 }
+.chat-message .chat-edge-post-collapsible .spend_edge {
+  /* hidden by default */
+  display: none;
+}
+.chat-message .edgeable.edge-opponent-roll .opponent-edge-options {
+  /* hidden by default */
+  display: block;
+}
 .chat-message .edgeable.edge-own-roll .own-edge-options {
   /* hidden by default */
   display: block;
