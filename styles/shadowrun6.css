@@ -479,6 +479,10 @@
   position: absolute;
   height: 140px;
   width: 140px;
+  top: 10px;
+}
+.foundry-modern #pause img {
+  top: 40px;
 }
 #pause figcaption {
   font-family: "Rubik Glitch";
@@ -486,10 +490,10 @@
   font-size: 3em;
   font-weight: 400;
   letter-spacing: 0.05em;
-  top: 50px;
+  top: 60px;
 }
 .foundry-modern #pause figcaption {
-  top: 20px;
+  top: 30px;
 }
 .glitch {
   font-size: 8rem;
