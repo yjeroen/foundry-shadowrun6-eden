@@ -89,7 +89,7 @@ export default async function releaseNotes({noteIndex=0, force=false}={}) {
             break;
         case 'open-newer':
             console.log(`Release Notes | Opening newer release note`);
-            releaseNotes({noteIndex: noteIndex - 1});
+            releaseNotes({noteIndex: noteIndex - 1, force: true});
             break;
         case 'read':
             break;
