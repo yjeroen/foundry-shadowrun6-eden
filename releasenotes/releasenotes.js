@@ -3,9 +3,11 @@ import CONFIG from "./config.js";
 /**
  * Release Note window
  * Call this function within Foundry's "ready" Hook
-   * @param {object} [options]  Additional options which affect tab navigation
-   * @param {number} [options.noteIndex=0]         Force changing the tab even if the new tab is already active
-   * @param {boolean} [options.force=false]         Force changing the tab even if the new tab is already active
+ * Reset via: game.user.setFlag(game.system.id, 'releaseNoteRead', 'reset');
+ * 
+ * @param {object} [options]  Additional options which affect tab navigation
+ * @param {number} [options.noteIndex=0]         Force changing the tab even if the new tab is already active
+ * @param {boolean} [options.force=false]         Force changing the tab even if the new tab is already active
  */
 export default async function releaseNotes({noteIndex=0, force=false}={}) {
     // Note template url
