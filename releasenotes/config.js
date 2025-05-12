@@ -7,7 +7,7 @@ export default [
     {
         version: "3.2.0",
         name: "Edge Boosts & Extended Tests",
-        url: "https://www.patreon.com/DeepResonanceWare"
+        url: "https://www.patreon.com/posts/sr6-release-3-2-128761241?utm_medium=social&utm_source=foundry&utm_campaign=postshare_creator&utm_content=join_link"
     },
     {
         version: "3.1.3",

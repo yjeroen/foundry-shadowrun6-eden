@@ -44,6 +44,10 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Edge](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-edge-click.gif?raw=true)
 
+> Edge Boosts can be used to manipulate your dice results after rolling. Click on the dice result row in the chat to open the diceroll window. You can even manipulate your opponents results via the ***Reroll One Die*** edge boost!
+
+![FoundryVTT Shadowrun6 Edge Boosts](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-edge-boosts.gif?raw=true)
+
 > You can **still import** your RPGFramework [GENESIS](https://www.rpgframework.de/en/roleplaying/shadowrun-6/) and [Commlink6](https://www.rpgframework.de/en/2022/10/07/commlink-6/) characters! Print to `Shadowrun 6 Foundry Export`, and in FoundryVTT right click on your actor and choose `Import Data`. In the v3 system, your character sheet has been updated with a bunch of small improvements.
 
 ![FoundryVTT Shadowrun6 Sheet](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-v3-screenshot-sheet.webp?raw=true)
@@ -63,6 +67,10 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 > Only your available Matrix Actions are shown depending on your Matrix Attributes. (enable H&S Actions in the Foundry Game Settings) Furthermore, they are greyed out depending on your Matrix Access Level. And you can Reconfigure your Persona's Matrix Attributes by clicking on two of them, switching them.
 
 ![FoundryVTT Shadowrun6 matrix](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-matrix.gif?raw=true)
+
+> Legwork Tests (Core Book page 50-51) can be performed via your Contacts, found in the Biography section of your character sheet.
+
+![FoundryVTT Shadowrun6 Legwork](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-legwork.webp?raw=true)
 
 > Most of the favorite optional rules can be enabled in the FoundryVTT Game Settings.
 
