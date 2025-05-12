@@ -1,0 +1,40 @@
+# Edge & Dice Release
+*We've got a new release chummers!*
+
+With this release, I can feel like we got most "MVP" features for a decently automated Shadowrun BTL-dive ready with the vtt system. We now also got **Extended Tests**, **Edge Boosts** that you can apply to already-rolled-tests, and FoundryVTT **V13** support.
+
+Aside from that, I have started a [Patreon blog](https://www.patreon.com/DeepResonanceWare) to keep in contact with you — the GM's and Players. When there's a new release, I'll create a news update there for the free-tier.  
+Feel free to post feedback on there!
+
+Ohyeah, and try out the Dice So Nice preset & theme! :)
+
+-yeroon  
+
+### System Improvements
+- FoundryVTT v13 support
+- Extended Tests (with Threshold, rolls all at once)
+- Open Ended Extended Tests (with Threshold 0)
+- Post dice roll Edge Boosts (thanks to raketenhunddev for part of the development)
+- Legwork Contact rolls (#80)
+- Token HUD and bars are now same color as the Monitors
+- Improved Pause animation to Shadowrun style
+- Improved Wild and Exploding Dice UX in the dropdown in the chat messages
+- Improved SR6 Dice So Nice (#79)
+- Added D6 roll tooltip for Initiative rolls
+- Add Spirit Types of Street Wyrd book
+- Release note pop-up
+
+### Bug Fixes
+- Fix so Token health bars now properly work (#22)
+- Fix to allow uneven sized images for Items to display correctly
+- Don't show Explode checkbox as it can only be used with Edge Boost
+- Fix combat tracker Initiative types so they're properly saved (#78)
+- Fix Don't show (not working) roll tooltip on initiative roll chatmessages
+- Fix Spirit Force attributes (#83)
+- Fixed sheet draggable items possible interfering with draggables from other parts of Foundry like chat
+- Bugfix combat start error
+- Cleaned up desktop.ini files from icons/netrunner
+
+### Data Updates
+- German translation updates (raketenhunddev)
+- Russian translation updates (TheFokin)

@@ -3,9 +3,9 @@
 	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Grunty Redshirt",
   "SYSTEM": {
     "Sidebar": {
-      "readme": "README",
+      "readme": "Patreon",
       "bugs": "Report Bug",
-      "feature": "Feature Request"
+      "release_notes": "Release Notes"
     }
   },
   "ACTOR": {

@@ -33,6 +33,9 @@
 .themed.theme-light {
 	--sidebar-background: url("/systems/shadowrun6-eden/images/background.webp");
 }
+body.theme-light .application {
+	--background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
+}
 .foundry-modern hr {
 	background-image: linear-gradient(90deg, transparent 0%, #892378 50%, transparent 100%);
 	margin: 0.5em 0;

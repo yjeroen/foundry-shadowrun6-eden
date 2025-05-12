@@ -1,0 +1,20 @@
+.application.dialog.releasenotes {
+    max-height: 60vh;
+}
+.application.dialog.releasenotes .dialog-content {
+    overflow-y: auto;
+    max-height: 45vh;
+    max-width: 60vh;
+    gap: 0;
+}
+.application.dialog.releasenotes .dialog-content ul {
+    margin: 0 0 0.5rem 0;
+}
+.application.dialog.releasenotes .standard-form .form-footer > button,
+.application.dialog.releasenotes .standard-form .form-footer a.button {
+    min-width: 100px;
+    width: 100px;
+}
+.application.dialog.releasenotes .standard-form button.icon-right { display: flex; }
+.application.dialog.releasenotes .standard-form button.icon-right span { order: 1; }
+.application.dialog.releasenotes .standard-form button.icon-right i { order: 2; margin: 0 0 0 0.25rem; }

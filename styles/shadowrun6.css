@@ -2,6 +2,7 @@
 @import "layout.css";
 @import "augmented.css";
 @import "sr-fonts.css";
+@import "../releasenotes/releasenotes.css";
 
 #logo {
   box-sizing: border-box;
@@ -831,4 +832,7 @@ a.item-control.disabled-roll:hover {
 }
 #scene-navigation .scene-navigation-menu .scene {
   font-weight: 600;
+}
+.application .window-header .window-title {
+  line-height: 1em;
 }

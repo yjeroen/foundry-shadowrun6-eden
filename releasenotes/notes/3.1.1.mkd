@@ -1,0 +1,11 @@
+## 3.1.2
+
+### Bug Fixes
+- Hotfix for console error on editing items
+- Hotfix for Persona Matrix Attributes on older worlds where integers were set as strings
+- Fix RCC's counting as a Matrix Device that can add their DF to your Persona Attributes (#62)
+
+## 3.1.1
+
+### Bug Fixes
+- Hotfix for console error on switching matrix access levels

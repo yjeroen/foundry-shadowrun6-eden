@@ -29,6 +29,7 @@ import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
 import { migrateWorld } from "./util/Migrations.js";
 import SR6SocketHandler from './util/SR6SocketHandler.js';
+import releaseNotes from "../releasenotes/releasenotes.js";
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -51,6 +52,7 @@ Hooks.once("init", async function () {
     game.sr6.macros = macros;
     game.sr6.sr6roll = SR6Roll;
     game.sr6.sockets = new SR6SocketHandler();
+    game.sr6.releaseNotes = releaseNotes;
     registerSystemSettings();
 
     CONFIG.Combat.documentClass = Shadowrun6Combat;
@@ -221,11 +223,18 @@ Hooks.once("init", async function () {
 
     Hooks.on("ready", () => {
         migrateWorld();
+        game.sr6.releaseNotes();
 
         // Render a dice roll dialog on click for V12
-        $(document).on("click", ".sr6-dice-roll-v12", (ev) => {
+        $(document).on("click", ".sr6-dice-roll-v12", (e) => {
             _onClickDiceRoll();
         });
+        // make Release Note link in sidebar clickable
+        const releaseNoteLink = document.querySelector("#system-releasenotes");
+        releaseNoteLink.addEventListener("click", (e) => {
+            game.sr6.releaseNotes({force: true});
+        });
+
     });
     Hooks.on("renderShadowrun6ActorSheetPC", (doc, options, userId) => {
         console.log("SR6E | renderShadowrun6ActorSheetPC hook called", doc);
@@ -283,28 +292,6 @@ Hooks.once("init", async function () {
         } else {
             console.warn("SR6E | Draggable object not supported to convert onto the hotbar", droppedData);
         }
-
-        // For items, memorize the skill check
-        // if (data.type === "Item") {
-        // console.log("SR6E | Item dropped " + data);
-        // if (data.id) {
-        //     data.data = game.items.get(data.id).data;
-        // }
-        // if (data.data) {
-        //     macroData.name = data.data.name;
-        //     macroData.img = data.data.img;
-
-        //     let actorId = data.actorId || "";
-
-        //     if (actorId && game.user.isGM) {
-        //     const actorName = game.actors.get(actorId)?.data.name;
-        //     macroData.name += ` (${actorName})`;
-        //     }
-
-        //     macroData.command = `game.shadowrun6.itemCheck("${data.data.type}","${data.data.name}","${actorId}","${data.data.id}")`;
-
-        // }
-        // };
 
         if (macroData.command != "" && macroData.name != "") {
             let macro = await Macro.create(macroData, { displaySheet: false });
@@ -565,33 +552,6 @@ Hooks.once("init", async function () {
                 tip.slideUp(200);
             }
         });
-
-        // Implement drag & drop for dice in chat
-        // const draggableElement = html.find(".draggable.die");
-        // if (draggableElement.length) {
-        //     draggableElement.attr("draggable", true);
-        //     draggableElement.on("dragstart", (event) => {
-        //         const dragData = {
-        //             type: "Die",
-        //             id: data.message._id,
-        //             dieIndex: event.currentTarget.dataset.index
-        //         };
-        //         event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(dragData));
-        //         console.log("SR6E | DRAG Edge Dice Start", dragData);
-        //     });
-        // }
-        // const dragTargets = html.find(".edgePerform");
-        // if (dragTargets.length) {
-        //     dragTargets.on("drop", (event) => {
-        //         const dragData = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
-        //         console.log("SR6E | Drop Edge Dice", dragData);
-        //         if(dragData.id == data.message._id)
-        //         {
-        //             const boostId = event.currentTarget.form["edgeBoostSelect"].selectedOptions[0].value;
-        //             EdgeRoll.performPostEdgeBoost(dragData.id, boostId, dragData.dieIndex);
-        //         }
-        //     });
-        // }
         
         // Implement selecting dice in chat
         html.on("click", ".edgeable.edge-own-roll .die.miss, .edgeable.edge-opponent-roll .die.hit", (event) => {
@@ -708,7 +668,7 @@ Hooks.once("init", async function () {
         systemInfo.classList.add("system-links");
         const links = [
             {
-                url: game.system.url,
+                url: game.system.authors.values().next().value.url,
                 label: "SYSTEM.Sidebar.readme"
             },
             {
@@ -716,14 +676,18 @@ Hooks.once("init", async function () {
                 label: "SYSTEM.Sidebar.bugs"
             },
             {
-                url: game.system.url+'/labels/enhancement',
-                label: "SYSTEM.Sidebar.feature"
+                id: "system-releasenotes",
+                url: "javascript:void(0);",
+                label: "SYSTEM.Sidebar.release_notes"
             }
         ].map((data) => {
             const anchor = document.createElement("a");
-            anchor.href = data.url;
             anchor.innerText = game.i18n.localize(data.label);
-            anchor.target = "_blank";
+            anchor.href = data.url ?? "";
+            if (data.id) 
+                anchor.id = data.id;
+            else
+                anchor.target = "_blank";
             return anchor;
         });
         systemInfo.append(...links);
