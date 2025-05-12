@@ -164,27 +164,27 @@ jobs:
 
           **Installation:** To manually install this release, please use the following manifest URL: ${{ env.RELEASE_INSTALL_URL }}
 
-    - name: Foundry Release API
-      uses: fjogeleit/http-request-action@v1
-      with:
-        url: 'https://api.foundryvtt.com/_api/packages/release_version'
-        method: 'POST'
-        customHeaders: '{"Content-Type": "application/json", "Authorization": "${{ secrets.FOUNDRY_API_TOKEN }}"}'
-        data: 
-            '{
-                "id": "${{ env.PACKAGE_ID }}",
-                "dry_run": false,
-                "release": {
-                    "version": "${{ steps.manifest.outputs.version }}",
-                    "manifest": "${{ env.RELEASE_INSTALL_URL }}",
-                    "notes": "${{ steps.create_version_release.outputs.html_url }}",
-                    "compatibility": {
-                        "minimum": "${{ steps.manifest.outputs.compatibility.minimum }}",
-                        "verified": "${{ steps.manifest.outputs.compatibility.verified }}",
-                        "maximum": ""
-                    }
-                }
-            }'
+    # - name: Foundry Release API
+    #   uses: fjogeleit/http-request-action@v1
+    #   with:
+    #     url: 'https://api.foundryvtt.com/_api/packages/release_version'
+    #     method: 'POST'
+    #     customHeaders: '{"Content-Type": "application/json", "Authorization": "${{ secrets.FOUNDRY_API_TOKEN }}"}'
+    #     data: 
+    #         '{
+    #             "id": "${{ env.PACKAGE_ID }}",
+    #             "dry_run": false,
+    #             "release": {
+    #                 "version": "${{ steps.manifest.outputs.version }}",
+    #                 "manifest": "${{ env.RELEASE_INSTALL_URL }}",
+    #                 "notes": "${{ steps.create_version_release.outputs.html_url }}",
+    #                 "compatibility": {
+    #                     "minimum": "${{ steps.manifest.outputs.compatibility.minimum }}",
+    #                     "verified": "${{ steps.manifest.outputs.compatibility.verified }}",
+    #                     "maximum": ""
+    #                 }
+    #             }
+    #         }'
 
     # Printing Github Action variables
     # - name: Dump GitHub context
