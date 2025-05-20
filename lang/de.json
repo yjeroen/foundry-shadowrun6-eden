@@ -1,9 +1,11 @@
 {
+  "shadowrun6-eden.Shadowrun6ActorSheetNPC": "Scherge in rotem Hemd",
+  "Shadowrun6ActorSheetNPC": "Scherge",
   "SYSTEM": {
     "Sidebar": {
-      "readme": "README",
+      "readme": "Patreon",
       "bugs": "Bug melden",
-      "feature": "Feature anfragen"
+      "release_notes": "Updatehinweise"
     }
   },
   "ACTOR": {
@@ -173,12 +175,13 @@
       "threshold": "Schwellenwert"
     },
     "contact": {
-      "rating": "Stufe",
-      "rating_short": "St",
+      "rating_short": "Ein.",
+      "rating": "Einfluss",
       "loyalty": "Loyalität",
-      "loyalty_short": "Loy",
+      "loyalty_short": "Loy.",
       "favors": "Gefallen",
       "favors_short": "Gef.",
+      "legwork": "Beinarbeit",
       "type": "Art"
     },
     "defense": {
@@ -236,6 +239,7 @@
       "plus_1_roll": "+1 zu einem einzelnen Würfelwurf",
       "plus_3_ini": "Add 3 zu deinem Initiativeergebnis",
       "reroll_failed": "Würfle alle Nicht-Erfolge neu",
+      "reroll_opponent_one": "Gegnerischen Würfel neu würfeln",
       "reroll_one": "Würfel 1 Würfel neu"
     },
     "gear": {
@@ -1010,6 +1014,7 @@
         }
       },
       "apply_damage": "Schaden anwenden",
+      "create": "Erstelle deinen eigenen Shadowrun Würfelpool",
       "damage_applied": "Schaden angewendet",
       "damage_revert": "Schaden rückgängig machen?",
       "ar_0": "Sehr nah",
@@ -1048,13 +1053,18 @@
         "spending": "Edge ausgeben",
         "spend_edge": "Edge ausgeben",
         "edge_spent": "Edge ausgegeben: {boostTitle}",
-        "spend": "Ausgeben!"
+        "opponent": "Gegner",
+        "opponent_edge_boost": "Gegnerischer Edge-Boost",
+        "spend": "Ausgeben!",
+        "original_test": "Ursprüngliche Probe von:"
       },
       "edge_perform": "Ausführen",
       "edgegain": "Edge-Erhalt (max): ",
       "edgegain_player": " (Player)",
       "exp": "Expertise",
       "explode": "Explodiert",
+      "extended": "Ausgedehnte Probe",
+      "interval": "Intervall",
       "fa_area": "Fläche",
       "firemode": "Feuermodus",
       "failure": "Fehlschlag",
@@ -1554,14 +1564,18 @@
       "earth": "Erde",
       "fire": "Feuer",
       "kin": "Menschen",
+      "water": "Wasser",
       "plant": "Pflanzen",
-      "water": "Wasser"
+      "guardian": "Beschützer",
+      "guidance": "Ratgeber",
+      "task": "Helfer"
     },
     "tradition": {
       "attribute": "Traditionsattribut"
     },
     "vehicle": {
       "action_label": "Handling / Fahrzeug",
+      "has_no_owner": "Fahrzeug/Drohne hat keinen Besitzer zugewiesen",
       "initiative": "Fahrzeug-Initiative",
       "mode_label": "Mode",
       "mode": {
@@ -1593,8 +1607,10 @@
     "ui": {
       "notifications": {
         "You_are_not_owner_of_the_target": "Du bist nicht der Besitzer des Ziels.",
+        "You_are_not_owner_of_the_token": "Du bist nicht der Besitzer des Tokens.",
         "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "Wenn du zwei Tokens anvisierst, kannst du nur \"Breite Salve\" auswählen.",
         "Target_or_select_a_token_before_rolling": "Markiere (T) ein Ziel oder wähle ein Token vor dem Wurf.",
+        "Select_a_token_first": "Wähle zuerst ein Token, oder stelle deinen Spieler-Charakter in deiner Benutzerkonfiguration ein.",        
         "Target_a_token_before_rolling": "Markiere (T) ein Token vor dem Wurf.",
         "Dice_roll_evaluation_failed": "Auswertung des Würfelwurfs fehlgeschlagen.",
         "two_targets_but_wrong_fire_mode": "Du hast zwei Ziele markiert, daher kannst du nur mit \"Breite Salve\" oder \"Vollautomatik\" feuern.",
@@ -1608,14 +1624,18 @@
         "no_weapon_skill_set": "Bitte bearbeite die Waffe, um die verknüpfte Fertigkeit für den Wurf zu hinterlegen.",
         "vehicle_has_no_owner": "Fahrzeug hat keinen Besitzer.",
         "only_owner_is_allowed_to_spend_edge": "Nur der Besitzer des Charakters darf diese Aktion durchführen.",
+        "owner_not_logged_in": "Edge-Boost nicht möglich, da der Spieler der Probe nicht online ist.",
         "edge_boost_is_not_post_edge": "'{boostTitle}' ist keine Handlung, die nach einem Wurf durchgeführt werden kann.",
-        "you_require_more_edge": "Du benötigst noch {edge} Edge für diese Handlung.",
-        "no_die_with_a_4": "Dein Wurf enthält keine 4.",
-        "cant_increase_die": "Du kannst den Würfel nicht erhöhen.",
+        "you_require_more_edge": "Nicht genug Edge verfügbar. Du benötigst noch {edge} Edge für diesen Boost.",
+        "no_die_with_a_1_or_4": "Dein Wurf enthält keine 1 oder 4, daher wäre der Edge-Boost nicht nützlich.",
+        "cant_increase_die": "Du kannst den Würfel nicht erhöhen, da es nicht hilfreich wäre.",
         "all_dice_are_successes": "Alle Würfel sind bereits Erfolge.",
-        "character_has_spent_edge": "{actor} hat {edge} Edge ausgegeben.",
+        "character_has_spent_edge": "{actor} hat {edge} Edge für den Edge-Boost <b>{edgeBoost}</b> ausgegeben.",
         "reduce_edge_from_actor": "Bitte ziehe {edge} Edge vom Charakter ab",
-        "reroll_failed_requires_index": "Ziehe den Würfel auf den `Einsetzen`-Button."
+        "reroll_failed_requires_index": "Wähle mindestens einen Würfel, bevor du auf den `Ausgeben`-Button drückst.",
+        "edge_boost_cannot_be_used_glitch": "Dieser Edge-Boost kann bei einem Patzer oder kritischem Patzer nicht genutzt werden.",
+        "reopen_dice_tooltip": "Du hast die ausgewählten Tokens geändert. Öffne den Würfelbereich im Chat erneut, um einen Edge-Boost durchzuführen.",
+        "extended_test_validation": "Der Schwellenwert muss 0 oder größer und das Intervall größer als 0 sein, um eine ausgedehnte Probe auszuführen."
       }
     },
     "EFFECT": {
@@ -1655,10 +1675,61 @@
       "smitten": "Social: Smitten",
       "suckered": "Social: Suckered",
       "irradiated": "Irradiated"
+    },
+    "dice": {
+      "hit": "Erfolg!",
+      "failed": "Fehlschlag!",
+      "wild": "Schicksalswürfel - 3 Erfolge!",
+      "wild_ignored": "Erfolg ignoriert, da mit dem Schicksalswürfel eine 1 geworfen wurde.",
+      "edge_rerolled": "Durch Edge erneut gewürfelt.",
+      "edge_rolled": "Edge Wurf.",
+      "extended_success": "Insgesamt sind {timePassed} {intervalScale} vergangen und du warst mit deiner Probe erfolgreich.",
+      "extended_failure": "Insgesamt sind {timePassed} {intervalScale} vergangen, doch deine Probe ist fehlgeschlagen.",
+      "extended_first_interval": "Erster Intervall",
+      "extended_next_interval": "Nächster Intervall",
+      "extended": {
+        "continue": "Mit ausgedehnter Probe fortfahren",
+        "desc": "Insgesamt sind {timePassed} {intervalScale} vergangen und du hast {hits} Erfolge.",
+        "intervalScale": {
+          "minute_short": "min",
+          "minute_long": "Minute",
+          "minute_long_plural": "Minuten",
+          "hour_short": "h",
+          "hour_long": "Stunde",
+          "hour_long_plural": "Stunden",
+          "day_short": "d",
+          "day_long": "Tag",
+          "day_long_plural": "Tage",
+          "week_short": "Woche",
+          "week_long": "Woche",
+          "week_long_plural": "Wochen",
+          "month_short": "m",
+          "month_long": "Monat",
+          "month_long_plural": "Monate"
+        }
+      }
+    },
+    "legwork": {
+      "legwork_rolltext": "Beinarbeit // Einfluss",
+      "loyalty_rolltext": "Beinarbeit // Loyalität",
+      "legwork_description": "Wieviel weiß {name}, bzw. kann er über sein Netzwerk herausfinden?",
+      "loyalty_description": "Wie bereit ist {name}, die Information die sie vorliegen hat, mit dir zu teilen?",
+      "payformore": "«Weißt du, ich habe Ausgaben, die ich decken muss. Für ein bisschen mehr Nuyen kann ich dir mehr Informationen geben..»",
+      "results": {
+        "0": "Keine brauchbaren Informationen.",
+        "1": "Grundlegende, allgemein verfügbare Hintergrundinformationen.",
+        "2": "Ein paar Informationsbröckchen durch flüchtige Beschäftigung mit der Materie.",
+        "3": "Informationen durch frühere Kurse oder Seminare oder einfaches professionelles Wissen.",
+        "4": "Schon tiefschürfenderes Wissen, ein bisschen Klatsch.",
+        "5": "Tiefgehendes akademisches Wissen, fundierte professionelle Kenntnisse, gute Vertrautheit mit dem, was hinter den Kulissen vor sich geht.",
+        "6": "Wissen über Geheimnisse und verborgene Informationen.",
+        "7": "Hochkarätiges Wissen, fundiertes Verständnis der historischen Hintergründe.",
+        "8": "Fast schon enzyklopädisches Wissen, darunter einige tief verborgene Geheimnisse.",
+        "9": "Rares Wissen, das nur wenigen Eingeweihten bekannt ist.",
+        "10": "Tief verborgene Geheimnisse, die andere aktiv zu verbergen versuchen."
+      }
     }
-  },
-  "shadowrun6-eden.Shadowrun6ActorSheetNPC": "Scherge in rotem Hemd",
-  "Shadowrun6ActorSheetNPC": "Scherge",
+  },  
   "skill": {
     "astral": "Astral",
     "athletics": "Athletik",
