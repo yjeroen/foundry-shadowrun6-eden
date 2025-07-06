@@ -1,11 +1,23 @@
 {
+	"Shadowrun6ActorSheetNPC": "c",
+	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Grunty Redshirt",
+  "SYSTEM": {
+    "Sidebar": {
+      "readme": "Patreon",
+      "bugs": "Report de bug",
+      "release_notes": "Notes de mise à jour"
+    }
+  },
   "ACTOR": {
     "TypeCritter": "Créature",
     "TypeNpc": "PNJ",
-    "TypePlayer": "Personnage Joueur"
+    "TypePlayer": "Personnage Joueur",
+    "TypeSpirit": "Esprit",
+    "TypeVehicle": "Véhicule/Drone"
   },
   "ITEM": {
     "TypeAdeptpower": "Pouvoir d'adepte",
+    "TypeCritterpower": "Pouvoir de créature",
     "TypeComplexform" : "Forme complexe",
     "TypeContact" : "Contact",
     "TypeEcho": "Écho",
@@ -24,6 +36,35 @@
   "QUALITY_CATEGORIES":{
     "ADVANTAGE": "Avantage",
     "DISADVANTAGE": "Désavantage"
+  },
+  "TYPES":{
+  		"Actor": {
+    		"Critter": "Créature",
+    		"NPC": "PNJ",
+    		"Player": "Personnage Joueur",
+    		"Spirit": "Esprit",
+    		"Vehicle": "Véhicule/Drone"
+  		},
+  		"Item": {
+    		"adeptpower": "Pouvoir d'adepte",
+    		"critterpower": "Pouvoir de créature",
+    		"complexform": "Forme complexe",
+    		"contact" : "Contact",
+    		"echo": "Écho",
+        "focus": "Focus",
+    		"gear": "Équipement",
+    		"lifestyle" : "Style de vie",
+    		"martialartstyle": "Style d'arts martiaux",
+    		"martialarttech": "Technique d'arts martiaux",
+    		"metamagic": "Métamagie",
+    		"quality": "Trait",
+    		"ritual": "Rituel",
+    		"sin" : "SIN",
+    		"skill": "Langue/Connaissance",
+        "software": "Logiciel",
+    		"spell": "Sort",
+    		"weapon": "Arme"
+  	}
   },
   "attrib": {
     "agi": "Agilité",
@@ -66,6 +107,7 @@
       "actions": "Actions",
       "actions_major": "Majeure",
       "actions_minor": "Mineure",
+      "editable": "Éditable",
       "initiative": "Initiative",
       "initiative_astral": "Initiative Astrale ",
       "metatype": "Métatype",
@@ -92,8 +134,26 @@
       "activation_minor": "Mineure",
       "activation_passive": "Passive",
       "cost": "Coût",
-      "haslevel": "Avec niveau"
+      "haslevel": "Avec niveau",
+      "pp": "PP",
+      "perLevel": "par niveau"
     },
+    "autosoft_types": {
+      "clearsight": "Acuité",
+      "electronic_warfare": "Guerre électronique",
+      "evasion": "Évasion",
+      "maneuver": "Manoeuvre",
+      "stealth": "Furtivité",
+      "targeting": "Acquisition"
+    },
+	  "critterpower": {
+		  "actiontitle": "Action",
+		  "action": {
+        "auto": "Auto",
+        "major": "Majeure",
+        "minor": "Mineure"
+	    }
+	  },
     "attack_rating": {
       "astral": "Score Off. astral",
       "matrix": "Score Off. matriciel",
@@ -101,11 +161,14 @@
       "social": "Score Off. social",
       "vehicle": "Score Off. véhicule"
     },
+    "combat": {
+      "togglePhysical": "Utiliser l'initiative physique",
+      "toggleMatrix": "Utiliser l'initiative matricielle",
+      "toggleAstral": "Utiliser l'initiative astrale"
+    },
     "complexform": {
       "duration": "Durée",
       "fading": "Technodrain",
-      "none": "Aucun",
-      "attribute": "Attribut",
       "oppAttr1" : "Attr. opposé 1",
       "oppAttr2" : "Attr. opposé 2",
       "skill": "Compétence",
@@ -116,7 +179,10 @@
       "rating": "Réseau",
       "loyalty": "Loyauté",
       "loyalty_short": "Loy",
-      "type": "Type"
+      "favors": "Faveurs",
+      "favors_short": "Fav",
+      "legwork": "Investigation",
+      "type": "Catégorie"
     },
     "defense": {
       "astral": "Défense : Astrale",
@@ -131,6 +197,7 @@
       "toxin": "Résistance aux toxines"
     },
     "defense_rating": {
+      "label":  "Score défensif",
       "astral": "Score Déf. astral",
       "matrix": "Score Déf. matriciel",
       "physical": "Score Déf. physique",
@@ -143,7 +210,11 @@
       "judge_intentions": "Jauger les intentions",
       "lift_carry": "Soulever / Transporter",
       "memory": "Mémoire",
-      "matrix_perception": "Percéption matricielle"
+      "matrix_perception": "Percéption matricielle",
+      "heal": {
+          "physical": "Soin dégâts physique",
+          "stun": "Soin dégâts étourdissant"
+      }
     },
     "edge_action": {
       "anticipation": "Placement parfait",
@@ -161,12 +232,14 @@
       "count_2_glitch": "Les 2 d'une cible deviennent 1",
       "create_special": "Provoquer des effets particuliers",
       "edge_action": "Actions d'Atout (1-5)",
+      "give_ally_1_edge": "Donner 1 Atout à un allié",
       "heal_1_physic": "Récupérer une case de dommages physiques",
       "heal_1_stun": "Récupérer une case de dommages étourdissants",
       "negate_1_edge": "Réduire de 1 l'Atout d'une cible ",
       "plus_1_roll": "Ajouter 1 à un dé",
       "plus_3_ini": "Ajouter 3 points à son initiative",
       "reroll_failed": "Relancez les dés ratés",
+      "reroll_opponent_one": "Relancer 1 dé des adversaires",
       "reroll_one": "Relancer un dé"
     },
     "gear": {
@@ -332,10 +405,15 @@
         "LMG": "Mitrailleuse légere",
         "MMG": "Mitrailleuse moyenne (force min. 3)",
         "HMG": "Mitrailleuse lourde (force min. 5)",
-        "HACKING_PROGRAM": "Programmes de hacking",
-        "BASIC_PROGRAM": "Programmes courants",
+        "HACKING_PROGRAM": "Programme, piratage",
+        "BASIC_PROGRAM": "Programme, basique",
         "RIGGER_PROGRAM": "Programmes de rigging",
-        "AUTOSOFT": "Autosofts",
+        "AUTOSOFT": "Autosoft",
+        "DATASOFT": "Datasoft",
+        "MAPSOFT": "Mapsoft",
+        "SHOPSOFT": "Shopsoft",
+        "TALENTSOFT": "Skillsoft",
+        "TEACHSOFT": "Tutorsoft",
         "GROUND": "Drones terrestres",
         "ANTHRO": "Drones anthropomorphes",
         "AIR": "Drones aériens",
@@ -343,37 +421,35 @@
         "AMMO_TASER": "Taser",
         "AMMO_LIGHT": "Pistolet de poche/léger/automatique",
         "AMMO_HEAVY": "Pistolet lourd/Mitraillette",
-        "AMMO_RIFLES": "Fusils",
+        "AMMO_RIFLES": "Fusil",
         "AMMO_DARTS": "Dard à injection",
         "AMMO_CANNONS": "Canon d'assaut",
-        "AMMO_DMSO": "DMSO-Gelpack",
-        "AMMO_MACHINE_GUN": "Mitrailleuses",
+        "AMMO_DMSO": "DMSO",
+        "AMMO_MACHINE_GUN": "Mitrailleuse",
         "AMMO_INJECTION_BOLT": "Carreau à injection",
         "AMMO_BOLT": "Carreau"
       }
     },
     "initiative": {
-      "astral": "Initiative astrale",
-      "matrix": "Initiative matricielle",
-      "physical": "Initiative",
-      "matrix_ar": "Matrix AR",
-      "matrix_cold": "Matrix VR",
-      "matrix_hot": "Matrix VR (hot)"
+      "astral": "Astrale",
+      "physical": "Physique",
+      "matrix": "Matricielle"
     },
     "item": {
       "accessories": "Accessoires",
+      "strWeapon": "Utiliser la force",
       "ammunition": "Mun.",
       "attackvalues": "Scores Off.",
       "availability": "Disp.",
       "capacity": "Capacité",
       "category": "Catégorie",
       "damage": "Dégâts",
-      "defencerating": "Score Déf",
+      "defencerating": "Score Déf.",
       "description": "Description",
       "essence": "Essence",
-      "feature": "Fonctions",
+      "feature": "Fonctionalités",
       "firemode": {
-        "BF": "Tir  en  Rafale",
+        "BF": "Tir en Rafale",
         "FA": "Tir Automatique",
         "SA": "Semi-Automatique",
         "SS": "Coup par Coup"
@@ -392,8 +468,15 @@
       "mode_fa": "TA",
       "mode_sa": "SA",
       "mode_ss": "CC",
-      "natural": "Naturel",
+      "mode_fa_1m": "Rayon de 1m",
+      "mode_fa_2m": "Rayon de 2m",
+      "mode_fa_3m": "Rayon de 3m",
+      "mode_fa_4m": "Rayon de 4m",
+      "mode_fa_5m": "Rayon de 5m",
+      "mode_fa_6m": "Rayon de 6m",
+      "natural": "Armure Nat.",
       "physical_damage" : "P",
+      "physical_special_damage": "S",
       "price": "Prix",
       "skill": "Compétence",
       "skillspec": "Spécialisation",
@@ -420,16 +503,17 @@
       "CYBERWARE": "Cyberware",
       "DRONES": "Drones",
       "ELECTRONICS": "Électronique",
-      "GENETICS": "Génétique",
+      "GENETICS": "Geneware",
       "MAGICAL": "Magique",
       "NANOWARE": "Nanoware",
+      "SOFTWARE": "Logiciel",
       "SURVIVAL": "Survie",
       "TOOLS": "Outils",
       "VEHICLES": "Véhicules",
-      "WEAPON_CLOSE_COMBAT": "Arme, Contact",
-      "WEAPON_FIREARMS": "Arme, Armes à Feu",
-      "WEAPON_RANGED": "Arme, Projectiles",
-      "WEAPON_SPECIAL": "Arme, Spéciale"
+      "WEAPON_CLOSE_COMBAT": "Arme de mêlée",
+      "WEAPON_FIREARMS": "Arme à Feu",
+      "WEAPON_RANGED": "Arme de jet/trait",
+      "WEAPON_SPECIAL": "Arme spéciale"
     },
     "label": {
       "accessories": "Accessoires",
@@ -441,61 +525,88 @@
       },
       "attack_rating": "Score Offensif",
       "attack_rating_short": "SO",
+      "attack_rating_using_vehicle": "Score Offensif (Véhicule comme arme)",
       "attribute": "Attributs",
+      "details": "Details..",
+      "trait": "Trait",
+      "trait_pool": "Trait / Réserve",
       "base": "Base",
+      "belongs_to": "Appartient à",
       "column": {
         "action": "Action",
         "count": "Qté.",
         "name": "Nom",
+        "nameAnimate": "Nom",
         "rating": "Ind."
       },
       "attack.short": "A",
+      "attack.long": "Attaque",
       "sleaze.short": "C",
+      "sleaze.long": "Corruption",
       "dataproc.short": "T",
+      "dataproc.long": "Traitement de données",
       "firewall.short": "F",
+      "firewall.long": "Firewall",
       "devicerating.short": "I",
+      "devicerating.long": "Indice d'Appareil",
       "d6": "D6",
       "damage": "Dégâts",
-      "damage_short": "Dég",
+      "damage_short": "Dég.",
+      "defense": "Défense",
+      "defense_against": "Défense contre",
       "defense_rating": "Score Défensif",
       "delete": "Effacer",
+      "device_mode": "Mode de l'appareil",
       "devRating" : "Ind. d'app.",
+      "dual_hand": "Deux mains",
       "dice": "Dé",
       "edit": "Éditer",
       "expertise": "Expertise",
+      "extended_test": "Test étendue",
+	    "faster": "Accélérer",
       "features": "Fonctionnalités",
       "firemode_current": "Mode actuel",
       "firemodes": "Modes de tir",
+      "force": "Force",
       "gender": "Genre",
       "legality.illegal.short": "I",
+      "legality.illegal.long": "Illégal",
       "legality.legal.short": "L",
+      "legality.legal.long": "Légal",
       "level": "Niveau",
       "mages": "Magiciens",
+      "matrixMonitor": "Moniteur matriciel",
       "max": "Maximum",
+      "mode_of_operation": "Mode de fonctionnement",
       "modifications": "Modifications",
       "modifier": "Mod.",
       "name": "Nom",
       "none": "-",
       "not_present": "Non présent",
       "offroad": "Hors route",
-      "onroad": "Route",
+      "onroad": "Sur route",
       "points": "Points",
       "pool": "Réserve",
       "poolmod": "Réserve de dés",
       "programs.short": "P",
       "progSlots" : "Empl. prog.",
+      "rating": "Indice",
       "rating1": "Indice 1",
       "rating2": "Indice 2",
       "rating3": "Indice 3",
+	    "slower": "Décélérer",
+      "soaked": "Encaisser {soaked} de {threshold} dommages",
       "specialization": "Spécialisation",
+      "speed_detail": "Tu te déplace à {speed} km/h ({speedPerTurn} mètres par tour). Ton modificateur pour les tests est de {modifier}.",
       "threshold": "Seuil",
+      "type": "Catégorie",
       "value": "Score",
       "wilddie": "Dé Libre"
     },
     "lifestyle": {
       "cost" : "Coût",
       "paid": "Payé",
-      "type": "Type",
+      "type": "Catégorie",
       "sin": "SIN lié",
       "street": "La rue",
       "squatter": "Squatter",
@@ -504,48 +615,220 @@
       "high": "Élevé",
       "luxury": "Luxueux"
     },
-    "matrixaction": {
-      "backdoor_entry": "Utiliser une backdoor",
-      "brute_force": "Forcer l'accès",
-      "change_icon": "Changer son icône",
-      "check_os": "Vérifier son SS",
-      "control_device": "Contrôler un appareil",
-      "crack_file": "Décrypter un fichier",
-      "crash_program": "Planter un programme",
-      "data_spike": "Pic de données",
-      "disarm_data_bomb": "Désamorcer une bombe",
-      "edit_file": "Éditer un fichier",
-      "encrypt_file": "Crypter un fichier",
-      "enter_host": "Entrer/Sortir d'un serveur",
-      "erase_matrix_signature": "Effacer une signature",
-      "format_device": "Formater un appareil",
-      "full_matrix_defense": "Défense mat. totale",
-      "hash_check": "Rech. une empreinte",
-      "hide": "Se cacher",
-      "jack_out": "Se débrancher",
-      "jam_signals": "Brouiller des signaux",
-      "jump_rigged": "Plonger dans un app.",
-      "matrix_perception": "Percevoir la Matrice",
-      "matrix_search": "Recherche matricielle",
-      "probe": "Sonder l'accès",
-      "reboot_device": "Rebooter un appareil",
-      "reconfigure": "Reconf. les attributs mat.",
-      "send_message": "Envoyer un message",
-      "set_data_bomb": "Poser une bombe mat.",
-      "snoop": "Fureter",
-      "spoof_command": "Imiter un ordre",
-      "switch_ifmode": "Changer de mode d'int.",
-      "tarpit": "Empêtrer",
-      "trace_icon": "Traquer une icône"
+    "matrix": {
+      "accessLevel": {
+        "outsider": "INVITÉ",
+        "user": "UTILISATEUR",
+        "admin": "ADMINISTRATEUR"
+      }
     },
+    "matrixaction": {
+      "backdoor_entry": {
+        "name": "Utiliser une backdoor",
+        "hint": "Obtenir un accès administrateur à un hôte ou à un appareil de manière sournoise. Tout d'abord, Sondez l'accès sur la cible et si vous réussissez, ajoutez les résultats nets comme bonus à ce dé."
+      },
+      "brute_force": {
+        "name": "Forcer l'accès",
+        "hint": "Tenter d'obtenir un accès rapide en envoyant des spams à une cible. Lorsqu'il tente de passer directement du statut d'invité à celui d'admin, l'ennemi obtient deux dés de bonus et plus quatre points de défense - De quelque manière que ce soit, l'appareil sera alarmé."
+      },
+      "calibration": {
+        "name": "Calibration",
+        "hint": "Ajoutez un à l'initiative matricielle de vous et de vos coéquipiers (partageant un flux AR avec votre PAN) pour chaque deux coups reçus. L'augmentation totale d'un Persona ne peut pas être supérieure à votre Traitement des données."
+      },
+      "change_icon": {
+        "name": "Changer son icône",
+        "hint": "Sélectionnez une icône et remplacez-la par une autre. Cela ne vous empêchera pas d'être retrouvé si quelqu'un tente de le faire."
+      },
+      "check_os": {
+        "name": "Vérifier son SS",
+        "hint": "Consultez votre score de surveillance. Ironiquement, cette action augmente également votre SS."
+      },
+      "control_device": {
+        "name": "Contrôler un appareil",
+        "hint": "Prenez le contrôle d'un appareil comme si vous en étiez le propriétaire, jusqu'à ce que vous quittiez l'appareil de votre plein gré, que vous l'éteigniez ou que quelqu'un d'autre vous fasse perdre le contrôle."
+      },
+      "crack_file": {
+        "name": "Décrypter un fichier",
+        "hint": "Cette action permet de rendre lisible un fichier crypté."
+      },
+      "crash_program": {
+        "name": "Planter un programme",
+        "hint": "Vérifiez quels sont les programmes exécutés par l'appareil de votre adversaire avec Percevoir de la Matrice, puis prenez cette action pour l'arrêter."
+      },
+      "data_spike": {
+        "name": "Pic de données",
+        "hint": "Il s'agit de l'attaque standard pour infliger des dégâts de matrice à un appareil ou à un personnage."
+      },
+      "disarm_data_bomb": {
+        "name": "Désamorcer une bombe matricielle",
+        "hint": "Vous pouvez ainsi désarmer les bombes matricielles que vous avez détectées avec Perception Matricielle. Si vous ne réussissez pas à obtenir un résultat net, la bombe de matricielle explose."
+      },
+      "device_lock": {
+        "name": "Verrouillage d'appareil",
+        "hint": "Empêche le propriétaire d'un appareil de couper la connexion d'un appareil à la matrice pendant succès nets rounds de combat. Peut être prolongé une fois en dépensant une action mineure."
+      },
+      "denial_of_service": {
+        "name": "Déni de service",
+        "hint": "Créez une pénalité pour tous les tests utilisant ce dispositif wifi en multipliant le nombre de succès net par deux."
+      },
+      "delayed_command": {
+        "name": "Commande différée",
+        "hint": "Envoyer une commande à un appareil avec un délai. En cas de succès, l'appareil reconnaîtra que la commande a été envoyée par son propriétaire. Une fois le délai écoulé, la commande sera exécutée, même si l'appareil a été coupé de la matrice. Un redémarrage avant l'exécution de la commande effacera celle-ci."
+      },
+      "edit_file": {
+        "name": "Éditer un fichier",
+        "hint": "Cette action permet d'ajouter, d'éditer, de copier ou de supprimer un fichier. Lors d'un combat, l'ajout ou la modification d'un fichier nécessite une action pour chaque détail. Les fichiers cryptés ne peuvent pas être copiés."
+      },
+      "encrypt_file": {
+        "name": "Crypter un fichier",
+        "hint": "Cela rend un fichier illisible sans le décrypter au préalable. La valeur de cryptage est égale au résultat de ce jet."
+      },
+      "enter_host": {
+        "name": "Entrer/Sortir d'un serveur",
+        "hint": "Entrer dans un hôte ou le quitter."
+      },
+      "erase_matrix_signature": {
+        "name": "Effacer une signature matricielle",
+        "hint": "Si vous avez une valeur de Résonance, cette action vous permet de supprimer une signature matricielle laissée par un technomancien ou un sprite."
+      },
+      "format_device": {
+        "name": "Formater un appareil",
+        "hint": "Vous remplacez le secteur de démarrage de cet appareil par votre propre code, de sorte qu'il ne démarre plus lorsqu'on lui demande de redémarrer."
+      },
+      "full_matrix_defense": {
+        "name": "Défense Mat. totale",
+        "hint": "Ajoutez votre pare-feu à tous les tests de défense liés à la matrice."
+      },
+      "garbage_in_out": {
+        "name": "Garbage In/Garbage Out",
+        "hint": "Jouer avec les signaux d'entrée et de sortie d'un appareil. Par exemple, chaque fois que le propriétaire veut lancer un programme, la dernière photo prise est effacée."
+      },
+      "hash_check": {
+        "name": "Rech. une empreinte numérique",
+        "hint": "Recherche de fichiers cryptés avec un contenu spécifique dans un hôte ou un appareil. Les chances augmentent considérablement si l'on dispose d'une valeur de hachage."
+      },
+      "hide": {
+        "name": "Se cacher",
+        "hint": "Essayez de faire en sorte qu'une cible vous perde de vue dans la Matrice. Ne fonctionne pas si l'icône a un accès utilisateur ou administrateur à un appareil de votre réseau."
+      },
+      "jack_out": {
+        "name": "Se débrancher",
+        "hint": "Déconnectez-vous de la matrice en redémarrant votre appareil. Si vous êtes bloqué par le lien, l'adversaire effectuera un jet contre vous. Si vous n'êtes pas passé à l'AR en premier, vous subirez des dégâts dus à l'électrochoc."
+      },
+      "jam_signals": {
+        "name": "Brouiller des signaux",
+        "hint": "Tant que vous n'utilisez pas cet appareil pour d'autres actions, cela augmentera l'indice de bruit de tous les coups que vous portez dans un rayon de 100 mètres."
+      },
+      "jump_rigged": {
+        "name": "Plonger dans un app.",
+        "hint": "Le véhicule ou le drone dans lequel vous voulez sauter nécessite une adaptation du rigger et vous avez besoin d'un rig de contrôle. Vous ne pouvez sauter que si personne d'autre ne le fait. Votre niveau de propriété et d'accès est également un facteur déterminant pour savoir si cela fonctionnera ou non et si vous avez besoin de faire un jet."
+      },
+      "known_exploit": {
+        "name": "Exploiter une backdoor connue",
+        "hint": "Essayez d'exploiter une backdoor connue pour obtenir un accès direct comme administrateur. Vos chances de réussite sont réduites sur les hôtes ou les appareils bien patchés. Cette action combine les actions de Sonde et d'Utiliser une backdoor en une seule. Vous ne pouvez pas obtenir ou utiliser d'Atout pour cette action alors que l'adversaire obtient gratuitement un Atout temporaire pour s'opposer à vous."
+      },
+      "masquerade": {
+        "name": "Mascarade",
+        "hint": "Vous pouvez faire semblant d'être quelqu'un d'autre dans la Matrice pendant succès nets minutes. Cependant, il est difficile de tromper la Matrice et cela ne fonctionnera pas pour des choses telles que la prise de possession d'appareils ou les opérations bancaires."
+      },
+      "matrix_perception": {
+        "name": "Percevoir la Matrice",
+        "hint": "Trouvez une icône qui fonctionne en silence ou collectez des informations sur une cible, comme son icône et son classement de périphérique, les périphériques en cours d'exécution, les programmes et d'autres informations spécifiques."
+      },
+      "matrix_search": {
+        "name": "Recherche matricielle",
+        "hint": "Rechercher dans la Matrice publique des informations sur un sujet donné."
+      },
+      "metahuman_middle": {
+        "name": "Métahumain du milieu",
+        "hint": "Faites en sorte que toutes les communications et actions de Matrix passent par votre appareil pendant succès nets minutes."
+      },
+      "modify_icon": {
+        "name": "Modifier l'icône",
+        "hint": "Modifier une icône pour laquelle vous disposez d'un accès administrateur en quelque chose qu'elle ne représente pas, comme faire ressembler votre arme à des fleurs."
+      },
+      "probe": {
+        "name": "Sonder l'accès",
+        "hint": "Essayez de trouver un exploit et utilisez ensuite l'action Utiliser une backdoor pour obtenir l'accès. Cela prend du temps, mais contrairement à la force brute, cela n'alarmera pas la cible."
+      },
+      "pop_up": {
+        "name": "Popup",
+        "hint": "Inondez votre adversaire avec des fenêtres AR, afin qu'il ne puisse pas dépenser de l'Atout pour succès nets rounds, car il est distrait."
+      },
+      "reboot_device": {
+        "name": "Rebooter un appareil",
+        "hint": "Cela permet de couper un appareil de la matrice en le forçant à redémarrer. Il sera de nouveau en ligne à la fin du round de combat suivant."
+      },
+      "reconfigure": {
+        "name": "Reconf. les attributs mat.",
+        "hint": "Changez deux indices de base de votre Persona matricielle qui sont supérieures à 0, quelle que soit la source (commlink, cyberjack, etc.) dont elles proviennent."
+      },
+      "send_message": {
+        "name": "Envoyer un message",
+        "hint": "Transmettez du son ou du texte à quelqu'un d'autre, ou créez un flux en direct."
+      },
+      "set_data_bomb": {
+        "name": "Poser une bombe mat.",
+        "hint": "Attachez une bombe matricielle pour faire exploser les pirates informatiques imprudents. L'indice peut aller jusqu'au nombre maximum de succès nets que vous avez obtenus. Choisissez ensuite si la bombe matricielle supprime le fichier ou non."
+      },
+      "snoop": {
+        "name": "Fureter",
+        "hint": "Mettez la main sur les données échangées entre votre cible et la matrice."
+      },
+      "spoof_command": {
+        "name": "Imiter un ordre",
+        "hint": "Envoyer une commande à un appareil en prétendant en être le propriétaire légitime. Comme d'habitude, l'appareil tente alors d'exécuter l'action en tant que prochaine action majeure disponible."
+      },
+      "squelch": {
+        "name": "Étouffer",
+        "hint": "Empêcher la cible d'envoyer des messages ou d'appeler quelqu'un pour succès nets rounds."
+      },
+      "subvert_infrastructure": {
+        "name": "Subvertir l'infrastructure",
+        "hint": "Faites en sorte qu'un groupe de dispositifs simples et similaires d'un hôte fasse ce que vous voulez, comme éteindre l'éclairage public ou faire pivoter toutes les caméras de sécurité vers la gauche."
+      },
+      "switch_ifmode": {
+        "name": "Changer de mode d'interface",
+        "hint": "Basculez entre les modes AR et VR de votre interface."
+      },
+      "tarpit": {
+        "name": "Empêtrer",
+        "hint": "Ralentissez votre cible en lui infligeant des dégâts et en réduisant sa valeur de traitement des données."
+      },
+      "threat_analysis": {
+        "name": "Analyse des menaces",
+        "hint": "Marquez les entités nuisibles et partagez-les par flux AR avec vos coéquipiers, afin qu'ils bénéficient de vos succès en tant que dés bonus sur leur jet de défense. Cela fonctionne aussi bien dans le monde physique que dans la Matrice."
+      },
+      "trace_icon": {
+        "name": "Traquer une icône",
+        "hint": "Retrouver l'emplacement physique d'un appareil ou d'une personne."
+      },
+      "virtual_aim": {
+        "name": "Visée virtuelle",
+        "hint": "Vous donne un dé de bonus pour vos actions d'attaque comme Pic de donnée ou Empêtrer. Peut être activé une fois par round, mais s'additionne à chaque round à moins que vous ne fassiez pas d'autre action ou attaque de Visée Virtuelle. Le maximum est votre Volonté."
+      },
+      "watchdog": {
+        "name": "Chien de garde",
+        "hint": "Permet de suivre et d'anticiper les actions d'un personnage ou d'un dispositif de la Matrice pendant succès nets rounds, afin de pouvoir intervenir. Le fait que le chien de garde soit actif vous permet d'exécuter l'analyse de menace en tant qu'action mineure."
+      }
+    },
+    "matrixini": {
+			"ar": "AR",
+			"vrcold": "RV Cold-Sim",
+			"vrhot": "RV Hot-Sim"
+	   },
     "monitor": {
-      "matrix": "Matrice",
+		  "label": "Moniteur",
+      "matrix": "Matriciel",
       "physical": "Physique",
-      "stun": "Étourdissant"
+      "stun": "Étourdissant",
+      "overflow": "Surplus",
+      "dead": "MORT",
+      "broken": "CASSÉ"
     },
     "mortype": {
       "adept": "Adepte",
-      "aspectedmagician": "Mage d'aspect",
+      "aspectedmagician": "Magicien spécialisé",
       "magician": "Magicien",
       "mundane": "Ordinaire",
       "mysticadept": "Adepte mystique",
@@ -553,21 +836,30 @@
     },
     "newitem": {
       "adeptpower": "Nommez votre pouvoir",
+      "accessory": "Morceau verre brillant",
       "ammunition": "Munitions trop balèzes",
       "armor": "Un truc à la mode",
+      "armor_addition": "Votre armure  a besoin d'être mis à jour",
       "biology": "Biohazard",
       "bodyware": "Une augmentation cool",
       "chemicals": "De la bonne",
       "complexform" : "C'est complexe à quel point ?",
       "contact": "Il s'appelle Juste Leblanc.",
+      "critterpower": "Qu'est-ce qu'il a de si particulier ?",
       "cyberware": "De l'amélioration cyber cool",
+      "drones": "Mon œil volant",
+      "echo": "Échooooooo",
       "electronics": "Un jouet pour nerd",
+      "genetics": "Tout le monde veut des yeux bleus",
       "focus": "Quelque chose pour se concentrer",
       "lifestyle": "Un carton ou une suite ?",
+      "magical": "Plumes Mojo",
       "martialartstyle": "Quel est votre style ?",
       "martialarttech": "Mais quelle technique ?",
       "matrix": "Mattez mon deck !",
+      "rcc": "Minion Dominator X2000",
       "metamagic": "Et qu'avez vous appris ?",
+      "nanoware": "Sept ou neuf petites machines",
       "quality": "Ce qui vous rend spécial",
       "ritual": "Chanter du gospel",
       "sin": "Mais vous êtes qui ?",
@@ -576,9 +868,23 @@
         "language": "Charabia"
       },
       "spell": "Abracadabra",
+      "software": "Bootleg douteux",
       "survival": "Un joli couteau suisse",
+      "tools": "Votre outil préféré",
+      "vehicles": "Superbe voyage",
       "weapon": "Une arme avec un nom c'est plus cool",
-      "weaponclose": "Quelque chose de lourd"
+      "weaponclose": "Quelque chose de lourd",
+      "weaponspecial": "Arme étrange"
+    },
+    "npc": {
+    	"subtype": {
+      	"npc": "PNJ",
+      	"critter": "Créature",
+      	"spirit": "Esprit",
+      	"sprite": "Sprite"
+      },
+      "gruntrules": "Utilise les règles de grunt",
+      "mortype": "Magie/Résonance"
     },
     "numerical": {
       "base": "base",
@@ -588,7 +894,7 @@
     },
     "programtype": {
       "basic": "Programmes courants",
-      "hacking": "Programmes de hacking"
+      "hacking": "Programmes de piratage"
     },
     "program": {
       "baby_monitor": {
@@ -687,59 +993,111 @@
       "spotter": "Observateur"
     },
     "roll": {
+      "accumulated": "Accumulé",
       "actionText": {
         "attack_target_multiple": "Attaque multiple avec {name}",
         "attack_target_none": "Attaque la cible avec {name}",
         "attack_target_one": "Attaque {target} avec {name}",
-        "cast": "Lance {name}",
+        "cast_target_multiple": "Lance {name} sur des cibles multiples",
+        "cast_target_none": "Lance {name}",
+        "cast_target_one": "Lance {name} sur {target}",
+        "skill": "Fait un test de compétence",
         "thread": "Exécute {name}",
         "defense": {
-          "physical": "Se défend contre une attaque physique"
+          "physical": "Se défend contre une attaque physique",
+          "spells_direct": "Défense contre un sort de combat direct",
+          "spells_indirect": "Défense contre un sort de combat indirect"
+        },
+        "soak": {
+          "drain": "Résiste à {damage} de Drain",
+          "fading":"Résiste à {damage} de Technodrain",
+          "damage_phys":"Resiste à {damage} dommages physiques",
+          "damage_stun"    :"Resiste à {damage} dommages étourdissants"
         }
       },
+      "apply_damage": "Appliquer les dommages",
+      "create": "Créer votre propre réserve de dé de Shadowrun",
+      "damage_applied": "Dommages appliqués",
+      "damage_revert": "Annuler les dommages ?",
       "ar_0": "Proche",
       "ar_1": "Courte",
       "ar_2": "Moyenne",
       "ar_3": "Longue",
       "ar_4": "Extrême",
       "attack": "Attaque",
-      "attackRating": "Score Off.:",
-      "configure": "Configurer votre lancer",
+      "attackRating": "Score Off.",
+      "bf_type": "Type",
+      "bf": {
+        "narrow_burst": "Rafale ciblée",
+        "wide_burst": "Rafale large"
+      },
+      "button": {
+        "defense": "Jet de Défense",
+        "drain"  : "Résist. Drain",
+        "soak"   : "Encaisser dommages"
+      },
+      "cantDodgeBullets": "Augmente le seuil selon les circonstances après avoir réglé la distance",
+      "configure": "Configurer votre jet",
+      "wound-modifier": "Utiliser le modificateur de blessure",
+      "sustained-spell-modifier": "Utiliser le modificateur de sort maintenu",
       "criticalglitch": "Échec Critique",
-      "damage": "Dégâts: ",
-      "defRating": "Défense: ",
-      "defense_button": "Lancer la défense",
+      "heal_apply": "Soin",
+      "damage": "Dégâts : ",
+	    "damage_apply": "Appliquer dommages",
+      "defRating": "Score défensif",
       "edge": {
+        "add_manually_to_target": "(Ajouter manuellement) Cible",
         "gain_player": "{name} obtient {value} Atout",
-        "getting": "Gagne de l'Atout",
+        "gain_player_capped": "{name} devrait obtenir {value} Atout, mais ne peut pas en avoir plus de {capped}",
+        "getting": "Gagne des Atouts",
         "no_gain": "Personne n'obtient d'Atout",
         "situational": "Atout de situation",
-        "spending": "Dépenser de l'Atout"
+        "spending": "Dépense d'Atout",
+        "spend_edge": "Dépenser Atout",
+        "edge_spent": "Boost d'Atout : {boostTitle}",
+        "opponent": "Adversaire",
+        "opponent_edge_boost": "Boost d'Atout de l'adversaire",
+        "spend": "Dépense !",
+        "original_test": "Test original par :"
       },
       "edge_perform": "Action !",
-      "edgegain": "Atout-Gain (max): ",
+      "edgegain": "Atout-Gain (max) : ",
       "edgegain_player": " (Joueur)",
       "exp": "Expertise",
       "explode": "Explosif",
+      "extended": "Test étendu",
+      "interval": "Interval",
+      "fa_area": "Zone",
+      "firemode": "Mode de tir",
       "failure": "Échec",
+      "failedDefense": "Vous avez été frappé et vous allez avoir mal.",
+      "failedSoak": "Vous subissez des dommages",
       "glitch": "Complication",
-      "hits_bought": "Coups achetés",
+      "hits_bought": "Succès achetés",
+      "hits": "succès",
       "mode": "Mode",
       "modifier": "Mod. de réserve",
       "noedgegain": "Pas de gain d'atout",
-      "nosuccess": "Succès, seuil: ",
+      "nosuccess": "Succès, seuil :",
       "notarget": "Aucune cible sélectionnée",
       "pool": "Nb. de Dé à lancer",
+      "range":"Distance",
       "spec": "Spécialisation",
       "spell": {
         "ampUp": {
-          "1": "Dégâts + 1, Drain + 2",
-          "2": "Dégâts + 2, Drain + 4",
+          "1": "Dommages + 1 / Drain + 2",
+          "2": "Dommages + 2 / Drain + 4",
+          "3": "Dommages + 3 / Drain + 6",
+          "4": "Dommages + 4 / Drain + 8",
           "title": "Amplification"
         },
         "incArea": {
-          "1": "Zone +2m, Drain + 1",
-          "2": "Zone +4m, Drain + 2",
+          "1": "Zone +2m / Drain + 1",
+          "2": "Zone +4m / Drain + 2",
+          "3": "Zone +6m / Drain + 3",
+          "4": "Zone +8m / Drain + 4",
+          "5": "Zone +10m / Drain + 6",
+          "6": "Zone +12m / Drain + 8",
           "title": "Extension de zone"
         },
         "title": "Ajuster le sort"
@@ -747,8 +1105,14 @@
       "subject": "Message dans le Chat",
       "success": "Succès",
       "successes": "Succès",
-      "target": "Cible: ",
+      "netHits": "Succès nets",
+      "successfulDefense": "Vous avez réussi à éviter d'être touché",
+      "successfulSoak"   : "Vous avez réussi à ignorer les dommages",
+      "missedAttack"   : "Vous avez raté Chummer !",
+      "succesfulHit"   : "Vous avez touché, chummer !",
+      "target": "Cible : ",
       "threshold": "Seuil",
+      "weapon":  "Définir votre attaque",
       "wilddie": "Avec Dé Libre",
       "with": "avec"
     },
@@ -774,6 +1138,7 @@
         },
         "title": "Armure"
       },
+      "armor_adds": "Mods d'armure",
       "biology": "Biologie",
       "bodyware": {
         "add": "Ajouter une augmentation",
@@ -793,10 +1158,14 @@
         "add": "Ajouter un contact",
         "title": "Contacts"
       },
+      "critterpowers": {
+        "add": "Ajouter un pouvoir de créature",
+        "title": "Pouvoirs"
+      },
       "defense": "Défenses & résistances",
       "derived": "Valeurs dérivées",
       "drones": {
-        "add": "Add new drone",
+        "add": "Ajouter un nouveau drone",
         "title": "Drones"
       },
       "electronics": "Électroniques",
@@ -812,13 +1181,25 @@
       },
       "focus": {
         "add": "Ajouter un focus",
-        "column.rating": "Puiss.",
+        "column.rating": "Puissance",
         "title": "Focus"
+      },
+      "gear" : {
+        "add" : "Ajouter un nouvel équipement",
+        "title" : "Équipement"
+      },
+      "karma" : {
+        "title" : "Karma, Pression, Réputation",
+        "karma" : "Karma",
+        "heat"  : "Pression",
+        "reputation": "Réputation",
+        "total": "Total"
       },
       "lifestyles" : {
         "add": "Ajouter un style de vie",
         "title" : "Styles de vie"
       },
+      "magical": "Magique",
       "matrix_base": {
         "overwatch": "Score de Surveillance"
       },
@@ -830,12 +1211,14 @@
       },
       "matrix_devices": {
         "add": "Ajouter un appareil",
+        "add_rcc": "Ajouter une console de commande de rigger",
         "column": {
           "action": "Action",
           "devRating": "Indice",
           "name": "Nom"
         },
-        "title": "Appareils matriciels"
+        "title": "Appareils matriciels",
+        "title_rcc": "CCR"
       },
       "metamagic": {
         "add": "Ajouter une métamagie",
@@ -850,6 +1233,9 @@
       },
       "qualities": "Traits",
       "qualities_add": "Add",
+      "rigging": {
+        "title": "Rigging"
+      },
       "rituals": {
         "add": "Ajouter un rituel",
         "column.threshold": "Seuil",
@@ -870,12 +1256,21 @@
         "special": "Spécialiste"
       },
       "skills.language_add": "Nouvelle Langue",
+      "software": {
+        "add": "Ajouter un nouveau logiciel",
+        "title": "Logiciel"
+      },
       "spells": {
         "add": "Ajouter un sort",
         "column.alchemic": "Alch.",
         "column.drain": "Drain",
         "column.range": "Portée",
+        "column.sustained": "Maint.",
         "title": "Sorts"
+      },
+      "sustained": {
+        "add": "Ajouter un nouveau sort",
+        "title": "Sorts maintenus"
       },
       "survival": "Survie",
       "vehicles": {
@@ -894,16 +1289,62 @@
         },
         "title": "Véhicules"
       },
+      "vehicleskills": {
+		  		"brain": "Cerveau électronique",
+				"operations": "Operations"
+	   },
       "weapon": {
         "add": "Ajouter une arme",
         "close": "Armes de Mélée",
-        "ranged": "Armes à Distance"
+        "ranged": "Armes à Distance",
+        "special": "Armes spéciales",
+		    "title" : "Armes"
       }
     },
     "settings": {
       "maxEdgePerRound": {
         "hint": "Définit le maximum d'Atout qu'un personnage peut gagner en un tour.",
         "name": "Atout max par tour"
+      },
+      "importToCompendium": {
+        "hint": "Définir si les PNJ importés doivent être ajoutés en tant qu'acteurs ou en tant qu'entrées dans le compendium des PNJ.",
+        "name": "Importer dans le compendium"
+      },
+      "defaultThreshold": {
+        "hint": "Définit le seuil par défaut utilisé pour tout test de compétence.",
+        "name": "Seuil par défaut"
+      },
+      "hardDiceCap": {
+        "hint": "Dans le jeu standard, il y a un maximum de 20 dés pour chaque test. Aucune combinaison de capacités, de compétences, d'effets ou d'améliorations ne peut dépasser cette limite lors d'un test. Exception : La préparation d'un test permet de dépasser le plafond de 20 dés grâce aux dés bonus accordés par les Atouts.",
+        "name": "Maximum de Dés"
+      },
+      "bleeding": {
+        "hint": "Cette règle est utilisée pour représenter les dommages permanents résultant de blessures graves. (SWC p.140)",
+        "name": "Hémorragie"
+      },
+      "hackSlashMatrix": {
+        "hint": "Permet d'afficher les actions matricielles du livre de règles Hack & Slash sur les feuilles de personnage. (HS p.28)",
+        "name": "Actions matricielles Hack & Slash"
+      },
+      "armorLessensDmg": {
+        "hint": "Cette règle permet de réduire les dommages physiques subis. Après avoir résisté aux dégâts (autres que les toxines ou les statuts), convertissez une case de dégâts physiques en étourdissement pour chaque 8 points complets de SD que vous avez. (SWC p.143)",
+        "name": "Réduction des dommages physiques par l'armure"
+      },
+      "rollStrengthCombat": {
+        "hint": "Les attaques au corps à corps peuvent faire un jet de Force au lieu d'un jet d'Agilité pour les attaques à mains nues ou si l'arme repose à la fois sur la masse et l'élan. Dans ce cas, ajoutez l'Agilité à la valeur d'attaque à la place de la Force. L'arme doit être maniée à deux mains. (SWC p.144)",
+        "name": "Utiliser le score de force au lieu de l'agilité en combat rapproché"
+      },
+      "highStrengthAddsDamage": {
+        "hint": "Si votre Force est d'au moins 7, augmentez votre VD de mêlée de 1. Si votre Force est de 10 ou plus, augmentez votre VD de mêlée de 2. Les armes qui ne bénéficient pas d'une force élevée n'augmentent pas leur VD. (SWC p.150)",
+        "name": "La force élevée s'ajoute aux dommages"
+      },
+      "highStrengthReducesRecoil": {
+        "hint": "Les pénalités RA pour les attaques en mode tir sont réduites de 1 si la force de l'attaquant est de 7 ou plus, et de 2 à 10 ou plus. Les deux mains doivent être utilisées pour contrôler l'arme à feu. (SWC p.144)",
+        "name": "Réduction du recul grâce à une force élevée"
+      },
+      "cantDodgeBullets": {
+        "hint": "Tout test d'opposition à une attaque est à la place un test simple contre un seuil fixé par la distance et la taille du groupe de défense de la cible. La cible de l'attaque peut toujours utiliser des boosts d'avantage contre les dés de l'attaquant. (SWC p.151)",
+        "name": "On n'esquive pas les balles"
       }
     },
     "sin" : {
@@ -916,6 +1357,12 @@
       "highly_plausible" : "Hautement plausible",
       "second_life" : "Seconde vie"
     },
+    "softwareedit": {
+      "description": "Description",
+      "category": "Catégorie",
+      "basic": "Basique",
+      "hacking": "Piratage"
+    },
     "special": {
       "astral": {
         "astral_combat": "Combat astral",
@@ -927,6 +1374,7 @@
         "archery": "Archerie",
         "climbing": "Escalade",
         "flying": "Vol",
+        "free_fall": "Chute libre",
         "gymnastics": "Gymnastique",
         "sprinting": "Sprint",
         "swimming": "Natation",
@@ -961,7 +1409,8 @@
       "electronics": {
         "computer": "Informatique",
         "hardware": "Matériel électronique",
-        "software": "Logiciels"
+        "software": "Logiciel",
+        "complex_forms": "Forme complèxe"
       },
       "enchanting": {
         "alchemy": "Alchimie",
@@ -978,7 +1427,17 @@
         "lockpicking": "Crochetage",
         "nautical_mechanic": "Mécanique nautique"
       },
-      "exotic_weapons": {},
+      "exotic_weapons": {
+        "chainsaws": "Tronçonneuses",
+        "brawling": "Armes de mêlée",
+        "air": "Air comprimé",
+        "emitter": "Arme à énergie",
+        "laser": "Arme laser",
+        "launchers": "Lanceurs",
+        "spray": "Arme d'aspersion",
+        "whips": "Fouet",
+        "other": "Autre"
+      },
       "firearms": {
         "assault_cannons": "Canons d'assaut",
         "holdouts": "Pistolets de poche",
@@ -988,6 +1447,7 @@
         "rifles": "Fusils",
         "shotguns": "Shotguns",
         "submachine_guns": "Mitraillettes",
+        "machine_guns": "Mitrailleuses",
         "tasers": "Tasers"
       },
       "influence": {
@@ -1039,6 +1499,7 @@
       }
     },
     "spell": {
+		  "area": "Zone",
       "category": "Catégorie",
       "category_combat": "Combat",
       "category_detection": "Détection",
@@ -1061,6 +1522,8 @@
       "duration": "Durée",
       "duration_instantaneous": "Instantanée",
       "duration_instantaneous_short": "I",
+      "duration_immediate": "Instantanée",
+      "duration_immediate_short": "I",
       "duration_limited": "Limitée",
       "duration_permanent": "Permanente",
       "duration_permanent_short": "P",
@@ -1069,6 +1532,8 @@
       "duration_special_short": "Spé.",
       "duration_sustained": "Maintenue",
       "duration_sustained_short": "M",
+      "duration_always": "Toujours",
+      "duration_always_short": "T",
       "isOpposed": "Est opposé",
       "range": "Portée",
       "range_line_of_sight": "Ligne de vue",
@@ -1095,11 +1560,25 @@
       "sense_multi": "Plurisensoriel",
       "sense_single": "Unisensoriel"
     },
+    "spirittype": {
+      "air": "Air",
+      "beasts": "Bêtes",
+      "earth": "Terre",
+      "fire": "Feu",
+      "kin": "Aîné",
+      "water": "Eau",
+      "plant": "Plante",
+      "guardian": "Gardien",
+      "guidance": "Guide",
+      "task": "Tâche"
+    },
     "tradition": {
       "attribute": "Attribut de tradition"
     },
     "vehicle": {
       "action_label": "Pilotage / Attaque ou défense de véhicule",
+      "has_no_owner": "Le véhicule / Drone n'a pas de propriétaire assigné",
+      "initiative": "Initiative du véhicule",
       "mode_label": "Mode",
       "mode": {
         "manual": "Manuel",
@@ -1108,11 +1587,149 @@
         "rcc": "Via CCR",
         "autonomous": "Autonome"
       },
+      "skill": {
+        "cracking": "Piratage",
+        "evasion": "Évasion",
+        "perception": "Perception",
+        "piloting": "Pilotage",
+        "stealth": "Furtivité"
+      },
       "type": {
         "groundcraft": "Aérien",
         "watercraft": "Aquatique",
         "aircraft": "Terrestre"
-      }      
+      }
+    },
+    "weapon": {
+      "damage": "VD",
+      "attackRating":"Score Off.",
+      "firemodes": "Modes",
+      "ammo": "Munitions"
+    },
+    "ui": {
+      "notifications": {
+        "You_are_not_owner_of_the_target": "Vous n'êtes pas propriétaire de la cible.",
+        "You_are_not_owner_of_the_token": "Vous n'êtes pas propriétaire du jeton.",
+        "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "Vous ne pouvez choisir que Rafale large lorsque vous ciblez deux jetons.",
+        "Target_or_select_a_token_before_rolling": "Ciblez ou sélectionnez un jeton avant de lancer.",
+        "Select_a_token_first": "Sélectionnez d'abord un jeton, ou configurez votre acteur Personnage Joueur dans votre Configuration Utilisateur.",
+        "Target_a_token_before_rolling": "Ciblez un jeton avant de lancer.",
+        "Dice_roll_evaluation_failed": "Évaluation du lancer de dés échouée",
+        "two_targets_but_wrong_fire_mode": "Vous avez deux cibles, donc vous ne pouvez tirer qu'en utilisant le mode Tir en Rafale : Rafale large, ou en utilisant le mode Tir Automatique.",
+        "many_targets_but_not_autofire_fire_mode": "Vous avez plus de deux cibles, donc vous ne pouvez tirer qu'en utilisant le mode Tir Automatique.",
+        "attack_with_no_AR": "Vous essayez d'attaquer alors que votre Score Off. est de 0, par exemple en raison de la distance.",
+        "apply_manually": "Appliquez les dégâts manuellement.",
+        "Target_is_not_a_life_form": "La cible n'est pas une forme de vie.",
+        "do_not_revert_damage": "Débordement du le moniteur Physique. N'annulez pas ce dégât via le bouton de chat, car cela ne sera pas calculé correctement.",
+        "No_actor_or_tokens_selected": "Attribuez-vous un Personnage Joueur, ou sélectionnez des jetons avant de lancer.",
+        "You_are_not_owner_of_the_tokens": "Vous n'êtes pas propriétaire des jetons sélectionnés.",
+        "no_weapon_skill_set": "Veuillez éditer l'arme pour assigner une compétence liée avant de lancer.",
+        "vehicle_has_no_owner": "Le véhicule n'a pas de propriétaire assigné.",
+        "only_owner_is_allowed_to_spend_edge": "Seul le propriétaire du personnage est autorisé à dépenser des Atouts sur ce boost d'Atout.",
+        "owner_not_logged_in": "Le boost d'Atout n'est pas possible, par exemple parce que la personne qui a jeter le test n'est pas en ligne.",
+        "edge_boost_is_not_post_edge": "'{boostTitle}' n'est pas un boost d'Atout post-lancé",
+        "you_require_more_edge": "Il n'y a pas suffisamment d'Atout disponible. Vous avez besoin de {edge} atouts de plus pour effectuer ce boost.",
+        "no_die_with_a_1_or_4": "Votre lancer ne contient pas de 1 ou de 4, donc ce boost d'Atout n'est pas utile.",
+        "cant_increase_die": "Vous ne pouvez pas augmenter ce dé avec ce boost d'Atout, car cela serait inutile.",
+        "all_dice_are_successes": "Tous les dés sont déjà des succès.",
+        "character_has_spent_edge": "{actor} a dépensé {edge} d'Atout sur le boost d'Atout <b>{edgeBoost}</b>.",
+        "reduce_edge_from_actor": "Veuillez réduire l'Atout du personnage de {edge}.",
+        "reroll_failed_requires_index": "Sélectionnez un ou plusieurs dés avant de cliquer sur le bouton `Dépenser`.",
+        "edge_boost_cannot_be_used_glitch": "Ce boost d'Atout ne peut pas être utilisé si un glitch ou un glitch critique est jeté.",
+        "reopen_dice_tooltip": "Vous avez basculé les jetons sélectionnés. Réouvrez la section des dés dans le chat pour effectuer un boost d'Atout.",
+        "extended_test_validation": "Lors d'un test étendu, le seuil et l'intervalle doivent être de 0 ou plus."
+      }
+    },
+    "EFFECT": {
+      "chilled": "Frigorifié",
+      "confused": "Confus",
+      "corrosive": "Corrodé",
+      "cover": "Couvert",
+      "dazed": "Désorienté",
+      "deafened": "Assourdi",
+      "fatigued": "Fatigué",
+      "frightened": "Effrayé",
+      "hazed": "Embrumé",
+      "hobbled": "Entravé",
+      "immobilized": "Immobilisé",
+      "invisible_improved": "Invisible (Supérieur)",
+      "nauseated": "Nauséeux",
+      "panicked": "Paniqué",
+      "petrified": "Pétrifié",
+      "poisoned": "Empoisonné",
+      "silent": "Silencieux",
+      "silent_improved": "Silencieux (Supérieur)",
+      "stilled": "Figé",
+      "wet": "Trempé",
+      "zapped": "Électrocuté",
+      "sensorLock": "Capteurs vérrouillés",
+      "cerebropathy": "Matrice : Cérébropathie",
+      "cybervirus": "Matrice : Cybervirus",
+      "psychotropic": "Matrice : Psychotropes",
+      "bleeding": "Hémorragie",
+      "disabled": "Handicapé",
+      "muted": "Muet",
+      "offbalance" : "Déséquilibré",
+      "aceinthehand" : "Social : As dans la manche",
+      "fishoutofwater" : "Social : Poisson hors de l'eau",
+      "mal orienté" : "Social : Mal dirigé",
+      "follower" : "Social : Suivant",
+      "smitten" : "Social : Abattu",
+      "suckered" : "Social : Effondré",
+      "irradié" : "Irradié"
+    },
+    "dice": {
+      "hit": "Touché !",
+      "failed": "Échec !",
+      "wild": "Dé libre - 3 succès !",
+      "wild_ignored": "Succès annulé en raison d'un 1 obtenu avec le Dé libre.",
+      "edge_rerolled": "Relancer avec Atout.",
+      "edge_rolled": "Jet d'Atout.",
+      "extended_success": "Temps écoulé total : {timePassed} {intervalScale}, et vous réussissez votre tâche.",
+      "extended_failure": "Temps écoulé total : {timePassed} {intervalScale}, mais vous échouez votre tâche.",
+      "extended_first_interval": "Premier interval",
+      "extended_next_interval": "Interval suivant",
+      "extended": {
+        "continue": "Continuer avec le test étendu",
+        "desc": "Temps écoulé total : {timePassed} {intervalScale}, et vous avez {hits} succès au total.",
+        "intervalScale": {
+          "minute_short": "m",
+          "minute_long": "minute",
+          "minute_long_plural": "minutes",
+          "hour_short": "h",
+          "hour_long": "heure",
+          "hour_long_plural": "heures",
+          "day_short": "j",
+          "day_long": "jour",
+          "day_long_plural": "jours",
+          "week_short": "s",
+          "week_long": "semaine",
+          "week_long_plural": "semaines",
+          "month_short": "m",
+          "month_long": "mois",
+          "month_long_plural": "mois"
+        }
+      }
+    },
+    "legwork": {
+      "legwork_rolltext": "Investigation // Connexion",
+      "loyalty_rolltext": "Investigation // Loyauté",
+      "legwork_description": "Qu'est-ce que {name} sait ou peut savoir grâce à son réseau ?",
+      "loyalty_description": "Dans quelle mesure {name} est-il disposé à partager avec vous ce qu'il sait ou peut découvrir ?",
+      "payformore": "«Vous savez, j'ai des dépenses à couvrir. Pour quelques nuyens supplémentaires, je peux vous aider avec plus d'informations...»",
+      "results": {
+        "0" : "Aucune information utile",
+        "1" : "Informations de base largement disponibles",
+        "2" : "Quelques pépites d'information glanées lors d'une étude occasionnelle",
+        "3" : "Informations tirées de cours antérieurs ou de connaissances professionnelles peu approfondies",
+        "4" : "Connaissances plus ésotériques, quelques ragots",
+        "5" : "Connaissance académique approfondie, connaissances professionnelles solides, connaissance des coulisses",
+        "6" : "Connaissance des secrets et des informations cachées",
+        "7" : "Informations de haut niveau, solide compréhension de l'histoire",
+        "8" : "Connaissance quasi encyclopédique, y compris certains secrets profonds",
+        "9" : "Connaissances rares, réservées à quelques privilégiés",
+        "10" : "Secrets profonds que d'autres essaient activement de cacher"
+      }
     }
   },
   "skill": {
