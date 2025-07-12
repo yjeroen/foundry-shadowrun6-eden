@@ -632,8 +632,8 @@
         "hint": "Tenter d'obtenir un accès rapide en envoyant des spams à une cible. Lorsqu'il tente de passer directement du statut d'invité à celui d'admin, l'ennemi obtient deux dés de bonus et plus quatre points de défense - De quelque manière que ce soit, l'appareil sera alarmé."
       },
       "calibration": {
-        "name": "Calibration",
-        "hint": "Ajoutez un à l'initiative matricielle de vous et de vos coéquipiers (partageant un flux AR avec votre PAN) pour chaque deux coups reçus. L'augmentation totale d'un Persona ne peut pas être supérieure à votre Traitement des données."
+        "name": "Calibrage",
+        "hint": "Ajoutez 1 à l'initiative matricielle de vous et de vos coéquipiers (partageant un flux RA avec votre PAN) pour chaque 2 succès reçus. L'augmentation totale d'un Persona ne peut pas être supérieure à votre Traitement des données."
       },
       "change_icon": {
         "name": "Changer son icône",
@@ -672,7 +672,7 @@
         "hint": "Créez une pénalité pour tous les tests utilisant ce dispositif wifi en multipliant le nombre de succès net par deux."
       },
       "delayed_command": {
-        "name": "Commande différée",
+        "name": "Commande retardée",
         "hint": "Envoyer une commande à un appareil avec un délai. En cas de succès, l'appareil reconnaîtra que la commande a été envoyée par son propriétaire. Une fois le délai écoulé, la commande sera exécutée, même si l'appareil a été coupé de la matrice. Un redémarrage avant l'exécution de la commande effacera celle-ci."
       },
       "edit_file": {
@@ -700,7 +700,7 @@
         "hint": "Ajoutez votre pare-feu à tous les tests de défense liés à la matrice."
       },
       "garbage_in_out": {
-        "name": "Garbage In/Garbage Out",
+        "name": "Inversion des entrées/sorties",
         "hint": "Jouer avec les signaux d'entrée et de sortie d'un appareil. Par exemple, chaque fois que le propriétaire veut lancer un programme, la dernière photo prise est effacée."
       },
       "hash_check": {
@@ -725,7 +725,7 @@
       },
       "known_exploit": {
         "name": "Exploiter une backdoor connue",
-        "hint": "Essayez d'exploiter une backdoor connue pour obtenir un accès direct comme administrateur. Vos chances de réussite sont réduites sur les hôtes ou les appareils bien patchés. Cette action combine les actions de Sonde et d'Utiliser une backdoor en une seule. Vous ne pouvez pas obtenir ou utiliser d'Atout pour cette action alors que l'adversaire obtient gratuitement un Atout temporaire pour s'opposer à vous."
+        "hint": "Essayez d'exploiter une backdoor connue pour obtenir un accès direct comme administrateur. Vos chances de réussite sont réduites sur les hôtes ou les appareils bien patchés. Cette action combine les actions de Sonder et d'Utiliser une backdoor en une seule. Vous ne pouvez pas obtenir ou utiliser d'Atout pour cette action alors que l'adversaire obtient gratuitement un Atout temporaire pour s'opposer à vous."
       },
       "masquerade": {
         "name": "Mascarade",
@@ -740,11 +740,11 @@
         "hint": "Rechercher dans la Matrice publique des informations sur un sujet donné."
       },
       "metahuman_middle": {
-        "name": "Métahumain du milieu",
+        "name": "Attaque par interception",
         "hint": "Faites en sorte que toutes les communications et actions de Matrix passent par votre appareil pendant succès nets minutes."
       },
       "modify_icon": {
-        "name": "Modifier l'icône",
+        "name": "Modifier une icône",
         "hint": "Modifier une icône pour laquelle vous disposez d'un accès administrateur en quelque chose qu'elle ne représente pas, comme faire ressembler votre arme à des fleurs."
       },
       "probe": {
@@ -753,7 +753,7 @@
       },
       "pop_up": {
         "name": "Popup",
-        "hint": "Inondez votre adversaire avec des fenêtres AR, afin qu'il ne puisse pas dépenser de l'Atout pour succès nets rounds, car il est distrait."
+        "hint": "Inondez votre adversaire avec des fenêtres RA, afin qu'il ne puisse pas dépenser de l'Atout pour succès nets rounds, car il est distrait."
       },
       "reboot_device": {
         "name": "Rebooter un appareil",
@@ -780,11 +780,11 @@
         "hint": "Envoyer une commande à un appareil en prétendant en être le propriétaire légitime. Comme d'habitude, l'appareil tente alors d'exécuter l'action en tant que prochaine action majeure disponible."
       },
       "squelch": {
-        "name": "Étouffer",
+        "name": "En dérangement",
         "hint": "Empêcher la cible d'envoyer des messages ou d'appeler quelqu'un pour succès nets rounds."
       },
       "subvert_infrastructure": {
-        "name": "Subvertir l'infrastructure",
+        "name": "Détournement d'infrastructure",
         "hint": "Faites en sorte qu'un groupe de dispositifs simples et similaires d'un hôte fasse ce que vous voulez, comme éteindre l'éclairage public ou faire pivoter toutes les caméras de sécurité vers la gauche."
       },
       "switch_ifmode": {
@@ -797,7 +797,7 @@
       },
       "threat_analysis": {
         "name": "Analyse des menaces",
-        "hint": "Marquez les entités nuisibles et partagez-les par flux AR avec vos coéquipiers, afin qu'ils bénéficient de vos succès en tant que dés bonus sur leur jet de défense. Cela fonctionne aussi bien dans le monde physique que dans la Matrice."
+        "hint": "Marquez les entités nuisibles et partagez-les par flux RA avec vos coéquipiers, afin qu'ils bénéficient de vos succès en tant que dés bonus sur leur jet de défense. Cela fonctionne aussi bien dans le monde physique que dans la Matrice."
       },
       "trace_icon": {
         "name": "Traquer une icône",
@@ -808,8 +808,8 @@
         "hint": "Vous donne un dé de bonus pour vos actions d'attaque comme Pic de donnée ou Empêtrer. Peut être activé une fois par round, mais s'additionne à chaque round à moins que vous ne fassiez pas d'autre action ou attaque de Visée Virtuelle. Le maximum est votre Volonté."
       },
       "watchdog": {
-        "name": "Chien de garde",
-        "hint": "Permet de suivre et d'anticiper les actions d'un personnage ou d'un dispositif de la Matrice pendant succès nets rounds, afin de pouvoir intervenir. Le fait que le chien de garde soit actif vous permet d'exécuter l'analyse de menace en tant qu'action mineure."
+        "name": "Sentinelle",
+        "hint": "Permet de suivre et d'anticiper les actions d'un personnage ou d'un dispositif de la Matrice pendant succès nets rounds, afin de pouvoir intervenir. Le fait que la sentinelle soit actif vous permet d'exécuter l'analyse de menace en tant qu'action mineure."
       }
     },
     "matrixini": {
