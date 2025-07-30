@@ -5,7 +5,7 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="background-color: var(--highlight-color)"/>
         <div class="section">
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea name="description" class="box" type="text"  data-field="system.description" cols="50" rows="6">{{system.description}}</textarea>
+            {{addEditor owner editable "description"}}
         </div>
     </section>
 </form>
