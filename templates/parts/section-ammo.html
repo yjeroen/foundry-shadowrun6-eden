@@ -9,15 +9,14 @@
  		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'gear'}}
 		{{#iff item.system.type '==' "AMMUNITION"}}
-       <tr class="item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
-       	<td style="margin-right: 1rem"><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
-         <td><input name="ammoCount{{id}}" class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.count" type="text" value="{{item.system.count}}" data-dtype="Number" style="width: 1.5em" /></td>
-			<td class="item-controls">
-				<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-         </td>
-       </tr>
+       	<tr class="item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
+       		<td style="margin-right: 1rem"><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+         	<td><input name="ammoCount{{id}}" class="centered box" type="text" data-item-id="{{this.id}}" data-field="system.count" type="text" value="{{item.system.count}}" data-dtype="Number" style="width: 1.5em" /></td>
+			<td style="width: 15%; text-align: right">
+				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+         	</td>
+       	</tr>
 		{{/iff}}
 		{{/iff}}
        {{/each}}

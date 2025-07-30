@@ -16,10 +16,8 @@
             </td>
             <td style="width: 10%"><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
             <td style="width: 15%"><label class="middle-column" >{{attackrating item.system.attackRating}}</label></td>
-            <td style="width: 20%; text-align: right; vertical-align: middle">
-                <label class="middle-column">
-                    <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
-                </label>
+            <td style="width: 15%; text-align: right; vertical-align: middle; white-space: nowrap;">
+                <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: right; padding: 0;"/>/{{item.system.ammocap}}
                 {{!-- TODO add ammo reload --}}
                 <a class="item-control weapon-ammo-reload" data-skill="" data-item-id="{{this.id}}" title=""><i class="fas fa-rotate-right"></i></a>
             </td>
@@ -27,15 +25,10 @@
          	    <label class="item-pool" data-skill="{{item.system.skill}}" data-skillspec="{{item.system.skillSpec}}">{{item.system.pool}}</label>
          	    <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" data-defend-with="physical" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
-            <td class="item-controls" style="width: 5%">
-                <td class="centered" style="width: 100%">
-                    <a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'>
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'>
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
+            <td style="width: 10%; text-align: right">
+                <a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+            </div>
             </td>
         </tr>
         <tr>
@@ -88,15 +81,14 @@
             </td>
             <td style="width: 10%"><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
             <td style="width: 15%"><label class="middle-column" >{{attackrating item.calculated.attackRating}}</label></td>
-            <td style="width: 20%"></td>
+            <td style="width: 15%"></td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
                 <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
                 <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
-            <td class="item-controls" style="width: 5%">
-                <td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-                    class="fas fa-edit"></i></a> <a class="item-control item-delete"
-                    title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+            <td style="width: 10%; text-align: right">
+                <a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
             </td>
         </tr>
         <tr>
@@ -156,20 +148,18 @@
             <td style="width: 15%">
                 <label class="middle-column" >{{attackrating item.calculated.attackRating}}</label>
             </td>
-            <td style="width: 20%; text-align: right; vertical-align: middle">
-                <label class="middle-column">
-                    <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
-                </label>
-                <a class="item-control weapon-ammo-reload" data-skill="" data-item-id="" title=""><i class="fa-solid fa-rotate-right"></i></a>
+            <td style="width: 15%; text-align: right; vertical-align: middle; white-space: nowrap;">
+                <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: right; padding: 0;"/>/{{item.system.ammocap}}
+                {{!-- TODO add ammo reload --}}
+                <a class="item-control weapon-ammo-reload" data-skill="" data-item-id="{{this.id}}" title=""><i class="fas fa-rotate-right"></i></a>
             </td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
                 <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
                 <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
-            <td class="item-controls" style="width: 5%">
-                <td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-                    class="fas fa-edit"></i></a> <a class="item-control item-delete"
-                    title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
+            <td style="width: 10%; text-align: right">
+                <a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
             </td>
         </tr>
         <tr>

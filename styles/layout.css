@@ -43,7 +43,7 @@ line {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1px solid var(--highlight-color);
+	border-bottom: 2px solid var(--highlight-color);
 	margin: 0 0 0.5rem 0;
 }
 .section-head h2 {
@@ -246,11 +246,17 @@ dd::after {
 	text-align:right;
 }
 .item-controls a, .item-controls span {
-	font-size: 120%;
 	margin: 0 10px 0;
 }
 .item-control {
 	color: var(--highlight-color);
+  font-size: 12px;
+}
+.item-control h2 {
+  font-size: 12px;
+}
+.item-control .fa-dice-six {
+  font-size: 20px;
 }
 .middle-column {
 	margin: 0 5px 0;
