@@ -30,7 +30,13 @@
 	{{/with}}
 		
 	{{#switch actor.type}}
-		{{#case 'Critter'}} {{/case}}
+		{{#case 'Critter'}} 
+			{{#with (lookup config.MOR_DEFINITIONS system.mortype)}}
+				{{#if resonance}}
+				<a class="item" data-tab="matrix" >{{ localize 'shadowrun6.actor.nav.matrix'  }}</a>
+				{{/if}}
+			{{/with}}
+		{{/case}}
 		{{#case 'NPC'    }}
 		<a class="item" data-tab="matrix">{{ localize 'shadowrun6.actor.nav.matrix' }}</a>
 		<a class="item" data-tab="vehicles">{{ localize 'shadowrun6.actor.nav.vehicles' }}</a>

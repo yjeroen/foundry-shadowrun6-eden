@@ -1,4 +1,4 @@
-<div class="section" style="display: inline-block; width:100%">
+<div class="section" style="display: inline-block;">
  <div class="section-head">
 	<h2 class="section-title">{{ localize 'shadowrun6.section.adeptpowers.title' }}</h2>
 	<a class="item-control adeptpower-create" title="{{localize 'shadowrun6.section.adeptpowers.add' }}">
@@ -9,8 +9,8 @@
 	    <thead>
 	      <tr>
 	        <th>{{ localize 'shadowrun6.label.column.name' }}</th>
-	        <th>{{ localize 'shadowrun6.section.adeptpowers.column.points' }}</th>
-	        <th>{{ localize 'shadowrun6.label.column.action' }}</th>
+	        <th style="width: 10%">{{ localize 'shadowrun6.section.adeptpowers.column.points' }}</th>
+	        <th style="width: 5%">{{ localize 'shadowrun6.label.column.action' }}</th>
 	      </tr>
 	    </thead>
 		{{#each actor.items as |item id|}}

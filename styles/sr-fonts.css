@@ -40,6 +40,10 @@ body.game.foundry-modern .app {
 .game .dialog h2, .game .dialog h3 {
   margin: 0.5rem 0;
 }
+.game .section-head h2 {
+  border-bottom: none;
+  margin: 0;
+}
 
 .game .play-regular {
   font-family: "Play", serif;

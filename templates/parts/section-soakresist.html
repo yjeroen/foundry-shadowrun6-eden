@@ -6,8 +6,7 @@
 				<th style="padding: 0 8px 0 2px; text-align: left; width: 135px;">{{ localize 'shadowrun6.label.defense' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
-				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
-				<th style="padding: 0 5px 0 5px;"> </th>
+				<th style="padding: 0 15px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
 			</tr>
 			<!-- Defense Rating -->
 			<tr>
@@ -15,8 +14,7 @@
 				<td class="centered"><label >{{system.defenserating.physical.base}}</label></td>
 				<td class="centered"><input name="soakResistDrPhysMod" class="centered box" data-field="system.defenserating.physical.mod" type="text" value="{{system.defenserating.physical.mod}}" data-dtype="Number"
 				  style="width: 2em" ></td>
-				<td class="centered" title="{{system.defenserating.physical.modString}}">{{system.defenserating.physical.pool}}</td>
-				<td><span class="item-control defense-roll skill-pool"><i class="fas fa-dice-six" style="opacity: 0"></i></span></td>
+				<td class="centered" style="padding-right: 15px;" title="{{system.defenserating.physical.modString}}">{{system.defenserating.physical.pool}}</td>
 			</tr>
 		</table>
 
