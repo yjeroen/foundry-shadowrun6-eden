@@ -3,7 +3,7 @@
 	<h2 class="section-title">{{title}}</h2>
 		<a class="item-control {{geartype}}-create" title="{{localize 'shadowrun6.section.gear.add' }}"><h2 class="fas fa-plus"></h2></a>
 </div>
-<table>
+<table class="item-list">
 	    <thead>
 	      <tr>
 	        <th style="width: 24px;"></th>
@@ -13,7 +13,7 @@
 	        <th>{{ localize 'shadowrun6.label.column.action' }}</th>
 	      </tr>
 	    </thead>
-		{{#each actor.items as |item id|}}
+		{{#each (sort actor.items) as |item id|}}
 		{{#iff item.type '==' 'gear'}}
 		{{#if (eq item.system.type ../geartype) }}
 		<tr class="item list-item" data-item-id="{{item.id}}">
@@ -26,7 +26,7 @@
        	</td>
 			<td> <input name="gearName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
 			<td style="width: 2em" class="centered">
-			{{#if item.system.needsRating}} 
+			{{#if item.system.needsRating}}
 			<input name= "gearRating{{id}}" type="text" value="{{item.system.rating}}" data-field="system.rating" title="{{item.system.rating}}"/>
 			{{else}}
 			-
@@ -37,7 +37,7 @@
 			<input name="gearCount{{id}}" type="text" value="{{item.system.count}}" data-field="system.count" title="{{item.system.count}}"/>
 			{{else}}
 			1
-			{{/if}}		
+			{{/if}}
 			</td>
 			<td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
 					class="fas fa-edit"></i></a> <a class="item-control item-delete"
@@ -47,9 +47,9 @@
          <td colspan="5">
          	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}" style="font-size: 0.8em;">
         	   <div style="font-weight: bold;">{{ localize 'shadowrun6.label.accessories' }}</div>
-			   <div>{{item.system.accessories}} &nbsp;</div>
+			   <div>{{{item.system.accessories}}} &nbsp;</div>
         	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-			   <div>{{item.system.description}} &nbsp;</div>
+			   <div>{{{item.system.description}}} &nbsp;</div>
          	</div>
          </td>
        </tr>

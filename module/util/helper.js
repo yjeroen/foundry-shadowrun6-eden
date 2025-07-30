@@ -212,6 +212,19 @@ export const defineHandlebarHelper = async function () {
         const template = Handlebars.compile(tpl);
         return new Handlebars.SafeString(template(this));
     });
+    Handlebars.registerHelper('sort', function (items) {
+        // On suppose que 'items' est un tableau d'objets avec une propriété 'sort'
+            console.warn(items);
+        if (Array.isArray(items.contents)) {
+            console.warn(items.contents);
+            return items.contents.slice().sort((a, b) => {
+                if (a.sort < b.sort) return -1;
+                if (a.sort > b.sort) return 1;
+                return 0;
+            });
+        }
+        return items;
+    });
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
