@@ -1,5 +1,5 @@
 	<!-- Language skills -->
-   <div class="section" style="min-width: 350px; width: 40%;">
+   <div class="section" style="min-width: 400px; width: 40%;">
      <div class="section-head">
      <h2 class="section-title">{{ localize 'shadowrun6.section.skills.language' }}</h2>
      <a class="item-control skill-language-create" title="{{localize 'shadowrun6.section.skills.language_add' }}"><h2 class="fas fa-plus"></h2></a>
@@ -8,7 +8,7 @@
        {{#each actor.items as |item id|}}
        {{#iff item.type '==' 'skill'}}
        {{#iff item.system.genesisID '==' 'language'}}
-       <li class="item flexrow" data-item-id="{{item.id}}">
+       <li class="item flexrow" data-item-id="{{item.id}}" style="padding-bottom: 2px;">
          <input name="skillLanguageName{{id}}" type="text" value="{{item.name}}" data-field="name" style="width: 10em; flex-grow:4"/>
          {{!-- Iterate through all attributes on the item and output buttons for any that are formula. --}}
          <select name="skillLanguagePoints" data-field="system.points" style="width: 8em; flex-grow:3">
