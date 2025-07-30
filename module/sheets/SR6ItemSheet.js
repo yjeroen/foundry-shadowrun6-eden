@@ -112,8 +112,6 @@ export class SR6ItemSheet extends ItemSheet {
                 else {
                     await this.actor.items.get(itemId).update({ [field]: value });
                 }
-
-                html.find(".editor-content").each((i, div) => this._activateEditor(div));
             });
         }
         else if (this.isEditable) {
