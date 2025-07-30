@@ -78,6 +78,10 @@ body.game .app.window-app .window-content,
 	background-position: left top;
 	background-repeat: repeat;
 }
+body.game .app.window-app.sidebar-popout .window-content {
+	background-image: none;
+	background: rgba(0, 0, 0, 0.3);
+}
 
 button.ui-control[aria-pressed=true], a.ui-control[aria-pressed=true], li.ui-control[aria-pressed=true], .placeable-hud .control-icon[aria-pressed=true], .placeable-hud input[aria-pressed=true] {
 	border: 1px solid var(--color-border-highlight-alt);
