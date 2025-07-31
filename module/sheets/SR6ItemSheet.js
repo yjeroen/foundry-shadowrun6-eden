@@ -113,6 +113,8 @@ export class SR6ItemSheet extends ItemSheet {
                     await this.actor.items.get(itemId).update({ [field]: value });
                 }
             });
+
+            html.find(".editor-content").each((i, div) => this._activateEditor(div));
         }
         else if (this.isEditable) {
             html.find("[data-field]").change(async (event) => {
@@ -172,56 +174,5 @@ export class SR6ItemSheet extends ItemSheet {
         // Preselect text on focusedElement to quickly enter values in combination with tabbing
         const focusedElement = $(this.element).find(':focus')?.[0];
         selectAllTextOnElement(focusedElement);
-    }
-    /**
-     * Activate an editor instance present within the form
-     * @param {HTMLElement} div  The element which contains the editor
-     * @protected
-     */
-    _activateEditor(div) {
-      // Get the editor content div
-      const name = div.dataset.edit;
-      const engine = div.dataset.engine || "tinymce";
-      const collaborate = div.dataset.collaborate === "true";
-      const button = div.previousElementSibling;
-      const hasButton = button && button.classList.contains("editor-edit");
-      const wrap = div.parentElement.parentElement;
-      const wc = div.closest(".window-content");
-
-      // Determine the preferred editor height
-      const heights = [wrap.offsetHeight, wc ? wc.offsetHeight : null];
-      if ( div.offsetHeight > 0 ) heights.push(div.offsetHeight);
-      const height = Math.min(...heights.filter(h => Number.isFinite(h)));
-
-      // Get initial content
-      const options = {
-        target: div,
-        fieldName: name,
-        save_onsavecallback: () => this.saveEditor(name),
-        height, engine, collaborate
-      };
-      if ( engine === "prosemirror" ) options.plugins = this._configureProseMirrorPlugins(name, {remove: hasButton});
-
-      // Define the editor configuration
-      const initial = foundry.utils.getProperty(this.object, name);
-      const editor = this.editors[name] = {
-        options,
-        target: name,
-        button: button,
-        hasButton: hasButton,
-        mce: null,
-        instance: null,
-        active: !hasButton,
-        changed: false,
-        initial
-      };
-
-      // Activate the editor immediately, or upon button click
-      const activate = () => {
-        editor.initial = foundry.utils.getProperty(this.object, name);
-        this.activateEditor(name, {}, editor.initial);
-      };
-      if ( hasButton ) button.onclick = activate;
-      else activate();
     }
 }
