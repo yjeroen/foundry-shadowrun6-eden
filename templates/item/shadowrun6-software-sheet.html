@@ -38,7 +38,7 @@
             </table>
         <div class="section">
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            <textarea class="box" type="text" data-field="system.description" cols="60" rows="6">{{item.system.description}}</textarea>
+            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
         </div>
     </section>
 </form>

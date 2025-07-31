@@ -104,7 +104,7 @@ export const defineHandlebarHelper = async function () {
         }
         return deHTML(name);
     });
-    
+
     Handlebars.registerHelper('log', function (...params) {
         const handlebarsContext = params.pop();
         const systemTag = 'SR6E | Handlebars line:' + handlebarsContext.loc.start.line + ' |';
@@ -115,7 +115,7 @@ export const defineHandlebarHelper = async function () {
         const nuyen = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'JPY'}).format( number );
         return nuyen;
     });
-    
+
     Handlebars.registerHelper('matrixAction', function (matrixAction) {
         const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
         const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');
@@ -124,7 +124,7 @@ export const defineHandlebarHelper = async function () {
         if (matrixAction.outsider) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.outsider') );
         if (matrixAction.user) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.user') );
         if (matrixAction.admin) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.admin') );
-        
+
         const actionIcon = `<span title="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
         return new Handlebars.SafeString(actionIcon);
     });
@@ -133,7 +133,7 @@ export const defineHandlebarHelper = async function () {
         if (matrixAction.outsider && matrixAction.outsider === currentAccess.outsider) actionAllowed = true;
         if (matrixAction.user && matrixAction.user === currentAccess.user) actionAllowed = true;
         if (matrixAction.admin && matrixAction.admin === currentAccess.admin) actionAllowed = true;
-        
+
         if (actionAllowed === false) {
             return '-disabled disabled-roll';
         }
@@ -201,6 +201,19 @@ export const defineHandlebarHelper = async function () {
             }
         }
         return false
+    });
+    Handlebars.registerHelper('sort', function (items) {
+        // On suppose que 'items' est un tableau d'objets avec une propriété 'sort'
+            console.warn(items);
+        if (Array.isArray(items.contents)) {
+            console.warn(items.contents);
+            return items.contents.slice().sort((a, b) => {
+                if (a.sort < b.sort) return -1;
+                if (a.sort > b.sort) return 1;
+                return 0;
+            });
+        }
+        return items;
     });
 };
 function getSystemData(obj) {
@@ -348,7 +361,7 @@ export function rollText(classList, rollId, skillSpec) {
     else if (rollId === "legwork") {
         if (classList.includes("legwork-roll"))
             actionText = game.i18n.localize("shadowrun6.legwork.legwork_rolltext");
-        else 
+        else
             actionText = game.i18n.localize("shadowrun6.legwork.loyalty_rolltext");
     }
     else if (classList.includes("skill-roll")) {
@@ -393,13 +406,13 @@ export function getSelectedActor(defaultedActor = null) {
         canvas.tokens.controlled.forEach((selectedToken) => {
             actor = selectedToken.isOwner ? selectedToken.actor : null;
         });
-    } 
+    }
 
     // Else get the player's character actor
     if (!actor) {
         actor = game.user.character; // returns null if GM or not set
     }
-    
+
     if (actor === null && defaultedActor === null) {
         console.log("SR6E | No target actor found");
         ui.notifications.warn("shadowrun6.ui.notifications.Select_a_token_first", { localize: true });

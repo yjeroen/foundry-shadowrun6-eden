@@ -56,6 +56,7 @@ export class SR6ItemSheet extends ItemSheet {
         data.config.subtypeList = CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];
         return data;
     }
+
     /**
      * Activate event listeners using the prepared sheet HTML
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -112,6 +113,8 @@ export class SR6ItemSheet extends ItemSheet {
                     await this.actor.items.get(itemId).update({ [field]: value });
                 }
             });
+
+            html.find(".editor-content").each((i, div) => this._activateEditor(div));
         }
         else if (this.isEditable) {
             html.find("[data-field]").change(async (event) => {
@@ -132,6 +135,8 @@ export class SR6ItemSheet extends ItemSheet {
                     await this.object.update({ [field]: value });
                 }
             });
+
+            html.find(".editor-content").each((i, div) => this._activateEditor(div));
         }
         html.find("[data-array-field]").change(async (event) => {
             const element = event.currentTarget;
@@ -162,7 +167,7 @@ export class SR6ItemSheet extends ItemSheet {
             await this.object.update({ [array]: newValue });
         });
     }
-    
+
     async _render(...args) {
         await super._render(...args);
 
