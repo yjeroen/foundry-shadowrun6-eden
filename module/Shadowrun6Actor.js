@@ -449,6 +449,8 @@ export class Shadowrun6Actor extends Actor {
         if (data.physical?.dmg < 0) data.physical.dmg = 0;
         if (data.stun?.dmg < 0) data.stun.dmg = 0;
         if (data.overflow?.dmg < 0) data.overflow.dmg = 0;
+        data.physical?.mod = data.physical.mod ?? 0;
+        data.stun?.mod = data.stun.mod ?? 0;
 
         // Don't calculate monitors and initiative for spirits
         if (actorData.type != "Spirit") {
@@ -2165,12 +2167,13 @@ export class Shadowrun6Actor extends Actor {
     //-------------------------------------------------------------
     async importFromJSON(json) {
         console.log("SR6E | importFromJSON");
-        const data = JSON.parse(json);
-        // If Genesis-JSON-Export
-        if (data.jsonExporterVersion && data.system === "SHADOWRUN6") {
+        const sourceData = JSON.parse(json);
+        // If Genesis-JSON-Export // UNCLEAR what this part is doing as its not passed to super
+        if (sourceData.jsonExporterVersion && sourceData.system === "SHADOWRUN6") {
             let newData = this.toObject();
-            newData.data.sex = data.gender;
+            newData.data.sex = sourceData.gender;
         }
-        return super.importFromJSON(json);
+
+        return super.importFromJSON(JSON.stringify(sourceData));
     }
 }
