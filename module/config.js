@@ -771,6 +771,7 @@ export class SR6Config {
         SECOND_LIFE: "shadowrun6.sin.second_life"
     };
     EXTENDED_INTERVALS = {
+        round: "shadowrun6.dice.extended.intervalScale.round_short",
         minute: "shadowrun6.dice.extended.intervalScale.minute_short",
         hour: "shadowrun6.dice.extended.intervalScale.hour_short",
         day: "shadowrun6.dice.extended.intervalScale.day_short",

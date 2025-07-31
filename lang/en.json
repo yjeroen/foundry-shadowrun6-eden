@@ -1700,6 +1700,9 @@
         "continue": "Continue with Extended Test",
         "desc": "In total {timePassed} {intervalScale} passed, and you have {hits} hits in total.",
         "intervalScale": {
+          "round_short": "r",
+          "round_long": "round",
+          "round_long_plural": "rounds",
           "minute_short": "m",
           "minute_long": "minute",
           "minute_long_plural": "minutes",
