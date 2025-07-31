@@ -1770,12 +1770,7 @@ export class Shadowrun6Actor extends Actor {
         roll.canIncreaseArea = roll.spell.range === "line_of_sight_area" || roll.spell.range === "self_area";
 
         if (roll.spell.category === "combat") {
-            if (roll.spell.type == "mana") {
-                roll.defendWith = Defense.SPELL_DIRECT;
-            }
-            else {
-                roll.defendWith = Defense.SPELL_INDIRECT;
-            }
+               roll.defendWith = roll.spell.combatSpellType;
         }
         else if (roll.spell.category === "manipulation") {
             roll.defendWith = Defense.SPELL_OTHER;

@@ -231,12 +231,9 @@ export class SpellRoll extends SkillRoll {
         this.canAmpUpSpell = spellItem.category === "combat";
         this.canIncreaseArea = spellItem.range === "line_of_sight_area" || spellItem.range === "self_area";
         if (spellItem.category === "combat") {
-            if (spellItem.type == "mana") {
-                this.defendWith = Defense.SPELL_DIRECT;
+            this.defendWith = spellItem.combatSpellType;
+            if (spellItem.combatSpellType == Defense.SPELL_DIRECT) {
                 this.allowSoak = false;
-            }
-            else {
-                this.defendWith = Defense.SPELL_INDIRECT;
             }
         }
         else if (spellItem.category === "manipulation") {

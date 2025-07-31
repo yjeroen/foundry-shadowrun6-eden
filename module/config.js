@@ -450,6 +450,10 @@ export class SR6Config {
         physical: "shadowrun6.spell.type_physical",
         mana: "shadowrun6.spell.type_mana"
     };
+    combat_spell_type = {
+        spells_direct: "shadowrun6.spellfeatures.direct",
+        spells_indirect: "shadowrun6.spellfeatures.indirect"
+    };
     spell_duration = {
         instantaneous: "shadowrun6.spell.duration_instantaneous",
         sustained: "shadowrun6.spell.duration_sustained",

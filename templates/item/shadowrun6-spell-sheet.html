@@ -3,13 +3,17 @@
     <section class="sheet-body">
         <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="background-color: var(--highlight-color)"/>
-        <div class="section">
+        <div class="section" style="display: inline-table;">
             <table>
                 <tr>
                     <th colspan="2">{{localize 'shadowrun6.spell.category'}}</th>
                     <th colspan="2">{{localize 'shadowrun6.spell.type'}}</th>
                     <th>{{localize 'shadowrun6.spell.isOpposed'}}</th>
+                    {{#if (eq item.system.category "combat")}}
+                    <th>{{localize 'shadowrun6.spell.combatSpellType'}}</th>
+                    {{else}}
                     <th>{{localize 'shadowrun6.spell.withEssence'}}</th>
+                    {{/if}}
                 </tr>
                 <tr style="text-align:center">
                     <td colspan="2">
@@ -23,7 +27,15 @@
                         </select>
                     </td>
                     <td><input name="isOpposed" style="vertical-align: middle;" type="checkbox" {{checked item.system.isOpposed}} data-field="system.isOpposed" /></td>
-                    <td><input name="withEssence" style="vertical-align: middle;" type="checkbox" {{checked item.system.withEssence}} data-field="system.withEssence" /></td>
+                    <td>
+                    {{#if (eq item.system.category "combat")}}
+                        <select name="combatSpellType" data-field="system.combatSpellType">
+                            {{selectOptions config.combat_spell_type selected=item.system.combatSpellType localize=true}}
+                        </select>
+                    {{else}}
+                        <input name="withEssence" style="vertical-align: middle;" type="checkbox" {{checked item.system.withEssence}} data-field="system.withEssence" />
+                    {{/if}}
+                    </td>
                 </tr>
                 <tr style="text-align:center">
                     <th colspan="2">{{localize 'shadowrun6.spell.range'}}</th>

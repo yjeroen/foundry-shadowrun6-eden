@@ -1534,7 +1534,7 @@
       "duration_sustained_short": "S",
       "duration_always": "Always",
       "duration_always_short": "A",
-      "isOpposed": "Is Opposed",
+      "isOpposed": "Opposed",
       "range": "Range",
       "range_line_of_sight": "Line of sight",
       "range_line_of_sight_area": "Line of sight (Area)",
@@ -1551,7 +1551,8 @@
       "type_mana_short": "Mana",
       "type_physical": "Physical",
       "type_physical_short": "Phys",
-      "withEssence": "Against Essence"
+      "withEssence": "Against Essence",
+      "combatSpellType": "Combat Spell Type"
     },
     "spellfeatures": {
       "area": "Area",
@@ -1637,7 +1638,12 @@
         "reroll_failed_requires_index": "Select one or more dice before clicking on the `Spend` button.",
         "edge_boost_cannot_be_used_glitch": "This Edge Boost cannot be used if a glitch or critical glitch is rolled.",
         "reopen_dice_tooltip": "You switched selected tokens. Re-open the dice section in the chat to perform an Edge Boost.",
-        "extended_test_validation": "When performing an Extended Test, Threshold and Interval must be 0 or larger."
+        "extended_test_validation": "When performing an Extended Test, Threshold and Interval must be 0 or larger.",
+        "migration": {
+          "start": "System migration is in progress. Do not close or refresh the window!",
+          "in_progress": "Migrating system documents..",
+          "completed": "System migration has completed!"
+        }
       }
     },
     "EFFECT": {
