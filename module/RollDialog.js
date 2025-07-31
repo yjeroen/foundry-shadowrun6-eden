@@ -50,6 +50,7 @@ export class RollDialog extends Dialog {
     dialogResult;
     /** Edge after applying gain and boost cost */
     edge = 0;
+    edgeSpending = 0;
     /** Dice added or substracted to the pool */
     modifier = 0;
     constructor(data, options) {
@@ -126,6 +127,7 @@ export class RollDialog extends Dialog {
      * HTML form
      */
     _onCalcEdge(event) {
+        console.log("SR6E | RollDialog._onCalcEdge");
         let configured = this.dialogResult;
         let prepared = this.prepared;
         if (!configured.actor)
@@ -245,6 +247,7 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _updateEdgeBoosts(elem, available) {
+        console.log("SR6E | RollDialog._updateEdgeBoosts");
         let newEdgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= available);
         // Node for inserting new data before
         let insertBeforeElem;
@@ -270,15 +273,14 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _updateEdgeActions(elem, available) {
+        console.log("SR6E | RollDialog._updateEdgeActions");
         let newEdgeActions = CONFIG.SR6.EDGE_ACTIONS.filter((action) => action.cost <= available);
         // Remove previous data
         var array = Array.from(elem.children);
         array.forEach((child) => {
-            /*
-            if (child.value!="none") {
+            if (child.value != "none") {
                 elem.removeChild(child)
             }
-                    */
         });
         // Add new data
         newEdgeActions.forEach((action) => {
@@ -401,10 +403,16 @@ export class RollDialog extends Dialog {
         const boostSelected = CONFIG.SR6.EDGE_BOOSTS.find((boost) => boost.id == boostOrActionId);
         const actionSelected = CONFIG.SR6.EDGE_ACTIONS.find((action) => action.id == boostOrActionId);
         console.log("SR6E | Selected Edge Boost: `" + game.i18n.localize("shadowrun6.edge_boost." + boostOrActionId) + "`, that costs " + boostSelected?.cost);
+
+        this.edge += this.edgeSpending; // Add old edge spend back to the edge counter in the dialog
         if (boostSelected && boostSelected?.cost) {
             this.edge = this.edge - boostSelected.cost;
+            this.edgeSpending = boostSelected.cost;
         } else if (actionSelected && actionSelected?.cost) {
             this.edge = this.edge - actionSelected.cost;
+            this.edgeSpending = actionSelected.cost;
+        } else {
+            this.edgeSpending = 0;
         }
         $("label[name='edgePool']")[0].innerText = this.edge.toString();
 
