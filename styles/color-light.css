@@ -24,6 +24,11 @@
 	--color-light-5: #C58FB2;
 	--font-h4-size: var(--font-size-14);
 	--chat-input-height: 124px;
+	--contrast-color: #ffffff;
+}
+:root,
+.themed.theme-light {
+	--contrast-color: #000000;
 }
 .themed.theme-dark .ui-control, .themed.theme-dark .placeable-hud, .themed.theme-dark #measurement .waypoint-label {
 	--color-cool-4: #31092b;
@@ -136,4 +141,22 @@ body.game .app table tr th:first-child {
 }
 .foundry-modern .chat-log table tbody tr {
     background-color: unset;
+}
+
+.combat-sidebar .combat-tracker .combatant {
+	gap: var(--element-spacing-half);
+}
+.foundry-modern .combat-sidebar .combat-tracker .combatant-controls {
+	gap: calc(var(--element-spacing-half)/2);
+}
+.foundry-modern .combat-sidebar .combat-tracker .combatant-shadowrun {
+	border-left: 1px var(--contrast-color) dotted;
+	margin-left: calc(var(--element-spacing-half)/2);
+	padding-left: calc(var(--element-spacing-half)/2);
+}
+.foundry-modern .combat-sidebar .combatant-shadowrun button.active {
+	color: var(--button-hover-background-color);
+}
+.foundry-modern .combat-sidebar .combatant-shadowrun button.active:hover {
+	color: var(--button-hover-text-color);
 }

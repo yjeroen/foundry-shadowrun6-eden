@@ -118,6 +118,7 @@
 
     <nav id="combat-controls" class="directory-footer flexrow" data-tooltip-direction="UP">
     {{#if hasCombat}}
+        {{log "#### combat-tracker-v12 template" this}}
         {{#if user.isGM}}
             {{#if round}}
             <a class="combat-control" data-tooltip="COMBAT.RoundPrev" data-control="previousRound"><i class="fas fa-step-backward"></i></a>

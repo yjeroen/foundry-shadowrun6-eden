@@ -109,6 +109,7 @@
 
     <nav id="combat-controls" class="directory-footer flexrow">
     {{#if hasCombat}}
+        {{log "#### combat-tracker-v9 template" this}}
         {{#if user.isGM}}
             {{#if round}}
             <a class="combat-control" title="{{localize 'COMBAT.RoundPrev'}}" data-control="previousRound"><i class="fas fa-step-backward"></i></a>
