@@ -214,8 +214,8 @@ export default class SR6Roll extends Roll {
         this.finished.targets = this.configured.targetIds;
         console.log("SR6E | targetIds in Chat message: ", this.finished.targets);
         if (this.configured.rollType == RollType.Defense) {
-            console.log("SR6E | _evaluateTotal: calculate remaining damage");
-            this.finished.damage = Math.max(0, this.configured.damage + (this.configured.threshold - this.total));
+            console.log("SR6E | _evaluateTotal: calculating remaining damage", this.configured.damage??0, this.configured.threshold, this.total);
+            this.finished.damage = Math.max(0, this.configured.damage??0 + (this.configured.threshold - this.total));
             console.log("SR6E | _evaluateTotal: remaining damage = " + this.finished.damage);
         }
     }

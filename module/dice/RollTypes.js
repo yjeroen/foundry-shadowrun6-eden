@@ -451,7 +451,7 @@ export class ConfiguredRoll extends CommonRollData {
         // In case this was a WeaponRoll
         console.log("SR6E | Copy WeaponRoll data to ConfiguredRoll", copy.calcDamage, copy.damage);
         this.calcAttackRating = copy.calcAttackRating;
-        this.calcDamage = copy.calcDamage ? copy.calcDamage : copy.damage;
+        this.calcDamage = isNaN(copy.calcDamage) ? copy.damage : copy.calcDamage;
         this.calcRounds = copy.calcRounds;
         this.fireMode = copy.fireMode;
         this.burstMode = copy.burstMode;
