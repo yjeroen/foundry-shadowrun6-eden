@@ -361,7 +361,6 @@ Hooks.once("init", async function () {
                 actor = (token?.actor.isOwner) ? token?.actor : null;   
             }
 
-            console.log(actor, (!actor));
             if (!actor) {
                 console.log("SR6E | No owned target found - use player's character if possible");
                 actor = game.user.character;

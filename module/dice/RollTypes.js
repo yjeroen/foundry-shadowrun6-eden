@@ -554,7 +554,7 @@ export class SR6ChatMessageData {
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;
-        this.monitor = copy.monitor;
+        this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
         if (copy.legwork) this.legwork = copy.legwork;
         console.log("SR6E | ####SR6ChatMessageData####2###", this);
     }

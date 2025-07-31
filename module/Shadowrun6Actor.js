@@ -1773,9 +1773,10 @@ export class Shadowrun6Actor extends Actor {
 
         roll.targets = Array.from(game.user.targets.values(), token => new TokenData(token));
         console.log("SR6E | Roll targets ", roll.targets);
-        
+
         if (roll.spell.category === "combat") {
                roll.defendWith = roll.spell.combatSpellType;
+               roll.monitor = roll.item.system.damage;
         }
         else if (roll.spell.category === "manipulation") {
             roll.defendWith = Defense.SPELL_OTHER;
