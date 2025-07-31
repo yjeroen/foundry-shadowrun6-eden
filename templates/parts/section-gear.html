@@ -24,10 +24,10 @@
        	<button type="button" name="collapseGear{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}} empty" data-item-id="{{this.id}}">+</button>
        	{{/if}}
        	</td>
-			<td> <input name="gearName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
+			<td style="height:20px;"> {{item.name}}</td>
 			<td style="width: 2em" class="centered">
 			{{#if item.system.needsRating}}
-			<input name= "gearRating{{id}}" type="text" value="{{item.system.rating}}" data-field="system.rating" title="{{item.system.rating}}"/>
+			<input name= "gearRating{{id}}" style="padding:0px" type="text" value="{{item.system.rating}}" data-field="system.rating" title="{{item.system.rating}}"/>
 			{{else}}
 			-
 			{{/if}}
