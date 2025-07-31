@@ -3,9 +3,9 @@
     "shadowrun6-eden.Shadowrun6ActorSheetNPC": "Пешечка в красной рубашечке",
     "SYSTEM": {
         "Sidebar": {
-            "readme": "Инфо",
+            "readme": "Patreon",
             "bugs": "Сообщить об ошибке",
-            "feature": "Запрос функционала"
+            "release_notes": "Новое в этой версии"
         }
     },
     "ACTOR": {
@@ -1019,6 +1019,7 @@
                 }
             },
             "apply_damage": "Применить урон",
+            "create": "Создайте свой набор кубиков",
             "damage_applied": "Урон применён",
             "damage_revert": "Отменить урон?",
             "ar_0": "Вплотную",
@@ -1554,7 +1555,8 @@
             "type_mana_short": "Астр.",
             "type_physical": "Физическое",
             "type_physical_short": "Физ.",
-            "withEssence": "Против сущности"
+            "withEssence": "Против сущности",
+            "combatSpellType": "Вид боевого заклинания"
         },
         "spellfeatures": {
             "area": "Область",
@@ -1641,7 +1643,13 @@
                 "reroll_failed_requires_index": "Чтобы перебросить один или несколько кубиков, перетащите их на кнопку «Потратить».",
                 "edge_boost_cannot_be_used_glitch": "Этот бонус преимущества нельзя использовать, если выпал сбой или критический сбой.",
                 "reopen_dice_tooltip": "Вы переключились между жетонами. Чтобы применить бонус преимущества, снова откройте раздел с кубиками в чате.",
-                "extended_test_validation": "При проведении продолжительной проверки, Порог и Продолжительность должны быть 0 или больше."
+                "extended_test_validation": "При проведении продолжительной проверки, Порог и Продолжительность должны быть 0 или больше.",
+                "migration": {
+                    "start": "Идёт миграция системы. Не закрывайте и не обновляйте это окно!",
+                    "in_progress": "Миграция системных документов...",
+                    "completed": "Миграция системы завершена!"
+                },
+                "wrong_import_file": "Файлы сохранений GENESIS или COMMLINK невозможно импортировать! Сначала экспортируйте файл в формате FoundryVTT JSON."
             }
         },
         "EFFECT": {
@@ -1697,46 +1705,46 @@
                 "continue": "Продолжить продолжительную проверку",
                 "desc": "Всего прошло {timePassed} {intervalScale}, и в общем у тебя {hits} успехов.",
                 "intervalScale": {
-                    "round_short": "r",
-                    "round_long_zero": "rounds",
-                    "round_long_one": "round",
-                    "round_long_two": "rounds",
-                    "round_long_few": "rounds",
-                    "round_long_many": "rounds",
-                    "round_long_other": "rounds",
+                    "round_short": "рнд.",
+                    "round_long_zero": "раундов",
+                    "round_long_one": "раунд",
+                    "round_long_two": "раунда",
+                    "round_long_few": "раунда",
+                    "round_long_many": "раундов",
+                    "round_long_other": "раундов",
                     "minute_short": "мин.",
                     "minute_long_zero": "минут",
                     "minute_long_one": "минута",
-                    "minute_long_two": "минут",
-                    "minute_long_few": "минут",
+                    "minute_long_two": "минуты",
+                    "minute_long_few": "минуты",
                     "minute_long_many": "минут",
                     "minute_long_other": "минут",
                     "hour_short": "ч.",
                     "hour_long_zero": "часов",
                     "hour_long_one": "час",
-                    "hour_long_two": "часов",
-                    "hour_long_few": "часов",
+                    "hour_long_two": "часа",
+                    "hour_long_few": "часа",
                     "hour_long_many": "часов",
                     "hour_long_other": "часов",
                     "day_short": "дн.",
                     "day_long_zero": "дней",
                     "day_long_one": "день",
-                    "day_long_two": "дней",
-                    "day_long_few": "дней",
+                    "day_long_two": "дня",
+                    "day_long_few": "дня",
                     "day_long_many": "дней",
                     "day_long_other": "дней",
                     "week_short": "нед.",
                     "week_long_zero": "недель",
                     "week_long_one": "неделя",
-                    "week_long_two": "недель",
-                    "week_long_few": "недель",
+                    "week_long_two": "недели",
+                    "week_long_few": "недели",
                     "week_long_many": "недель",
                     "week_long_other": "недель",
                     "month_short": "мес.",
                     "month_long_zero": "месяцев",
                     "month_long_one": "месяц",
-                    "month_long_two": "месяцев",
-                    "month_long_few": "месяцев",
+                    "month_long_two": "месяца",
+                    "month_long_few": "месяца",
                     "month_long_many": "месяцев",
                     "month_long_other": "месяцев"
                 }
