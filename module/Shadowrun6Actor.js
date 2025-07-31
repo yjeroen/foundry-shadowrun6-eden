@@ -1705,7 +1705,7 @@ export class Shadowrun6Actor extends Actor {
         // Prepare check text
         let checkText = this._getSkillCheckText(roll);
         roll.targets = Array.from(game.user.targets.values(), token => new TokenData(token));
-        console.log("SR6E | ääääääääääääääääää targets ", roll.targets);
+        console.log("SR6E | Roll targets ", roll.targets);
         let highestDefenseRating = this._getHighestDefenseRating((a) => {
             console.log("SR6E | Determine defense rating of ", a);
             return a.system.defenserating.physical.pool;
@@ -1771,6 +1771,9 @@ export class Shadowrun6Actor extends Actor {
         roll.canAmpUpSpell = roll.spell.category === "combat";
         roll.canIncreaseArea = roll.spell.range === "line_of_sight_area" || roll.spell.range === "self_area";
 
+        roll.targets = Array.from(game.user.targets.values(), token => new TokenData(token));
+        console.log("SR6E | Roll targets ", roll.targets);
+        
         if (roll.spell.category === "combat") {
                roll.defendWith = roll.spell.combatSpellType;
         }
