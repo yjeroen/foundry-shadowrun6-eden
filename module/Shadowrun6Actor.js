@@ -422,7 +422,7 @@ export class Shadowrun6Actor extends Actor {
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
                 if (!(system.attributes[attr].base) || system.attributes[attr].base < 1)
                     system.attributes[attr].base = 1;
-                if (!(system.attributes[attr].mod) || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system)))
+                if (!(system.attributes[attr].mod)) //Allow negative mods OLD: //  || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system))
                     system.attributes[attr].mod = 0;
 
                 system.attributes[attr].pool = Math.max(1, system.attributes[attr].base + parseInt(system.attributes[attr].mod));
