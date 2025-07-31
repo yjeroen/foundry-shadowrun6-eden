@@ -1643,7 +1643,8 @@
           "start": "System migration is in progress. Do not close or refresh the window!",
           "in_progress": "Migrating system documents..",
           "completed": "System migration has completed!"
-        }
+        },
+        "wrong_import_file": "Cannot import a GENESIS or COMMLINK save file! Use the FoundryVTT JSON Export instead."
       }
     },
     "EFFECT": {

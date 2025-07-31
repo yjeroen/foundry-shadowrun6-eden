@@ -449,12 +449,11 @@ export class Shadowrun6Actor extends Actor {
         if (data.physical?.dmg < 0) data.physical.dmg = 0;
         if (data.stun?.dmg < 0) data.stun.dmg = 0;
         if (data.overflow?.dmg < 0) data.overflow.dmg = 0;
-        data.physical?.mod = data.physical.mod ?? 0;
-        data.stun?.mod = data.stun.mod ?? 0;
 
         // Don't calculate monitors and initiative for spirits
         if (actorData.type != "Spirit") {
             if (data.physical) {
+                data.physical.mod = data.physical.mod ?? 0;
                 data.physical.base = 8 + Math.round(data.attributes["bod"].pool / 2);
                 data.physical.max = data.physical.base + data.physical.mod;
                 data.physical.value = data.physical.max - data.physical.dmg;
@@ -462,6 +461,7 @@ export class Shadowrun6Actor extends Actor {
                 data.overflow.value = 100-Math.round(data.overflow.dmg / data.overflow.max * 100);
             }
             if (data.stun) {
+                data.stun.mod = data.stun.mod ?? 0;
                 data.stun.base = 8 + Math.round(data.attributes["wil"].pool / 2);
                 data.stun.max = data.stun.base + data.stun.mod;
                 data.stun.value = data.stun.max - data.stun.dmg;
@@ -2168,10 +2168,10 @@ export class Shadowrun6Actor extends Actor {
     async importFromJSON(json) {
         console.log("SR6E | importFromJSON");
         const sourceData = JSON.parse(json);
-        // If Genesis-JSON-Export // UNCLEAR what this part is doing as its not passed to super
-        if (sourceData.jsonExporterVersion && sourceData.system === "SHADOWRUN6") {
-            let newData = this.toObject();
-            newData.data.sex = sourceData.gender;
+        // Checking if user is trying to import GENESIS or COMMLINK data
+        if (sourceData.system === "SHADOWRUN6") {
+            ui.notifications.error("shadowrun6.ui.notifications.wrong_import_file", { localize: true });
+            return;
         }
 
         return super.importFromJSON(JSON.stringify(sourceData));
