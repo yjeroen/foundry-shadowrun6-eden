@@ -313,9 +313,9 @@
             </table>
             {{/if}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
-            {{{addEditor owner editable "accessories"}}}
+            {{editor item.system.accessories target="system.accessories" button=true owner=owner editable=editable engine="prosemirror"}}
             <!-- ********** Beschreibung ********** -->
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{addEditor owner editable "description"}}
+            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
     </section>
 </form>

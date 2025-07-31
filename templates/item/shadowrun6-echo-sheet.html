@@ -9,7 +9,7 @@
                 rows="8">{{item.system.explain}}</textarea>
 
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{addEditor owner editable "description"}}
+            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
         </div>
     </section>
 </form>

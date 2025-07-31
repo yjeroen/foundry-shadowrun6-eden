@@ -202,16 +202,6 @@ export const defineHandlebarHelper = async function () {
         }
         return false
     });
-
-    Handlebars.registerHelper("addEditor", function(owner, editable, string) {
-
-
-        const tpl = `{{editor ${"item.system."+string} target="system.${string}" button=true owner=${owner} editable=${editable} engine="prosemirror"}}`;
-
-        // Compile dynamiquement la chaîne générée
-        const template = Handlebars.compile(tpl);
-        return new Handlebars.SafeString(template(this));
-    });
     Handlebars.registerHelper('sort', function (items) {
         // On suppose que 'items' est un tableau d'objets avec une propriété 'sort'
             console.warn(items);
