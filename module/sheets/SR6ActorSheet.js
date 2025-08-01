@@ -86,7 +86,15 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".attributeonly-roll").click(this._onCommonCheck.bind(this));
             html.find(".legwork-roll").click(this._onCommonCheck.bind(this));
             this.activateCreationListener(html);
-            html.find(".item-delete").click((event) => {
+            html.find(".item-delete").click(async (event) => {
+                const confirm = await foundry.applications.api.DialogV2.confirm({
+                    window: { title: game.i18n.format("DOCUMENT.Delete", {type:'Item'}) },
+                    content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", {type:'Item'})}</p>`,
+                    rejectClose: false,
+                    modal: true
+                });
+                if(!confirm) return;
+                
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
                 console.log("SR6E | Delete item " + itemId);
                 this.actor.deleteEmbeddedDocuments("Item", [itemId]);
