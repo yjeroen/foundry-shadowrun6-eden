@@ -189,7 +189,7 @@
       "drain": "Résistance au drain",
       "fading": "Resist. au technodrain",
       "damage_astral": "Résistance astrale",
-      "damage_physical": "Résistance physique",
+      "damage_physical": "Résistance aux dommages",
       "physical": "Défense : Attaques",
       "spells_direct": "Défense : Sorts direct",
       "spells_indirect": "Défense : Sorts indirects",
