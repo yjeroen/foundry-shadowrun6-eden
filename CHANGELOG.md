@@ -1,3 +1,31 @@
+## 3.2.1
+
+### System Improvements
+- Add NPC importer from PDF: Pasting a statblock into FoundryVTT will automatically create a new NPC Actor (rework from V10 by raketenhunddev)
+- Improvement: Show error message if user is trying to import GENESIS or COMMLINK save file instead of FoundryVTT Export
+- Feature: Confirmation dialog on deleting items (#106)
+- Add Combat Spell Type field in spell item for direct/indirect spells (#98)
+- Feature: Allow Critters to be magic users or technomancers (#97)
+- Add # rounds as an option for Extended Tests (#95)
+- Localization improvements for plurals (#89)
+- Add description field to Items (Zakarik)
+- Allow reordering of equipment items on the actor sheet (Zakarik)
+
+### Bug Fixes
+- Fix Initiative types [physical/matrix/astral] in Foundry V13 (#105)
+- Fix monitor values on imported characters from GENESIS & Commlink (#100)
+- Fix Edge Boost&Action Spending in the Roll Dialog (#90)
+- Fix defense rolls for Stun damage to apply physical damage (#94)
+- Fix spell roll chat messages to use Targets selected for the Roll Defense button
+- Allow negative Attribute modifiers (#91)
+- Fix Focus item description field (Zakarik)
+- Various CSS layout improvements on the actor sheet
+
+### Data Updates
+- French translation updates (Zakarik)
+- German translation updates (raketenhunddev)
+- Russian translation updates (TheFokin)
+
 ## 3.2.0
 
 ### System Improvements
