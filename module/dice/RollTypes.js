@@ -356,7 +356,7 @@ export class WeaponRoll extends SkillRoll {
             this.weapon = gear;
             this.rollType = RollType.Weapon;
             this.defendWith = Defense.PHYSICAL;
-            this.monitor = item.system.stun ? MonitorType.STUN : MonitorType.PHYSICAL;
+            this.monitor = (item.calculated.stun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
             // this.fireMode = 'SS';
         }
         this.pool = gear.pool;
@@ -368,7 +368,6 @@ export class WeaponRoll extends SkillRoll {
                 modes[modeName] = mode.loc;
             }
         }
-        console.log('SR6E | Retrieving weapon modes', modes)
         return modes;
     }
     

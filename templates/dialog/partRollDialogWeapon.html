@@ -15,7 +15,7 @@
 						<th>{{localize 'shadowrun6.weapon.ammo'}}</th>
 					</tr>
 					<tr>
-						<td><span name="calcDamage">{{data.calcDamage}}</span>{{#if data.gear.stun}}S{{else}}P{{/if}}</td>
+						<td><span name="calcDamage">{{data.calcDamage}}</span><span name="calcDamagedMonitor">{{#if data.item.calculated.stun}}S{{else}}P{{/if}}</span></td>
 						<td>{{firemodes data.gear.modes}}</td>
 						<td name="calcAR">{{attackrating data.calcAttackRating}}</td>
 						<td name="calcRounds">{{data.calcRounds}}</td>
@@ -33,7 +33,7 @@
 				</select>
 			</td>
 			{{/if}}
-			<td class="onlyFA" style="text-align:right; display:none">{{localize "shadowrun6.roll.fa_area"}}</td>
+			<td class="onlyFA" style="display:none">{{localize "shadowrun6.roll.fa_area"}}</td>
 			<td class="onlyFA" style="display:none">
 				<select id="fullAutoArea" name="fullAutoArea">
 					<option value="1" data-item-incid="inc0">{{localize "shadowrun6.item.mode_fa_1m"}}</option>
@@ -43,8 +43,8 @@
 					<option value="5" data-item-incid="inc2">{{localize "shadowrun6.item.mode_fa_5m"}}</option>
 					<option value="6" data-item-incid="inc2">{{localize "shadowrun6.item.mode_fa_6m"}}</option>
 				</select>
-			</td>   	
-			<td class="onlyBF" style="text-align:right; display:none">{{localize "shadowrun6.roll.bf_type"}}</td>
+			</td>
+			<td class="onlyBF" style="display:none">{{localize "shadowrun6.roll.bf_type"}}</td>
 			<td class="onlyBF" style="display:none">
 				<select id="bfType" name="bfType">
 					<option value="narrow_burst">{{localize "shadowrun6.roll.bf.narrow_burst"}}</option>
@@ -66,6 +66,12 @@
             	{{/select}}
         		</select> 
     	  	</td>
+			<td>{{localize "shadowrun6.weapon.ammo_loaded"}}</td>
+			<td>
+				<select id="ammoLoaded" name="ammoLoaded">
+					{{selectOptions CONFIG.SR6.AMMO_TYPES selected=data.item.system.ammoLoaded localize=true}}
+				</select>
+			</td>
     	</tr>
    </table>
 	<hr/>
