@@ -5,6 +5,11 @@
 
 export default [
     {
+        version: "3.2.1",
+        name: "Bugfixes!",
+        url: "https://www.patreon.com/posts/sixth-world-3-2-135618590?utm_medium=social&utm_source=foundry&utm_campaign=postshare_creator&utm_content=join_link"
+    },
+    {
         version: "3.2.0",
         name: "Edge Boosts & Extended Tests",
         url: "https://www.patreon.com/posts/sr6-release-3-2-128761241?utm_medium=social&utm_source=foundry&utm_campaign=postshare_creator&utm_content=join_link"
