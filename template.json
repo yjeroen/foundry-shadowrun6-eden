@@ -634,6 +634,7 @@
 			"avail": 0,
 			"ammocap": 0,
 			"ammocount": 0,
+			"ammoLoaded": "regular",
 			"priceDef": "",
 			"price": 0,
 			"customName": "",

@@ -778,4 +778,12 @@ export class SR6Config {
         week: "shadowrun6.dice.extended.intervalScale.week_short",
         month: "shadowrun6.dice.extended.intervalScale.month_short",
     };
+    AMMO_TYPES = {
+        regular: "shadowrun6.ammotypes.regular",
+        apds: "shadowrun6.ammotypes.apds",
+        explosive: "shadowrun6.ammotypes.explosive",
+        flechette: "shadowrun6.ammotypes.flechette",
+        gel: "shadowrun6.ammotypes.gel",
+        sticknshock: "shadowrun6.ammotypes.sticknshock"
+    };
 }

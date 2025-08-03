@@ -100,6 +100,27 @@
     "wil": "Willpower",
     "wil_short": "WIL"
   },
+  "skill": {
+    "astral": "Astral",
+    "athletics": "Athletics",
+    "biotech": "Biotech",
+    "close_combat": "Close Combat",
+    "con": "Con",
+    "conjuring": "Conjuring",
+    "cracking": "Cracking",
+    "electronics": "Electronics",
+    "enchanting": "Enchanting",
+    "engineering": "Engineering",
+    "exotic_weapons": "Exotic Weapons",
+    "firearms": "Firearms",
+    "influence": "Influence",
+    "outdoors": "Outdoors",
+    "perception": "Perception",
+    "piloting": "Piloting",
+    "sorcery": "Sorcery",
+    "stealth": "Stealth",
+    "tasking": "Tasking"
+  },
   "label.skill": "Skill",
   "section.attributes": "Attributes",
   "shadowrun6": {
@@ -1605,7 +1626,8 @@
       "damage": "DV",
       "attackRating":"Attack Rtg.",
       "firemodes": "Modes",
-      "ammo": "Ammunition"
+      "ammo": "Ammunition",
+      "ammo_loaded": "Ammo Loaded"
     },
     "ui": {
       "notifications": {
@@ -1764,27 +1786,14 @@
         "9": "Rare knowledge only available to a select few.",
         "10": "Deep secrets others actively try to hide."
       }
+    },
+    "ammotypes": {
+      "regular": "Regular",
+      "apds": "APDS",
+      "explosive": "Explosive",
+      "flechette": "Flechette",
+      "gel": "Gel",
+      "sticknshock": "Stick-n-Shock"
     }
-  },
-  "skill": {
-    "astral": "Astral",
-    "athletics": "Athletics",
-    "biotech": "Biotech",
-    "close_combat": "Close Combat",
-    "con": "Con",
-    "conjuring": "Conjuring",
-    "cracking": "Cracking",
-    "electronics": "Electronics",
-    "enchanting": "Enchanting",
-    "engineering": "Engineering",
-    "exotic_weapons": "Exotic Weapons",
-    "firearms": "Firearms",
-    "influence": "Influence",
-    "outdoors": "Outdoors",
-    "perception": "Perception",
-    "piloting": "Piloting",
-    "sorcery": "Sorcery",
-    "stealth": "Stealth",
-    "tasking": "Tasking"
   }
 }

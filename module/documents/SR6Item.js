@@ -22,6 +22,7 @@ export default class SR6Item extends Item {
     this.actor?._prepareAttributes();
     this.calcAttackRating();
     this.calcDamage();
+    this.calcAmmo();
   }
 
   /**
@@ -104,7 +105,8 @@ export default class SR6Item extends Item {
   }
   
   _migrateCleanUp() {
-    if (this.calculated === undefined) this.calculated = {};      
+    if (this.calculated === undefined) this.calculated = {};
+    if (this.system.ammoLoaded === undefined) this.system.ammoLoaded = 'regular';
   }
 
   calcAttackRating() {
@@ -133,6 +135,50 @@ export default class SR6Item extends Item {
         this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 10 ) ? 1 : 0;
       }
     }
+  }
+
+  calcAmmo() {
+    if (this.calculated?.attackRating === undefined) return;
+
+    console.log("SR6E | SR6Item | calcAmmo");
+    let arMod=0, dmgMod=0, stun=this.system.stun, ammoLoaded = this.system.ammoLoaded;
+
+    switch (ammoLoaded) {
+        case "regular":
+            break;
+        case "apds":
+            stun = false;
+            arMod = 2;
+            dmgMod = -1;
+            break;
+        case "explosive":
+            stun = false;
+            dmgMod = 1;
+            break;
+        case "flechette":
+            stun = false;
+            arMod = 1;
+            dmgMod = -1;
+            break;
+        case "gel":
+            stun = true;
+            break;
+        case "sticknshock":
+            stun = true;
+            arMod = 1;
+            dmgMod = -1;
+            break;
+    }
+
+    // Calculate item attack rating
+    this.calculated.attackRating.forEach((rating, index) => {
+        if (rating > 0) {
+            this.calculated.attackRating[index] = Math.max(0, rating + arMod );
+        }
+    });
+
+    this.calculated.dmg = Math.max(0, this.calculated.dmg + dmgMod );
+    this.calculated.stun = stun;
   }
 
   /**

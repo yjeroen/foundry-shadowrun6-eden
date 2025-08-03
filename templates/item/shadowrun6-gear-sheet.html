@@ -99,6 +99,11 @@
                             {{localize 'shadowrun6.item.ammunition'}}
                         {{/if}}
                     </th>
+                    {{#if (and (ne item.system.skill "close_combat") (ne item.system.skillSpec "brawling")) }}
+                    <th>
+                        {{localize 'shadowrun6.weapon.ammo_loaded'}}
+                    </th>
+                    {{/if}}
                     {{#if highStrengthReducesRecoil}}
                     <th>
                         {{localize 'shadowrun6.label.dual_hand'}}
@@ -108,7 +113,6 @@
                 <tr>
                     <td style="text-align: center">
                         <select name="gearSkill" data-field="system.skill" data-field="system.skill">
-                            <option value="">-</option>
                             {{selectOptions config.SKILLS_WEAPON selected=item.system.skill localize=true}}
                         </select>
                     </td>
@@ -128,6 +132,13 @@
                             <input name="ammocap" type="text" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
+                    {{#if (and (ne item.system.skill "close_combat") (ne item.system.skillSpec "brawling")) }}
+                    <td style="text-align: center">
+                        <select name="ammoLoaded" data-field="system.ammoLoaded">
+                            {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true}}
+                        </select>
+                    </td>
+                    {{/if}}
                     {{#if highStrengthReducesRecoil}}
                     <td style="text-align: center">
                         <input name="dualHand" style="vertical-align: middle;" type="checkbox" {{checked item.system.dualHand}} data-field="system.dualHand" />
