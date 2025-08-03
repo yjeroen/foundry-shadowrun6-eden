@@ -1,7 +1,7 @@
 # Quality of Life improvements!
 *We've got a new release chummers!*
 
-With this release, we released multiple quality of life improvements. You can now copy/paste statblocks from a PDF into Foundry again! (was a lot feature from old V10 code) Direct/Indirect combat spells are now working correctly, and you get proper error messages when importing the wrong GENESIS/COMMLINK file. A personal pain was deleting items on accident, so a confirmation dialog was added to prevent such a thing. For the chummers who are already using FoundryVTT V13, Initiative types was fixed as well.
+With this release, we released multiple quality of life improvements. You can now copy/paste statblocks from a PDF into Foundry again! (was a lost feature from old V10 code) Direct/Indirect combat spells are now working correctly, and you get proper error messages when importing the wrong GENESIS/COMMLINK file. A personal pain was deleting items on accident, so a confirmation dialog was added to prevent such a thing. For the chummers who are already using FoundryVTT V13, Initiative types was fixed as well.
 
 I'd also like to introduce a new contributor! Welcome to Zakarik, who has brought our French translations up to speed.
 
