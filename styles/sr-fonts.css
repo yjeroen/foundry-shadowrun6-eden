@@ -15,6 +15,9 @@ body.game.foundry-modern .app {
     --font-sans: "Play", serif;
     --font-h3-size: var(--font-size-24);
     --font-h4-size: var(--font-size-20);
+    --color-text-emphatic: #892378;
+    --color-text-primary: #892378;
+    --color-text-secondary: #892378;
 }
 
 .game h1, .game h2, .game h3, .game h4 {

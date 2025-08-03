@@ -79,13 +79,20 @@ body.theme-light .application {
 .themed.theme-light .application .window-content,
 body.game .app.window-app .window-content,
 .chat-message  {
-	background-image: url("/systems/shadowrun6-eden/images/background.webp");
+	background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
 	background-position: left top;
-	background-repeat: repeat;
 }
 body.game .app.window-app.sidebar-popout .window-content {
 	background-image: none;
 	background: rgba(0, 0, 0, 0.3);
+}
+
+body.game .app.window-app.journal-sheet .window-content {
+	background-image: none;
+}
+body.game .app.window-app.journal-sheet .window-content .editable,
+.sheet.journal-entry .journal-entry-content {
+	background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
 }
 
 button.ui-control[aria-pressed=true], a.ui-control[aria-pressed=true], li.ui-control[aria-pressed=true], .placeable-hud .control-icon[aria-pressed=true], .placeable-hud input[aria-pressed=true] {
@@ -159,4 +166,7 @@ body.game .app table tr th:first-child {
 }
 .foundry-modern .combat-sidebar .combatant-shadowrun button.active:hover {
 	color: var(--button-hover-text-color);
+}
+.foundry-modern .application.journal-sheet .journal-entry-pages {
+	color: var(--color-dark-2);
 }
