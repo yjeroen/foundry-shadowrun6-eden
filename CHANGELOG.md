@@ -1,3 +1,12 @@
+## 3.2.2
+
+### Bug Fixes 3.2.2
+- Fix journal layouts in v12/v13 (#111)
+- Bugfix item layout caused by Description editor field (#109)
+- Actor/Item css layout improvements for v12/v13
+- UI notifications & errors for the NPC Importer
+- Bugfix so you can now import English PDF statblocks while running a different FoundryVTT language (#114)
+
 ## 3.2.1
 
 ### System Improvements
