@@ -251,6 +251,7 @@ dd::after {
 .item-control {
 	color: var(--highlight-color);
   font-size: 13px;
+  vertical-align: middle;
 }
 .item-control h2 {
   font-size: 13px;
