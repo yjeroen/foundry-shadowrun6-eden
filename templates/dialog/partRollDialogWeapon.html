@@ -23,9 +23,9 @@
 				</table>
 			</td>
 		</tr>
-		{{#if (or (eq data.skillId "firearms")(eq data.skillId "exotic_weapons"))}}
+		{{#if (or (or (eq data.item.system.type "WEAPON_FIREARMS")(eq data.item.system.type "WEAPON_RANGED"))(eq data.item.system.type "WEAPON_SPECIAL"))}}
 		<tr>
-			{{#if (or (or (or data.getModes.SS data.getModes.SA) data.getModes.BF) data.getModes.FA)}}
+			{{#if (or (or (or data.item.system.modes.SS data.item.system.modes.SA) data.item.system.modes.BF) data.item.system.modes.FA)}}
 			<td>{{localize "shadowrun6.roll.firemode"}}</td>
 			<td>
 				<select name="fireMode" id="fireMode">
@@ -66,12 +66,14 @@
             	{{/select}}
         		</select> 
     	  	</td>
+			{{#if (or (or (eq data.item.system.type "WEAPON_FIREARMS")(eq data.item.system.type "WEAPON_RANGED"))(eq data.item.system.type "WEAPON_SPECIAL"))}}
 			<td>{{localize "shadowrun6.weapon.ammo_loaded"}}</td>
 			<td>
 				<select id="ammoLoaded" name="ammoLoaded">
 					{{selectOptions CONFIG.SR6.AMMO_TYPES selected=data.item.system.ammoLoaded localize=true}}
 				</select>
 			</td>
+			{{/if}}
     	</tr>
    </table>
 	<hr/>
