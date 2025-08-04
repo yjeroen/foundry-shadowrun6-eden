@@ -46,7 +46,9 @@
                 <tr>
                     <!--SCHADEN MODUS ANGRIFFSWERTE MUNITION-->
                     <th colspan="2">{{localize 'shadowrun6.item.damage'}}</th>
+                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
                     <th colspan="4">{{localize 'shadowrun6.item.mode'}}</th>
+                    {{/if}}
                     <th colspan="5">{{localize 'shadowrun6.item.attackvalues'}}</th>
                     <!-- <th>{{localize 'shadowrun6.item.ammunition'}}</th> -->
                 </tr>
@@ -60,6 +62,7 @@
                             {{selectOptions config.WEAPON_STUN_OPTION selected=item.system.stun localize=true}}
                         </select>
                     </td>
+                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
 					<td style="width: 4em; text-align: center">
                         <span style="vertical-align: middle;">{{localize 'shadowrun6.item.mode_ss'}}</span>
                         <input name="modesSS" style="vertical-align: middle;" type="checkbox" {{checked item.system.modes.SS}} data-field="system.modes.SS" />
@@ -76,6 +79,7 @@
                         <span style="vertical-align: middle;">{{localize 'shadowrun6.item.mode_fa'}}</span>
                         <input name="modesFA" style="vertical-align: middle;" type="checkbox" {{checked item.system.modes.FA}} data-field="system.modes.FA" />
                     </td>
+                    {{/if}}
 
                     {{#each item.system.attackRating as |arating id|}}
                     <td style="text-align: center" data-array="system.attackRating">
@@ -94,11 +98,12 @@
                         {{#if rollStrengthCombat}}
                             {{localize 'shadowrun6.item.strWeapon'}}
                         {{/if}}
-                        {{else}}
+                        {{/if}}
+                        {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
                             {{localize 'shadowrun6.item.ammunition'}}
                         {{/if}}
                     </th>
-                    {{#if (and (ne item.system.skill "close_combat") (ne item.system.skillSpec "brawling")) }}
+                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
                     <th>
                         {{localize 'shadowrun6.weapon.ammo_loaded'}}
                     </th>
@@ -127,11 +132,12 @@
                         {{#if rollStrengthCombat}}
                             <input name="strWeapon" style="vertical-align: middle;" type="checkbox" {{checked item.system.strWeapon}} data-field="system.strWeapon" />
                         {{/if}}
-                        {{else}}
+                        {{/if}}
+                        {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
                             <input name="ammocap" type="text" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
-                    {{#if (and (ne item.system.skill "close_combat") (ne item.system.skillSpec "brawling")) }}
+                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
                     <td style="text-align: center">
                         <select name="ammoLoaded" data-field="system.ammoLoaded">
                             {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true}}
