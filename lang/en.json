@@ -1079,7 +1079,8 @@
         "opponent": "Opponent",
         "opponent_edge_boost": "Opponent Edge Boost",
         "spend": "Spend!",
-        "original_test": "Original test by:"
+        "original_test": "Original test by:",
+        "boost": "Boost"
       },
       "edge_perform": "Do it",
       "edgegain": "Edge-Gain (max): ",

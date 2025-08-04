@@ -915,7 +915,7 @@ export class Shadowrun6Actor extends Actor {
                         system.stun = true;
                     }
                 }
-                let suffix = (item.calculated.stun ?? system.stun)
+                const suffix = (item.calculated.stun ?? system.stun)
                     ? game.i18n.localize("shadowrun6.item.stun_damage")
                     : game.i18n.localize("shadowrun6.item.physical_damage");
                 system.dmgDef = item.calculated.dmg + suffix;

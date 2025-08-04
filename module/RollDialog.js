@@ -626,7 +626,8 @@ export class RollDialog extends Dialog {
         }
 
         // Updating DV type
-        this.html.find("span[name='calcDamagedMonitor']").text( prepared.item.calculated.stun?'S':'P' );
+        const suffix = prepared.item.calculated.stun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
+        this.html.find("span[name='calcDamagedMonitor']").text( suffix );
         prepared.monitor = prepared.item.calculated.stun ? MonitorType.STUN : MonitorType.PHYSICAL ;
 
     }

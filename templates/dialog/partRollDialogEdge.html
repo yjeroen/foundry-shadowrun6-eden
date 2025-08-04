@@ -9,7 +9,7 @@
 					<label name="edgePool" class="edge-value" >{{data.edge}}</label>
 				</div>
 			</td>
-			<td style="width: 90px;">Boost</td>
+			<td style="width: 90px;">{{localize "shadowrun6.roll.edge.boost"}}</td>
 			<td style="padding-right: 6px;">
 				<select name="edgeBoost" class="edgeBoosts" style="width: 100%;">
 					{{selectOptions data.edgeBoosts valueAttr="id" labelAttr="label" localize=true}}
@@ -17,7 +17,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Action</td>
+			<td>{{localize "shadowrun6.label.action"}}</td>
 			<td style="padding-right: 6px;">
 				<select name="edgeAction" class="edgeActions" style="width: 100%;">
 					<option value="none" data-item-actionid="none"> - </option>
