@@ -7,6 +7,17 @@ function skill_to_skill_id(skill) {
             return id;
         }
     }
+    // Fallback to English check
+    if (game.i18n.lang !== 'en' && game.i18n._fallback.skill) {
+        console.log('SR6E | NPC Importer | Fallback check if skill is English');
+        SKILL_MAP = game.i18n._fallback.skill;
+        for (const id in SKILL_MAP) {
+            if (SKILL_MAP[id].toLowerCase() == skill) {
+                return id;
+            }
+        }
+    }
+
     throw new Error("Skill not found: " + skill);
 }
 function spec_to_spec_id(skill, spec) {
@@ -20,8 +31,7 @@ function spec_to_spec_id(skill, spec) {
                 }
             }
         }
-    }
-    else {
+    } else {
         for (const skill in SPECIALIZATION_MAP) {
             for (const id in SPECIALIZATION_MAP[skill]) {
                 for (const spec_id in SPECIALIZATION_MAP[skill]) {
@@ -32,6 +42,31 @@ function spec_to_spec_id(skill, spec) {
             }
         }
     }
+    
+    // Fallback to English check
+    if (game.i18n.lang !== 'en' && game.i18n._fallback.shadowrun6) {
+        SPECIALIZATION_MAP = game.i18n._fallback.shadowrun6.special;
+            if (skill != null) {
+                for (const id in SPECIALIZATION_MAP[skill]) {
+                    for (const spec_id in SPECIALIZATION_MAP[skill]) {
+                        if (SPECIALIZATION_MAP[skill][spec_id].toLowerCase() == spec) {
+                            return spec_id;
+                        }
+                    }
+                }
+            } else {
+                for (const skill in SPECIALIZATION_MAP) {
+                    for (const id in SPECIALIZATION_MAP[skill]) {
+                        for (const spec_id in SPECIALIZATION_MAP[skill]) {
+                            if (SPECIALIZATION_MAP[skill][spec_id].toLowerCase() == spec) {
+                                return spec_id;
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
     return undefined;
 }
 function pool_to_skill_lvl(attrs, skill, pool) {
@@ -1050,20 +1085,21 @@ export class NPC {
                     // 9 12/1 (physique) 10/2 (astrale) MAJ 1, MIN 2 (physique) MAJ 1, MIN 3 (astrale) 11 10/15/+1 12
                     let matches_fr = section.content.match(/^(\d+)\s+(\d+)\/(\d+)(?:\s*\([^)]+\))?(?:\s*[^\/]+?\/.+?\s*\([^)]+\))*\s+MAJ\s+\d+,\s*MIN\s+\d+(?:\s*\([^)]+\))?(?:\s*MAJ\s*\d+,\s*MIN\s*\d+\s*\([^)]+\))*\s+(\d+)(?:\s+\([^)]+\))?(?:\s+\d+\s+\([^)]+\))*\s+\d+\/\s*\d+\/\s*\+\d(?:\s+\d+)?$/);
                     if (matches_en) {
-                        console.log("SR6E | Test 1");
+                        console.log("SR6E | NPC Importer | Matches English");
                         this.defense = parseInt(matches_en[2]) || parseInt(matches_en[1]) || 0;
                         // This is a bit of a cheat)
                         this.initiative = new Initiative(matches_en[3] + " + " + matches_en[4] + "W6");
                         this.status = new Status(matches_en[5]);
                     }
                     else if (matches_enCritter) {
-                        console.log("SR6E | Test 2");
+                        console.log("SR6E | NPC Importer | Matches English Critter");
                         this.defense = 0;
                         // This is a bit of a cheat
                         this.initiative = new Initiative(matches_enCritter[1] + " + " + matches_enCritter[2] + "W6");
                         this.status = new Status(matches_enCritter[3]);
                     }
                     else if (matches_fr) {
+                        console.log("SR6E | NPC Importer | Matches French");
                         this.defense = parseInt(matches_fr[1]);
                         // This is a bit of a cheat
                         this.initiative = new Initiative(matches_fr[2] + " + " + matches_fr[3] + "W6");

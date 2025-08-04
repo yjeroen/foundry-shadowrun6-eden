@@ -23,15 +23,22 @@ export default class Importer {
         }
         await rawData.split(/\n\n/).forEach(async (rawData) => {
             try {
-                let npc = new NPC(rawData.trim());
-                let actor = await Actor.create(npc.to_vtt());
+                const npc = new NPC(rawData.trim());
+                const actor = await Actor.create(npc.to_vtt());
+                let msg = game.i18n.format("shadowrun6.ui.notifications.statblock_import.success", { actor: actor.name });
                 if (game.settings.get(SYSTEM_NAME, "importToCompendium")) {
                     await game.packs.get("world.npcs").importDocument(actor);
                     await actor?.delete();
+                    msg += game.i18n.format("shadowrun6.ui.notifications.statblock_import.npc_compendium");
+                } else {
+                    msg += game.i18n.format("shadowrun6.ui.notifications.statblock_import.actor_tab");
                 }
+                ui.notifications.info(msg, { localize: false, console: false });
+                console.log('SR6E | NPC Importer | Succesfully imported', actor.name);
             }
             catch (e) {
-                console.error('SR6E |', e, rawData);
+                console.error('SR6E | NPC Importer |', e, rawData);
+                ui.notifications.error("shadowrun6.ui.notifications.statblock_import.error", { localize: true, console: false });
             }
         });
     }
