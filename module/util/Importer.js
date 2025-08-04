@@ -37,7 +37,7 @@ export default class Importer {
                 console.log('SR6E | NPC Importer | Succesfully imported', actor.name);
             }
             catch (e) {
-                console.error('SR6E | NPC Importer |', e, rawData);
+                console.error('SR6E | NPC Importer |', e, '\n',rawData);
                 ui.notifications.error("shadowrun6.ui.notifications.statblock_import.error", { localize: true, console: false });
             }
         });
