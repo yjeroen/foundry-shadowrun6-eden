@@ -36,7 +36,8 @@
        <tr>
          <td colspan="6">
          	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}" style="vertical-align: top">
-         	{{ localize 'shadowrun6.label.modifications' }} <textarea class="box" type="text"     data-item-id="{{this.id}}" data-field="system.accessories" type="text"  data-dtype="Text" rows="3" style="width: 20em">{{item.system.accessories}}</textarea></div>
+				<label>{{ localize 'shadowrun6.label.accessories' }}</label>
+				<div class="sheet-editor-readonly">{{{item.system.accessories}}}</div>
          	</div>
          </td>
        </tr>

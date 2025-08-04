@@ -5,6 +5,7 @@
  */
 export const preloadHandlebarsTemplates = async function () {
     const templatePaths = [
+        "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs",
         "systems/shadowrun6-eden/templates/sidebar/combat-tracker.hbs",
         "systems/shadowrun6-eden/templates/sidebar/combat-tracker-v9.html",
         "systems/shadowrun6-eden/templates/sidebar/combat-tracker-v12.html",

@@ -406,11 +406,39 @@ table.spell-table td {
 
 .shadowrun6.item div.editor {
   min-height: 100px;
+  max-width: 550px;
 }
 .shadowrun6.item div.editor-container {
   min-height: 100px;
+  max-width: 550px;
 }
 .shadowrun6.item dd.specialDescription {
   margin-top: 20px;
   padding: 0px;
+}
+
+.shadowrun6 .sheet-editor-readonly {
+  min-height: 50px;
+  padding: 5px; 
+  background: rgba(0, 0, 0, 0.05); 
+  border: 1px solid var(--color-border-dark); 
+  border-radius: 3px; 
+}
+
+.shadowrun6.item .item-sheet-header {
+  display: flex;
+  justify-content: space-between;
+}
+.shadowrun6.item .item-sheet-header h2 {
+  flex-grow: 1;
+  margin-right: 10px;
+  align-self: baseline;
+}
+.shadowrun6.item .item-sheet-header img {
+  background-color: var(--highlight-color);
+  margin-right: 5px;
+  border-radius: 4px;
+}
+.shadowrun6 h1 input, .shadowrun6 h2 input {
+  font-weight: inherit;
 }
