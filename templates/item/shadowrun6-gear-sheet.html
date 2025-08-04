@@ -156,16 +156,18 @@
                     <th>{{localize 'shadowrun6.item.natural'}}</th>
                 </tr>
                 <tr>
-                    <td><input name="defense" type="number" value="{{item.system.defense}}" data-field="system.defense"
-                            class="box centered" />
+                    <td class="centered">
+                        <input name="defense" type="number" value="{{item.system.defense}}" data-field="system.defense" class="box centered" style="width: 3em" />
                     </td>
-                    <td><input name="capacity" type="number" value="{{item.system.capacity}}" data-field="system.capacity"
-                            class="box centered" /></td>
-                    <td><input name="social" type="number" value="{{item.system.social}}" data-field="system.social"
-                            class="box centered" />
+                    <td class="centered">
+                        <input name="capacity" type="number" value="{{item.system.capacity}}" data-field="system.capacity" class="box centered" style="width: 3em" />
                     </td>
-                    <td><input name="natural" style="vertical-align: middle;" type="checkbox" {{checked item.system.natural}}
-                            data-field="system.natural" /></td>
+                    <td class="centered">
+                        <input name="social" type="number" value="{{item.system.social}}" data-field="system.social" class="box centered" style="width: 3em" />
+                    </td>
+                    <td class="centered">
+                        <input name="natural" type="checkbox" {{checked item.system.natural}} data-field="system.natural" />
+                    </td>
                 </tr>
             </table>
             {{/if}}

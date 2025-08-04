@@ -250,10 +250,10 @@ dd::after {
 }
 .item-control {
 	color: var(--highlight-color);
-  font-size: 12px;
+  font-size: 13px;
 }
 .item-control h2 {
-  font-size: 12px;
+  font-size: 13px;
 }
 .item-control .fa-dice-six {
   font-size: 20px;
@@ -441,4 +441,12 @@ table.spell-table td {
 }
 .shadowrun6 h1 input, .shadowrun6 h2 input {
   font-weight: inherit;
+}
+.shadowrun6 nav.tabs [data-tab].active {
+  text-shadow: .25px 0px .1px, 
+              -.25px 0px .1px,
+              0 0 10px var(--color-shadow-primary);
+}
+body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
+  text-transform: uppercase;
 }
