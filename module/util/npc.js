@@ -502,7 +502,7 @@ class Attributes {
             }
         }
 
-        throw new Error("Unknown attribute language: " + header);
+        throw new Error("Unknown attribute language | header:" + header, "| normalizedHeader:", normalizedHeader);
     }
 
     /**
@@ -1046,6 +1046,7 @@ export class NPC {
         while (i < lines.length) {
             let section = nextSection(lines, i);
             i = section.end;
+            console.log("SR6E | NPC Importer | Processing section", SectionType[section.type], section);
             switch (section.type) {
                 case SectionType.Meta: {
                     this.meta_type = new MetaType(section.content);
