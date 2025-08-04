@@ -1549,7 +1549,8 @@
       "type_mana_short": "Mana",
       "type_physical": "Physisch",
       "type_physical_short": "K",
-      "withEssence": "Gegen Essenz"
+      "withEssence": "Gegen Essenz",
+      "combatSpellType": "Kampfzauber-Art"
     },
     "spellfeatures": {
       "area": "Flächenwirkung",
@@ -1635,7 +1636,13 @@
         "reroll_failed_requires_index": "Wähle mindestens einen Würfel, bevor du auf den `Ausgeben`-Button drückst.",
         "edge_boost_cannot_be_used_glitch": "Dieser Edge-Boost kann bei einem Patzer oder kritischem Patzer nicht genutzt werden.",
         "reopen_dice_tooltip": "Du hast die ausgewählten Tokens geändert. Öffne den Würfelbereich im Chat erneut, um einen Edge-Boost durchzuführen.",
-        "extended_test_validation": "Der Schwellenwert muss 0 oder größer und das Intervall größer als 0 sein, um eine ausgedehnte Probe auszuführen."
+        "extended_test_validation": "Der Schwellenwert muss 0 oder größer und das Intervall größer als 0 sein, um eine ausgedehnte Probe auszuführen.",
+        "migration": {
+          "start": "Die Systemmigration läuft. Schließe oder aktualisiere das Fenster nicht!",
+          "in_progress": "Migriere Systemdaten..",
+          "completed": "Systemmigration abgeschlossen!"
+        },
+        "wrong_import_file": "GENESIS oder COMMLINK Speicherstände können nicht direkt importiert werden! Bitte nutze stattdessen den FoundryVTT JSON Export von GENESIS oder COMMLINK."
       }
     },
     "EFFECT": {
@@ -1692,12 +1699,12 @@
         "desc": "Insgesamt sind {timePassed} {intervalScale} vergangen und du hast {hits} Erfolge.",
         "intervalScale": {
           "round_short": "r",
-          "round_long_zero": "rounds",
-          "round_long_one": "round",
-          "round_long_two": "rounds",
-          "round_long_few": "rounds",
-          "round_long_many": "rounds",
-          "round_long_other": "rounds",
+          "round_long_zero": "Runden",
+          "round_long_one": "Runde",
+          "round_long_two": "Runden",
+          "round_long_few": "Runden",
+          "round_long_many": "Runden",
+          "round_long_other": "Runden",
           "minute_short": "m",
           "minute_long_plural": "Minuten",
           "minute_long_zero": "Minuten",
