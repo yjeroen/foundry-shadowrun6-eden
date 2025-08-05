@@ -107,7 +107,6 @@ tfoot th {
 .game .centered {
 	text-align: center;
 }
-.shadowrun6 input[type="number"],
 .shadowrun6 input[type="text"]{
         font-variant-numeric: lining-nums;
         border: 0px solid black;
