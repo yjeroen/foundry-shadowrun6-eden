@@ -72,7 +72,8 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".matrix-access-switch input").click(this._onMatrixAccessSwitch.bind(this));
             html.find(".matrix-persona-attributes .matrix-attribute").click(this._onMatrixAttributesSwitch.bind(this));
 
-            //TODO add .weapon-ammo-reload
+            html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
+            // html.find(".weapon-ammo-reload").click(async (event) => { console.log('JEROEN', this); this._onWeaponAmmoReload(event); });
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
             // Roll Skill Checks
@@ -775,6 +776,19 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         roll.useWildDie = gear.wild ? 1 : 0;
         console.log("SR6E | _onRollWeaponCheck before ", roll);
         this.actor.rollItem(roll);
+    }
+    //-----------------------------------------------------
+    async _onWeaponAmmoReload(event) {
+        console.log("SR6E | _onWeaponAmmoReload");
+        event.preventDefault();
+        const uuid = event.currentTarget.dataset.itemUuid;
+        const weapon = await fromUuid(uuid)
+        const updated = await weapon.update({ "system.ammocount": weapon.system.ammocap });
+        if (updated !== undefined) {
+            console.log("SR6E | Weapon's Ammo Reloaded:", updated.name, uuid);
+            //TODO inform players that someone reloaded their ammo?
+
+        }
     }
     //-----------------------------------------------------
     _onRollSpellCheck(event, html) {
