@@ -245,11 +245,18 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
                         configured.edgeBoost = undefined;
                         configured.edge_use = undefined;
                     }
-                    //TODO: handle edge action and costs on roll
-                    console.log("SR6E | ToDo: handle edge action");
+                    else {
+                        console.log("SR6E | Edge Action selected: ", configured.edgeAction);
+                        const action = CONFIG.SR6.EDGE_ACTIONS.find((action) => action.id == configured.edgeAction);
+                        console.log("SR6E | Pay " + action.cost + " edge for Edge Action: " + game.i18n.localize("shadowrun6.edge_action." + configured.edgeAction));
+                        system.edge.value = prepared.edge - action.cost;
+                        // Pay Edge cost
+                        console.log("SR6E | Update Edge to " + (prepared.edge - action.cost));
+                        await prepared.actor.update({ ["system.edge.value"]: system.edge.value });
+                    }
                 }
                 else {
-                    let boost = CONFIG.SR6.EDGE_BOOSTS.find((boost) => boost.id == configured.edgeBoost);
+                    const boost = CONFIG.SR6.EDGE_BOOSTS.find((boost) => boost.id == configured.edgeBoost);
                     console.log("SR6E | Pay " + boost.cost + " edge for Edge Boost: " + game.i18n.localize("shadowrun6.edge_boost." + configured.edgeBoost));
                     system.edge.value = prepared.edge - boost.cost;
                     // Pay Edge cost

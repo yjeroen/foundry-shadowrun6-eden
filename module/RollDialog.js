@@ -356,7 +356,7 @@ export class RollDialog extends Dialog {
                 this._updateEdgeActions(this._element[0].getElementsByClassName("edgeActions")[0], 0);
             }
             if (boostId != "none") {
-                configured.edge_use = game.i18n.localize("shadowrun6.edge_boost." + boostId);
+                configured.edge_use = game.i18n.format("shadowrun6.roll.edge.edge_spent", { boostTitle: game.i18n.localize("shadowrun6.edge_boost." + boostId) });
             }
             else {
                 configured.edge_use = "";
@@ -368,7 +368,7 @@ export class RollDialog extends Dialog {
             let actionId = actionSelect.children[actionSelect.selectedIndex].dataset.itemActionid;
             console.log("SR6E |  actionId = " + actionId);
             configured.edgeAction = actionId;
-            configured.edge_use = game.i18n.localize("shadowrun6.edge_action." + actionId);
+            configured.edge_use = game.i18n.format("shadowrun6.roll.edge.edge_action_spent", { actionTitle: game.i18n.localize("shadowrun6.edge_action." + actionId) });
             this._performEdgeBoostOrAction(configured, actionId);
         }
     }

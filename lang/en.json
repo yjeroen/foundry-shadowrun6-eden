@@ -1076,6 +1076,7 @@
         "spending": "Spending Edge",
         "spend_edge": "Spend Edge",
         "edge_spent": "Edge Boost: {boostTitle}",
+        "edge_action_spent": "Edge Action: {actionTitle}",
         "opponent": "Opponent",
         "opponent_edge_boost": "Opponent Edge Boost",
         "spend": "Spend!",
