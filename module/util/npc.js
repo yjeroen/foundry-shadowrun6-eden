@@ -1092,6 +1092,7 @@ export class NPC {
                     let matches_fr = section.content.match(/^(\d+)\s+(\d+)\/(\d+)(?:\s*\([^)]+\))?(?:\s*[^\/]+?\/.+?\s*\([^)]+\))*\s+MAJ\s+\d+,\s*MIN\s+\d+(?:\s*\([^)]+\))?(?:\s*MAJ\s*\d+,\s*MIN\s*\d+\s*\([^)]+\))*\s+(\d+)(?:\s+\([^)]+\))?(?:\s+\d+\s+\([^)]+\))*\s+\d+\/\s*\d+\/\s*\+\d(?:\s+\d+)?$/);
                     if (matches_en) {
                         console.log("SR6E | NPC Importer | Matches English");
+                        // TODO add Physical Monitor Mod based on calculation and difference with CM 
                         this.defense = parseInt(matches_en[2]) || parseInt(matches_en[1]) || 0;
                         // This is a bit of a cheat)
                         this.initiative = new Initiative(matches_en[3] + " + " + matches_en[4] + "W6");
