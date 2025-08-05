@@ -178,13 +178,21 @@
             </table>
             {{/if}}
             <!-- ********** BIOWARE / NANOWARE ********** -->
-            {{#if (or
-            (eq item.system.type "BIOWARE")
-            (eq item.system.type "NANOWARE")
-            )}}
-            <label for="ware_essence">{{localize 'shadowrun6.item.essence'}}</label>
-            <input name="essenceBioNano" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence"
-                class="box centered" />
+            {{#if (or (or
+                (eq item.system.type "BIOWARE")
+                (eq item.system.type "NANOWARE")
+            ) (eq item.system.type "GENETICS") )
+            }}
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.item.essence'}}</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="essenceBioNano" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence" class="box centered" />
+                    </td>
+                </tr>
+            </table>
             {{/if}}
             <!-- ********** CYBERWARE ********** -->
             {{#if (eq item.system.type "CYBERWARE")}}
@@ -337,3 +345,5 @@
             {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
     </section>
 </form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}
