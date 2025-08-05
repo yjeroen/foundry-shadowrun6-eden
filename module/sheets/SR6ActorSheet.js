@@ -1,5 +1,6 @@
 import { WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../dice/RollTypes.js";
 import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
+import { prepareActiveEffectCategories } from "../util/helper.js";
 
 function isLifeform(obj) {
     return obj.attributes != undefined;
@@ -41,6 +42,14 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         data.actor.system.essence = parseFloat(data.actor.system.essence).toFixed(2);
         data.matrixAccess = this._matrixAccess();
         data.matrixActionAvailable = this._matrixActionAvailable();
+
+        // Prepare active effects // overwriting super.data.effects
+        data.effects = prepareActiveEffectCategories(
+          // A generator that returns all effects stored on the actor
+          // as well as any items
+          data.actor.allApplicableEffects()
+        );
+
         console.log("SR6E | Shadowrun6ActorSheet.getData()", data);
         return data;
     }
@@ -68,6 +77,12 @@ export class Shadowrun6ActorSheet extends ActorSheet {
     activateListeners(html) {
         // Owner Only Listeners
         if (this.actor.isOwner) {
+            // ActiveEffect buttons
+            html.find("[data-action='viewDoc']").click(this._viewDoc.bind(this));
+            html.find("[data-action='createDoc']").click(this._createDoc.bind(this));
+            html.find("[data-action='deleteDoc']").click(this._deleteDoc.bind(this));
+            html.find("[data-action='toggleEffect']").click(this._toggleEffect.bind(this));
+
             // Matrix action view
             html.find(".matrix-access-switch input").click(this._onMatrixAccessSwitch.bind(this));
             html.find(".matrix-persona-attributes .matrix-attribute").click(this._onMatrixAttributesSwitch.bind(this));
@@ -88,8 +103,8 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             this.activateCreationListener(html);
             html.find(".item-delete").click(async (event) => {
                 const confirm = await foundry.applications.api.DialogV2.confirm({
-                    window: { title: game.i18n.format("DOCUMENT.Delete", {type:'Item'}) },
-                    content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", {type:'Item'})}</p>`,
+                    window: { title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize("DOCUMENT.Item") }) },
+                    content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.localize("DOCUMENT.Item") })}</p>`,
                     rejectClose: false,
                     modal: true
                 });
@@ -965,4 +980,121 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         const focusedElement = $(this.element).find(':focus')?.[0];
         selectAllTextOnElement(focusedElement);
     }
+
+    /**************
+     *
+     *   ActiveEffect Actions
+     *
+     **************/
+
+    /**
+     * Renders an embedded document's sheet
+     *
+     * @this Shadowrun6ActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    async _viewDoc(event, target) {
+        if (target === undefined) target = event.target;
+        const doc = this._getEmbeddedDocument(target);
+        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _viewDoc");
+        doc.sheet.render(true);
+    }
+
+    /**
+     * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
+     *
+     * @this Shadowrun6ActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    async _createDoc(event, target) {
+        if (target === undefined) target = event.target;
+        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _createDoc");
+        // Retrieve the configured document class for Item or ActiveEffect
+        const docCls = getDocumentClass(target.dataset.documentClass);
+        // Prepare the document creation data by initializing it a default name.
+        // TODO .type isn't in the template so isn't set. Why is it needed?
+        const docData = {
+            name: docCls.defaultName({
+                // defaultName handles an undefined type gracefully
+                type: target.dataset.type,
+                parent: this.actor,
+            }),
+            img: 'systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg'
+        };
+        // Loop through the dataset and add it to our docData
+        for (const [dataKey, value] of Object.entries(target.dataset)) {
+            // These data attributes are reserved for the action handling
+            if (['action', 'documentClass'].includes(dataKey)) continue;
+            // Nested properties require dot notation in the HTML, e.g. anything with `system`
+            // An example exists in spells.hbs, with `data-system.spell-level`
+            // which turns into the dataKey 'system.spellLevel'
+            foundry.utils.setProperty(docData, dataKey, value);
+        }
+
+        // Finally, create the embedded document!
+        await docCls.create(docData, { parent: this.actor });
+    }
+
+    /**
+     * Handles item deletion
+     *
+     * @this Shadowrun6ActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    async _deleteDoc(event, target) {
+        if (target === undefined) target = event.target;
+        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _deleteDoc");
+        const confirm = await foundry.applications.api.DialogV2.confirm({
+            window: { title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize("DOCUMENT.ActiveEffect") }) },
+            content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.localize("DOCUMENT.ActiveEffect") })}</p>`,
+            rejectClose: false,
+            modal: true
+        });
+        if(!confirm) return;
+        
+        const doc = this._getEmbeddedDocument(target);
+        await doc.delete();
+    }
+
+    /**
+     * Determines effect parent to pass to helper
+     *
+     * @this Shadowrun6ActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    async _toggleEffect(event, target) {
+        if (target === undefined) target = event.target;
+        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _toggleEffect");
+        const effect = this._getEmbeddedDocument(target);
+        await effect.update({ disabled: !effect.disabled });
+    }
+
+    /**
+     * Fetches the embedded document representing the containing HTML element
+     *
+     * @param {HTMLElement} target    The element subject to search
+     * @returns {Item | ActiveEffect} The embedded Item or ActiveEffect
+     */
+    _getEmbeddedDocument(target) {
+        const docRow = target.closest('li[data-document-class]');
+        if (docRow.dataset.documentClass === 'Item') {
+            return this.actor.items.get(docRow.dataset.itemId);
+        } else if (docRow.dataset.documentClass === 'ActiveEffect') {
+            const parent =
+            docRow.dataset.parentId === this.actor.id
+                ? this.actor
+                : this.actor.items.get(docRow?.dataset.parentId);
+            return parent.effects.get(docRow?.dataset.effectId);
+        } else return console.warn('Could not find document class');
+    }
+
+
 }

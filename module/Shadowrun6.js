@@ -12,6 +12,7 @@ import { Shadowrun6ActorSheetNPC } from "./sheets/ActorSheetNPC.js";
 import { Shadowrun6ActorSheetVehicle } from "./sheets/ActorSheetVehicle.js";
 //import { Shadowrun6ActorSheetVehicleCompendium } from "./sheets/ActorSheetVehicleCompendium.js";
 import { SR6ItemSheet } from "./sheets/SR6ItemSheet.js";
+import { SR6ActiveEffectConfig } from "./sheets/SR6ActiveEffectConfig.js";
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { defineHandlebarHelper } from "./util/helper.js";
 import { PreparedRoll, RollType } from "./dice/RollTypes.js";
@@ -74,6 +75,9 @@ Hooks.once("init", async function () {
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.Token.objectClass = SR6Token;
     CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
+    
+    // Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
+    CONFIG.ActiveEffect.legacyTransferral = false;
 
     // Initialize socket handler
     game.sr6.sockets.registerSocketListeners();
@@ -86,6 +90,8 @@ Hooks.once("init", async function () {
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
+    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', SR6ActiveEffectConfig, { makeDefault: true });
 
     Items.registerSheet("shadowrun6-eden", SR6ItemSheet, {
         types: [

@@ -41,6 +41,7 @@
 		<a class="item" data-tab="vehicles">{{ localize 'shadowrun6.actor.nav.vehicles' }}</a>
 		<a class="item" data-tab="equip" >{{ localize 'shadowrun6.actor.nav.equip'  }}</a>
 		<a class="item" data-tab="biography">{{ localize 'shadowrun6.actor.nav.biography' }}</a>
+		<a class="item" data-tab="effects">{{ localize 'shadowrun6.effect.Label' }}</a>
 	</nav>
 
 	{{!-- Sheet Body --}}
@@ -105,6 +106,11 @@
 		{{!-- Biography Tab --}}
 		<div class="tab biography flexrow" data-group="primary" data-tab="biography">
 			{{> "systems/shadowrun6-eden/templates/parts/tab-biography.html"}}
+		</div>
+		
+		{{!-- Effects Tab --}}
+		<div class="tab effects flexrow" data-group="primary" data-tab="effects">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-effects.hbs"}}
 		</div>
 
 	</section>

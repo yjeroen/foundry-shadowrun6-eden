@@ -1,0 +1,85 @@
+{{! Effects Tab }}
+{{log 'item-effects.hbs' effects}}
+
+<div class="section" style="display: inline-block; width:100%">
+  <div class="section-head">
+    <h2 class="section-title">{{ localize 'shadowrun6.effect.Label' }}</h2>
+  </div>
+
+  <section class='effects'>
+    <ol class='effects-list'>
+      {{#each effects as |section sid|}}
+        <li class='effects-header flexrow' data-effect-type='{{section.type}}'>
+          <div class='effect-name flexrow'>{{localize section.label}}</div>
+          {{!-- <div class='effect-source'>{{localize 'shadowrun6.effect.Source'}}</div> --}}
+          <div class='effect-source'>{{localize 'shadowrun6.effect.Duration'}}</div>
+          <div class='effect-controls effect-controls flexrow'>
+            <a
+              class='effect-control'
+              data-action='createDoc'
+              data-document-class='ActiveEffect'
+              {{#if (eq section.type "inactive")}}
+                data-disabled="true"
+              {{else if (eq section.type "temporary")}}
+                data-duration.rounds="1"
+              {{/if}}
+              title='{{localize "DOCUMENT.Create" type='Effect'}}'
+            >
+              <i class='fas fa-plus'></i>
+              {{localize 'DOCUMENT.New' type='Effect'}}
+            </a>
+          </div>
+        </li>
+        <ol class='effect-list'>
+          {{#each section.effects as |effect|}}
+            <li
+              class='item effect flexrow'
+              data-effect-id='{{effect.id}}'
+              data-parent-id='{{effect.parent.id}}'
+              data-drag="true"
+            >
+              <div class='effect-name flexrow'>
+                <img class='effect-image' src='{{effect.img}}' />
+                <div>{{effect.name}}</div>
+              </div>
+              {{!-- <div class='effect-source'>{{effect.parent.name}}</div> --}}
+              <div class='effect-duration'>
+                {{#iff effect.duration.type '==' "none"}}
+                <i class="fas fa-infinity" title="{{effect.duration.label}}"></i>
+                {{else}}
+                {{effect.duration.label}}
+                {{/iff}}
+              </div>
+              <div class='effect-controls effect-controls flexrow'>
+                <a
+                  class='effect-control'
+                  data-action='toggleEffect'
+                  title='{{localize "shadowrun6.effect.Toggle"}}'
+                >
+                  <i class='fas {{#if effect.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}'></i>
+                </a>
+                <a
+                  class='effect-control'
+                  data-action='viewDoc'
+                  data-document-class='ActiveEffect'
+                  title='{{localize "DOCUMENT.Update" type='Effect'}}'
+                >
+                  <i class='fas fa-edit'></i>
+                </a>
+                <a
+                  class='effect-control'
+                  data-action='deleteDoc'
+                  data-document-class='ActiveEffect'
+                  title='{{localize "DOCUMENT.Delete" type='Effect'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+              </div>
+            </li>
+          {{/each}}
+        </ol>
+      {{/each}}
+    </ol>
+  </section>
+
+</div>

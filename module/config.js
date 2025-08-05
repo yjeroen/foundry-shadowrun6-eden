@@ -786,4 +786,12 @@ export class SR6Config {
         gel: "shadowrun6.ammotypes.gel",
         sticknshock: "shadowrun6.ammotypes.sticknshock"
     };
+    ACTIVE_EFFECT_OPTIONS = {
+        system_attributes_bod_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.attributes.bod.mod",
+        system_attributes_agi_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.attributes.agi.mod"
+    };
+    // ACTIVE_EFFECT_OPTIONS = [
+    //     "system.attributes.bod.mod",
+    //     "system.attributes.agi.mod"
+    // ];
 }

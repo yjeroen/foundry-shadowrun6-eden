@@ -84,6 +84,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper('getIniType', function (map, key) {
         return map.get(key).initiativeType;
     });
+    Handlebars.registerHelper("datalistOptions", datalistOptions);
     Handlebars.registerHelper("skillAttr", getSkillAttribute);
     Handlebars.registerHelper("skillPool", getSkillPool);
     Handlebars.registerHelper("gearSubtype", getSubtypes);
@@ -418,3 +419,87 @@ export function getSelectedActor(defaultedActor = null) {
     // Else use the defaulted actor if its there else return null
     return actor ?? defaultedActor;
 }
+
+/**
+ * Prepare the data structure for Active Effects which are currently embedded in an Actor or Item.
+ * @param {ActiveEffect[]} effects    A collection or generator of Active Effect documents to prepare sheet data for
+ * @return {object}                   Data for rendering
+ */
+export function prepareActiveEffectCategories(effects) {
+  // Define effect header categories
+  const categories = {
+    temporary: {
+      type: 'temporary',
+      label: game.i18n.localize('shadowrun6.effect.Temporary'),
+      effects: [],
+    },
+    passive: {
+      type: 'passive',
+      label: game.i18n.localize('shadowrun6.effect.Passive'),
+      effects: [],
+    },
+    inactive: {
+      type: 'inactive',
+      label: game.i18n.localize('shadowrun6.effect.Inactive'),
+      effects: [],
+    },
+  };
+
+  // Iterate over active effects, classifying them into categories
+  for (const e of effects) {
+    if (e.disabled) categories.inactive.effects.push(e);
+    else if (e.isTemporary) categories.temporary.effects.push(e);
+    else categories.passive.effects.push(e);
+  }
+
+  // Sort each category
+  for (const c of Object.values(categories)) {
+    c.effects.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+  }
+  return categories;
+}
+
+function datalistOptions(choices, options) {
+    let {localize=false, selected, blank, sort, nameAttr, valueAttr, labelAttr, inverted, groups} = options.hash;
+    if ( (selected === undefined) || (selected === null) ) selected = [];
+    else if ( !(selected instanceof Array) ) selected = [selected];
+
+    if ( nameAttr && !valueAttr ) {
+      foundry.utils.logCompatibilityWarning(`The "nameAttr" property of the {{selectOptions}} handlebars helper is 
+        renamed to "valueAttr" for consistency with other methods.`, {since: 12, until: 14});
+      valueAttr = nameAttr;
+    }
+
+    // Prepare the choices as an array of objects
+    const selectOptions = [];
+    if ( choices instanceof Array ) {
+      for ( const [i, choice] of choices.entries() ) {
+        if ( typeof choice === "object" ) selectOptions.push(choice);
+        else selectOptions.push({value: choice, label: choice});
+      }
+    }
+
+    // Object of keys and values
+    else {
+      for ( const choice of Object.entries(choices) ) {
+        const [k, v] = inverted ? choice.reverse() : choice;
+        let value = valueAttr ? v[valueAttr] : k;
+        value = value.replaceAll("_", ".")
+        if ( typeof v === "object" ) selectOptions.push({value, ...v});
+        else selectOptions.push({value, label: v});
+      }
+    }
+
+    // Delegate to new fields helper
+    const select = foundry.applications.fields.createSelectInput({
+      options: selectOptions,
+      value: selected,
+      blank,
+      groups,
+      labelAttr,
+      localize,
+      sort,
+      valueAttr
+    });
+    return new Handlebars.SafeString(select.innerHTML);
+  }

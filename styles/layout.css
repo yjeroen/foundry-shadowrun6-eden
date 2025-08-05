@@ -446,3 +446,134 @@ table.spell-table td {
 body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
   text-transform: uppercase;
 }
+
+/* ActiveEffects tab */
+.shadowrun6 .effects-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove var(--shadowrun6-c-groove);
+  font-weight: bold;
+}
+.shadowrun6 .effects-header > * {
+  font-size: 14px;
+  text-align: center;
+}
+.shadowrun6 .effects-header .effect-name {
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: left;
+  display: flex;
+}
+.shadowrun6 .effects-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: var(--shadowrun6-c-tan);
+}
+.shadowrun6 .effects-list .effect-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shadowrun6 .effects-list .effect-name {
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+  padding-left: 5px;
+}
+.shadowrun6 .effects-list .effect-name h3, .shadowrun6 .effects-list .effect-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.shadowrun6 .effects-list .effect-controls {
+  display: flex;
+  flex: 0 0 100px;
+  justify-content: flex-end;
+}
+.shadowrun6 .effects-list .effect-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+.shadowrun6 .effects-list .effect {
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 1px solid var(--shadowrun6-c-faint);
+}
+.shadowrun6 .effects-list .effect:last-child {
+  border-bottom: none;
+}
+.shadowrun6 .effects-list .effect .effect-name {
+  color: var(--shadowrun6-c-dark);
+}
+.shadowrun6 .effects-list .effect .effect-name .effect-image {
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+.shadowrun6 .effects-list .effect-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.shadowrun6 .effects-list .effects-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove var(--shadowrun6-c-groove);
+  font-weight: bold;
+}
+.shadowrun6 .effects-list .effects-header > * {
+  font-size: 12px;
+  text-align: center;
+}
+.shadowrun6 .effects-list .effects-header .effect-name {
+  padding-left: 5px;
+  text-align: left;
+}
+.shadowrun6 .effect-formula {
+  flex: 0 0 200px;
+  padding: 0 8px;
+}
+.shadowrun6 .effects .item .effect-source,
+.shadowrun6 .effects .item .effect-duration,
+.shadowrun6 .effects .item .effect-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.shadowrun6 .effects .item .effect-controls {
+  border: none;
+}
+.shadowrun6 .effects .effect-control.disabled {
+  color: #999;
+}
+.shadowrun6 .effects .effect-control.disabled:hover {
+    text-shadow: none;
+}
+.shadowrun6 .effects .item .effect-source .item-control {
+  vertical-align: top;
+}
+.active-effect-config .tab.changes header,
+.active-effect-config .tab.changes ol {
+  grid-template-columns: 16rem 7rem 7rem 4rem 1rem;
+}
+.active-effect-config .key input {
+  line-height: var(--font-size-14);
+}

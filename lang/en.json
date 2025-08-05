@@ -1804,6 +1804,20 @@
       "flechette": "Flechette",
       "gel": "Gel",
       "sticknshock": "Stick-n-Shock"
+    },
+    "effect": {
+      "Label": "Effects",
+      "Duration": "Duration",
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects",
+      "CantDelete": "You can only delete this effect from it's Item."
+    },
+    "ACTIVE_EFFECT_OPTIONS": {
+      "attributes.bod.mod": "Body Modifier",
+      "attributes.agi.mod": "Agility Modifier"
     }
   }
 }

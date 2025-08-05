@@ -1,4 +1,5 @@
 import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
+import { prepareActiveEffectCategories } from "../util/helper.js";
 import { SYSTEM_NAME } from "../constants.js";
 
 function getSystemData(obj) {
@@ -54,6 +55,10 @@ export class SR6ItemSheet extends ItemSheet {
         }
         data.config = CONFIG.SR6;
         data.config.subtypeList = CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];
+
+        // Prepare active effects
+        data.effects = prepareActiveEffectCategories(data.item.effects);
+
         return data;
     }
 
@@ -62,13 +67,22 @@ export class SR6ItemSheet extends ItemSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
+
+        if (this.item.isOwner) {
+            // ActiveEffect buttons
+            html.find("[data-action='viewDoc']").click(this._viewEffect.bind(this));
+            html.find("[data-action='createDoc']").click(this._createEffect.bind(this));
+            html.find("[data-action='deleteDoc']").click(this._deleteEffect.bind(this));
+            html.find("[data-action='toggleEffect']").click(this._toggleEffect.bind(this));
+        }
+
         // Unclear why super is called; TODO rework whole itemsheet so it uses Foundry listeners instead
         // super.activateListeners(html);
         if (this.actor && this.actor.isOwner) {
-            console.log("SR6E | is owner");
+            console.log("SR6E | is owner of actor");
         }
         else {
-            console.log("SR6E | is not owner");
+            console.log("SR6E | is not owner of actor");
         }
         if (!this.isEditable) {
             let x = html.find(".data-desc");
@@ -175,4 +189,113 @@ export class SR6ItemSheet extends ItemSheet {
         const focusedElement = $(this.element).find(':focus')?.[0];
         selectAllTextOnElement(focusedElement);
     }
+
+    /**************
+     *
+     *   ACTIONS
+     *
+     **************/
+
+    /**
+     * Renders an embedded document's sheet
+     *
+     * @this SR3ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    _viewEffect(event, target) {
+        if (target === undefined) target = event.target;
+        const effect = this._getEffect(target);
+        effect.sheet.render(true);
+    }
+
+    /**
+     * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
+     *
+     * @this SR3ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    async _createEffect(event, target) {
+        if (target === undefined) target = event.target;
+        // Retrieve the configured document class for ActiveEffect
+        const aeCls = getDocumentClass('ActiveEffect');
+        // Prepare the document creation data by initializing it a default name.
+        // As of v12, you can define custom Active Effect subtypes just like Item subtypes if you want
+        const effectData = {
+            name: aeCls.defaultName({
+                // defaultName handles an undefined type gracefully
+                type: target.dataset.type,
+                parent: this.item
+            }),
+            origin: this.item.uuid,
+            img: 'systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg'
+        };
+        // Loop through the dataset and add it to our effectData
+        for (const [dataKey, value] of Object.entries(target.dataset)) {
+            // These data attributes are reserved for the action handling
+            if (['action', 'documentClass'].includes(dataKey)) continue;
+            // Nested properties require dot notation in the HTML, e.g. anything with `system`
+            // An example exists in spells.hbs, with `data-system.spell-level`
+            // which turns into the dataKey 'system.spellLevel'
+            foundry.utils.setProperty(effectData, dataKey, value);
+        }
+
+        // Finally, create the embedded document!
+        await aeCls.create(effectData, { parent: this.item });
+    }
+
+    /**
+     * Handles item deletion
+     *
+     * @this SR3ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    async _deleteEffect(event, target) {
+        if (target === undefined) target = event.target;
+        console.log("SR6E | SR3ItemSheet | ActiveEffect _deleteEffect");
+        const confirm = await foundry.applications.api.DialogV2.confirm({
+            window: { title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize("DOCUMENT.ActiveEffect") }) },
+            content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.localize("DOCUMENT.ActiveEffect") })}</p>`,
+            rejectClose: false,
+            modal: true
+        });
+        if(!confirm) return;
+
+        const effect = this._getEffect(target);
+        await effect.delete();
+    }
+
+    /**
+     * Determines effect parent to pass to helper
+     *
+     * @this SR3ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    async _toggleEffect(event, target) {
+        if (target === undefined) target = event.target;
+        const effect = this._getEffect(target);
+        await effect.update({ disabled: !effect.disabled });
+    }
+
+    /** Helper Functions */
+
+    /**
+     * Fetches the row with the data for the rendered embedded document
+     *
+     * @this SR3ItemSheet
+     * @param {HTMLElement} target  The element with the action
+     * @returns {HTMLLIElement} The document's row
+     */
+    _getEffect(target) {
+        const li = target.closest('.effect');
+        return this.item.effects.get(li?.dataset?.effectId);
+    }
+
 }
