@@ -271,6 +271,14 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
                 }
             }
         }
+
+        // Update Ammunition
+        if (prepared.calcRounds > 0 && prepared.item.system.ammocap > 0) {
+            const newAmmoCount = Math.max(0, prepared.item.system.ammocount - prepared.calcRounds )
+            console.log("SR6E | Updating ammocount of", prepared.item.name, "to", newAmmoCount);
+            await prepared.item.update({ "system.ammocount": newAmmoCount });
+        }
+
         //configured.edgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter(boost => boost.when=="POST");
         let formula = "";
         let isPrivate = false;

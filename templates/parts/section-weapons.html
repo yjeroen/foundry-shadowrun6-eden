@@ -18,7 +18,7 @@
             <td style="width: 15%"><label class="middle-column" >{{attackrating item.calculated.attackRating}}</label></td>
             <td style="width: 15%; text-align: right; vertical-align: middle; white-space: nowrap;">
                 {{#iff item.system.ammocap '>' 0}}
-                <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: right; padding: 0;"/>/{{item.system.ammocap}}
+                {{item.system.ammocount}}/{{item.system.ammocap}}
                 <a class="item-control weapon-ammo-reload" data-item-uuid="{{item.uuid}}" title="{{localize "shadowrun6.weapon.reload_ammo"}}"><i class="fas fa-rotate-right"></i></a>
                 {{/iff}}
             </td>
@@ -151,7 +151,7 @@
             </td>
             <td style="width: 15%; text-align: right; vertical-align: middle; white-space: nowrap;">
                 {{#iff item.system.ammocap '>' 0}}
-                <input name="weaponAmmocount{{id}}" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: right; padding: 0;"/>/{{item.system.ammocap}}
+                {{item.system.ammocount}}/{{item.system.ammocap}}
                 <a class="item-control weapon-ammo-reload" data-item-uuid="{{item.uuid}}" title="{{localize "shadowrun6.weapon.reload_ammo"}}"><i class="fas fa-rotate-right"></i></a>
                 {{/iff}}
             </td>

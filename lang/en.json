@@ -1675,7 +1675,8 @@
           "success": "Your `{actor}` statblock was imported into the ",
           "actor_tab": "Actor tab.",
           "npc_compendium": "NPC Compendium."
-        }
+        },
+        "not_enough_ammo": "You don't have enough ammunition in your weapon. Change your firing mode, or reload your weapon first."
       }
     },
     "EFFECT": {
