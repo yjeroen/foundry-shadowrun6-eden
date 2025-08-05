@@ -115,7 +115,16 @@ Hooks.once("init", async function () {
 
     preloadHandlebarsTemplates();
     defineHandlebarHelper();
-    document.addEventListener('paste', (e) => Importer.pasteEventhandler(e), false);
+    document.addEventListener('paste', (e) => {
+        if ( e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA"
+             && !e.target.parentElement.classList.contains('ProseMirror')
+             && !e.target.offsetParent.classList.contains('ProseMirror')    ) {
+
+            console.log("SR6E | Pasting text | Triggering NPC Importer by event:", e);
+            Importer.pasteEventhandler(e);
+            
+        }
+    }, false);
 
     $('#pause img').attr('class', 'fa-beat-fade');
 
