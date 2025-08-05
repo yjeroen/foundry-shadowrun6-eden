@@ -217,8 +217,8 @@ export class SpellRoll extends SkillRoll {
     canAmpUpSpell;
     ampUp = 0;
     canIncreaseArea;
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /**
      * @param skill {Skill}   The skill to roll upon
      */
@@ -272,8 +272,8 @@ export class RitualRoll extends SkillRoll {
 
     calcDrain;
 
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /**
      * @param skill {Skill}   The skill to roll upon
      */
@@ -297,8 +297,8 @@ export class ComplexFormRoll extends SkillRoll {
     formSrc;
     form;
     calcFade;
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /**
      * @param skill {Skill}   The skill to roll upon
      */
@@ -334,8 +334,8 @@ export class WeaponRoll extends SkillRoll {
     gear;
     weapon;
     targets;
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /** Effective attack rating after applying firing mode */
     calcAttackRating = [0, 0, 0, 0, 0];
     /** Effective damage */
@@ -413,8 +413,8 @@ export class VehicleRoll extends PreparedRoll {
     }
 }
 export class ConfiguredWeaponRollData {
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /** Effective attack rating after applying firing mode */
     calcAttackRating = [0, 0, 0, 0, 0];
     /** Effective damage */

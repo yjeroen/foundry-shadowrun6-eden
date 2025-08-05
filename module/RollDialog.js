@@ -147,7 +147,7 @@ export class RollDialog extends Dialog {
                 configured.edgeTarget++;
             }
             const drElement = document.getElementById("dr");
-            if (drElement) {
+            if ( drElement && !isNaN(parseInt(drElement.value)) ) {
                 const dr = drElement.value ? parseInt(drElement.value) : 0;
                 const arModElem = document.getElementById("arMod");
                 if (isItemRoll(prepared)) {
