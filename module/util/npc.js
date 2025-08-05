@@ -191,7 +191,7 @@ const CYBERWARE_LINES = ["Bodytech:", "Augmentations:", "Augmentations :", "Augm
 const WEAPON_LINES = ["Waffen:", "Weapons:", "Armes :"];
 const SPELLS_LINES = ["Zauber:", "Spells:", "Sorts :"];
 const VEHICLES_LINES = ["Fahrzeuge und Drohnen:", "Vehicles and Drones:", "Véhicules et drones :"];
-const ADEPT_POWERS_LINES = ["Adeptenkräfte:", "Powers:", "Pouvoirs d’adepte :"];
+const ADEPT_POWERS_LINES = ["Adeptenkräfte:", "Adept Powers:", "Powers:", "Pouvoirs d’adepte :"];
 const COMPLEX_FORMS_LINES = ["Komplexe Formen:", "Complex Forms:", "Formes complexes :"];
 const METAMAGIC_LINES = ["Metamagie:", "Metamagics:", "Métamagies :"];
 const INITIATION_LINES = ["Initiatengrad:", "Initiate Grade:", "Grade d’initié :"];
@@ -845,9 +845,8 @@ class AdeptPower {
     to_vtt() {
         return {
             "name": this.name,
-            "type": "quality",
+            "type": "adeptpower",
             "system": {
-                "category": "ADEPT_WAY",
                 "level": false,
                 "value": 1,
                 "modifier": []
@@ -1036,6 +1035,7 @@ export class NPC {
     weapons = [];
     constructor(data) {
         let lines = data.trim().split("\n");
+        console.log("SR6E | NPC Importer | Processing data", data, lines);
         this.name = lines[0];
         this.biography = "";
         let i = 1;
