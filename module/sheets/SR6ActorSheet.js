@@ -73,7 +73,6 @@ export class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".matrix-persona-attributes .matrix-attribute").click(this._onMatrixAttributesSwitch.bind(this));
 
             html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
-            // html.find(".weapon-ammo-reload").click(async (event) => { console.log('JEROEN', this); this._onWeaponAmmoReload(event); });
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
             // Roll Skill Checks
