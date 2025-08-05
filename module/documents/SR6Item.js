@@ -107,6 +107,8 @@ export default class SR6Item extends Item {
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};
     if (this.system.ammoLoaded === undefined) this.system.ammoLoaded = 'regular';
+    if (typeof this.system.ammocap === 'string') this.system.ammocap = parseInt(this.system.ammocap);
+    if (typeof this.system.ammocount === 'string') this.system.ammocount = parseInt(this.system.ammocount);
   }
 
   calcAttackRating() {
