@@ -77,7 +77,6 @@ body.game .app.window-app .window-content,
 	background-position: left top;
 }
 
-body.game .sheet.journal-entry .journal-entry-content,
 body.game .shadowrun6.actor .window-content {
 	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: right top, left top;
@@ -93,6 +92,8 @@ body.game .app.window-app.sidebar-popout .window-content {
 body.game .sheet.journal-sheet .window-content {
 	background-image: none;
 }
+
+body.game .sheet.journal-entry .journal-entry-content,
 body.game .sheet.journal-entry-page .window-content {
 	background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
 }
