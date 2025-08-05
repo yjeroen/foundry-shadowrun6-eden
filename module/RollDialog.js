@@ -678,6 +678,7 @@ export class RollDialog extends Dialog {
         document.getElementById("noTargetLabel").innerText = game.i18n.localize("shadowrun6.roll.notarget");
     }
     //-------------------------------------------------------------
+    // Note: this isn't called on close of the Dialog, legacy code?
     onClose() {
         console.log("SR6E | To Do: onClose()------------------------------------");
         const options = this.options;

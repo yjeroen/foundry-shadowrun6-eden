@@ -240,6 +240,11 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             if (configured.edgeBoost && configured.edgeBoost != "none") {
                 console.log("SR6E | Edge Boost selected: " + configured.edgeBoost);
                 if (configured.edgeBoost === "edge_action") {
+                    if (configured.edgeAction === undefined) {
+                        console.log("SR6E | Edge Action selected as boost, without an actual Action | Unsetting edgeBoost");
+                        configured.edgeBoost = undefined;
+                        configured.edge_use = undefined;
+                    }
                     //TODO: handle edge action and costs on roll
                     console.log("SR6E | ToDo: handle edge action");
                 }
