@@ -603,7 +603,7 @@
             "max": "Максимум",
             "mode_of_operation": "Режим",
             "modifications": "Модификации",
-            "modifier": "Изм.",
+            "modifier": "Мод.",
             "name": "Название",
             "none": "-",
             "not_present": "отсутствует",
@@ -914,7 +914,7 @@
             "base": "баз",
             "baseString": "Базовый показатель",
             "max": "Макс.",
-            "mod": "изм"
+            "mod": "мод"
         },
         "programtype": {
             "basic": "Базовые программы",
@@ -1809,6 +1809,32 @@
             "flechette": "Стреловидные",
             "gel": "Гелевые",
             "sticknshock": "Электрошоковые"
+		},
+		"effect": {
+			"Label": "Эффекты",
+			"Duration": "Продолжительность",
+			"Source": "Источник",
+			"Toggle": "Вкл./Выкл. эффект",
+			"Temporary": "Временные эффекты",
+			"Passive": "Пассивные эффекты",
+			"Inactive": "Неактивные эффекты",
+			"CantDelete": "Данный эффект можно удалить только с предмета, откуда он происходит."
+		},
+		"ACTIVE_EFFECT_OPTIONS": {
+			"attributes.bod.mod": "Модификатор тела",
+			"attributes.agi.mod": "Модификатор проворства",
+			"Modifier": "Модификатор",
+			"defensepool.physical.mod": "Physical Defense Pool Modifier",
+			"defensepool.astral.mod": "Magic Defense Pool Modifier",
+			"defensepool.matrix.mod": "Matrix Defense Pool Modifier",
+			"defensepool.spells_direct.mod": "Direct Spells Defense Pool Modifier",
+			"defensepool.spells_indirect.mod": "Indirect Spells Defense Pool Modifier",
+			"defensepool.toxin.mod": "Toxin Defense Pool Modifier",
+			"defensepool.damage_physical.mod": "Physical Damage Defense Pool Modifier",
+			"defensepool.damage_astral.mod": "Astral Damage Defense Pool Modifier",
+			"initiative.physical.diceMod": "Physical Initiative Dice Pool Modifier",
+			"initiative.astral.diceMod": "Astral Initiative Dice Pool Modifier",
+			"initiative.matrix.diceMod": "Matrix Initiative Dice Pool Modifier"
         }
     }
 }
