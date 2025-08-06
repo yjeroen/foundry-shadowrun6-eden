@@ -1819,10 +1819,10 @@
       "explanation": "Active Effects can modify attribute modifiers and pools of your character or item.",
       "usage_tips": {
         "1": "In general, use a Modifier key to adjust an Attribute, Pool or Rating.",
-        "2": "Only use a Pool key if you need to <i>Override</i> a complete attribute, like with Cyberlimbs or Skillwires.",
+        "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
         "3": "As normal in Shadowrun 6E, Attribute Modifiers are automatically capped at +4."
       },
-      "item_hint": "If you want to adjust an Item statistic itself, like with a Weapon, you <strong>must</strong> disable the Apply Effect to Actor checkbox.",
+      "item_tip": "If you want to adjust an Item statistic itself, like with a Weapon, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab.",
       "more_info": "For more information, see the following link:",
       "advanced": "Advanced?",
       "advanced_hint": "If checked, you can enter custom System Attribute Keys instead of only the Shadowrun 6E system advised list.",
