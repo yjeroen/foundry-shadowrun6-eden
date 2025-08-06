@@ -237,6 +237,8 @@ Hooks.once("init", async function () {
     });
 
     Hooks.on("ready", () => {
+        // Reassign CONFIG so translations are run
+        game.sr6.config = CONFIG.SR6 = new SR6Config();
         migrateWorld();
         game.sr6.releaseNotes();
 
