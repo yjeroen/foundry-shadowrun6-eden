@@ -270,6 +270,7 @@ Hooks.once("init", async function () {
             return true;
         }
 
+        // TODO FoundryVTT - Will be a core feature in V14
         const dropTarget = [...canvas.tokens.placeables]
             .sort((a, b) => b.document.sort - a.document.sort)
             .sort((a, b) => b.document.elevation - a.document.elevation)
