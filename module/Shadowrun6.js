@@ -39,11 +39,11 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = false;
+    game.debug = true;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
-        CONFIG.debug.hooks = true;
+        CONFIG.debug.hooks = false;
         CONFIG.debug.dice = true;
     }
 
@@ -262,8 +262,27 @@ Hooks.once("init", async function () {
         console.log("SR6E | renderSR6ItemSheet hook called");
         _onRenderItemSheet(app, html, data);
     });
-    Hooks.on("dropCanvasData", (doc, data) => {
-        console.log("SR6E | dropCanvasData hook called", doc);
+    Hooks.on("dropCanvasData", (canvas, data) => {
+        console.log("SR6E | dropCanvasData hook called", canvas, data);
+        if (!(data.type === "Item" || data.type === "ActiveEffect")) {
+            return true;
+        }
+
+        const dropTarget = [...canvas.tokens.placeables]
+            .sort((a, b) => b.document.sort - a.document.sort)
+            .sort((a, b) => b.document.elevation - a.document.elevation)
+            .find((t) => t.visible && t.bounds.contains(data.x, data.y));
+
+        const actor = dropTarget?.actor;
+        if (actor) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.setData("text/plain", JSON.stringify(data));
+            const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt"), dataTransfer });
+            actor.sheet._onDrop(event);
+            return false; // Prevent modules from doing anything further
+        }
+
+        return true;
     });
     /*
      * Something has been dropped on the HotBar
