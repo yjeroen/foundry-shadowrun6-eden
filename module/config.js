@@ -786,12 +786,81 @@ export class SR6Config {
         gel: "shadowrun6.ammotypes.gel",
         sticknshock: "shadowrun6.ammotypes.sticknshock"
     };
+    // TODO: Add modification cap of 4
+    // TODO: Add defensepool.xx.pool to Actor so you can override
+    // TODO: Add system.walk and system.sprint to actorsheet
+    // TODO: Add skills.xx.pool to Actor._prepareSkills so you can override
     ACTIVE_EFFECT_OPTIONS = {
-        system_attributes_bod_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.attributes.bod.mod",
-        system_attributes_agi_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.attributes.agi.mod"
+        system_attributes_bod_mod: game.i18n.localize("attrib.bod")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_agi_mod: game.i18n.localize("attrib.agi")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_rea_mod: game.i18n.localize("attrib.rea")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_str_mod: game.i18n.localize("attrib.str")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_wil_mod: game.i18n.localize("attrib.wil")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_log_mod: game.i18n.localize("attrib.log")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_int_mod: game.i18n.localize("attrib.int")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_cha_mod: game.i18n.localize("attrib.cha")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_edge_max: game.i18n.localize("attrib.edg")+" "+game.i18n.localize("shadowrun6.label.attribute"),                                 // TODO: move system.edge to system.attributes.edge
+        system_attributes_mag_mod: game.i18n.localize("attrib.mag")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_res_mod: game.i18n.localize("attrib.res")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attributes_essence_mod: game.i18n.localize("attrib.ess")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+
+        system_physical_mod: game.i18n.localize("shadowrun6.monitor.physical")+" "+game.i18n.localize("shadowrun6.monitor.label")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_stun_mod: game.i18n.localize("shadowrun6.monitor.stun")+" "+game.i18n.localize("shadowrun6.monitor.label")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+
+        system_attackrating_physical_mod: game.i18n.localize("shadowrun6.attack_rating.physical")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_attackrating_astral_mod:game.i18n.localize("shadowrun6.attack_rating.astral")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),             // Magic AR
+        system_attackrating_matrix_mod: game.i18n.localize("shadowrun6.attack_rating.matrix")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        // system_attackrating_social_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.attackrating.social.mod",          // TODO: Social AR not yet implemented
+        // system_attackrating_vehicle_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.attackrating.vehicle.mod",        // TODO: Vehicle AR not yet implemented
+
+        system_defenserating_physical_mod: game.i18n.localize("shadowrun6.defense_rating.physical")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),       // TODO: Add defenserating.xx.pool to Actor so you can override
+        system_defenserating_astral_mod: game.i18n.localize("shadowrun6.defense_rating.astral")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),           // Magic DR
+        system_defenserating_matrix_mod: game.i18n.localize("shadowrun6.defense_rating.matrix")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        // system_defenserating_social_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defenserating.social.mod",        // TODO: Social DR not yet implemented
+        // system_defenserating_vehicle_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defenserating.vehicle.mod",      // TODO: Vehicle DR not yet implemented
+
+        system_defensepool_physical_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.physical.mod",
+        system_defensepool_astral_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.astral.mod",               // Magic defense pool 
+        system_defensepool_spells__direct_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.spells_direct.mod",
+        system_defensepool_spells__indirect_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.spells_indirect.mod",
+        system_defensepool_toxin_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.toxin.mod",
+        system_defensepool_damage__physical_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.damage_physical.mod",
+        system_defensepool_damage__astral_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.damage_astral.mod",
+        system_defensepool_drain_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.drain.mod",
+        system_defensepool_matrix_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.matrix.mod",
+        // system_defensepool_vehicle_mod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.defensepool.vehicle.mod",      // TODO: Vehicle def pool not yet implemented
+
+        system_derived_composure_mod: game.i18n.localize("shadowrun6.derived.composure")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_derived_judge__intentions_mod: game.i18n.localize("shadowrun6.derived.judge_intentions")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_derived_memory_mod: game.i18n.localize("shadowrun6.derived.memory")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_derived_lift__carry_mod: game.i18n.localize("shadowrun6.derived.lift_carry")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_derived_matrix__perception_mod: game.i18n.localize("shadowrun6.derived.matrix_perception")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+
+        system_initiative_physical_mod: game.i18n.localize("attrib.ini")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_initiative_physical_diceMod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.initiative.physical.diceMod",
+        system_initiative_astral_mod: game.i18n.localize("attrib.inia")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_initiative_astral_diceMod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.initiative.astral.diceMod",
+        system_initiative_matrix_mod: game.i18n.localize("attrib.inim")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_initiative_matrix_diceMod: "shadowrun6.ACTIVE_EFFECT_OPTIONS.initiative.matrix.diceMod",
+
+        system_skills_astral_modifier: game.i18n.localize("skill.astral")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_athletics_modifier: game.i18n.localize("skill.atletics")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_biotech_modifier: game.i18n.localize("skill.biotech")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_close__combat_modifier: game.i18n.localize("skill.close_combat")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_con_modifier: game.i18n.localize("skill.con")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_conjuring_modifier: game.i18n.localize("skill.conjuring")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_cracking_modifier: game.i18n.localize("skill.cracking")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_electronics_modifier: game.i18n.localize("skill.electronics")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_enchanting_modifier: game.i18n.localize("skill.enchanting")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_exotic__weapons_modifier: game.i18n.localize("skill.exotic_weapons")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_firearms_modifier: game.i18n.localize("skill.firearms")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_influence_modifier: game.i18n.localize("skill.influence")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_outdoors_modifier: game.i18n.localize("skill.outdoors")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_perception_modifier: game.i18n.localize("skill.perception")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_piloting_modifier: game.i18n.localize("skill.piloting")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_sorcery_modifier: game.i18n.localize("skill.sorcery")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_stealth_modifier: game.i18n.localize("skill.stealth")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_tasking_modifier: game.i18n.localize("skill.tasking")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier"),
+        system_skills_athletics_modifier: game.i18n.localize("skill.atletics")+" "+game.i18n.localize("shadowrun6.ACTIVE_EFFECT_OPTIONS.Modifier")
     };
-    // ACTIVE_EFFECT_OPTIONS = [
-    //     "system.attributes.bod.mod",
-    //     "system.attributes.agi.mod"
-    // ];
 }
