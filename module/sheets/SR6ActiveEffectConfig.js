@@ -71,10 +71,11 @@ export class SR6ActiveEffectConfig extends ActiveEffectConfig {
     async _prepareContext(options) {
         const context = await super._prepareContext(options);
         context.ACTIVE_EFFECT_OPTIONS = CONFIG.SR6.ACTIVE_EFFECT_OPTIONS;
-        context.labels.usage_tips = game.i18n._fallback.shadowrun6 ? 
-                                    game.i18n._fallback.shadowrun6.active_effect.usage_tips : 
-                                    game.i18n.translations.shadowrun6.active_effect.usage_tips;
-                                    
+
+        context.tabs.changes.usage_tips = game.i18n._fallback.shadowrun6 ? 
+                                          game.i18n._fallback.shadowrun6.active_effect.usage_tips : 
+                                          game.i18n.translations.shadowrun6.active_effect.usage_tips;
+
         console.log("SR6E | SR6ActiveEffectConfig._prepareContext()", context);
         return context;
     }

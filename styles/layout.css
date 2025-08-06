@@ -572,7 +572,7 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 }
 .active-effect-config .tab.changes header,
 .active-effect-config .tab.changes ol {
-  grid-template-columns: 21rem 7rem 7rem 4rem 1rem;
+  grid-template-columns: 19.5rem 7rem 7rem 4rem 1rem;
 }
 .active-effect-config .key input {
   line-height: var(--font-size-14);
@@ -582,4 +582,17 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 }
 .game .application input[type=checkbox] {
   box-shadow: none;
+}
+.active-effect-config .form-group ul,
+.active-effect-config .form-group ol,
+.active-effect-config .form-group p {
+  margin: 0.25rem 0;
+}
+/* Fix .scrollable on the Changes tab */
+.active-effect-config .tab.changes {
+  overflow-y: revert;
+}
+.active-effect-config .tab.changes ol.scrollable {
+  min-height: 4.5rem;
+  align-items: baseline;
 }

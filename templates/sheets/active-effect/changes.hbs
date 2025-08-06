@@ -1,11 +1,11 @@
 {{!-- FoundryVTT v13+ --}}
 
-<section class="tab changes{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+<section class="tab changes scrollable{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
     <fieldset>
         <div class="form-group stacked">
             <p>{{{localize "shadowrun6.active_effect.explanation"}}}</p>
             <ul>
-                {{#each labels.usage_tips as |tip i|}}
+                {{#each tab.usage_tips as |tip i|}}
                 <li>{{{localize (concat "shadowrun6.active_effect.usage_tips." i) }}}</li>
                 {{/each}}
                 {{#if isItemEffect}}
@@ -16,9 +16,8 @@
         </div>
         <div class="form-group">
             <label>{{localize "shadowrun6.active_effect.advanced"}}</label>
-            <div class="form-fields"><input type="checkbox" name="system.advanced" class="advanced-active-effects" {{#if data.system.advanced}}checked{{/if}} /></div>
-            <p class="hint">{{localize "shadowrun6.active_effect.advanced_hint
-                "}}</p>
+            <div class="form-fields"><input type="checkbox" name="system.advanced" class="advanced-active-effects" {{#if source.system.advanced}}checked{{/if}} /></div>
+            <p class="hint">{{localize "shadowrun6.active_effect.advanced_hint"}}</p>
         </div>
     </fieldset>
     
