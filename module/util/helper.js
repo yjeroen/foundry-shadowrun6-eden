@@ -484,7 +484,9 @@ function datalistOptions(choices, options) {
       for ( const choice of Object.entries(choices) ) {
         const [k, v] = inverted ? choice.reverse() : choice;
         let value = valueAttr ? v[valueAttr] : k;
+        value = value.replaceAll("__", "-")
         value = value.replaceAll("_", ".")
+        value = value.replaceAll("-", "_")
         if ( typeof v === "object" ) selectOptions.push({value, ...v});
         else selectOptions.push({value, label: v});
       }
