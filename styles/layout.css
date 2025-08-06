@@ -577,3 +577,9 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 .active-effect-config .key input {
   line-height: var(--font-size-14);
 }
+.active-effect-sheet .key select {
+  width: 100%;
+}
+.game .application input[type=checkbox] {
+  box-shadow: none;
+}

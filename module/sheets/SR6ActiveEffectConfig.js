@@ -25,7 +25,11 @@ export class SR6ActiveEffectConfig extends ActiveEffectConfig {
      */
     async getData(options={}) {
         const context = await super.getData(options);
+        context.labels.usage_tips = game.i18n._fallback.shadowrun6 ? 
+                                    game.i18n._fallback.shadowrun6.active_effect.usage_tips : 
+                                    game.i18n.translations.shadowrun6.active_effect.usage_tips;
 
+        console.log("SR6E | SR6ActiveEffectConfig.getData()", context);
         // Return rendering context
         return foundry.utils.mergeObject(context, {
             ACTIVE_EFFECT_OPTIONS: CONFIG.SR6.ACTIVE_EFFECT_OPTIONS,
@@ -67,8 +71,41 @@ export class SR6ActiveEffectConfig extends ActiveEffectConfig {
     async _prepareContext(options) {
         const context = await super._prepareContext(options);
         context.ACTIVE_EFFECT_OPTIONS = CONFIG.SR6.ACTIVE_EFFECT_OPTIONS;
+        context.labels.usage_tips = game.i18n._fallback.shadowrun6 ? 
+                                    game.i18n._fallback.shadowrun6.active_effect.usage_tips : 
+                                    game.i18n.translations.shadowrun6.active_effect.usage_tips;
+                                    
         console.log("SR6E | SR6ActiveEffectConfig._prepareContext()", context);
         return context;
+    }
+
+    /**
+     * Foundry V12
+     * HTML Listeners
+     */
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".advanced-active-effects").click(this._toggleAdvancedConfig.bind(this));
+    }
+
+    /**
+     * Foundry V13
+     * Listener on changing the form
+     */
+    async _onChangeForm(formConfig, event) {
+        super._onChangeForm(formConfig, event);
+        console.log("SR6E | SR6ActiveEffectConfig._onChangeForm()", formConfig, event);
+        if (event.target?.name === "system.advanced") {
+            await this._toggleAdvancedConfig();
+        }
+    }
+
+    /**
+     * Toggling the Advanced Config with input keys instead of select keys
+     */
+    async _toggleAdvancedConfig(event) {
+        console.log("SR6E | SR6ActiveEffectConfig._toggleAdvancedConfig()", this.document.system.advanced);
+        return this.submit({preventClose: true}).then(() => this.render());
     }
 
 }

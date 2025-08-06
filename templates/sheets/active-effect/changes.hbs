@@ -1,6 +1,33 @@
 {{!-- FoundryVTT v13+ --}}
 
 <section class="tab changes{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+    <fieldset>
+        <div class="form-group stacked">
+            <p>{{{localize "shadowrun6.active_effect.explanation"}}}</p>
+            <ul>
+                {{#each labels.usage_tips as |tip i|}}
+                <li>{{{localize (concat "shadowrun6.active_effect.usage_tips." i) }}}</li>
+                {{/each}}
+            </ul>
+            <p>{{localize "shadowrun6.active_effect.more_info"}} <a href="https://foundryvtt.com/article/active-effects/">FoundryVTT.com Active Effects</a></p>
+        </div>
+        {{#if isItemEffect}}
+        <div class="form-group">
+            <label>{{ labels.transfer.name }}</label>
+            <div class="form-fields">
+                <input type="checkbox" name="transfer" {{checked data.transfer}}/>
+            </div>
+            <p class="hint">{{ labels.transfer.hint }} {{{localize "shadowrun6.active_effect.item_hint"}}}</p>
+        </div>
+        {{/if}}
+        <div class="form-group">
+            <label>{{localize "shadowrun6.active_effect.advanced"}}</label>
+            <div class="form-fields"><input type="checkbox" name="system.advanced" class="advanced-active-effects" {{#if data.system.advanced}}checked{{/if}} /></div>
+            <p class="hint">{{localize "shadowrun6.active_effect.advanced_hint
+                "}}</p>
+        </div>
+    </fieldset>
+    
     <header>
         <div class="key">{{localize "EFFECT.ChangeKey"}}</div>
         <div class="mode">{{localize "EFFECT.ChangeMode"}}</div>
@@ -14,7 +41,13 @@
         <li data-index="{{i}}">
             <div class="key">
                 {{!-- {{formInput changeFields.key name=(concat "changes." i ".key") value=change.key list="effect-attributes"}} --}}
+                {{#if ../../source.system.advanced}}
                 <input type="text" name="changes.{{i}}.key" value="{{change.key}}" list="effect-option-list"/>
+                {{else}}
+                <select name="changes.{{i}}.key" data-dtype="text">
+                    {{datalistOptions ../../ACTIVE_EFFECT_OPTIONS selected=change.key localize=true blank=""}}
+                </select>
+                {{/if}}
             </div>
             <div class="mode">
                 {{!-- {{formInput changeFields.mode name=(concat "changes." i ".mode") value=change.mode choices=@root.modes}} --}}
@@ -36,7 +69,9 @@
         {{/with}}
         {{/each}}
     </ol>
+    {{#if source.system.advanced}}
     <datalist id="effect-option-list">
         {{datalistOptions ACTIVE_EFFECT_OPTIONS localize=true}}
     </datalist>
+    {{/if}}
 </section>

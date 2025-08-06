@@ -8,6 +8,7 @@ export default class SR6ActiveEffectModel extends foundry.abstract.TypeDataModel
               initial: 1,
               min: 0
       }),
+      advanced: new fields.BooleanField()
     }
   }
 
