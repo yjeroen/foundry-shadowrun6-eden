@@ -535,7 +535,7 @@ export class Shadowrun6Actor extends Actor {
         system.attackrating.physical.base = system.attributes["rea"].pool + system.attributes["str"].pool;
         system.attackrating.physical.modString = game.i18n.localize("attrib.rea_short") + " " + system.attributes["rea"].pool + " ";
         system.attackrating.physical.modString += game.i18n.localize("attrib.str_short") + " " + system.attributes["str"].pool;
-        system.attackrating.physical.pool = system.attackrating.physical.base + system.attackrating.physical.mod;
+        system.attackrating.physical.pool = system.attackrating.physical.base;
         if (system.attackrating.physical.mod) {
             system.attackrating.physical.pool += system.attackrating.physical.mod;
             system.attackrating.physical.modString += " + " + system.attackrating.physical.mod;
