@@ -709,7 +709,7 @@ export class Shadowrun6Actor extends Actor {
             CONFIG.SR6.ATTRIB_BY_SKILL.forEach(function (skillDef, id) {
                 let attr = skillDef.attrib;
                 let attribVal = data.attributes[attr].pool;
-                data.skills[id].pool = attribVal + data.skills[id].points;
+                data.skills[id].pool = attribVal + data.skills[id].points + data.skills[id].modifier;
                 if (data.skills[id].points == 0) {
                     if(skillDef.useUntrained) {
                         data.skills[id].pool = attribVal - 1;
