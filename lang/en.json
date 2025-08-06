@@ -600,7 +600,7 @@
       "max": "Maximum",
       "mode_of_operation": "Mode of Operation",
       "modifications": "Modifications",
-      "modifier": "Adjust",
+      "modifier": "Mod",
       "name": "Name",
       "none": "-",
       "not_present": "not present",
@@ -911,7 +911,7 @@
       "base": "base",
       "baseString": "Base Value",
       "max": "Max",
-      "mod": "adj"
+      "mod": "mod"
     },
 	"programtype": {
 		"basic": "Basic programs",
