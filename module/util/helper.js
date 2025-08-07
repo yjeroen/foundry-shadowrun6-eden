@@ -67,12 +67,6 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("spellDurationName", function (val) {
         return game.i18n.localize(CONFIG.SR6.spell_duration[val] + "_short");
     });
-    Handlebars.registerHelper("concat", function (op1, op2) {
-        return op1 + op2;
-    });
-    Handlebars.registerHelper("concat3", function (op1, op2, op3) {
-        return op1 + op2 + op3;
-    });
     Handlebars.registerHelper("ifIn", function (elem, list, options) {
         if (list.indexOf(elem) > -1) {
             return options.fn(this);

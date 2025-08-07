@@ -33,9 +33,8 @@
         {{#with ../fields.changes.element.fields as |changeFields|}}
         <li data-index="{{i}}">
             <div class="key">
-                {{!-- {{formInput changeFields.key name=(concat "changes." i ".key") value=change.key list="effect-attributes"}} --}}
                 {{#if ../../source.system.advanced}}
-                <input type="text" name="changes.{{i}}.key" value="{{change.key}}" list="effect-option-list"/>
+                {{formInput changeFields.key name=(concat "changes." i ".key") value=change.key list="effect-option-list"}}
                 {{else}}
                 <select name="changes.{{i}}.key" data-dtype="text">
                     {{datalistOptions ../../ACTIVE_EFFECT_OPTIONS selected=change.key localize=true blank=""}}
@@ -43,19 +42,14 @@
                 {{/if}}
             </div>
             <div class="mode">
-                {{!-- {{formInput changeFields.mode name=(concat "changes." i ".mode") value=change.mode choices=@root.modes}} --}}
-                <select name="changes.{{i}}.mode" data-dtype="Number">
-                    {{selectOptions ../../modes selected=change.mode}}
-                </select>
+                {{formInput changeFields.mode name=(concat "changes." i ".mode") value=change.mode choices=@root.modes}}
             </div>
             <div class="value">
-                {{!-- {{formInput changeFields.value name=(concat "changes." i ".value") value=change.value}} --}}
-                <input type="text" name="changes.{{i}}.value" value="{{change.value}}"/>
+                {{formInput changeFields.value name=(concat "changes." i ".value") value=change.value}}
             </div>
             <div class="priority">
-                {{!-- {{formInput changeFields.priority name=(concat "changes." i ".priority") value=change.priority
-                    placeholder=(lookup ../../priorities change.mode)}} --}}
-                <input type="text" name="changes.{{i}}.priority" value="{{change.priority}}" placeholder="{{lookup ../../priorities change.mode}}"/>
+                {{formInput changeFields.priority name=(concat "changes." i ".priority") value=change.priority
+                    placeholder=(lookup ../../priorities change.mode)}}
             </div>
             <div class="controls"><a data-action="deleteChange"><i class="fa-solid fa-trash"></i></a></div>
         </li>
