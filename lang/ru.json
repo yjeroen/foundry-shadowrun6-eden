@@ -1830,17 +1830,17 @@
 			"attributes.bod.mod": "Модификатор тела",
 			"attributes.agi.mod": "Модификатор проворства",
 			"Modifier": "Модификатор",
-			"defensepool.physical.mod": "Physical Defense Pool Modifier",
-			"defensepool.astral.mod": "Magic Defense Pool Modifier",
-			"defensepool.matrix.mod": "Matrix Defense Pool Modifier",
-			"defensepool.spells_direct.mod": "Direct Spells Defense Pool Modifier",
-			"defensepool.spells_indirect.mod": "Indirect Spells Defense Pool Modifier",
-			"defensepool.toxin.mod": "Toxin Defense Pool Modifier",
-			"defensepool.damage_physical.mod": "Physical Damage Defense Pool Modifier",
-			"defensepool.damage_astral.mod": "Astral Damage Defense Pool Modifier",
-			"initiative.physical.diceMod": "Physical Initiative Dice Pool Modifier",
-			"initiative.astral.diceMod": "Astral Initiative Dice Pool Modifier",
-			"initiative.matrix.diceMod": "Matrix Initiative Dice Pool Modifier"
+			"defensepool.physical.mod": "Модификатор набора кубиков физической защиты",
+			"defensepool.astral.mod": "Модификатор набора кубиков астральной защиты",
+			"defensepool.matrix.mod": "Модификатор набора кубиков защиты в матрице",
+			"defensepool.spells_direct.mod": "Модификатор набора кубиков защиты от заклинаний прямого действия",
+			"defensepool.spells_indirect.mod": "Модификатор набора кубиков защиты от заклинаний косвенного действия",
+			"defensepool.toxin.mod": "Модификатор набора кубиков сопротивления токсинам",
+			"defensepool.damage_physical.mod": "Модификатор набора кубиков физической атаки",
+			"defensepool.damage_astral.mod": "Модификатор набора кубиков астральной атаки",
+			"initiative.physical.diceMod": "Модификатор набора кубиков физической инициативы",
+			"initiative.astral.diceMod": "Модификатор набора кубиков астральной инициативы",
+			"initiative.matrix.diceMod": "Модификатор набора кубиков инициативы в матрице"
 		}
 	}
 }
