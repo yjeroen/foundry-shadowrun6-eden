@@ -843,8 +843,11 @@
     "monitor": {
 		  "label": "Monitor",
 		  "matrix": "Matrix",
+		  "matrix_monitor": "Matrix Monitor",
       "physical": "Physical",
+      "physical_monitor": "Physical Monitor",
       "stun": "Stun",
+      "stun_monitor": "Stun Monitor",
       "overflow": "Overflow",
       "dead": "DEAD",
       "broken": "BROKEN DOWN"
@@ -1832,8 +1835,9 @@
       "more_info": "For more information, see the following link:",
       "advanced": "Advanced?",
       "advanced_hint": "If checked, you can enter custom System Attribute Keys instead of only the Shadowrun 6E system advised list.",
-      "Modifier": "Modifier",
-      "Pool": "Pool (Override only)",
+      "Modifier": "{attribute} Modifier",
+      "Skill": "{skill} Skill",
+      "Pool": "{pool} Pool (Override only)",
       "defensepool.physical.mod": "Physical Defense Pool Modifier",
       "defensepool.astral.mod": "Magic Defense Pool Modifier",
       "defensepool.matrix.mod": "Matrix Defense Pool Modifier",
