@@ -503,6 +503,7 @@
       "skill": "Skill",
       "skillspec": "Specialisation",
       "social": "Social",
+      "social_rating": "Social Rating",
       "stun_damage": "S",
       "subtype": "Subtype",
       "type": "Type",
@@ -1845,7 +1846,9 @@
       "initiative.physical.diceMod": "Physical Initiative Dice Pool Modifier",
       "initiative.astral.diceMod": "Astral Initiative Dice Pool Modifier",
       "initiative.matrix.diceMod": "Matrix Initiative Dice Pool Modifier",
-      "weapon.mod": "Weapon Mod:"
+      "armor.mod": "Armor Mod:",
+      "weapon.mod": "Weapon Mod:",
+      "stunOrPhysical": "Stun (true) or Physical (false) damage"
     }
   }
 }

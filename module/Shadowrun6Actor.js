@@ -56,6 +56,13 @@ function getItemData(obj) {
     return obj.data;
 }
 export class Shadowrun6Actor extends Actor {
+
+    /** @inheritDoc */
+    prepareEmbeddedDocuments() {
+        this._embeddedPreparation = true;
+        super.prepareEmbeddedDocuments();
+        delete this._embeddedPreparation;
+    }
     /**
      * @Override
      */

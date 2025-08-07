@@ -13,13 +13,17 @@ export default class SR6Item extends Item {
    * Augment the basic Item data model with additional dynamic data.
    */
   prepareData() {
+    // system addittions must be done before super.prepareData()
+    this._addDefaultFireModePenalties();
+
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
     this._migrateCleanUp();
-    
+
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     this.actor?._prepareAttributes();
+
     this.calcAttackRating();
     this.calcDamage();
     this.calcAmmo();
@@ -109,6 +113,17 @@ export default class SR6Item extends Item {
     if (this.system.ammoLoaded === undefined) this.system.ammoLoaded = 'regular';
     if (typeof this.system.ammocap === 'string') this.system.ammocap = parseInt(this.system.ammocap);
     if (typeof this.system.ammocount === 'string') this.system.ammocount = parseInt(this.system.ammocount);
+  }
+
+  _addDefaultFireModePenalties() {
+    if (this.system.modes === undefined) return;
+
+    this.system.modes.SA_ar_mod = -2;
+    // this.system.modes.SA_dmg_mod = 1;
+    this.system.modes.BF_ar_mod = -4;
+    // this.system.modes.BF_dmg_mod = 2;
+    this.system.modes.FA_ar_mod = -6;
+    // this.system.modes.FA_dmg_mod = 0;
   }
 
   calcAttackRating() {
@@ -239,4 +254,81 @@ export default class SR6Item extends Item {
       return roll;
     }
   }
+
+  /**
+   * Enable Active Effects on Item
+   */
+  prepareEmbeddedDocuments() {
+    super.prepareEmbeddedDocuments();
+    if ( !this.actor || this.actor._embeddedPreparation ) this.applyActiveEffects();
+  }
+
+  /**
+   * An object that tracks which tracks the changes to the data model which were applied by active effects
+   * @type {object}
+   */
+  overrides = this.overrides ?? {};
+
+  /**
+   * Apply any transformations to the Item data which are caused by ActiveEffects.
+   */
+  applyActiveEffects() {
+    const overrides = {};
+
+    // Organize non-disabled effects by their application priority
+    const changes = [];
+    for ( const effect of this.allApplicableEffects() ) {
+      if ( !effect.active ) continue;
+      changes.push(...effect.changes.map(change => {
+        const c = foundry.utils.deepClone(change);
+        c.effect = effect;
+        c.priority = c.priority ?? (c.mode * 10);
+        return c;
+      }));
+      for ( const statusId of effect.statuses ) this.statuses.add(statusId);
+    }
+    changes.sort((a, b) => a.priority - b.priority);
+
+    // Temporarily change attackRating []  --- TODO: rework attackRating into an object completely
+    this.#attackRatingToObject();
+
+    // Apply all changes
+    for ( let change of changes ) {
+      if ( !change.key ) continue;
+      const changes = change.effect.apply(this, change);
+      Object.assign(overrides, changes);
+    }
+
+    // Change attackRating back to []
+    this.#attackRatingToArray();
+
+    // Expand the set of final overrides
+    this.overrides = foundry.utils.expandObject(overrides);
+  }
+
+  /**
+   * Get all ActiveEffects that may apply to this Item.
+   * @yields {ActiveEffect}
+   * @returns {Generator<ActiveEffect, void, void>}
+   */
+  *allApplicableEffects() {
+    for ( const effect of this.effects ) {
+      // Only use effects that aren't transfered to the Actor
+      if ( !effect.transfer ) yield effect;
+    }
+  }
+  
+  #attackRatingToObject() {
+    if (this.system.attackRating === undefined) return;
+
+    const arObj = {...this.system.attackRating};
+    this.system.attackRating = arObj;
+  }
+  #attackRatingToArray() {
+    if (this.system.attackRating === undefined) return;
+
+    const arArray = Object.values(this.system.attackRating);
+    this.system.attackRating = arArray;
+  }
+
 }

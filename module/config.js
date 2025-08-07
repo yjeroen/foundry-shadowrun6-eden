@@ -791,7 +791,13 @@ export class SR6Config {
     // TODO: Add system.walk and system.sprint to actorsheet
     // TODO: Add skills.xx.pool to Actor._prepareSkills so you can override
     // TODO: Allow multipliers with Rating
+    // TODO: extend ActiveEffect class and add the Change Mode option for "Add if not 0", for AR increases
+    // TODO: Add equip/unequip option to gear tab & effects tab in actorsheet
+    // TODO: Add Wild die option for actors (always) and items (when using the item)
+    // TODO: Add Concealability threshold to gear
+    // TODO: Add items on items
     ACTIVE_EFFECT_OPTIONS = {
+        // ----------- Most used Actor Effects ----------- //
         system_attributes_bod_mod: game.i18n.localize("attrib.bod")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
         system_attributes_agi_mod: game.i18n.localize("attrib.agi")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
         system_attributes_rea_mod: game.i18n.localize("attrib.rea")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
@@ -805,6 +811,25 @@ export class SR6Config {
         system_attributes_res_mod: game.i18n.localize("attrib.res")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
         system_attributes_essence_mod: game.i18n.localize("attrib.ess")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
 
+        // ----------- Weapon Mods ----------- //
+        system_attackRating_0: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_0")+")",
+        system_attackRating_1: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_1")+")",
+        system_attackRating_2: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_2")+")",
+        system_attackRating_3: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_3")+")",
+        system_attackRating_4: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_4")+")",
+
+        system_modes_SA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier")+" ("+game.i18n.localize("shadowrun6.item.mode_sa")+")",
+        // system_modes_SA__dmg__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.damage_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier")+" ("+game.i18n.localize("shadowrun6.item.mode_sa")+")",
+        system_modes_BF__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier")+" ("+game.i18n.localize("shadowrun6.item.mode_bf")+")",
+        system_modes_FA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier")+" ("+game.i18n.localize("shadowrun6.item.mode_fa")+")",
+        
+        system_dmg: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.damage_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
+        system_stun: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.stunOrPhysical"),
+
+        system_defense: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.localize("attrib.dr")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
+        system_social: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.localize("shadowrun6.item.social_rating")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
+
+        // ----------- Less used Actor Effects ----------- //
         system_physical_mod: game.i18n.localize("shadowrun6.monitor.physical")+" "+game.i18n.localize("shadowrun6.monitor.label")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
         system_stun_mod: game.i18n.localize("shadowrun6.monitor.stun")+" "+game.i18n.localize("shadowrun6.monitor.label")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier"),
 

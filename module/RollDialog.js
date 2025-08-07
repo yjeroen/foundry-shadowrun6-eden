@@ -481,19 +481,19 @@ export class RollDialog extends Dialog {
                 this.html.find(".onlyFA").css("display", "none");
                 this.html.find(".onlyBF").css("display", "none");
                 rounds = 2;
-                arMod = -2;
+                arMod = prepared.item.system.modes.SA_ar_mod; // -2 default
                 dmgMod = 1;
                 break;
             case "BF":
                 this.html.find(".onlyFA").css("display", "none");
                 this.html.find(".onlyBF").css("display", "table-cell");
                 rounds = 4;
-                arMod = -4;
+                arMod = prepared.item.system.modes.BF_ar_mod; // -4 default
                 dmgMod = 2;
                 break;
             case "FA":
                 rounds = 10;
-                arMod = -6;
+                arMod = prepared.item.system.modes.FA_ar_mod; // -6 default
                 this.html.find(".onlyFA").css("display", "table-cell");
                 this.html.find(".onlyBF").css("display", "none");
                 let fullAutoElement = document.getElementById("fullAutoArea");
@@ -518,17 +518,17 @@ export class RollDialog extends Dialog {
         switch (fireModeElement.value) {
             case "wide_burst":
                 // TODO implement anticipation; i.e. two rolls to the two targets
-                arMod = -2;
+                arMod = prepared.item.system.modes.SA_ar_mod; // -2 default
                 dmgMod = 1;
                 if (game.user.targets.size !== 2) {
                     ui.notifications.error("shadowrun6.ui.notifications.You_can_only_choose_Wide_Burst_when_you_target_two_tokens", { localize: true });
                     fireModeElement.value = 'narrow_burst';
-                    arMod = -4;
+                    arMod = prepared.item.system.modes.BF_ar_mod; // -4 default
                     dmgMod = 2;
                 }
                 break;
             case "narrow_burst":
-                arMod = -4;
+                arMod = prepared.item.system.modes.BF_ar_mod; // -4 default
                 dmgMod = 2;
                 break;
         }
@@ -584,7 +584,7 @@ export class RollDialog extends Dialog {
         let fullAutoElement = document.getElementById("fullAutoArea");
         if (!fullAutoElement)
             return;
-        let arMod = -6;
+        let arMod = prepared.item.system.modes.FA_ar_mod; // -6 default
         let dmgMod = 0;
         let rounds = 10;
 
