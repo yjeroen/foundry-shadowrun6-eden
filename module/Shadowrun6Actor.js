@@ -425,7 +425,10 @@ export class Shadowrun6Actor extends Actor {
                 if (!(system.attributes[attr].mod)) //Allow negative mods OLD: //  || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system))
                     system.attributes[attr].mod = 0;
 
-                system.attributes[attr].pool = Math.max(1, system.attributes[attr].base + parseInt(system.attributes[attr].mod));
+                // Attribute Pool cannot be lower than 1 and cannot apply a Mod higher than 4
+                if (parseInt(system.attributes[attr].mod) > 4 ) 
+                    system.attributes[attr].modString = game.i18n.localize("attrib.max_augment");
+                system.attributes[attr].pool = Math.max(1, system.attributes[attr].base + Math.min(4, parseInt(system.attributes[attr].mod)) );
             });
             if (system.edge.value > 7) {
                 system.edge.value = 7;

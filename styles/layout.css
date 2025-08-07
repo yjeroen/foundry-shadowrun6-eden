@@ -570,6 +570,12 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 .shadowrun6 .effects .item .effect-source .item-control {
   vertical-align: top;
 }
+.shadowrun6 .attribute input {
+  color: gray;
+}
+.shadowrun6 .attribute input.attribute-mod-high {
+  color: darkorange;
+}
 .active-effect-config .tab.changes header,
 .active-effect-config .tab.changes ol {
   grid-template-columns: 19.5rem 7rem 7rem 4rem 1rem;

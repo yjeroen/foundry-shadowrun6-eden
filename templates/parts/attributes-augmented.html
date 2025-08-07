@@ -14,7 +14,10 @@
          </div>
          <div class="field {{id}}Changed">
             <label>{{localize 'shadowrun6.numerical.mod'}}</label>
-            <input name="attributesMod{{id}}" type="number" data-dtype="Number" data-field="system.attributes.{{id}}.mod" value="{{attribute.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
+            <input name="attributesMod{{id}}" type="number" data-dtype="Number" data-field="system.attributes.{{id}}.mod" value="{{attribute.mod}}"
+                   placeholder="±adj" title="{{attribute.modString}}"
+                   {{#iff attribute.mod '>' 4}} class="attribute-mod-high"{{/iff}}
+            />
          </div>
       </div>
     {{/ifIn}}
