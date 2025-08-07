@@ -83,7 +83,7 @@
 
                     {{#each item.system.attackRating as |arating id|}}
                     <td style="text-align: center" data-array="system.attackRating">
-                        <input name="attackRating{{id}}" type="number" value="{{arating}}" data-array-field data-index="{{id}}" style="width:2em" class="centered box" />
+                        <input name="attackRating{{id}}" type="number" value="{{arating}}" data-array-field data-index="{{id}}" style="width:2em" class="centered box" title="{{localize (concat (concat "shadowrun6.roll.ar_" id) "_hint")}}"/>
                     </td>
                     {{/each}}
                 </tr>

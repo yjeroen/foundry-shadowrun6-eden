@@ -17,7 +17,7 @@
 					<tr>
 						<td><span name="calcDamage">{{data.calcDamage}}</span><span name="calcDamagedMonitor">{{#if data.item.calculated.stun}}{{localize "shadowrun6.item.stun_damage"}}{{else}}{{localize "shadowrun6.item.physical_damage"}}{{/if}}</span></td>
 						<td>{{firemodes data.gear.modes}}</td>
-						<td name="calcAR">{{attackrating data.calcAttackRating}}</td>
+						<td name="calcAR">{{{attackrating data.calcAttackRating}}}</td>
 						<td name="calcRounds">{{data.calcRounds}}</td>
 					</tr>
 				</table>

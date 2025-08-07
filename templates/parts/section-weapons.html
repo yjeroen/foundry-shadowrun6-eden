@@ -15,7 +15,7 @@
                 <label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label>
             </td>
             <td style="width: 10%"><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
-            <td style="width: 15%"><label class="middle-column" >{{attackrating item.calculated.attackRating}}</label></td>
+            <td style="width: 15%"><label class="middle-column" >{{{attackrating item.calculated.attackRating}}}</label></td>
             <td style="width: 15%; text-align: right; vertical-align: middle; white-space: nowrap;">
                 {{#iff item.system.ammocap '>' 0}}
                 {{item.system.ammocount}}/{{item.system.ammocap}}
@@ -81,7 +81,7 @@
                 <label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label>
             </td>
             <td style="width: 10%"><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
-            <td style="width: 15%"><label class="middle-column" >{{attackrating item.calculated.attackRating}}</label></td>
+            <td style="width: 15%"><label class="middle-column" >{{{attackrating item.calculated.attackRating}}}</label></td>
             <td style="width: 15%"></td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
                 <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
@@ -147,7 +147,7 @@
                 <label class="middle-column important-column">{{item.system.dmgDef}}</label>
             </td>
             <td style="width: 15%">
-                <label class="middle-column" >{{attackrating item.calculated.attackRating}}</label>
+                <label class="middle-column" >{{{attackrating item.calculated.attackRating}}}</label>
             </td>
             <td style="width: 15%; text-align: right; vertical-align: middle; white-space: nowrap;">
                 {{#iff item.system.ammocap '>' 0}}
