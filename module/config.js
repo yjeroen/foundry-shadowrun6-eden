@@ -890,6 +890,7 @@ export class SR6Config {
         
         system_attributes_agi_pool: game.i18n.localize("attrib.agi")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
         system_attributes_str_pool: game.i18n.localize("attrib.str")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
+        
         system_skills_astral_pool: game.i18n.localize("skill.astral")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
         system_skills_athletics_pool: game.i18n.localize("skill.athletics")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
         system_skills_biotech_pool: game.i18n.localize("skill.biotech")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
@@ -907,8 +908,7 @@ export class SR6Config {
         system_skills_piloting_pool: game.i18n.localize("skill.piloting")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
         system_skills_sorcery_pool: game.i18n.localize("skill.sorcery")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
         system_skills_stealth_pool: game.i18n.localize("skill.stealth")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
-        system_skills_tasking_pool: game.i18n.localize("skill.tasking")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool"),
-        system_skills_athletics_pool: game.i18n.localize("skill.atletics")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool")
+        system_skills_tasking_pool: game.i18n.localize("skill.tasking")+" "+game.i18n.localize("label.skill")+" "+game.i18n.localize("shadowrun6.active_effect.Pool")
 
     };
 }
