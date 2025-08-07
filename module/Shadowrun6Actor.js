@@ -68,7 +68,6 @@ export class Shadowrun6Actor extends Actor {
      */
     prepareData() {
         console.log("SR6E | Shadowrun6Actor.prepareData() ", this);
-        super.prepareData();
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (isPlayer(system)) {
@@ -95,7 +94,6 @@ export class Shadowrun6Actor extends Actor {
                 this._prepareDefenseRatings();
                 this._prepareSkills();
                 this._prepareDefensePools();
-                this._prepareItemPools();
                 this._prepareVehiclePools();
                 this._calculateEssence();
                 if (isLifeform(system) && system.mortype) {
@@ -126,6 +124,13 @@ export class Shadowrun6Actor extends Actor {
                 this._prepareDerivedVehicleAttributes();
                 this._prepareVehicleActorSkills();
                 this._prepareVehicleActorItems();
+            }
+
+            // Also call Item Active Effects
+            super.prepareData();
+
+            if (actorData.type != "Vehicle" && actorData.type != "Critter") {
+                this._prepareItemPools();
             }
         }
         catch (err) {
