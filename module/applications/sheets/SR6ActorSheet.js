@@ -1,6 +1,6 @@
-import { WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../dice/RollTypes.js";
-import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
-import { prepareActiveEffectCategories } from "../util/helper.js";
+import { WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../../dice/RollTypes.js";
+import { selectAllTextOnElement } from "../../util/HtmlUtilities.js";
+import { prepareActiveEffectCategories } from "../../util/helper.js";
 
 function isLifeform(obj) {
     return obj.attributes != undefined;

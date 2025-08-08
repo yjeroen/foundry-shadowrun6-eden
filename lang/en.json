@@ -1857,5 +1857,15 @@
       "weapon.mod": "Weapon Mod:",
       "stunOrPhysical": "Stun (true) or Physical (false) damage"
     }
+  },
+  "SR6": {
+    "Actor": {
+      "base": {
+        "a": "b"
+      },
+      "Sprite": {
+        
+      }
+    }
   }
 }

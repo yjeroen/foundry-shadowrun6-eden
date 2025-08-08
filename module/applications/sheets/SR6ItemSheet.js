@@ -1,6 +1,6 @@
-import { selectAllTextOnElement } from "../util/HtmlUtilities.js";
-import { prepareActiveEffectCategories } from "../util/helper.js";
-import { SYSTEM_NAME } from "../constants.js";
+import { selectAllTextOnElement } from "../../util/HtmlUtilities.js";
+import { prepareActiveEffectCategories } from "../../util/helper.js";
+import { SYSTEM_NAME } from "../../constants.js";
 
 function getSystemData(obj) {
     if (game.release.generation >= 10)

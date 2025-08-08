@@ -4,15 +4,7 @@
 import SR6Roll from "./SR6Roll.js";
 import { registerSystemSettings } from "./settings.js";
 import Shadowrun6Combat from "./Shadowrun6Combat.js";
-// import Shadowrun6Actor from "./documents/actor.js";
-// import SR6Item from "./documents/item.mjs";
 import { SR6Config } from "./config.js";
-// import Shadowrun6ActorSheetPC from "./sheets/ActorSheetPC.js";
-// import Shadowrun6ActorSheetNPC from "./sheets/ActorSheetNPC.js";
-// import Shadowrun6ActorSheetVehicle from "./sheets/ActorSheetVehicle.js";
-//import Shadowrun6ActorSheetVehicleCompendium from "./sheets/ActorSheetVehicleCompendium.js";
-// import SR6ItemSheet from "./sheets/SR6ItemSheet.js";
-import SR6ActiveEffectConfig from "./sheets/SR6ActiveEffectConfig.js";
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { defineHandlebarHelper } from "./util/helper.js";
 import { PreparedRoll, RollType } from "./dice/RollTypes.js";
@@ -24,7 +16,7 @@ import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
 import SR6TokenHUD from "./SR6TokenHUD.js";
 import SR6Token from "./placeables/SR6Token.js";
-import SR6ActiveEffectData from "./datamodels/active-effect-data.mjs";
+// import SR6ActiveEffectData from "./datamodels/active-effect-model.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
 import Importer from "./util/Importer.js";
@@ -35,7 +27,7 @@ import releaseNotes from "../releasenotes/releasenotes.js";
 // Import Modules
 import * as datamodels from "./datamodels/_module.mjs";
 import * as documents from "./documents/_module.mjs";
-import * as sheets from "./sheets/_module.mjs";
+import * as applications from "./applications/_module.mjs";
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -56,7 +48,7 @@ Hooks.once("init", async function () {
     game.sr6.config = CONFIG.SR6 = new SR6Config();
     game.sr6.datamodels = datamodels;
     game.sr6.documents = documents;
-    game.sr6.sheets = sheets;
+    game.sr6.applications = applications;
     game.sr6.utils = utils;
     game.sr6.macros = macros;
     game.sr6.sr6roll = SR6Roll;
@@ -101,9 +93,9 @@ Hooks.once("init", async function () {
     }
     CONFIG.Actor.documentClass = game.sr6.documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
-    Actors.registerSheet("shadowrun6-eden", game.sr6.sheets.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
-    Actors.registerSheet("shadowrun6-eden", game.sr6.sheets.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
-    Actors.registerSheet("shadowrun6-eden", game.sr6.sheets.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", game.sr6.applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", game.sr6.applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", game.sr6.applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
@@ -112,7 +104,7 @@ Hooks.once("init", async function () {
      * @see sheets.SR6ItemSheet
      */
     CONFIG.Item.documentClass = game.sr6.documents.SR6Item;
-    Items.registerSheet("shadowrun6-eden", game.sr6.sheets.SR6ItemSheet, {
+    Items.registerSheet("shadowrun6-eden", game.sr6.applications.SR6ItemSheet, {
         types: [
             "gear",
             "martialarttech",
@@ -138,10 +130,10 @@ Hooks.once("init", async function () {
      * Register Active Effects
      * legacyTransferral (false): Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
      */
-    CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectData;
+    CONFIG.ActiveEffect.dataModels.base = game.sr6.datamodels.SR6ActiveEffectData;
     CONFIG.ActiveEffect.legacyTransferral = false;
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
-    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', SR6ActiveEffectConfig, { makeDefault: true });
+    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', game.sr6.applications.SR6ActiveEffectConfig, { makeDefault: true });
 
 
     if (game.release.generation >= 13) {

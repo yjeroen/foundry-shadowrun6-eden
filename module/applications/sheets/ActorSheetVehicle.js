@@ -1,4 +1,4 @@
-import { VehicleRoll } from "../dice/RollTypes.js";
+import { VehicleRoll } from "../../dice/RollTypes.js";
 import Shadowrun6ActorSheet from "./SR6ActorSheet.js";
 function getSystemData(obj) {
     if (game.release.generation >= 10)
