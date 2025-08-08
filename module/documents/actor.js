@@ -67,12 +67,13 @@ export default class Shadowrun6Actor extends Actor {
      * @Override
      */
     prepareData() {
+        // This also calls Item Active Effects
+        super.prepareData();
+
         // Modern DataModel Actors skip legacy data load flow
-        if (this.system instanceof foundry.abstract.DataModel) {
-            super.prepareData();
-            return;
-        }
+        if (this.system instanceof foundry.abstract.DataModel) return;
         
+
         console.log("SR6E | Shadowrun6Actor.prepareData() ", this);
         const actorData = getActorData(this);
         const system = getSystemData(this);
@@ -132,8 +133,6 @@ export default class Shadowrun6Actor extends Actor {
                 this._prepareVehicleActorItems();
             }
 
-            // Also call Item Active Effects
-            super.prepareData();
 
             if (actorData.type != "Vehicle" && actorData.type != "Critter") {
                 this._prepareItemPools();
@@ -741,9 +740,9 @@ export default class Shadowrun6Actor extends Actor {
                 data.skills[id].pool = attribVal + data.skills[id].points + data.skills[id].modifier;
                 if (data.skills[id].points == 0) {
                     if(skillDef.useUntrained) {
-                        data.skills[id].pool = attribVal - 1;
+                        data.skills[id].pool = attribVal - 1 + data.skills[id].modifier;
                     } else {
-                        data.skills[id].pool = 0;
+                        data.skills[id].pool = 0 + data.skills[id].modifier;
                     }
                 }
                 data.skills[id].poolS = 0;
