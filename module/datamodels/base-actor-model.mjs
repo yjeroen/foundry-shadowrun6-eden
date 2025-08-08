@@ -12,18 +12,15 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
 
   static defineSchema() {
     const fields = foundry.data.fields;
-    const requiredInteger = { required: true, nullable: false, integer: true };
-    const schema = {};
-
-    schema.description = new fields.HTMLField();
-    schema.notes = new fields.HTMLField();
+    
     // schema.initiative? //HOSTS have 99
 
+    // const requiredInteger = { required: true, nullable: false, integer: true };
     // schema.health = new fields.SchemaField({
     //   value: new fields.NumberField({
-    //     ...requiredInteger,
-    //     initial: 10,
-    //     min: 0,
+    //                ...requiredInteger,
+    //                initial: 10,
+    //                min: 0,
     //   }),
     //   max: new fields.NumberField({ ...requiredInteger, initial: 10 }),
     // });
@@ -32,7 +29,10 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
     //   max: new fields.NumberField({ ...requiredInteger, initial: 5 }),
     // });
 
-    return schema;
+    return {
+      description: new fields.HTMLField(),
+      notes: new fields.HTMLField()
+    }
   }
 
   /**

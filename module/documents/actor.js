@@ -67,6 +67,12 @@ export default class Shadowrun6Actor extends Actor {
      * @Override
      */
     prepareData() {
+        // Modern DataModel Actors skip legacy data load flow
+        if (this.system instanceof foundry.abstract.DataModel) {
+            super.prepareData();
+            return;
+        }
+        
         console.log("SR6E | Shadowrun6Actor.prepareData() ", this);
         const actorData = getActorData(this);
         const system = getSystemData(this);
@@ -150,16 +156,18 @@ export default class Shadowrun6Actor extends Actor {
      * @internal
      */
     async _preUpdate(changes, options, user) {
+        // Modern DataModel Actors skip legacy data load flow
+        if (this.system instanceof foundry.abstract.DataModel) {
+            await super._preUpdate(changes, options, user);
+            return;
+        }
+        
         const allowed = await super._preUpdate(changes, options, user);
         console.log("SR6E | Shadowrun6Actor._preUpdate()");
         if ( allowed === false ) return false;
 
         changes = this._tokenBarsToMonitorDmg(changes);
 
-        // Forward to type data model
-        if ( this.system instanceof foundry.abstract.TypeDataModel ) {
-          return this.system._preUpdate(changes, options, user);
-        }
     }
     /**
      * Post-process an update operation for a single Document instance. Post-operation events occur for all connected
@@ -171,6 +179,12 @@ export default class Shadowrun6Actor extends Actor {
      * @internal
      */
     _onUpdate(changed, options, userId) {
+        // Modern DataModel Actors skip legacy data load flow
+        if (this.system instanceof foundry.abstract.DataModel) {
+            super._onUpdate(changed, options, userId);
+            return;
+        }
+
         super._onUpdate(changed, options, userId);
         console.log("SR6E | Shadowrun6Actor._onUpdate()");
         this._checkPersonaChanges(changed);

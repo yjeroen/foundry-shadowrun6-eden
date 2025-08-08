@@ -43,7 +43,8 @@
     		"NPC": "Grunt/NPC",
     		"Player": "Player Character",
     		"Spirit": "Spirit",
-    		"Vehicle": "Vehicle/Drone"
+    		"Vehicle": "Vehicle/Drone",
+        "Sprite": "Sprite"
   		},
   		"Item": {
     		"adeptpower": "Adept Power",
@@ -1864,7 +1865,7 @@
         "a": "b"
       },
       "Sprite": {
-        
+
       }
     }
   }

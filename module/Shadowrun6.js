@@ -89,13 +89,13 @@ Hooks.once("init", async function () {
      * @see sheets.Shadowrun6ActorSheetVehicle
      */
     CONFIG.Actor.dataModels = {
-        sprite:  game.sr6.datamodels.SR6SpriteActorData
+        Sprite: datamodels.SR6SpriteActorData
     }
-    CONFIG.Actor.documentClass = game.sr6.documents.Shadowrun6Actor;
+    CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
-    Actors.registerSheet("shadowrun6-eden", game.sr6.applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
-    Actors.registerSheet("shadowrun6-eden", game.sr6.applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
-    Actors.registerSheet("shadowrun6-eden", game.sr6.applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
@@ -103,8 +103,8 @@ Hooks.once("init", async function () {
      * @see documents.SR6Item
      * @see sheets.SR6ItemSheet
      */
-    CONFIG.Item.documentClass = game.sr6.documents.SR6Item;
-    Items.registerSheet("shadowrun6-eden", game.sr6.applications.SR6ItemSheet, {
+    CONFIG.Item.documentClass = documents.SR6Item;
+    Items.registerSheet("shadowrun6-eden", applications.SR6ItemSheet, {
         types: [
             "gear",
             "martialarttech",
@@ -130,10 +130,10 @@ Hooks.once("init", async function () {
      * Register Active Effects
      * legacyTransferral (false): Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
      */
-    CONFIG.ActiveEffect.dataModels.base = game.sr6.datamodels.SR6ActiveEffectData;
+    CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
     CONFIG.ActiveEffect.legacyTransferral = false;
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
-    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', game.sr6.applications.SR6ActiveEffectConfig, { makeDefault: true });
+    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
 
 
     if (game.release.generation >= 13) {
