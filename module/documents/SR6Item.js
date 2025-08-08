@@ -61,8 +61,9 @@ export default class SR6Item extends Item {
    */
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
-    console.log("SR6E | SR6Item._onUpdate()");
+    console.log("SR6E | SR6Item._onUpdate()", changed);
     this._checkPersonaChanges(changed);
+    this._informInCombatChanges(changed);
   }
 
  /**
@@ -100,11 +101,32 @@ export default class SR6Item extends Item {
   }
 
   async _checkPersonaChanges(changed) {
-    console.log("SR6E | SR6Item._checkPersonaChanges()", changed);
+    console.log("SR6E | SR6Item._checkPersonaChanges()");
     if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
       if (changed.delete === true || changed.system?.usedForPool !== undefined) {
         await this.parent.updatePersona();
       }
+    }
+  }
+
+  async _informInCombatChanges (changed) {
+    if (game.combats.active === undefined) return;
+    console.log("SR6E | SR6Item._informInCombatChanges()");
+    let msg = "";
+
+    if (changed.system?.ammocount !== undefined && changed.system?.ammocount === this.system.ammocap) {
+      msg = game.i18n.format("shadowrun6.ui.notifications.character_has_reloaded", { character: this.actor.name, weaponName: this.name, ammoType: game.i18n.localize("shadowrun6.ammotypes."+this.system.ammoLoaded) });
+    }
+    if (changed.system?.ammoLoaded !== undefined) {
+      msg = game.i18n.format("shadowrun6.ui.notifications.character_has_switched_ammo", { character: this.actor.name, weaponName: this.name, ammoType: game.i18n.localize("shadowrun6.ammotypes."+this.system.ammoLoaded) });
+    }
+    
+    if (msg.length > 0) {
+      await ChatMessage.create({
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize("shadowrun6.weapon.ammo_changes_combat"),
+          content: `<span style="font-style: italic;">${msg}</span>`
+      });
     }
   }
   

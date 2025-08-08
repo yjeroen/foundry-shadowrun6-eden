@@ -800,8 +800,6 @@ export class Shadowrun6ActorSheet extends ActorSheet {
         const updated = await weapon.update({ "system.ammocount": weapon.system.ammocap });
         if (updated !== undefined) {
             console.log("SR6E | Weapon's Ammo Reloaded:", updated.name, uuid);
-            //TODO inform players that someone reloaded their ammo?
-
         }
     }
     //-----------------------------------------------------

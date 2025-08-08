@@ -1639,7 +1639,8 @@
       "firemodes": "Modes",
       "ammo": "Ammunition",
       "ammo_loaded": "Ammo Loaded",
-      "reload_ammo": "Reload your ammunition"
+      "reload_ammo": "Reload your ammunition",
+      "ammo_changes_combat": "In Combat Ammo Changes"
     },
     "ui": {
       "notifications": {
@@ -1685,7 +1686,9 @@
           "actor_tab": "Actor tab.",
           "npc_compendium": "NPC Compendium."
         },
-        "not_enough_ammo": "You don't have enough ammunition in your weapon. Change your firing mode, or reload your weapon first."
+        "not_enough_ammo": "You don't have enough ammunition in your weapon. Change your firing mode, or reload your weapon first.",
+        "character_has_reloaded": "{character} has reloaded their {weaponName} weapon with {ammoType} ammo.",
+        "character_has_switched_ammo": "{character} has switched the ammo loaded in their {weaponName} weapon to {ammoType}."
       }
     },
     "EFFECT": {
