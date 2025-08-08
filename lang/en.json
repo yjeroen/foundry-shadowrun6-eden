@@ -44,7 +44,7 @@
     		"Player": "Player Character",
     		"Spirit": "Spirit",
     		"Vehicle": "Vehicle/Drone",
-        "Sprite": "Sprite"
+        "sprite": "Sprite"
   		},
   		"Item": {
     		"adeptpower": "Adept Power",

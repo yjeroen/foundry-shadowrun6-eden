@@ -5,8 +5,7 @@
 			"NPC",
 			"Critter",
 			"Spirit",
-			"Vehicle",
-			"Sprite"
+			"Vehicle"
 		],
 		"templates": {
 			"attribute-template": {

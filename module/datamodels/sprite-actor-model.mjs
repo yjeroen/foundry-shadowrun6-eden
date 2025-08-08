@@ -14,7 +14,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
             ...super.defineSchema(),
             rating: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1}),
             registeredTo: new fields.DocumentUUIDField({type: "Actor"}),
-            overwatchScore: new srFields.OverwatchScoreField(),
+            // overwatch: new srFields.OverwatchField(),
             // attributes: new fields.SchemaFields({
 
             // }),

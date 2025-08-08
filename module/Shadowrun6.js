@@ -88,9 +88,9 @@ Hooks.once("init", async function () {
      * @see sheets.Shadowrun6ActorSheetNPC
      * @see sheets.Shadowrun6ActorSheetVehicle
      */
-    CONFIG.Actor.dataModels = {
-        Sprite: datamodels.SR6SpriteActorData
-    }
+    Object.assign(CONFIG.Actor.dataModels, {
+        sprite: datamodels.SR6SpriteActorData
+    });
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
