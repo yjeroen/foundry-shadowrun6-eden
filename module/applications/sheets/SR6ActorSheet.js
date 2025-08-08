@@ -119,7 +119,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".edge-coin").mousedown(async (event) => {
                 const mousePress = event.which; // 1: Left Mouse Button, 2: Middle Mouse Button, 3: Right Mouse button
                 const coin = event.currentTarget;
-                let edge = this.actor.system.edge.value;
+                const oldEdge = this.actor.system.edge.value;
+                let edge = oldEdge;
                 // Check if coin isn't already being flipped
                 if ( !coin.classList.contains('clickable') ) {
                     return;
@@ -164,6 +165,15 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                         await this.actor.update({ ["system.edge.value"]: edge });
                     }, 20, edge);
                 }, 650, edge);
+
+                if (game.combats.active !== undefined) {
+                    const msg = game.i18n.format("shadowrun6.ui.notifications.character_has_changed_edge", { character: this.actor.name, oldEdge: oldEdge, edge: edge  });
+                    await ChatMessage.create({
+                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                        flavor: game.i18n.localize("shadowrun6.label.edge_changes_combat"),
+                        content: `<span style="font-style: italic;">${msg}</span>`
+                    });
+                }
                 
                 console.log("SR6E | Edge coin flipped", translateX, rotateY);
             });

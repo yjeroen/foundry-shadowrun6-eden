@@ -584,6 +584,7 @@
       "devRating": "Device Rating",
       "dual_hand": "Dual-Hand",
       "dice": "Dice",
+      "edge_changes_combat": "In Combat Edge Changes",
       "edit": "Edit",
       "expertise": "Expertise",
       "extended_test": "Extended Test",
@@ -1689,7 +1690,8 @@
         },
         "not_enough_ammo": "You don't have enough ammunition in your weapon. Change your firing mode, or reload your weapon first.",
         "character_has_reloaded": "{character} has reloaded their {weaponName} weapon with {ammoType} ammo.",
-        "character_has_switched_ammo": "{character} has switched the ammo loaded in their {weaponName} weapon to {ammoType}."
+        "character_has_switched_ammo": "{character} has switched the ammo loaded in their {weaponName} weapon to {ammoType}.",
+        "character_has_changed_edge": "{character} has changed their Edge manually from {oldEdge} to {edge}"
       }
     },
     "EFFECT": {
