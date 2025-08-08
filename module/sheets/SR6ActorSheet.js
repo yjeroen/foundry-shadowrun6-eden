@@ -28,7 +28,7 @@ function getActorData(obj) {
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class Shadowrun6ActorSheet extends ActorSheet {
+export default class Shadowrun6ActorSheet extends ActorSheet {
     /** @overrride */
     getData() {
         let data = super.getData();

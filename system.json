@@ -10,13 +10,9 @@
       "url": "https://www.patreon.com/DeepResonanceWare"
     },
     {
-      "name": "Stefan Prelle",
+      "name": "Stefan & Anja Prelle",
       "email": "stefan@rpgframework.de",
       "discord": "taranion#5388"
-    },
-    {
-      "name": "Anja Prelle",
-      "email": "anja@rpgframework.de"
     }
   ],
   "compatibility": {
@@ -155,6 +151,11 @@
     "hotReload": {
       "extensions": ["css", "hbs", "json"],
       "paths": ["styles", "templates", "lang"]
+    }
+  },
+  "documentTypes": {
+    "Actor": {
+      "sprite": {}
     }
   }
 }

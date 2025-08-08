@@ -1,11 +1,11 @@
-import { Attribute, Derived, DefensePool, Pool, Ratings, Monitor, CurrentVehicle, Initiative, VehicleOpMode, VehicleSkills, VehicleSkill } from "./ActorTypes.js";
-import { SYSTEM_NAME } from "./constants.js";
-import { Defense, MonitorType } from "./config.js";
-import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "./ItemTypes.js";
+import { Attribute, Derived, DefensePool, Pool, Ratings, Monitor, CurrentVehicle, Initiative, VehicleOpMode, VehicleSkills, VehicleSkill } from "../ActorTypes.js";
+import { SYSTEM_NAME } from "../constants.js";
+import { Defense, MonitorType } from "../config.js";
+import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "../ItemTypes.js";
 //import { doRoll } from "./dice/CommonRoll.js";
-import { doRoll } from "./Rolls.js";
-import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData } from "./dice/RollTypes.js";
-import { getActor } from "./util/helper.js";
+import { doRoll } from "../Rolls.js";
+import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData } from "../dice/RollTypes.js";
+import { getActor } from "../util/helper.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -55,7 +55,7 @@ function getItemData(obj) {
         return obj;
     return obj.data;
 }
-export class Shadowrun6Actor extends Actor {
+export default class Shadowrun6Actor extends Actor {
 
     /** @inheritDoc */
     prepareEmbeddedDocuments() {

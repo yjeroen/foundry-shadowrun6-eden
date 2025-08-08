@@ -1,5 +1,5 @@
 import { VehicleRoll } from "../dice/RollTypes.js";
-import { Shadowrun6ActorSheet } from "./SR6ActorSheet.js";
+import Shadowrun6ActorSheet from "./SR6ActorSheet.js";
 function getSystemData(obj) {
     if (game.release.generation >= 10)
         return obj.system;
@@ -14,7 +14,7 @@ function getActorData(obj) {
  * Sheet for Vehicle actors
  * @extends {ActorSheet}
  */
-export class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
+export default class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {

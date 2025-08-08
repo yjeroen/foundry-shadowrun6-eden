@@ -1,10 +1,10 @@
 //TODO Shadowrun6ActorSheetCritter is not in use 
-import { Shadowrun6ActorSheet } from "./SR6ActorSheet.js";
+import Shadowrun6ActorSheet from "./SR6ActorSheet.js";
 /**
  * Extend the basic ActorSheet
  * @extends {ActorSheet}
  */
-export class Shadowrun6ActorSheetCritter extends Shadowrun6ActorSheet {
+export default class Shadowrun6ActorSheetCritter extends Shadowrun6ActorSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {

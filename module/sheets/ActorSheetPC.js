@@ -1,9 +1,9 @@
-import { Shadowrun6ActorSheet } from "./SR6ActorSheet.js";
+import Shadowrun6ActorSheet from "./SR6ActorSheet.js";
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class Shadowrun6ActorSheetPC extends Shadowrun6ActorSheet {
+export default class Shadowrun6ActorSheetPC extends Shadowrun6ActorSheet {
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;

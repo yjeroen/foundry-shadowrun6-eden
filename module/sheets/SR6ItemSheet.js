@@ -12,7 +12,7 @@ function getActorData(obj) {
         return obj;
     return obj.data;
 }
-export class SR6ItemSheet extends ItemSheet {
+export default class SR6ItemSheet extends ItemSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {

@@ -1,9 +1,9 @@
-import { Shadowrun6ActorSheet } from "./SR6ActorSheet.js";
+import Shadowrun6ActorSheet from "./SR6ActorSheet.js";
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class CompendiumActorSheetNPC extends Shadowrun6ActorSheet {
+export default class CompendiumActorSheetNPC extends Shadowrun6ActorSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
