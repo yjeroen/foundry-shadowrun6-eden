@@ -57,6 +57,22 @@ function getItemData(obj) {
 }
 export default class Shadowrun6Actor extends Actor {
 
+    /** 
+     * Set default artwork for newly created Actors
+     */
+    static getDefaultArtwork(actorData) {
+        const src = {
+            Player: "systems/shadowrun6-eden/icons/compendium/default/Default_Clothing.svg",
+            NPC: "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg",
+            Critter: "systems/shadowrun6-eden/icons/compendium/cyberweapons/cybersnake.svg",
+            Spirit: "systems/shadowrun6-eden/icons/compendium/all-about-drones/savannah-panther.svg",
+            Vehicle: "systems/shadowrun6-eden/icons/compendium/black-chrome/badger-corporate-bus.svg",
+            sprite: "systems/shadowrun6-eden/icons/compendium/programs/imp.svg",
+        }[actorData.type] ?? this.DEFAULT_ICON;
+
+        return { img: src, texture: { src } };
+    }
+
     /** @inheritDoc */
     prepareEmbeddedDocuments() {
         this._embeddedPreparation = true;
