@@ -1696,7 +1696,8 @@
 				"not_enough_ammo": "В оружии недостаточно патронов. Измените режим ведения огня или перезарядите оружие.",
 				"character_has_reloaded": "{character} перезарядил(а) {ammoType} патроны в свой {weaponName}.",
 				"character_has_switched_ammo": "{character} сменил(а) тип заряженных в {weaponName} патронов на {ammoType}."
-				"character_has_changed_edge": "{character} вручную изменил(а) количество очков преимущества с {oldEdge} на {edge}"
+				"character_has_changed_edge": "{character} вручную изменил(а) количество очков преимущества с {oldEdge} на {edge}",
+				"matrix_check_os": "Ваш текущий показатель надзора: {os}."
 			}
 		},
 		"EFFECT": {
