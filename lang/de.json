@@ -99,6 +99,27 @@
     "str_short": "STÄ",
     "wil": "Willenskraft",
     "wil_short": "WIL"
+  },  
+  "skill": {
+    "astral": "Astral",
+    "athletics": "Athletik",
+    "biotech": "Biotech",
+    "close_combat": "Nahkampf",
+    "con": "Überreden",
+    "conjuring": "Beschwören",
+    "cracking": "Cracken",
+    "electronics": "Elektronik",
+    "enchanting": "Verzaubern",
+    "engineering": "Mechanik",
+    "exotic_weapons": "Exotische Waffen",
+    "firearms": "Feuerwaffen",
+    "influence": "Einfluss",
+    "outdoors": "Natur",
+    "perception": "Wahrnehmung",
+    "piloting": "Steuern",
+    "sorcery": "Hexerei",
+    "stealth": "Heimlichkeit",
+    "tasking": "Tasken"
   },
   "label.skill": "Fertigkeit",
   "section.attributes": "Attribute",
@@ -1056,7 +1077,8 @@
         "opponent": "Gegner",
         "opponent_edge_boost": "Gegnerischer Edge-Boost",
         "spend": "Ausgeben!",
-        "original_test": "Ursprüngliche Probe von:"
+        "original_test": "Ursprüngliche Probe von:",
+        "boost": "Boost"
       },
       "edge_perform": "Ausführen",
       "edgegain": "Edge-Erhalt (max): ",
@@ -1603,7 +1625,8 @@
       "damage": "Schaden",
       "attackRating":"Angriffswert",
       "firemodes": "Feuermodi",
-      "ammo": "Schuss"
+      "ammo": "Schuss",
+      "ammo_loaded": "Geladene Munition"
     },
     "ui": {
       "notifications": {
@@ -1642,7 +1665,13 @@
           "in_progress": "Migriere Systemdaten..",
           "completed": "Systemmigration abgeschlossen!"
         },
-        "wrong_import_file": "GENESIS oder COMMLINK Speicherstände können nicht direkt importiert werden! Bitte nutze stattdessen den FoundryVTT JSON Export von GENESIS oder COMMLINK."
+        "wrong_import_file": "GENESIS oder COMMLINK Speicherstände können nicht direkt importiert werden! Bitte nutze stattdessen den FoundryVTT JSON Export von GENESIS oder COMMLINK.",
+        "statblock_import": {
+          "error": "Etwas lief beim Import des NPC-Statblocks schief. Versuche es mit einem anderen PDF-Reader, Möglicherweise wird dein PDF-Reader nicht unterstützt, versuche es mit einem anderen PDF-Reader.",
+          "success": "Dein `{actor}`-Statblock wurde importiert in: ",
+          "actor_tab": "Die Actor-Liste.",
+          "npc_compendium": "Das NSC-Kompendium."
+        }
       }
     },
     "EFFECT": {
@@ -1767,27 +1796,14 @@
         "9": "Rares Wissen, das nur wenigen Eingeweihten bekannt ist.",
         "10": "Tief verborgene Geheimnisse, die andere aktiv zu verbergen versuchen."
       }
+    },
+    "ammotypes": {
+      "regular": "Standard",
+      "apds": "APDS",
+      "explosive": "Explosiv",
+      "flechette": "Flechette",
+      "gel": "Gel",
+      "sticknshock": "Schocker"
     }
-  },  
-  "skill": {
-    "astral": "Astral",
-    "athletics": "Athletik",
-    "biotech": "Biotech",
-    "close_combat": "Nahkampf",
-    "con": "Überreden",
-    "conjuring": "Beschwören",
-    "cracking": "Cracken",
-    "electronics": "Elektronik",
-    "enchanting": "Verzaubern",
-    "engineering": "Mechanik",
-    "exotic_weapons": "Exotische Waffen",
-    "firearms": "Feuerwaffen",
-    "influence": "Einfluss",
-    "outdoors": "Natur",
-    "perception": "Wahrnehmung",
-    "piloting": "Steuern",
-    "sorcery": "Hexerei",
-    "stealth": "Heimlichkeit",
-    "tasking": "Tasken"
   }
 }
