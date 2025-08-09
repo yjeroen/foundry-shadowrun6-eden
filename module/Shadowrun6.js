@@ -91,6 +91,7 @@ Hooks.once("init", async function () {
     Object.assign(CONFIG.Actor.dataModels, {
         sprite: datamodels.SR6SpriteActorData
     });
+    CONFIG.Actor.defaultType = "Player";
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
