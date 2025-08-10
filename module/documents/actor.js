@@ -138,7 +138,8 @@ export default class Shadowrun6Actor extends Actor {
                     if (owner) {
                         // It can happen that we pass here before the owner is fully initialized
                         // Make sure the owner has all the skills prepared
-                        owner.prepareData();  
+                        owner.prepareData();
+                        this.owner = owner;
                     }
                 }             
 
