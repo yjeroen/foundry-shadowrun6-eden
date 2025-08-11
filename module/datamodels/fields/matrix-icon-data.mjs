@@ -1,4 +1,4 @@
-import SR6DataModel from "./property-base-model.mjs";
+import SR6DataModel from "./base-model.mjs";
 
 export default class SR6MatrixIcon extends SR6DataModel {
 

@@ -833,6 +833,36 @@ a.item-control.disabled-roll:hover {
 #scene-navigation .scene-navigation-menu .scene {
   font-weight: 600;
 }
+/* ApplicationV2 */
 .application .window-header .window-title {
   line-height: 1em;
+}
+.application.shadowrun6 {
+    box-shadow: 0 0 10px var(--color-shadow-primary);
+    background: url(../images/denim075.png) repeat;
+}
+.application.shadowrun6 .window-header {
+  background: unset;
+}
+.application.shadowrun6 .npc-settings select[name="system.rating"] {
+  width: 60px;
+}
+.application.shadowrun6 .npc-settings select[name="system.type"] {
+  width: 120px;
+}
+.application.shadowrun6:not(.minimized)::after {
+	display: block;
+	content: "";
+	position: fixed;
+	width: 200px;
+	height: 36px;
+	margin-top: -10px;
+	margin-left: 200px;
+	background: url(../images/SR6Logo2.webp);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center top;
+  pointer-events: none;
+  -webkit-filter: drop-shadow(0px 0px 4px  var(--color-shadow-primary));
+  filter: drop-shadow(0px 0px 4px var(--color-shadow-primary));
 }

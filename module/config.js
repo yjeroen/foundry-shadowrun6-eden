@@ -21,6 +21,37 @@ export var MonitorType;
 })(MonitorType || (MonitorType = {}));
 export class SR6Config {
 
+    NEW = {
+        ATTRIBUTES: [
+            'body',
+            'agility',
+            'reaction',
+            'strength',
+            'willpower',
+            'logic',
+            'intuition',
+            'charisma',
+            'edge',
+            'magic',
+            'resonance',
+            'essence'
+        ],
+        ACTOR_TYPES: {
+            sprite: {
+                'courier': 'SR6.Actor.sprite.TYPES.courier',
+                'crack': 'SR6.Actor.sprite.TYPES.crack',
+                'data': 'SR6.Actor.sprite.TYPES.data',
+                'fault': 'SR6.Actor.sprite.TYPES.fault',
+                'machine': 'SR6.Actor.sprite.TYPES.machine',
+                'assassin': 'SR6.Actor.sprite.TYPES.assassin',
+                'defender': 'SR6.Actor.sprite.TYPES.defender',
+                'modular': 'SR6.Actor.sprite.TYPES.modular',
+                'music': 'SR6.Actor.sprite.TYPES.music',
+                'primal': 'SR6.Actor.sprite.TYPES.primal',
+            }
+        }
+    };
+
     PRIMARY_ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha"];
     SECONDARY_ATTRIBUTES = ["mag", "res", "edg", "ess", "ini", "inim", "inia", "dr"];
     ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha", "mag", "res"];
@@ -37,7 +68,7 @@ export class SR6Config {
         "res": "attrib.res"
     };
     NPC_ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha", "mag", "res", "ess"];
-    RATING = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 11, 12: 12};
+    RATING = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "10", 11: "11", 12: "12"};
     QUALITY_CATEGORIES = {
         ADVANTAGE: "QUALITY_CATEGORIES.ADVANTAGE", 
         DISADVANTAGE: "QUALITY_CATEGORIES.DISADVANTAGE"

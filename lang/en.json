@@ -1865,11 +1865,53 @@
   "SR6": {
     "Actor": {
       "base": {
-        "a": "b"
+        "FIELDS": {
+          "notes": {
+            "label": "Notes"
+          }
+        }
       },
-      "Sprite": {
-
+      "sprite": {
+        "FIELDS": {
+          "xxx": {
+            "label": "xxx"
+          }
+        },
+        "TYPES": {
+          "courier": "//COURIER//",
+          "crack": "//CRACK//",
+          "data": "//DATA//",
+          "fault": "//FAULT//",
+          "machine": "//MACHINE//",
+          "assassin": "//ASSASSIN//",
+          "defender": "//DEFENDER//",
+          "modular": "//MODULAR//",
+          "music": "//MUSIC//",
+          "primal": "//PRIMAL//"
+        }
       }
+    },
+    "Common": {
+      "FIELDS": {
+        "name": {
+          "label": "Name"
+        },
+        "effects": {
+          "label": "Effects"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "rating": {
+          "label": "Rating"
+        },
+        "type": {
+          "label": "Type"
+        }
+      }
+    },
+    "label": {
+      "name": "Name"
     }
   }
 }

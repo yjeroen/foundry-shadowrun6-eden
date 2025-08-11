@@ -7,9 +7,9 @@ export default class SR6DataModel extends foundry.abstract.DataModel {
         let schema = "", pointer = this;
         while (schema !== "system") {
             schema = pointer.schema.name;
-            pointer = this.parent;
+            pointer = pointer.parent;
         }
-        return pointer.parent;
+        return pointer;
     }
 
     async _updateValue(property="", value) {
@@ -19,7 +19,7 @@ export default class SR6DataModel extends foundry.abstract.DataModel {
             uri = schema + "." + uri;
             pointer = this.parent;
         }
-        console.log('JEROEN uri', uri, value);
         return await pointer.parent.update({[uri]: value});
     }
+    
 }

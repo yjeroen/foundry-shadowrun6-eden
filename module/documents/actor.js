@@ -56,6 +56,7 @@ function getItemData(obj) {
     return obj.data;
 }
 export default class Shadowrun6Actor extends Actor {
+    static LOCALIZATION_PREFIXES = ["SR6.Common"];
 
     /** 
      * Set default artwork for newly created Actors

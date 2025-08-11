@@ -97,6 +97,7 @@ Hooks.once("init", async function () {
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.SR6BaseActorSheet, { types: ["sprite"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
