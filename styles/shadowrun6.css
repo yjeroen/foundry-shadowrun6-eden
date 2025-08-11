@@ -840,6 +840,7 @@ a.item-control.disabled-roll:hover {
 .application.shadowrun6 {
     box-shadow: 0 0 10px var(--color-shadow-primary);
     background: url(../images/denim075.png) repeat;
+    background-color: rgb(0 0 0 / 35%);
 }
 .application.shadowrun6 .window-header {
   background: unset;
