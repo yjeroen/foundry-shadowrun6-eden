@@ -75,7 +75,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             ui.notifications.error(`${error.name}: ${error.message}`);
             // this.render();
         } finally {
-            // This might cause a duplicate render, but else sometimes (if e.g. the number was already on min, 
+            // TODO This might cause a duplicate render, but else sometimes (if e.g. the number was already on min, 
             // but you then go to an invalid number) on a bad validation the sheet doesn't get rerendered
             this.render();
         }
