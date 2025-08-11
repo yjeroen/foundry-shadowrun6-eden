@@ -160,7 +160,7 @@ export default class SR6Item extends Item {
       if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && this.system.strWeapon === true) {
         closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
       }
-      this.calculated.attackRating[0] = parseInt(this.calculated.attackRating[0]) + closeCombatAttackRatingAttribute;
+      this.calculated.attackRating[0] = parseInt(this.calculated.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);
     }
   }
 
@@ -212,7 +212,7 @@ export default class SR6Item extends Item {
     // Calculate item attack rating
     this.calculated.attackRating.forEach((rating, index) => {
         if (rating > 0) {
-            this.calculated.attackRating[index] = Math.max(0, rating + arMod );
+            this.calculated.attackRating[index] = Math.max(0, parseInt(rating) + parseInt(arMod) );
         }
     });
 
