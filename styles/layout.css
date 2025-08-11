@@ -1,4 +1,4 @@
-.app.shadowrun6 .window-header::after {
+.app.shadowrun6:not(.minimized) .window-header::after {
 	display: block;
 	content: "";
 	position: absolute;
