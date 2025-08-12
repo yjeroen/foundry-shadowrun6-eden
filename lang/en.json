@@ -1694,7 +1694,10 @@
         "character_has_changed_edge": "{character} has changed their Edge manually from {oldEdge} to {edge}",
         "matrix_check_os": "Your current Overwatch Score is {os}.",
         "bind_control_group": "You have bound the selected tokens to Control Group {controlGroup}.",
-        "select_control_group": "You have selected the Control Group {controlGroup} tokens."
+        "select_control_group": "You have selected the Control Group {controlGroup} tokens.",
+        "form_grunt_group": "You have formed a Grunt Group with the selected Tokens.",
+        "dismantle_grunt_group": "You have dismantled the Grunt Group of the selected Tokens.",
+        "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration."
       }
     },
     "EFFECT": {
@@ -1864,8 +1867,9 @@
       "stunOrPhysical": "Stun (true) or Physical (false) damage"
     },
     "KEYBINDINGS": {
-      "bindTokenControlGroup": "Bind Tokens to Control Group",
-      "selectTokenControlGroup": "Select Tokens of Control Group"
+      "bindTokenControlGroup": "Bind selected Tokens to Control Group",
+      "selectTokenControlGroup": "Select Tokens of Control Group",
+      "formGruntGroup": "Create Grunt Group with selected Tokens"
     }
   },
   "SR6": {

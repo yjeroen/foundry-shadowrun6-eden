@@ -9,6 +9,14 @@ export default class SR6Keybindings {
             return;
         }
 
+        game.keybindings.register("shadowrun6-eden", "formGruntGroup", {
+            name: "shadowrun6.KEYBINDINGS.formGruntGroup",
+            uneditable: [
+                {key: "KeyG", modifiers: [SHIFT]},
+            ],
+            onDown: SR6Keybindings._onFormGruntGroup
+        });
+
         // game.keybindings.register("shadowrun6-eden", "bindTokenControlGroup", {
         //     name: "shadowrun6.KEYBINDINGS.bindTokenControlGroup",
         //     uneditable: [
@@ -39,6 +47,41 @@ export default class SR6Keybindings {
                 
             }
         }, false);
+    }
+
+    /**
+     * Handle forming a Grunt Group with the selected tokens
+     * @param {KeyboardEventContext} context    The context data of the event
+     * @private
+     */
+    static _onFormGruntGroup(context) {
+        if (!canvas.ready) return false;
+        const tokens = [];
+        canvas.tokens.controlled.forEach((token) => {
+            if (token.isOwner && !token.document.actorLink) tokens.push(token);
+            else token.release();
+        });
+        if (!tokens.length) {
+            ui.notifications.info(game.i18n.format("shadowrun6.ui.notifications.form_grunt_group_failed"), { console: false });
+            return false;
+        }
+
+        // Get first TokenDocument's GruntGroupId via .find(() => true)
+        const oldGruntGroupId = tokens.find(() => true).document.getFlag(game.system.id, 'GruntGroupId');
+        const dismantleGruntGroup = tokens.every((token) => token.document.getFlag(game.system.id, 'GruntGroupId') === oldGruntGroupId);
+        if (oldGruntGroupId !== undefined && dismantleGruntGroup) {
+            console.log(`SR6E | Keybind SHIFT-G | Dismantling Grunt Group ${oldGruntGroupId}`);
+            ui.notifications.info(game.i18n.format("shadowrun6.ui.notifications.dismantle_grunt_group"), { console: false });
+            tokens.forEach((token) => token.document.unsetFlag(game.system.id, 'GruntGroupId'));
+            return true;
+        }
+
+        // Else let's form the Grunt Group!
+        const newGruntGroupId = foundry.utils.randomID();
+        console.log(`SR6E | Keybind SHIFT-G | Form Grunt Group ${newGruntGroupId} with Tokens`, tokens);
+        ui.notifications.info(game.i18n.format("shadowrun6.ui.notifications.form_grunt_group"), { console: false });
+        tokens.forEach((token) => token.document.setFlag(game.system.id, 'GruntGroupId', newGruntGroupId));
+        return true;
     }
 
     /**
