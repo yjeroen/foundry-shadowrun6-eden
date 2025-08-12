@@ -1692,7 +1692,9 @@
         "character_has_reloaded": "{character} has reloaded their {weaponName} weapon with {ammoType} ammo.",
         "character_has_switched_ammo": "{character} has switched the ammo loaded in their {weaponName} weapon to {ammoType}.",
         "character_has_changed_edge": "{character} has changed their Edge manually from {oldEdge} to {edge}",
-        "matrix_check_os": "Your current Overwatch Score is {os}."
+        "matrix_check_os": "Your current Overwatch Score is {os}.",
+        "bind_control_group": "You have bound the selected tokens to Control Group {controlGroup}.",
+        "select_control_group": "You have selected the Control Group {controlGroup} tokens."
       }
     },
     "EFFECT": {
@@ -1860,6 +1862,10 @@
       "armor.mod": "Armor Mod:",
       "weapon.mod": "Weapon Mod:",
       "stunOrPhysical": "Stun (true) or Physical (false) damage"
+    },
+    "KEYBINDINGS": {
+      "bindTokenControlGroup": "Bind Tokens to Control Group",
+      "selectTokenControlGroup": "Select Tokens of Control Group"
     }
   },
   "SR6": {

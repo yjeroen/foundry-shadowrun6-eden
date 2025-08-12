@@ -19,10 +19,10 @@ import SR6Token from "./placeables/SR6Token.js";
 // import SR6ActiveEffectData from "./datamodels/active-effect-model.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
-import Importer from "./util/Importer.js";
 import { migrateWorld } from "./util/Migrations.js";
 import SR6SocketHandler from './util/SR6SocketHandler.js';
 import releaseNotes from "../releasenotes/releasenotes.js";
+import SR6Keybindings from './util/keybindings.mjs';
 
 // Import Modules
 import * as datamodels from "./datamodels/_module.mjs";
@@ -137,23 +137,15 @@ Hooks.once("init", async function () {
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
     DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
 
-
     if (game.release.generation >= 13) {
         document.body.classList.add('foundry-modern');
     }
 
+    // Add System specific keybindings
+    SR6Keybindings.initialize();
+
     preloadHandlebarsTemplates();
     defineHandlebarHelper();
-    document.addEventListener('paste', (e) => {
-        if ( e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA"
-             && !e.target.parentElement?.classList?.contains('ProseMirror')
-             && !e.target.offsetParent?.classList?.contains('ProseMirror')    ) {
-
-            console.log("SR6E | Pasting text | Triggering NPC Importer by event:", e);
-            Importer.pasteEventhandler(e);
-            
-        }
-    }, false);
 
     $('#pause img').attr('class', 'fa-beat-fade');
 
