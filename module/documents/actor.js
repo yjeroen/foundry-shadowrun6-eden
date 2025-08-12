@@ -1362,6 +1362,24 @@ export default class Shadowrun6Actor extends Actor {
             if (changes.system?.persona?.device?.mod !== undefined) {
                 await this.updatePersona();
             }
+            if(changes.system?.persona?.monitor?.dmg !== undefined) {
+                // Update monitor value
+                const system = getSystemData(this);
+                let updatedPersona = {
+                    [`system.persona.monitor.value`]: system.persona.monitor.max - changes.system.persona.monitor.dmg,
+                    [`system.persona.monitor.dmg`]: changes.system.persona.monitor.dmg
+                };
+                await this.update(updatedPersona);
+            }
+            if(changes.system?.persona?.monitor?.value !== undefined) {
+                // Update monitor damage
+                const system = getSystemData(this);
+                let updatedPersona = {
+                    [`system.persona.monitor.dmg`]: system.persona.monitor.max - changes.system.persona.monitor.value,
+                    [`system.persona.monitor.value`]: changes.system.persona.monitor.value
+                };
+                await this.update(updatedPersona);
+            }
         }
       }
     async updatePersona() {
@@ -1421,7 +1439,8 @@ export default class Shadowrun6Actor extends Actor {
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
                         if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2 + 8;
+                            system.persona.monitor.max = Math.ceil(parseInt(item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2) + 8;
+                            system.persona.monitor.item = systemItem._id;
                         }
                     }
                 }
@@ -1429,7 +1448,9 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.a = (item.a);
                         system.persona.device.base.s = (item.s);
-                        system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
+                        system.persona.monitor.max = Math.ceil(parseInt(item.devRating) / 2) + 8;
+                        system.persona.monitor.item = systemItem._id;
+                        console.log("SR6E | attached item", systemItem, item);
                     }
                 }
             }
@@ -2096,10 +2117,30 @@ export default class Shadowrun6Actor extends Actor {
         return doRoll(roll);
     }
     //-------------------------------------------------------------
+
+    _damageObject(data, monitor) {
+        console.log("SR6E | _damageObject", data, monitor);
+        if (!data || !monitor) {
+            console.error("SR6E | _damageObject: Invalid data or monitor");
+            return null;
+        }
+        // if the monitor contains a dot notation, we need to split it
+        const monitorParts = monitor.split('.');
+        let damageObj = data;
+        for (const part of monitorParts) {
+            if (damageObj[part] === undefined) {
+                console.error(`SR6E | _damageObject: Monitor part '${part}' not found in data`);
+                return null;
+            }
+            damageObj = damageObj[part];
+        }
+        return damageObj;
+    }
+
     async applyDamage(monitor, damage, newDmg) {
         console.log("SR6E | applyDamage", monitor, damage, newDmg);
         const data = this.system;
-        const damageObj = data[monitor];
+        const damageObj = this._damageObject(data, monitor);
         console.log("SR6E | applyDamage | damageObj =", damageObj);
         let overflow = (data.overflow?.dmg) ? data.overflow.dmg : 0;
         let physicalOverflow = 0;
