@@ -1430,7 +1430,10 @@ export default class Shadowrun6Actor extends Actor {
         system.persona.device.base.s = 0;
         system.persona.device.base.d = 0;
         system.persona.device.base.f = 0;
+
+        let active_device = null;
         actorData.items.forEach((tmpItem) => {
+            const tmp_id = tmpItem._id;
             const systemItem = getSystemData(tmpItem);
             if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
                 let item = getSystemData(tmpItem);
@@ -1438,9 +1441,8 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
-                        if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = Math.ceil(parseInt(item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2) + 8;
-                            system.persona.monitor.item = systemItem._id;
+                        if (active_device == null) {
+                            active_device = tmp_id;
                         }
                     }
                 }
@@ -1448,13 +1450,26 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.a = (item.a);
                         system.persona.device.base.s = (item.s);
-                        system.persona.monitor.max = Math.ceil(parseInt(item.devRating) / 2) + 8;
-                        system.persona.monitor.item = systemItem._id;
-                        console.log("SR6E | attached item", systemItem, item);
+                        active_device = tmp_id;
                     }
                 }
             }
         });
+        if (active_device) {
+            const tmp_device = getSystemData(actorData.items.get(active_device));
+            system.persona.monitor.max = Math.ceil(parseInt(tmp_device.devRating) / 2) + 8;
+            system.persona.monitor.dmg = tmp_device.dmg;
+            system.persona.monitor.value = system.persona.monitor.max - system.persona.monitor.dmg;
+            system.persona.monitor.item = active_device;
+            console.log("SR6E | attached item", tmp_device);
+        } else {
+            system.persona.monitor.max = 0;
+            system.persona.monitor.dmg = 0;
+            system.persona.monitor.value = 0;
+            system.persona.monitor.item = null;
+            console.log("SR6E | no active device found");
+        }
+
         console.log("SR6E | preparePersona: device=", system.persona.device);
         // Living persona
         if (system.mortype == "technomancer") {

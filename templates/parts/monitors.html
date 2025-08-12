@@ -63,7 +63,7 @@
 			</td>
 		</tr>
 		{{/iff}}
-		{{#if (and system.persona (ne system.persona.monitor.max 0))}}
+		{{#if (and system.persona (gt system.persona.monitor.max 0))}}
 		<tr>
 			<td class="centered"><img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" style="border: 0px; height: 25px; width: 25px;" /></td>
 			<td><label title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>

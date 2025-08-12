@@ -562,18 +562,19 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         else if (monitorAttributes.dmg > damageClicked) {
             damage = damageClicked - 1;
         }
-        await this.actor.update({ [`system.${key}.dmg`]: damage });
 
         // check if the damage should also be applied to an item
         if (monitorAttributes.item != undefined && monitorAttributes.item != null) {
             console.log("SR6E | _applyDamage: also apply damage to item ", monitorAttributes.item);
-            let item = this.actor.items.find(i => i.id === monitorAttributes.item);
+            let item = this.actor.items.get(monitorAttributes.item);
             if (item) {
-                console.log("SR6E | _applyDamage: item found, updating damage");
-                await item.update({ ["dmg"]: damage });
+                console.log("SR6E | _applyDamage: item found, updating damage", item);
+                await item.update({ ["system.dmg"]: damage });
             } else {
                 console.warn("SR6E | _applyDamage: item not found, cannot update damage");
             }
+        } else {
+            await this.actor.update({ [`system.${key}.dmg`]: damage });
         }
     }
 
