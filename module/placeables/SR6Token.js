@@ -93,14 +93,11 @@ export default class SR6Token extends Token {
     /** @override */
     _refreshState() {
         super._refreshState();
-        console.log(`SR6E | Token Grunt Group is ${this.gruntGroup.visible?'':'not '}visible`);
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
         canvas.tokens.ownedTokens.forEach(async (token) => token.gruntGroup.visible = (this.border.visible && token.document.getFlag(game.system.id, 'GruntGroupId') === groupId) );
     }
 
     updateGruntGroupName() {
-        console.log("SR6E | Token Updating the Grunt Group name", this.id, this.document.name);
-
         this._refreshGruntGroup();
         this.renderFlags.set({refresh: true}); // Refresh all flags
     }
@@ -110,7 +107,6 @@ export default class SR6Token extends Token {
      * @returns {PreciseText}    The Text object for the Token nameplate
      */
     #drawGruntGroupName() {
-        console.log("SR6E | Token drawGruntGroupName");
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
         const group = groupId ? `G${groupId}` : ``;
         const groupName = new PreciseText(group, this._getGruntGroupTextStyle());
@@ -139,7 +135,6 @@ export default class SR6Token extends Token {
     _refreshGruntGroup() {
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
         const group = groupId ? `G${groupId}` : ``;
-        console.log("SR6E | Token Refreshing the Grunt Group Name", groupId);
         
         if (groupId === undefined) this.gruntGroup.visible = false;
         else this.gruntGroup.visible = this.border.visible;
