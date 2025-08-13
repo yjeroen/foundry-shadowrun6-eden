@@ -137,6 +137,10 @@ Hooks.once("init", async function () {
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
     DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
 
+    // Change Canvas Placeables Font to Shadowrun
+    CONFIG.defaultFontFamily = 'Play';
+    CONFIG.canvasTextStyle.fontFamily = 'Play';
+
     if (game.release.generation >= 13) {
         document.body.classList.add('foundry-modern');
     }
