@@ -2226,4 +2226,17 @@ export default class Shadowrun6Actor extends Actor {
 
         return super.importFromJSON(JSON.stringify(sourceData));
     }
+
+    get gruntGroupMembers() {
+        const groupId = this.token?.getFlag(game.system.id, 'GruntGroupId');
+        let groupMembers = 0;
+        if (groupId) {
+            canvas.tokens.ownedTokens.forEach(async (token) => {
+                if (token.document.getFlag(game.system.id, 'GruntGroupId') === groupId)
+                    groupMembers++;
+            });
+        }
+        return groupMembers;
+    }
+
 }

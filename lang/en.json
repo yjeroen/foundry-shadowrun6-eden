@@ -912,7 +912,9 @@
       	"sprite": "Sprite"
       },
       "gruntrules": "Uses grunt rules",
-      "mortype": "Magic/Resonance"
+      "mortype": "Magic/Resonance",
+      "grunt_group": "Grunt Group",
+      "grunt_group_id": "G{groupId}"
     },
     "numerical": {
       "base": "base",
