@@ -86,7 +86,14 @@ async function _showRollDialog(data) {
          */
         data.edgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= data.edge);
         if (data.rollType == RollType.Weapon) {
-            data.calcPool = data.pool;
+            // Set checkbox default enabled if Actor is in a Grunt Group
+            if (data.actor.gruntGroupMembers) {
+                data.useGruntGroup = true;
+                const gruntGroupMembers = data.actor.gruntGroupMembers;
+                data.calcPool += Math.floor((gruntGroupMembers-1)/2);
+            }
+
+            // data.calcPool = data.pool;   // Fix was overriding the wound/sustained modifiers line 80/81
             data.calcAttackRating = [...data.item.calculated.attackRating];
             data.calcDamage = data.item.calculated.dmg;
             if (game.settings.get(SYSTEM_NAME, "highStrengthReducesRecoil") ) {
