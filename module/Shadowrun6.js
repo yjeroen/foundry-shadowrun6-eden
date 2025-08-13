@@ -41,7 +41,8 @@ Hooks.once("init", async function () {
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
         CONFIG.debug.hooks = false;
-        CONFIG.debug.dice = true;
+        CONFIG.debug.dice = false;
+        CONFIG.debug.tokens = false;
     }
 
     game.sr6 = {};
