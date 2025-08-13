@@ -22,6 +22,10 @@ export default class SR6Item extends Item {
     this._migrateCleanUp();
 
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
+    if (this.actor?.type === "Spirit") {
+      this.actor._applySpiritPreset(this.actor.system.rating);
+      this.actor._applyForce(this.actor.system.rating);
+    }
     this.actor?._prepareAttributes();
 
     this.calcAttackRating();
@@ -165,7 +169,7 @@ export default class SR6Item extends Item {
   }
 
   calcDamage() {
-    if (this.system?.dmg === undefined) return;
+    if (this.system?.dmg === undefined || this.system?.dmg === 0) return;
 
     this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
