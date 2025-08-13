@@ -15,25 +15,26 @@ export default class SR6Token extends Token {
 
     /** @override */
     _applyRenderFlags(flags) {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token._applyRenderFlags");
         super._applyRenderFlags(flags);
-        // if ( flags.refreshGruntGroup ) this.drawGruntGroupIcon();
         if ( flags.refreshGruntGroup ) this._refreshGruntGroup();
         
     }
 
     /** @override */
     async _draw(options) {
-        super._draw(options);
+        if (CONFIG.debug.tokens) console.log("SR6E | Token._draw");
+        await super._draw(options);
         // Draw Grunt Group Icon
-        // this.gruntGroup ||= this.addChild(new PIXI.Graphics());
         this.gruntGroup ||= this.addChild(this.#drawGruntGroupName());
     }
 
     /** @inheritDoc */
     _onUpdate(changed, options, userId) {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token._onUpdate");
+        super._onUpdate(changed, options, userId);
         const gruntGroupChanged = ('flags' in changed && 'shadowrun6-eden' in changed.flags);
 
-        super._onUpdate(changed, options, userId);
         // Incremental refresh
         this.renderFlags.set({
             refreshGruntGroup: gruntGroupChanged
@@ -48,7 +49,7 @@ export default class SR6Token extends Token {
      * @protected
      */
     _drawBar(number, bar, data) {
-        console.log("SR6E | Drawing SR6 styled monitor Token bars");
+        if (CONFIG.debug.tokens) console.log("SR6E | Drawing SR6 styled monitor Token bars");
         const val = Number(data.value);
         const pct = Math.clamp(val, 0, data.max) / data.max;
 
@@ -92,12 +93,15 @@ export default class SR6Token extends Token {
 
     /** @override */
     _refreshState() {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token._refreshState");
         super._refreshState();
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
-        canvas.tokens.ownedTokens.forEach(async (token) => token.gruntGroup.visible = (this.border.visible && token.document.getFlag(game.system.id, 'GruntGroupId') === groupId) );
+        if (groupId)
+            canvas.tokens.ownedTokens.forEach(async (token) => token.gruntGroup.visible = (this.border.visible && token.document.getFlag(game.system.id, 'GruntGroupId') === groupId) );
     }
 
     updateGruntGroupName() {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token.updateGruntGroupName");
         this._refreshGruntGroup();
         this.renderFlags.set({refresh: true}); // Refresh all flags
     }
@@ -107,8 +111,9 @@ export default class SR6Token extends Token {
      * @returns {PreciseText}    The Text object for the Token nameplate
      */
     #drawGruntGroupName() {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token.#drawGruntGroupName");
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
-        const group = groupId ? `G${groupId}` : ``;
+        const group = groupId ? game.i18n.format('shadowrun6.npc.grunt_group_id', {groupId}) : '';
         const groupName = new PreciseText(group, this._getGruntGroupTextStyle());
         groupName.anchor.set(0, 1.1);
         return groupName;
@@ -119,6 +124,7 @@ export default class SR6Token extends Token {
      * @protected
      */
     _getGruntGroupTextStyle() {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token._getGruntGroupTextStyle");
         const style = CONFIG.canvasTextStyle.clone();
         style.strokeThickness = 0.5;
         style.fontSize = 16;
@@ -133,8 +139,9 @@ export default class SR6Token extends Token {
      * @protected
      */
     _refreshGruntGroup() {
+        if (CONFIG.debug.tokens) console.log("SR6E | Token._refreshGruntGroup");
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
-        const group = groupId ? `G${groupId}` : ``;
+        const group = groupId ? game.i18n.format('shadowrun6.npc.grunt_group_id', {groupId}) : '';
         
         if (groupId === undefined) this.gruntGroup.visible = false;
         else this.gruntGroup.visible = this.border.visible;
@@ -146,13 +153,13 @@ export default class SR6Token extends Token {
 
     // /** @inheritdoc */
     // _onControl(options={}) {
-    //     console.log("SR6E | Token is selected | _onControl");
+    //     if (CONFIG.debug.tokens) console.log("SR6E | Token is selected | _onControl");
     //     super._onControl(options);
 
     // }
     // /** @inheritdoc */
     // _onRelease(options) {
-    //     console.log("SR6E | Token selection is released | _onRelease");
+    //     if (CONFIG.debug.tokens) console.log("SR6E | Token selection is released | _onRelease");
     //     super._onControl(options);
 
     // }
