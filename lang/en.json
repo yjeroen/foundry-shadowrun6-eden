@@ -914,7 +914,8 @@
       "gruntrules": "Uses grunt rules",
       "mortype": "Magic/Resonance",
       "grunt_group": "Grunt Group",
-      "grunt_group_id": "G{groupId}"
+      "grunt_group_id": "G{groupId}",
+      "grunt_group_attack": "Attack as Grunt Group (x{numberGrunts})"
     },
     "numerical": {
       "base": "base",

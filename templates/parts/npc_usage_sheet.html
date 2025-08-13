@@ -10,7 +10,7 @@
                 {{#switch actor.type}}
                     {{#case 'Spirit' }} {{> "systems/shadowrun6-eden/templates/parts/npc_usage_spirit.html" }} {{/case}}
                 {{/switch}}
-                {{#if gruntGroupId}} {{> "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs" }} {{/if}}
+                {{#if gruntGroup}} {{> "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs" }} {{/if}}
 			</div>
 			<div style="display:flex; flex-direction:row; align-items:center;">
 			{{> "systems/shadowrun6-eden/templates/parts/monitors.html" attributes=system.attributes}}
