@@ -376,13 +376,15 @@ export class RollDialog extends Dialog {
     //-------------------------------------------------------------
     _useGruntGroup(event) {
         const gruntGroup = this.actor.gruntGroup;
-        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup").checked)
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         this._updateDicePool(event);
 
         // Recalculate firing modes
         const fireModeElement = document.getElementById("fireMode");
-        if (!fireModeElement)
+        if (!fireModeElement) {
+            this._prepareFireModeAR((useGruntGroup?gruntGroup.arMod:0), 0, '');
             return;
+        }
 
         switch (fireModeElement.value) {
             case "SS":
@@ -402,7 +404,7 @@ export class RollDialog extends Dialog {
     //-------------------------------------------------------------
     _updateDicePool(event) {
         const gruntGroup = this.actor.gruntGroup;
-        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup").checked)
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         // Get the value of the user entered modifier ..
         let userModifier = parseInt(document.getElementById("modifier").value);
         this.modifier = userModifier ? userModifier : 0;
@@ -492,7 +494,7 @@ export class RollDialog extends Dialog {
     //-------------------------------------------------------------
     _onFiringModeChange(event) {
         const gruntGroup = this.actor.gruntGroup;
-        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup").checked)
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         let prepared = this.options.prepared;
         let fireModeElement = document.getElementById("fireMode");
         if (!fireModeElement)
@@ -540,7 +542,7 @@ export class RollDialog extends Dialog {
     _onBurstModeChange(event, extraArMod=0) {
         console.log("SR6E | _onBurstModeChange");
         const gruntGroup = this.actor.gruntGroup;
-        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup").checked)
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         let prepared = this.options.prepared;
         let fireModeElement = document.getElementById("bfType");
         if (!fireModeElement)
@@ -616,7 +618,7 @@ export class RollDialog extends Dialog {
     //-------------------------------------------------------------
     _onAreaChange(event) {
         const gruntGroup = this.actor.gruntGroup;
-        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup").checked)
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         console.log("SR6E | _onAreaChanged");
         let prepared = this.options.prepared;
         let fullAutoElement = document.getElementById("fullAutoArea");

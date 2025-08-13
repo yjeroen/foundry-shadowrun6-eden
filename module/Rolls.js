@@ -95,10 +95,13 @@ async function _showRollDialog(data) {
                 const gruntDiceMod = data.actor.gruntGroup.diceMod;
                 const gruntArMod   = data.actor.gruntGroup.arMod;
 
-                data.calcPool += gruntDiceMod;                
+                data.calcPool += gruntDiceMod;
+                const newCalcAR = []
                 data.calcAttackRating.forEach((ar) => {
-                    if (ar !== 0) ar += gruntArMod;
+                    if (ar !== 0) newCalcAR.push(ar += gruntArMod);
+                    else newCalcAR.push(ar);
                 });
+                data.calcAttackRating = newCalcAR;
             }
 
             data.calcDamage = data.item.calculated.dmg;
