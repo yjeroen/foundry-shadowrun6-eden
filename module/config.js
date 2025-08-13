@@ -317,7 +317,8 @@ export class SR6Config {
         firearms: "skill.firearms", 
         close_combat: "skill.close_combat", 
         exotic_weapons: "skill.exotic_weapons", 
-        athletics: "skill.athletics"
+        athletics: "skill.athletics", 
+        engineering: "skill.engineering"
     };
     SOFTWARE_TYPES = {        
         AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
