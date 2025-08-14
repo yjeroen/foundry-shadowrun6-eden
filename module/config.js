@@ -38,26 +38,30 @@ export class SR6Config {
         ],
         ACTOR_TYPES: {
             sprite: {
-                'courier': 'SR6.Actor.sprite.TYPES.courier',
-                'crack': 'SR6.Actor.sprite.TYPES.crack',
-                'data': 'SR6.Actor.sprite.TYPES.data',
-                'fault': 'SR6.Actor.sprite.TYPES.fault',
-                'machine': 'SR6.Actor.sprite.TYPES.machine',
-                'assassin': 'SR6.Actor.sprite.TYPES.assassin',
-                'defender': 'SR6.Actor.sprite.TYPES.defender',
-                'modular': 'SR6.Actor.sprite.TYPES.modular',
-                'music': 'SR6.Actor.sprite.TYPES.music',
-                'primal': 'SR6.Actor.sprite.TYPES.primal',
+                types: {
+                    'courier': 'SR6.Actor.sprite.TYPES.courier',
+                    'crack': 'SR6.Actor.sprite.TYPES.crack',
+                    'data': 'SR6.Actor.sprite.TYPES.data',
+                    'fault': 'SR6.Actor.sprite.TYPES.fault',
+                    'machine': 'SR6.Actor.sprite.TYPES.machine',
+                    'assassin': 'SR6.Actor.sprite.TYPES.assassin',
+                    'defender': 'SR6.Actor.sprite.TYPES.defender',
+                    'modular': 'SR6.Actor.sprite.TYPES.modular',
+                    'music': 'SR6.Actor.sprite.TYPES.music',
+                    'primal': 'SR6.Actor.sprite.TYPES.primal',
+                }
             }
         },
         ITEM_TYPES: {
             mod: {
-                'accessory_weapon': 'SR6.Item.mod.TYPES.accessory_weapon',
-                'weapon_mod': 'SR6.Item.mod.TYPES.weapon_mod',
-                'armor': 'SR6.Item.mod.TYPES.armor',
-                'accessory_electronics': 'SR6.Item.mod.TYPES.accessory_electronics',
-                'visual_enhancement': 'SR6.Item.mod.TYPES.visual_enhancement',
-                'audio_enhancement': 'SR6.Item.mod.TYPES.audio_enhancement'
+                types: {
+                    'accessory_weapon': 'SR6.Item.mod.TYPES.accessory_weapon',
+                    'weapon_mod': 'SR6.Item.mod.TYPES.weapon_mod',
+                    'armor': 'SR6.Item.mod.TYPES.armor',
+                    'accessory_electronics': 'SR6.Item.mod.TYPES.accessory_electronics',
+                    'visual_enhancement': 'SR6.Item.mod.TYPES.visual_enhancement',
+                    'audio_enhancement': 'SR6.Item.mod.TYPES.audio_enhancement'
+                }
             }
         }
     };
@@ -553,11 +557,29 @@ export class SR6Config {
         adeptpower: {
             default: "systems/shadowrun6-eden/icons/compendium/default/explosion.svg"
         },
+        complexform: {
+            default: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
+        },
+        contact: {
+            default: "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg"
+        },
         critterpower: {
             default: "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg"
         },
+        echo: {
+            default: "systems/shadowrun6-eden/icons/compendium/gear/bug_detector.svg"
+        },
+        focus: {
+            default: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jewelry.svg"
+        },
         gear: {
             default: "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg"
+        },
+        skill: {
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg"
+        },
+        lifestyle: {
+            default: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jacket.svg"
         },
         martialartstyle: {
             default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
@@ -565,17 +587,26 @@ export class SR6Config {
         martialarttech: {
             default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
         },
+        metamagic: {
+            default: "systems/shadowrun6-eden/icons/compendium/default/daze.svg"
+        },
         quality: {
             default: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg"
-        },
-        spell: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/acid.svg"
         },
         ritual: {
             default: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
         },
-        complexform: {
-            default: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
+        sin: {
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Role.svg"
+        },
+        software: {
+            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Program.svg"
+        },
+        spell: {
+            default: "systems/shadowrun6-eden/icons/compendium/default/acid.svg"
+        },
+        mod: {
+            default: "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg"
         }
     };
     spell_range = {
