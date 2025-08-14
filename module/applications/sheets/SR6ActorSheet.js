@@ -485,8 +485,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 type: "gear",
                 system: {
                     genesisID: this._create_UUID(),
-                    type: "DRONES",
-                    subtype: "SMALL_DRONES"
+                    type: "DRONE_MICRO",
+                    subtype: "GROUND"
                 }
             };
             return this.actor.createEmbeddedDocuments("Item", [itemData]);
