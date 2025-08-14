@@ -37,7 +37,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @type {string[]}
      */
     static get TYPES() {
-        return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type];
+        return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type].types ?? [];
         if (CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type].constructor === Array) 
             return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type];
         else
