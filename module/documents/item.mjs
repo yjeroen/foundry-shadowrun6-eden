@@ -45,7 +45,7 @@ export default class SR6Item extends Item {
    */
   async _preUpdate(changes, options, user) {
     const allowed = await super._preUpdate(changes, options, user);
-    console.log("SR6E | SR6Item._preUpdate()");
+    console.log("SR6E | SR6Item._preUpdate()", changes);
     if ( allowed === false ) return false;
 
     // Forward to type data model
@@ -286,7 +286,7 @@ export default class SR6Item extends Item {
    */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
-    if ( !this.actor || this.actor._embeddedPreparation ) this.applyActiveEffects();
+    if ( this.actor && this.actor?._embeddedPreparation ) this.applyActiveEffects();
   }
 
   /**
