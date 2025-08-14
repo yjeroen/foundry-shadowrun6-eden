@@ -1425,12 +1425,12 @@
     "sin" : {
       "quality" : "Quality",
       "real_sin" : "Real SIN",
-      "anyone" : "Anyone",
-      "rough_match" : "Rough match",
-      "good_match": "Good match",
-      "superficially_plausible": "Superficially plausible",
-      "highly_plausible" : "High plausible",
-      "second_life" : "Second life"
+      "anyone" : "(R1) Anyone",
+      "rough_match" : "(R2) Rough match",
+      "good_match": "(R3) Good match",
+      "superficially_plausible": "(R4) Superficially plausible",
+      "highly_plausible" : "(R5) High plausible",
+      "second_life" : "(R6) Second life"
     },
     "softwareedit": {
       "description": "Description",
