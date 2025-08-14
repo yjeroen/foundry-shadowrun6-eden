@@ -49,6 +49,16 @@ export class SR6Config {
                 'music': 'SR6.Actor.sprite.TYPES.music',
                 'primal': 'SR6.Actor.sprite.TYPES.primal',
             }
+        },
+        ITEM_TYPES: {
+            mod: {
+                'accessory_weapon': 'SR6.Item.mod.TYPES.accessory_weapon',
+                'weapon_mod': 'SR6.Item.mod.TYPES.weapon_mod',
+                'armor': 'SR6.Item.mod.TYPES.armor',
+                'accessory_electronics': 'SR6.Item.mod.TYPES.accessory_electronics',
+                'visual_enhancement': 'SR6.Item.mod.TYPES.visual_enhancement',
+                'audio_enhancement': 'SR6.Item.mod.TYPES.audio_enhancement'
+            }
         }
     };
 
@@ -86,7 +96,13 @@ export class SR6Config {
         BIOWARE: "shadowrun6.itemtype.BIOWARE",
         CHEMICALS: "shadowrun6.itemtype.CHEMICALS",
         CYBERWARE: "shadowrun6.itemtype.CYBERWARE",
+        CODEMODS: "shadowrun6.itemtype.CODEMODS",
         DRONES: "shadowrun6.itemtype.DRONES",
+        DRONE_MICRO: "shadowrun6.gear.subtype.MICRODRONES",
+        DRONE_MINI: "shadowrun6.gear.subtype.MINIDRONES",
+        DRONE_SMALL: "shadowrun6.gear.subtype.SMALL_DRONES",
+        DRONE_MEDIUM: "shadowrun6.gear.subtype.MEDIUM_DRONES",
+        DRONE_LARGE: "shadowrun6.gear.subtype.LARGE_DRONES",
         ELECTRONICS: "shadowrun6.itemtype.ELECTRONICS",
         GENETICS: "shadowrun6.itemtype.GENETICS",
         MAGICAL: "shadowrun6.itemtype.MAGICAL",
@@ -109,12 +125,17 @@ export class SR6Config {
             ROCKETS: "shadowrun6.gear.subtype.ROCKETS",
             MISSILES: "shadowrun6.gear.subtype.MISSILES",
             EXPLOSIVES: "shadowrun6.gear.subtype.EXPLOSIVES",
-            GRENADES: "shadowrun6.gear.subtype.GRENADES"
+            GRENADES: "shadowrun6.gear.subtype.GRENADES",
+            BOWS: "shadowrun6.gear.subtype.BOWS",
+            CROSSBOWS: "shadowrun6.gear.subtype.CROSSBOWS",
+            BALLISTAS: "shadowrun6.gear.subtype.BALLISTAS"
         },
         ARMOR: {
             ARMOR_BODY: "shadowrun6.gear.subtype.ARMOR_BODY",
             ARMOR_HELMET: "shadowrun6.gear.subtype.ARMOR_HELMET",
-            ARMOR_SHIELD: "shadowrun6.gear.subtype.ARMOR_SHIELD"
+            ARMOR_SHIELD: "shadowrun6.gear.subtype.ARMOR_SHIELD",
+            ARMOR_SOCIAL: "shadowrun6.gear.subtype.ARMOR_SOCIAL",
+            ARMOR_CLOTHES: "shadowrun6.gear.subtype.ARMOR_CLOTHES"
         },
         ARMOR_ADDITION: {},
         BIOLOGY: {
@@ -124,13 +145,18 @@ export class SR6Config {
         BIOWARE: {
             BIOWARE_STANDARD: "shadowrun6.gear.subtype.BIOWARE_STANDARD",
             BIOWARE_CULTURED: "shadowrun6.gear.subtype.BIOWARE_CULTURED",
-            BIOWARE_IMPLANT_WEAPON: "shadowrun6.gear.subtype.BIOWARE_IMPLANT_WEAPON"
+            BIOWARE_IMPLANT_WEAPON: "shadowrun6.gear.subtype.BIOWARE_IMPLANT_WEAPON", // Key changed in Commlink to BIOWARE_WEAPON
+            BIOWARE_DERMAL: "shadowrun6.gear.subtype.BIOWARE_DERMAL",
+            BIOSENSE: "shadowrun6.gear.subtype.BIOSENSE",
+            SYMBIONTS: "shadowrun6.gear.subtype.SYMBIONT"
         },
         CHEMICALS: {
             INDUSTRIAL_CHEMICALS: "shadowrun6.gear.subtype.INDUSTRIAL_CHEMICALS",
             TOXINS: "shadowrun6.gear.subtype.TOXINS",
             DRUGS: "shadowrun6.gear.subtype.DRUGS",
-            BTL: "shadowrun6.gear.subtype.BTL"
+            BTL: "shadowrun6.gear.subtype.BTL",
+            PERFUME: "shadowrun6.gear.subtype.PERFUME",
+            ESPIONAGE: "shadowrun6.gear.subtype.ESPIONAGE"
         },
         CYBERWARE: {
             CYBER_HEADWARE: "shadowrun6.gear.subtype.CYBER_HEADWARE",
@@ -141,7 +167,16 @@ export class SR6Config {
             CYBER_IMPLANT_WEAPON: "shadowrun6.gear.subtype.CYBER_IMPLANT_WEAPON",
             CYBER_LIMBS: "shadowrun6.gear.subtype.CYBER_LIMBS",
             COMMLINK: "shadowrun6.gear.subtype.COMMLINK",
-            CYBERDECK: "shadowrun6.gear.subtype.CYBERDECK"
+            CYBERDECK: "shadowrun6.gear.subtype.CYBERDECK",
+            CYBERNETIC_RESTRAINT: "shadowrun6.gear.subtype.CYBERNETIC_RESTRAINT",
+            COSMETIC: "shadowrun6.gear.subtype.COSMETIC"
+        },
+        CODEMODS: {
+            ATTRIBUTE_CODEMOD: "shadowrun6.gear.subtype.ATTRIBUTE_CODEMOD",
+            CORE_CODEMOD: "shadowrun6.gear.subtype.ATTRIBUTE_CODEMOD",
+            PROCESSOR: "shadowrun6.gear.subtype.PROCESSOR",
+            IO: "shadowrun6.gear.subtype.IO",
+            DIGITAL_WEAPON: "shadowrun6.gear.subtype.DIGITAL_WEAPON"
         },
         DRONES: {
             MICRODRONES: "shadowrun6.gear.subtype.MICRODRONES",
@@ -149,6 +184,34 @@ export class SR6Config {
             SMALL_DRONES: "shadowrun6.gear.subtype.SMALL_DRONES",
             MEDIUM_DRONES: "shadowrun6.gear.subtype.MEDIUM_DRONES",
             LARGE_DRONES: "shadowrun6.gear.subtype.LARGE_DRONES"
+        },
+        DRONE_MICRO: {
+            GROUND: "shadowrun6.gear.subtype.GROUND",
+            AIR: "shadowrun6.gear.subtype.AIR",
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC"
+        },
+        DRONE_MINI: {
+            GROUND: "shadowrun6.gear.subtype.GROUND",
+            AIR: "shadowrun6.gear.subtype.AIR",
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC"
+        },
+        DRONE_SMALL: {
+            GROUND: "shadowrun6.gear.subtype.GROUND",
+            AIR: "shadowrun6.gear.subtype.AIR",
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
+            ANTHRO: "shadowrun6.gear.subtype.ANTHRO"
+        },
+        DRONE_MEDIUM: {
+            GROUND: "shadowrun6.gear.subtype.GROUND",
+            AIR: "shadowrun6.gear.subtype.AIR",
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
+            ANTHRO: "shadowrun6.gear.subtype.ANTHRO"
+        },
+        DRONE_LARGE: {
+            GROUND: "shadowrun6.gear.subtype.GROUND",
+            AIR: "shadowrun6.gear.subtype.AIR",
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
+            ANTHRO: "shadowrun6.gear.subtype.ANTHRO"
         },
         ELECTRONICS: {
             COMMLINK: "shadowrun6.gear.subtype.COMMLINK",
@@ -165,32 +228,81 @@ export class SR6Config {
             SECURITY: "shadowrun6.gear.subtype.SECURITY",
             BREAKING: "shadowrun6.gear.subtype.BREAKING",
             TAC_NET: "shadowrun6.gear.subtype.TAC_NET",
+            DATATERM: "shadowrun6.gear.subtype.DATATERM",
+            CYBERTERM: "shadowrun6.gear.subtype.CYBERTERM",
+            INSTRUMENT: "shadowrun6.gear.subtype.INSTRUMENT",
+            BTLS: "shadowrun6.gear.subtype.BTLS",
         },
-        GENETICS: {},
+        
+        // /** Hack&Slash custom cyberdecks */
+        // CYBERDECK(
+        //         ItemSubType.CORE,
+        //         ItemSubType.CASES,
+        //         ItemSubType.CASE_MODS,
+        //         ItemSubType.CORE_OPTIONAL
+        //         ),
+        GENETICS: {
+            THERAPEUTIC: "shadowrun6.gear.subtype.THERAPEUTIC",
+            AUGMENTICS: "shadowrun6.gear.subtype.AUGMENTICS",
+            COMPLEMENTARY_GENETIC_MODS: "shadowrun6.gear.subtype.COMPLEMENTARY_GENETIC_MODS",
+            TRANSGENICS: "shadowrun6.gear.subtype.TRANSGENICS",
+            TRANSGENIC_BIOWARE: "shadowrun6.gear.subtype.TRANSGENIC_BIOWARE",
+        },
         MAGICAL: {
             MAGIC_SUPPLIES: "shadowrun6.gear.subtype.MAGIC_SUPPLIES"
         },
-        NANOWARE: {},
+        NANOWARE: {
+            NANITES_COSMETIC: "shadowrun6.gear.subtype.NANITES_COSMETIC",
+            NANITES_THERAPEUTIC: "shadowrun6.gear.subtype.NANITES_THERAPEUTIC",
+            NANITES_BIOAMP: "shadowrun6.gear.subtype.NANITES_BIOAMP",
+            NANITES_UTILITIES: "shadowrun6.gear.subtype.NANITES_UTILITIES",
+            NANITES_TRANSIENT: "shadowrun6.gear.subtype.NANITES_TRANSIENT",
+            NANO_CYBERWARE: "shadowrun6.gear.subtype.NANO_CYBERWARE",
+            NANOTECH_KIT: "shadowrun6.gear.subtype.NANOTECH_KIT"
+        },
         SOFTWARE: {
-            AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT"
+            AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
+            BASIC_PROGRAM: "shadowrun6.gear.subtype.BASIC_PROGRAM",
+            HACKING_PROGRAM: "shadowrun6.gear.subtype.HACKING_PROGRAM",
+            RIGGER_PROGRAM: "shadowrun6.gear.subtype.RIGGER_PROGRAM",
+            SKILLSOFT: "shadowrun6.gear.subtype.SKILLSOFT",
+            TAC_NET: "shadowrun6.gear.subtype.TAC_NET",
+            ESOFT: "shadowrun6.gear.subtype.ESOFT",
+            OTHER_PROGRAMS: "shadowrun6.gear.subtype.OTHER_PROGRAMS"
         },
         SURVIVAL: {
             SURVIVAL_GEAR: "shadowrun6.gear.subtype.SURVIVAL_GEAR",
+            WINTER_GEAR: "shadowrun6.gear.subtype.WINTER_GEAR",
             GRAPPLE_GUN: "shadowrun6.gear.subtype.GRAPPLE_GUN"
         },
         TOOLS: {
-            TOOLS: "shadowrun6.gear.subtype.TOOLS"
+            TOOLS: "shadowrun6.gear.subtype.TOOLS",
+            SPARE_PARTS: "shadowrun6.gear.subtype.SPARE_PARTS"
         },
         VEHICLES: {
+            AIRSHIP: "shadowrun6.gear.subtype.AIRSHIP",
+            ATVS: "shadowrun6.gear.subtype.ATVS",
             BIKES: "shadowrun6.gear.subtype.BIKES",
-            CARS: "shadowrun6.gear.subtype.CARS",
-            TRUCKS: "shadowrun6.gear.subtype.TRUCKS",
             BOATS: "shadowrun6.gear.subtype.BOATS",
+            BUS: "shadowrun6.gear.subtype.BUS",
+            CARS: "shadowrun6.gear.subtype.CARS",
+            HOVERCRAFT: "shadowrun6.gear.subtype.HOVERCRAFT",
+            LAV: "shadowrun6.gear.subtype.LAV",
+            LTAV: "shadowrun6.gear.subtype.LTAV",
+            GRAV: "shadowrun6.gear.subtype.GRAV",
+            TRACKED: "shadowrun6.gear.subtype.TRACKED",
+            MOD_TRAILER: "shadowrun6.gear.subtype.MOD_TRAILER",
+            TRUCKS: "shadowrun6.gear.subtype.TRUCKS",
+            SHIPS: "shadowrun6.gear.subtype.SHIPS",
             SUBMARINES: "shadowrun6.gear.subtype.SUBMARINES",
+            PWC: "shadowrun6.gear.subtype.PWC",
             FIXED_WING: "shadowrun6.gear.subtype.FIXED_WING",
             ROTORCRAFT: "shadowrun6.gear.subtype.ROTORCRAFT",
+            VANS: "shadowrun6.gear.subtype.VANS",
             VTOL: "shadowrun6.gear.subtype.VTOL",
-            WALKER: "shadowrun6.gear.subtype.WALKER"
+            WALKER: "shadowrun6.gear.subtype.WALKER",
+            SPACECRAFT: "shadowrun6.gear.subtype.SPACECRAFT",
+            SPECIAL_VEHICLES: "shadowrun6.gear.subtype.SPECIAL_VEHICLES"
         },
         WEAPON_CLOSE_COMBAT: {
             BLADES: "shadowrun6.gear.subtype.BLADES",
@@ -223,6 +335,8 @@ export class SR6Config {
         WEAPON_SPECIAL: {
             LAUNCHERS: "shadowrun6.gear.subtype.LAUNCHERS",
             THROWERS: "shadowrun6.gear.subtype.THROWERS",
+            DMSO: "shadowrun6.gear.subtype.DMSO",
+            DART: "shadowrun6.gear.subtype.DART",
             OTHER_SPECIAL: "shadowrun6.gear.subtype.OTHER_SPECIAL"
         }
     };
