@@ -49,8 +49,8 @@ export default class SR6ItemSheet extends ItemSheet {
         }
     }
     /** @overrride */
-    getData() {
-        let data = super.getData();
+    async getData() {
+        let data = await super.getData();
         console.log("SR6E | SR6ItemSheet.getData()", data);
         if (data.item.system.essence !== undefined) {
             data.item.system.essence = parseFloat(
@@ -90,6 +90,11 @@ export default class SR6ItemSheet extends ItemSheet {
             data.systemFields = this.document.system.schema.fields;
             // data.systemFields.type.dataset = { field: data.systemFields.type.fieldPath };    // Alternative for formInput to work due to SR6ItemSheet currently being dependent on 'data-field' changes
         }
+
+        // HTML enriching for sheets
+        this.item.enriched = {};
+        this.item.enriched.description = await this.enrichedHTML(this.item.system.description);
+        if (this.item.system.accessories) this.item.enriched.accessories = await this.enrichedHTML(this.item.system.accessories);
 
         return data;
     }
@@ -386,6 +391,24 @@ export default class SR6ItemSheet extends ItemSheet {
         return this.item.effects.get(li?.dataset?.effectId);
     }
 
+    
+    /**
+     * Get Editor Safe Description
+     */
+    async enrichedHTML(htmlString) {
+        return await TextEditor.enrichHTML(
+            htmlString,
+            {
+                // Whether to show secret blocks in the finished html
+                secrets: this.item.isOwner,
+                // Data to fill in for inline rolls
+                rollData: this.item.getRollData(),
+                // Relative UUID resolution
+                relativeTo: this.item,
+            }
+        );
+    }
+
 
     /**
      * *************** Handle Item on Item drop 
@@ -508,6 +531,7 @@ export default class SR6ItemSheet extends ItemSheet {
         // const itemId = this._getClosestData($(event.currentTarget), "item-id");
         const item = this._getItem(event);
 
+        element.classList.toggle("closed");
         element.classList.toggle("open");
         let content = element.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild;
         if (content.style.maxHeight) {
@@ -515,8 +539,8 @@ export default class SR6ItemSheet extends ItemSheet {
         } else {
             content.style.maxHeight = content.scrollHeight + "px";
         }
-        let value = element.classList.contains("open") ? "open" : "closed";
-        item.setFlag("shadowrun6-eden", "collapse-state", value);
+        content.classList.toggle("closed");
+        content.classList.toggle("open");
     }
 
 }

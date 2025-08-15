@@ -17,7 +17,7 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'ritual'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-       	<td style="width:1rem"><button type="button" name="collapseRitual{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button></td>
+       	<td style="width:1rem"><button type="button" name="collapseRitual{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
        	<td><input name="ritualName{{id}}" type="text" class="draggable" data-uuid="{{item.uuid}}" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
 			<td class="centered" style="width: 2em"> <input name="ritualThreshold{{id}}" class="centered" type="text" value="{{item.system.threshold}}" data-field="system.threshold" data-type="Number" disabled></td>
 			<td class="centered">
@@ -28,7 +28,7 @@
 	   </tr>
        <tr>
          <td colspan="6">
-         	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}">
+         	<div class="collapsible-content closed">
         	   {{ localize 'shadowrun6.label.features' }}: <b>{{ritualFeat item.system}}</b>
          	</div>
          </td>

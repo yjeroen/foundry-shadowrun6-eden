@@ -87,10 +87,6 @@ export default class Shadowrun6Actor extends Actor {
         // This also calls Item Active Effects
         super.prepareData();
 
-        // HTML enriching for sheets
-        this.enriched = { notes: await this.enrichedHTML(this.system.notes) };
-        if (this.system.description) this.enriched.description = await this.enrichedHTML(this.system.description);
-
         // Modern DataModel Actors skip legacy data load flow
         if (this.system instanceof foundry.abstract.DataModel) return;
         
@@ -2246,24 +2242,6 @@ export default class Shadowrun6Actor extends Actor {
         gruntGroup.arMod   = groupMembers - 1;
 
         return gruntGroup;
-    }
-
-    
-    /**
-     * Get Editor Safe Description
-     */
-    async enrichedHTML(htmlString) {
-    return await TextEditor.enrichHTML(
-            htmlString,
-            {
-            // Whether to show secret blocks in the finished html
-            secrets: this.isOwner,
-            // Data to fill in for inline rolls
-            rollData: this.getRollData(),
-            // Relative UUID resolution
-            relativeTo: this,
-            }
-        );
     }
 
 }

@@ -20,6 +20,7 @@ export default class SR6Item extends Item {
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
     this._migrateCleanUp();
+    console.log("SR6E | SR6Item.prepareData()");
 
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     if (this.actor?.type === "Spirit") {
@@ -33,7 +34,8 @@ export default class SR6Item extends Item {
     this.calcAmmo();
 
     // HTML enriching for sheets
-    this.enriched = { description: await this.enrichedHTML(this.system.description) };
+    this.enriched = {};
+    this.enriched.description = await this.enrichedHTML(this.system.description);
     if (this.system.accessories) this.enriched.accessories = await this.enrichedHTML(this.system.accessories);
   }
 
@@ -187,7 +189,6 @@ export default class SR6Item extends Item {
   calcAmmo() {
     if (this.calculated?.attackRating === undefined || this.system.ammocap === undefined) return;
 
-    console.log("SR6E | SR6Item | calcAmmo");
     let arMod=0, dmgMod=0, stun=this.system.stun, ammoLoaded = this.system.ammoLoaded;
 
     switch (ammoLoaded) {
@@ -391,5 +392,5 @@ export default class SR6Item extends Item {
             relativeTo: this,
           }
       );
-  } 
+  }
 }

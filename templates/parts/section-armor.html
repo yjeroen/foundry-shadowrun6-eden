@@ -19,7 +19,7 @@
 		{{#iff item.type '==' 'gear'}}
 		{{#iff item.system.type '==' "ARMOR"}}
        <tr class="item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseArmor{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+       	<td style="margin-right: 1rem"><button type="button" name="collapseArmor{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
        	<td>
 			<label class="switch">
        			<input name="armorUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
@@ -35,7 +35,7 @@
        </tr>
        <tr>
          <td colspan="6">
-         	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}" style="vertical-align: top">
+         	<div class="collapsible-content closed" style="vertical-align: top">
 				<label>{{ localize 'shadowrun6.label.accessories' }}</label>
 				<div class="sheet-editor-readonly">{{{item.system.accessories}}}</div>
          	</div>
