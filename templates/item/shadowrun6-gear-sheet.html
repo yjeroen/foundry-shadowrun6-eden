@@ -339,10 +339,10 @@
             </table>
             {{/if}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
-            {{editor item.system.accessories target="system.accessories" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
             <!-- ********** Beschreibung ********** -->
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
     </section>
 </form>
 
