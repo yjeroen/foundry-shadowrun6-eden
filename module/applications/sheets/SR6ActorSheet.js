@@ -339,6 +339,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".critterpower-create").click((ev) => this._onCreateNewEmbeddedItem("critterpower"));
         html.find(".ritual-create").click((ev) => this._onCreateNewEmbeddedItem("ritual"));
         html.find(".focus-create").click((ev) => this._onCreateNewEmbeddedItem("focus"));
+        html.find(".mod-create").click((ev) => this._onCreateNewEmbeddedItem("mod"));
         html.find(".weapon-create").click((ev) => {
             const itemData = {
                 name: game.i18n.localize("shadowrun6.newitem.weapon"),
@@ -494,7 +495,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".item-edit").click((ev) => {
             const element = ev.currentTarget.closest(".item");
             const item = this.actor.items.get(element.dataset.itemId);
-            console.log("SR6E | edit ", item);
+            console.log("SR6E | Editing ", item);
             if (!item) {
                 throw new Error("Item is null");
             }

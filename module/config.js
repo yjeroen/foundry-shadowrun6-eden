@@ -57,7 +57,7 @@ export class SR6Config {
                 types: {
                     'accessory_weapon': 'SR6.Item.mod.TYPES.accessory_weapon',
                     'weapon_mod': 'SR6.Item.mod.TYPES.weapon_mod',
-                    'armor': 'SR6.Item.mod.TYPES.armor',
+                    'armor_mod': 'SR6.Item.mod.TYPES.armor_mod',
                     'accessory_electronics': 'SR6.Item.mod.TYPES.accessory_electronics',
                     'visual_enhancement': 'SR6.Item.mod.TYPES.visual_enhancement',
                     'audio_enhancement': 'SR6.Item.mod.TYPES.audio_enhancement'

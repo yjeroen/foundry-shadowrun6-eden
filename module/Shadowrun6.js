@@ -106,10 +106,10 @@ Hooks.once("init", async function () {
      * @see documents.SR6Item
      * @see sheets.SR6ItemSheet
      */
-    // Object.assign(CONFIG.Item.dataModels, {
-    //     mod: datamodels.SR6ModItemData
-    // });
-    // CONFIG.Item.defaultType = "gear";
+    Object.assign(CONFIG.Item.dataModels, {
+        mod: datamodels.SR6ModItemData
+    });
+    CONFIG.Item.defaultType = "gear";
     CONFIG.Item.documentClass = documents.SR6Item;
     Items.registerSheet("shadowrun6-eden", applications.SR6ItemSheet, {
         types: [
@@ -289,6 +289,9 @@ Hooks.once("init", async function () {
         console.log("SR6E | renderSR6ItemSheet hook called");
         _onRenderItemSheet(app, html, data);
     });
+    /**
+     * Allowing items and effects to drop on Tokens on the canvas
+     */
     Hooks.on("dropCanvasData", (canvas, data) => {
         console.log("SR6E | dropCanvasData hook called", canvas, data);
         if (!(data.type === "Item" || data.type === "ActiveEffect")) {

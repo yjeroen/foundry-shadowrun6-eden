@@ -1,0 +1,56 @@
+{{! Gear Mods Section }}
+{{log 'item-mods.hbs' this}}
+
+<div class="section" style="display: inline-block; margin: 5px; min-width: 320px;">
+ <div class="section-head">
+	<h2 class="section-title">{{localize 'SR6.Item.mod.label.section'}}</h2>
+		<a class="item-control mod-create" title="{{localize 'shadowrun6.section.gear.add' }}"><h2 class="fas fa-plus"></h2></a>
+</div>
+<table class="item-list">
+	    <thead>
+	      <tr>
+	        <th style="width: 24px;"></th>
+
+	        <th style="text-align: left; padding-left: 3px;">{{ localize 'shadowrun6.label.column.name' }}</th>
+	        <th style="width: 40%">{{ localize 'SR6.Common.FIELDS.type.label' }}</th>
+
+	        <th style="width: 20%">{{ localize 'shadowrun6.label.column.action' }}</th>
+	      </tr>
+	    </thead>
+
+		{{#each (sort item.actor.items) as |item id|}}
+		{{#iff item.type '==' 'mod'}}
+		{{#iff item.system.embeddedInUuid '==' ../item.uuid }}
+
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td style="margin-right: 1rem; width: 0.7em;">
+				{{#if item.system.description.length}}
+				<button type="button" name="collapseGear{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
+				{{else}}
+				<button type="button" name="collapseGear{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}} empty" data-item-id="{{this.id}}">+</button>
+				{{/if}}
+			</td>
+
+			<td style="height: 20px;"> <span class="draggable" data-uuid="{{item.uuid}}">{{item.name}}</span></td>
+			<td class="centered">{{localize (lookup item.system.schema.fields.type.choices item.system.type )}}</td>
+
+			<td class="centered">
+                <a class="item-control" data-action="uninstallMod" title="{{localize 'SR6.Item.mod.label.uninstall' }}"><i class="fas fa-toggle-on"></i></a>
+				<a class="item-control item-edit" title="{{localize 'shadowrun6.label.edit' }}"><i class="fas fa-edit"></i></a>
+				<a class="item-control item-delete" title="{{localize 'shadowrun6.label.delete' }}"><i class="fas fa-trash"></i></a>
+			</td>
+	   </tr>
+       <tr>
+         <td colspan="5">
+         	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}" style="font-size: 0.8em;">
+        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+			   <div>{{{item.system.description}}} &nbsp;</div>
+         	</div>
+         </td>
+       </tr>
+	   
+		{{/iff}}
+		{{/iff}}
+		{{/each}}
+</table>
+</div>

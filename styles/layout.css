@@ -94,11 +94,13 @@ tfoot th {
 	color: var(--input-color);
 	background-color: var(--tablehead-background);
 }
-.sheet-body * table{
+.sheet.item * table,
+.sheet-body * table {
 	background-color: rgba(0,0,0,0);
 	border-top: 0px;
 	border-bottom: 0px;
 }
+.sheet.item * thead,
 .sheet-body * thead {
 	background-color: var(--tablehead-background);
 	text-shadow: none;

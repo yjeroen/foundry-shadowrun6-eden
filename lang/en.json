@@ -940,7 +940,8 @@
       "vehicles": "Awesome ride",
       "weapon": "Named weapons are much cooler",
       "weaponclose": "Something heavy",
-      "weaponspecial": "Weird weapon"
+      "weaponspecial": "Weird weapon",
+      "mod": "Pink Paint Mod"
     },
     "npc": {
     	"subtype": {
@@ -1946,15 +1947,21 @@
     "Item": {
       "base": {
         "FIELDS": {
-          "xxx": {
-            "label": "xxx"
+          "genesisID": {
+            "label": "GenesisID"
+          },
+          "availDef": {
+            "label": "Avail."
+          },
+          "price": {
+            "label": "Price"
           }
         }
       },
-      "sprite": {
+      "mod": {
         "FIELDS": {
-          "xxx": {
-            "label": "xxx"
+          "embeddedInUuid": {
+            "label": "Item Modded"
           }
         },
         "TYPES": {
@@ -1964,6 +1971,11 @@
           "accessory_electronics": "Electronics Accessory",
           "visual_enhancement": "Visual Enhancement",
           "audio_enhancement": "Audio Enhancement"
+        },
+        "label": {
+          "section": "Gear Mods",
+          "not_installed": "(not installed)",
+          "uninstall": "Uninstall this Gear Mod"
         }
       }
     },

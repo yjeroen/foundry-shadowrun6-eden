@@ -136,7 +136,7 @@ export default class SR6Item extends Item {
   
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};
-    if (this.system.ammoLoaded === undefined) this.system.ammoLoaded = 'regular';
+    if (this.system.ammoLoaded === undefined && this.system.ammocap) this.system.ammoLoaded = 'regular';
     if (typeof this.system.ammocap === 'string') this.system.ammocap = parseInt(this.system.ammocap);
     if (typeof this.system.ammocount === 'string') this.system.ammocount = parseInt(this.system.ammocount);
   }
@@ -181,7 +181,7 @@ export default class SR6Item extends Item {
   }
 
   calcAmmo() {
-    if (this.calculated?.attackRating === undefined) return;
+    if (this.calculated?.attackRating === undefined || this.system.ammocap === undefined) return;
 
     console.log("SR6E | SR6Item | calcAmmo");
     let arMod=0, dmgMod=0, stun=this.system.stun, ammoLoaded = this.system.ammoLoaded;
@@ -355,6 +355,21 @@ export default class SR6Item extends Item {
 
     const arArray = Object.values(this.system.attackRating);
     this.system.attackRating = arArray;
+  }
+
+  /**
+   * ITEM MODS
+   */
+
+  get itemMods() {
+    const itemMods = [];
+    if (!this.actor) return itemMods;
+    return this.actor.items.filter(item => item.system.embeddedInUuid === this.uuid);
+  }
+
+  async addItemMod(ModUuid) {
+    const mod = this.actor.items.find(item => item.uuid === ModUuid);
+    return await mod.update({"system.embeddedInUuid": this.uuid});
   }
 
 }

@@ -1,0 +1,41 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="section">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.item.type'}}</th>
+                    <th>{{localize systemFields.embeddedInUuid.label}}</th>
+                    <th>{{localize 'shadowrun6.item.availability'}}</th>
+                    <th>{{localize 'shadowrun6.item.price'}}</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        {{!-- TODO: Canot use formInput until AppV2 implementation due to update currently triggered via data-field --}}
+                        {{!-- {{formInput systemFields.type value=item.system.type localize=true blank="-" dataset=systemFields.type.dataset}} --}}
+                        <select name="system.type" data-field="system.type" class="typeselect">
+                            {{selectOptions systemFields.type.choices selected=item.system.type localize=true blank="-"}}
+                        </select>
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2.4em" /></td>
+                    <td style="text-align: center"><span class="input-symbol-nuyen"><input type="number" value="{{item.system.price}}" data-field="system.price" min="0" class="box centered" style="width: 5em" /></span></td>
+                </tr>
+            </table>
+        </div>
+
+        {{log 'JEROEN' this}}
+        {{formGroup systemFields.embeddedInUuid value=item.system.embeddedInUuid}}
+
+        <div class="section">
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
+        </div>
+    </section>
+</form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}

@@ -1,4 +1,7 @@
-<div class="item-sheet-header">
-    <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
+<div class="item-sheet-header" style="min-width:590px">
+    <div style="flex-grow: inherit;">
+        <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
+        <div class="rubik-glitch-regular">{{localize (concat "TYPES.Item." item.type)}}</div>
+    </div>
     <img src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
 </div>
