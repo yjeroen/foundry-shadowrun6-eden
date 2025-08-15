@@ -54,6 +54,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         data.actor.enriched = {};
         data.actor.enriched.notes = await this.enrichedHTML(this.actor.system.notes);
         if (data.actor.system.description) data.actor.enriched.description = await this.enrichedHTML(data.system.description);
+        for (const item of data.actor.items) {
+            item.enriched = {};
+            item.enriched.description = await this.enrichedHTML(item.system.description);
+            if (item.system.accessories) item.enriched.accessories = await this.enrichedHTML(item.system.accessories);
+        }
 
         console.log("SR6E | Shadowrun6ActorSheet.getData()", data);
         return data;

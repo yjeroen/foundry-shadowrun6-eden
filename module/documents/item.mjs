@@ -12,7 +12,7 @@ export default class SR6Item extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
-  async prepareData() {
+  prepareData() {
     // system addittions must be done before super.prepareData()
     this._addDefaultFireModePenalties();
 
@@ -32,11 +32,6 @@ export default class SR6Item extends Item {
     this.calcAttackRating();
     this.calcDamage();
     this.calcAmmo();
-
-    // HTML enriching for sheets
-    this.enriched = {};
-    this.enriched.description = await this.enrichedHTML(this.system.description);
-    if (this.system.accessories) this.enriched.accessories = await this.enrichedHTML(this.system.accessories);
   }
 
   /**
@@ -377,20 +372,4 @@ export default class SR6Item extends Item {
     return await mod.update({"system.embeddedInUuid": this.uuid});
   }
 
-  /**
-   * Get Editor Safe Description
-   */
-  async enrichedHTML(htmlString) {
-    return await TextEditor.enrichHTML(
-          htmlString,
-          {
-            // Whether to show secret blocks in the finished html
-            secrets: this.isOwner,
-            // Data to fill in for inline rolls
-            rollData: this.getRollData(),
-            // Relative UUID resolution
-            relativeTo: this,
-          }
-      );
-  }
 }

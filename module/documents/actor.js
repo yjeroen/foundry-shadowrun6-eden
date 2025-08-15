@@ -83,7 +83,7 @@ export default class Shadowrun6Actor extends Actor {
     /**
      * @Override
      */
-    async prepareData() {
+    prepareData() {
         // This also calls Item Active Effects
         super.prepareData();
 
