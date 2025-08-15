@@ -66,6 +66,7 @@ async function _showRollDialog(data) {
             if (data.actor) {
                 data.useWoundModifier = data.dialogConfig?.useWoundModifier === false ? false : true;
                 data.useSustainedSpellModifier = data.dialogConfig?.useSustainedSpellModifier === false ? false : true;
+                data.useMatrixModifier = data.dialogConfig?.useMatrixModifier === false ? false : true;
 
                 // Don't use wound modifier on Resist Damage tests
                 if (data.rollType == RollType.Soak) {
@@ -76,9 +77,14 @@ async function _showRollDialog(data) {
                 if (data.actionText.substring(0,6) == 'Resist') {
                     data.useSustainedSpellModifier = false;
                 }
-                
+                // Only use matrix modifier on matrix actions
+                if (data.rollType != RollType.MatrixAction) {
+                    data.useMatrixModifier = false;
+                }
+
                 data.calcPool -= (data.useWoundModifier             ? data.actor.getWoundModifier() : 0);
                 data.calcPool -= (data.useSustainedSpellModifier    ? data.actor.getSustainedSpellsModifier() : 0);
+                data.calcPool -= (data.useMatrixModifier            ? data.actor.getMatrixModifier() : 0);
             }
         }
         /*

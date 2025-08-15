@@ -1072,6 +1072,7 @@
       "configure": "Configure your roll",
       "wound-modifier": "Use wound modifier",
       "sustained-spell-modifier": "Use sustained spell modifier",
+      "matrix-modifier": "Use matrix modifier",
       "criticalglitch": "Critical glitch",
       "heal_apply": "Heal",
       "damage": "Damage: ",

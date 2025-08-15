@@ -100,6 +100,7 @@ export class RollDialog extends Dialog {
         // React to Modifier checkboxes
         html.find("#useWoundModifier").change(this._updateDicePool.bind(this));
         html.find("#useSustainedSpellModifier").change(this._updateDicePool.bind(this));
+        html.find("#useMatrixModifier").change(this._updateDicePool.bind(this));
         // React to change in modifier
         html.find("#modifier").change(this._updateDicePool.bind(this));
         // Show Threshold and Interval fields when extended tests is enabled.
@@ -381,15 +382,17 @@ export class RollDialog extends Dialog {
         // Get the value of the checkbox if the calculated wound penality should be used
         let useWoundModifier = document.getElementById("useWoundModifier").checked;
         let useSustainModifier = document.getElementById("useSustainedSpellModifier").checked;
+        let useMatrixModifier = document.getElementById("useMatrixModifier").checked;
 
         // Calculate new sum
         console.log("SR6E | updateDicePool: ", this);
         let woundMod = (this.actor) ? this.actor.getWoundModifier() : 0;
         let sustainedMod = (this.actor) ? this.actor.getSustainedSpellsModifier() : 0;
+        let matrixMod = (this.actor) ? this.actor.getMatrixModifier() : 0;
         if (this.actor) {
-            console.log("SR6E | updateDicePool2: ", this.prepared.pool, this.modifier, woundMod, sustainedMod);
+            console.log("SR6E | updateDicePool2: ", this.prepared.pool, this.modifier, woundMod, sustainedMod, matrixMod);
         }
-        this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0);
+        this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0) - (useMatrixModifier?matrixMod:0);
         this.prepared.checkHardDiceCap();
         $("label[name='dicePool']")[0].innerText = this.prepared.calcPool.toString();
     }

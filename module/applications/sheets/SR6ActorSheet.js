@@ -732,7 +732,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             }
             dialogConfig = {
                 useModifier: !(rollId === 'damage_physical' || rollId === 'damage_astral'), 
-                useThreshold: false
+                useThreshold: false,
+                useMatrixModifier: false
             };
         }
         else if (classList.includes("attributeonly-roll")) {
@@ -742,7 +743,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             roll.checkText = roll.actionText;
             dialogConfig = {
                 useModifier: true,
-                useThreshold: true
+                useThreshold: true,
+                usingMatrixModifier: false
             };
         }
         else if (rollId = "legwork") {
@@ -757,7 +759,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 roll.checkText = game.i18n.format("shadowrun6.legwork.loyalty_description", { name: data.contact });
             dialogConfig = {
                 useWoundModifier: false,
-                useSustainedSpellModifier: false
+                useSustainedSpellModifier: false,
+                useMatrixModifier: false
             };
         }
         else {
@@ -765,7 +768,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             roll.useWildDie = 1;
             dialogConfig = {
                 useModifier: true,
-                useThreshold: true
+                useThreshold: true,
+                useMatrixModifier: rollId === "matrix_action" ? true : false
             };
         }
         //TODO dialogConfig.useModifier and useThreshold aren't used in Rolls._showRollDialog

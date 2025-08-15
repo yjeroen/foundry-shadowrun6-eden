@@ -1541,6 +1541,14 @@ export default class Shadowrun6Actor extends Actor {
         return woundModifier;
     }
     //---------------------------------------------------------
+    getMatrixModifier() {
+        const data = getSystemData(this);
+        let matrixModifier = this._getWoundModifierPerMonitor(data.persona.monitor);
+        /* Return the combined penalties from matrix damage */
+        console.log("SR6E | Current Matrix Penalties: " + matrixModifier);
+        return matrixModifier;
+    }
+    //---------------------------------------------------------
     getSustainedSpellsModifier() {
         const actorData = getActorData(this);
         const items = actorData.items;

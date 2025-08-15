@@ -1038,6 +1038,7 @@
       "configure": "Justiere deinen Wurf",
       "wound-modifier": "Verwende Wundabzug",
       "sustained-spell-modifier": "Abzug durch aufr. Zauber",
+      "matrix-modifier": "Verwende Matrixabzug",
       "criticalglitch": "Kritischer Patzer",
       "heal_apply": "Heilung wirken",
       "damage": "Schaden: ",
