@@ -4,8 +4,11 @@
 <div class="section" style="display: inline-block; margin: 5px; min-width: 320px;">
  <div class="section-head">
 	<h2 class="section-title">{{localize 'SR6.Item.mod.label.section'}}</h2>
-		<a class="item-control mod-create" title="{{localize 'shadowrun6.section.gear.add' }}"><h2 class="fas fa-plus"></h2></a>
+	{{#if item.actor}}
+	<a class="item-control mod-create" title="{{localize 'shadowrun6.section.gear.add' }}"><h2 class="fas fa-plus"></h2></a>
+	{{/if}}
 </div>
+
 <table class="item-list">
 	    <thead>
 	      <tr>
@@ -18,6 +21,7 @@
 	      </tr>
 	    </thead>
 
+		{{#if item.actor}}
 		{{#each (sort item.actor.items) as |item id|}}
 		{{#iff item.type '==' 'mod'}}
 		{{#iff item.system.embeddedInUuid '==' ../item.uuid }}
@@ -52,5 +56,6 @@
 		{{/iff}}
 		{{/iff}}
 		{{/each}}
+		{{/if}}
 </table>
 </div>
