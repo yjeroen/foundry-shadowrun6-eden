@@ -100,7 +100,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
-            html.find(".health-matrix").on("input", this._redrawBar(html, "Matrix", getSystemData(this.actor).persona.monitor));
+            html.find(".health-matrix").on("input", this._redrawBar(html, "Matrix", getSystemData(this.actor).persona?.monitor));
             // Roll Skill Checks
             html.find(".skill-roll").click(this._onRollSkillCheck.bind(this));
             html.find(".spell-roll").click(this._onRollSpellCheck.bind(this));
