@@ -3,9 +3,12 @@
     <h2 class="section-title">{{ localize 'shadowrun6.section.notes.title' }}</h2>
   </div>
   {{editor
-  		system.notes
+  		actor.enriched.notes
   		target="system.notes"
+		fieldName=actor.system.notes
   		button=true
+		owner=owner
   		editable=editable
+		engine="prosemirror"
   	}}
 </div>

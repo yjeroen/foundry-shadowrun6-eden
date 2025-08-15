@@ -18,10 +18,10 @@
 		{{#if (eq item.system.type ../geartype) }}
 		<tr class="item list-item" data-item-id="{{item.id}}">
        	<td style="margin-right: 1rem; width: 0.7em;">
-		   {{#if item.system.accessories }}
-       	<button type="button" name="collapseGear{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button>
+		{{#if item.system.accessories }}
+       	<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
        	{{else}}
-       	<button type="button" name="collapseGear{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}} empty" data-item-id="{{this.id}}">+</button>
+       	<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
        	{{/if}}
        	</td>
 			<td style="height:20px;"> {{item.name}}</td>
@@ -46,11 +46,13 @@
 	   </tr>
        <tr>
          <td colspan="5">
-         	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}" style="font-size: 0.8em;">
+         	<div class="collapsible-content closed" style="font-size: 0.8em;">
         	   <div style="font-weight: bold;">{{ localize 'shadowrun6.label.accessories' }}</div>
-			   <div>{{{item.system.accessories}}} &nbsp;</div>
+			   <div>{{{item.enriched.accessories}}} &nbsp;</div>
         	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-			   <div>{{{item.system.description}}} &nbsp;</div>
+			   <div>{{{item.enriched.description}}} &nbsp;</div>
+			   {{log 'JEROEN section-gear.html item.system.description' item.name item.system.description}}
+			   {{log 'JEROEN section-gear.html item.enriched.description' item.name item.enriched.description}}
          	</div>
          </td>
        </tr>

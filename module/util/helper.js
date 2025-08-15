@@ -107,6 +107,11 @@ export const defineHandlebarHelper = async function () {
         return console.log(systemTag, ...params);
     });
 
+    Handlebars.registerHelper('subString', function(passedString, startstring, endstring) {
+        var theString = passedString.substring( startstring, endstring );
+        return theString; //new Handlebars.SafeString(theString)
+    });
+
     Handlebars.registerHelper('nuyen', function (number) {
         const nuyen = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'JPY'}).format( number );
         return nuyen;

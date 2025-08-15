@@ -51,8 +51,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             template: "systems/shadowrun6-eden/templates/sheets/actor/biography-tab.hbs",
             scrollable: [""],
         },
-        equipment: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/equipment-tab.hbs",
+        gear: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/gear-tab.hbs",
             scrollable: [""],
         },
         magic: {
@@ -91,10 +91,10 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case "character":
-                options.parts.push("features", "equipment", "magic", "effects");
+                options.parts.push("features", "gear", "magic", "effects");
                 break;
             case "npc":
-                options.parts.push("equipment", "effects");
+                options.parts.push("gear", "effects");
                 break;
         }
     }
@@ -133,7 +133,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         switch (partId) {
             case "features":
             case "magic":
-            case "equipment":
+            case "gear":
                 context.tab = context.tabs[partId];
                 break;
             case "biography":
@@ -199,9 +199,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                     tab.id = "features";
                     tab.label += "Features";
                     break;
-                case "equipment":
-                    tab.id = "equipment";
-                    tab.label += "Equipment";
+                case "gear":
+                    tab.id = "gear";
+                    tab.label += "gear";
                     break;
                 case "magic":
                     tab.id = "magic";
@@ -228,7 +228,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // You can just use `this.document.itemTypes` instead
         // if you don't need to subdivide a given type like
         // this sheet does with spells
-        const equipment = [];
+        const gear = [];
         const features = [];
         const spells = {
             0: [],
@@ -245,9 +245,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Iterate through items, allocating to containers
         for (let i of this.document.items) {
-            // Append to equipment.
-            if (i.type === "equipment") {
-                equipment.push(i);
+            // Append to gear.
+            if (i.type === "gear") {
+                gear.push(i);
             }
             // Append to features.
             else if (i.type === "feature") {
@@ -266,7 +266,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         }
 
         // Sort then assign
-        context.equipment = equipment.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+        context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
         context.features = features.sort(
             (a, b) => (a.sort || 0) - (b.sort || 0)
         );

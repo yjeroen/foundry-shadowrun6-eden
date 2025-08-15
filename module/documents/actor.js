@@ -463,7 +463,7 @@ export default class Shadowrun6Actor extends Actor {
         // Only run on lifeforms
         if (isLifeform(system)) {
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
-                if (!(system.attributes[attr].base) || system.attributes[attr].base < 1)
+                if (!(system.attributes[attr].base) || parseInt(system.attributes[attr].base) < 1)
                     system.attributes[attr].base = 1;
                 if (!(system.attributes[attr].mod)) //Allow negative mods OLD: //  || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system))
                     system.attributes[attr].mod = 0;
@@ -471,7 +471,7 @@ export default class Shadowrun6Actor extends Actor {
                 // Attribute Pool cannot be lower than 1 and cannot apply a Mod higher than 4
                 if (parseInt(system.attributes[attr].mod) > 4 ) 
                     system.attributes[attr].modString = game.i18n.localize("attrib.max_augment");
-                system.attributes[attr].pool = Math.max(1, system.attributes[attr].base + Math.min(4, parseInt(system.attributes[attr].mod)) );
+                system.attributes[attr].pool = Math.max(1, parseInt(system.attributes[attr].base) + Math.min(4, parseInt(system.attributes[attr].mod)) );
             });
             if (system.edge.value > 7) {
                 system.edge.value = 7;
@@ -2290,4 +2290,22 @@ export default class Shadowrun6Actor extends Actor {
 
         return super.importFromJSON(JSON.stringify(sourceData));
     }
+
+    get gruntGroup() {
+        const gruntGroup = {}
+        gruntGroup.id = this.token?.getFlag(game.system.id, 'GruntGroupId');
+        let groupMembers = 0;
+        if (gruntGroup.id) {
+            canvas.tokens.ownedTokens.forEach(async (token) => {
+                if (token.document.getFlag(game.system.id, 'GruntGroupId') === gruntGroup.id)
+                    groupMembers++;
+            });
+        }
+        gruntGroup.members = groupMembers;
+        gruntGroup.diceMod = Math.max(0, Math.floor( (groupMembers - 1) / 2 ) );
+        gruntGroup.arMod   = groupMembers - 1;
+
+        return gruntGroup;
+    }
+
 }

@@ -1,6 +1,6 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
 {{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
 
-<form class="flexcol {{cssClass}}" autocomplete="off">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="section">
@@ -27,7 +27,7 @@
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.description target="system.description" fieldName=item.system.description button=true owner=owner editable=editable engine="prosemirror"}}
         </div>
     </section>
 </form>

@@ -12,6 +12,7 @@
 				{{#case 'NPC'    }} {{> "systems/shadowrun6-eden/templates/parts/npc_edit_grunt.html"  }} {{/case}}
 				{{#case 'Spirit' }} {{> "systems/shadowrun6-eden/templates/parts/npc_edit_spirit.html" }} {{/case}}
 			{{/switch}}
+			{{#if gruntGroup.id}} {{> "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs" }} {{/if}}
 			</div>
 
 		</div>

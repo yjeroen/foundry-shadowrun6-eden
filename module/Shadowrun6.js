@@ -41,7 +41,8 @@ Hooks.once("init", async function () {
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
         CONFIG.debug.hooks = false;
-        CONFIG.debug.dice = true;
+        CONFIG.debug.dice = false;
+        CONFIG.debug.tokens = false;
     }
 
     game.sr6 = {};
@@ -105,6 +106,10 @@ Hooks.once("init", async function () {
      * @see documents.SR6Item
      * @see sheets.SR6ItemSheet
      */
+    Object.assign(CONFIG.Item.dataModels, {
+        mod: datamodels.SR6ModItemData
+    });
+    CONFIG.Item.defaultType = "gear";
     CONFIG.Item.documentClass = documents.SR6Item;
     Items.registerSheet("shadowrun6-eden", applications.SR6ItemSheet, {
         types: [
@@ -123,7 +128,8 @@ Hooks.once("init", async function () {
             "contact",
             "lifestyle",
             "critterpower",
-            "software"
+            "software",
+            "mod"
         ],
         makeDefault: true
     });
@@ -136,6 +142,10 @@ Hooks.once("init", async function () {
     CONFIG.ActiveEffect.legacyTransferral = false;
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
     DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
+
+    // Change Canvas Placeables Font to Shadowrun
+    CONFIG.defaultFontFamily = 'Play';
+    CONFIG.canvasTextStyle.fontFamily = 'Play';
 
     if (game.release.generation >= 13) {
         document.body.classList.add('foundry-modern');
@@ -205,25 +215,25 @@ Hooks.once("init", async function () {
     /*
      * Change default icon
      */
-    function onCreateItem(item, options, userId) {
-        let actor = getActorData(item);
-        let system = getSystemData(item);
-        console.log("SR6E | onCreateItem  " + item.system.type + " with ", options);
-        if (actor.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[actor.type]) {
-            actor.img = CONFIG.SR6.icons[actor.type].default;
-            item.updateSource({ ["img"]: actor.img });
+    function onPreCreateItem(itemDoc, options, userId) {
+        let item = getActorData(itemDoc);
+        let system = getSystemData(itemDoc);
+        console.log("SR6E | onCreateItem  " + item.type);
+        if (item.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[item.type]) {
+            item.img = CONFIG.SR6.icons[item.type].default;
+            item.updateSource({ ["img"]: item.img });
         }
         // If it is a compendium item, copy over text description
-        let key = actor.type + "." + system.genesisID;
+        let key = item.type + "." + system.genesisID;
         console.log("SR6E | Item with genesisID - check for " + key);
         if (!game.i18n.localize(key + "name").startsWith(key)) {
             system.description = game.i18n.localize(key + ".desc");
-            actor.name = game.i18n.localize(key + ".name");
+            item.name = game.i18n.localize(key + ".name");
             item.updateSource({ ["description"]: system.description });
         }
-        console.log("SR6E | onCreateItem: " + actor.img);
+        console.log("SR6E | onCreateItem: " + item.img);
     }
-    Hooks.on("createItem", (doc, options, userId) => onCreateItem(doc, options, userId));
+    Hooks.on("preCreateItem", (doc, options, userId) => onPreCreateItem(doc, options, userId));
     
     /*
      * Change chat dice icon
@@ -279,6 +289,9 @@ Hooks.once("init", async function () {
         console.log("SR6E | renderSR6ItemSheet hook called");
         _onRenderItemSheet(app, html, data);
     });
+    /**
+     * Allowing items and effects to drop on Tokens on the canvas
+     */
     Hooks.on("dropCanvasData", (canvas, data) => {
         console.log("SR6E | dropCanvasData hook called", canvas, data);
         if (!(data.type === "Item" || data.type === "ActiveEffect")) {

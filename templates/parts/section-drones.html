@@ -18,9 +18,9 @@
 		</tr>
 		{{#each actor.items as |item id|}}
 		{{#if (eq item.type 'gear')}}
-		{{#if (eq item.system.type "DRONES") }}
+		{{#if (eq (subString item.system.type 0 5) "DRONE") }}
 		<tr class="item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
-			<td style="margin-right: 1rem"><button type="button" name="collapseDrone{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+			<td style="margin-right: 1rem"><button type="button" name="collapseDrone{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
 			<td class="centered"><label class="small-column" >{{item.system.handlOn}}/{{item.system.handlOff}}</label></td>
 			{{#if (eq item.system.accOn item.system.accOff)}}
 			<td class="centered"><label class="small-column" >{{item.system.accOn}}</label></td>
@@ -44,7 +44,7 @@
 		</tr>
 		<tr>
 			<td colspan="9">
-				<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}">
+				<div class="collapsible-content closed">
 					{{ localize 'shadowrun6.label.modifications' }}
 					<textarea class="box" type="text"     data-item-id="{{this.id}}" data-field="system.accessories" type="text" data-dtype="Text" style="width: 25em">{{item.system.accessories}}</textarea>
 					<table>

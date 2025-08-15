@@ -1,23 +1,30 @@
     <table>
     	<thead>
     		<tr>
-    {{#each config.NPC_ATTRIBUTES as |attributeId|}}
-    		  <th class="attribute2" id="{{attributeId}}">
-    		    <label for="system.attributes.{{attributeId}}.current" title="{{localize (concat "attrib." attributeId )}}">{{localize (concat "attrib." attributeId "_short" )}}</label>
-    		  </th>
-    {{/each}}
+			{{#each attributes as |attribute id|}}
+			{{#ifIn id ../config.NPC_ATTRIBUTES}}
+				<th class="centered" id="{{id}}">
+					<a class="attributeonly-roll attribute-poolmod" data-pool="{{attribute.pool}}" data-roll-id="{{id}}" title="{{localize (concat "attrib." id )}}">
+						{{localize (concat "attrib." id "_short" )}}
+					</a>
+				</td>
+			{{/ifIn}}
+			{{#iff id '==' 'essence'}}
+				<th class="centered" id="{{id}}">{{localize "attrib.ess_short"}}</td>
+			{{/iff}}
+			{{/each}}
     		</tr>
     	</thead>
     	<tbody>
     		<tr>
-    {{#each attributes as |attribute id|}}
-    	{{#ifIn id ../config.NPC_ATTRIBUTES}}
-    		  <td class="centered" id="{{id}}">{{attribute.pool}}</td>
-    	{{/ifIn}}
-		{{#iff id '==' 'essence'}}
-    		  <td class="centered" id="{{id}}">{{../actor.system.essence}}</td>
-		{{/iff}}
-    {{/each}}
+			{{#each attributes as |attribute id|}}
+			{{#ifIn id ../config.NPC_ATTRIBUTES}}
+				<td class="centered" id="{{id}}">{{attribute.pool}}</td>
+			{{/ifIn}}
+			{{#iff id '==' 'essence'}}
+				<td class="centered" id="{{id}}">{{../actor.system.essence}}</td>
+			{{/iff}}
+			{{/each}}
     		</tr>
     	</tbody>
     </table>

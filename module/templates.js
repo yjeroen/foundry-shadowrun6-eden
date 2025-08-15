@@ -5,7 +5,9 @@
  */
 export const preloadHandlebarsTemplates = async function () {
     const templatePaths = [
+        "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs",
         "systems/shadowrun6-eden/templates/parts/tab-effects.hbs",
+        "systems/shadowrun6-eden/templates/item/item-mods.hbs",
         "systems/shadowrun6-eden/templates/item/item-effects.hbs",
         "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs",
         "systems/shadowrun6-eden/templates/sidebar/combat-tracker.hbs",
@@ -58,6 +60,7 @@ export const preloadHandlebarsTemplates = async function () {
         "systems/shadowrun6-eden/templates/parts/section-drones.html",
         "systems/shadowrun6-eden/templates/parts/section-echoes.html",
         "systems/shadowrun6-eden/templates/parts/section-gear.html",
+        "systems/shadowrun6-eden/templates/parts/section-item-mods.html",
         "systems/shadowrun6-eden/templates/parts/section-magicbase.html",
         "systems/shadowrun6-eden/templates/parts/section-martialart.html",
         "systems/shadowrun6-eden/templates/parts/section-matrixactions.html",

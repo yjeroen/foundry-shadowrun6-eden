@@ -20,8 +20,13 @@ export default class SR6Item extends Item {
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
     this._migrateCleanUp();
+    console.log("SR6E | SR6Item.prepareData()");
 
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
+    if (this.actor?.type === "Spirit") {
+      this.actor._applySpiritPreset(this.actor.system.rating);
+      this.actor._applyForce(this.actor.system.rating);
+    }
     this.actor?._prepareAttributes();
 
     this.calcAttackRating();
@@ -41,7 +46,7 @@ export default class SR6Item extends Item {
    */
   async _preUpdate(changes, options, user) {
     const allowed = await super._preUpdate(changes, options, user);
-    console.log("SR6E | SR6Item._preUpdate()");
+    console.log("SR6E | SR6Item._preUpdate()", changes);
     if ( allowed === false ) return false;
 
     // Forward to type data model
@@ -132,7 +137,7 @@ export default class SR6Item extends Item {
   
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};
-    if (this.system.ammoLoaded === undefined) this.system.ammoLoaded = 'regular';
+    if (this.system.ammoLoaded === undefined && this.system.ammocap) this.system.ammoLoaded = 'regular';
     if (typeof this.system.ammocap === 'string') this.system.ammocap = parseInt(this.system.ammocap);
     if (typeof this.system.ammocount === 'string') this.system.ammocount = parseInt(this.system.ammocount);
   }
@@ -165,7 +170,7 @@ export default class SR6Item extends Item {
   }
 
   calcDamage() {
-    if (this.system?.dmg === undefined) return;
+    if (this.system?.dmg === undefined || this.system?.dmg === 0) return;
 
     this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
@@ -177,9 +182,8 @@ export default class SR6Item extends Item {
   }
 
   calcAmmo() {
-    if (this.calculated?.attackRating === undefined) return;
+    if (this.calculated?.attackRating === undefined || this.system.ammocap === undefined) return;
 
-    console.log("SR6E | SR6Item | calcAmmo");
     let arMod=0, dmgMod=0, stun=this.system.stun, ammoLoaded = this.system.ammoLoaded;
 
     switch (ammoLoaded) {
@@ -282,7 +286,7 @@ export default class SR6Item extends Item {
    */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
-    if ( !this.actor || this.actor._embeddedPreparation ) this.applyActiveEffects();
+    if ( this.actor && this.actor?._embeddedPreparation ) this.applyActiveEffects();
   }
 
   /**
@@ -351,6 +355,21 @@ export default class SR6Item extends Item {
 
     const arArray = Object.values(this.system.attackRating);
     this.system.attackRating = arArray;
+  }
+
+  /**
+   * ITEM MODS
+   */
+
+  get itemMods() {
+    const itemMods = [];
+    if (!this.actor) return itemMods;
+    return this.actor.items.filter(item => item.system.embeddedInUuid === this.uuid);
+  }
+
+  async addItemMod(ModUuid) {
+    const mod = this.actor.items.find(item => item.uuid === ModUuid);
+    return await mod.update({"system.embeddedInUuid": this.uuid});
   }
 
 }

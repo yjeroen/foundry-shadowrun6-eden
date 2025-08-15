@@ -30,8 +30,8 @@ function getActorData(obj) {
  */
 export default class Shadowrun6ActorSheet extends ActorSheet {
     /** @overrride */
-    getData() {
-        let data = super.getData();
+    async getData() {
+        let data = await super.getData();
         data.config = CONFIG.SR6;
         if (game.release.generation >= 10) {
             data.system = data.data.system;
@@ -49,6 +49,16 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
           // as well as any items
           data.actor.allApplicableEffects()
         );
+        
+        // HTML enriching for sheets
+        data.actor.enriched = {};
+        data.actor.enriched.notes = await this.enrichedHTML(this.actor.system.notes);
+        if (data.actor.system.description) data.actor.enriched.description = await this.enrichedHTML(data.system.description);
+        for (const item of data.actor.items) {
+            item.enriched = {};
+            item.enriched.description = await this.enrichedHTML(item.system.description);
+            if (item.system.accessories) item.enriched.accessories = await this.enrichedHTML(item.system.accessories);
+        }
 
         console.log("SR6E | Shadowrun6ActorSheet.getData()", data);
         return data;
@@ -232,7 +242,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 }
             });
             //Collapsible
-            html.find(".collapsible").click((event) => {
+            html.find(".collapsible").click(async (event) => {
                 const element = event.currentTarget;
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
                 const item = this.actor.items.get(itemId);
@@ -240,7 +250,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 if (!item) {
                     //matrix actions collapsible
                     const content = element.parentElement.nextElementSibling;
-                    // content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
                     content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
                     content.classList.toggle("closed");
                     content.classList.toggle("open");
@@ -249,7 +258,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     }
                     return;
                 }
-                //				console.log("SR6E | Collapsible: old styles are '"+element.classList+"'' and flag is "+item.getFlag("shadowrun6-eden","collapse-state"));
+                element.classList.toggle("closed");
                 element.classList.toggle("open");
                 let content = element.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild;
                 if (content.style.maxHeight) {
@@ -258,11 +267,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 else {
                     content.style.maxHeight = content.scrollHeight + "px";
                 }
-                //				console.log("SR6E | Collapsible: temp style are '"+element.classList);
-                let value = element.classList.contains("open") ? "open" : "closed";
-                //				console.log("SR6E | Update flag 'collapse-state' with "+value);
-                item.setFlag("shadowrun6-eden", "collapse-state", value);
-                //				console.log("SR6E | Collapsible: new styles are '"+element.classList+"' and flag is "+item.getFlag("shadowrun6-eden","collapse-state"));
+                content.classList.toggle("closed");
+                content.classList.toggle("open");
             });
             //Collapsible for lists
             html.find(".collapsible-skill").click((event) => {
@@ -345,6 +351,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".critterpower-create").click((ev) => this._onCreateNewEmbeddedItem("critterpower"));
         html.find(".ritual-create").click((ev) => this._onCreateNewEmbeddedItem("ritual"));
         html.find(".focus-create").click((ev) => this._onCreateNewEmbeddedItem("focus"));
+        html.find(".mod-create").click((ev) => this._onCreateNewEmbeddedItem("mod"));
         html.find(".weapon-create").click((ev) => {
             const itemData = {
                 name: game.i18n.localize("shadowrun6.newitem.weapon"),
@@ -491,8 +498,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 type: "gear",
                 system: {
                     genesisID: this._create_UUID(),
-                    type: "DRONES",
-                    subtype: "SMALL_DRONES"
+                    type: "DRONE_MICRO",
+                    subtype: "GROUND"
                 }
             };
             return this.actor.createEmbeddedDocuments("Item", [itemData]);
@@ -500,7 +507,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".item-edit").click((ev) => {
             const element = ev.currentTarget.closest(".item");
             const item = this.actor.items.get(element.dataset.itemId);
-            console.log("SR6E | edit ", item);
+            console.log("SR6E | Editing ", item);
             if (!item) {
                 throw new Error("Item is null");
             }
@@ -1123,5 +1130,22 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         } else return console.warn('Could not find document class');
     }
 
+    
+    /**
+     * Get Editor Safe Description
+     */
+    async enrichedHTML(htmlString) {
+        return await TextEditor.enrichHTML(
+            htmlString,
+            {
+            // Whether to show secret blocks in the finished html
+            secrets: this.actor.isOwner,
+            // Data to fill in for inline rolls
+            rollData: this.actor.getRollData(),
+            // Relative UUID resolution
+            relativeTo: this.actor,
+            }
+        );
+    }
 
 }

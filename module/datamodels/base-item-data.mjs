@@ -1,13 +1,13 @@
 /**
- * Base Actor DataModel for SR6e
+ * Base Item DataModel for SR6e
  *
  * @extends {TypeDataModel}
  * @extends {DataModel}
  * @example notes:
- * this.parent is the Actor document
+ * this.parent is the Item document
  */
-export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
-    static LOCALIZATION_PREFIXES = ["SR6.Actor.base", "SR6.Common"];
+export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
+    static LOCALIZATION_PREFIXES = ["SR6.Item.base", "SR6.Common"];
 
     static defineSchema() {
         const fields = foundry.data.fields;
@@ -28,20 +28,23 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
 
         return {
             description: new fields.HTMLField(),
-            notes: new fields.HTMLField(),
+            genesisID: new fields.StringField({required: false, nullable: true}),
+            availDef: new fields.StringField({required: false, nullable: true, initial: "1L"}),
+            price: new fields.NumberField({required: true, nullable: false, initial: 0, min: 0}),
         };
     }
 
     /**
-     * The allowed types which may exist for SR6 ActorData.
+     * The allowed types which may exist for SR6 ItemData.
      * @type {string[]}
      */
     static get TYPES() {
-        return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type].types ?? [];
-        if (CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type].constructor === Array) 
-            return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type];
-        else
-            return Object.keys(CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type]);
+        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].types ?? [];
+        return Object.keys(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type]?.types ?? {});
+    }
+
+    get actor() {
+        return this.parent.actor;
     }
 
     /**

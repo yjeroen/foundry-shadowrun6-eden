@@ -152,5 +152,10 @@
       "extensions": ["css", "hbs", "json"],
       "paths": ["styles", "templates", "lang"]
     }
+  },
+  "documentTypes": {
+    "Item": {
+      "mod": {}
+    }
   }
 }

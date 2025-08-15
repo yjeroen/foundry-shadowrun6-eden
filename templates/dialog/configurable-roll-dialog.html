@@ -56,8 +56,13 @@
       <tr>
         <td colspan="3" style="width: 112px;">{{localize "shadowrun6.roll.modifier"}}</td>
         <td style="width: 92px;"><input type="number" name="modifier" id="modifier" value="{{data.modifier}}" style="width: 3em" class="centered"/></td>
-
+        
+        {{#if (and (eq data.rollType "weapon") data.actor.gruntGroup.members)}}
+        <td style="text-align:right">{{localize "shadowrun6.npc.grunt_group_attack" numberGrunts=data.actor.gruntGroup.members}}</td>
+        <td><input type="checkbox" id="useGruntGroup" name="useGruntGroup" {{checked data.useGruntGroup}} /></td>
+        {{else}}
         <td colspan="4"></td>
+        {{/if}}
       </tr>
       <tr>
         {{#unless data.cantDodgeBullets}}

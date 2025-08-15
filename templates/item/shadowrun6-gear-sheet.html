@@ -1,6 +1,6 @@
-{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
-
 <form class="flexcol {{cssClass}}" autocomplete="off" style="min-width: 605px; min-width: fit-content;">
+    {{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+    
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="section">
@@ -225,9 +225,9 @@
                 </tr>
                 <tr>
                     <td class="box centered">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" />
+                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
                          /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" disabled>
+                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
                     </td>
                     <td class="box centered">
                         <input name="devRating" type="number" value="{{item.system.devRating}}" data-field="system.devRating" class="box centered" style="width:2em" />
@@ -256,9 +256,9 @@
                 </tr>
                 <tr>
                     <td class="box centered">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" />
+                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
                          /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" disabled>
+                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
                     </td>
                     <td class="box centered"> <input name="devRatingDeck" type="number" value="{{item.system.devRating}}"
                             data-field="system.devRating" class="box centered" style="width:2em" /></td>
@@ -330,20 +330,21 @@
                     <td></td>
                     {{/if}}
                     <td class="box centered">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" />
+                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
                          /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" disabled>
+                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
                     </td>
 
                 </tr>
             </table>
             {{/if}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
-            {{editor item.system.accessories target="system.accessories" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
             <!-- ********** Beschreibung ********** -->
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
     </section>
 </form>
 
+{{> "systems/shadowrun6-eden/templates/item/item-mods.hbs" }}
 {{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}

@@ -16,4 +16,17 @@ export default class Shadowrun6ActorSheetNPC extends Shadowrun6ActorSheet {
             dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
         });
     }
+
+    /** @overrride */
+    getData() {
+        let data = super.getData();
+        if (this.token)
+            data.gruntGroup = this.actor.gruntGroup;
+        // Not sure yet if we need to display the whole grunt group tokens
+        // if (data.gruntGroupId)
+        //     data.gruntGroup = canvas.scene.tokens.filter((tokenDoc) => tokenDoc.getFlag(game.system.id, 'GruntGroupId') === data.gruntGroupId);
+        
+        return data;
+    }
+
 }
