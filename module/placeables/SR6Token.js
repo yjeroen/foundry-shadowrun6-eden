@@ -96,8 +96,13 @@ export default class SR6Token extends Token {
         if (CONFIG.debug.tokens) console.log("SR6E | Token._refreshState");
         super._refreshState();
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
-        if (groupId)
-            canvas.tokens.ownedTokens.forEach(async (token) => token.gruntGroup.visible = (this.border.visible && token.document.getFlag(game.system.id, 'GruntGroupId') === groupId) );
+        if (groupId) {
+            canvas.tokens.ownedTokens.forEach(async (token) => {
+                if (token.gruntGroup) {
+                    token.gruntGroup.visible = (this.border?.visible && token.document.getFlag(game.system.id, 'GruntGroupId') === groupId);
+                }
+            } );
+        }
     }
 
     updateGruntGroupName() {
