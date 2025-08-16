@@ -8,11 +8,13 @@
                 <tr>
                     <th>{{localize 'shadowrun6.sin.quality'}}</th>
                 </tr>
-                <td>
-                    <select name="sinQuality" data-field="system.quality">
-                        {{selectOptions config.SIN_QUALITY selected=item.system.quality localize=true}}
-                    </select>
-                    </tr>
+                <tr>
+                    <td>
+                        <select name="sinQuality" data-field="system.quality">
+                            {{selectOptions config.SIN_QUALITY selected=item.system.quality localize=true}}
+                        </select>
+                    </td>
+                </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{editor item.enriched.description target="system.description" fieldName=item.system.description button=true owner=owner editable=editable engine="prosemirror"}}
