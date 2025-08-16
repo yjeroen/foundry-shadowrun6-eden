@@ -86,9 +86,11 @@ export default class SR6Item extends Item {
     console.log("SR6E | SR6Item._preDelete()");
     if ( allowed === false ) return false;
 
+    await this._updateInstalledItemMods();
+
     // Forward to type data model
     if ( this.system instanceof foundry.abstract.TypeDataModel ) {
-      return this.system._preDelete(options, user);
+      return await this.system._preDelete(options, user);
     }
   }
 
@@ -379,6 +381,17 @@ export default class SR6Item extends Item {
         // Check if there are any items embedded into this one, and if so rerender their open sheet
         if (item.system.embeddedInUuid === this.uuid) {
             item.render();
+        }
+      }
+    }
+  }
+
+  async _updateInstalledItemMods() {
+    if (this.actor) {
+      for (const item of this.actor.items) {
+        // Check if there are any items embedded into this one, and if so uninstall them
+        if (item.system.embeddedInUuid === this.uuid) {
+          await item.update({'system.embeddedInUuid': null});
         }
       }
     }
