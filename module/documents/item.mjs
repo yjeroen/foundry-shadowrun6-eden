@@ -173,7 +173,7 @@ export default class SR6Item extends Item {
   }
 
   calcDamage() {
-    if (this.system?.dmg === undefined || this.system?.dmg === 0) return;
+    if (this.system?.dmg === undefined) return;
 
     this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
