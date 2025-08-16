@@ -577,6 +577,7 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 }
 .shadowrun6 .effects .effect-control.disabled {
   color: #999;
+  cursor: default;
 }
 .shadowrun6 .effects .effect-control.disabled:hover {
     text-shadow: none;
