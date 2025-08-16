@@ -46,6 +46,7 @@
         {{/if}}
 
         {{#if isItemEffect}}
+        {{#iff document.parent.type '!=' "mod"}}
         <div class="form-group">
             <label>{{ labels.transfer.name }}</label>
             <div class="form-fields">
@@ -53,6 +54,7 @@
             </div>
             <p class="hint">{{ labels.transfer.hint }}</p>
         </div>
+        {{/iff}}
         {{/if}}
 
         <div class="form-group">
@@ -116,10 +118,14 @@
                 <p>{{{localize "shadowrun6.active_effect.explanation"}}}</p>
                 <ul>
                     {{#each labels.usage_tips as |tip i|}}
-                    <li>{{{localize (concat "shadowrun6.active_effect.usage_tips." i) }}}</li>
+                        <li>{{{localize (concat "shadowrun6.active_effect.usage_tips." i) }}}</li>
                     {{/each}}
                     {{#if isItemEffect}}
-                    <li>{{{localize "shadowrun6.active_effect.item_tip"}}}</li>
+                        {{#iff document.parent.type '==' "mod"}}
+                        <li>{{{localize "shadowrun6.active_effect.gear_mod_tip"}}}</li>
+                        {{else}}
+                        <li>{{{localize "shadowrun6.active_effect.item_tip"}}}</li>
+                        {{/iff}}
                     {{/if}}
                 </ul>
                 <p>{{localize "shadowrun6.active_effect.more_info"}} <a href="https://foundryvtt.com/article/active-effects/">FoundryVTT.com Active Effects</a></p>

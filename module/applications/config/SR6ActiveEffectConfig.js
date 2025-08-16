@@ -47,7 +47,7 @@ export default class SR6ActiveEffectConfig extends ActiveEffectConfig {
     static PARTS = {
         header: {template: "templates/sheets/active-effect/header.hbs"},
         tabs: {template: "templates/generic/tab-navigation.hbs"},
-        details: {template: "templates/sheets/active-effect/details.hbs", scrollable: [""]},
+        details: {template: "systems/shadowrun6-eden/templates/sheets/active-effect/details.hbs", scrollable: [""]},
         duration: {template: "templates/sheets/active-effect/duration.hbs"},
         changes: {template: "systems/shadowrun6-eden/templates/sheets/active-effect/changes.hbs", scrollable: ["ol[data-changes]"]},
         footer: {template: "templates/generic/form-footer.hbs"}
@@ -95,7 +95,7 @@ export default class SR6ActiveEffectConfig extends ActiveEffectConfig {
      */
     async _onChangeForm(formConfig, event) {
         super._onChangeForm(formConfig, event);
-        console.log("SR6E | SR6ActiveEffectConfig._onChangeForm()", formConfig, event);
+        console.log("SR6E | SR6ActiveEffectConfig._onChangeForm()");
         if (event.target?.name === "system.advanced") {
             await this._toggleAdvancedConfig();
         }

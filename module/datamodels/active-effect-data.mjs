@@ -12,6 +12,14 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
     }
   }
 
+  async _preCreate(data, options, user) {
+    console.log(`SR6E | SR6ActiveEffectData | _preCreate`);
+    const origin = await fromUuidSync(data.origin);
+    if (origin.type === "mod") {
+      return this.parent.updateSource({ 'transfer': false });
+    }
+  }
+
   get hasLevels() {
     const [mainStatus] = this.parent.statuses;
     const statusEffect = CONFIG.statusEffects.find(e => e.id === mainStatus);
