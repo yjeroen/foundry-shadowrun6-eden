@@ -631,3 +631,9 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 .item.sheet .rubik-glitch-regular {
   text-transform: uppercase;
 }
+.sheet .section table th {
+  text-align: center;
+}
+.actor.sheet table th:first-child {
+  text-align: left;;
+}
