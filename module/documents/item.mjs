@@ -137,8 +137,16 @@ export default class SR6Item extends Item {
       });
     }
   }
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    if (typeof source.system.stun === 'string') source.system.stun = (source.system.stun == "stun" ? true : false);
+
+    return super.migrateData(source);
+  }
   
   _migrateCleanUp() {
+    // TODO check what can move to migrateData
     if (this.calculated === undefined) this.calculated = {};
     if (this.system.ammoLoaded === undefined && this.system.ammocap) this.system.ammoLoaded = 'regular';
     if (typeof this.system.ammocap === 'string') this.system.ammocap = parseInt(this.system.ammocap);
