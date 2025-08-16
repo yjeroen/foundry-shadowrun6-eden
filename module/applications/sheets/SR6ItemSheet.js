@@ -526,12 +526,14 @@ export default class SR6ItemSheet extends ItemSheet {
     
     async _uninstallMod(event) {
         const item = this._getItem(event);
-        console.log("SR6E | edit ", item);
+        console.log("SR6E | Uninstalling Mod ", item);
         if (!item) throw new Error("Item is null");
 
         if (item.type !== 'mod') return;
 
+        const itemThatWasModded = item.system.installedIn;
         await item.update({'system.embeddedInUuid': null});
+        itemThatWasModded.render();
         this.render();
     }
 

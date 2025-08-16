@@ -37,7 +37,7 @@ export default class SR6ModItemData extends SR6BaseItemData {
     }
 
     _onUpdate(changed, options, userId) {
-        console.log("SR6E | SR6ModItemData | _onUpdate", changed, options, userId);
+        console.log("SR6E | SR6ModItemData | _onUpdate", changed);
         if (this.embeddedInUuid) {
             // Making sure the Item that this mod is installed in gets a rerender if its sheets are open
             this.installedIn.render();

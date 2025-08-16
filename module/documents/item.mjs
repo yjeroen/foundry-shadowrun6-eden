@@ -69,6 +69,7 @@ export default class SR6Item extends Item {
     console.log("SR6E | SR6Item._onUpdate()", changed);
     this._checkPersonaChanges(changed);
     this._informInCombatChanges(changed);
+    this._updateItemModSheet(changed);
   }
 
  /**
@@ -370,6 +371,17 @@ export default class SR6Item extends Item {
   async addItemMod(ModUuid) {
     const mod = this.actor.items.find(item => item.uuid === ModUuid);
     return await mod.update({"system.embeddedInUuid": this.uuid});
+  }
+
+  _updateItemModSheet(changed) {
+    if (changed.name && this.actor) {
+      for (const item of this.actor.items) {
+        // Check if there are any items embedded into this one, and if so rerender their open sheet
+        if (item.system.embeddedInUuid === this.uuid) {
+            item.render();
+        }
+      }
+    }
   }
 
 }
