@@ -18,8 +18,9 @@ export default class Shadowrun6ActorSheetNPC extends Shadowrun6ActorSheet {
     }
 
     /** @overrride */
-    getData() {
-        let data = super.getData();
+    async getData() {
+        let data = await super.getData();
+        console.log("SR6E | Shadowrun6ActorSheetNPC | getData()");
         if (this.token)
             data.gruntGroup = this.actor.gruntGroup;
         // Not sure yet if we need to display the whole grunt group tokens

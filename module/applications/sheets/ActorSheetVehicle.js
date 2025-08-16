@@ -28,9 +28,9 @@ export default class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
         });
     }
 
-    getData() {
+    async getData() {
         console.log("SR6E | Shadowrun6ActorSheetVehicle.getData()");
-        let data = super.getData();
+        let data = await super.getData();
 // <!-- You are moving with {speed} km/h ({speedPerTurn} Meter per turn). Your modifier for checks is {modifier}. -->
         data.speed_info = game.i18n.format("shadowrun6.label.speed_detail", {
                                             speed: data.actor.system.vehicle.kmh,

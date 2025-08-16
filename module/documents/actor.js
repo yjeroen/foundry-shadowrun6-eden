@@ -2241,6 +2241,7 @@ export default class Shadowrun6Actor extends Actor {
         gruntGroup.diceMod = Math.max(0, Math.floor( (groupMembers - 1) / 2 ) );
         gruntGroup.arMod   = groupMembers - 1;
 
+        console.log("SR6E | Looked up gruntGroup", gruntGroup);
         return gruntGroup;
     }
 
