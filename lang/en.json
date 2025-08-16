@@ -683,6 +683,10 @@
         "outsider": "OUTSIDER",
         "user": "USER",
         "admin": "ADMIN"
+      },
+      "device": {
+        "enable": "Enable Matrix Device",
+        "disable": "Disable Matrix Device"
       }
     },
     "matrixaction": {

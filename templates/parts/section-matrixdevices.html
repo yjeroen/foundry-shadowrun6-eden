@@ -34,14 +34,17 @@
          <td><label class="middle-column" >{{item.system.d}}</label></td>
          <td><label class="middle-column" >{{item.system.f}}</label></td>
          <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
-       	<td><label class="switch">
-       	<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-                        <span class="shadowrun6-slider round"></span>
-                    </label></td>
-			<td class="centered">
-				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+       	 <td>
+			<label class="switch">
+       			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
+            	<span class="shadowrun6-slider round" 
+					  title="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
+					  ></span>
+            </label>
+		</td>
+		<td class="centered">
+			<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a> 
+			<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
          </td>
        </tr>
        <tr>
@@ -64,14 +67,18 @@
          <td><label class="middle-column" >-</label></td>
          <td><label class="middle-column" >-</label></td>
          <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
-       	<td><label class="switch">
-       	<input name="matrixDeckUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-                        <span class="shadowrun6-slider round"></span>
-                    </label></td>
-			<td class="centered">
-				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+       	 <td>
+			<label class="switch">
+       			<input name="matrixDeckUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
+            	<span class="shadowrun6-slider round" 
+					  title="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
+					  ></span>
+            </label>
+		 </td>
+		 <td class="centered">
+				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'>
+					<i class="fas fa-edit"></i></a> <a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i>
+				</a>
          </td>
        </tr>
        <tr>
