@@ -11,8 +11,10 @@
       {{#each effects as |section sid|}}
         <li class='effects-header flexrow' data-effect-type='{{section.type}}'>
           <div class='effect-name flexrow'>{{localize section.label}}</div>
-          {{!-- <div class='effect-source'>{{localize 'shadowrun6.effect.Source'}}</div> --}}
-          <div class='effect-source'>{{localize 'shadowrun6.effect.Duration'}}</div>
+          {{#iff ../item.type '!=' "mod"}}
+          <div class='effect-source'>{{localize 'shadowrun6.effect.Source'}}</div>
+          {{/iff}}
+          <div class='effect-duration'>{{localize 'shadowrun6.effect.Duration'}}</div>
           <div class='effect-controls effect-controls flexrow'>
             <a
               class='effect-control'
@@ -42,7 +44,9 @@
                 <img class='effect-image' src='{{effect.img}}' />
                 <div>{{effect.name}}</div>
               </div>
-              {{!-- <div class='effect-source'>{{effect.parent.name}}</div> --}}
+              {{#iff effect.parent.type '!=' "mod"}}
+              <div class='effect-source'>{{effect.parent.name}}</div>
+              {{/iff}}
               <div class='effect-duration'>
                 {{#iff effect.duration.type '==' "none"}}
                 <i class="fas fa-infinity" title="{{effect.duration.label}}"></i>
