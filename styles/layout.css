@@ -46,6 +46,9 @@ line {
 	border-bottom: 2px solid var(--highlight-color);
 	margin: 0 0 0.5rem 0;
 }
+table td .section-head {
+  margin-top: 0.5rem;
+}
 .section-head h2 {
 	border-bottom: 0px;
 	margin: 0 0 0 5px;
