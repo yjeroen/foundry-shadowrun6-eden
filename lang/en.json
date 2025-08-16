@@ -34,8 +34,8 @@
     "TypeWeapon": "Weapon"
   },
   "QUALITY_CATEGORIES": {
-    "ADVANTAGE": "Advantage",
-    "DISADVANTAGE": "Disadvantage"
+    "ADVANTAGE": "Positive Quality",
+    "DISADVANTAGE": "Negative Quality"
   },
   "TYPES":{
   		"Actor": {
@@ -351,7 +351,7 @@
         "INSTRUMENT_ACCESSORY": "Instrument Accessories",
 		  "LARGE_DRONES": "Large Drones",
         "LAUNCHERS": "Launchers",
-        "LAV": "Low Altitude Vehicles (VectorThrust)",
+        "LAV": "Low Altitude Vehicles",
         "LTAV": "Lighter Than Air Vehicles",
         "LIVING_PERSONA": "Living Persona",
         "MACHINE_GUNS": "Machine Guns",
