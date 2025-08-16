@@ -23,7 +23,9 @@
        	<td>
 			<label class="switch">
        			<input name="armorUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-				<span class="shadowrun6-slider round"></span>
+				<span class="shadowrun6-slider round" 
+					  title="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.section.armor.disable' }}{{else}}{{ localize 'shadowrun6.section.armor.enable' }}{{/if}}"
+					  ></span>
             </label>
 		</td>
         <td class="centered"><input name="armorDefense{{id}}" type="text" data-item-id="{{this.id}}" data-field="system.defense" value="{{item.system.defense}}" data-dtype="Number" style="width: 1.5em" /></td>

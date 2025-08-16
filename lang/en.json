@@ -1206,6 +1206,8 @@
       "ammo_add": "Add ammunition",
       "armor": {
         "add": "Add new armor",
+        "enable": "Equip armor",
+        "disable": "Unequip armor",
         "column": {
           "action": "Action",
           "defense": "DR",
