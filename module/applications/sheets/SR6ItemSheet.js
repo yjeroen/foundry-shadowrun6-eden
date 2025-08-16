@@ -384,6 +384,9 @@ export default class SR6ItemSheet extends ItemSheet {
         if (target === undefined) target = event.target;
         const effect = this._getEffect(target);
         await effect.update({ disabled: !effect.disabled });
+        this.render();
+        const itemThatWasModded = this.item.system.installedIn;
+        if (itemThatWasModded) itemThatWasModded.render();
     }
 
     /** Helper Functions */
