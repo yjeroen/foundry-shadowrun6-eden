@@ -340,13 +340,13 @@ export default class SR6Item extends Item {
    * @yields {ActiveEffect}
    * @returns {Generator<ActiveEffect, void, void>}
    */
-  *allApplicableEffects() {
+  *allApplicableEffects(returnAll=false) {
     const effects = this.effects;
 
     // Lets first apply Active Effects embedded in this item, to this Item
     for ( const effect of this.effects ) {
       // Only use effects that aren't transfered to the Actor
-      if ( !effect.transfer ) yield effect;
+      if ( returnAll || !effect.transfer ) yield effect;
     }
     
     // Then look onthe Actor for any Items that are modded into this one
@@ -360,6 +360,18 @@ export default class SR6Item extends Item {
       }
     }
 
+  }
+
+  /**
+   * Retrieve the list of ActiveEffects that are embedded on this Item, or on its Mods
+   * @type {ActiveEffect[]}
+   */
+  get allEffects() {
+    const effects = [];
+    for ( const effect of this.allApplicableEffects(true) ) {
+      effects.push(effect);
+    }
+    return effects;
   }
   
   #attackRatingToObject() {

@@ -81,7 +81,7 @@ export default class SR6ItemSheet extends ItemSheet {
             CONFIG.SR6.GEAR_SUBTYPES[data.item.system.type];
 
         // Prepare active effects
-        data.effects = prepareActiveEffectCategories(data.item.effects);
+        data.effects = prepareActiveEffectCategories(data.item.allEffects);
 
         // Only for FoundryVTT moden DataModels
         if (this.document.system instanceof foundry.abstract.DataModel) {
