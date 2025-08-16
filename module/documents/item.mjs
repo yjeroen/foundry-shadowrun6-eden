@@ -343,21 +343,23 @@ export default class SR6Item extends Item {
   *allApplicableEffects() {
     const effects = this.effects;
 
-    // Lets get all effects from other items that are modded into this one
+    // Lets first apply Active Effects embedded in this item, to this Item
+    for ( const effect of this.effects ) {
+      // Only use effects that aren't transfered to the Actor
+      if ( !effect.transfer ) yield effect;
+    }
+    
+    // Then look onthe Actor for any Items that are modded into this one
     if (this.actor) {
       for (const item of this.actor.items) {
         if (item.system.embeddedInUuid === this.uuid) {
           for ( const effect of item.effects ) {
-            effects.set(effect.id, effect, {modifySource: false});
+            if ( !effect.transfer ) yield effect;
           }
         }
       }
     }
 
-    for ( const effect of effects ) {
-      // Only use effects that aren't transfered to the Actor
-      if ( !effect.transfer ) yield effect;
-    }
   }
   
   #attackRatingToObject() {
