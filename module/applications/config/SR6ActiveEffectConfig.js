@@ -15,9 +15,7 @@ export default class SR6ActiveEffectConfig extends ActiveEffectConfig {
         return foundry.utils.mergeObject(super.defaultOptions, {
             template: "systems/shadowrun6-eden/templates/sheets/active-effect/v12-config.html",
             tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "effects"}],
-            width: 700,
-            submitOnChange: true,
-            closeOnSubmit: false
+            width: 700
         });
     }
 
