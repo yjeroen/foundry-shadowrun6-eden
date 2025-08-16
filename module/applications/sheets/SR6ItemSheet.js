@@ -18,7 +18,7 @@ export default class SR6ItemSheet extends ItemSheet {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["shadowrun6", "sheet", "item"],
             dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}],
-            width: false, // not setting it so it auto sets; was: 605
+            width: 620,
         });
     }
     get template() {

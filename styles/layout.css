@@ -393,23 +393,32 @@ table.spell-table td {
 	text-align: center;
 }
 
-
 .editor {
     flex: 1;
     justify-self: stretch;
     align-self: stretch;
     height: 100%;
     min-height: 200px;
+    margin-bottom: 5px;
+}
+.shadowrun6.item .editor {
+  min-height: 50px;
+}
+.shadowrun6.item .editor .editor-content {
+  padding: 0 25px 0 2px;
+}
+.shadowrun6.item .editor.prosemirror {
+  border-radius: 6px;
+  background-color: azure;
+}
+.shadowrun6.item .editor-container {
+  min-height: 150px;
+}
+.shadowrun6.item .editor-container .editor-content {
+  min-height: 150px;
+  padding: 0;
 }
 
-.shadowrun6.item div.editor {
-  min-height: 50px;
-  max-width: 550px;
-}
-.shadowrun6.item div.editor-container {
-  min-height: 100px;
-  max-width: 550px;
-}
 .shadowrun6.item dd.specialDescription {
   margin-top: 20px;
   padding: 0px;
@@ -603,4 +612,19 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 .active-effect-config .tab.changes ol.scrollable {
   min-height: 4.5rem;
   align-items: baseline;
+}
+.item.sheet .item-modded {
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 2px;
+}
+.sheet h2 {
+  text-transform: uppercase;
+}
+.item.sheet h3 {
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+.item.sheet .rubik-glitch-regular {
+  text-transform: uppercase;
 }

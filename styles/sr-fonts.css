@@ -34,7 +34,13 @@ body.game.foundry-modern .application.journal-sheet {
   font-weight: 400;
   border-bottom: 3px solid var(--color-underline-header);
 }
-.game h2, .game h3 {
+.game h2 {
+  font-size: 1.3em;
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-underline-header);
+}
+.game h3 {
+  font-size: 1.2em;
   font-weight: 700;
   border-bottom: 2px solid var(--color-underline-header);
 }
