@@ -460,6 +460,7 @@ export default class Shadowrun6Actor extends Actor {
      */
     _prepareAttributes() {
         const system = getSystemData(this);
+        const actor = this;
         // Only run on lifeforms
         if (isLifeform(system)) {
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
@@ -472,6 +473,9 @@ export default class Shadowrun6Actor extends Actor {
                 if (parseInt(system.attributes[attr].mod) > 4 ) 
                     system.attributes[attr].modString = game.i18n.localize("attrib.max_augment");
                 system.attributes[attr].pool = Math.max(1, parseInt(system.attributes[attr].base) + Math.min(4, parseInt(system.attributes[attr].mod)) );
+                
+                // Supporting Pool Overrides
+                if (actor.overrides?.system?.attributes[attr]?.pool !== undefined) system.attributes[attr].pool = actor.overrides.system.attributes[attr].pool;
             });
             if (system.edge.value > 7) {
                 system.edge.value = 7;
@@ -748,6 +752,7 @@ export default class Shadowrun6Actor extends Actor {
         const system = getSystemData(this);
         if (!isLifeform(system))
             return;
+        const actor = this;
         const data = system;
         // Only calculate for PCs - ignore for NPCs/Critter
         // if (actorData.type === "Player" || actorData.type === "NPC") {
@@ -763,6 +768,9 @@ export default class Shadowrun6Actor extends Actor {
                         data.skills[id].pool = 0 + data.skills[id].modifier;
                     }
                 }
+                // Supporting Pool Overrides
+                if (actor.overrides?.system?.skills[id]?.pool !== undefined) data.skills[id].pool = actor.overrides.system.skills[id].pool;
+
                 data.skills[id].poolS = 0;
                 data.skills[id].poolE = 0;
                 if (data.skills[id].specialization) {
