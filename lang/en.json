@@ -1877,6 +1877,8 @@
     },
     "effect": {
       "Label": "Effects",
+      "Create": "Create New Effect",
+      "New": "New Effect",
       "Duration": "Duration",
       "Source": "Source",
       "Toggle": "Toggle Effect",
