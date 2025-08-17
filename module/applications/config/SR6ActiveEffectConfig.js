@@ -46,16 +46,18 @@ export default class SR6ActiveEffectConfig extends ActiveEffectConfig {
     static DEFAULT_OPTIONS = {
         position: {width: 700},
         initial: "changes",
-        submitOnChange: true,
-        closeOnSubmit: false
+        form: {
+            submitOnChange: true,
+            submitOnClose: true,
+            closeOnSubmit: false
+        }
     };
     static PARTS = {
         header: {template: "templates/sheets/active-effect/header.hbs"},
         tabs: {template: "templates/generic/tab-navigation.hbs"},
         details: {template: "systems/shadowrun6-eden/templates/sheets/active-effect/details.hbs", scrollable: [""]},
         duration: {template: "templates/sheets/active-effect/duration.hbs"},
-        changes: {template: "systems/shadowrun6-eden/templates/sheets/active-effect/changes.hbs", scrollable: ["ol[data-changes]"]},
-        footer: {template: "templates/generic/form-footer.hbs"}
+        changes: {template: "systems/shadowrun6-eden/templates/sheets/active-effect/changes.hbs", scrollable: ["ol[data-changes]"]}
     };
     static TABS = {
         sheet: {
