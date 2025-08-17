@@ -409,6 +409,7 @@ table.spell-table td {
 }
 .shadowrun6.item .editor {
   min-height: 50px;
+  max-width: 580px;
 }
 .shadowrun6.item .editor .editor-content {
   padding: 0 25px 0 2px;
