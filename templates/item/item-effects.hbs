@@ -72,22 +72,28 @@
                 >
                   <i class='fas fa-edit'></i>
                 </a>
-                {{#iff effect.parent.type '!=' "mod"}}
-                <a
-                  class='effect-control'
-                  data-action='deleteDoc'
-                  data-document-class='ActiveEffect'
-                  title='{{localize "DOCUMENT.Delete" type='Effect'}}'
-                >
-                  <i class='fas fa-trash'></i>
-                </a>
+                {{#iff effect.parent.type '==' "mod"}}
+                  {{#iff ../../item.type '==' "mod"}}
+                  <a
+                    class='effect-control'
+                    data-action='deleteDoc'
+                    data-document-class='ActiveEffect'
+                    title='{{localize "DOCUMENT.Delete" type='Effect'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                  {{else}}
+                  <a class='effect-control disabled' title='{{localize "shadowrun6.effect.CantDelete"}}'><i class='fas fa-trash'></i></a>
+                  {{/iff}}
                 {{else}}
-                <a
-                  class='effect-control disabled'
-                  title='{{localize "shadowrun6.effect.CantDelete"}}'
-                >
-                  <i class='fas fa-trash'></i>
-                </a>
+                  <a
+                    class='effect-control'
+                    data-action='deleteDoc'
+                    data-document-class='ActiveEffect'
+                    title='{{localize "DOCUMENT.Delete" type='Effect'}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
                 {{/iff}}
               </div>
             </li>
