@@ -140,17 +140,19 @@ export default class SR6Item extends Item {
 
   /** @inheritDoc */
   static migrateData(source) {
-    if (typeof source.system.stun === 'string') source.system.stun = (source.system.stun === "stun");
+    if (typeof source.system?.stun === 'string') source.system.stun = (source.system.stun === "stun");
+    if (source.system?.ammoLoaded === undefined && source.system.ammocap) this.system.ammoLoaded = 'regular';
+    if (typeof source.system?.ammocap === 'string') source.system.ammocap = parseInt(source.system.ammocap);
+    if (typeof source.system?.ammocount === 'string') source.system.ammocount = parseInt(source.system.ammocount);
+    if (typeof source.system?.priceDef === 'string') source.system.priceDef = parseInt(source.system.priceDef);
+    if (typeof source.system?.dmg === 'string') source.system.dmg = parseInt(source.system.dmg);
+    if (source.system?.attackRating && typeof source.system?.attackRating[0] === 'string') source.system.attackRating = source.system?.attackRating.map(ar => parseInt(ar));
 
     return super.migrateData(source);
   }
   
   _migrateCleanUp() {
-    // TODO check what can move to migrateData
     if (this.calculated === undefined) this.calculated = {};
-    if (this.system.ammoLoaded === undefined && this.system.ammocap) this.system.ammoLoaded = 'regular';
-    if (typeof this.system.ammocap === 'string') this.system.ammocap = parseInt(this.system.ammocap);
-    if (typeof this.system.ammocount === 'string') this.system.ammocount = parseInt(this.system.ammocount);
   }
 
   _addDefaultFireModePenalties() {
