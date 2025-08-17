@@ -400,7 +400,12 @@ export default class SR6ItemSheet extends ItemSheet {
      */
     _getEffect(target) {
         const li = target.closest(".effect");
-        return this.item.effects.get(li?.dataset?.effectId);
+        const parentId = li?.dataset?.parentId;
+        const effectId = li?.dataset?.effectId
+        if (parentId === this.item.id)
+            return this.item.effects.get(effectId);
+        else 
+            return this.actor.items.get(parentId).effects.get(effectId);
     }
 
     
