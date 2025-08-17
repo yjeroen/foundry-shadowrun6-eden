@@ -36,8 +36,8 @@
 		"TypeSoftware": "Программа"
 	},
 	"QUALITY_CATEGORIES": {
-		"ADVANTAGE": "Достоинство",
-		"DISADVANTAGE": "Недостаток"
+		"ADVANTAGE": "Положительное качество",
+		"DISADVANTAGE": "Отричательное качество"
 	},
 	"TYPES": {
 		"Actor": {
@@ -686,6 +686,10 @@
 				"outsider": "ЧУЖАК",
 				"user": "ПОЛЬЗОВАТЕЛЬ",
 				"admin": "АДМИНИСТРАТОР"
+			},
+			"device": {
+				"enable": "Включить устройство Матрицы",
+				"disable": "Выключить устройство Матрицы"
 			}
 		},
 		"matrixaction": {
@@ -1210,6 +1214,8 @@
 			"ammo_add": "Добавить патроны",
 			"armor": {
 				"add": "Добавить новую броню",
+				"enable": "Надеть броню",
+				"disable": "Снять броню",
 				"column": {
 					"action": "Действие",
 					"defense": "ЗЗ",
