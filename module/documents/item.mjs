@@ -140,7 +140,7 @@ export default class SR6Item extends Item {
 
   /** @inheritDoc */
   static migrateData(source) {
-    if (typeof source.system.stun === 'string') source.system.stun = (source.system.stun == "stun" ? true : false);
+    if (typeof source.system.stun === 'string') source.system.stun = (source.system.stun === "stun");
 
     return super.migrateData(source);
   }
