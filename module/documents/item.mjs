@@ -167,6 +167,9 @@ export default class SR6Item extends Item {
     // this.system.modes.BF_dmg_mod = 2;
     this.system.modes.FA_ar_mod = -6;
     // this.system.modes.FA_dmg_mod = 0;
+
+    // Used for Item Mods like Smartgun System
+    this.system.modes.dicePoolMod = 0
   }
 
   calcAttackRating() {

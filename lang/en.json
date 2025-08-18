@@ -1916,7 +1916,8 @@
       "initiative.matrix.diceMod": "Matrix Initiative Dice Pool Modifier",
       "armor.mod": "Armor Mod:",
       "weapon.mod": "Weapon Mod:",
-      "stunOrPhysical": "Stun (true) or Physical (false) damage"
+      "stunOrPhysical": "Stun (true) or Physical (false) damage",
+      "dicePoolMod": "Dice Pool Bonus"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",

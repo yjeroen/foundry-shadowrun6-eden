@@ -119,6 +119,10 @@ async function _showRollDialog(data) {
                 data.threshold += Math.floor( targetDefensePool / 6 );
                 data.cantDodgeBulletsBaseThreshold = data.threshold;
             }
+            
+            // Used for Item Mods like Smartgun System
+            data.modifier += data.item?.system?.modes?.dicePoolMod ?? 0;  // 0 by default
+
         }
         else if (data.RollType == RollType.ContinueExtendedTest) {
             // possible add things here? Currently they're in shadowrun6.js

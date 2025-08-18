@@ -998,11 +998,12 @@ export class SR6Config {
         system_modes_SA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_sa")+")",
         // system_modes_SA__dmg__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.damage_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier")+" ("+game.i18n.localize("shadowrun6.item.mode_sa")+")",
         system_modes_BF__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_bf")+")",
-        system_modes_FA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_fa")+")",
-        
+        system_modes_FA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_fa")+")",        
         system_dmg: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.damage_short")}),
         system_stun: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.stunOrPhysical"),
+        system_modes_dicePoolMod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.dicePoolMod"),
 
+        // ----------- Armor Mods ----------- //
         system_defense: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.dr")}),
         system_social: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.item.social_rating")}),
 
