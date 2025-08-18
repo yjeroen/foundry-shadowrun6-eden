@@ -40,7 +40,8 @@ export default class SR6Keybindings {
         document.addEventListener('paste', (e) => {
             if ( e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA"
                 && !e.target.parentElement?.classList?.contains('ProseMirror')
-                && !e.target.offsetParent?.classList?.contains('ProseMirror')    ) {
+                && !e.target.offsetParent?.classList?.contains('ProseMirror')
+                && !e.target.className?.includes('ProseMirror')    ) {
 
                 console.log("SR6E | Pasting text | Triggering NPC Importer by event:", e);
                 Importer.pasteEventhandler(e);
