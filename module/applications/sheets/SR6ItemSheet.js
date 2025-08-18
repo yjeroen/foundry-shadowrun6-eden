@@ -156,26 +156,28 @@ export default class SR6ItemSheet extends ItemSheet {
                 "SR6E | Replace descriptions for " + this.object.type + " and ",
                 getSystemData(this.object)
             );
-            switch (this.object.type) {
-                case "quality":
-                    x[0].innerHTML = game.i18n.localize(
-                        "quality." +
-                            getSystemData(this.object).genesisID +
-                            ".desc"
-                    );
-                    break;
-                case "gear":
-                    x[0].innerHTML = game.i18n.localize(
-                        "item." + getSystemData(this.object).genesisID + ".desc"
-                    );
-                    break;
-                default:
-                    x[0].innerHTML = game.i18n.localize(
-                        this.object.type +
-                            "." +
-                            getSystemData(this.object).genesisID +
-                            ".desc"
-                    );
+            if (x[0] !== undefined) {
+                switch (this.object.type) {
+                    case "quality":
+                        x[0].innerHTML = game.i18n.localize(
+                            "quality." +
+                                getSystemData(this.object).genesisID +
+                                ".desc"
+                        );
+                        break;
+                    case "gear":
+                        x[0].innerHTML = game.i18n.localize(
+                            "item." + getSystemData(this.object).genesisID + ".desc"
+                        );
+                        break;
+                    default:
+                        x[0].innerHTML = game.i18n.localize(
+                            this.object.type +
+                                "." +
+                                getSystemData(this.object).genesisID +
+                                ".desc"
+                        );
+                }
             }
         }
         // Owner Only Listeners
