@@ -1,0 +1,149 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Smartgun System (external)",
+  "type": "mod",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>If you’re using a smartlink, the smartgun system increases the gun’s Attack Rating by 2 across all available range categories.</p><p><strong>Wireless bonus:</strong> You gain a +1 dice pool bonus. Gain a bonus Minor Action on a turn when you use the Reload Smartgun or Change Device Mode actions to eject a clip or change fire mode.</p>",
+    "availDef": "2L",
+    "price": 200,
+    "embeddedInUuid": null,
+    "type": "accessory_weapon"
+  },
+  "effects": [
+    {
+      "name": "Smartgun System",
+      "origin": "Item.I80GxcO4yuyDywXx",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "EPCdPF1fr4VB1l78",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ZRPlAuhEFnwNqjBV.EPCdPF1fr4VB1l78"
+    },
+    {
+      "name": "Smartgun System Wireless Enabled",
+      "origin": "Item.I80GxcO4yuyDywXx",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "_id": "P5Rp6x8bXUeiKRuZ",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.modes.dicePoolMod",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ZRPlAuhEFnwNqjBV.P5Rp6x8bXUeiKRuZ"
+    }
+  ],
+  "sort": 2400000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.I80GxcO4yuyDywXx",
+    "duplicateSource": "Item.I80GxcO4yuyDywXx",
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "ZRPlAuhEFnwNqjBV",
+  "_key": "!items!ZRPlAuhEFnwNqjBV"
+}

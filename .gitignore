@@ -1,3 +1,4 @@
-.todo.js
+/node_modules/
+/packs/
 *.zip
 *.log

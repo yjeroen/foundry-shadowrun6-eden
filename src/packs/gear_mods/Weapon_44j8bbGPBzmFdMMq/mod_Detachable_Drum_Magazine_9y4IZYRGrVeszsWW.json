@@ -1,0 +1,79 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Detachable Drum Magazine",
+  "type": "mod",
+  "_id": "9y4IZYRGrVeszsWW",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>Detachable Drum Magazines double a weapon’s ammo capacity. They also take twice the time to reload ammunition as standard clips. </p><p>When loaded into a weapon, detachable drum magazines lower the Concealability threshold by 2 for most weapons, by 3 for pistols. When worn on the body with the holder-clip, they lower the threshold by 1. If worn on a MEMS-style or other armor system, they are considered to have a capacity rating of 2.</p>",
+    "availDef": "3L",
+    "price": 75,
+    "embeddedInUuid": null,
+    "type": "accessory_weapon"
+  },
+  "effects": [
+    {
+      "name": "Detachable Drum Magazine",
+      "origin": "Item.9y4IZYRGrVeszsWW",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "FDh1cceoLTXHJYmJ",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.ammocap",
+          "mode": 1,
+          "value": "2",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!9y4IZYRGrVeszsWW.FDh1cceoLTXHJYmJ"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!9y4IZYRGrVeszsWW"
+}

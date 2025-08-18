@@ -16,7 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "20.x"
 
     - name: Load project details
       id: type
@@ -89,20 +91,17 @@ jobs:
           exit 1
         fi
 
+    # compile packs
+    - name: compile packs
+      run: npm ci
+    - run: npm run pack
+
     - name: Adjust manifest
       uses: TomaszKandula/variable-substitution@v1.0.2
       with:
         files: "system.json"
       env:
         flags.hotReload: false
-
-
-    # - name: Use Node.js ${{ env.NODE_VERSION }}
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: ${{ env.NODE_VERSION }}
-    #     cache: 'npm'
-
 
     - name: Determine archive contents
       id: archive
