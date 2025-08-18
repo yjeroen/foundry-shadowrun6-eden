@@ -1690,7 +1690,9 @@
       "ammo": "Ammunition",
       "ammo_loaded": "Ammo Loaded",
       "reload_ammo": "Reload your ammunition",
-      "ammo_changes_combat": "In Combat Ammo Changes"
+      "ammo_changes_combat": "In Combat Ammo Changes",
+      "ammo_cap": "Ammo Capacity",
+      "ammo_cap_short": "Ammo Cap."
     },
     "ui": {
       "notifications": {
