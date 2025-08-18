@@ -161,6 +161,7 @@ export default class SR6Item extends Item {
   _addDefaultFireModePenalties() {
     if (this.system.modes === undefined) return;
 
+    // Firing Mode PENALTIES
     this.system.modes.SA_ar_mod = -2;
     // this.system.modes.SA_dmg_mod = 1;
     this.system.modes.BF_ar_mod = -4;

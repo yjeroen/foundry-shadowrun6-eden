@@ -504,19 +504,19 @@ export class RollDialog extends Dialog {
                 this.html.find(".onlyFA").css("display", "none");
                 this.html.find(".onlyBF").css("display", "none");
                 rounds = 2;
-                arMod += parseInt(prepared.item.system.modes.SA_ar_mod); // -2 default
+                arMod += Math.min(0, parseInt(prepared.item.system.modes.SA_ar_mod)); // -2 default
                 dmgMod = 1;
                 break;
             case "BF":
                 this.html.find(".onlyFA").css("display", "none");
                 this.html.find(".onlyBF").css("display", "table-cell");
                 rounds = 4;
-                arMod += parseInt(prepared.item.system.modes.BF_ar_mod); // -4 default
+                arMod += Math.min(0, parseInt(prepared.item.system.modes.BF_ar_mod)); // -4 default
                 dmgMod = 2;
                 break;
             case "FA":
                 rounds = 10;
-                arMod += prepared.item.system.modes.FA_ar_mod; // -6 default
+                arMod = Math.min(0, arMod + prepared.item.system.modes.FA_ar_mod); // -6 default
                 this.html.find(".onlyFA").css("display", "table-cell");
                 this.html.find(".onlyBF").css("display", "none");
                 let fullAutoElement = document.getElementById("fullAutoArea");
