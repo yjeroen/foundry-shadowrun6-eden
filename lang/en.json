@@ -1917,7 +1917,8 @@
       "armor.mod": "Armor Mod:",
       "weapon.mod": "Weapon Mod:",
       "stunOrPhysical": "Stun (true) or Physical (false) damage",
-      "dicePoolMod": "Dice Pool Bonus"
+      "dicePoolMod": "Dice Pool Bonus",
+      "wild": "Use Wild Die (set Override: true)"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",

@@ -1002,6 +1002,7 @@ export class SR6Config {
         system_dmg: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.damage_short")}),
         system_stun: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.stunOrPhysical"),
         system_modes_dicePoolMod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.dicePoolMod"),
+        system_wild: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.wild"),
 
         // ----------- Armor Mods ----------- //
         system_defense: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.dr")}),
