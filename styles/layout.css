@@ -642,3 +642,6 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 .actor.sheet table th:first-child {
   text-align: left;;
 }
+li.folder > .folder-header .folder-name {
+  font-weight: 700;
+}
