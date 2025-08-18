@@ -140,6 +140,20 @@
       "thumbnail": "systems/shadowrun6-eden/images/sr6-system.webp"
     }
   ],
+  "packs":[
+    {
+      "name": "gear_mods",
+      "label": "SR6.Item.mod.label.section",
+      "type": "Item"
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "SR6 System",
+      "color": "#b8207f",
+      "packs": ["gear_mods"]
+    }
+  ],
   "background": "systems/shadowrun6-eden/images/sr6-background.webp",
   "primaryTokenAttribute": "physical",
   "secondaryTokenAttribute": "stun",
