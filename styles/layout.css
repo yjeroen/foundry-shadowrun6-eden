@@ -426,6 +426,10 @@ table.spell-table td {
   padding: 0;
 }
 
+.shadowrun6.item .item-list .collapsible-content {
+  max-width: 580px;
+}
+
 .shadowrun6.item dd.specialDescription {
   margin-top: 20px;
   padding: 0px;
