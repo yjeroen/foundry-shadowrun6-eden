@@ -337,6 +337,14 @@ export default class SR6Item extends Item {
     // Apply all changes
     for ( let change of changes ) {
       if ( !change.key ) continue;
+      if ( change.key.substring(0,19) === 'system.attackRating'
+           && change.mode === CONST.ACTIVE_EFFECT_MODES.ADD 
+           && foundry.utils.getProperty(this, change.key) === 0
+          ) {
+        // Don't allow Gear Mods to upgrade a weapon's AR if its already 0
+        continue;
+      }
+
       const changes = change.effect.apply(this, change);
       Object.assign(overrides, changes);
     }
