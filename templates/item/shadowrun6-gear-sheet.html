@@ -100,7 +100,7 @@
                         {{/if}}
                         {{/if}}
                         {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                            {{localize 'shadowrun6.item.ammunition'}}
+                            {{localize 'shadowrun6.weapon.ammo_cap_short'}}
                         {{/if}}
                     </th>
                     {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
@@ -134,7 +134,7 @@
                         {{/if}}
                         {{/if}}
                         {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                            <input name="ammocap" type="number" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
+                            <input name="ammocap" type="number" value="{{item._source.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
                     {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
