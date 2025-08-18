@@ -13,17 +13,6 @@ function isWeapon(obj) {
 function isSpell(obj) {
     return obj.drain != undefined;
 }
-function attackRatingToString(val) {
-    return (val[0] +
-        "/" +
-        (val[1] != 0 ? val[1] : "-") +
-        "/" +
-        (val[2] != 0 ? val[2] : "-") +
-        "/" +
-        (val[3] != 0 ? val[3] : "-") +
-        "/" +
-        (val[4] != 0 ? val[4] : "-"));
-}
 function isItemRoll(obj) {
     return obj.rollType != undefined;
 }
@@ -592,10 +581,10 @@ export class RollDialog extends Dialog {
         // Calculate changed attack rating
         prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
         prepared.calcAttackRating.forEach((element, index) => {
-            if (parseInt(element) !== 0)
+            if (parseInt(element) >= 0)
                 prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
         });
-        this.html.find("td[name='calcAR']").text(attackRatingToString(prepared.calcAttackRating));
+        this.html.find("td[name='calcAR']").text(game.sr6.utils.attackRatingToString(prepared.calcAttackRating));
         // Update the range selector for attack rating
         this.html
             .find("select[name='distance']")
@@ -604,7 +593,8 @@ export class RollDialog extends Dialog {
             let idx = parseInt(this.getAttribute("name"));
             this.setAttribute("data-item-ar", prepared.calcAttackRating[idx].toString());
             this.setAttribute("value", prepared.calcAttackRating[idx].toString());
-            this.text = game.i18n.localize("shadowrun6.roll.ar_" + idx) + " (" + prepared.calcAttackRating[idx].toString() + ")";
+            const distanceArText = prepared.calcAttackRating[idx] >= 0 ? prepared.calcAttackRating[idx].toString() : "-";
+            this.text = game.i18n.localize("shadowrun6.roll.ar_" + idx) + " (" + distanceArText + ")";
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage

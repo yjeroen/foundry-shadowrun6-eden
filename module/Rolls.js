@@ -98,7 +98,7 @@ async function _showRollDialog(data) {
                 data.calcPool += gruntDiceMod;
                 const newCalcAR = []
                 data.calcAttackRating.forEach((ar) => {
-                    if (ar !== 0) newCalcAR.push(ar += gruntArMod);
+                    if (ar > 0) newCalcAR.push(ar += gruntArMod);
                     else newCalcAR.push(ar);
                 });
                 data.calcAttackRating = newCalcAR;
@@ -137,7 +137,7 @@ async function _showRollDialog(data) {
             data.calculateSpellDamage();
         }
         
-        data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool; 
+        data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool;
         data.checkHardDiceCap();
 
         // Render modal dialog

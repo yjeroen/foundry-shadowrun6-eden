@@ -9,15 +9,15 @@ function deHTML(html) {
 export function attackRatingToString(val) {
     if (!val)
         return "NULL";
-    return (val[0] +
+    return ((val[0] >= 0 ? val[0] : "-") +
         "/" +
-        (val[1] != 0 ? val[1] : "-") +
+        (val[1] >= 0 ? val[1] : "-") +
         "/" +
-        (val[2] != 0 ? val[2] : "-") +
+        (val[2] >= 0 ? val[2] : "-") +
         "/" +
-        (val[3] != 0 ? val[3] : "-") +
+        (val[3] >= 0 ? val[3] : "-") +
         "/" +
-        (val[4] != 0 ? val[4] : "-"));
+        (val[4] >= 0 ? val[4] : "-"));
 }
 export function fireModesToString(val) {
     let list = [];
@@ -32,18 +32,20 @@ export function fireModesToString(val) {
     return list.join(', ');
 }
 export const defineHandlebarHelper = async function () {
-    Handlebars.registerHelper("attackrating", function (val) {
+    Handlebars.registerHelper("attackrating", function (val, item) {
         if (!val)
             return "NULL";
-        return (`<label title="${game.i18n.localize("shadowrun6.roll.ar_0_hint")}">` + val[0] +
+        // const itemAR = item.system.attackRating;
+        return (`<label title="${game.i18n.localize("shadowrun6.roll.ar_0_hint")}">` + 
+                (val[0] >= 0 ? val[0] : "-") +
                 `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_1_hint")}">` +
-                (val[1] != 0 ? val[1] : "-") +
+                (val[1] >= 0 ? val[1] : "-") +
                 `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_2_hint")}">` +
-                (val[2] != 0 ? val[2] : "-") +
+                (val[2] >= 0 ? val[2] : "-") +
                 `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_3_hint")}">` +
-                (val[3] != 0 ? val[3] : "-") +
+                (val[3] >= 0 ? val[3] : "-") +
                 `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_4_hint")}">` +
-                (val[4] != 0 ? val[4] : "-") +
+                (val[4] >= 0 ? val[4] : "-") +
                 "</label>");
     });
     Handlebars.registerHelper("firemodes", function (val) {
