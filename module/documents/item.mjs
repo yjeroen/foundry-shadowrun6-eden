@@ -328,6 +328,7 @@ export default class SR6Item extends Item {
   applyActiveEffects() {
     const overrides = {};
 
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 START', this.id, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
     // Organize non-disabled effects by their application priority
     const changes = [];
     for ( const effect of this.allApplicableEffects() ) {
@@ -344,6 +345,7 @@ export default class SR6Item extends Item {
 
     // Temporarily change attackRating []  --- TODO: rework attackRating into an object completely
     this.#attackRatingToObject();
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 attackRatingToObject', JSON.stringify(this.system.attackRating));
 
     // Apply all changes
     for ( let change of changes ) {
@@ -356,15 +358,21 @@ export default class SR6Item extends Item {
         continue;
       }
 
+      if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 applying', typeof change, change);
+      if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 applying', JSON.stringify(change));
       const changes = change.effect.apply(this, change);
       Object.assign(overrides, changes);
     }
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 overrides', overrides);
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 overrides', JSON.stringify(overrides));
 
     // Change attackRating back to []
     this.#attackRatingToArray();
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 attackRatingToArray', JSON.stringify(this.system.attackRating));
 
     // Expand the set of final overrides
     this.overrides = foundry.utils.expandObject(overrides);
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 END', this.id, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
   }
 
   /**
