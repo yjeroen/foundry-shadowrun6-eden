@@ -1,5 +1,5 @@
 import { SYSTEM_NAME } from "./constants.js";
-import { SR6ChatMessageData } from "./dice/RollTypes.js";
+import { SR6ChatMessageData, RollType } from "./dice/RollTypes.js";
 import { MonitorType } from "./config.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
@@ -12,17 +12,6 @@ function isWeapon(obj) {
 }
 function isSpell(obj) {
     return obj.drain != undefined;
-}
-function attackRatingToString(val) {
-    return (val[0] +
-        "/" +
-        (val[1] != 0 ? val[1] : "-") +
-        "/" +
-        (val[2] != 0 ? val[2] : "-") +
-        "/" +
-        (val[3] != 0 ? val[3] : "-") +
-        "/" +
-        (val[4] != 0 ? val[4] : "-"));
 }
 function isItemRoll(obj) {
     return obj.rollType != undefined;
@@ -100,6 +89,7 @@ export class RollDialog extends Dialog {
         // React to Modifier checkboxes
         html.find("#useWoundModifier").change(this._updateDicePool.bind(this));
         html.find("#useSustainedSpellModifier").change(this._updateDicePool.bind(this));
+        html.find("#useGruntGroup").change(this._useGruntGroup.bind(this));
         // React to change in modifier
         html.find("#modifier").change(this._updateDicePool.bind(this));
         // Show Threshold and Interval fields when extended tests is enabled.
@@ -147,7 +137,7 @@ export class RollDialog extends Dialog {
                 configured.edgeTarget++;
             }
             const drElement = document.getElementById("dr");
-            if (drElement) {
+            if ( drElement && !isNaN(parseInt(drElement.value)) ) {
                 const dr = drElement.value ? parseInt(drElement.value) : 0;
                 const arModElem = document.getElementById("arMod");
                 if (isItemRoll(prepared)) {
@@ -373,7 +363,37 @@ export class RollDialog extends Dialog {
         }
     }
     //-------------------------------------------------------------
-    _updateDicePool(data) {
+    _useGruntGroup(event) {
+        const gruntGroup = this.actor.gruntGroup;
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
+        this._updateDicePool(event);
+
+        // Recalculate firing modes
+        const fireModeElement = document.getElementById("fireMode");
+        if (!fireModeElement) {
+            this._prepareFireModeAR((useGruntGroup?gruntGroup.arMod:0), 0, '');
+            return;
+        }
+
+        switch (fireModeElement.value) {
+            case "SS":
+                this._onFiringModeChange(event);
+                break;
+            case "SA":
+                this._onFiringModeChange(event);
+                break;
+            case "BF":
+                this._onBurstModeChange(event);
+                break;
+            case "FA":
+                this._onAreaChange(event);
+                break;
+        }
+    }
+    //-------------------------------------------------------------
+    _updateDicePool(event) {
+        const gruntGroup = this.actor.gruntGroup;
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         // Get the value of the user entered modifier ..
         let userModifier = parseInt(document.getElementById("modifier").value);
         this.modifier = userModifier ? userModifier : 0;
@@ -389,7 +409,8 @@ export class RollDialog extends Dialog {
         if (this.actor) {
             console.log("SR6E | updateDicePool2: ", this.prepared.pool, this.modifier, woundMod, sustainedMod);
         }
-        this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0);
+        this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0) 
+                                    + (useGruntGroup && this.options.prepared.rollType == RollType.Weapon ? gruntGroup.diceMod : 0);
         this.prepared.checkHardDiceCap();
         $("label[name='dicePool']")[0].innerText = this.prepared.calcPool.toString();
     }
@@ -461,12 +482,14 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _onFiringModeChange(event) {
+        const gruntGroup = this.actor.gruntGroup;
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         let prepared = this.options.prepared;
         let fireModeElement = document.getElementById("fireMode");
         if (!fireModeElement)
             return;
         let newMode = fireModeElement.value;
-        let arMod = 0;
+        let arMod = useGruntGroup ? gruntGroup.arMod : 0;   // default 0
         let dmgMod = 0;
         let rounds = 1;
         prepared.fireMode = newMode;
@@ -481,19 +504,19 @@ export class RollDialog extends Dialog {
                 this.html.find(".onlyFA").css("display", "none");
                 this.html.find(".onlyBF").css("display", "none");
                 rounds = 2;
-                arMod = -2;
+                arMod += Math.min(0, parseInt(prepared.item.system.modes.SA_ar_mod)); // -2 default
                 dmgMod = 1;
                 break;
             case "BF":
                 this.html.find(".onlyFA").css("display", "none");
                 this.html.find(".onlyBF").css("display", "table-cell");
                 rounds = 4;
-                arMod = -4;
+                arMod += Math.min(0, parseInt(prepared.item.system.modes.BF_ar_mod)); // -4 default
                 dmgMod = 2;
                 break;
             case "FA":
                 rounds = 10;
-                arMod = -6;
+                arMod = Math.min(0, arMod + prepared.item.system.modes.FA_ar_mod); // -6 default
                 this.html.find(".onlyFA").css("display", "table-cell");
                 this.html.find(".onlyBF").css("display", "none");
                 let fullAutoElement = document.getElementById("fullAutoArea");
@@ -505,8 +528,10 @@ export class RollDialog extends Dialog {
         this._recalculateBaseAR();
     }
     //-------------------------------------------------------------
-    _onBurstModeChange(event) {
+    _onBurstModeChange(event, extraArMod=0) {
         console.log("SR6E | _onBurstModeChange");
+        const gruntGroup = this.actor.gruntGroup;
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         let prepared = this.options.prepared;
         let fireModeElement = document.getElementById("bfType");
         if (!fireModeElement)
@@ -518,21 +543,22 @@ export class RollDialog extends Dialog {
         switch (fireModeElement.value) {
             case "wide_burst":
                 // TODO implement anticipation; i.e. two rolls to the two targets
-                arMod = -2;
+                arMod = prepared.item.system.modes.SA_ar_mod; // -2 default
                 dmgMod = 1;
                 if (game.user.targets.size !== 2) {
                     ui.notifications.error("shadowrun6.ui.notifications.You_can_only_choose_Wide_Burst_when_you_target_two_tokens", { localize: true });
                     fireModeElement.value = 'narrow_burst';
-                    arMod = -4;
+                    arMod = prepared.item.system.modes.BF_ar_mod; // -4 default
                     dmgMod = 2;
                 }
                 break;
             case "narrow_burst":
-                arMod = -4;
+                arMod = prepared.item.system.modes.BF_ar_mod; // -4 default
                 dmgMod = 2;
                 break;
         }
 
+        arMod += (useGruntGroup ? gruntGroup.arMod : 0);
         prepared.burstMode = fireModeElement.value;
         this._prepareFireModeAR(arMod, dmgMod, rounds);
         this._recalculateBaseAR();
@@ -555,9 +581,10 @@ export class RollDialog extends Dialog {
         // Calculate changed attack rating
         prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
         prepared.calcAttackRating.forEach((element, index) => {
-            prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
+            if (parseInt(element) >= 0)
+                prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
         });
-        this.html.find("td[name='calcAR']").text(attackRatingToString(prepared.calcAttackRating));
+        this.html.find("td[name='calcAR']").text(game.sr6.utils.attackRatingToString(prepared.calcAttackRating));
         // Update the range selector for attack rating
         this.html
             .find("select[name='distance']")
@@ -566,7 +593,8 @@ export class RollDialog extends Dialog {
             let idx = parseInt(this.getAttribute("name"));
             this.setAttribute("data-item-ar", prepared.calcAttackRating[idx].toString());
             this.setAttribute("value", prepared.calcAttackRating[idx].toString());
-            this.text = game.i18n.localize("shadowrun6.roll.ar_" + idx) + " (" + prepared.calcAttackRating[idx].toString() + ")";
+            const distanceArText = prepared.calcAttackRating[idx] >= 0 ? prepared.calcAttackRating[idx].toString() : "-";
+            this.text = game.i18n.localize("shadowrun6.roll.ar_" + idx) + " (" + distanceArText + ")";
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage
@@ -579,12 +607,14 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _onAreaChange(event) {
+        const gruntGroup = this.actor.gruntGroup;
+        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
         console.log("SR6E | _onAreaChanged");
         let prepared = this.options.prepared;
         let fullAutoElement = document.getElementById("fullAutoArea");
         if (!fullAutoElement)
             return;
-        let arMod = -6;
+        let arMod = 0 + (useGruntGroup?gruntGroup.arMod:0) + prepared.item.system.modes.FA_ar_mod; // -6 default
         let dmgMod = 0;
         let rounds = 10;
 

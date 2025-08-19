@@ -1,6 +1,6 @@
-{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
-
 <form class="flexcol {{cssClass}}" autocomplete="off" style="min-width: 605px; min-width: fit-content;">
+    {{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+    
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="section">
@@ -52,14 +52,14 @@
                     <th colspan="5">{{localize 'shadowrun6.item.attackvalues'}}</th>
                     <!-- <th>{{localize 'shadowrun6.item.ammunition'}}</th> -->
                 </tr>
-                {{log "shadowrun6-gear-sheet.html this=" item.system}}
+                {{log "shadowrun6-gear-sheet.html item=" item}}
                 <tr>
                     <td style="text-align: right">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width: 2.5em;" />
+                        <input name="dmg" type="number" value="{{item._source.system.dmg}}" data-field="system.dmg" class="box centered" style="width: 2.5em;" />
                     </td>
                     <td style="text-align: left">
                         <select name="gearStun" data-field="system.stun">
-                            {{selectOptions config.WEAPON_STUN_OPTION selected=item.system.stun localize=true}}
+                            {{selectOptions config.WEAPON_STUN_OPTION selected=item._source.system.stun localize=true}}
                         </select>
                     </td>
                     {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
@@ -81,9 +81,9 @@
                     </td>
                     {{/if}}
 
-                    {{#each item.system.attackRating as |arating id|}}
+                    {{#each item._source.system.attackRating as |arating id|}}
                     <td style="text-align: center" data-array="system.attackRating">
-                        <input name="attackRating{{id}}" type="number" value="{{arating}}" data-array-field data-index="{{id}}" style="width:2em" class="centered box" />
+                        <input name="attackRating{{id}}" type="number" value="{{arating}}" data-array-field data-index="{{id}}" style="width:2em" class="centered box" title="{{localize (concat "shadowrun6.roll.ar_" id "_hint")}}"/>
                     </td>
                     {{/each}}
                 </tr>
@@ -100,7 +100,7 @@
                         {{/if}}
                         {{/if}}
                         {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                            {{localize 'shadowrun6.item.ammunition'}}
+                            {{localize 'shadowrun6.weapon.ammo_cap_short'}}
                         {{/if}}
                     </th>
                     {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
@@ -134,7 +134,7 @@
                         {{/if}}
                         {{/if}}
                         {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                            <input name="ammocap" type="text" value="{{item.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
+                            <input name="ammocap" type="number" value="{{item._source.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
                     {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
@@ -163,13 +163,13 @@
                 </tr>
                 <tr>
                     <td class="centered">
-                        <input name="defense" type="number" value="{{item.system.defense}}" data-field="system.defense" class="box centered" style="width: 3em" />
+                        <input name="defense" type="number" value="{{item._source.system.defense}}" data-field="system.defense" class="box centered" style="width: 3em" />
                     </td>
                     <td class="centered">
                         <input name="capacity" type="number" value="{{item.system.capacity}}" data-field="system.capacity" class="box centered" style="width: 3em" />
                     </td>
                     <td class="centered">
-                        <input name="social" type="number" value="{{item.system.social}}" data-field="system.social" class="box centered" style="width: 3em" />
+                        <input name="social" type="number" value="{{item._source.system.social}}" data-field="system.social" class="box centered" style="width: 3em" />
                     </td>
                     <td class="centered">
                         <input name="natural" type="checkbox" {{checked item.system.natural}} data-field="system.natural" />
@@ -178,13 +178,21 @@
             </table>
             {{/if}}
             <!-- ********** BIOWARE / NANOWARE ********** -->
-            {{#if (or
-            (eq item.system.type "BIOWARE")
-            (eq item.system.type "NANOWARE")
-            )}}
-            <label for="ware_essence">{{localize 'shadowrun6.item.essence'}}</label>
-            <input name="essenceBioNano" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence"
-                class="box centered" />
+            {{#if (or (or
+                (eq item.system.type "BIOWARE")
+                (eq item.system.type "NANOWARE")
+            ) (eq item.system.type "GENETICS") )
+            }}
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.item.essence'}}</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="essenceBioNano" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence" class="box centered" />
+                    </td>
+                </tr>
+            </table>
             {{/if}}
             <!-- ********** CYBERWARE ********** -->
             {{#if (eq item.system.type "CYBERWARE")}}
@@ -217,9 +225,9 @@
                 </tr>
                 <tr>
                     <td class="box centered">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" />
+                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
                          /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" disabled>
+                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
                     </td>
                     <td class="box centered">
                         <input name="devRating" type="number" value="{{item.system.devRating}}" data-field="system.devRating" class="box centered" style="width:2em" />
@@ -248,9 +256,9 @@
                 </tr>
                 <tr>
                     <td class="box centered">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" />
+                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
                          /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" disabled>
+                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
                     </td>
                     <td class="box centered"> <input name="devRatingDeck" type="number" value="{{item.system.devRating}}"
                             data-field="system.devRating" class="box centered" style="width:2em" /></td>
@@ -322,18 +330,21 @@
                     <td></td>
                     {{/if}}
                     <td class="box centered">
-                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" />
+                        <input name="dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
                          /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" disabled>
+                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
                     </td>
 
                 </tr>
             </table>
             {{/if}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
-            {{editor item.system.accessories target="system.accessories" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
             <!-- ********** Beschreibung ********** -->
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{editor item.system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror"}}
+            {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
     </section>
 </form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-mods.hbs" }}
+{{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}

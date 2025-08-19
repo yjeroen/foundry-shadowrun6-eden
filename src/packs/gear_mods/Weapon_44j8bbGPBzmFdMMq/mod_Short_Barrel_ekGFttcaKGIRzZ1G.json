@@ -1,0 +1,307 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Short Barrel",
+  "type": "mod",
+  "_id": "ekGFttcaKGIRzZ1G",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>The short-barrel mod increases the concealability threshold of a weapon by 1, removes the longest-range Attack Rating available for the weapon (thus decreasing its range), and alters the AR as follows: +2/+1/–2/—/—.</p><hr><blockquote><p>SYSTEM NOTE</p><ul><li><p><em>Manually enable the Effect of the range category that is removed.</em></p></li><li><p><em>If you attach</em> <em>this mod to a different weapon later, you need to disable/enable the correct range category again.</em></p></li></ul></blockquote>",
+    "availDef": "2",
+    "price": 65,
+    "embeddedInUuid": null,
+    "type": "weapon_mod"
+  },
+  "effects": [
+    {
+      "name": "Short Barrel (removes Near)",
+      "origin": "Item.ekGFttcaKGIRzZ1G",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "8j6ePEuwNvU8kvYj",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ekGFttcaKGIRzZ1G.8j6ePEuwNvU8kvYj"
+    },
+    {
+      "name": "Short Barrel (removed Medium)",
+      "origin": "Item.ekGFttcaKGIRzZ1G",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "BPTvZxFPai85Upzm",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ekGFttcaKGIRzZ1G.BPTvZxFPai85Upzm"
+    },
+    {
+      "name": "Short Barrel (removes Far)",
+      "origin": "Item.ekGFttcaKGIRzZ1G",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "mMOESMv9lZnxp3us",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ekGFttcaKGIRzZ1G.mMOESMv9lZnxp3us"
+    },
+    {
+      "name": "Short Barrel (removes Extreme)",
+      "origin": "Item.ekGFttcaKGIRzZ1G",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "EpNzZhETQ6FrRX1G",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ekGFttcaKGIRzZ1G.EpNzZhETQ6FrRX1G"
+    }
+  ],
+  "sort": 1800000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!ekGFttcaKGIRzZ1G"
+}

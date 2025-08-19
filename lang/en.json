@@ -34,8 +34,8 @@
     "TypeWeapon": "Weapon"
   },
   "QUALITY_CATEGORIES": {
-    "ADVANTAGE": "Advantage",
-    "DISADVANTAGE": "Disadvantage"
+    "ADVANTAGE": "Positive Quality",
+    "DISADVANTAGE": "Negative Quality"
   },
   "TYPES":{
   		"Actor": {
@@ -43,7 +43,8 @@
     		"NPC": "Grunt/NPC",
     		"Player": "Player Character",
     		"Spirit": "Spirit",
-    		"Vehicle": "Vehicle/Drone"
+    		"Vehicle": "Vehicle/Drone",
+        "sprite": "Sprite"
   		},
   		"Item": {
     		"adeptpower": "Adept Power",
@@ -63,7 +64,8 @@
     		"skill": "Language/Knowledge Skill",
         "software": "Software",
     		"spell": "Spell",
-    		"weapon": "Weapon"
+    		"weapon": "Weapon",
+    		"mod": "Gear Mod"
   	}
   },
   "attrib": {
@@ -98,7 +100,8 @@
     "str": "Strength",
     "str_short": "STR",
     "wil": "Willpower",
-    "wil_short": "WIL"
+    "wil_short": "WIL",
+    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute."
   },
   "skill": {
     "astral": "Astral",
@@ -281,10 +284,14 @@
         "BIOWARE_COSMETICS": "Cosmetic Bioware",
         "BIOWARE_CULTURED": "Cultured Bioware",
         "BIOWARE_STANDARD": "Normal Bioware",
-        "BIOWARE_IMPLANT_WEAPON": "Bioimplantweapon",
+        "BIOWARE_IMPLANT_WEAPON": "Bioweapons",
+        "BIOWARE_DERMAL": "Derman Bioware",
+        "BIOSENSE": "Biosense",
+        "SYMBIONT": "Symbiont",
         "BLADES": "Blades",
         "BOATS": "Boats",
         "BOWS": "Bows",
+        "BALLISTAS": "Ballistas",
         "BREAKING": "Breaking",
         "BTL": "BTLs",
         "CANNONS_LAUNCHERS": "Cannons & Launchers",
@@ -303,9 +310,18 @@
         "CYBER_LIMB_ACCESSORY": "Cyberlimb Accessories",
         "CYBER_LIMB_ENHANCEMENT": "Cyberlimb Enhancements",
         "CYBER_LIMBS": "Cyberlimbs",
+        "CYBERNETIC_RESTRAINT": "Cybernetic Restraint",
+        "COSMETIC": "Cosmetic Cyberware",
         "CYBERDECK": "Cyberdeck",
         "CYBERJACK": "Cyberjack",
-        "DRUGS": "Drugs",
+        "ATTRIBUTE_CODEMOD": "Attribute Codemod",
+        "CORE_CODEMOD": "Core Codemod",
+        "PROCESSOR": "Processor",
+        "IO": "IO",
+        "DIGITAL_WEAPON": "Digital Weapon",        
+        "DRUGS": "Drugs",     
+        "PERFUME": "Perfume",     
+        "ESPIONAGE": "Espionage",
         "ELECTRONIC_ACCESSORIES": "Electronic Accessories",
         "EXPLOSIVES": "Explosives",
         "FIREARMS": "Firearms",
@@ -331,11 +347,11 @@
         "ID_CREDIT": "ID and Credsticks",
         "IMAGING": "Imaging",
         "INDUSTRIAL_CHEMICALS": "Industrial Chemicals",
-        "INSTRUMENT": "Instruments",
+        "INSTRUMENT": "Mustical Instrument",
         "INSTRUMENT_ACCESSORY": "Instrument Accessories",
 		  "LARGE_DRONES": "Large Drones",
         "LAUNCHERS": "Launchers",
-        "LAV": "Low Altitude Vehicles (VectorThrust)",
+        "LAV": "Low Altitude Vehicles",
         "LTAV": "Lighter Than Air Vehicles",
         "LIVING_PERSONA": "Living Persona",
         "MACHINE_GUNS": "Machine Guns",
@@ -369,6 +385,17 @@
         "MOD_RACK": "Drone Racks",
         "MOD_OTHERS": "Other Hardpoint Mods",
         "MOD_PROPULSION": "Secondary Propulsion Systems",
+        "NANITES_COSMETIC": "Cosmetic Nanites",
+        "NANITES_THERAPEUTIC": "Therapeutic Nanites",
+        "NANITES_BIOAMP": "Bioamplifier Nanites",
+        "NANITES_UTILITIES": "Utility Nanites",
+        "NANITES_TRANSIENT": "Transient-only Nanites",
+        "NANOTECH_KIT": "Nanotech Kit",
+        "THERAPEUTIC": "Therapeutic",
+        "AUGMENTICS": "Augmentics",
+        "COMPLEMENTARY_GENETIC_MODS": "Complementary Genetic Mod",
+        "TRANSGENICS": "Transgenics",
+        "TRANSGENIC_BIOWARE": "Transgenic Bioware",
         "NANOWARE_HARD": "Hard Nanoware-System",
         "NANOWARE_SOFT": "Soft Nanoware-System",
         "NANO_CYBERWARE": "Nano-Cyberware",
@@ -392,7 +419,7 @@
         "SENSOR": "Sensors",
         "SENSOR_HOUSING": "Sensor Housing",
         "SHOTGUNS": "Shotguns",
-        "SKILLSOFT": "Skillsofts",
+        "SKILLSOFT": "Skillsoft",
         "SLAP_PATCHES": "Slap-Patches",
 			"SMALL_DRONES": "Small Drones",
         "SNIPER_RIFLES": "Sniper Rifles",
@@ -401,15 +428,22 @@
         "SPECIAL_WEAPONS": "Special Weapons",
         "SUBMACHINE_GUNS": "Submachine Guns",
         "SUBMARINES": "Submarines",
-        "SURVIVAL_GEAR": "Survival",
+        "SURVIVAL_GEAR": "Survival Gear",
+        "WINTER_GEAR": "Winter Gear",
         "SYMBIONTS": "Symbionts",
         "TAC_NET": "Tactical Network",
+        "DATATERM": "Data Terminal",
+        "CYBERTERM": "Cyber Terminal",
+        "BTLS": "BTL's",
         "TASERS": "Taser",
         "THROWERS": "Throwers",
         "THROWING": "Throwing weapons",
+        "DMSO": "Air-propelled DMSO gel packs",
+        "DART": "Air-propelled Darts",
         "TRANSGENETICS": "Transgenetics",
         "TACNET_PROGRAM": "TAC-NetProgram",
         "TOOLS": "Tools",
+        "SPARE_PARTS": "Spare Parts",
         "PLACEHOLDERS": "Standard Goods",
         "TOXINS": "Toxins",
         "TRUCKS": "Pickup Trucks",
@@ -420,21 +454,26 @@
         "VEHICLE_ACCESSORY": "Vehicle Accessories",
         "VISION_ENHANCEMENT": "Vision Enhancement",
         "VTOL": "VTOL/VSTOL",
+        "BUS": "Bus",
+        "PWC": "Personal Watercraft",
+        "SHIPS": "Ship",
+        "AIRSHIP": "Airship",
         "WALKER": "Walker",
         "WEAPON_SECURITY": "Weapon Security Option",
         "WHIPS": "Whips",
         "LMG": "Light Machine Gun",
         "MMG": "Medium Machine Gun",
         "HMG": "Heavy Machine Gun",
-        "HACKING_PROGRAM": "Hackingprograms",
-        "BASIC_PROGRAM": "Basicprograms",
-        "RIGGER_PROGRAM": "Riggerprograms",
-        "AUTOSOFT": "Autosofts",
+        "HACKING_PROGRAM": "Hacking Program",
+        "BASIC_PROGRAM": "Basic Program",
+        "RIGGER_PROGRAM": "Rigger Program",
+        "AUTOSOFT": "Autosoft",
         "DATASOFT": "Datasoft",
         "MAPSOFT": "Mapsoft",
         "SHOPSOFT": "Shopsoft",
         "TALENTSOFT": "Talentsoft",
         "TEACHSOFT": "Teachsoft",
+        "ESOFT": "E-Soft",
         "GROUND": "Ground Drones",
         "ANTHRO": "Antropomorph Drones",
         "AIR": "Air Drones",
@@ -502,6 +541,7 @@
       "skill": "Skill",
       "skillspec": "Specialisation",
       "social": "Social",
+      "social_rating": "Social Rating",
       "stun_damage": "S",
       "subtype": "Subtype",
       "type": "Type",
@@ -522,6 +562,7 @@
       "BIOWARE": "Bioware",
       "CHEMICALS": "Chemicals",
       "CYBERWARE": "Cyberware",
+      "CODEMODS": "Codemods",
       "DRONES": "Drones",
       "ELECTRONICS": "Electronics",
       "GENETICS": "Geneware",
@@ -581,6 +622,7 @@
       "devRating": "Device Rating",
       "dual_hand": "Dual-Hand",
       "dice": "Dice",
+      "edge_changes_combat": "In Combat Edge Changes",
       "edit": "Edit",
       "expertise": "Expertise",
       "extended_test": "Extended Test",
@@ -600,7 +642,7 @@
       "max": "Maximum",
       "mode_of_operation": "Mode of Operation",
       "modifications": "Modifications",
-      "modifier": "Adjust",
+      "modifier": "Mod",
       "name": "Name",
       "none": "-",
       "not_present": "not present",
@@ -641,6 +683,10 @@
         "outsider": "OUTSIDER",
         "user": "USER",
         "admin": "ADMIN"
+      },
+      "device": {
+        "enable": "Enable Matrix Device",
+        "disable": "Disable Matrix Device"
       }
     },
     "matrixaction": {
@@ -841,8 +887,11 @@
     "monitor": {
 		  "label": "Monitor",
 		  "matrix": "Matrix",
+		  "matrix_monitor": "Matrix Monitor",
       "physical": "Physical",
+      "physical_monitor": "Physical Monitor",
       "stun": "Stun",
+      "stun_monitor": "Stun Monitor",
       "overflow": "Overflow",
       "dead": "DEAD",
       "broken": "BROKEN DOWN"
@@ -895,7 +944,8 @@
       "vehicles": "Awesome ride",
       "weapon": "Named weapons are much cooler",
       "weaponclose": "Something heavy",
-      "weaponspecial": "Weird weapon"
+      "weaponspecial": "Weird weapon",
+      "mod": "Pink Paint Mod"
     },
     "npc": {
     	"subtype": {
@@ -905,13 +955,16 @@
       	"sprite": "Sprite"
       },
       "gruntrules": "Uses grunt rules",
-      "mortype": "Magic/Resonance"
+      "mortype": "Magic/Resonance",
+      "grunt_group": "Grunt Group",
+      "grunt_group_id": "G{groupId}",
+      "grunt_group_attack": "Attack as Grunt Group (x{numberGrunts})"
     },
     "numerical": {
       "base": "base",
       "baseString": "Base Value",
       "max": "Max",
-      "mod": "adj"
+      "mod": "mod"
     },
 	"programtype": {
 		"basic": "Basic programs",
@@ -1045,7 +1098,11 @@
       "ar_2": "Medium",
       "ar_3": "Far",
       "ar_4": "Extreme",
-      "attack": "Attack",
+      "ar_0_hint": "Close (0-3 meters)",
+      "ar_1_hint": "Near (4-50 meters)",
+      "ar_2_hint": "Medium (51-250 meters)",
+      "ar_3_hint": "Far (251-500 meters)",
+      "ar_4_hint": "Extreme (500+ meters)",
       "attackRating": "Attack Rating",
       "bf_type": "Type",
       "bf": {
@@ -1153,6 +1210,8 @@
       "ammo_add": "Add ammunition",
       "armor": {
         "add": "Add new armor",
+        "enable": "Equip armor",
+        "disable": "Unequip armor",
         "column": {
           "action": "Action",
           "defense": "DR",
@@ -1373,12 +1432,12 @@
     "sin" : {
       "quality" : "Quality",
       "real_sin" : "Real SIN",
-      "anyone" : "Anyone",
-      "rough_match" : "Rough match",
-      "good_match": "Good match",
-      "superficially_plausible": "Superficially plausible",
-      "highly_plausible" : "High plausible",
-      "second_life" : "Second life"
+      "anyone" : "(R1) Anyone",
+      "rough_match" : "(R2) Rough match",
+      "good_match": "(R3) Good match",
+      "superficially_plausible": "(R4) Superficially plausible",
+      "highly_plausible" : "(R5) High plausible",
+      "second_life" : "(R6) Second life"
     },
     "softwareedit": {
       "description": "Description",
@@ -1629,7 +1688,11 @@
       "attackRating":"Attack Rtg.",
       "firemodes": "Modes",
       "ammo": "Ammunition",
-      "ammo_loaded": "Ammo Loaded"
+      "ammo_loaded": "Ammo Loaded",
+      "reload_ammo": "Reload your ammunition",
+      "ammo_changes_combat": "In Combat Ammo Changes",
+      "ammo_cap": "Ammo Capacity",
+      "ammo_cap_short": "Ammo Cap."
     },
     "ui": {
       "notifications": {
@@ -1674,7 +1737,18 @@
           "success": "Your `{actor}` statblock was imported into the ",
           "actor_tab": "Actor tab.",
           "npc_compendium": "NPC Compendium."
-        }
+        },
+        "not_enough_ammo": "You don't have enough ammunition in your weapon. Change your firing mode, or reload your weapon first.",
+        "character_has_reloaded": "{character} has reloaded their {weaponName} weapon with {ammoType} ammo.",
+        "character_has_switched_ammo": "{character} has switched the ammo loaded in their {weaponName} weapon to {ammoType}.",
+        "character_has_changed_edge": "{character} has changed their Edge manually from {oldEdge} to {edge}",
+        "matrix_check_os": "Your current Overwatch Score is {os}.",
+        "bind_control_group": "You have bound the selected tokens to Control Group {controlGroup}.",
+        "select_control_group": "You have selected the Control Group {controlGroup} tokens.",
+        "form_grunt_group": "You have formed a Grunt Group with the selected Tokens.",
+        "dismantle_grunt_group": "You have dismantled the Grunt Group of the selected Tokens.",
+        "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration.",
+        "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group."
       }
     },
     "EFFECT": {
@@ -1802,6 +1876,144 @@
       "flechette": "Flechette",
       "gel": "Gel",
       "sticknshock": "Stick-n-Shock"
+    },
+    "effect": {
+      "Label": "Effects",
+      "Label_one": "Effect",
+      "Create": "Create New Effect",
+      "New": "New Effect",
+      "Duration": "Duration",
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects",
+      "CantDelete": "You can only delete this effect from it's Item."
+    },
+    "active_effect": {
+      "explanation": "Active Effects can modify attribute modifiers and pools of your character or item. Please open a Feature Request ticket if you miss an automation needed for a Shadowrun item.",
+      "usage_tips": {
+        "1": "In general, use a Modifier key to adjust an Attribute, Pool or Rating.",
+        "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
+        "3": "As normal in Shadowrun 6E, Attribute Modifiers are automatically capped at +4."
+      },
+      "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item.",
+      "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in.",
+      "more_info": "For more information, see the following link:",
+      "advanced": "Advanced?",
+      "advanced_hint": "If checked, you can enter custom System Attribute Keys instead of only the Shadowrun 6E system advised list.",
+      "Modifier": "{attribute} Modifier",
+      "Skill": "{skill} Skill",
+      "Pool": "{pool} Pool (Override only)",
+      "defensepool.physical.mod": "Physical Defense Pool Modifier",
+      "defensepool.astral.mod": "Magic Defense Pool Modifier",
+      "defensepool.matrix.mod": "Matrix Defense Pool Modifier",
+      "defensepool.spells_direct.mod": "Direct Spells Defense Pool Modifier",
+      "defensepool.spells_indirect.mod": "Indirect Spells Defense Pool Modifier",
+      "defensepool.toxin.mod": "Toxin Resist Pool Modifier",
+      "defensepool.drain.mod": "Drain Resist Pool Modifier",
+      "defensepool.damage_physical.mod": "Physical Damage Defense Pool Modifier",
+      "defensepool.damage_astral.mod": "Astral Damage Defense Pool Modifier",
+      "initiative.physical.diceMod": "Physical Initiative Dice Pool Modifier",
+      "initiative.astral.diceMod": "Astral Initiative Dice Pool Modifier",
+      "initiative.matrix.diceMod": "Matrix Initiative Dice Pool Modifier",
+      "armor.mod": "Armor Mod:",
+      "weapon.mod": "Weapon Mod:",
+      "stunOrPhysical": "Stun (true) or Physical (false) damage",
+      "dicePoolMod": "Dice Pool Bonus",
+      "wild": "Use Wild Die (set Override: true)"
+    },
+    "KEYBINDINGS": {
+      "bindTokenControlGroup": "Bind selected Tokens to Control Group",
+      "selectTokenControlGroup": "Select Tokens of Control Group",
+      "formGruntGroup": "Create Grunt Group with selected Tokens"
+    }
+  },
+  "SR6": {
+    "Actor": {
+      "base": {
+        "FIELDS": {
+          "notes": {
+            "label": "Notes"
+          }
+        }
+      },
+      "sprite": {
+        "FIELDS": {
+          "xxx": {
+            "label": "xxx"
+          }
+        },
+        "TYPES": {
+          "courier": "//COURIER//",
+          "crack": "//CRACK//",
+          "data": "//DATA//",
+          "fault": "//FAULT//",
+          "machine": "//MACHINE//",
+          "assassin": "//ASSASSIN//",
+          "defender": "//DEFENDER//",
+          "modular": "//MODULAR//",
+          "music": "//MUSIC//",
+          "primal": "//PRIMAL//"
+        }
+      }
+    },
+    "Item": {
+      "base": {
+        "FIELDS": {
+          "genesisID": {
+            "label": "GenesisID"
+          },
+          "availDef": {
+            "label": "Avail."
+          },
+          "price": {
+            "label": "Price"
+          }
+        }
+      },
+      "mod": {
+        "FIELDS": {
+          "embeddedInUuid": {
+            "label": "Item Modded"
+          }
+        },
+        "TYPES": {
+          "accessory_weapon": "Weapon Accessory",
+          "weapon_mod": "Weapon Mod",
+          "armor_mod": "Armor Mod",
+          "accessory_electronics": "Electronics Accessory",
+          "visual_enhancement": "Visual Enhancement",
+          "audio_enhancement": "Audio Enhancement"
+        },
+        "label": {
+          "section": "Gear Mods",
+          "not_installed": "(not installed)",
+          "uninstall": "Uninstall this Gear Mod"
+        }
+      }
+    },
+    "Common": {
+      "FIELDS": {
+        "name": {
+          "label": "Name"
+        },
+        "effects": {
+          "label": "Effects"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "rating": {
+          "label": "Rating"
+        },
+        "type": {
+          "label": "Type"
+        }
+      }
+    },
+    "label": {
+      "name": "Name"
     }
   }
 }

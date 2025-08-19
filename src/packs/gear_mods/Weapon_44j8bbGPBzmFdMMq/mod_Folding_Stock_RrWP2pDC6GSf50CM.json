@@ -1,0 +1,91 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Folding Stock",
+  "type": "mod",
+  "_id": "RrWP2pDC6GSf50CM",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>Apply the following to the Attack Rating adjustments: —/—/–1/–2/–3.</p><p>Also, add +1 to the threshold of a Perception test for anyone attempting to spot this weapon when it is concealed.</p>",
+    "availDef": "2L",
+    "price": 75,
+    "embeddedInUuid": null,
+    "type": "weapon_mod"
+  },
+  "effects": [
+    {
+      "name": "Folding Stock",
+      "origin": "Item.RrWP2pDC6GSf50CM",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "AxzUk9HFzhpWTdAL",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "-1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "-3",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!RrWP2pDC6GSf50CM.AxzUk9HFzhpWTdAL"
+    }
+  ],
+  "sort": 500000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!RrWP2pDC6GSf50CM"
+}

@@ -21,7 +21,7 @@
         {{/if}}
          <label class="skill-value skill-key rollable skill-name skill-roll" data-skill="{{id}}">{{localize (concat "skill." id ) }}</label>
          <div class="skill-attrib">
-           <span>{{localize (concat3 "attrib." (skillAttr id) "_short")}}</span>
+           <span>{{localize (concat "attrib." (skillAttr id) "_short")}}</span>
          </div>
          <div class="skill-points centered" style="width: 2em;">
            <input name="skillActionPoints{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}"  style="width: 2em" />

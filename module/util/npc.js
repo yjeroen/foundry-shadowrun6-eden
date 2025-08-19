@@ -191,7 +191,7 @@ const CYBERWARE_LINES = ["Bodytech:", "Augmentations:", "Augmentations :", "Augm
 const WEAPON_LINES = ["Waffen:", "Weapons:", "Armes :"];
 const SPELLS_LINES = ["Zauber:", "Spells:", "Sorts :"];
 const VEHICLES_LINES = ["Fahrzeuge und Drohnen:", "Vehicles and Drones:", "Véhicules et drones :"];
-const ADEPT_POWERS_LINES = ["Adeptenkräfte:", "Powers:", "Pouvoirs d’adepte :"];
+const ADEPT_POWERS_LINES = ["Adeptenkräfte:", "Adept Powers:", "Powers:", "Pouvoirs d’adepte :"];
 const COMPLEX_FORMS_LINES = ["Komplexe Formen:", "Complex Forms:", "Formes complexes :"];
 const METAMAGIC_LINES = ["Metamagie:", "Metamagics:", "Métamagies :"];
 const INITIATION_LINES = ["Initiatengrad:", "Initiate Grade:", "Grade d’initié :"];
@@ -379,6 +379,7 @@ export class Attibute {
     adjustment;
     constructor(def) {
         let matches = def.match(/([\d,.]+)(?:\(([+]?)(\d+)\))?/);
+        console.log("SR6E | NPC Importer | Matching Attributes:\n", def, '\n', matches);
         if (matches != null) {
             this.value = parseFloat(matches[1].replace(",", "."));
             if (matches[2] == "+" && matches[3] != null) {
@@ -458,8 +459,10 @@ class Attributes {
     resonance;
     constructor(def) {
         // Separate header from values and convert whitespace charactes into simple spaces.
-        let header = def.replace(/[^A-Z]+/g, " ").replace(/\s+/g, " ").trim();
-        let valuesString = def.replace(/[A-Z]+/g, " ").replace(/\s+/g, " ").trim();
+        let header = def.replace(/[^A-ZÀ-Ÿ]+/g, " ").replace(/\s+/g, " ").trim();
+        let valuesString = def.replace(/[A-ZÀ-Ÿ]+/g, " ").replace(/\s+/g, " ").trim();
+
+        console.log("SR6E | NPC Importer | Converted header for import:", header);
 
         // Normalize header to english
         const keys = this.normalizeHeader(header);
@@ -471,6 +474,7 @@ class Attributes {
             dict[keys[i]] = values[i];
         }
 
+        console.log("SR6E | NPC Importer | Converted dict:", dict);
         this.constitution = dict["B"] ? new Attibute(dict["B"]) : undefined;
         this.agility = dict["A"] ? new Attibute(dict["A"]) : undefined;
         this.reaction = dict["R"] ? new Attibute(dict["R"]) : undefined;
@@ -495,6 +499,7 @@ class Attributes {
      */
     detectLanguage(header) {
         const normalizedHeader = header.replace(/\s+/g, "").toUpperCase();
+        console.log("SR6E | NPC Importer | Normalized header for language recognition", normalizedHeader);
         
         for (const [language, pattern] of Object.entries(languagePatterns)) {
             if (pattern.test(normalizedHeader)) {
@@ -845,9 +850,8 @@ class AdeptPower {
     to_vtt() {
         return {
             "name": this.name,
-            "type": "quality",
+            "type": "adeptpower",
             "system": {
-                "category": "ADEPT_WAY",
                 "level": false,
                 "value": 1,
                 "modifier": []
@@ -1036,6 +1040,7 @@ export class NPC {
     weapons = [];
     constructor(data) {
         let lines = data.trim().split("\n");
+        console.log("SR6E | NPC Importer | Processing data:\n", data, lines);
         this.name = lines[0];
         this.biography = "";
         let i = 1;
@@ -1087,6 +1092,7 @@ export class NPC {
                     let matches_fr = section.content.match(/^(\d+)\s+(\d+)\/(\d+)(?:\s*\([^)]+\))?(?:\s*[^\/]+?\/.+?\s*\([^)]+\))*\s+MAJ\s+\d+,\s*MIN\s+\d+(?:\s*\([^)]+\))?(?:\s*MAJ\s*\d+,\s*MIN\s*\d+\s*\([^)]+\))*\s+(\d+)(?:\s+\([^)]+\))?(?:\s+\d+\s+\([^)]+\))*\s+\d+\/\s*\d+\/\s*\+\d(?:\s+\d+)?$/);
                     if (matches_en) {
                         console.log("SR6E | NPC Importer | Matches English");
+                        // TODO add Physical Monitor Mod based on calculation and difference with CM 
                         this.defense = parseInt(matches_en[2]) || parseInt(matches_en[1]) || 0;
                         // This is a bit of a cheat)
                         this.initiative = new Initiative(matches_en[3] + " + " + matches_en[4] + "W6");

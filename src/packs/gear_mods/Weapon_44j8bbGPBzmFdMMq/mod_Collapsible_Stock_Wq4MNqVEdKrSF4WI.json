@@ -1,0 +1,173 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Collapsible Stock",
+  "type": "mod",
+  "_id": "Wq4MNqVEdKrSF4WI",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>The collapsible stock operates on two basic settings (full and tucked), which can be swapped with a Minor Action.</p><ul><li><p>On <strong>full</strong>, the collapsible stock alters AR as follows: –2/—/+1/+2/+1.</p></li><li><p>On <strong>tucked</strong>, it alters AR as follows: +1/+1/—/–2/–2 and increases the concealability threshold by 1.</p></li></ul><hr><blockquote><p>SYSTEM NOTE</p><p><em>Only enable the Effect of the mode the Collapsible Stock is currently in. If you switch, disable one and enable the other.</em></p></blockquote>",
+    "availDef": "2",
+    "price": 250,
+    "embeddedInUuid": null,
+    "type": "weapon_mod"
+  },
+  "effects": [
+    {
+      "name": "Collapsible Stock - full",
+      "origin": "Item.Wq4MNqVEdKrSF4WI",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "qIPebAc2B1MGufWP",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!Wq4MNqVEdKrSF4WI.qIPebAc2B1MGufWP"
+    },
+    {
+      "name": "Collapsible Stock - tucked",
+      "origin": "Item.Wq4MNqVEdKrSF4WI",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "mLhZFO9bXmK520kf",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!Wq4MNqVEdKrSF4WI.mLhZFO9bXmK520kf"
+    }
+  ],
+  "sort": 650000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!Wq4MNqVEdKrSF4WI"
+}

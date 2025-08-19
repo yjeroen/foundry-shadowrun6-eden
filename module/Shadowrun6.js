@@ -4,14 +4,7 @@
 import SR6Roll from "./SR6Roll.js";
 import { registerSystemSettings } from "./settings.js";
 import Shadowrun6Combat from "./Shadowrun6Combat.js";
-import { Shadowrun6Actor } from "./Shadowrun6Actor.js";
-import SR6Item from "./documents/SR6Item.js";
 import { SR6Config } from "./config.js";
-import { Shadowrun6ActorSheetPC } from "./sheets/ActorSheetPC.js";
-import { Shadowrun6ActorSheetNPC } from "./sheets/ActorSheetNPC.js";
-import { Shadowrun6ActorSheetVehicle } from "./sheets/ActorSheetVehicle.js";
-//import { Shadowrun6ActorSheetVehicleCompendium } from "./sheets/ActorSheetVehicleCompendium.js";
-import { SR6ItemSheet } from "./sheets/SR6ItemSheet.js";
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { defineHandlebarHelper } from "./util/helper.js";
 import { PreparedRoll, RollType } from "./dice/RollTypes.js";
@@ -23,13 +16,18 @@ import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
 import SR6TokenHUD from "./SR6TokenHUD.js";
 import SR6Token from "./placeables/SR6Token.js";
-import SR6ActiveEffectModel from "./datamodels/SR6ActiveEffectModel.mjs";
+// import SR6ActiveEffectData from "./datamodels/active-effect-model.mjs";
 import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
-import Importer from "./util/Importer.js";
 import { migrateWorld } from "./util/Migrations.js";
 import SR6SocketHandler from './util/SR6SocketHandler.js';
 import releaseNotes from "../releasenotes/releasenotes.js";
+import SR6Keybindings from './util/keybindings.mjs';
+
+// Import Modules
+import * as datamodels from "./datamodels/_module.mjs";
+import * as documents from "./documents/_module.mjs";
+import * as applications from "./applications/_module.mjs";
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -38,16 +36,20 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = false;
+    game.debug = true;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
-        CONFIG.debug.hooks = true;
-        CONFIG.debug.dice = true;
+        CONFIG.debug.hooks = false;
+        CONFIG.debug.dice = false;
+        CONFIG.debug.tokens = false;
     }
 
     game.sr6 = {};
     game.sr6.config = CONFIG.SR6 = new SR6Config();
+    game.sr6.datamodels = datamodels;
+    game.sr6.documents = documents;
+    game.sr6.applications = applications;
     game.sr6.utils = utils;
     game.sr6.macros = macros;
     game.sr6.sr6roll = SR6Roll;
@@ -58,8 +60,6 @@ Hooks.once("init", async function () {
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
-    CONFIG.Actor.documentClass = Shadowrun6Actor;
-    CONFIG.Item.documentClass = SR6Item;
     CONFIG.Dice.rolls = [SR6Roll];
 
     if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
@@ -73,7 +73,6 @@ Hooks.once("init", async function () {
 
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.Token.objectClass = SR6Token;
-    CONFIG.ActiveEffect.dataModels.base = SR6ActiveEffectModel;
 
     // Initialize socket handler
     game.sr6.sockets.registerSocketListeners();
@@ -81,13 +80,38 @@ Hooks.once("init", async function () {
     //	(CONFIG as any).compatibility.mode = 0;
     getData(game).initiative = "@initiative.physical.pool + (@initiative.physical.dicePool)d6";
 
-    // Register sheet application classes
+    /**
+     * Actor configuration (Datamodel > Document > Sheet)
+     * @see template.json (legacy)
+     * @see datamodels.SR6SpriteActorData
+     * @see documents.Shadowrun6Actor
+     * @see sheets.Shadowrun6ActorSheetPC
+     * @see sheets.Shadowrun6ActorSheetNPC
+     * @see sheets.Shadowrun6ActorSheetVehicle
+     */
+    // Object.assign(CONFIG.Actor.dataModels, {
+    //     sprite: datamodels.SR6SpriteActorData
+    // });
+    CONFIG.Actor.defaultType = "Player";
+    CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
-    Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
-    Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
-    Actors.registerSheet("shadowrun6-eden", Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
+    // Actors.registerSheet("shadowrun6-eden", applications.SR6BaseActorSheet, { types: ["sprite"], makeDefault: true });
 
-    Items.registerSheet("shadowrun6-eden", SR6ItemSheet, {
+    /**
+     * Item document configuration (Datamodel > Document > Sheet)
+     * @see template.json (legacy)
+     * @see documents.SR6Item
+     * @see sheets.SR6ItemSheet
+     */
+    Object.assign(CONFIG.Item.dataModels, {
+        mod: datamodels.SR6ModItemData
+    });
+    CONFIG.Item.defaultType = "gear";
+    CONFIG.Item.documentClass = documents.SR6Item;
+    Items.registerSheet("shadowrun6-eden", applications.SR6ItemSheet, {
         types: [
             "gear",
             "martialarttech",
@@ -104,18 +128,37 @@ Hooks.once("init", async function () {
             "contact",
             "lifestyle",
             "critterpower",
-            "software"
+            "software",
+            "mod"
         ],
         makeDefault: true
     });
+
+    /**
+     * Register Active Effects
+     * legacyTransferral (false): Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
+     */
+    CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
+    CONFIG.ActiveEffect.legacyTransferral = false;
+    DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
+    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
+
+    // Change Canvas Placeables Font to Shadowrun
+    CONFIG.defaultFontFamily = 'Play';
+    CONFIG.canvasTextStyle.fontFamily = 'Play';
+
+    // Add Compendium search options
+    CONFIG.Item.compendiumIndexFields = ["name", "type", "system.genesisID"];
 
     if (game.release.generation >= 13) {
         document.body.classList.add('foundry-modern');
     }
 
+    // Add System specific keybindings
+    SR6Keybindings.initialize();
+
     preloadHandlebarsTemplates();
     defineHandlebarHelper();
-    document.addEventListener('paste', (e) => Importer.pasteEventhandler(e), false);
 
     $('#pause img').attr('class', 'fa-beat-fade');
 
@@ -175,25 +218,25 @@ Hooks.once("init", async function () {
     /*
      * Change default icon
      */
-    function onCreateItem(item, options, userId) {
-        let actor = getActorData(item);
-        let system = getSystemData(item);
-        console.log("SR6E | onCreateItem  " + item.system.type + " with ", options);
-        if (actor.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[actor.type]) {
-            actor.img = CONFIG.SR6.icons[actor.type].default;
-            item.updateSource({ ["img"]: actor.img });
+    function onPreCreateItem(itemDoc, options, userId) {
+        let item = getActorData(itemDoc);
+        let system = getSystemData(itemDoc);
+        console.log("SR6E | onCreateItem  " + item.type);
+        if (item.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[item.type]) {
+            item.img = CONFIG.SR6.icons[item.type].default;
+            item.updateSource({ ["img"]: item.img });
         }
         // If it is a compendium item, copy over text description
-        let key = actor.type + "." + system.genesisID;
+        let key = item.type + "." + system.genesisID;
         console.log("SR6E | Item with genesisID - check for " + key);
         if (!game.i18n.localize(key + "name").startsWith(key)) {
             system.description = game.i18n.localize(key + ".desc");
-            actor.name = game.i18n.localize(key + ".name");
+            item.name = game.i18n.localize(key + ".name");
             item.updateSource({ ["description"]: system.description });
         }
-        console.log("SR6E | onCreateItem: " + actor.img);
+        console.log("SR6E | onCreateItem: " + item.img);
     }
-    Hooks.on("createItem", (doc, options, userId) => onCreateItem(doc, options, userId));
+    Hooks.on("preCreateItem", (doc, options, userId) => onPreCreateItem(doc, options, userId));
     
     /*
      * Change chat dice icon
@@ -221,9 +264,17 @@ Hooks.once("init", async function () {
         }
     });
 
-    Hooks.on("ready", () => {
+    Hooks.on("ready", async () => {
+        // Reassign CONFIG so translations are run
+        game.sr6.config = CONFIG.SR6 = new SR6Config();
         migrateWorld();
         game.sr6.releaseNotes();
+
+        
+        // Add Compendium search options
+        for (const pack of game.packs.filter(p => p.documentName === "Item")) {
+            await pack.getIndex()
+        }
 
         // Render a dice roll dialog on click for V12
         $(document).on("click", ".sr6-dice-roll-v12", (e) => {
@@ -247,8 +298,31 @@ Hooks.once("init", async function () {
         console.log("SR6E | renderSR6ItemSheet hook called");
         _onRenderItemSheet(app, html, data);
     });
-    Hooks.on("dropCanvasData", (doc, data) => {
-        console.log("SR6E | dropCanvasData hook called", doc);
+    /**
+     * Allowing items and effects to drop on Tokens on the canvas
+     */
+    Hooks.on("dropCanvasData", (canvas, data) => {
+        console.log("SR6E | dropCanvasData hook called", canvas, data);
+        if (!(data.type === "Item" || data.type === "ActiveEffect")) {
+            return true;
+        }
+
+        // TODO FoundryVTT - Will be a core feature in V14
+        const dropTarget = [...canvas.tokens.placeables]
+            .sort((a, b) => b.document.sort - a.document.sort)
+            .sort((a, b) => b.document.elevation - a.document.elevation)
+            .find((t) => t.visible && t.bounds.contains(data.x, data.y));
+
+        const actor = dropTarget?.actor;
+        if (actor) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.setData("text/plain", JSON.stringify(data));
+            const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt"), dataTransfer });
+            actor.sheet._onDrop(event);
+            return false; // Prevent modules from doing anything further
+        }
+
+        return true;
     });
     /*
      * Something has been dropped on the HotBar

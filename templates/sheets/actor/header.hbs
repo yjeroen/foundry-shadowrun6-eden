@@ -1,0 +1,32 @@
+{{log "*** header.hbs ***" this}}
+{{! Sheet Header }}
+<header class='sheet-header'>
+  <img
+    class='profile-img'
+    src='{{actor.img}}'
+    data-edit='img'
+    data-action='onEditImage'
+    title='{{actor.name}}'
+    height='100'
+    width='100'
+  />
+  <div class='header-fields'>
+    <div class='document-name'>
+      <h1>{{formInput fields.name value=actor.name placeholder=fields.name.label}}</h1>
+    </div>
+    <div class='npc-settings'>
+        <label for='system.rating'>{{localize systemFields.rating.label}}</label>
+        {{!-- TODO: numberInput doesn't automatically look at dataModel for min --}}
+        {{!-- {{numberInput system.rating name="system.rating" min=1}} --}}
+        {{formInput systemFields.rating value=system.rating}}
+        <label for='system.type'>{{localize systemFields.type.label}}</label>
+        {{formInput systemFields.type value=system.type localize=true}}
+        <div class=''>
+          {{#if (eq actor.type 'character')}}
+          {{/if}}
+          {{#if (eq actor.type 'npc')}}
+          {{/if}}
+        </div>
+    </div>
+  </div>
+</header>

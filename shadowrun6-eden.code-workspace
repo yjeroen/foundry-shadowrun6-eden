@@ -11,6 +11,7 @@
 	{
 		"files.associations": {
 			"*.html": "handlebars"
-		}
+		},
+		"prettier.tabWidth": 4
 	}	
 }

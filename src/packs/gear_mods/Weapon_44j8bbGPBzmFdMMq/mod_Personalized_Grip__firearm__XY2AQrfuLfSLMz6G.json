@@ -1,0 +1,85 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Personalized Grip (firearm)",
+  "type": "mod",
+  "_id": "XY2AQrfuLfSLMz6G",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>If attached to a firearm, apply the following Attack Rating adjustments: +1/+1/—/—/—.</p>",
+    "availDef": "3L",
+    "price": 200,
+    "embeddedInUuid": null,
+    "type": "weapon_mod"
+  },
+  "effects": [
+    {
+      "name": "Personalized Grip",
+      "origin": "Item.XY2AQrfuLfSLMz6G",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "NBg8gdjDT2xwOT4V",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!XY2AQrfuLfSLMz6G.NBg8gdjDT2xwOT4V"
+    }
+  ],
+  "sort": 1400000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!XY2AQrfuLfSLMz6G"
+}

@@ -18,7 +18,7 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'critterpower'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-      	<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible {{item.flags.shadowrun6-eden.collapse-state}}" data-item-id="{{this.id}}">+</button></td>
+      	<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
 			<td> <input name="system.name" class="draggable" data-uuid="{{item.uuid}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
 			<td class="centered" style="width: 3em"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
 			<td class="centered">
@@ -36,7 +36,7 @@
 	   </tr>
        <tr>
          <td colspan="6">
-         	<div class="collapsible-content {{item.flags.shadowrun6-eden.collapse-state}}">
+         	<div class="collapsible-content closed">
         	   {{ localize 'shadowrun6.actor.nav.description' }}: {{system.description}}
          	</div>
          </td>

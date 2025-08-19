@@ -1,0 +1,17 @@
+{
+  "name": "shadowrun6-eden",
+  "version": "1.0.0",
+  "description": "FoundryVTT system for Shadowrun Sixth Edition",
+  "main": "system.json",
+  "license": "GNU General Public License",
+  "author": "Yeroon",
+  "dependencies": {},
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^2.0.0",
+    "prettier": "^2.8.4"
+  },
+  "scripts": {
+    "pack": "node ./.tools/pullJSONtoLDB.mjs",
+    "unpack": "node ./.tools/pushLDBtoJSON.mjs"
+  }
+}

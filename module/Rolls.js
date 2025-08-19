@@ -86,8 +86,24 @@ async function _showRollDialog(data) {
          */
         data.edgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= data.edge);
         if (data.rollType == RollType.Weapon) {
-            data.calcPool = data.pool;
+            // data.calcPool = data.pool;   // Fix was overriding the wound/sustained modifiers line 80/81
             data.calcAttackRating = [...data.item.calculated.attackRating];
+
+            // Set checkbox default enabled if Actor's Token is in a Grunt Group
+            if (data.actor.gruntGroup.id) {
+                data.useGruntGroup = true;
+                const gruntDiceMod = data.actor.gruntGroup.diceMod;
+                const gruntArMod   = data.actor.gruntGroup.arMod;
+
+                data.calcPool += gruntDiceMod;
+                const newCalcAR = []
+                data.calcAttackRating.forEach((ar) => {
+                    if (ar > 0) newCalcAR.push(ar += gruntArMod);
+                    else newCalcAR.push(ar);
+                });
+                data.calcAttackRating = newCalcAR;
+            }
+
             data.calcDamage = data.item.calculated.dmg;
             if (game.settings.get(SYSTEM_NAME, "highStrengthReducesRecoil") ) {
                 data.dualHand = data.item.system.dualHand;
@@ -103,6 +119,10 @@ async function _showRollDialog(data) {
                 data.threshold += Math.floor( targetDefensePool / 6 );
                 data.cantDodgeBulletsBaseThreshold = data.threshold;
             }
+            
+            // Used for Item Mods like Smartgun System
+            data.modifier += data.item?.system?.modes?.dicePoolMod ?? 0;  // 0 by default
+
         }
         else if (data.RollType == RollType.ContinueExtendedTest) {
             // possible add things here? Currently they're in shadowrun6.js
@@ -117,7 +137,7 @@ async function _showRollDialog(data) {
             data.calculateSpellDamage();
         }
         
-        data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool; 
+        data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool;
         data.checkHardDiceCap();
 
         // Render modal dialog
@@ -271,6 +291,14 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
                 }
             }
         }
+
+        // Update Ammunition
+        if (prepared.calcRounds > 0 && prepared.item.system.ammocap > 0) {
+            const newAmmoCount = Math.max(0, prepared.item.system.ammocount - prepared.calcRounds )
+            console.log("SR6E | Updating ammocount of", prepared.item.name, "to", newAmmoCount);
+            await prepared.item.update({ "system.ammocount": newAmmoCount });
+        }
+
         //configured.edgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter(boost => boost.when=="POST");
         let formula = "";
         let isPrivate = false;

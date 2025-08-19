@@ -1,0 +1,115 @@
+{
+  "folder": "44j8bbGPBzmFdMMq",
+  "name": "Melee Hardening",
+  "type": "mod",
+  "_id": "FBCWs7WVYWO6sx9U",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>When used as melee weapon: [DV 3S,  4/—/—/—/—]. This modification takes up two modification slots.</p>",
+    "availDef": "3",
+    "price": 300,
+    "embeddedInUuid": null,
+    "type": "weapon_mod"
+  },
+  "effects": [
+    {
+      "name": "Melee Hardening - use as melee weapon",
+      "origin": "Item.FBCWs7WVYWO6sx9U",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "_id": "96HDNGq7T05qmxBU",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.dmg",
+          "mode": 5,
+          "value": "3",
+          "priority": null
+        },
+        {
+          "key": "system.stun",
+          "mode": 5,
+          "value": "true",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.0",
+          "mode": 5,
+          "value": "4",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 5,
+          "value": "0",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.2.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!FBCWs7WVYWO6sx9U.96HDNGq7T05qmxBU"
+    }
+  ],
+  "sort": 1100000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.2.2",
+    "createdTime": 1755530586504,
+    "modifiedTime": 1755530586504,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!FBCWs7WVYWO6sx9U"
+}

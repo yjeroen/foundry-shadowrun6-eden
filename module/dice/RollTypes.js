@@ -217,8 +217,8 @@ export class SpellRoll extends SkillRoll {
     canAmpUpSpell;
     ampUp = 0;
     canIncreaseArea;
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /**
      * @param skill {Skill}   The skill to roll upon
      */
@@ -272,8 +272,8 @@ export class RitualRoll extends SkillRoll {
 
     calcDrain;
 
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /**
      * @param skill {Skill}   The skill to roll upon
      */
@@ -297,8 +297,8 @@ export class ComplexFormRoll extends SkillRoll {
     formSrc;
     form;
     calcFade;
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /**
      * @param skill {Skill}   The skill to roll upon
      */
@@ -334,8 +334,8 @@ export class WeaponRoll extends SkillRoll {
     gear;
     weapon;
     targets;
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /** Effective attack rating after applying firing mode */
     calcAttackRating = [0, 0, 0, 0, 0];
     /** Effective damage */
@@ -383,6 +383,9 @@ export class WeaponRoll extends SkillRoll {
         if (this.baseAR === 0) {
             throw new Error(game.i18n.localize("shadowrun6.ui.notifications.attack_with_no_AR"));
         }
+        if (this.calcRounds > 0 && this.item.system.ammocap > 0 && (this.item.system.ammocount - this.calcRounds) < 0) {
+            throw new Error(game.i18n.localize("shadowrun6.ui.notifications.not_enough_ammo"));
+        }
     }
 }
 export class MatrixActionRoll extends SkillRoll {
@@ -410,8 +413,8 @@ export class VehicleRoll extends PreparedRoll {
     }
 }
 export class ConfiguredWeaponRollData {
-    defenseRating = 0; // Default targeted Defense Rating
     attackRating;
+    defenseRating;
     /** Effective attack rating after applying firing mode */
     calcAttackRating = [0, 0, 0, 0, 0];
     /** Effective damage */

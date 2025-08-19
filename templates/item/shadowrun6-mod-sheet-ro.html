@@ -1,0 +1,41 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="section" style="display: inline-block; margin: 5px; min-width: 580px;">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.item.type'}}</th>
+                    <th>{{localize systemFields.embeddedInUuid.label}}</th>
+                    <th>{{localize 'shadowrun6.item.availability'}}</th>
+                    <th>{{localize 'shadowrun6.item.price'}}</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        {{!-- TODO: Canot use formInput until AppV2 implementation due to update currently triggered via data-field --}}
+                        {{!-- {{formInput systemFields.type value=item.system.type localize=true blank="-" dataset=systemFields.type.dataset}} --}}
+                        <select name="system.type" data-field="system.type" class="typeselect" disabled>
+                            {{selectOptions systemFields.type.choices selected=item.system.type localize=true blank="-"}}
+                        </select>
+                    </td>
+                    <td class="item-modded">
+                        {{#if item.system.installedIn}}
+                        <div class="item" data-item-id="{{item.id}}">
+                            {{item.system.installedIn.name}}
+                        </div>
+                        {{else}}
+                        <div>{{localize 'SR6.Item.mod.label.not_installed'}}</div>
+                        {{/if}}
+                    </td>
+                    <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2.4em" disabled/></td>
+                    <td style="text-align: center"><span class="input-symbol-nuyen"><input type="number" value="{{item.system.price}}" data-field="system.price" min="0" class="box centered" style="width: 5em" disabled/></span></td>
+                </tr>
+            </table>
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <div class="editor">{{{item.enriched.description}}}</div>
+        </div>
+    </section>
+</form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-effects-ro.hbs" }}

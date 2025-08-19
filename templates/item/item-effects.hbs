@@ -1,0 +1,111 @@
+{{! Effects Section }}
+{{log 'item-effects.hbs' effects}}
+
+<div class="section" style="display: inline-block; margin: 5px; min-width: 580px;">
+  <div class="section-head">
+    <h2 class="section-title">{{ localize 'shadowrun6.effect.Label' }}</h2>
+  </div>
+
+  <section class='effects'>
+    <ol class='effects-list'>
+      {{#each effects as |section sid|}}
+        <li class='effects-header flexrow' data-effect-type='{{section.type}}'>
+          <div class='effect-name flexrow'>{{localize section.label}}</div>
+          {{#iff ../item.type '!=' "mod"}}
+          <div class='effect-source'>{{localize 'shadowrun6.effect.Source'}}</div>
+          {{/iff}}
+          <div class='effect-duration'>{{localize 'shadowrun6.effect.Duration'}}</div>
+          <div class='effect-controls effect-controls flexrow'>
+            <a
+              class='effect-control'
+              data-action='createDoc'
+              data-document-class='ActiveEffect'
+              {{#if (eq section.type "inactive")}}
+                data-disabled="true"
+              {{else if (eq section.type "temporary")}}
+                data-duration.rounds="1"
+              {{/if}}
+              title='{{localize 'shadowrun6.effect.Create' }}'
+            >
+              <i class='fas fa-plus'></i>
+              {{localize 'shadowrun6.effect.New' }}
+            </a>
+          </div>
+        </li>
+        <ol class='effect-list'>
+          {{#each section.effects as |effect|}}
+            <li
+              class='item effect flexrow'
+              data-effect-id='{{effect.id}}'
+              data-parent-id='{{effect.parent.id}}'
+              data-drag="true"
+            >
+              <div class='effect-name flexrow'>
+                <img class='effect-image' src='{{effect.img}}' />
+                <div>{{effect.name}}</div>
+              </div>
+              {{#iff ../../item.type '!=' "mod"}}
+              <div class='effect-source'>
+                {{effect.system.sourceName}} 
+                {{#iff effect.parent.type '==' "mod"}}
+                <span class="item" data-item-id="{{effect.parent.id}}">
+                  <a class="item-control item-edit" title={{localize 'shadowrun6.label.edit' }}><i class="fas fa-edit"></i></a>
+                </span>
+                {{/iff}}
+                </div>
+              {{/iff}}
+              <div class='effect-duration'>
+                {{#iff effect.duration.type '==' "none"}}
+                <i class="fas fa-infinity" title="{{effect.duration.label}}"></i>
+                {{else}}
+                {{effect.duration.label}}
+                {{/iff}}
+              </div>
+              <div class='effect-controls effect-controls flexrow'>
+                <a
+                  class='effect-control'
+                  data-action='toggleEffect'
+                  title='{{localize "shadowrun6.effect.Toggle"}}'
+                >
+                  <i class='fas {{#if effect.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}'></i>
+                </a>
+                <a
+                  class='effect-control'
+                  data-action='viewDoc'
+                  data-document-class='ActiveEffect'
+                  title='{{localize "DOCUMENT.Update" type=(localize "shadowrun6.effect.Label_one")}}'
+                >
+                  <i class='fas fa-edit'></i>
+                </a>
+                {{#iff effect.parent.type '==' "mod"}}
+                  {{#iff ../../item.type '==' "mod"}}
+                  <a
+                    class='effect-control'
+                    data-action='deleteDoc'
+                    data-document-class='ActiveEffect'
+                    title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                  {{else}}
+                  <a class='effect-control disabled' title='{{localize "shadowrun6.effect.CantDelete"}}'><i class='fas fa-trash'></i></a>
+                  {{/iff}}
+                {{else}}
+                  <a
+                    class='effect-control'
+                    data-action='deleteDoc'
+                    data-document-class='ActiveEffect'
+                    title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
+                  >
+                    <i class='fas fa-trash'></i>
+                  </a>
+                {{/iff}}
+              </div>
+            </li>
+          {{/each}}
+        </ol>
+      {{/each}}
+    </ol>
+  </section>
+
+</div>

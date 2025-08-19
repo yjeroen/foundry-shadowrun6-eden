@@ -9,15 +9,15 @@ function deHTML(html) {
 export function attackRatingToString(val) {
     if (!val)
         return "NULL";
-    return (val[0] +
+    return ((val[0] >= 0 ? val[0] : "-") +
         "/" +
-        (val[1] != 0 ? val[1] : "-") +
+        (val[1] >= 0 ? val[1] : "-") +
         "/" +
-        (val[2] != 0 ? val[2] : "-") +
+        (val[2] >= 0 ? val[2] : "-") +
         "/" +
-        (val[3] != 0 ? val[3] : "-") +
+        (val[3] >= 0 ? val[3] : "-") +
         "/" +
-        (val[4] != 0 ? val[4] : "-"));
+        (val[4] >= 0 ? val[4] : "-"));
 }
 export function fireModesToString(val) {
     let list = [];
@@ -32,18 +32,21 @@ export function fireModesToString(val) {
     return list.join(', ');
 }
 export const defineHandlebarHelper = async function () {
-    Handlebars.registerHelper("attackrating", function (val) {
+    Handlebars.registerHelper("attackrating", function (val, item) {
         if (!val)
             return "NULL";
-        return (val[0] +
-            "/" +
-            (val[1] != 0 ? val[1] : "-") +
-            "/" +
-            (val[2] != 0 ? val[2] : "-") +
-            "/" +
-            (val[3] != 0 ? val[3] : "-") +
-            "/" +
-            (val[4] != 0 ? val[4] : "-"));
+        // const itemAR = item.system.attackRating;
+        return (`<label title="${game.i18n.localize("shadowrun6.roll.ar_0_hint")}">` + 
+                (val[0] >= 0 ? val[0] : "-") +
+                `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_1_hint")}">` +
+                (val[1] >= 0 ? val[1] : "-") +
+                `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_2_hint")}">` +
+                (val[2] >= 0 ? val[2] : "-") +
+                `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_3_hint")}">` +
+                (val[3] >= 0 ? val[3] : "-") +
+                `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_4_hint")}">` +
+                (val[4] >= 0 ? val[4] : "-") +
+                "</label>");
     });
     Handlebars.registerHelper("firemodes", function (val) {
         let list = [];
@@ -66,12 +69,6 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("spellDurationName", function (val) {
         return game.i18n.localize(CONFIG.SR6.spell_duration[val] + "_short");
     });
-    Handlebars.registerHelper("concat", function (op1, op2) {
-        return op1 + op2;
-    });
-    Handlebars.registerHelper("concat3", function (op1, op2, op3) {
-        return op1 + op2 + op3;
-    });
     Handlebars.registerHelper("ifIn", function (elem, list, options) {
         if (list.indexOf(elem) > -1) {
             return options.fn(this);
@@ -84,6 +81,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper('getIniType', function (map, key) {
         return map.get(key).initiativeType;
     });
+    Handlebars.registerHelper("datalistOptions", datalistOptions);
     Handlebars.registerHelper("skillAttr", getSkillAttribute);
     Handlebars.registerHelper("skillPool", getSkillPool);
     Handlebars.registerHelper("gearSubtype", getSubtypes);
@@ -109,6 +107,11 @@ export const defineHandlebarHelper = async function () {
         const handlebarsContext = params.pop();
         const systemTag = 'SR6E | Handlebars line:' + handlebarsContext.loc.start.line + ' |';
         return console.log(systemTag, ...params);
+    });
+
+    Handlebars.registerHelper('subString', function(passedString, startstring, endstring) {
+        var theString = passedString.substring( startstring, endstring );
+        return theString; //new Handlebars.SafeString(theString)
     });
 
     Handlebars.registerHelper('nuyen', function (number) {
@@ -418,3 +421,89 @@ export function getSelectedActor(defaultedActor = null) {
     // Else use the defaulted actor if its there else return null
     return actor ?? defaultedActor;
 }
+
+/**
+ * Prepare the data structure for Active Effects which are currently embedded in an Actor or Item.
+ * @param {ActiveEffect[]} effects    A collection or generator of Active Effect documents to prepare sheet data for
+ * @return {object}                   Data for rendering
+ */
+export function prepareActiveEffectCategories(effects) {
+  // Define effect header categories
+  const categories = {
+    temporary: {
+      type: 'temporary',
+      label: game.i18n.localize('shadowrun6.effect.Temporary'),
+      effects: [],
+    },
+    passive: {
+      type: 'passive',
+      label: game.i18n.localize('shadowrun6.effect.Passive'),
+      effects: [],
+    },
+    inactive: {
+      type: 'inactive',
+      label: game.i18n.localize('shadowrun6.effect.Inactive'),
+      effects: [],
+    },
+  };
+
+  // Iterate over active effects, classifying them into categories
+  for (const e of effects) {
+    if (e.disabled) categories.inactive.effects.push(e);
+    else if (e.isTemporary) categories.temporary.effects.push(e);
+    else categories.passive.effects.push(e);
+  }
+
+  // Sort each category
+  for (const c of Object.values(categories)) {
+    c.effects.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+  }
+  return categories;
+}
+
+function datalistOptions(choices, options) {
+    let {localize=false, selected, blank, sort, nameAttr, valueAttr, labelAttr, inverted, groups} = options.hash;
+    if ( (selected === undefined) || (selected === null) ) selected = [];
+    else if ( !(selected instanceof Array) ) selected = [selected];
+
+    if ( nameAttr && !valueAttr ) {
+      foundry.utils.logCompatibilityWarning(`The "nameAttr" property of the {{selectOptions}} handlebars helper is 
+        renamed to "valueAttr" for consistency with other methods.`, {since: 12, until: 14});
+      valueAttr = nameAttr;
+    }
+
+    // Prepare the choices as an array of objects
+    const selectOptions = [];
+    if ( choices instanceof Array ) {
+      for ( const [i, choice] of choices.entries() ) {
+        if ( typeof choice === "object" ) selectOptions.push(choice);
+        else selectOptions.push({value: choice, label: choice});
+      }
+    }
+
+    // Object of keys and values
+    else {
+      for ( const choice of Object.entries(choices) ) {
+        const [k, v] = inverted ? choice.reverse() : choice;
+        let value = valueAttr ? v[valueAttr] : k;
+        value = value.replaceAll("__", "-")
+        value = value.replaceAll("_", ".")
+        value = value.replaceAll("-", "_")
+        if ( typeof v === "object" ) selectOptions.push({value, ...v});
+        else selectOptions.push({value, label: v});
+      }
+    }
+
+    // Delegate to new fields helper
+    const select = foundry.applications.fields.createSelectInput({
+      options: selectOptions,
+      value: selected,
+      blank,
+      groups,
+      labelAttr,
+      localize,
+      sort,
+      valueAttr
+    });
+    return new Handlebars.SafeString(select.innerHTML);
+  }

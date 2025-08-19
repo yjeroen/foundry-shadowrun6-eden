@@ -41,6 +41,7 @@
 		<a class="item" data-tab="vehicles">{{ localize 'shadowrun6.actor.nav.vehicles' }}</a>
 		<a class="item" data-tab="equip" >{{ localize 'shadowrun6.actor.nav.equip'  }}</a>
 		<a class="item" data-tab="biography">{{ localize 'shadowrun6.actor.nav.biography' }}</a>
+		<a class="item" data-tab="effects">{{ localize 'shadowrun6.effect.Label' }}</a>
 	</nav>
 
 	{{!-- Sheet Body --}}
@@ -76,9 +77,12 @@
 			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="TOOLS" title=(localize 'shadowrun6.gear.subtype.TOOLS')}}
 			
 			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ACCESSORY" title=(localize 'shadowrun6.gear.subtype.ACCESSORY')}}
-			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}}
+			{{!-- TODO: migrate these mods? --}}
+			{{!-- {{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}} --}}
 			
 			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="MAGICAL" title=(localize 'shadowrun6.gear.subtype.MAGIC_SUPPLIES')}}
+
+			{{> "systems/shadowrun6-eden/templates/parts/section-item-mods.html" }}
 
 		</div>
 
@@ -105,6 +109,11 @@
 		{{!-- Biography Tab --}}
 		<div class="tab biography flexrow" data-group="primary" data-tab="biography">
 			{{> "systems/shadowrun6-eden/templates/parts/tab-biography.html"}}
+		</div>
+		
+		{{!-- Effects Tab --}}
+		<div class="tab effects flexrow" data-group="primary" data-tab="effects">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-effects.hbs"}}
 		</div>
 
 	</section>

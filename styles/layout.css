@@ -1,4 +1,4 @@
-.shadowrun6 .window-header::after {
+.app.shadowrun6:not(.minimized) .window-header::after {
 	display: block;
 	content: "";
 	position: absolute;
@@ -45,6 +45,9 @@ line {
 	align-items: center;
 	border-bottom: 2px solid var(--highlight-color);
 	margin: 0 0 0.5rem 0;
+}
+table td .section-head {
+  margin-top: 0.5rem;
 }
 .section-head h2 {
 	border-bottom: 0px;
@@ -94,11 +97,13 @@ tfoot th {
 	color: var(--input-color);
 	background-color: var(--tablehead-background);
 }
-.sheet-body * table{
+.sheet.item * table,
+.sheet-body * table {
 	background-color: rgba(0,0,0,0);
 	border-top: 0px;
 	border-bottom: 0px;
 }
+.sheet.item * thead,
 .sheet-body * thead {
 	background-color: var(--tablehead-background);
 	text-shadow: none;
@@ -112,18 +117,13 @@ tfoot th {
         border: 0px solid black;
         background: none;
         color: var(--input-color);
-
-
         padding: 2px;
         padding-bottom: 2px;
         margin: 0;
-
         vertical-align: baseline;
-
         display: inline-block;
         height: 100%;
         border-radius: 4px;
-
  }
  .shadowrun6 .input-symbol-nuyen {
   position: relative;
@@ -252,6 +252,9 @@ dd::after {
 	color: var(--highlight-color);
   font-size: 13px;
   vertical-align: middle;
+}
+.item-control[data-action="uninstallMod"] {
+  vertical-align: bottom;
 }
 .item-control h2 {
   font-size: 13px;
@@ -396,23 +399,37 @@ table.spell-table td {
 	text-align: center;
 }
 
-
 .editor {
     flex: 1;
     justify-self: stretch;
     align-self: stretch;
     height: 100%;
     min-height: 200px;
+    margin-bottom: 5px;
+}
+.shadowrun6.item .editor {
+  min-height: 50px;
+  max-width: 580px;
+}
+.shadowrun6.item .editor .editor-content {
+  padding: 0 25px 0 2px;
+}
+.shadowrun6.item .editor.prosemirror {
+  border-radius: 6px;
+  background-color: azure;
+}
+.shadowrun6.item .editor-container {
+  min-height: 150px;
+}
+.shadowrun6.item .editor-container .editor-content {
+  min-height: 150px;
+  padding: 0;
 }
 
-.shadowrun6.item div.editor {
-  min-height: 100px;
-  max-width: 550px;
+.shadowrun6.item .item-list .collapsible-content {
+  max-width: 580px;
 }
-.shadowrun6.item div.editor-container {
-  min-height: 100px;
-  max-width: 550px;
-}
+
 .shadowrun6.item dd.specialDescription {
   margin-top: 20px;
   padding: 0px;
@@ -450,4 +467,185 @@ table.spell-table td {
 }
 body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
   text-transform: uppercase;
+}
+
+/* ActiveEffects tab */
+.shadowrun6 .effects-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove var(--shadowrun6-c-groove);
+  font-weight: bold;
+}
+.shadowrun6 .effects-header > * {
+  font-size: 14px;
+  text-align: center;
+}
+.shadowrun6 .effects-header .effect-name {
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: left;
+  display: flex;
+}
+.shadowrun6 .effects-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: var(--shadowrun6-c-tan);
+}
+.shadowrun6 .effects-list .effect-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shadowrun6 .effects-list .effect-name {
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+  padding-left: 5px;
+}
+.shadowrun6 .effects-list .effect-name h3, .shadowrun6 .effects-list .effect-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.shadowrun6 .effects-list .effect-controls {
+  display: flex;
+  flex: 0 0 100px;
+  justify-content: flex-end;
+}
+.shadowrun6 .effects-list .effect-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+.shadowrun6 .effects-list .effect {
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 1px solid var(--shadowrun6-c-faint);
+}
+.shadowrun6 .effects-list .effect:last-child {
+  border-bottom: none;
+}
+.shadowrun6 .effects-list .effect .effect-name {
+  color: var(--shadowrun6-c-dark);
+}
+.shadowrun6 .effects-list .effect .effect-name .effect-image {
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+.shadowrun6 .effects-list .effect-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.shadowrun6 .effects-list .effects-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove var(--shadowrun6-c-groove);
+  font-weight: bold;
+}
+.shadowrun6 .effects-list .effects-header > * {
+  font-size: 12px;
+  text-align: center;
+}
+.shadowrun6 .effects-list .effects-header .effect-name {
+  padding-left: 5px;
+  text-align: left;
+}
+.shadowrun6 .effect-formula {
+  flex: 0 0 200px;
+  padding: 0 8px;
+}
+.shadowrun6 .effects .item .effect-source,
+.shadowrun6 .effects .item .effect-duration,
+.shadowrun6 .effects .item .effect-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.shadowrun6 .effects .item .effect-controls {
+  border: none;
+}
+.shadowrun6 .effects .effect-control.disabled {
+  color: #999;
+  cursor: default;
+}
+.shadowrun6 .effects .effect-control.disabled:hover {
+    text-shadow: none;
+}
+.shadowrun6 .effects .item .effect-source .item-control {
+  vertical-align: top;
+}
+.shadowrun6 .attribute input {
+  color: gray;
+}
+.shadowrun6 .attribute input.attribute-mod-high {
+  color: darkorange;
+}
+.active-effect-config .tab.changes header,
+.active-effect-config .tab.changes ol {
+  grid-template-columns: 19.5rem 7rem 7rem 4rem 1rem;
+}
+.active-effect-config .key input {
+  line-height: var(--font-size-14);
+}
+.active-effect-sheet .key select {
+  width: 100%;
+}
+.game .application input[type=checkbox] {
+  box-shadow: none;
+}
+.active-effect-config .form-group ul,
+.active-effect-config .form-group ol,
+.active-effect-config .form-group p {
+  margin: 0.25rem 0;
+}
+/* Fix .scrollable on the Changes tab */
+.active-effect-config .tab.changes {
+  overflow-y: revert;
+}
+.active-effect-config .tab.changes ol.scrollable {
+  min-height: 4.5rem;
+  align-items: baseline;
+}
+.item.sheet .item-modded {
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 2px;
+}
+.sheet h2 {
+  text-transform: uppercase;
+}
+.item.sheet h3 {
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+.item.sheet .rubik-glitch-regular {
+  text-transform: uppercase;
+}
+.sheet .section table th {
+  text-align: center;
+}
+.actor.sheet table th:first-child {
+  text-align: left;;
+}
+li.folder > .folder-header .folder-name {
+  font-weight: 700;
 }

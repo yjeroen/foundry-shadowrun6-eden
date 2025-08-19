@@ -1,0 +1,68 @@
+{{!-- FoundryVTT v13+ --}}
+
+<section class="tab changes scrollable{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+    <fieldset>
+        <div class="form-group stacked">
+            <p>{{{localize "shadowrun6.active_effect.explanation"}}}</p>
+            <ul>
+                {{#each tab.usage_tips as |tip i|}}
+                    <li>{{{localize (concat "shadowrun6.active_effect.usage_tips." i) }}}</li>
+                {{/each}}
+                {{#if isItemEffect}}
+                    {{#iff document.parent.type '==' "mod"}}
+                    <li>{{{localize "shadowrun6.active_effect.gear_mod_tip"}}}</li>
+                    {{else}}
+                    <li>{{{localize "shadowrun6.active_effect.item_tip"}}}</li>
+                    {{/iff}}
+                {{/if}}
+            </ul>
+            <p>{{localize "shadowrun6.active_effect.more_info"}} <a href="https://foundryvtt.com/article/active-effects/">FoundryVTT.com Active Effects</a></p>
+        </div>
+        <div class="form-group">
+            <label>{{localize "shadowrun6.active_effect.advanced"}}</label>
+            <div class="form-fields"><input type="checkbox" name="system.advanced" class="advanced-active-effects" {{#if source.system.advanced}}checked{{/if}} /></div>
+            <p class="hint">{{localize "shadowrun6.active_effect.advanced_hint"}}</p>
+        </div>
+    </fieldset>
+    
+    <header>
+        <div class="key">{{localize "EFFECT.ChangeKey"}}</div>
+        <div class="mode">{{localize "EFFECT.ChangeMode"}}</div>
+        <div class="value">{{localize "EFFECT.ChangeValue"}}</div>
+        <div class="priority">{{localize "EFFECT.ChangePriority"}}</div>
+        <div class="controls"><a data-action="addChange"><i class="fa-regular fa-square-plus"></i></a></div>
+    </header>
+    <ol class="scrollable" data-changes>
+        {{#each source.changes as |change i|}}
+        {{#with ../fields.changes.element.fields as |changeFields|}}
+        <li data-index="{{i}}">
+            <div class="key">
+                {{#if ../../source.system.advanced}}
+                {{formInput changeFields.key name=(concat "changes." i ".key") value=change.key list="effect-option-list"}}
+                {{else}}
+                <select name="changes.{{i}}.key" data-dtype="text">
+                    {{datalistOptions ../../ACTIVE_EFFECT_OPTIONS selected=change.key localize=true blank=""}}
+                </select>
+                {{/if}}
+            </div>
+            <div class="mode">
+                {{formInput changeFields.mode name=(concat "changes." i ".mode") value=change.mode choices=@root.modes}}
+            </div>
+            <div class="value">
+                {{formInput changeFields.value name=(concat "changes." i ".value") value=change.value}}
+            </div>
+            <div class="priority">
+                {{formInput changeFields.priority name=(concat "changes." i ".priority") value=change.priority
+                    placeholder=(lookup ../../priorities change.mode)}}
+            </div>
+            <div class="controls"><a data-action="deleteChange"><i class="fa-solid fa-trash"></i></a></div>
+        </li>
+        {{/with}}
+        {{/each}}
+    </ol>
+    {{#if source.system.advanced}}
+    <datalist id="effect-option-list">
+        {{datalistOptions ACTIVE_EFFECT_OPTIONS localize=true}}
+    </datalist>
+    {{/if}}
+</section>

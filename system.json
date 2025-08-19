@@ -10,18 +10,14 @@
       "url": "https://www.patreon.com/DeepResonanceWare"
     },
     {
-      "name": "Stefan Prelle",
+      "name": "Stefan & Anja Prelle",
       "email": "stefan@rpgframework.de",
       "discord": "taranion#5388"
-    },
-    {
-      "name": "Anja Prelle",
-      "email": "anja@rpgframework.de"
     }
   ],
   "compatibility": {
     "minimum": "12",
-    "verified": "13.346",
+    "verified": "13.347",
     "maximum": "13"
   },
   "socket": true,
@@ -144,6 +140,20 @@
       "thumbnail": "systems/shadowrun6-eden/images/sr6-system.webp"
     }
   ],
+  "packs":[
+    {
+      "name": "gear_mods",
+      "label": "Gear Mods",
+      "type": "Item"
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "SR6 System",
+      "color": "#b8207f",
+      "packs": ["gear_mods"]
+    }
+  ],
   "background": "systems/shadowrun6-eden/images/sr6-background.webp",
   "primaryTokenAttribute": "physical",
   "secondaryTokenAttribute": "stun",
@@ -155,6 +165,11 @@
     "hotReload": {
       "extensions": ["css", "hbs", "json"],
       "paths": ["styles", "templates", "lang"]
+    }
+  },
+  "documentTypes": {
+    "Item": {
+      "mod": {}
     }
   }
 }

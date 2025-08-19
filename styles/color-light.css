@@ -81,6 +81,8 @@ body.game .shadowrun6.actor .window-content {
 	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: right top, left top;
 	background-repeat: no-repeat, repeat;
+}
+body.game .shadowrun6.sheet .window-content {
 	scrollbar-gutter: stable;
 }
 
