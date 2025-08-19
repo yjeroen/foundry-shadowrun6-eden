@@ -147,6 +147,9 @@ Hooks.once("init", async function () {
     CONFIG.defaultFontFamily = 'Play';
     CONFIG.canvasTextStyle.fontFamily = 'Play';
 
+    // Add Compendium search options
+    CONFIG.Item.compendiumIndexFields = ["name", "type", "system.genesisID"];
+
     if (game.release.generation >= 13) {
         document.body.classList.add('foundry-modern');
     }
@@ -261,11 +264,17 @@ Hooks.once("init", async function () {
         }
     });
 
-    Hooks.on("ready", () => {
+    Hooks.on("ready", async () => {
         // Reassign CONFIG so translations are run
         game.sr6.config = CONFIG.SR6 = new SR6Config();
         migrateWorld();
         game.sr6.releaseNotes();
+
+        
+        // Add Compendium search options
+        for (const pack of game.packs.filter(p => p.documentName === "Item")) {
+            await pack.getIndex()
+        }
 
         // Render a dice roll dialog on click for V12
         $(document).on("click", ".sr6-dice-roll-v12", (e) => {
