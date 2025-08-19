@@ -1,0 +1,80 @@
+{
+  "folder": "8xZ3KgM30gh2WLjG",
+  "name": "Nanoconstruction",
+  "type": "mod",
+  "_id": "vWdXmjJctjBK9bJU",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>Items with this mod use the wild die in place of one of the dice rolled as part of an attack.</p>",
+    "availDef": "3L",
+    "price": 130,
+    "embeddedInUuid": null,
+    "type": "weapon_mod",
+    "genesisID": "nanoconstruction"
+  },
+  "effects": [
+    {
+      "name": "Nanoconstruction",
+      "origin": "Item.vWdXmjJctjBK9bJU",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "53i1I9N8wMX9kwMg",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.wild",
+          "mode": 5,
+          "value": "true",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!vWdXmjJctjBK9bJU.53i1I9N8wMX9kwMg"
+    }
+  ],
+  "sort": 1100000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635448558,
+    "modifiedTime": 1755635448558,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!vWdXmjJctjBK9bJU"
+}

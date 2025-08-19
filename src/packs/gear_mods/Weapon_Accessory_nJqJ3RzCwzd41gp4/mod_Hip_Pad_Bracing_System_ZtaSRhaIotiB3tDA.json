@@ -1,0 +1,104 @@
+{
+  "folder": "nJqJ3RzCwzd41gp4",
+  "name": "Hip Pad Bracing System",
+  "type": "mod",
+  "_id": "ZtaSRhaIotiB3tDA",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>The accessory alters the AR as follows: +2/+1/–1/–2/–4, and it provides a +2 bonus to Initiative Score in the next combat round after it was used. The Aim Action cannot be used while firing with this system.</p><hr><blockquote><p>SYSTEM NOTE</p><p><em>The Initiative Score bonus is not automated.</em></p></blockquote>",
+    "availDef": "2",
+    "price": 180,
+    "embeddedInUuid": null,
+    "type": "accessory_weapon",
+    "genesisID": "hip_bad_bracing_system"
+  },
+  "effects": [
+    {
+      "name": "Hip Pad Bracing System",
+      "origin": "Item.ZtaSRhaIotiB3tDA",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "aeOOK2HKfTQKbl0B",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "-1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "-2",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "-4",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ZtaSRhaIotiB3tDA.aeOOK2HKfTQKbl0B"
+    }
+  ],
+  "sort": 112500,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635446804,
+    "modifiedTime": 1755635446804,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!ZtaSRhaIotiB3tDA"
+}

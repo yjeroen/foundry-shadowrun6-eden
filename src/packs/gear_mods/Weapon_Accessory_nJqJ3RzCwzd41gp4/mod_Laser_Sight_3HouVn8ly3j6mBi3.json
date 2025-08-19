@@ -1,0 +1,174 @@
+{
+  "folder": "nJqJ3RzCwzd41gp4",
+  "name": "Laser Sight",
+  "type": "mod",
+  "_id": "3HouVn8ly3j6mBi3",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>This increases the weapon’s Attack Rating by 1, not cumulative with smartlink modifiers. Activating or deactivating a laser sight is a Minor Action.</p><p>Note that in weapons with a laser sight included as standard equipment, this bonus is already calculated into the Attack Rating.</p><p><strong>Wireless bonus</strong>: The bonus to the Attack Rating increases to 2. You gain a bonus Minor Action on a turn when you activate or deactivate the laser sight.</p><hr><blockquote><p>SYSTEM NOTE</p><ul><li><p><em>Delete the 'Laser Sight activated' Effect if you added a Laser Sight to a weapon that already has it included as standard equipment.</em></p></li><li><p><em>Delete the 'Laser Sight activated' Effect if you also have a Smartlink or Smartgun system.</em></p></li></ul></blockquote>",
+    "availDef": "1",
+    "price": 125,
+    "embeddedInUuid": null,
+    "type": "accessory_weapon",
+    "genesisID": "laser_sight"
+  },
+  "effects": [
+    {
+      "name": "Laser Sight activated",
+      "origin": "Item.3HouVn8ly3j6mBi3",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "VQ5fAKPCCBrxZrQH",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": 20,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!3HouVn8ly3j6mBi3.VQ5fAKPCCBrxZrQH"
+    },
+    {
+      "name": "Laser Sight Wireless Enabled - when activated",
+      "origin": "Item.3HouVn8ly3j6mBi3",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "duration": {
+        "rounds": 20,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "_id": "hxCEyEdwz5PeuqKQ",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.attackRating.0",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.1",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.2",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.3",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.attackRating.4",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!3HouVn8ly3j6mBi3.hxCEyEdwz5PeuqKQ"
+    }
+  ],
+  "sort": 500000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635446804,
+    "modifiedTime": 1755635446804,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!3HouVn8ly3j6mBi3"
+}

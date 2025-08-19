@@ -1,0 +1,80 @@
+{
+  "folder": "nJqJ3RzCwzd41gp4",
+  "name": "Extended Clip (R1)",
+  "type": "mod",
+  "_id": "d25If6r7C6O9FC2N",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>Rating 1 extended clips offer five additional rounds of ammunition per weapon but lowers the Concealability threshold by 1.</p>",
+    "availDef": "4L",
+    "price": 25,
+    "embeddedInUuid": null,
+    "type": "accessory_weapon",
+    "genesisID": "extended_clip"
+  },
+  "effects": [
+    {
+      "name": "Extended Clip Loaded",
+      "origin": "Item.d25If6r7C6O9FC2N",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "7UMJbh8qnmqXqKl5",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.ammocap",
+          "mode": 2,
+          "value": "5",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!d25If6r7C6O9FC2N.7UMJbh8qnmqXqKl5"
+    }
+  ],
+  "sort": 150000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635446804,
+    "modifiedTime": 1755635446804,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!d25If6r7C6O9FC2N"
+}

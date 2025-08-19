@@ -1,0 +1,126 @@
+{
+  "folder": "p8UrUQXLQQH73SXA",
+  "name": "Programmable Camouflage Package",
+  "type": "mod",
+  "_id": "JCl9yWDJoGZczfYg",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>Environmental patterns offer +1 die to Stealth tests when the appropriate pattern is loaded. If not, the bonus becomes a dice pool penalty.</p><hr><blockquote><p>SYSTEM NOTE</p><p>Enable & disable the Effect that is appropriate to the situation.</p></blockquote>",
+    "availDef": "2",
+    "price": 75,
+    "embeddedInUuid": null,
+    "type": "armor_mod",
+    "genesisID": "programmable_camouflage"
+  },
+  "effects": [
+    {
+      "name": "Inappropriate Camouflage Package Loaded",
+      "origin": "Item.JCl9yWDJoGZczfYg",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "cpQf02v8nCrrxW3b",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.skills.stealth.modifier",
+          "mode": 2,
+          "value": "-1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": 20,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!JCl9yWDJoGZczfYg.cpQf02v8nCrrxW3b"
+    },
+    {
+      "name": "Appropriate Camouflage Package Loaded",
+      "origin": "Item.JCl9yWDJoGZczfYg",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "duration": {
+        "rounds": 20,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "_id": "fTa4rj2LsLJUhJnC",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.skills.stealth.modifier",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!JCl9yWDJoGZczfYg.fTa4rj2LsLJUhJnC"
+    }
+  ],
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635445101,
+    "modifiedTime": 1755635445101,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!JCl9yWDJoGZczfYg"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Weapon Mod",
+  "sorting": "a",
+  "folder": null,
+  "type": "Item",
+  "_id": "8xZ3KgM30gh2WLjG",
+  "description": "",
+  "sort": 100000,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635448538,
+    "modifiedTime": 1755635448597,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!folders!8xZ3KgM30gh2WLjG"
+}

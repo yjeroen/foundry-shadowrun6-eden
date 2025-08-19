@@ -1,0 +1,86 @@
+{
+  "folder": "nJqJ3RzCwzd41gp4",
+  "name": "Shock Pads",
+  "type": "mod",
+  "_id": "K5Zt1ZRfLu1kPc6H",
+  "img": "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+  "system": {
+    "description": "<p>It decreases the Semi-Auto and Burst Fire Attack Rating modifiers by 1.</p>",
+    "availDef": "2",
+    "price": 50,
+    "embeddedInUuid": null,
+    "type": "accessory_weapon",
+    "genesisID": "shock_pad"
+  },
+  "effects": [
+    {
+      "name": "Shock Pads",
+      "origin": "Item.K5Zt1ZRfLu1kPc6H",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "pjZOYwNJRfUQWrWd",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.modes.SA_ar_mod",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        },
+        {
+          "key": "system.modes.BF_ar_mod",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!K5Zt1ZRfLu1kPc6H.pjZOYwNJRfUQWrWd"
+    }
+  ],
+  "sort": 700000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755635446804,
+    "modifiedTime": 1755635446804,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!K5Zt1ZRfLu1kPc6H"
+}
