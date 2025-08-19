@@ -1,3 +1,60 @@
+## 3.3.0
+
+### System Improvements
+- Form and Dismantle Grunt Groups via pressing SHIFT-G while having NPC/Critter/Spirit tokens selected. Grunt Groups are taken into account for Attack Rating and Damage of weapon rolls
+- Add Active Effects for Actors and Items which can be configured to modify the Actor's traits, skills & attributes
+- Add Gear Mods type of item, which can modify the traits & attributes of an Item the Gear Mod is dragged on
+- Add a System Compendium for Gear Mods
+- Shooting weapons costs ammo! And can now be reloaded!
+- Send chat notification on manual Edge changes (via coinflip UI) during combat (Patreon Poll Request) (#129)
+- Send chat notification on ammo changes (reload/switch) during combat (Patreon Poll Request) (#129)
+- Allow Items and ActiveEffects to be dragged onto a Token on the canvas
+- Font for Canvas placeables and default font for Drawings is now "Play" (Shadowrun style)
+- Add new default artwork icons for each Actor type
+- Add new default artwork icons for each Item type
+- Add Range mouseover hints to AR fields
+- Add New Matrix Program icons within the system folder (by Taranion)
+- Support Commlink7 item (sub)types (and missing Genesis ones)
+- Various Actor & Item sheet layout improvements
+- Add Attribute Roll buttons on NPC/Critter/Sprit readonly sheets (#134)
+- Added a data entry config flag " CONFIG.SR6.DATA_ENTRY = true " for when you need to change the 'genesisID' in ItemSheets
+- Add search by GenesisID to Item Compendiums
+- Prepare DataModel framework for Sprites and other Matrix Actors planned for 3.4.0 (#82)
+- Renamed "Adjust" to "Mod" in English translation on Actor Sheets
+- Add this.owner pointer to Vehicle type actor (dev)
+- New subString HandleBars helper (dev)
+- Update foundry verified compatibility to 13.347
+
+### Bug Fixes
+- Fix: Prevent NPC Statblock importer to be triggered when an input/text editor was selected
+- Fix attack ratings can be 0 when modified and are only "-" if base statline is 0
+- Fix: migrate any old ammo/price/dmg/AR values from strings to integers (#139)
+- Fix collapsible sections - their open/closed state is no longer saved in DB - as it caused issues; On browser refresh they are closed again
+- Show SIN ratings in the SIN quality description (en)
+- Fix various localizations
+- Your Attribute augmentation modifier is only applied up to +4 to your Attribute
+- Fix show all imported Genesis/Commlink drones on the Actor sheet
+- Creating a new drone uses the Commlink/Genesis gear type
+- Fix weapons on Vehicles to be able to roll on the Engineering skill
+- Fix Spirit attribute calculation for attributes and weapons
+- Fix bug that Roll Dialog didnt calculate Wound/Sustained modifiers at inital popup
+- Fix Roll Dialog where layout would jump a bit when switching FireModes that caused AR to change between single and double digits
+- Fix improper display of weapon Attack Ratings from old worlds (#131)
+- Remove concat and concat3 helpers from system as its part of Foundry core
+- Fix Genetics items to have possible Essence
+- Don't gain Edge if you do not target a token and no Defense Rating is manually entered
+- Fix Edge Actions reduce Edge & improve chat message (#123)
+- Fix diceroll to think Edge Boost was used when "Edge Action" was selected without an actual Action chosen (#122)
+- Remove shadowrun black background image from journal to improve readability (#121)
+- Don't show FireModes and Ammo if an Item isn't a Firearm/Projectile/Special weapon (#118)
+- Fix Ammo Type changing in Roll dialog in certain cases (#118)
+- Add empty Skill option for Weapon Items so it's forced to select on Item creation (#117)
+
+### Data Updates
+- French translation updates (Zakarik)
+- German translation updates (raketenhunddev)
+- Russian translation updates (TheFokin)
+
 ## 3.2.2
 
 ### Bug Fixes 3.2.2
