@@ -194,6 +194,7 @@ export default class SR6Item extends Item {
           this.calculated.attackRating[index] = -1;
         }
     });
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 SR6Item.calcAttackRating()', JSON.stringify(this.calculated.attackRating));
   }
 
   calcDamage() {
@@ -249,6 +250,7 @@ export default class SR6Item extends Item {
 
     this.calculated.dmg = Math.max(0, this.calculated.dmg + dmgMod );
     this.calculated.stun = stun;
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 SR6Item.calcAmmo()', JSON.stringify(this.calculated.attackRating));
   }
 
   /**
@@ -312,8 +314,9 @@ export default class SR6Item extends Item {
    * Enable Active Effects on Item
    */
   prepareEmbeddedDocuments() {
+    console.log("SR6E | SR6Item.prepareEmbeddedDocuments()", this.uuid);
     super.prepareEmbeddedDocuments();
-    if ( this.actor && this.actor?._embeddedPreparation ) this.applyActiveEffects();
+    if ( this.actor && this.actor._embeddedPreparation ) this.applyActiveEffects();
   }
 
   /**

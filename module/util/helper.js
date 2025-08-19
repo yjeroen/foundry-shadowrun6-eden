@@ -36,6 +36,8 @@ export const defineHandlebarHelper = async function () {
         if (!val)
             return "NULL";
         // const itemAR = item.system.attackRating;
+        if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 Handlebars.attackrating', JSON.stringify(val));
+
         return (`<label title="${game.i18n.localize("shadowrun6.roll.ar_0_hint")}">` + 
                 (val[0] >= 0 ? val[0] : "-") +
                 `</label>/<label title="${game.i18n.localize("shadowrun6.roll.ar_1_hint")}">` +

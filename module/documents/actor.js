@@ -76,6 +76,7 @@ export default class Shadowrun6Actor extends Actor {
 
     /** @inheritDoc */
     prepareEmbeddedDocuments() {
+        console.log("SR6E | SR6Actor.prepareEmbeddedDocuments()", this.uuid, this.name);
         this._embeddedPreparation = true;
         super.prepareEmbeddedDocuments();
         delete this._embeddedPreparation;
