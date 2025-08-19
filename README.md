@@ -81,9 +81,13 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Active Effects](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-active-effect.gif?raw=true)
 
-> There are Gear Mods, which can modify the traits & attributes of an Item the Gear Mod is dragged on
+> There are Gear Mods, which can modify the traits & attributes of an Item the Gear Mod is dragged on.
 
 ![FoundryVTT Shadowrun6 Gear Mods](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-gear-mods.gif?raw=true)
+
+> Grunt Group support for NPC's, Critters and Spirits! Just select their tokens and press SHIFT-G to form or decommission a grunt group.
+
+![FoundryVTT Shadowrun6 Grunt Group](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-grunt-groups.gif?raw=true)
 
 ## Patch Notes
 
