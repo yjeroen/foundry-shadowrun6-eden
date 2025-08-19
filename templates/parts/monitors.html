@@ -63,5 +63,22 @@
 			</td>
 		</tr>
 		{{/iff}}
+		{{#if (and system.persona (gt system.persona.monitor.max 0))}}
+		<tr>
+			<td class="centered"><img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" style="border: 0px; height: 25px; width: 25px;" /></td>
+			<td><label title="{{localize 'shadowrun6.monitor.matrix'}}">{{localize 'shadowrun6.monitor.matrix'}}</label></td>
+			<td class="centered">
+				<input name="matrixMonitorDmg" data-field="system.persona.monitor.dmg" class="centered health-matrix" type="number" value="{{system.persona.monitor.dmg}}" data-dtype="Number" id="dataMatrixCur">
+			</td>
+			<td class="barMatrixMax">
+				<div style="width: 300px;">
+					<div style="position: relative; z-index: 1; border: solid black 1px;">
+						<div id="barMatrixCur" style="background-color: rgb(0 200 50); width: 78%;">&nbsp</div>
+						<div id="barMatrixBoxes" class="monitor"></div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		{{/if}}
 	</tbody>
 </table>
