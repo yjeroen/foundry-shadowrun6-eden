@@ -21,6 +21,8 @@ export var MonitorType;
 })(MonitorType || (MonitorType = {}));
 export class SR6Config {
 
+    DATA_ENTRY = false;
+
     NEW = {
         ATTRIBUTES: [
             'body',
