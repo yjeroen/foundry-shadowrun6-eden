@@ -46,7 +46,7 @@
               </div>
               {{#iff ../../item.type '!=' "mod"}}
               <div class='effect-source'>
-                {{effect.sourceName}} 
+                {{effect.system.sourceName}} 
                 {{#iff effect.parent.type '==' "mod"}}
                 <span class="item" data-item-id="{{effect.parent.id}}">
                   <a class="item-control item-edit" title={{localize 'shadowrun6.label.edit' }}><i class="fas fa-edit"></i></a>

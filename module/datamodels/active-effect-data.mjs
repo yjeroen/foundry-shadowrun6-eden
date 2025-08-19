@@ -73,4 +73,18 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
     }
   }
 
+  /**
+   * ActiveEffect.sourceName doesn't have a fallback for Imported/Exported characters
+   * So adding ActiveEffect.system.sourceName
+   */
+  get sourceName() {
+    if ( !this.parent.origin ) return game.i18n.localize("None");
+    let name;
+    let fallbackName = this.parent?.parent?.name ?? game.i18n.localize("Unknown");
+    try {
+      name = fromUuidSync(this.parent.origin)?.name;
+    } catch(e) {}
+    return name || fallbackName;
+  }
+
 }
