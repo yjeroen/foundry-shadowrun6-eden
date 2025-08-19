@@ -3,7 +3,7 @@
         <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <div class="rubik-glitch-regular">{{localize (concat "TYPES.Item." item.type)}}</div>
         {{#if config.DATA_ENTRY}}
-        <h5>genesisID: <input name="name" type="text" value="{{item.system.genesisID}}" data-field="name" style="width: 50%"/></h5>
+        <h5>genesisID: <input name="genesisID" type="text" value="{{item.system.genesisID}}" data-field="system.genesisID" style="width: 50%"/></h5>
         {{/if}}
     </div>
     <img src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
