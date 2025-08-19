@@ -99,7 +99,7 @@ export default class SR6ItemSheet extends ItemSheet {
         if (this.actor) {
             for (const item of this.actor.items) {
                 // HTML enriching Gear Mods
-                if (item.system.embeddedInUuid === this.item.uuid) {
+                if (item.system.installedIn?.id === this.item.id) {
                     item.enriched = {};
                     item.enriched.description = await this.enrichedHTML(item.system.description);
                 }

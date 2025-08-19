@@ -22,18 +22,28 @@ export default class SR6ModItemData extends SR6BaseItemData {
 
         return {
             ...super.defineSchema(),
-            embeddedInUuid: new fields.DocumentUUIDField({type: "Item"}),
+            embeddedInUuid: new fields.DocumentUUIDField({type: "Item"}),   // Only save the Item.ID, not the whole UUID
             type: new fields.StringField({required: false, choices: this.TYPES}),
             // TODO: work out subtype fields
             // mount: new fields.StringField({required: false, nullable: true, choices: this.MOUNT_OPTIONS}),
         };
     }
 
+    // /** @inheritDoc */
+    // static migrateData(source) {
+    //     if (source.embeddedInUuid) {
+    //         const parsed = foundry.utils.parseUuid(source.embeddedInUuid);
+    //         console.log('JEROEN', parsed)
+    //         if (parsed.primaryType !== undefined) source.embeddedInUuid = parsed.embedded.filterJoin(".");
+    //     }
+
+    //     return super.migrateData(source);
+    // }
+
     get installedIn() {
         if (!this.embeddedInUuid) return undefined;
         const parsed = foundry.utils.parseUuid(this.embeddedInUuid);
-        if (this.actor?.id === parsed.primaryId) return this.actor.items.get(parsed.id);
-        return undefined
+        return this.actor.items.get(parsed.id);
     }
 
     _onUpdate(changed, options, userId) {

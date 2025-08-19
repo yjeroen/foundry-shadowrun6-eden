@@ -384,7 +384,7 @@ export default class SR6Item extends Item {
     // Then look onthe Actor for any Items that are modded into this one
     if (this.actor) {
       for (const item of this.actor.items) {
-        if (item.system.embeddedInUuid === this.uuid) {
+        if (item.system.installedIn?.id === this.id) {
           for ( const effect of item.effects ) {
             if ( !effect.transfer ) yield effect;
           }
@@ -426,7 +426,7 @@ export default class SR6Item extends Item {
   get itemMods() {
     const itemMods = [];
     if (!this.actor) return itemMods;
-    return this.actor.items.filter(item => item.system.embeddedInUuid === this.uuid);
+    return this.actor.items.filter(item => item.system.installedIn?.id === this.id);
   }
 
   async addItemMod(ModUuid) {
@@ -438,7 +438,7 @@ export default class SR6Item extends Item {
     if (changed.name && this.actor) {
       for (const item of this.actor.items) {
         // Check if there are any items embedded into this one, and if so rerender their open sheet
-        if (item.system.embeddedInUuid === this.uuid) {
+        if (item.system.installedIn?.id === this.id) {
             item.render();
         }
       }
@@ -449,7 +449,7 @@ export default class SR6Item extends Item {
     if (this.actor) {
       for (const item of this.actor.items) {
         // Check if there are any items embedded into this one, and if so uninstall them
-        if (item.system.embeddedInUuid === this.uuid) {
+        if (item.system.installedIn?.id === this.id) {
           await item.update({'system.embeddedInUuid': null});
         }
       }
