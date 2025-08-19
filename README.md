@@ -17,8 +17,9 @@
 
 _Chummers!_ This game system for the BTL [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system support for the Shadowrun Sixth World roleplaying game.
 
-This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
-play games of Shadowrun 6th Edition!
+This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to play games of Shadowrun 6th Edition! 
+
+You can find the latest news and more instructions on our [DeepResonanceWare Patreon](https://www.patreon.com/DeepResonanceWare). (free tier)
 
 ## Installation Instructions
 
@@ -76,6 +77,13 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 settings](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-game-settings.webp?raw=true)
 
+> You can add Active Effects for Actors and Items which can be configured to modify the Actor's traits, skills & attributes.
+
+![FoundryVTT Shadowrun6 Active Effects](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-active-effect.gif?raw=true)
+
+> There are Gear Mods, which can modify the traits & attributes of an Item the Gear Mod is dragged on
+
+![FoundryVTT Shadowrun6 Gear Mods](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-gear-mods.gif?raw=true)
 
 ## Patch Notes
 
@@ -89,7 +97,7 @@ See [CHANGELOG](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/CHA
 
 **Content Usage and Licensing:**
 
-- The Shadowrun Sixth World RPG is made and by Catalyst Game Labs. No actual content of the RPG is contained within this system. Community Fair Use policy is assumed to automate the ruleset in this FoundryVTT system implementation.
+- The Shadowrun Sixth World RPG is made and by Catalyst Game Labs. Shadowrun and Matrix are registered trademarks and/or trademarks of The Topps Company, Inc. No actual content of the RPG is contained within this system. Community Fair Use policy is assumed to automate the ruleset in this FoundryVTT system implementation.
 - The background image is from [kerko](https://www.deviantart.com/kerko) on deviantart, published on May 16, 2020 with Creative Commons Attribution.
 - The icons are based on svg's from FoundryVTT, icons from [Cyberpunk Red Core system](https://gitlab.com/cyberpunk-red-team/fvtt-cyberpunk-red-core), Mirrandin from [reddit/u/](https://old.reddit.com/user/Mirrandin) and Solution from [SolutionMaps](https://www.patreon.com/solutionmaps).
 
