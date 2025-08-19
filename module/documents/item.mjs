@@ -328,7 +328,8 @@ export default class SR6Item extends Item {
   applyActiveEffects() {
     const overrides = {};
 
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 START', this.id, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
+  if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 START ###', this.actor?.uuid, this.actor?.name);
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 START', this.uuid, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
     // Organize non-disabled effects by their application priority
     const changes = [];
     for ( const effect of this.allApplicableEffects() ) {
@@ -372,7 +373,7 @@ export default class SR6Item extends Item {
 
     // Expand the set of final overrides
     this.overrides = foundry.utils.expandObject(overrides);
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 END', this.id, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
+    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 END', this.uuid, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
   }
 
   /**
