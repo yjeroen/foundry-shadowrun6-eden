@@ -46,7 +46,7 @@
               </div>
               {{#iff ../../item.type '!=' "mod"}}
               <div class='effect-source'>
-                {{effect.sourceName}} {{#iff effect.parent.type '==' "mod"}}<a class="item-control item-edit" title="Edit"><i class="fas fa-edit"></i></a>{{/iff}}
+                {{effect.sourceName}} {{#iff effect.parent.type '==' "mod"}}<a class="item-control item-edit" title={{localize 'shadowrun6.label.edit' }}><i class="fas fa-edit"></i></a>{{/iff}}
                 </div>
               {{/iff}}
               <div class='effect-duration'>
@@ -68,7 +68,7 @@
                   class='effect-control'
                   data-action='viewDoc'
                   data-document-class='ActiveEffect'
-                  title='{{localize "DOCUMENT.Update" type='Effect'}}'
+                  title='{{localize "DOCUMENT.Update" type=(localize "shadowrun6.effect.Label_one")}}'
                 >
                   <i class='fas fa-edit'></i>
                 </a>
@@ -78,7 +78,7 @@
                     class='effect-control'
                     data-action='deleteDoc'
                     data-document-class='ActiveEffect'
-                    title='{{localize "DOCUMENT.Delete" type='Effect'}}'
+                    title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
                   >
                     <i class='fas fa-trash'></i>
                   </a>
@@ -90,7 +90,7 @@
                     class='effect-control'
                     data-action='deleteDoc'
                     data-document-class='ActiveEffect'
-                    title='{{localize "DOCUMENT.Delete" type='Effect'}}'
+                    title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
                   >
                     <i class='fas fa-trash'></i>
                   </a>

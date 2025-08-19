@@ -1879,6 +1879,7 @@
     },
     "effect": {
       "Label": "Effects",
+      "Label_one": "Effect",
       "Create": "Create New Effect",
       "New": "New Effect",
       "Duration": "Duration",
