@@ -143,7 +143,7 @@ export default class SR6Item extends Item {
     if (typeof source.system?.stun === 'string') source.system.stun = (source.system.stun === "true");
     if (typeof source.system?.ammocap === 'string') source.system.ammocap = parseInt(source.system.ammocap);
     if (typeof source.system?.ammocount === 'string') source.system.ammocount = parseInt(source.system.ammocount);
-    if (typeof source.system?.priceDef === 'string') source.system.priceDef = ( typeof parseInt(source.system.priceDef) === 'integer' ? parseInt(source.system.priceDef) : parseInt(source.system.price) );
+    if (typeof source.system?.priceDef === 'string') source.system.priceDef = ( typeof parseInt(source.system.priceDef) === 'number' ? parseInt(source.system.priceDef) : parseInt(source.system.price) );
     if (typeof source.system?.dmg === 'string') source.system.dmg = parseInt(source.system.dmg);
     if (source.system?.attackRating && typeof source.system?.attackRating[0] === 'string') source.system.attackRating = source.system?.attackRating.map(ar => parseInt(ar));
     if (typeof source.system?.defense === 'string') source.system.defense = parseInt(source.system.defense);
