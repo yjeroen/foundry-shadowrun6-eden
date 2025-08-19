@@ -100,6 +100,27 @@
     "wil": "Volonté",
     "wil_short": "VOL"
   },
+  "skill": {
+    "astral": "Astral",
+    "athletics": "Athlétisme",
+    "biotech": "Biotech",
+    "close_combat": "Combat rapproché",
+    "con": "Escroquerie",
+    "conjuring": "Conjuration",
+    "cracking": "Piratage",
+    "electronics": "Électronique",
+    "enchanting": "Enchantement",
+    "engineering": "Ingénierie",
+    "exotic_weapons": "Armes exotiques",
+    "firearms": "Armes à feu",
+    "influence": "Influence",
+    "outdoors": "Plein air",
+    "perception": "Perception",
+    "piloting": "Pilotage",
+    "sorcery": "Sorcellerie",
+    "stealth": "Furtivité",
+    "tasking": "Technomancie"
+  },
   "label.skill": "Compétence",
   "section.attributes": "Attributs",
   "shadowrun6": {
@@ -132,7 +153,7 @@
       "activation": "Activation",
       "activation_major": "Majeure",
       "activation_minor": "Mineure",
-      "activation_passive": "Passive",
+      "activation_passive": "Passif",
       "cost": "Coût",
       "haslevel": "Avec niveau",
       "pp": "PP",
@@ -395,7 +416,7 @@
         "TRACKED": "Véhicules à chenilles",
         "SPECIAL_VEHICLES": "Véhicules spéciaux",
         "UNARMED": "Mains nues",
-        "VANS": "Fourgons et camions cargo",
+        "VANS": "Fourgons et camions",
         "VEHICLE_ACCESSORY": "Modifications de véhicules",
         "VISION_ENHANCEMENT": "Améliorations visuelles",
         "VTOL": "ADAV et ADAC/V",
@@ -1058,7 +1079,8 @@
         "opponent": "Adversaire",
         "opponent_edge_boost": "Boost d'Atout de l'adversaire",
         "spend": "Dépense !",
-        "original_test": "Test original par :"
+        "original_test": "Test original par :",
+        "boost": "Boost"
       },
       "edge_perform": "Action !",
       "edgegain": "Atout-Gain (max) : ",
@@ -1540,10 +1562,10 @@
       "range_line_of_sight_area": "Ligne de vue (zone)",
       "range_line_of_sight_area_short": "LdV(Z)",
       "range_line_of_sight_short": "LdV",
-      "range_self": "Soi-même",
-      "range_self_area": "Soi-même (Zone)",
-      "range_self_area_short": "S(Z)",
-      "range_self_short": "Soi",
+      "range_self": "Personnelle",
+      "range_self_area": "Personnelle (Zone)",
+      "range_self_area_short": "P (Z)",
+      "range_self_short": "Pers.",
       "range_touch": "Contact",
       "range_touch_short": "C",
       "type": "Type",
@@ -1551,7 +1573,8 @@
       "type_mana_short": "M",
       "type_physical": "Physique",
       "type_physical_short": "P",
-      "withEssence": "Contre l'essence"
+      "withEssence": "Contre l'essence",
+      "combatSpellType": "Type de sort de combat"
     },
     "spellfeatures": {
       "area": "Zone",
@@ -1604,7 +1627,8 @@
       "damage": "VD",
       "attackRating":"Score Off.",
       "firemodes": "Modes",
-      "ammo": "Munitions"
+      "ammo": "Munitions",
+      "ammo_loaded": "Munitions chargées"
     },
     "ui": {
       "notifications": {
@@ -1637,7 +1661,19 @@
         "reroll_failed_requires_index": "Sélectionnez un ou plusieurs dés avant de cliquer sur le bouton `Dépenser`.",
         "edge_boost_cannot_be_used_glitch": "Ce boost d'Atout ne peut pas être utilisé si un glitch ou un glitch critique est jeté.",
         "reopen_dice_tooltip": "Vous avez basculé les jetons sélectionnés. Réouvrez la section des dés dans le chat pour effectuer un boost d'Atout.",
-        "extended_test_validation": "Lors d'un test étendu, le seuil et l'intervalle doivent être de 0 ou plus."
+        "extended_test_validation": "Lors d'un test étendu, le seuil et l'intervalle doivent être de 0 ou plus.",
+        "migration": {
+          "start": "Migration du système en cours. Ne fermez pas ou ne rafraichissez pas la fenêtre !",
+          "in_progress": "Migration des documents du système...",
+          "completed": "Migration du système complète !"
+        },
+        "wrong_import_file": "Impossible d'importer une sauvegarde de GENESIS ou COMMLINK ! Utilisez l'exportation vers FoundryVTT à la place.",
+        "statblock_import": {
+          "error": "Quelque chose s'est mal passé avec l'importation du Statblock du PNJ. Utilisez un lecteur PDF différent ou votre PDF peut ne pas être supporté.",
+          "success": "Les statblock de votre `{actor}` ont été importés dans : ",
+          "actor_tab": "Onglet acteur.",
+          "npc_compendium": "Compendium de PNJ."
+        }
       }
     },
     "EFFECT": {
@@ -1757,27 +1793,14 @@
         "9" : "Connaissances rares, réservées à quelques privilégiés",
         "10" : "Secrets profonds que d'autres essaient activement de cacher"
       }
+    },
+    "ammotypes": {
+      "regular": "Normale",
+      "apds": "APDS",
+      "explosive": "Explosive",
+      "flechette": "Fléchette",
+      "gel": "Gel",
+      "sticknshock": "Stick-n-Shock"
     }
-  },
-  "skill": {
-    "astral": "Astral",
-    "athletics": "Athlétisme",
-    "biotech": "Biotech",
-    "close_combat": "Combat rapproché",
-    "con": "Escroquerie",
-    "conjuring": "Conjuration",
-    "cracking": "Piratage",
-    "electronics": "Électronique",
-    "enchanting": "Enchantement",
-    "engineering": "Ingénierie",
-    "exotic_weapons": "Armes exotiques",
-    "firearms": "Armes à feu",
-    "influence": "Influence",
-    "outdoors": "Plein air",
-    "perception": "Perception",
-    "piloting": "Pilotage",
-    "sorcery": "Sorcellerie",
-    "stealth": "Furtivité",
-    "tasking": "Technomancie"
   }
 }
