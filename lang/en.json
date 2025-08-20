@@ -1891,7 +1891,7 @@
       "CantDelete": "You can only delete this effect from it's Item."
     },
     "active_effect": {
-      "explanation": "Active Effects can modify attribute modifiers and pools of your character or item. Please open a Feature Request ticket if you miss an automation needed for a Shadowrun item.",
+      "explanation": "Active Effects can modify attribute modifiers and pools of your character or item. Please open a Feature Request ticket if you miss an automation needed for a Shadowrun item or quality.",
       "usage_tips": {
         "1": "In general, use a Modifier key to adjust an Attribute, Pool or Rating.",
         "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
@@ -1920,7 +1920,7 @@
       "armor.mod": "Armor Mod:",
       "weapon.mod": "Weapon Mod:",
       "stunOrPhysical": "Stun (true) or Physical (false) damage",
-      "dicePoolMod": "Dice Pool Bonus",
+      "dicePoolMod": "Dice Pool Modifier",
       "wild": "Use Wild Die (set Override: true)"
     },
     "KEYBINDINGS": {

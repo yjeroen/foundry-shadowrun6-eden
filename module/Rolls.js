@@ -54,6 +54,8 @@ async function _showRollDialog(data) {
             data.interval = 1;
         if (!data.modifier)
             data.modifier = 0;
+        if (data.actor?.system.dicePoolMod)
+            data.modifier = data.actor.system.dicePoolMod;
         if (data.actor) {
             if (!isLifeform(getSystemData(data.actor))) {
                 console.log("SR6E | Actor is not a lifeform");
@@ -137,6 +139,7 @@ async function _showRollDialog(data) {
             data.calculateSpellDamage();
         }
         
+        data.calcPool += data.modifier;
         data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool;
         data.checkHardDiceCap();
 

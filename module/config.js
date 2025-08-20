@@ -1012,6 +1012,8 @@ export class SR6Config {
         system_social: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.item.social_rating")}),
 
         // ----------- Less used Actor Effects ----------- //
+        system_dicePoolMod: game.i18n.format("shadowrun6.active_effect.dicePoolMod"),
+
         system_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.physical_monitor")}),
         system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor")}),
 
