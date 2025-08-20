@@ -11,6 +11,7 @@ export default class SR6Item extends Item {
 
   /**
    * Augment the basic Item data model with additional dynamic data.
+   * TODO rework move to prepareBaseData() and prepareDerivedData()
    */
   prepareData() {
     // system addittions must be done before super.prepareData()
