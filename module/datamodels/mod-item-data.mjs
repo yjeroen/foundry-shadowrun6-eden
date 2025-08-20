@@ -33,7 +33,6 @@ export default class SR6ModItemData extends SR6BaseItemData {
     // static migrateData(source) {
     //     if (source.embeddedInUuid) {
     //         const parsed = foundry.utils.parseUuid(source.embeddedInUuid);
-    //         console.log('JEROEN', parsed)
     //         if (parsed.primaryType !== undefined) source.embeddedInUuid = parsed.embedded.filterJoin(".");
     //     }
 

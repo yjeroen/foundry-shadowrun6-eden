@@ -84,9 +84,10 @@ export default class Shadowrun6Actor extends Actor {
     /**
      * @Override
      */
-    prepareData() {
-        // This also calls Item Active Effects
-        super.prepareData();
+    prepareData(callSuper=true) {
+        // This also calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
+        // TODO rework vehicles completely to not be dependent on Actor.prepareData()
+        if (callSuper) super.prepareData();
 
         // Modern DataModel Actors skip legacy data load flow
         if (this.system instanceof foundry.abstract.DataModel) return;
@@ -140,7 +141,8 @@ export default class Shadowrun6Actor extends Actor {
                     if (owner) {
                         // It can happen that we pass here before the owner is fully initialized
                         // Make sure the owner has all the skills prepared
-                        owner.prepareData();
+                        // TODO rework vehicles completely to not be dependent on Actor.prepareData()
+                        owner.prepareData(false);
                         this.owner = owner;
                     }
                 }             

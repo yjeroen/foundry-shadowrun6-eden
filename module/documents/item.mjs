@@ -194,7 +194,6 @@ export default class SR6Item extends Item {
           this.calculated.attackRating[index] = -1;
         }
     });
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 SR6Item.calcAttackRating()', JSON.stringify(this.calculated.attackRating));
   }
 
   calcDamage() {
@@ -250,7 +249,6 @@ export default class SR6Item extends Item {
 
     this.calculated.dmg = Math.max(0, this.calculated.dmg + dmgMod );
     this.calculated.stun = stun;
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 SR6Item.calcAmmo()', JSON.stringify(this.calculated.attackRating));
   }
 
   /**
@@ -314,7 +312,7 @@ export default class SR6Item extends Item {
    * Enable Active Effects on Item
    */
   prepareEmbeddedDocuments() {
-    console.log("SR6E | SR6Item.prepareEmbeddedDocuments()", this.uuid);
+    console.log("SR6E | SR6Item.prepareEmbeddedDocuments()", this.uuid, this.name);
     super.prepareEmbeddedDocuments();
     if ( this.actor && this.actor._embeddedPreparation ) this.applyActiveEffects();
   }
@@ -331,8 +329,6 @@ export default class SR6Item extends Item {
   applyActiveEffects() {
     const overrides = {};
 
-  if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 START ###', this.actor?.uuid, this.actor?.name);
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 START', this.uuid, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
     // Organize non-disabled effects by their application priority
     const changes = [];
     for ( const effect of this.allApplicableEffects() ) {
@@ -349,7 +345,6 @@ export default class SR6Item extends Item {
 
     // Temporarily change attackRating []  --- TODO: rework attackRating into an object completely
     this.#attackRatingToObject();
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 attackRatingToObject', JSON.stringify(this.system.attackRating));
 
     // Apply all changes
     for ( let change of changes ) {
@@ -362,21 +357,15 @@ export default class SR6Item extends Item {
         continue;
       }
 
-      if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 applying', typeof change, change);
-      if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 applying', JSON.stringify(change));
       const changes = change.effect.apply(this, change);
       Object.assign(overrides, changes);
     }
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 overrides', overrides);
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 overrides', JSON.stringify(overrides));
 
     // Change attackRating back to []
     this.#attackRatingToArray();
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 attackRatingToArray', JSON.stringify(this.system.attackRating));
 
     // Expand the set of final overrides
     this.overrides = foundry.utils.expandObject(overrides);
-    if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 END', this.uuid, this.name, JSON.stringify(this.system.attackRating), JSON.stringify(this.calculated.attackRating));
   }
 
   /**

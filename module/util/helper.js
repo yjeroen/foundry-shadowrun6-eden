@@ -32,11 +32,9 @@ export function fireModesToString(val) {
     return list.join(', ');
 }
 export const defineHandlebarHelper = async function () {
-    Handlebars.registerHelper("attackrating", function (val, item) {
+    Handlebars.registerHelper("attackrating", function (val) {
         if (!val)
             return "NULL";
-        // const itemAR = item.system.attackRating;
-        if (this.id === 'Ani1WDgiXGTLRzwc') console.log('DEBUG#147 Handlebars.attackrating', JSON.stringify(val));
 
         return (`<label title="${game.i18n.localize("shadowrun6.roll.ar_0_hint")}">` + 
                 (val[0] >= 0 ? val[0] : "-") +
