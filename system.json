@@ -145,13 +145,18 @@
       "name": "gear_mods",
       "label": "Gear Mods",
       "type": "Item"
+    },
+    {
+      "name": "qualities",
+      "label": "Qualities",
+      "type": "Item"
     }
   ],
   "packFolders": [
     {
       "name": "SR6 System",
       "color": "#b8207f",
-      "packs": ["gear_mods"]
+      "packs": ["gear_mods", "qualities"]
     }
   ],
   "background": "systems/shadowrun6-eden/images/sr6-background.webp",

@@ -1,0 +1,81 @@
+{
+  "folder": "Cio7fVmGjwkLRo7B",
+  "name": "Dermal Deposits",
+  "type": "quality",
+  "_id": "0UZwKhcgSLdtdbLX",
+  "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>You gain 1 level of natural Armor. Your Unarmed Melee attacks inflict Physical damage. </p>",
+    "value": 0,
+    "explain": "Add extra armor and unarmed melee do physical damage.",
+    "modifier": [],
+    "category": "",
+    "level": false
+  },
+  "effects": [
+    {
+      "name": "Dermal Deposits",
+      "origin": "Item.0UZwKhcgSLdtdbLX",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "z3N4SHelUir2MCN8",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.defenserating.physical.mod",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!0UZwKhcgSLdtdbLX.z3N4SHelUir2MCN8"
+    }
+  ],
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755698132022,
+    "modifiedTime": 1755698132022,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!0UZwKhcgSLdtdbLX"
+}

@@ -1,0 +1,81 @@
+{
+  "folder": "mlfmeXgmiD1wsrvY",
+  "name": "Weak Immune System",
+  "type": "quality",
+  "_id": "sU9r1F3b2J4Df5ux",
+  "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>You cannot spend Edge to resist the effects of an infection. The threshold for fighting off any infection you are exposed to is increased by 1. While suffering the ill effects of an illness, you suffer a –1 dice pool modifier to all tests. </p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Active the </em>Effect <em>when suffering from an illness.</em></p></blockquote>",
+    "value": 0,
+    "explain": "Cannot spenmd Edge to resist an infection.",
+    "modifier": [],
+    "category": "DISADVANTAGE",
+    "level": false
+  },
+  "effects": [
+    {
+      "name": "Suffering an Illness",
+      "origin": "Item.sU9r1F3b2J4Df5ux",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "55IrxNyNSQzR6LPq",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.dicePoolMod",
+          "mode": 2,
+          "value": "-1",
+          "priority": null
+        }
+      ],
+      "disabled": true,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": 200,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!sU9r1F3b2J4Df5ux.55IrxNyNSQzR6LPq"
+    }
+  ],
+  "sort": 112500,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755698130607,
+    "modifiedTime": 1755698130607,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!sU9r1F3b2J4Df5ux"
+}

@@ -1,0 +1,81 @@
+{
+  "folder": "Cio7fVmGjwkLRo7B",
+  "name": "Build Tough (1)",
+  "type": "quality",
+  "_id": "gPJt0TQE4iUZwozB",
+  "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>You have a number of additional boxes on your Physical Condition Monitor equal to the rank of this quality.</p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Manually adjust the Build Tough </em>Effect <em>so it increases the Physical Monitor 1 per level you have of this quality.</em></p></blockquote>",
+    "value": 0,
+    "explain": "Additional Physical Monitor boxes per level.",
+    "modifier": [],
+    "category": "",
+    "level": false
+  },
+  "effects": [
+    {
+      "name": "Build Tough",
+      "origin": "Item.gPJt0TQE4iUZwozB",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "sZcZUFJ3j7RsIglp",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": false
+      },
+      "changes": [
+        {
+          "key": "system.physical.mod",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!gPJt0TQE4iUZwozB.sZcZUFJ3j7RsIglp"
+    }
+  ],
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.343",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.0",
+    "createdTime": 1755698132022,
+    "modifiedTime": 1755698132022,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_key": "!items!gPJt0TQE4iUZwozB"
+}
