@@ -16,7 +16,7 @@
           {{/iff}}
           <div class='effect-duration'>{{localize 'shadowrun6.effect.Duration'}}</div>
           <div class='effect-controls effect-controls flexrow'>
-            <a
+            <span
               class='effect-control'
               data-action='createDoc'
               data-document-class='ActiveEffect'
@@ -29,7 +29,7 @@
             >
               <i class='fas fa-plus'></i>
               {{localize 'shadowrun6.effect.New' }}
-            </a>
+            </span>
           </div>
         </li>
         <ol class='effect-list'>
@@ -46,7 +46,7 @@
               </div>
               {{#iff ../../item.type '!=' "mod"}}
               <div class='effect-source'>
-                {{effect.system.sourceName}} {{#iff effect.parent.type '==' "mod"}}<a class="item-control item-edit" title={{localize 'shadowrun6.label.edit' }}><i class="fas fa-edit"></i></a>{{/iff}}
+                {{effect.system.sourceName}} {{#iff effect.parent.type '==' "mod"}}<span class="item-control item-edit" title={{localize 'shadowrun6.label.edit' }}><i class="fas fa-edit"></i></span>{{/iff}}
                 </div>
               {{/iff}}
               <div class='effect-duration'>
@@ -57,36 +57,36 @@
                 {{/iff}}
               </div>
               <div class='effect-controls effect-controls flexrow'>
-                <a
+                <span
                   class='effect-control'
                   title='{{localize "shadowrun6.effect.Toggle"}}'
                 >
                   <i class='fas {{#if effect.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}'></i>
-                </a>
-                <a
+                </span>
+                <span
                   class='effect-control'
                   title='{{localize "DOCUMENT.Update" type=(localize "shadowrun6.effect.Label_one")}}'
                 >
                   <i class='fas fa-edit'></i>
-                </a>
+                </span>
                 {{#iff effect.parent.type '==' "mod"}}
                   {{#iff ../../item.type '==' "mod"}}
-                  <a
+                  <span
                     class='effect-control'
                     title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
                   >
                     <i class='fas fa-trash'></i>
-                  </a>
+                  </span>
                   {{else}}
-                  <a class='effect-control disabled' title='{{localize "shadowrun6.effect.CantDelete"}}'><i class='fas fa-trash'></i></a>
+                  <span class='effect-control disabled' title='{{localize "shadowrun6.effect.CantDelete"}}'><i class='fas fa-trash'></i></span>
                   {{/iff}}
                 {{else}}
-                  <a
+                  <span
                     class='effect-control'
                     title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
                   >
                     <i class='fas fa-trash'></i>
-                  </a>
+                  </span>
                 {{/iff}}
               </div>
             </li>

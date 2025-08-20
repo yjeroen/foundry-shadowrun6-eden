@@ -1,10 +1,27 @@
-<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
-  	{{#if system.genesisID}}
-	<h2>{{localize (concat (concat "quality." system.genesisID) ".name")}}</h2>
-	<h4  style="font-style: italic">{{localize (concat (concat "quality." system.genesisID) ".src")}}</h4>
-	<div class="data-desc" id="data-desc"/>
-	{{else}}
-	<h2>{{item.name}}</h2>
-	<div class="data-desc" id="data-desc">{{system.description}}</div>
-   {{/if}}
+<form class="flexcol {{cssClass}}" autocomplete="off">
+{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="section">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.qualityedit.category'}}</th>
+                </tr>
+                <tr>
+                    <td class="centered">
+                        <select name="qualityCategory" data-field="system.category" disabled>
+                            {{selectOptions config.QUALITY_CATEGORIES selected=item.system.category localize=true}}
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <h3>{{localize 'shadowrun6.qualityedit.explain'}}</h3>
+            <input name="explain" type="text" value="{{item.system.explain}}" data-field="system.explain" style="background-color: white; padding: 0.2em 0.5em;" placeholder="{{localize 'shadowrun6.label.details'}}" disabled/>
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <div class="editor">{{{item.enriched.description}}}</div>
+        </div>
+    </section>
 </form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-effects-ro.hbs" }}
