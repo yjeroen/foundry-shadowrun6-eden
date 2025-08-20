@@ -74,6 +74,14 @@ export default class Shadowrun6Actor extends Actor {
         return { img: src, texture: { src } };
     }
 
+    /**
+     * Prepare data related to this Document itself, before any embedded Documents or derived data is computed.
+     * @memberof ClientDocumentMixin#
+     */
+    prepareBaseData() {
+        this.system.dicePoolMod = 0;
+    }
+
     /** @inheritDoc */
     prepareEmbeddedDocuments() {
         console.log("SR6E | SR6Actor.prepareEmbeddedDocuments()", this.uuid, this.name);
@@ -83,6 +91,7 @@ export default class Shadowrun6Actor extends Actor {
     }
     /**
      * @Override
+     * TODO rework move to prepareBaseData() and prepareDerivedData()
      */
     prepareData(callSuper=true) {
         // This also calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
@@ -105,6 +114,7 @@ export default class Shadowrun6Actor extends Actor {
                 system.heat = 0;
             if (!system.reputation)
                 system.reputation = 0;
+
         }
         try {
             if (actorData.type === "Spirit") {
