@@ -18,3 +18,7 @@
 .application.dialog.releasenotes .standard-form button.icon-right { display: flex; }
 .application.dialog.releasenotes .standard-form button.icon-right span { order: 1; }
 .application.dialog.releasenotes .standard-form button.icon-right i { order: 2; margin: 0 0 0 0.25rem; }
+
+.application.dialog.releasenotes hr {
+    border: 2px dotted #800D6D;
+}

@@ -1,7 +1,7 @@
 # Gear Mods, Active Effects & Grunt Groups!
 *We've got a HUGE release chummers!*
 
-Apart from having a lot of bugfixes, we got a few highly asked for features! **Gear Mods** (e.g. _Gas-Vent System_) that can be dragged onto Gear to modify them, **Active Effects** that can be used to automate item and spell effects. And you can now form Grunt Groups via SHIFT-G if you select tokens of NPC's, Critters and/or Spirits.
+Apart from having a lot of bugfixes, we got a few highly asked for features! **Gear Mods** (e.g. _Gas-Vent System_) that can be dragged onto Gear to modify them, **Active Effects** that can be used to automate items and spell effects. And you can now form Grunt Groups via SHIFT-G if you select tokens of NPC's, Critters and/or Spirits.
 
 ### Patreon
 _**Would you like to find out more on how these features work?**_ Check out my [Patreon blog](https://www.patreon.com/DeepResonanceWare) where you can find instructions and videoclips about these features on the free tier.
