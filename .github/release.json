@@ -3,5 +3,5 @@
       "type": "system",
       "premium": false
     },
-    "includes": ["icons/", "images/", "lang/", "module/", "releasenotes/", "styles/", "templates/", "LICENSE.md", "README.md", "system.json", "template.json"]
+    "includes": ["icons/", "images/", "lang/", "module/", "packs/", "releasenotes/", "styles/", "templates/", "LICENSE.md", "README.md", "system.json", "template.json"]
   }
