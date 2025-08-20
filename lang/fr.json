@@ -43,7 +43,8 @@
     		"NPC": "PNJ",
     		"Player": "Personnage Joueur",
     		"Spirit": "Esprit",
-    		"Vehicle": "Véhicule/Drone"
+    		"Vehicle": "Véhicule/Drone",
+        "sprite": "Sprite"
   		},
   		"Item": {
     		"adeptpower": "Pouvoir d'adepte",
@@ -63,7 +64,8 @@
     		"skill": "Langue/Connaissance",
         "software": "Logiciel",
     		"spell": "Sort",
-    		"weapon": "Arme"
+    		"weapon": "Arme",
+    		"mod": "Mod. d'équipement"
   	}
   },
   "attrib": {
@@ -98,7 +100,8 @@
     "str": "Force",
     "str_short": "FOR",
     "wil": "Volonté",
-    "wil_short": "VOL"
+    "wil_short": "VOL",
+    "max_augment": "Votre modificateur d'augmentation est supérieur à 4. Un maximum de 4 est appliqué à votre attribut."
   },
   "skill": {
     "astral": "Astral",
@@ -282,11 +285,15 @@
         "BIOWARE_CULTURED": "Bioware de culture",
         "BIOWARE_STANDARD": "Bioware standard",
         "BIOWARE_IMPLANT_WEAPON": "Arme bio-implantée",
+        "BIOWARE_DERMAL": "Bioware dermique",
+        "BIOSENSE": "Biosens",
+        "SYMBIONT": "Symbionte",
         "BLADES": "Armes tranchantes",
         "BOATS": "Bateaux",
         "BOWS": "Arcs",
+        "BALLISTAS": "Balistes",
         "BREAKING": "Intrusion et effraction",
-        "BTL": "BTLs",
+        "BTL": "BTL",
         "CANNONS_LAUNCHERS": "Canons & Lanceurs",
         "CARS": "Voitures",
         "CLOSE_COMBAT": "Combat rapproché",
@@ -303,9 +310,18 @@
         "CYBER_LIMB_ACCESSORY": "Accessoires de membres cyber.",
         "CYBER_LIMB_ENHANCEMENT": "Améliorations de membres cyber.",
         "CYBER_LIMBS": "Membres cybernétiques",
+        "CYBERNETIC_RESTRAINT": "Entraves cybernétiques",
+        "COSMETIC": "Implants cosmétiques",
         "CYBERDECK": "Cyberdeck",
         "CYBERJACK": "Cyberjack",
+        "ATTRIBUTE_CODEMOD": "Codemods d'attributs",
+        "CORE_CODEMOD": "Codemods majeurs",
+        "PROCESSOR": "Codemods de processeurs",
+        "IO": "Codemods d'E/S",
+        "DIGITAL_WEAPON": "Armes de doigts",
         "DRUGS": "Drogues",
+        "PERFUME": "Parfum",
+        "ESPIONAGE": "Espionnage",
         "ELECTRONIC_ACCESSORIES": "Accessoires éléctroniques",
         "EXPLOSIVES": "Explosifs",
         "FIREARMS": "Armes à feu",
@@ -369,6 +385,17 @@
         "MOD_RACK": "Rangements de drones",
         "MOD_OTHERS": "Autres mods",
         "MOD_PROPULSION": "Systemes de propulsion sup.",
+        "NANITES_COSMETIC": "Nanites cosmétiques",
+        "NANITES_THERAPEUTIC": "Nanites thérapeutiques",
+        "NANITES_BIOAMP": "Nanites bioamplificatrices",
+        "NANITES_UTILITIES": "Nanites utilitaires",
+        "NANITES_TRANSIENT": "Nanites éphémères uniquement",
+        "NANOTECH_KIT": "Kit nanotechnologiques",
+        "THERAPEUTIC": "Thérapies",
+        "AUGMENTICS": "Augmentations",
+        "COMPLEMENTARY_GENETIC_MODS": "Mods génétiques complémentaires",
+        "TRANSGENICS": "Infusions transgéniques",
+        "TRANSGENIC_BIOWARE": "Bioware transgénique",
         "NANOWARE_HARD": "Nanoware dure",
         "NANOWARE_SOFT": "Nanoware molle",
         "NANO_CYBERWARE": "Nano-implant",
@@ -394,22 +421,29 @@
         "SHOTGUNS": "Shotguns",
         "SKILLSOFT": "Skillsofts",
         "SLAP_PATCHES": "Patches adhésifs",
-        "SNIPER_RIFLES": "Fusils de précision",
-        "SOFTWARE": "Logiciels",
         "SMALL_DRONES": "Drones de petite taille",
+        "SNIPER_RIFLES": "Fusil de précision",
+        "SOFTWARE": "Logiciels",
         "SPACECRAFT": "Vaisseau spatial",
         "SPECIAL_WEAPONS": "Armes spéciales",
         "SUBMACHINE_GUNS": "Mitraillettes",
         "SUBMARINES": "Sous-marins",
         "SURVIVAL_GEAR": "Matériel de survie",
+        "WINTER_GEAR": "Matériel hivernal",
         "SYMBIONTS": "Symbiotes",
         "TAC_NET": "Réseau tactique",
+        "DATATERM": "Terminal de donnée",
+        "CYBERTERM": "Terminal cyber",
+        "BTLS": "BTL",
         "TASERS": "Tasers",
         "THROWERS": "Lance-grenades",
         "THROWING": "Armes de jet",
+        "DMSO": "Gel DMSO à propulsion pneumatique",
+        "DART": "Fléchette à propulsion pneumatique",
         "TRANSGENETICS": "Transgénétique",
         "TACNET_PROGRAM": "Programme de TAC-Net",
         "TOOLS": "Outils",
+        "SPARE_PARTS": "Pièces de rechange",
         "PLACEHOLDERS": "Biens standard",
         "TOXINS": "Toxines",
         "TRUCKS": "Camions",
@@ -420,6 +454,10 @@
         "VEHICLE_ACCESSORY": "Modifications de véhicules",
         "VISION_ENHANCEMENT": "Améliorations visuelles",
         "VTOL": "ADAV et ADAC/V",
+        "BUS": "Bus",
+        "PWC": "Bâteau personnel",
+        "SHIPS": "Vaisseau",
+        "AIRSHIP": "Dirigeable",
         "WALKER": "Marcheur",
         "WEAPON_SECURITY": "Option de sécurité d'arme",
         "WHIPS": "Fouets",
@@ -435,6 +473,7 @@
         "SHOPSOFT": "Shopsoft",
         "TALENTSOFT": "Skillsoft",
         "TEACHSOFT": "Tutorsoft",
+        "ESOFT": "E-Soft",
         "GROUND": "Drones terrestres",
         "ANTHRO": "Drones anthropomorphes",
         "AIR": "Drones aériens",
@@ -502,6 +541,7 @@
       "skill": "Compétence",
       "skillspec": "Spécialisation",
       "social": "Social",
+      "social_rating": "Indice Social",
       "stun_damage": "E",
       "subtype": "Sous-type",
       "type": "Type",
@@ -522,6 +562,7 @@
       "BIOWARE": "Bioware",
       "CHEMICALS": "Chimique",
       "CYBERWARE": "Cyberware",
+      "CODEMODS": "Codemods",
       "DRONES": "Drones",
       "ELECTRONICS": "Électronique",
       "GENETICS": "Geneware",
@@ -581,6 +622,7 @@
       "devRating" : "Ind. d'app.",
       "dual_hand": "Deux mains",
       "dice": "Dé",
+      "edge_changes_combat": "Modificateurs d'atouts en combat",
       "edit": "Éditer",
       "expertise": "Maîtrise",
       "extended_test": "Test étendue",
@@ -641,6 +683,10 @@
         "outsider": "INVITÉ",
         "user": "UTILISATEUR",
         "admin": "ADMINISTRATEUR"
+      },
+      "device": {
+        "enable": "Activer le périphérique matriciel",
+        "disable": "Désactiver le périphérique matriciel"
       }
     },
     "matrixaction": {
@@ -841,8 +887,11 @@
     "monitor": {
 		  "label": "Moniteur",
       "matrix": "Matriciel",
+		  "matrix_monitor": "Moniteur matriciel",
       "physical": "Physique",
+      "physical_monitor": "Moniteur physique",
       "stun": "Étourdissant",
+      "stun_monitor": "Moniteur étourdissant",
       "overflow": "Surplus",
       "dead": "MORT",
       "broken": "CASSÉ"
@@ -895,7 +944,8 @@
       "vehicles": "Superbe voyage",
       "weapon": "Une arme avec un nom c'est plus cool",
       "weaponclose": "Quelque chose de lourd",
-      "weaponspecial": "Arme étrange"
+      "weaponspecial": "Arme étrange",
+      "mod": "Mod peinture rose"
     },
     "npc": {
     	"subtype": {
@@ -904,8 +954,11 @@
       	"spirit": "Esprit",
       	"sprite": "Sprite"
       },
-      "gruntrules": "Utilise les règles de grunt",
-      "mortype": "Magie/Résonance"
+      "gruntrules": "Utilise les règles de figurant",
+      "mortype": "Magie/Résonance",
+      "grunt_group": "Groupe de figurant",
+      "grunt_group_id": "F{groupId}",
+      "grunt_group_attack": "Attaquer comme un groupe de figurant (x{numberGrunts})"
     },
     "numerical": {
       "base": "base",
@@ -1045,7 +1098,11 @@
       "ar_2": "Moyenne",
       "ar_3": "Longue",
       "ar_4": "Extrême",
-      "attack": "Attaque",
+      "ar_0_hint": "Proche (0-3 mètres)",
+      "ar_1_hint": "Courte (4-50 mètres)",
+      "ar_2_hint": "Moyenne (51-250 mètres)",
+      "ar_3_hint": "Longue (251-500 mètres)",
+      "ar_4_hint": "Extrême (500+ mètres)",
       "attackRating": "Score Off.",
       "bf_type": "Type",
       "bf": {
@@ -1076,6 +1133,7 @@
         "spending": "Dépense d'Atout",
         "spend_edge": "Dépenser Atout",
         "edge_spent": "Boost d'Atout : {boostTitle}",
+        "edge_action_spent": "Actoud d'Atout : {actionTitle}",
         "opponent": "Adversaire",
         "opponent_edge_boost": "Boost d'Atout de l'adversaire",
         "spend": "Dépense !",
@@ -1152,6 +1210,8 @@
       "ammo_add": "Ajouter des munitions",
       "armor": {
         "add": "Ajouter une armure",
+        "enable": "Equiper l'armure",
+        "disable": "Déséquiper l'armure",
         "column": {
           "action": "Action",
           "defense": "SD",
@@ -1628,7 +1688,11 @@
       "attackRating":"Score Off.",
       "firemodes": "Modes",
       "ammo": "Munitions",
-      "ammo_loaded": "Munitions chargées"
+      "ammo_loaded": "Munitions chargées",
+      "reload_ammo": "Rechargez !",
+      "ammo_changes_combat": "Changement de munitions en combat",
+      "ammo_cap": "Capacité de munitions",
+      "ammo_cap_short": "Cap. munitions"
     },
     "ui": {
       "notifications": {
@@ -1673,7 +1737,18 @@
           "success": "Les statblock de votre `{actor}` ont été importés dans : ",
           "actor_tab": "Onglet acteur.",
           "npc_compendium": "Compendium de PNJ."
-        }
+        },
+        "not_enough_ammo": "Vous n'avez pas assez de munitions dans votre arme. Changez de mode de tir ou rechargez d'abord votre arme. ",
+        "character_has_reloaded": "{character} a rechargé son arme {weaponName} avec des munitions {ammoType}.",
+        "character_has_switched_ammo": "{character} a changé les munitions chargées dans son arme {weaponName} pour {ammoType}.",
+        "character_has_changed_edge": "{character} a changé manuellement son Atout de {oldEdge} en {edge}",
+        "matrix_check_os": "Votre score Surveillance actuel est de {os}.",
+        "bind_control_group": "Vous avez lié les tokens sélectionnés au groupe de contrôle {controlGroup}",
+        "select_control_group": "Vous avez sélectionné les tokens du groupe de contrôle {controlGroup}.",
+        "form_grunt_group": "Vous avez formé un groupe Figurant avec les tokens sélectionnés.",
+        "dismantle_grunt_group": "Vous avez démantelé le groupe Figurant des tokens sélectionnés.",
+        "form_grunt_group_failed": "Les tokens sélectionnés n'étaient pas valides pour un groupe de Figurant. L'option « Lier les données d'acteur » ne doit pas être activée dans leur configuration de token.",
+        "grunt_group_takes_two": "Vous devez sélectionner plusieurs tokens pour former un groupe de Figurant."
       }
     },
     "EFFECT": {
@@ -1801,6 +1876,144 @@
       "flechette": "Fléchette",
       "gel": "Gel",
       "sticknshock": "Stick-n-Shock"
+    },
+    "effect": {
+      "Label": "Effets",
+      "Label_one": "Effet",
+      "Create": "Créer un nouvel effet",
+      "New": "Nouvel effet",
+      "Duration": "Durée",
+      "Source": "Source",
+      "Toggle": "Activer/désactiver l’Effet",
+      "Temporary": "Effets temporaire",
+      "Passive": "Effets passifs",
+      "Inactive": "Effets inactifs",
+      "CantDelete": "Vous pouvez uniquement supprimer cet effet depuis l'objet propriétaire."
+    },
+    "active_effect": {
+      "explanation": "Les effets actifs peuvent modifier les modificateurs d'attributs et les réserves de votre personnage ou de votre objet. Veuillez ouvrir un ticket de demande de fonctionnalité si vous ne trouvez pas l'automatisation nécessaire pour un objet Shadowrun.",
+      "usage_tips": {
+        "1": "En général, utilisez une clé pour ajuster un Attribut, une Réserve ou un Indice.",
+        "2": "N'utilisez une clé Réserve que si vous devez <em>remplacer</em> un attribut complet, comme avec les cyber-membres ou les câblages de compétence.",
+        "3": "Comme dans le Shadowrun 6E standard, les modificateurs d'Attribut sont limités à +4."
+      },
+      "item_tip": "Si vous souhaitez modifier les statistiques d'un objet, vous <strong>devez</strong> désactiver la case <em>Appliquer l'effet à l'acteur</em> dans l'onglet Détails. Un effet actif ne peut s'appliquer qu'à un acteur <em>ou</em> un objet.",
+      "gear_mod_tip": "Il s'agit d'un effet actif d'un <strong>mod d'équipement</strong>. Tous les effets s'appliquent à l'objet sur lequel il est installé.",
+      "more_info": "Pour plus d'informations, consultez le lien suivant :",
+      "advanced": "Avancé ?",
+      "advanced_hint": "Si cette option est cochée, vous pouvez saisir des clés d'attributs système personnalisées au lieu de vous limiter à la liste recommandée par le système Shadowrun 6E.",
+      "Modifier": "Modificateur : {attribute} ",
+      "Skill": "Compétence : {skill}",
+      "Pool": "Réserve : {pool} (Remplacer uniquement)",
+      "defensepool.physical.mod": "Modificateur de Réserve de Défense Physique",
+      "defensepool.astral.mod": "Modificateur de Réserve de Défense Magique",
+      "defensepool.matrix.mod": "Modificateur de Réserve de Défense Matricielle",
+      "defensepool.spells_direct.mod": "Modificateur de Réserve de Défense contre les sorts directs",
+      "defensepool.spells_indirect.mod": "Modificateur de Réserve de Défense contre les sorts indirects",
+      "defensepool.toxin.mod": "Modificateur de Réserve de Résistance à la Toxine",
+      "defensepool.drain.mod": "Modificateur de Réserve de Résistance au Drain",
+      "defensepool.damage_physical.mod": "Modificateur de Réserve de Défense contre les dommages physiques",
+      "defensepool.damage_astral.mod": "Modificateur de Réserve de Défense contre les dommages astrals",
+      "initiative.physical.diceMod": "Modificateur de Réserve d'Initiative Physique",
+      "initiative.astral.diceMod": "Modificateur de Réserve d'Initiative Astral",
+      "initiative.matrix.diceMod": "Modificateur de Réserve d'Initiative Matricielle",
+      "armor.mod": "Mod. d'Armure:",
+      "weapon.mod": "Mod. d'Arme :",
+      "stunOrPhysical": "Dommages Étourdissant (true) ou Physique (false) damage",
+      "dicePoolMod": "Réserve de dé bonus",
+      "wild": "Utiliser le Dé Libre (Pour remplacer : true)"
+    },
+    "KEYBINDINGS": {
+      "bindTokenControlGroup": "Lier les tokens sélectionnés au groupe de contrôle",
+      "selectTokenControlGroup": "Sélectionner les tokens du groupe de contrôle",
+      "formGruntGroup": "Créer un groupe de Figurant avec les tokens sélectionnés"
+    }
+  },
+  "SR6": {
+    "Actor": {
+      "base": {
+        "FIELDS": {
+          "notes": {
+            "label": "Notes"
+          }
+        }
+      },
+      "sprite": {
+        "FIELDS": {
+          "xxx": {
+            "label": "xxx"
+          }
+        },
+        "TYPES": {
+          "courier": "//COURSIER//",
+          "crack": "//CRACKER//",
+          "data": "//DONNÉES//",
+          "fault": "//ERREUR//",
+          "machine": "//MACHINE//",
+          "assassin": "//ASSASSIN//",
+          "defender": "//PROTECTEUR//",
+          "modular": "//POLYVALENT//",
+          "music": "//MUSICAL//",
+          "primal": "//PRIMAL//"
+        }
+      }
+    },
+    "Item": {
+      "base": {
+        "FIELDS": {
+          "genesisID": {
+            "label": "IDGenesis"
+          },
+          "availDef": {
+            "label": "Disp."
+          },
+          "price": {
+            "label": "Prix"
+          }
+        }
+      },
+      "mod": {
+        "FIELDS": {
+          "embeddedInUuid": {
+            "label": "Item Moddé"
+          }
+        },
+        "TYPES": {
+          "accessory_weapon": "Accessoire d'arme",
+          "weapon_mod": "Mod. d'arme",
+          "armor_mod": "Mod. d'armure",
+          "accessory_electronics": "Accessoire électronique",
+          "visual_enhancement": "Amélioration visuel",
+          "audio_enhancement": "Amélioration auditive"
+        },
+        "label": {
+          "section": "Mods d'équipements",
+          "not_installed": "(pas installé)",
+          "uninstall": "Désinstaller ce mode d'équipement"
+        }
+      }
+    },
+    "Common": {
+      "FIELDS": {
+        "name": {
+          "label": "Nom"
+        },
+        "effects": {
+          "label": "Effets"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "rating": {
+          "label": "Indice"
+        },
+        "type": {
+          "label": "Type"
+        }
+      }
+    },
+    "label": {
+      "name": "Nom"
     }
   }
 }
