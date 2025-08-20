@@ -1013,6 +1013,7 @@ export class SR6Config {
 
         // ----------- Less used Actor Effects ----------- //
         system_dicePoolMod: game.i18n.format("shadowrun6.active_effect.dicePoolMod"),
+        system_badLuck: game.i18n.format("shadowrun6.active_effect.badLuck"),
 
         system_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.physical_monitor")}),
         system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor")}),
