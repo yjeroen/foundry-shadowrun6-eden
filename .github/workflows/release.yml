@@ -154,8 +154,8 @@ jobs:
         allowUpdates: true # Set this to false if you want to prevent updating existing releases
         name: ${{ env.TAG_NAME }}
         draft: false
-        prerelease: true
-        makeLatest: false
+        prerelease: false     # Set to true for beta release
+        # makeLatest: false   # Uncomment for beta release
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './${{ env.PACKAGE_TYPE }}.json, ./${{ env.ZIP_NAME }}'
         tag: ${{ env.TAG_NAME }}

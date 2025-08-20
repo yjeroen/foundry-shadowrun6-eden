@@ -7,7 +7,7 @@ export default [
     {
         version: "3.3.0",
         name: "Gear Mods, Active Effects & Grunt Groups!",
-        url: "https://www.patreon.com/DeepResonanceWare"
+        url: "https://www.patreon.com/posts/sixth-world-3-3-136839575?utm_medium=clipboard_copy&utm_source=foundry&utm_campaign=postshare_creator&utm_content=join_link"
     },
     {
         version: "3.2.1",
