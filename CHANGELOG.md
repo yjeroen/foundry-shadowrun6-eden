@@ -21,6 +21,8 @@
 - Add search by GenesisID to Item Compendiums
 - Prepare DataModel framework for Sprites and other Matrix Actors planned for 3.4.0 (#82)
 - Renamed "Adjust" to "Mod" in English translation on Actor Sheets
+- Add generic Dice Pool Modifier support to Active Effects (#137)
+- Add Bad Luck support for Active Effects
 - Add this.owner pointer to Vehicle type actor (dev)
 - New subString HandleBars helper (dev)
 - Update foundry verified compatibility to 13.347
@@ -29,6 +31,7 @@
 - Fix: Prevent NPC Statblock importer to be triggered when an input/text editor was selected
 - Fix attack ratings can be 0 when modified and are only "-" if base statline is 0
 - Fix: migrate any old ammo/price/dmg/AR values from strings to integers (#139)
+- Fix a ton of regression issues when implementing ActiveEffects & Gear Mods (special thanks to TheFokin for testing & reporting)
 - Fix collapsible sections - their open/closed state is no longer saved in DB - as it caused issues; On browser refresh they are closed again
 - Show SIN ratings in the SIN quality description (en)
 - Fix various localizations
