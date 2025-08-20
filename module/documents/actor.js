@@ -80,6 +80,7 @@ export default class Shadowrun6Actor extends Actor {
      */
     prepareBaseData() {
         this.system.dicePoolMod = 0;
+        this.system.badLuck = false;
     }
 
     /** @inheritDoc */

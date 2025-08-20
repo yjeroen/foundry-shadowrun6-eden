@@ -163,6 +163,7 @@ export default class SR6Roll extends Roll {
     _prepareChatMessage() {
         console.log("SR6E | _prepareChatMessage: create SR6ChatMessageData", this);
         this.finished = new SR6ChatMessageData(this.configured);
+        this.finished.badLuck = this.finished.actor.system.badLuck;
         this.finished.glitch = this.isGlitch();
         this.finished.criticalglitch = this.isCriticalGlitch();
         this.finished.success = this.isSuccess();
@@ -343,26 +344,31 @@ export default class SR6Roll extends Roll {
     /**
      * The number of glitches rolled.
      */
-    getGlitches() {
+    getGlitches(critGlitchCheck=false) {
         if (!this._evaluated || !this.results) {
             return NaN;
         }
-        return this.results.filter((die) => die.result === 1).length;
+        if (this.finished.badLuck && !critGlitchCheck) {
+            return this.results.filter((die) => (die.result === 1 || die.result === 2)).length;
+        } else {
+            return this.results.filter((die) => die.result === 1).length;
+        }
+
     }
     /**
      * Is this roll a regular (non-critical) glitch?
      */
-    isGlitch() {
+    isGlitch(critGlitchCheck=false) {
         if (!this._evaluated || !this.results) {
             return false;
         }
-        return this.getGlitches() > this.results.length / 2;
+        return this.getGlitches(critGlitchCheck) > this.results.length / 2;
     }
     /**
      * Is this roll a critical glitch?
      */
     isCriticalGlitch() {
-        return this.isGlitch() && this._total === 0;
+        return this.isGlitch(true) && this._total === 0;
     }
     isSuccess() {
         console.log("SR6E | SR6Roll.isSuccess for ", this);
