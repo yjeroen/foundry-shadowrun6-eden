@@ -482,8 +482,8 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _onFiringModeChange(event) {
-        const gruntGroup = this.actor.gruntGroup;
-        const useGruntGroup = (gruntGroup.id && document.getElementById("useGruntGroup")?.checked)
+        const gruntGroup = this.actor?.gruntGroup;
+        const useGruntGroup = (gruntGroup?.id && document.getElementById("useGruntGroup")?.checked)
         let prepared = this.options.prepared;
         let fireModeElement = document.getElementById("fireMode");
         if (!fireModeElement)
