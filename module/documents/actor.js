@@ -1517,14 +1517,15 @@ export default class Shadowrun6Actor extends Actor {
         // In the last row, if the last box is full the modifier is increased by one
         if (remain > 0 && monitor.max % 3 == remain)
             modifier++;
-        if (this.system.painTolerance === "high") modifier = Math.max(0, modifier - 1);
-        if (this.system.painTolerance === "low") modifier = Math.max(0, modifier * 2);
         return modifier;
     }
     //---------------------------------------------------------
     getWoundModifier() {
         const data = getSystemData(this);
         let woundModifier = this._getWoundModifierPerMonitor(data.physical) + this._getWoundModifierPerMonitor(data.stun);
+        // Add High Pain Tolerance and Low Pain Tolerance support
+        if (this.system.painTolerance === "high") woundModifier = Math.max(0, woundModifier - 1);
+        if (this.system.painTolerance === "low") woundModifier = Math.max(0, woundModifier * 2);
         /* Return the combined penalties from physical and stun damage */
         console.log("SR6E | Current Wound Penalties: " + woundModifier);
         return woundModifier;
