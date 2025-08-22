@@ -1,3 +1,12 @@
+## 3.3.1
+
+### System Improvements
+- Add High/Low Pain Tolerance support to active effects
+
+### Bug Fixes
+- Fix: Initiative dice rolls are  working again
+- Fix: Custom Dice Pool Roll button is working again
+
 ## 3.3.0
 
 ### System Improvements
