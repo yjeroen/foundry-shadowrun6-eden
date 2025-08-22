@@ -12,7 +12,7 @@ export default class Shadowrun6Combat extends Combat {
      * @private
      */
     _sortCombatants(a, b) {
-        console.log("SR6E | _sortCombatants");
+        // console.log("SR6E | _sortCombatants");
         let ia = Number.isNumeric(a.initiative) ? a.initiative : -9999;
         let ib = Number.isNumeric(b.initiative) ? b.initiative : -9999;
         if (!ia)

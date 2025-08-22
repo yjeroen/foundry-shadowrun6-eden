@@ -74,7 +74,7 @@ export default class Shadowrun6CombatTracker extends CombatTracker {
     /** Foundry V13 */
     async _prepareTurnContext(combat, combatant, index) {
         const turn = await super._prepareTurnContext(combat, combatant, index);
-        console.log("SR6E | SR6CombatTracker._prepareTurnContext", combatant, turn);
+        // console.log("SR6E | SR6CombatTracker._prepareTurnContext", combatant, turn);
         
         const iniType = combatant.getFlag("shadowrun6-eden", "iniType");
         turn.isPhysical = iniType == InitiativeType.PHYSICAL;
