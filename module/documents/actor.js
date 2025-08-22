@@ -81,6 +81,7 @@ export default class Shadowrun6Actor extends Actor {
     prepareBaseData() {
         this.system.dicePoolMod = 0;
         this.system.badLuck = false;
+        this.system.painTolerance = null;
     }
 
     /** @inheritDoc */
@@ -1516,6 +1517,8 @@ export default class Shadowrun6Actor extends Actor {
         // In the last row, if the last box is full the modifier is increased by one
         if (remain > 0 && monitor.max % 3 == remain)
             modifier++;
+        if (this.system.painTolerance === "high") modifier = Math.max(0, modifier - 1);
+        if (this.system.painTolerance === "low") modifier = Math.max(0, modifier * 2);
         return modifier;
     }
     //---------------------------------------------------------

@@ -1922,7 +1922,8 @@
       "stunOrPhysical": "Stun (true) or Physical (false) damage",
       "dicePoolMod": "Dice Pool Modifier",
       "wild": "Use Wild Die (set Override: true)",
-      "badLuck": "Bad Luck glitches (set Override: true)"
+      "badLuck": "Bad Luck glitches (set Override: true)",
+      "painTolerance": "Pain Tolerance (set Override: 'high' or 'low')"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",
