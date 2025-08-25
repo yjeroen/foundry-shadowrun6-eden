@@ -162,6 +162,7 @@ export default class SR6Roll extends Roll {
     //**********************************************
     _prepareChatMessage() {
         console.log("SR6E | _prepareChatMessage: create SR6ChatMessageData", this);
+        if (this.configured?.itemId) this.options.itemId = this.configured.itemId;  // Support for AA
         this.finished = new SR6ChatMessageData(this.configured);
         this.finished.badLuck = this.finished.actor?.system?.badLuck;
         this.finished.glitch = this.isGlitch();

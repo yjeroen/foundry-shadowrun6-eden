@@ -447,6 +447,7 @@ export class ConfiguredRoll extends CommonRollData {
     legwork;
     /* This methods is a horrible crime - there must be a better solution */
     updateSpecifics(copy) {
+        this.itemId = copy.itemId;
         this.targetIds = copy.targets;
         this.actionText = copy.actionText;
         this.attrib = copy.attrib;
