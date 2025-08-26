@@ -1733,7 +1733,7 @@
         },
         "wrong_import_file": "Cannot import a GENESIS or COMMLINK save file! Use the FoundryVTT JSON Export instead.",
         "statblock_import": {
-          "error": "Something went wrong importing the NPC Statblock. Use a different PDF reader or your PDF might not be supported.",
+          "error": "Something went wrong importing the NPC Statblock. Use a different PDF reader or your statblock might not be supported.",
           "success": "Your `{actor}` statblock was imported into the ",
           "actor_tab": "Actor tab.",
           "npc_compendium": "NPC Compendium."
