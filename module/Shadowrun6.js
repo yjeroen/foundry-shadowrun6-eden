@@ -684,6 +684,14 @@ Hooks.once("init", async function () {
         }
 
     });
+    /**
+     * If a token is created, change shape to circle Ellipse
+     */
+    Hooks.on("preCreateToken", (token, createData, options, userId) => {
+        token.updateSource({ 
+            shape: CONST.TOKEN_SHAPES.ELLIPSE_1
+        });
+    });
     Hooks.once("dragRuler.ready", (SpeedProvider) => {
         class FictionalGameSystemSpeedProvider extends SpeedProvider {
             get colors() {
