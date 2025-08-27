@@ -179,7 +179,7 @@
 	  }
 	 },
     "attack_rating": {
-      "astral": "Mana Attack Rating",
+      "astral": "Magic Attack Rating",
       "matrix": "Matrix Attack Rating",
       "physical": "Physical Attack Rating",
       "social": "Social Attack Rating",
@@ -222,7 +222,7 @@
     },
     "defense_rating": {
 	   "label":  "Defense Rating",
-      "astral": "Mana Defense Rating",
+      "astral": "Astral Defense Rating",
       "matrix": "Matrix Defense Rating",
       "physical": "Physical Defense Rating",
       "social": "Social Defense Rating",
