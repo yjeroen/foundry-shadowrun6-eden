@@ -5,16 +5,33 @@
 		<h2 class="fas fa-plus"></h2>
 	</a>
 </div>
-<table>
+<table class="item-list">
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'quality'}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input name="qualitiesName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
-			<td> <input name="qualitiesExplain{{id}}" type="text" value="{{item.system.explain}}" data-field="system.explain" class="secondary" placeholder="{{localize 'shadowrun6.label.details'}}" disabled></td>
-			<td><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
-					class="fas fa-edit"></i></a> <a class="item-control item-delete"
-				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-	   </tr>
+		<tr class="item list-item draggable" data-item-id="{{item.id}}">
+			<td style="margin-right: 1rem; width: 0.7em;">
+				{{#if item.system.description }}
+				<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
+				{{else}}
+				<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
+				{{/if}}
+			</td>
+			<td style="height:20px;"> {{item.name}}</td>
+			<td class="centered">
+				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+			</td>
+	   	</tr>
+       	<tr>
+			<td colspan="3">
+				<div class="collapsible-content closed" style="font-size: 0.8em;">
+					<div style="font-weight: bold;">{{ localize 'shadowrun6.qualityedit.explain' }}</div>
+					<div>{{{item.system.explain}}} &nbsp;</div>
+					<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+					<div>{{{item.enriched.description}}} &nbsp;</div>
+				</div>
+			</td>
+       	</tr>
 		{{/iff}}
 		{{/each}}
 </table>
