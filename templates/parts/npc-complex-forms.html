@@ -3,7 +3,7 @@
 <dd>
 	<!-- Complex forms -->
 	{{#each (itemsOfType actor.items 'complexform') as |item id|}} 
-      <label class="skill-key rollable spell-roll" data-skill="{{id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+      <label class="skill-key rollable spell-roll item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
    {{/each}}
 </dd>
 {{/if}}

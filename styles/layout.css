@@ -141,6 +141,8 @@ dt {
   float: left;
   font-weight: bold;
   margin-right: 0.5em;
+  color: #000;
+  text-shadow: 1px 1px #FFF;
 }
 dt::after {
   content: ": ";
@@ -656,4 +658,7 @@ li.folder > .folder-header .folder-name {
 .action-icon label {
   font-size: 14px;
   width: 14px;
+}
+.item-desc {
+  cursor: pointer;
 }

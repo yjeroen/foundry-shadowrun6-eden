@@ -266,6 +266,30 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 content.classList.toggle("closed");
                 content.classList.toggle("open");
             });
+            //Collapsible NPC item descriptions 
+            html.find(".item-desc").click(async (event) => {
+                const element = event.currentTarget;
+                const itemId = element.dataset.itemId;
+                const section = element.closest(".section");
+                const itemDescriptions = section.getElementsByClassName("collapsible-content");
+                let animationTimeout = 0;
+                for (const el of itemDescriptions) {
+                    if (el.dataset.itemId !== itemId && el.classList.contains("open")) {
+                        el.classList.remove("open");
+                        el.classList.add("closed");
+                        animationTimeout = 300;
+                    }
+                }
+                setTimeout(() => {
+                    for (const el of itemDescriptions) {
+                        if (el.dataset.itemId === itemId) {
+                            el.classList.toggle("open");
+                            el.classList.toggle("closed");
+                        }
+                    }
+                }, animationTimeout);
+                console.log('JEROEN', element, itemId, itemDescriptions);
+            });
             //Collapsible for lists
             html.find(".collapsible-skill").click((event) => {
                 const element = event.currentTarget;

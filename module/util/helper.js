@@ -92,6 +92,8 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("itemTypeInList", itemTypeInList);
     Handlebars.registerHelper("itemsOfType", itemsOfType);
     Handlebars.registerHelper("itemsOfGeartype", itemsOfGeartype);
+    Handlebars.registerHelper("itemsOfAugSubtype", itemsOfAugSubtype);
+    Handlebars.registerHelper("itemsOfGeartypeNoWeaponsOrAugs", itemsOfGeartypeNoWeaponsOrAugs);
     Handlebars.registerHelper("itemsOfWeapontype", itemsOfWeapontype);
     Handlebars.registerHelper("skillPointsNotZero", skillPointsNotZero);
     Handlebars.registerHelper("sr6_description", function (itemData, type) {
@@ -104,6 +106,7 @@ export const defineHandlebarHelper = async function () {
         return deHTML(name);
     });
 
+    Handlebars.unregisterHelper('log');
     Handlebars.registerHelper('log', function (...params) {
         const handlebarsContext = params.pop();
         const systemTag = 'SR6E | Handlebars line:' + handlebarsContext.loc.start.line + ' |';
@@ -228,13 +231,37 @@ function getActorData(obj) {
     return obj.data;
 }
 function itemsOfType(items, type) {
-    return items.filter((elem) => getActorData(elem).type == type);
+    return items.filter((elem) => getActorData(elem).type == type)
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
 }
 function itemsOfGeartype(items, geartype) {
-    return items.filter((elem) => getSystemData(elem).type == geartype);
+    return items.filter((elem) => getSystemData(elem).type == geartype)
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+}
+function itemsOfGeartypeNoWeaponsOrAugs(items) {
+    return items.filter((elem) => {
+        if (getSystemData(elem).type?.startsWith('WEAPON_')) return false;
+        else if (getSystemData(elem).type === 'BIOWARE') return false;
+        else if (getSystemData(elem).type === 'CYBERWARE') return false;
+        else if (elem.type === 'gear') return true;
+        else return false;
+    }).sort((a, b) => a.name.localeCompare(b.name))
+      .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+}
+function itemsOfAugSubtype(items) {
+    return items.filter((elem) => {
+        if (getSystemData(elem).type === 'BIOWARE') return true;
+        else if (getSystemData(elem).type === 'CYBERWARE') return true;
+        else return false;
+    }).sort((a, b) => a.name.localeCompare(b.name))
+      .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
 }
 function itemsOfWeapontype(items) {
-    return items.filter((elem) => getSystemData(elem).type?.startsWith('WEAPON_')).sort((a, b) => a.system?.type?.localeCompare(b.system?.type));;
+    return items.filter((elem) => getSystemData(elem).type?.startsWith('WEAPON_'))
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
 }
 function skillPointsNotZero(skills) {
     return Object.keys(skills)

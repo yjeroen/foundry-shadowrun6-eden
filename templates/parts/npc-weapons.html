@@ -2,7 +2,7 @@
 <dd>
 	<!-- Weapons -->
 	{{#each (itemsOfWeapontype actor.items) as |item id|}}
-		<label class="">{{item.name}} </label>
+		<label class="item-desc" data-item-id="{{item.id}}">{{item.name}} </label>
 		<a class="item-control weapon-roll" data-item-id="{{this.id}}" data-skill="{{item.system.skill}}" data-skillSpec="{{item.system.skillSpec}}" title="Roll"><i class="fas fa-dice-six"></i></a>{{#unless @last}},&nbsp;{{/unless}}
 	{{/each}}
 </dd>
