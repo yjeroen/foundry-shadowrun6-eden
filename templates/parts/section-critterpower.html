@@ -11,10 +11,10 @@
 	<thead>
 		<tr>
 			<th></th>
+			<th style="width: 1em"></th>
 			<th style="text-align:left">{{ localize 'shadowrun6.label.column.name' }}</th>
 			<th>{{ localize 'shadowrun6.section.spells.column.range' }}</th>
 			<th>{{ localize 'shadowrun6.section.spells.column.sustained' }}</th>
-			<th></th>
 			<th colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
 		</tr>
 	</thead>
@@ -28,16 +28,6 @@
 			<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
 			{{/if}}
 		</td>
-		<td style="height:20px;"> {{item.name}}</td>
-		<td class="centered"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
-		<td class="centered">
-			{{#iff item.system.duration '==' 'sustained'}}
-			<label class="switch" title='{{localize "shadowrun6.section.sustained.toggle"}}'>
-				<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
-				<span class="shadowrun6-slider round"></span>
-			</label>
-			{{/iff}}
-		</td>
 		<td class="action-icon">
 			{{#iff item.system.action '==' "major_action"}}
 				<label title="{{localize "shadowrun6.adeptpower.activation_major"}}">&#10687;</label>
@@ -47,6 +37,16 @@
 				{{else}}
 				<label title="{{localize "shadowrun6.adeptpower.activation_passive"}}">&#9675;</label>
 				{{/iff}}
+			{{/iff}}
+		</td>
+		<td style="height:20px;">{{item.name}}</td>
+		<td class="centered"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
+		<td class="centered">
+			{{#iff item.system.duration '==' 'sustained'}}
+			<label class="switch" title='{{localize "shadowrun6.section.sustained.toggle"}}'>
+				<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
+				<span class="shadowrun6-slider round"></span>
+			</label>
 			{{/iff}}
 		</td>
 		<td class="centered">
