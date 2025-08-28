@@ -243,7 +243,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 const property = element.dataset.property;
                 console.log("SR6E | Toggling ", property);
                 const item = this.actor.items.get(itemId);
-                console.log('JEROEN', itemId, property, foundry.utils.getProperty(item, property))
                 if (item)
                     await item.update({ [property]: !foundry.utils.getProperty(item, property) });
             });
