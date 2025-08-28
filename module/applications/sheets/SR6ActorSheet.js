@@ -288,7 +288,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                         }
                     }
                 }, animationTimeout);
-                console.log('JEROEN', element, itemId, itemDescriptions);
             });
             //Collapsible for lists
             html.find(".collapsible-skill").click((event) => {
