@@ -4,7 +4,7 @@
    	<div class="attribute" augmented-ui="b-clip-x exe">
       	<p>{{localize "attrib.mag" }}</p>
          <span>{{system.attributes.mag.pool}}</span>
-         <input name="magicAttributePool" type="hidden" data-dtype="Number" data-field="system.attributes.mag.pool" value="8" />
+         <input name="magicAttributePool" type="hidden" data-dtype="Number" data-field="system.attributes.mag.pool" value="{{system.attributes.mag.pool}}" />
          <div class="field {{id}}Changed">
             <label>{{localize 'shadowrun6.numerical.base'}}</label>
             <input name="magicAttributeBase" type="number" data-dtype="Number" data-field="system.attributes.mag.base" value="{{system.attributes.mag.base}}" placeholder="base" title="{{localize 'shadowrun6.numerical.baseString'}}" min="1" max="6" />
