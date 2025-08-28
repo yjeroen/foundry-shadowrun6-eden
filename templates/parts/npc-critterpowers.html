@@ -2,10 +2,25 @@
 <dt>{{ localize 'shadowrun6.section.critterpowers.title' }}</dt>
 <dd>
 	<!-- Powers -->
-	{{#each actor.items as |item id|}}
-      {{#iff item.type '==' 'critterpower'}}
-      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+	{{#each (itemsOfType actor.items 'critterpower' false) as |item id|}}
+      <span class="item-span">
+      {{#iff item.system.action '==' "major_action"}}
+         <label class="action-icon" title="{{localize "shadowrun6.adeptpower.activation_major"}}">&#10687;</label>
+      {{else}}
+         {{#iff item.system.action '==' "minor_action"}}
+         <label class="action-icon" title="{{localize "shadowrun6.adeptpower.activation_minor"}}">&#10686;</label>
+         {{else}}
+         <label class="action-icon" title="{{localize "shadowrun6.adeptpower.activation_passive"}}">&#9675;</label>
+         {{/iff}}
       {{/iff}}
+      {{#iff item.system.duration '==' 'sustained'}}
+      <a class='toggle-control' data-action='toggleSustain' title='{{localize "shadowrun6.effect.Toggle"}}'>
+         <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+      </a>
+      {{/iff}}
+      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
+      {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
+      </span>
    {{/each}}
 </dd>
 {{/if}}

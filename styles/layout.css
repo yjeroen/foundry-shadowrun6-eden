@@ -144,6 +144,52 @@ dt {
   color: #000;
   text-shadow: 1px 1px #FFF;
 }
+.shadowrun6.sheet dl dt {
+  margin: 0 0.5em 0 0;
+  line-height: 20px;
+  display: inline-block;
+  height: 20px;
+  font-size: 14.5px;
+}
+.shadowrun6.sheet dl dd {
+  margin: 4px 0;
+  font-size: 0; 
+}
+.shadowrun6.sheet dl dd .item-span {
+  font-size: 0; 
+}
+.shadowrun6.sheet dl dd > *,
+.shadowrun6.sheet dl dd .item-span > * {
+  margin: 0 0 0 0;
+  line-height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  height: 20px;
+  font-size: 14px;
+}
+.shadowrun6.sheet dl dd .item-control {
+  margin: 0 2px 0 4px;
+}
+.shadowrun6.sheet dl dd .skill-key {
+  margin-right: 4px;
+}
+.shadowrun6.sheet dl dd .action-icon {
+  margin-right: 2px;
+  color: purple;
+}
+body.game .shadowrun6.sheet .toggle-control {
+  margin-right: 2px;
+  padding-top: 1.7px;
+  color: #333;
+}
+body.game .shadowrun6.sheet .toggle-control.end {
+  margin-right: 0;
+  margin-left: 4px;
+}
+.shadowrun6.sheet .item-span {
+  white-space:nowrap;
+}
+
 dt::after {
   content: ": ";
 }

@@ -3,7 +3,8 @@
 <dd>
 	<!-- Adeptpowers -->
 	{{#each (itemsOfType actor.items 'adeptpower') as |item id|}} 
-      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
+      {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
    {{/each}}
 </dd>
 {{/if}}

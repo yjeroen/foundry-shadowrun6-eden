@@ -3,8 +3,11 @@
 <dd>
 	<!-- Complex forms -->
 	{{#each (itemsOfType actor.items 'complexform') as |item id|}} 
-      <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
-      <a class="item-control complexform-roll" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}" title="Roll"><i class="fas fa-dice-six"></i></a>{{#unless @last}},&nbsp;{{/unless}}
+      <span class="item-span">
+         <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
+         <a class="item-control complexform-roll" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+         {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
+      </span>
    {{/each}}
 </dd>
 {{/if}}

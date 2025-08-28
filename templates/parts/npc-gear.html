@@ -5,7 +5,8 @@
       <dt>{{ localize 'shadowrun6.section.gear.title' }}</dt>
       <dd>
       {{/if}}
-      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
+      {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
       {{#if @last}}
       </dd>
       {{/if}}

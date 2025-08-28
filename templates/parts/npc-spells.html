@@ -3,8 +3,16 @@
 <dd>
 	<!-- Spells skills -->
 	{{#each (itemsOfType actor.items 'spell') as |item id|}} 
-      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
-      <a class="item-control spell-roll"   data-item-id="{{item.id}}"  title="Roll"><i class="fas fa-dice-six"></i></a>{{#unless @last}},&nbsp;{{/unless}}
+      <span class="item-span">
+         <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
+         {{#iff item.system.duration '==' 'sustained'}}
+         <a class='toggle-control end' data-action='toggleSustain' title='{{localize "shadowrun6.effect.Toggle"}}'>
+            <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+         </a>
+         {{/iff}}
+         <a class="item-control spell-roll"   data-item-id="{{item.id}}"  title="Roll"><i class="fas fa-dice-six"></i></a>
+         {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
+      </span>
    {{/each}}
 </dd>
 {{/if}}

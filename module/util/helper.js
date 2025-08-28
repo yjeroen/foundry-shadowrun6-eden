@@ -230,10 +230,11 @@ function getActorData(obj) {
         return obj;
     return obj.data;
 }
-function itemsOfType(items, type) {
-    return items.filter((elem) => getActorData(elem).type == type)
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+function itemsOfType(items, type, sortOnSubtype = true) {
+    const filtered = items.filter((elem) => getActorData(elem).type == type)
+         .sort((a, b) => a.name.localeCompare(b.name));
+    if (filtered[0]?.system.type && sortOnSubtype) filtered.sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    return filtered;
 }
 function itemsOfGeartype(items, geartype) {
     return items.filter((elem) => getSystemData(elem).type == geartype)

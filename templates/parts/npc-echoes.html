@@ -3,7 +3,8 @@
 <dd>
 	<!-- Echo skills -->
 	{{#each (itemsOfType actor.items 'echo') as |item id|}} 
-      <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>{{#unless @last}},&nbsp;{{/unless}}
+      <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
+      {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
    {{/each}}
 </dd>
 {{/if}}
