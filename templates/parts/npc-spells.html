@@ -1,13 +1,13 @@
-{{#if (itemTypeInList actor.items 'spell')}}
-<dt>{{ localize 'shadowrun6.actor.spells' }}</dt>
+{{#if (itemTypeInList actor.items "spell")}}
+<dt>{{ localize "shadowrun6.actor.spells" }}</dt>
 <dd>
 	<!-- Spells skills -->
-	{{#each (itemsOfType actor.items 'spell') as |item id|}} 
+	{{#each (itemsOfType actor.items "spell") as |item id|}} 
       <span class="item-span">
-         <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
+         <label class="item item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
          {{#iff item.system.duration '==' 'sustained'}}
-         <a class='toggle-control end' data-action='toggleSustain' title='{{localize "shadowrun6.effect.Toggle"}}'>
-            <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+         <a class="toggle-control end" data-item-id="{{item.id}}" data-property="system.isSustained" title="{{localize "shadowrun6.section.sustained.toggle"}}">
+            <i class="fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}"></i>
          </a>
          {{/iff}}
          <a class="item-control spell-roll"   data-item-id="{{item.id}}"  title="Roll"><i class="fas fa-dice-six"></i></a>

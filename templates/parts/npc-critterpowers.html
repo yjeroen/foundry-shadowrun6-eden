@@ -14,7 +14,7 @@
          {{/iff}}
       {{/iff}}
       {{#iff item.system.duration '==' 'sustained'}}
-      <a class='toggle-control' data-action='toggleSustain' title='{{localize "shadowrun6.effect.Toggle"}}'>
+      <a class="toggle-control" data-item-id="{{item.id}}" data-property="system.isSustained" title="{{localize "shadowrun6.section.sustained.toggle"}}">
          <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
       </a>
       {{/iff}}

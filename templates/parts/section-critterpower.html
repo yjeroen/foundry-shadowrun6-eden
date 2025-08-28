@@ -32,9 +32,9 @@
 		<td class="centered"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
 		<td class="centered">
 			{{#iff item.system.duration '==' 'sustained'}}
-			<label class="switch">
+			<label class="switch" title='{{localize "shadowrun6.section.sustained.toggle"}}'>
 				<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
-					<span class="shadowrun6-slider round"></span>
+				<span class="shadowrun6-slider round"></span>
 			</label>
 			{{/iff}}
 		</td>

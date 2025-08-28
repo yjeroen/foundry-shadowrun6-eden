@@ -218,6 +218,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     await this.actor.update({ [field]: value });
                 }
             });
+            // Checkbox toggle
             html.find("[data-check]").click(async (event) => {
                 const element = event.currentTarget;
                 console.log("SR6E | Came here with checked=" + element.checked + "  and value=" + element.value);
@@ -234,6 +235,17 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     console.log("SR6E | Update actor field " + field + " with " + value);
                     await this.actor.update({ [field]: value });
                 }
+            });
+            // Toggle 
+            html.find(".toggle-control").click(async (event) => {
+                const element = event.currentTarget;
+                const itemId = element.dataset.itemId;
+                const property = element.dataset.property;
+                console.log("SR6E | Toggling ", property);
+                const item = this.actor.items.get(itemId);
+                console.log('JEROEN', itemId, property, foundry.utils.getProperty(item, property))
+                if (item)
+                    await item.update({ [property]: !foundry.utils.getProperty(item, property) });
             });
             //Collapsible
             html.find(".collapsible").click(async (event) => {

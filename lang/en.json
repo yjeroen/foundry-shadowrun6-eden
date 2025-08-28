@@ -1352,7 +1352,8 @@
       },
       "sustained": {
         "add": "Add new spell",
-        "title": "Sustained Spells"
+        "title": "Sustained Spells",
+        "toggle": "Toggle Sustaining this"
       },
 		"survival": "Survival",
       "vehicles": {
