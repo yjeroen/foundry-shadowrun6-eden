@@ -92,6 +92,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("itemTypeInList", itemTypeInList);
     Handlebars.registerHelper("itemsOfType", itemsOfType);
     Handlebars.registerHelper("itemsOfGeartype", itemsOfGeartype);
+    Handlebars.registerHelper("itemsOfWeapontype", itemsOfWeapontype);
     Handlebars.registerHelper("skillPointsNotZero", skillPointsNotZero);
     Handlebars.registerHelper("sr6_description", function (itemData, type) {
         let fallback = itemData.description;
@@ -231,6 +232,9 @@ function itemsOfType(items, type) {
 }
 function itemsOfGeartype(items, geartype) {
     return items.filter((elem) => getSystemData(elem).type == geartype);
+}
+function itemsOfWeapontype(items) {
+    return items.filter((elem) => getSystemData(elem).type?.startsWith('WEAPON_')).sort((a, b) => a.system?.type?.localeCompare(b.system?.type));;
 }
 function skillPointsNotZero(skills) {
     return Object.keys(skills)
