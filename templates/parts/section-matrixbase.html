@@ -36,7 +36,10 @@
 			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.firewall.short' }}</div>
 		</div>
 		<div class="matrix-persona-attributes" >
-			<div style="order: 1; flex-grow: 3; width: 6em;" class="collapsible">{{ localize 'section.attributes' }}</div>
+			<div style="order: 1; flex-grow: 3; width: 6em; text-align: left">
+				<button type="button" class="collapsible closed">+</button>
+				<label>{{ localize 'section.attributes' }}</label>
+			</div>
 			<div style="order: 2; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedA" class="box" data-field="system.persona.used.a" type="text" value="{{system.persona.used.a}}" data-dtype="Number" disabled></div>
 			<div style="order: 3; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedS" class="box" data-field="system.persona.used.s" type="text" value="{{system.persona.used.s}}" data-dtype="Number" disabled></div>
 			<div style="order: 4; flex-grow: 1;" class="matrix-attribute"><input name="matrixPersonaUsedD" class="box" data-field="system.persona.used.d" type="text" value="{{system.persona.used.d}}" data-dtype="Number" disabled></div>

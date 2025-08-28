@@ -243,7 +243,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
                 if (!item) {
                     //matrix actions collapsible
-                    const content = element.parentElement.nextElementSibling;
+                    element.classList.toggle("closed");
+                    element.classList.toggle("open");
+                    const content = element.parentElement.parentElement.nextElementSibling;
                     content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
                     content.classList.toggle("closed");
                     content.classList.toggle("open");

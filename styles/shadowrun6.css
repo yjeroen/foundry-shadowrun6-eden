@@ -700,20 +700,11 @@ a.item-control.disabled-roll:hover {
   width: 2em;
 }
 #section-matrixbase .collapsible-content { padding: 0; }
-.matrix-persona-attributes .collapsible, .matrix-section .collapsible label {
-  position: relative;
+
+.matrix-persona-attributes .collapsible {
+  color: gray;
 }
-.matrix-persona-attributes .collapsible:hover:after {
-  position: absolute;
-  left: 1px;
-  content : "\25BC";
-  color: lightgray;
-}
-.matrix-section .collapsible label:hover:after {
-  position: absolute;
-  content : "\25BC";
-  color: lightgray;
-}
+
 
 .chat-message .edgeable.edge-own-roll .die.miss,
 .chat-message .edgeable.edge-opponent-roll .die.hit {
