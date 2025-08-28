@@ -467,6 +467,9 @@ export default class Shadowrun6Actor extends Actor {
             system.stun.value = 0;
             system.stun.dmg = 0;
             system.stun.mod = 0;
+
+            system.tradition = {};
+            system.tradition.attribute = (system.attributes.int.mod > system.attributes.cha.mod) ? 'int' : 'cha';
         }
     }
     //---------------------------------------------------------
