@@ -61,7 +61,9 @@
 				<!-- TODO rework #select -->
             	{{#select attackRating}}
             	{{#each data.calcAttackRating as |rating id|}}
+					{{#iff rating '>' -1}}
             		<option value="{{rating}}" data-item-ar="{{rating}}" data-distance="{{id}}" name="{{id}}">{{localize (concat "shadowrun6.roll.ar_" id)}} - ({{rating}})</option>
+					{{/iff}}
             	{{/each}}
             	{{/select}}
         		</select> 
