@@ -158,7 +158,7 @@ Hooks.once("init", async function () {
     SR6Keybindings.initialize();
 
     preloadHandlebarsTemplates();
-    defineHandlebarHelper();
+    
 
     $('#pause img').attr('class', 'fa-beat-fade');
 
@@ -265,6 +265,8 @@ Hooks.once("init", async function () {
     });
 
     Hooks.on("ready", async () => {
+        defineHandlebarHelper();
+        
         // Reassign CONFIG so translations are run
         game.sr6.config = CONFIG.SR6 = new SR6Config();
         migrateWorld();
