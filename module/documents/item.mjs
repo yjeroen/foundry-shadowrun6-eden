@@ -175,7 +175,7 @@ export default class SR6Item extends Item {
   }
 
   calcAttackRating() {
-    if (this.system.attackRating === undefined) return;
+    if (this.system.attackRating === undefined || !this.actor) return;
 
     this.calculated.attackRating = foundry.utils.deepClone(this.system.attackRating);
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling" || this.system.skillSpec === "whips") {
@@ -198,7 +198,7 @@ export default class SR6Item extends Item {
   }
 
   calcDamage() {
-    if (this.system?.dmg === undefined) return;
+    if (this.system?.dmg === undefined || !this.actor) return;
 
     this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
