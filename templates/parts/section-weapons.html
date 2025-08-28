@@ -7,7 +7,7 @@
         {{#each actor.items as |item id|}}
         {{#if (eq item.type 'gear')}}
         {{#if (or (eq item.system.type "WEAPON_FIREARMS") (eq item.system.type "WEAPON_RANGED"))}}
-        <tr class="item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
+        <tr class="item" data-item-id="{{this.id}}">
             <td style="margin-right: 1rem; width: 5%">
                 <button type="button" name="collapseWeapon{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
             </td>
