@@ -649,3 +649,11 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 li.folder > .folder-header .folder-name {
   font-weight: 700;
 }
+.action-icon {
+  text-align: center;
+  font-family: "Segoe UI", systemm-ui, -apple-system, Arial, Verdana, sans-serif;
+}
+.action-icon label {
+  font-size: 14px;
+  width: 14px;
+}

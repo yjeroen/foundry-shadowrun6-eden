@@ -1,47 +1,68 @@
-<div class="section" style="display: inline-block; width:100%; min-width: 394px;">
+<div class="section" style="display: inline-block; width:98%; min-width: 394px;">
  <div class="section-head">
 	<h2 class="section-title">{{ localize 'shadowrun6.section.critterpowers.title' }}</h2>
 	<a class="item-control critterpower-create" title="{{localize 'shadowrun6.section.critterpowers.add' }}">
 		<h2 class="fas fa-plus"></h2>
 	</a>
 </div>
-<table>
-	    <thead>
-	      <tr>
-	        <th></th>
-	        <th style="text-align:left">{{ localize 'shadowrun6.label.column.name' }}</th>
-	        <th>{{ localize 'shadowrun6.section.spells.column.range' }}</th>
+
+
+<table class="item-list">
+	<thead>
+		<tr>
+			<th></th>
+			<th style="text-align:left">{{ localize 'shadowrun6.label.column.name' }}</th>
+			<th>{{ localize 'shadowrun6.section.spells.column.range' }}</th>
 			<th>{{ localize 'shadowrun6.section.spells.column.sustained' }}</th>
-	        <th colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
-	      </tr>
-	    </thead>
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'critterpower'}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
-      	<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
-			<td> <input name="system.name" class="draggable" data-uuid="{{item.uuid}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
-			<td class="centered" style="width: 3em"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
-			<td class="centered">
-				{{#iff item.system.duration '==' 'sustained'}}
-				<label class="switch">
-					<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
-						<span class="shadowrun6-slider round"></span>
-				</label>
+			<th></th>
+			<th colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
+		</tr>
+	</thead>
+	{{#each actor.items as |item id|}}
+	{{#iff item.type '==' 'critterpower'}}
+	<tr class="item list-item draggable" data-item-id="{{item.id}}">
+		<td style="margin-right: 1rem; width: 0.7em;">
+			{{#if item.system.description }}
+			<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
+			{{else}}
+			<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
+			{{/if}}
+		</td>
+		<td style="height:20px;"> {{item.name}}</td>
+		<td class="centered"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
+		<td class="centered">
+			{{#iff item.system.duration '==' 'sustained'}}
+			<label class="switch">
+				<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
+					<span class="shadowrun6-slider round"></span>
+			</label>
+			{{/iff}}
+		</td>
+		<td class="action-icon">
+			{{#iff item.system.action '==' "major_action"}}
+				<label title="{{localize "shadowrun6.adeptpower.activation_major"}}">&#10687;</label>
+			{{else}}
+				{{#iff item.system.action '==' "minor_action"}}
+				<label title="{{localize "shadowrun6.adeptpower.activation_minor"}}">&#10686;</label>
+				{{else}}
+				<label title="{{localize "shadowrun6.adeptpower.activation_passive"}}">&#9675;</label>
 				{{/iff}}
-			</td>
-			<td class="centered" style="text-wrap: nowrap;">
-				{{!-- <a class="item-control critterpower-roll" data-type="Roll" data-uuid="{{item.uuid}" data-item-id="{{item.id}" title="Roll"><i class="fas fa-dice-six"></i></a> --}}
-				<a class="item-control item-edit"   title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
-				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-	   </tr>
-       <tr>
-         <td colspan="6">
-         	<div class="collapsible-content closed">
-        	   {{ localize 'shadowrun6.actor.nav.description' }}: {{system.description}}
-         	</div>
-         </td>
-       </tr>
-		{{/iff}}
-		{{/each}}
+			{{/iff}}
+		</td>
+		<td class="centered">
+			<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+			<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6">
+			<div class="collapsible-content closed" style="font-size: 0.8em;">
+				<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+				<div>{{{item.enriched.description}}} &nbsp;</div>
+			</div>
+		</td>
+	</tr>
+	{{/iff}}
+	{{/each}}
 </table>
 </div>

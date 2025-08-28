@@ -65,7 +65,7 @@
 		   		{{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
 				{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
 				{{#if (or (eq actor.type 'Critter') (eq actor.type 'Spirit'))}}
-					{{> "systems/shadowrun6-eden/templates/parts/section-critterpower.html" }}
+					{{!-- {{> "systems/shadowrun6-eden/templates/parts/section-critterpower.html" }} --}}
 				{{else}}
 		   			{{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
 				{{/if}}
