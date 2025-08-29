@@ -429,6 +429,14 @@
 						"s": 0,
 						"d": 0,
 						"f": 0
+					},
+					"monitor": {
+						"base": 0,
+						"mod": 0,
+						"modString": "",
+						"value": 0,
+						"dmg": 0,
+						"max": 0
 					}
 				}
 			}
