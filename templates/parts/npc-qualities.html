@@ -1,0 +1,10 @@
+{{#if (itemTypeInList actor.items 'quality')}}
+<dt>{{ localize 'shadowrun6.section.qualities' }}</dt>
+<dd>
+	<!-- Echo skills -->
+	{{#each (itemsOfType actor.items 'quality') as |item id|}} 
+      <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
+      {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
+   {{/each}}
+</dd>
+{{/if}}

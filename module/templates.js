@@ -39,6 +39,7 @@ export const preloadHandlebarsTemplates = async function () {
         "systems/shadowrun6-eden/templates/parts/npc-item-descriptions.html",
         "systems/shadowrun6-eden/templates/parts/npc-metamagics.html",
         "systems/shadowrun6-eden/templates/parts/npc-powers.html",
+        "systems/shadowrun6-eden/templates/parts/npc-qualities.html",
         "systems/shadowrun6-eden/templates/parts/npc-skills.html",
         "systems/shadowrun6-eden/templates/parts/npc-spells.html",
         "systems/shadowrun6-eden/templates/parts/npc-echoes.html",
