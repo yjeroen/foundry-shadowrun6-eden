@@ -7,6 +7,7 @@ import Shadowrun6Combat from "./Shadowrun6Combat.js";
 import { SR6Config } from "./config.js";
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { defineHandlebarHelper } from "./util/helper.js";
+import { redefineHandlebarLog } from "./util/helper.js";
 import { PreparedRoll, RollType } from "./dice/RollTypes.js";
 import { doRoll } from "./Rolls.js";
 import { SYSTEM_NAME } from "./constants.js";
@@ -56,6 +57,7 @@ Hooks.once("init", async function () {
     game.sr6.sockets = new SR6SocketHandler();
     game.sr6.releaseNotes = releaseNotes;
     registerSystemSettings();
+    defineHandlebarHelper();
 
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
@@ -261,7 +263,7 @@ Hooks.once("init", async function () {
     });
 
     Hooks.on("ready", async () => {
-        defineHandlebarHelper();
+        redefineHandlebarLog();
         
         // Reassign CONFIG so translations are run
         game.sr6.config = CONFIG.SR6 = new SR6Config();   

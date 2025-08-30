@@ -31,6 +31,14 @@ export function fireModesToString(val) {
         list.push(game.i18n.localize("shadowrun6.item.mode_fa"));
     return list.join(', ');
 }
+export const redefineHandlebarLog = async function () {
+    Handlebars.unregisterHelper('log');
+    Handlebars.registerHelper('log', function (...params) {
+        const handlebarsContext = params.pop();
+        const systemTag = 'SR6E | Handlebars line:' + handlebarsContext.loc.start.line + ' |';
+        return console.log(systemTag, ...params);
+    });
+}
 export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("attackrating", function (val) {
         if (!val)
@@ -104,13 +112,6 @@ export const defineHandlebarHelper = async function () {
             return fallback;
         }
         return deHTML(name);
-    });
-
-    Handlebars.unregisterHelper('log');
-    Handlebars.registerHelper('log', function (...params) {
-        const handlebarsContext = params.pop();
-        const systemTag = 'SR6E | Handlebars line:' + handlebarsContext.loc.start.line + ' |';
-        return console.log(systemTag, ...params);
     });
 
     Handlebars.registerHelper('subString', function(passedString, startstring, endstring) {
