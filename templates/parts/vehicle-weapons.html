@@ -15,9 +15,9 @@
          <td><label class="middle-column" >{{{attackrating item.system.attackRating}}}</label></td>
 		 <td style="width: 20%; text-align: right; vertical-align: middle">
 			<label class="middle-column">
-				<input name="{{id}}Ammocount" type="text" value="{{item.system.ammocount}}" data-field="system.ammocount" style="width: 1.5em; text-align: center"/> / {{item.system.ammocap}}
+				{{item.system.ammocount}} / {{item.system.ammocap}}
 			</label>
-			<a class="item-control reload-weapon" data-skill="" data-item-id="{{this.id}}" title=""><i class="fas fa-rotate-right"></i></a>
+			<a class="item-control weapon-ammo-reload" data-item-uuid="{{this.uuid}}" title=""><i class="fas fa-rotate-right"></i></a>
 		</td>
          <td class="skill-pool" style="width: 3em">
          	<label class="item-pool" data-skill="engineering" data-skillspec="gunnery">{{item.system.pool}}</label>
