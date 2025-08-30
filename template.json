@@ -524,7 +524,7 @@
 			"pil": 0,
 			"sen": 0,
 			"sea": 0,
-			"vtype": "",
+			"vtype": "ground_craft",
 			"vehicle": {
 				"belongs": "",
 				"opMode": "manual",

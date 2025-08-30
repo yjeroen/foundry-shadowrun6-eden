@@ -74,6 +74,15 @@ export default class Shadowrun6Actor extends Actor {
         return { img: src, texture: { src } };
     }
 
+    /** @inheritDoc */
+    static migrateData(source) {
+        if (source.type === 'Vehicle') {
+            if (source.system?.vtype === "") source.system.vtype = "ground_craft";
+        }
+
+        return super.migrateData(source);
+    }
+
     /**
      * Prepare data related to this Document itself, before any embedded Documents or derived data is computed.
      * @memberof ClientDocumentMixin#
