@@ -12,7 +12,7 @@
        <tr class="item" data-item-id="{{this.id}}"  title="{{item.system.description}}">
        	<td style="margin-right: 1rem"><button type="button" class="collapsible closed" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
          <td><label class="middle-column important-column">{{item.system.dmgDef}}</label></td>
-         <td><label class="middle-column" >{{{attackrating item.system.attackRating}}}</label></td>
+         <td><label class="middle-column" >{{{attackrating item.calculated.attackRating}}}</label></td>
 		 <td style="width: 20%; text-align: right; vertical-align: middle">
 			<label class="middle-column">
 				{{item.system.ammocount}} / {{item.system.ammocap}}
