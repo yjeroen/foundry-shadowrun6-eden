@@ -61,10 +61,6 @@ Hooks.once("init", async function () {
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
     CONFIG.Dice.rolls = [SR6Roll];
-
-    if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
-        CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
-    }
     
     CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));
     if ( !game.settings.get(SYSTEM_NAME, "bleeding") ) {
@@ -268,7 +264,10 @@ Hooks.once("init", async function () {
         defineHandlebarHelper();
         
         // Reassign CONFIG so translations are run
-        game.sr6.config = CONFIG.SR6 = new SR6Config();
+        game.sr6.config = CONFIG.SR6 = new SR6Config();   
+        if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
+            CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
+        }
         migrateWorld();
         game.sr6.releaseNotes();
 
