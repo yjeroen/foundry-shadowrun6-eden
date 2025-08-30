@@ -40,7 +40,7 @@ export default class SR6ModItemData extends SR6BaseItemData {
     // }
 
     get installedIn() {
-        if (!this.embeddedInUuid) return undefined;
+        if (!this.embeddedInUuid || !this.actor) return undefined;
         const parsed = foundry.utils.parseUuid(this.embeddedInUuid);
         return this.actor.items.get(parsed.id);
     }
