@@ -21,7 +21,7 @@ export default class SR6Item extends Item {
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
     this._migrateCleanUp();
-    console.log("SR6E | SR6Item.prepareData()");
+    // console.log("SR6E | SR6Item.prepareData() DEBUG", this);
 
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     if (this.actor?.type === "Spirit") {
@@ -313,7 +313,7 @@ export default class SR6Item extends Item {
    * Enable Active Effects on Item
    */
   prepareEmbeddedDocuments() {
-    console.log("SR6E | SR6Item.prepareEmbeddedDocuments()", this.uuid, this.name);
+    // console.log("SR6E | SR6Item.prepareEmbeddedDocuments() DEBUG", this.uuid, this.name);
     super.prepareEmbeddedDocuments();
     if ( this.actor && this.actor._embeddedPreparation ) this.applyActiveEffects();
   }
