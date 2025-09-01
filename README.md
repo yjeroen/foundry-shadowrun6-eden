@@ -37,7 +37,7 @@ For friendly discussion and questions, you can reach out on the original [Genesi
 _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skills, you can take ownership of one of the feature requests by replying on it (to let people know you work on this) and become a collaborator! See: [How to Contribute to an Open Source Project on GitHub](https://kcd.im/pull-request)
 
 ## System Screenshots
-> The character sheet now has an updated monitor experience! If you click on the coloured boxes, you get that much damage, and when you click on a white box you get healed unto that box. Stun overflow goes to Physical, and Physical into your Overflow. _In simple terms, don't get fragged._
+> The character sheet has a clickable monitor experience! If you click on the coloured boxes, you get that much damage, and when you click on a white box you get healed unto that box. Stun overflow goes to Physical, and Physical into your Overflow. _In simple terms, don't get fragged._
 
 ![FoundryVTT Shadowrun6 Monitor](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-monitors.gif?raw=true)
 
@@ -49,11 +49,11 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Edge Boosts](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-edge-boosts.gif?raw=true)
 
-> You can **still import** your RPGFramework [GENESIS](https://www.rpgframework.de/en/roleplaying/shadowrun-6/) and [Commlink6](https://www.rpgframework.de/en/2022/10/07/commlink-6/) characters! Print to `Shadowrun 6 Foundry Export`, and in FoundryVTT right click on your actor and choose `Import Data`. In the v3 system, your character sheet has been updated with a bunch of small improvements.
+> You can **still import** your RPGFramework [GENESIS](https://www.rpgframework.de/en/roleplaying/shadowrun-6/) and [Commlink6](https://www.rpgframework.de/en/2022/10/07/commlink-6/) characters! Print to `Shadowrun 6 Foundry Export`, and in FoundryVTT right click on your actor and choose `Import Data`. 
 
 ![FoundryVTT Shadowrun6 Sheet](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-v3-screenshot-sheet.webp?raw=true)
 
-> The system is updated with a new UX style. And we've got automated Attack Rating & Edge calculation, attack rolls with firemode and range, defense rolls, drain rolls, soak rolls!
+> Chummer, you're gonna like this! We've got automated Attack Rating & Edge calculation, attack rolls with firemode and range, defense rolls, drain rolls, soak rolls!
 
 ![FoundryVTT Shadowrun6 Scene](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-v3-screenshot-scene.webp?raw=true)
 
@@ -91,7 +91,7 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 > In the top left within the Controls, there's a control button to create a custom dice pool.
 
-![FoundryVTT Shadowrun6 Custom Dice Pool](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-custom-dicepool.webp)
+![FoundryVTT Shadowrun6 Custom Dice Pool](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-custom-dicepool.webp?raw=true)
 
 ## Patch Notes
 
