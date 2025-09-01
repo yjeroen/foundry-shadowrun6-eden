@@ -6,7 +6,7 @@ export default class Shadowrun6Combatant extends Combatant {
         await super._preCreate(data, options, user);
         console.log("SR6E | Shadowrun6Combatant.preCreate");
       
-        return this.updateSource({ 'flags.shadowrun6-eden.iniType': InitiativeType.PHYSICAL });
+        return this.updateSource({ 'flags.shadowrun6-eden.iniType': this.actor?.system?.initiative?.default ?? InitiativeType.PHYSICAL });
       }
 
     get initiativeType() {
