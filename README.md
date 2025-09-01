@@ -89,6 +89,10 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Grunt Group](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-grunt-groups.gif?raw=true)
 
+> In the top left within the Controls, there's a control button to create a custom dice pool.
+
+![FoundryVTT Shadowrun6 Custom Dice Pool](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-custom-dicepool.webp)
+
 ## Patch Notes
 
 See [CHANGELOG](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/CHANGELOG.md)
