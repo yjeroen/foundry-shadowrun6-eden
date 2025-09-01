@@ -4,7 +4,7 @@ import { Defense, MonitorType } from "../config.js";
 import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "../ItemTypes.js";
 //import { doRoll } from "./dice/CommonRoll.js";
 import { doRoll } from "../Rolls.js";
-import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData } from "../dice/RollTypes.js";
+import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType } from "../dice/RollTypes.js";
 import { getActor } from "../util/helper.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
@@ -1192,7 +1192,7 @@ export default class Shadowrun6Actor extends Actor {
         // Prepare skills for first use
         if(!vehicleSystem.initiative)
             vehicleSystem.initiative = { 
-                physical: new Initiative()
+                matrix: new Initiative()
             };
 
         if (!vehicleSystem.skills)
@@ -1215,15 +1215,16 @@ export default class Shadowrun6Actor extends Actor {
         
         switch (vehicleSystem.vehicle.opMode) {
             case VehicleOpMode.AUTONOMOUS:
-                vehicleSystem.initiative.physical.base = vehicleSystem.pil * 2;
-                if(isNaN(vehicleSystem.initiative.physical.mod))
-                    vehicleSystem.initiative.physical.mod = 0
-                vehicleSystem.initiative.physical.pool = vehicleSystem.initiative.physical.base + vehicleSystem.initiative.physical.mod;
+                vehicleSystem.initiative.default = InitiativeType.MATRIX;
+                vehicleSystem.initiative.matrix.base = vehicleSystem.pil * 2;
+                if(isNaN(vehicleSystem.initiative.matrix.mod))
+                    vehicleSystem.initiative.matrix.mod = 0
+                vehicleSystem.initiative.matrix.pool = vehicleSystem.initiative.matrix.base + vehicleSystem.initiative.matrix.mod;
 
-                vehicleSystem.initiative.physical.dice = 3;
-                if(isNaN(vehicleSystem.initiative.physical.diceMod))
-                    vehicleSystem.initiative.physical.diceMod = 0
-                vehicleSystem.initiative.physical.dicePool = vehicleSystem.initiative.physical.dice + vehicleSystem.initiative.physical.diceMod;
+                vehicleSystem.initiative.matrix.dice = 3;
+                if(isNaN(vehicleSystem.initiative.matrix.diceMod))
+                    vehicleSystem.initiative.matrix.diceMod = 0
+                vehicleSystem.initiative.matrix.dicePool = vehicleSystem.initiative.matrix.dice + vehicleSystem.initiative.matrix.diceMod;
 
                 const maneuverRating = this.getHighestAutosoftRating(this.items, "MANEUVER");
 
@@ -1254,6 +1255,7 @@ export default class Shadowrun6Actor extends Actor {
             case VehicleOpMode.MANUAL:
             case VehicleOpMode.RIGGED_AR:
             case VehicleOpMode.RIGGED_VR:
+                vehicleSystem.initiative.default = InitiativeType.MATRIX;
                 // Get owner actor
                 let owner = undefined;
                 if (vehicleSystem.vehicle.belongs) {
@@ -1296,15 +1298,15 @@ export default class Shadowrun6Actor extends Actor {
                     }
                 };
 
-                vehicleSystem.initiative.physical.base = opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] + opModeDependingValues.initiativeBase[vehicleSystem.vehicle.opMode];
-                if(isNaN(vehicleSystem.initiative.physical.mod))
-                    vehicleSystem.initiative.physical.mod = 0
-                vehicleSystem.initiative.physical.pool = vehicleSystem.initiative.physical.base + vehicleSystem.initiative.physical.mod;
+                vehicleSystem.initiative.matrix.base = opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] + opModeDependingValues.initiativeBase[vehicleSystem.vehicle.opMode];
+                if(isNaN(vehicleSystem.initiative.matrix.mod))
+                    vehicleSystem.initiative.matrix.mod = 0
+                vehicleSystem.initiative.matrix.pool = vehicleSystem.initiative.matrix.base + vehicleSystem.initiative.matrix.mod;
                 
-                vehicleSystem.initiative.physical.dice = opModeDependingValues.initiativeDicePool[vehicleSystem.vehicle.opMode];
-                if(isNaN(vehicleSystem.initiative.physical.diceMod))
-                    vehicleSystem.initiative.physical.diceMod = 0
-                vehicleSystem.initiative.physical.dicePool = vehicleSystem.initiative.physical.dice + vehicleSystem.initiative.physical.diceMod;
+                vehicleSystem.initiative.matrix.dice = opModeDependingValues.initiativeDicePool[vehicleSystem.vehicle.opMode];
+                if(isNaN(vehicleSystem.initiative.matrix.diceMod))
+                    vehicleSystem.initiative.matrix.diceMod = 0
+                vehicleSystem.initiative.matrix.dicePool = vehicleSystem.initiative.matrix.dice + vehicleSystem.initiative.matrix.diceMod;
 
                 vehicleSystem.ar.points = ownerPilotingPointsSpecialized + vehicleSystem.sen;
                 vehicleSystem.ar.pool = vehicleSystem.ar.points + vehicleSystem.ar.mod;
