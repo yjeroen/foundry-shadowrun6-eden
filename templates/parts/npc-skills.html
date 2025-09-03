@@ -8,16 +8,12 @@
       <label style="font-weight: bold">{{skill.pool}}</label>
       <a class="item-control skill-roll" data-skill="{{id}}" title="Roll"><i class="fas fa-dice-six"></i></a>
       {{#if skill.specialization}}
-         ({{localize (concat (concat (concat "shadowrun6.special." id ) ".") skill.specialization) }}
-         <label  style="font-weight: bold">+2</label>
-         <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>
-         )
+         <label class="skill-spec">({{localize (concat (concat (concat "shadowrun6.special." id) ".") skill.specialization) }}
+         <label style="font-weight: bold">+2</label><a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>)</label>
       {{/if}}
       {{#if skill.expertise}}
-         ({{localize (concat (concat (concat "shadowrun6.special." id ) ".") skill.expertise) }}
-         <label style="font-weight: bold">+3</label>
-         <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.expertise}}" title="Roll"><i class="fas fa-dice-six"></i></a>
-         )
+         <label class="skill-exp">({{localize (concat (concat (concat "shadowrun6.special." id ) ".") skill.expertise) }}
+         <label style="font-weight: bold">+3</label><a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.expertise}}" title="Roll"><i class="fas fa-dice-six"></i></a>)</label>
       {{/if}}
       {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
       </span>
