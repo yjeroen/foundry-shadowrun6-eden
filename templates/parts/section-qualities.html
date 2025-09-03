@@ -8,7 +8,7 @@
 <table class="item-list">
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'quality'}}
-		<tr class="item list-item draggable" data-item-id="{{item.id}}">
+		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
 			<td style="margin-right: 1rem; width: 0.7em;">
 				{{#if item.system.description }}
 				<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
