@@ -151,6 +151,7 @@ Hooks.once("init", async function () {
     if (game.release.generation >= 13) {
         document.body.classList.add('foundry-modern');
     }
+    utils.loadI18nCss();
 
     // Add System specific keybindings
     SR6Keybindings.initialize();

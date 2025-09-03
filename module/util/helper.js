@@ -6,6 +6,23 @@ function deHTML(html) {
     html = html.replace(/<b>(.*?)<\/b>/gi, " $1");
     return html;
 }
+export function systemBasePath() {
+    const routePrefix = globalThis.ROUTE_PREFIX?.replace(/(^[/]+)|([/]+$)/g, "");
+    const basePath = routePrefix ? `${window.location.origin}/${routePrefix}` : window.location.origin;
+    return `${basePath}/systems/${game.system.id}/`;
+}
+export function loadCSS(url) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    document.head.appendChild(link);
+}
+export function loadI18nCss() {
+    const langFlags = game.system.languages.find( obj => obj.lang === game.i18n.lang ).flags;
+    if (langFlags.style) {
+        loadCSS(`${systemBasePath()}${langFlags.style}`);
+    }
+}
 export function attackRatingToString(val) {
     if (!val)
         return "NULL";
