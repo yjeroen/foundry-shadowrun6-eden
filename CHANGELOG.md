@@ -1,3 +1,50 @@
+## 3.3.2
+
+### System Improvements
+- Improve NPC/Critter/Spirit Read Only sheets
+- Add Effects section also to all NPC/Critter/Spirit/Vehicles type of Actors
+- Add Sustain toggle to NPC read only sheets for Spells and Critter Powers
+- Improve CritterPower Action icon
+- Show Qualities on the NPC/Critter/Spirit read only sheets
+- Add capability of a default Initiative Type in the Combat Tracker
+- Change vehicles to use Matrix Initiative by default in Combat
+- Improve > visibility to adjust Persona attribute Mods
+- Basic support for Automated Animations
+- Change default Token shape to Ellipse on Gridless scenes
+- Support ActiveEffects for Items based on an actor attribute using a value starting with "@Actor." (a.o. to support Spirit attacks)
+- Improve Critter Power section layout
+- Support language specific CSS styling (#166)
+- Enable Token Vision by default for all Actor types (#157)
+- Updated Foundry verified to 13.348
+
+### Bug Fixes
+- Improve Qualities section on actor sheet (#160)
+- Fix console error of Item in Items tab
+- Fix NaN error for item price (#155)
+- Don't show range options in the Roll Dialog if there's no AR on that range
+- Remove hover title from weapons
+- Fix spirits also having a magic tradition attribute
+- Fix registering handlebar helpers in v13
+- Fix regression that Hack&Slash matrix actions werent shown any more (#164)
+- Fix Gear Mods not openable from Item tab in some cases
+- Fix vehicle ammo reload
+- Fix vehicle weapon AR display
+- Fix html titles on vehicle sheet
+- Fix default Vehicle type to be ground_craft
+- Change font backup to sans-serif instead of serif (#166)
+- Fix draggable qualities (#160)
+- Fix Augmentations section so bioware/cyberware is draggable and have collapsible descriptions
+- Fix spells drag & drop in Firefox (#158)
+- Fix rituals drag & drop in Firefox (#158)
+- Fix Matrix Actions not having clickable descriptions (#156)
+- Fix NPC Importer triggering on pasting in a code field
+
+### Data Updates
+- Add improved Czech localization (Lethrendis)
+- English translation updates
+- Russian translation updates (TheFokin)
+
+
 ## 3.3.1
 
 ### System Improvements
