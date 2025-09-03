@@ -47,6 +47,7 @@
 	{{/switch}}
 
 		<a class="item" data-tab="biography">{{ localize 'shadowrun6.actor.nav.biography' }}</a>
+		<a class="item" data-tab="effects">{{ localize 'shadowrun6.effect.Label' }}</a>
 
 		<!-- <a class="item" data-tab="description">{{ localize 'shadowrun6.actor.nav.description' }}</a> -->
 		<!-- <a class="item" data-tab="items">{{ localize 'shadowrun6.actor.nav.equip' }}</a> -->
@@ -116,7 +117,13 @@
 		<div class="tab biography flexrow" data-group="primary" data-tab="biography">
 			{{> "systems/shadowrun6-eden/templates/parts/tab-biography.html"}}
 		</div>
+		
+		{{!-- Effects Tab --}}
+		<div class="tab effects flexrow" data-group="primary" data-tab="effects">
+			{{> "systems/shadowrun6-eden/templates/parts/tab-effects.hbs"}}
+		</div>
 
+		{{!-- TODO: What is this doing here?  --}}
 		{{!-- Owned Items Tab --}}
 		<div class="tab items" data-group="primary" data-tab="items">
 			<div class="section" style="width: 48%">
