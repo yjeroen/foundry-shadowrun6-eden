@@ -665,13 +665,13 @@ Hooks.once("init", async function () {
      */
     Hooks.on("preCreateActor", (actor, createData, options, userId) => {
         actor.prototypeToken.updateSource({ 
+            'sight.enabled': true,
             displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
             displayBars: CONST.TOKEN_DISPLAY_MODES.NONE
         });
         if (actor.type === "Player") {
             actor.prototypeToken.updateSource({
                 actorLink: true,
-                'sight.enabled': true,
                 disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY
             });
         } else if (actor.type === "NPC") {
@@ -680,7 +680,6 @@ Hooks.once("init", async function () {
             });
         } else if (actor.type === "Vehicle") {
             actor.prototypeToken.updateSource({
-                'sight.enabled': true,
                 disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
                 width: 2,
                 height: 3
