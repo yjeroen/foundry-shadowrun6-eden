@@ -19,9 +19,9 @@
 	    </thead>
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'spell'}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
-      	<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
-			<td> <input name="spellName{{id}}" class="draggable" data-uuid="{{item.uuid}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
+		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
+      		<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
+			<td> {{item.name}}</td>
 			<td class="centered" style="width: 3em"> {{localize (concat (concat "shadowrun6.spell.range_" item.system.range) "_short")}}</td>
 			<td class="centered" style="width: 1em">
 				{{#if item.system.alchemic}}
@@ -36,7 +36,7 @@
 				</label>
 				{{/iff}}
 			</td>
-			<td class="centered"style="width: 3em"> <input name="spellDrain{{id}}" type="text" value="{{item.system.drain}}" data-field="system.drain" data-type="Number" disabled></td>
+			<td class="centered"style="width: 3em">{{item.system.drain}}</td>
 			<td class="centered">
 				<a class="item-control spell-roll" data-type="Roll" data-uuid="{{item.uuid}}" data-item-id="{{item.id}}" title="Roll"><i class="fas fa-dice-six"></i></a>
 				<a class="item-control item-edit"   title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
