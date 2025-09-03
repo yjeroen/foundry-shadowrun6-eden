@@ -2,17 +2,17 @@
 
 :root body,
 body.game.foundry-modern .app {
-    --font-primary: "Play", serif;
-    --font-body: "Play", serif;
-    --font-blockquote: "Play", serif;
-    --font-monospace: "Play", serif;
-    --font-h1: "Rubik Glitch", serif;
-    --font-h2: "Play", serif;
-    --font-h3: "Play", serif;
-    --font-h4: "Syncopate", serif;
-    --font-h5: "Play", serif;
-    --font-h6: "Rubik Glitch", serif;
-    --font-sans: "Play", serif;
+    --font-primary: "Play", sans-serif;
+    --font-body: "Play", sans-serif;
+    --font-blockquote: "Play", sans-serif;
+    --font-monospace: "Play", sans-serif;
+    --font-h1: "Rubik Glitch", sans-serif;
+    --font-h2: "Play", sans-serif;
+    --font-h3: "Play", sans-serif;
+    --font-h4: "Syncopate", sans-serif;
+    --font-h5: "Play", sans-serif;
+    --font-h6: "Rubik Glitch", sans-serif;
+    --font-sans: "Play", sans-serif;
     --font-h3-size: var(--font-size-24);
     --font-h4-size: var(--font-size-20);
 }
@@ -57,31 +57,31 @@ body.game.foundry-modern .application.journal-sheet {
 }
 
 .game .play-regular {
-  font-family: "Play", serif;
+  font-family: "Play", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .game .play-bold {
-  font-family: "Play", serif;
+  font-family: "Play", sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
 .game .rubik-glitch-regular {
-  font-family: "Rubik Glitch", serif;
+  font-family: "Rubik Glitch", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .game .syncopate-regular {
-  font-family: "Syncopate", serif;
+  font-family: "Syncopate", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .game .syncopate-bold {
-  font-family: "Syncopate", serif;
+  font-family: "Syncopate", sans-serif;
   font-weight: 700;
   font-style: normal;
 }
