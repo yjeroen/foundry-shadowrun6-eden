@@ -39,7 +39,7 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json",
-      "flags": {}
+      "flags": {"style": "lang/en.css"}
     },
     {
       "lang": "fr",

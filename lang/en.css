@@ -1,0 +1,18 @@
+/* #############################################################
+################# Instructions for Translators #################
+
+You can create CSS style instructions for your own language 
+by creating a `languagecode.css` file in the /lang/ folder, 
+and then raise a Pull Request (PR) to the Github repository.
+It will be loaded after the regular system CSS.
+
+With the PR, the systems.json language object must also be updated.
+Example:
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {"style": "lang/en.css"}
+    }, 
+    
+############################################################# */
