@@ -114,18 +114,19 @@ body.game .app table tr th.centered {
 	text-align: center;
 }
 .shadowrun6 input[type="text"]{
-        font-variant-numeric: lining-nums;
-        border: 0px solid black;
-        background: none;
-        color: var(--input-color);
-        padding: 2px;
-        padding-bottom: 2px;
-        margin: 0;
-        vertical-align: baseline;
-        display: inline-block;
-        height: 100%;
-        border-radius: 4px;
- }
+  font-variant-numeric: lining-nums;
+  border: 0px solid black;
+  background: none;
+  color: var(--input-color);
+  padding: 2px;
+  padding-bottom: 2px;
+  margin: 0;
+  vertical-align: baseline;
+  display: inline-block;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: none;
+}
  .shadowrun6 .input-symbol-nuyen {
   position: relative;
 }
@@ -709,4 +710,52 @@ li.folder > .folder-header .folder-name {
 }
 .item-desc {
   cursor: pointer;
+}
+
+section.sr6-tab {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px; /* space between left and right columns */
+  align-items: flex-start; /* top-align the columns */
+}
+
+/* Each column stacks its items vertically */
+.column-left,
+.column-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* each column gets equal width */
+  gap: 4px; /* spacing between items inside the column */
+}
+
+/* Styling for each section block */
+.sr6-tab .section {
+  min-width: 330px;
+}
+.sr6-tab .section.magic-base {
+  display: flex;
+  border: none;
+  background: none;
+  padding: 0
+}
+.sr6-tab .section.magic-base .attributes,
+.sr6-tab .section.magic-base .section {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+body.game .shadowrun6.sheet .window-content {
+  container-type: inline-size; /* enables container queries based on width */
+}
+/* Responsive: collapse into a single column on smaller screens */
+@container (max-width: 798px) {
+  .sr6-tab {
+    flex-direction: column;
+    align-items: stretch;          /* <-- stretch columns across width */
+  }
+  .sr6-tab > .column-left,
+  .sr6-tab > .column-right {
+    width: 100%;                  /* optional but explicit */
+    flex: 0 0 auto;               /* prevent odd height distribution */
+    min-width: 0;                 /* guards against overflow from long content */
+  }
 }
