@@ -109,7 +109,8 @@ tfoot th {
 	text-shadow: none;
 	border-bottom: 0px;
 }
-.game .centered {
+.game .centered,
+body.game .app table tr th.centered {
 	text-align: center;
 }
 .shadowrun6 input[type="text"]{

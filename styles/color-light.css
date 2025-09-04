@@ -1,7 +1,7 @@
 :root,
 .themed.theme-light,
 .themed.theme-dark {
-	--highlight-color: #892378;
+	--highlight-color: #960570;
 	--accent-color: #00a8ff;
 	--section-background: #efefeb;
 	--tablehead-background: #e0e0d9;
@@ -174,4 +174,10 @@ body.game .app table tr th:first-child {
 }
 .foundry-modern .application.journal-sheet .journal-entry-pages {
 	color: var(--color-dark-2);
+}
+body.theme-dark #context-menu, body.theme-dark#context-menu {
+	--text-color: var(--content-link-text-color);
+}
+#context-menu li.context-item:hover {
+	color: #df51c7;
 }
