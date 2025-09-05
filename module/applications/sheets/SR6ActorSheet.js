@@ -100,6 +100,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
+            html.find(".health-matrix").on("input", this._redrawBar(html, "Matrix", getSystemData(this.actor).persona?.monitor));
             // Roll Skill Checks
             html.find(".skill-roll").click(this._onRollSkillCheck.bind(this));
             html.find(".spell-roll").click(this._onRollSpellCheck.bind(this));
@@ -209,6 +210,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     // Send monitor change to the right place
                     if (field === "system.physical.dmg" || field === "system.stun.dmg") {
                         const monitorType = field.split('.').at(1);
+                        console.log("SR6E | Updating actor field " + field + ", so setting damage to monitor " + monitorType + " to " + value);
+                        await this.actor.applyDamage(monitorType, null, value);
+                        return;
+                    } else if (field === "system.persona.monitor.dmg") {
+                        const monitorType = "persona.monitor";
                         console.log("SR6E | Updating actor field " + field + ", so setting damage to monitor " + monitorType + " to " + value);
                         await this.actor.applyDamage(monitorType, null, value);
                         return;
@@ -576,41 +582,50 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (!isLifeform(getSystemData(this.actor)) && !this.actor.type == "Vehicle")
             return;
         console.log("SR6E | setDamage", monitorType, damageClicked, monitorAttributes);
-        // if (!event.currentTarget.dataset.value)
-        //     event.currentTarget.dataset.value = 0;
-        // switch (event.target.parentNode.getAttribute("id")) {
+        let key = "";
         switch (monitorType) {
             case "Phy":
-                console.log("SR6E | setDamage physical health to ", damageClicked);
-                //Allow setting zero health by clicking again
-                if (getSystemData(this.actor).physical.dmg == damageClicked) {
-                    await this.actor.update({ [`system.physical.dmg`]: damageClicked - 1 });
-                }
-                //When going health back up, UX is more logical to gain health until the box you clicked on
-                else if (getSystemData(this.actor).physical.dmg > damageClicked) {
-                    await this.actor.update({ [`system.physical.dmg`]: damageClicked - 1 });
-                } 
-                else {
-                    await this.actor.update({ [`system.physical.dmg`]: damageClicked });
-                }
+                key = "physical";
                 break;
             case "Stun":
-                console.log("SR6E | setDamage stun health to ", damageClicked);
-                //Allow setting zero health by clicking again
-                if (getSystemData(this.actor).stun.dmg == damageClicked) {
-                    await this.actor.update({ [`system.stun.dmg`]: damageClicked - 1 });
-                }
-                //When going health back up, UX is more logical to gain health until the box you clicked on
-                else if (getSystemData(this.actor).stun.dmg > damageClicked) {
-                    await this.actor.update({ [`system.stun.dmg`]: damageClicked - 1 });
-                } 
-                else {
-                    await this.actor.update({ [`system.stun.dmg`]: damageClicked });
-                }
+                key = "stun";
+                break;
+            case "Matrix":
+                key = "persona.monitor";
                 break;
         }
+        await this._applyDamage(damageClicked, monitorAttributes, key);
         this.actor.checkUnconscious();
     }
+
+    async _applyDamage(damageClicked, monitorAttributes, key) {
+        console.log("SR6E | _applyDamage", damageClicked, monitorAttributes, key);
+        console.log("SR6E | _applyDamage actor", this.actor);
+        let damage = damageClicked;
+        if (monitorAttributes.dmg == damageClicked) {
+            damage = damageClicked - 1;
+        }
+        //When going health back up, UX is more logical to gain health until the box you clicked on
+        else if (monitorAttributes.dmg > damageClicked) {
+            damage = damageClicked - 1;
+        }
+
+        // check if the damage should also be applied to an item
+        if (monitorAttributes.item != undefined && monitorAttributes.item != null) {
+            console.log("SR6E | _applyDamage: also apply damage to item ", monitorAttributes.item);
+            let item = this.actor.items.get(monitorAttributes.item);
+            if (item) {
+                console.log("SR6E | _applyDamage: item found, updating damage", item);
+                await item.update({ ["system.dmg"]: damage });
+            } else {
+                console.warn("SR6E | _applyDamage: item not found, cannot update damage");
+            }
+        } else {
+            await this.actor.update({ [`system.${key}.dmg`]: damage });
+        }
+    }
+
+
     //-----------------------------------------------------
     _redrawBar(html, monitorType, monitorAttributes) {
         console.log("SR6E | _redrawBar ", monitorType, monitorAttributes);
@@ -638,7 +653,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 i++;
                 let divMonitorBox = document.createElement("div");
                 let divBoxText = document.createElement("div");
-                let breakHr = document.createElement("hr");
+                //let breakHr = document.createElement("hr");
                 let text;
                 if (i === monitorAttributes.max && (i % 3) === (monitorAttributes.max % 3) ) {
                     let minus = -1 * Math.ceil(i / 3);
@@ -764,7 +779,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             }
             dialogConfig = {
                 useModifier: !(rollId === 'damage_physical' || rollId === 'damage_astral'), 
-                useThreshold: false
+                useThreshold: false,
+                useMatrixModifier: false
             };
         }
         else if (classList.includes("attributeonly-roll")) {
@@ -774,7 +790,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             roll.checkText = roll.actionText;
             dialogConfig = {
                 useModifier: true,
-                useThreshold: true
+                useThreshold: true,
+                usingMatrixModifier: false
             };
         }
         else if (rollId = "legwork") {
@@ -789,7 +806,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 roll.checkText = game.i18n.format("shadowrun6.legwork.loyalty_description", { name: data.contact });
             dialogConfig = {
                 useWoundModifier: false,
-                useSustainedSpellModifier: false
+                useSustainedSpellModifier: false,
+                useMatrixModifier: false
             };
         }
         else {
@@ -797,7 +815,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             roll.useWildDie = 1;
             dialogConfig = {
                 useModifier: true,
-                useThreshold: true
+                useThreshold: true,
+                useMatrixModifier: rollId === "matrix_action" ? true : false
             };
         }
         //TODO dialogConfig.useModifier and useThreshold aren't used in Rolls._showRollDialog

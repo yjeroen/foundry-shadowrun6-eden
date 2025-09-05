@@ -480,7 +480,8 @@ Hooks.once("init", async function () {
                     extendedRoll.timePassed = parseInt(dataset.timePassed);
                     dialogConfig = {
                         useWoundModifier: false,
-                        useSustainedSpellModifier: false
+                        useSustainedSpellModifier: false,
+                        useMatrixModifier: false
                     };
                     actor.rollCommonCheck(extendedRoll, dialogConfig);
 
@@ -497,7 +498,8 @@ Hooks.once("init", async function () {
                     loyaltyRoll.legwork = { legworkResult: parseInt(dataset.legworkResult) };
                     dialogConfig = {
                         useWoundModifier: false,
-                        useSustainedSpellModifier: false
+                        useSustainedSpellModifier: false,
+                        useMatrixModifier: false
                     };
                     actor.rollCommonCheck(loyaltyRoll, dialogConfig);
                     break;

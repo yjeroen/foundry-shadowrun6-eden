@@ -1399,6 +1399,24 @@ export default class Shadowrun6Actor extends Actor {
             if (changes.system?.persona?.device?.mod !== undefined) {
                 await this.updatePersona();
             }
+            if(changes.system?.persona?.monitor?.dmg !== undefined) {
+                // Update monitor value
+                const system = getSystemData(this);
+                let updatedPersona = {
+                    [`system.persona.monitor.value`]: system.persona.monitor.max - changes.system.persona.monitor.dmg,
+                    [`system.persona.monitor.dmg`]: changes.system.persona.monitor.dmg
+                };
+                await this.update(updatedPersona);
+            }
+            if(changes.system?.persona?.monitor?.value !== undefined) {
+                // Update monitor damage
+                const system = getSystemData(this);
+                let updatedPersona = {
+                    [`system.persona.monitor.dmg`]: system.persona.monitor.max - changes.system.persona.monitor.value,
+                    [`system.persona.monitor.value`]: changes.system.persona.monitor.value
+                };
+                await this.update(updatedPersona);
+            }
         }
       }
     async updatePersona() {
@@ -1449,7 +1467,10 @@ export default class Shadowrun6Actor extends Actor {
         system.persona.device.base.s = 0;
         system.persona.device.base.d = 0;
         system.persona.device.base.f = 0;
+
+        let active_device = null;
         actorData.items.forEach((tmpItem) => {
+            const tmp_id = tmpItem._id;
             const systemItem = getSystemData(tmpItem);
             if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
                 let item = getSystemData(tmpItem);
@@ -1457,8 +1478,8 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
-                        if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2 + 8;
+                        if (active_device == null) {
+                            active_device = tmp_id;
                         }
                     }
                 }
@@ -1466,11 +1487,26 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.a = (item.a);
                         system.persona.device.base.s = (item.s);
-                        system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
+                        active_device = tmp_id;
                     }
                 }
             }
         });
+        if (active_device) {
+            const tmp_device = getSystemData(actorData.items.get(active_device));
+            system.persona.monitor.max = Math.ceil(parseInt(tmp_device.devRating) / 2) + 8;
+            system.persona.monitor.dmg = tmp_device.dmg;
+            system.persona.monitor.value = system.persona.monitor.max - system.persona.monitor.dmg;
+            system.persona.monitor.item = active_device;
+            console.log("SR6E | attached item", tmp_device);
+        } else {
+            system.persona.monitor.max = 0;
+            system.persona.monitor.dmg = 0;
+            system.persona.monitor.value = 0;
+            system.persona.monitor.item = null;
+            console.log("SR6E | no active device found");
+        }
+
         console.log("SR6E | preparePersona: device=", system.persona.device);
         // Living persona
         if (system.mortype == "technomancer") {
@@ -1543,6 +1579,14 @@ export default class Shadowrun6Actor extends Actor {
         /* Return the combined penalties from physical and stun damage */
         console.log("SR6E | Current Wound Penalties: " + woundModifier);
         return woundModifier;
+    }
+    //---------------------------------------------------------
+    getMatrixModifier() {
+        const data = getSystemData(this);
+        let matrixModifier = this._getWoundModifierPerMonitor(data.persona.monitor);
+        /* Return the combined penalties from matrix damage */
+        console.log("SR6E | Current Matrix Penalties: " + matrixModifier);
+        return matrixModifier;
     }
     //---------------------------------------------------------
     getSustainedSpellsModifier() {
@@ -2136,10 +2180,30 @@ export default class Shadowrun6Actor extends Actor {
         return doRoll(roll);
     }
     //-------------------------------------------------------------
+
+    _damageObject(data, monitor) {
+        console.log("SR6E | _damageObject", data, monitor);
+        if (!data || !monitor) {
+            console.error("SR6E | _damageObject: Invalid data or monitor");
+            return null;
+        }
+        // if the monitor contains a dot notation, we need to split it
+        const monitorParts = monitor.split('.');
+        let damageObj = data;
+        for (const part of monitorParts) {
+            if (damageObj[part] === undefined) {
+                console.error(`SR6E | _damageObject: Monitor part '${part}' not found in data`);
+                return null;
+            }
+            damageObj = damageObj[part];
+        }
+        return damageObj;
+    }
+
     async applyDamage(monitor, damage, newDmg) {
         console.log("SR6E | applyDamage", monitor, damage, newDmg);
         const data = this.system;
-        const damageObj = data[monitor];
+        const damageObj = this._damageObject(data, monitor);
         console.log("SR6E | applyDamage | damageObj =", damageObj);
         let overflow = (data.overflow?.dmg) ? data.overflow.dmg : 0;
         let physicalOverflow = 0;

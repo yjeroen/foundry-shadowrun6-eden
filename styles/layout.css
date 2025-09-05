@@ -228,6 +228,16 @@ dd::after {
     height: 100%;
     text-align: center;
 }
+.barMatrixMax {
+    width: 20rem;
+    background-color: transparent;
+}
+#barMatrixCur {
+    background-color: green;
+    width: 60%;
+    height: 100%;
+    text-align: center;
+}
 .monitors .monitor {
   text-align: center;
   color: black;
