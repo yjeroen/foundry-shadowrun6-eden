@@ -44,12 +44,14 @@ export default class SR6Keybindings {
             const parent = container.parentElement;
 
             // console.log('TEST PASTING e.target:', e.target)
+            // console.log('TEST PASTING e.target.closest(div):', e.target.closest('div'))
             // console.log('TEST PASTING e.target.parentElement:', e.target?.parentElement)
             // console.log('TEST PASTING e.target.parentElement.parentElement:', e.target?.parentElement?.parentElement)
             // console.log('TEST PASTING container:', container)
             // console.log('TEST PASTING parent:', parent)
 
             if ( e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA"
+                && !e.target.closest('div')?.classList?.contains('ProseMirror')
                 && !e.target.parentElement?.classList?.contains('ProseMirror')
                 && !e.target.parentElement?.classList?.contains('cm-content')
                 && !parent.classList?.contains('cm-activeLine')
