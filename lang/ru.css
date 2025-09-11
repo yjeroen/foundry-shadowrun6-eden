@@ -11,3 +11,7 @@ body.game.foundry-modern .app {
   margin: 0;
   text-transform: uppercase;
 }
+
+.shadowrun6.sheet.item {
+  width: 745px;
+}
