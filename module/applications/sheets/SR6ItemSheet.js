@@ -149,36 +149,7 @@ export default class SR6ItemSheet extends ItemSheet {
         } else {
             console.log("SR6E | is not owner of actor");
         }
-        if (!this.isEditable) {
-            let x = html.find(".data-desc");
-            console.log(
-                "SR6E | Replace descriptions for " + this.object.type + " and ",
-                getSystemData(this.object)
-            );
-            if (x[0] !== undefined) {
-                switch (this.object.type) {
-                    case "quality":
-                        x[0].innerHTML = game.i18n.localize(
-                            "quality." +
-                                getSystemData(this.object).genesisID +
-                                ".desc"
-                        );
-                        break;
-                    case "gear":
-                        x[0].innerHTML = game.i18n.localize(
-                            "item." + getSystemData(this.object).genesisID + ".desc"
-                        );
-                        break;
-                    default:
-                        x[0].innerHTML = game.i18n.localize(
-                            this.object.type +
-                                "." +
-                                getSystemData(this.object).genesisID +
-                                ".desc"
-                        );
-                }
-            }
-        }
+
         // Owner Only Listeners
         if (this.actor && this.actor.isOwner) {
             html.find("[data-field]").change(async (event) => {

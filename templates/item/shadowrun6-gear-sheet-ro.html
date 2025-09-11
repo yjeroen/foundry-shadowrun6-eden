@@ -266,12 +266,8 @@
     </section>
    <!-- Accessories -->
 	<h3>{{localize 'shadowrun6.item.accessories'}}</h3>
-   <p>{{item.system.accessories}}</p>
+    <p>{{item.system.accessories}}</p>
 
-	<h3>{{localize 'shadowrun6.item.description'}}</h3>
-  	{{#if system.genesisID}}
-	<div class="data-desc" id="data-desc"/>
-	{{else}}
-	<div class="data-desc" id="data-desc">{{system.description}}</div>
-   {{/if}}
+	<h3>{{localize 'shadowrun6.item.description'}}</h3>{{log "JEROEN" item}}
+	<div class="data-desc" id="data-desc">{{{item.enriched.description}}}</div>
 </form>
