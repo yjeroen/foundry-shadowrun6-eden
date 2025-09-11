@@ -759,6 +759,15 @@ body.game .shadowrun6.sheet .window-content {
     min-width: 0;                 /* guards against overflow from long content */
   }
 }
+.shadowrun6.sheet.actor {
+  width: 830px;
+}
+.shadowrun6.sheet.actor.npc {
+  
+}
+.shadowrun6.sheet.actor.vehicle {
+  width: 640px;
+}
 .shadowrun6.sheet.item {
   width: 620px;
 }

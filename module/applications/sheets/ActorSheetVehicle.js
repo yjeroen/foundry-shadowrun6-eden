@@ -18,9 +18,9 @@ export default class Shadowrun6ActorSheetVehicle extends Shadowrun6ActorSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["shadowrun6", "sheet", "actor"],
+            classes: ["shadowrun6", "sheet", "actor", "vehicle"],
             template: "systems/shadowrun6-eden/templates/actor/shadowrun6-Vehicle-sheet.html",
-            width: 640,
+            width: null,
             height: 800,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],
             scrollY: [".items", ".attributes"],
