@@ -1,99 +1,91 @@
 {{log "shadowrun6-gear-sheet-ro.html" data}}
-<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
+<form class="flexcol {{cssClass}}" autocomplete="off" style="min-width: 605px; min-width: fit-content;">
+    {{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
     {{!-- Sheet Body --}}
-  	{{#if system.genesisID}}
-	<h2>{{localize (concat (concat "item." system.genesisID) ".name")}}</h2>
-	<h4  style="font-style: italic">{{localize (concat (concat "item." system.genesisID) ".src")}}</h4>
-	{{else}}
-	<h2>{{item.name}}</h2>
-   {{/if}}
-   <h4>{{localize (concat 'shadowrun6.gear.subtype.' item.system.subtype)}}</h4>
 
-   <table class="vehicle-stats-table" style="width: 25em">
-	<thead>
-	<tr style="align: center">
-     <!-- ********** WEAPONS ********** -->
-     {{#if (or
-            (eq item.system.type "WEAPON_FIREARMS")
-            (eq item.system.type "WEAPON_RANGED")
-            (eq item.system.type "WEAPON_CLOSE_COMBAT")
-            (eq item.system.type "WEAPON_SPECIAL"))}}
-		<th>{{ localize 'shadowrun6.item.damage' }}</th>
-		<th>{{ localize 'shadowrun6.item.mode' }}</th>
-		<th>{{ localize 'shadowrun6.item.attackvalues' }}</th>
-      {{/if}}
-     <!-- ********** ARMOR ********** -->
-		{{#if (eq item.system.type "ARMOR")}}
-      <th>{{localize 'shadowrun6.item.defencerating'}}</th>
-     	<th>{{localize 'shadowrun6.item.capacity'}}</th>
-      <th>{{localize 'shadowrun6.item.social'}}</th>
-		{{/if}}
-     <!-- ********** VEHICLE ********** -->
-     {{#if (or
-            (eq item.system.type "VEHICLES")
-            (eq item.system.type "DRONE_MICRO")
-            (eq item.system.type "DRONE_MINI")
-            (eq item.system.type "DRONE_SMALL")
-            (eq item.system.type "DRONE_MEDIUM")
-            (eq item.system.type "DRONE_LARGE"))}}
-       <th colspan="2">{{ localize 'shadowrun6.section.vehicles.column.handling' }}</th>
-       <th>{{ localize 'shadowrun6.section.vehicles.column.acc' }}</th>
-       <th>{{ localize 'shadowrun6.section.vehicles.column.spdi' }}</th>
-       <th>{{ localize 'shadowrun6.section.vehicles.column.tspd' }}</th>
-                    <th>{{ localize 'shadowrun6.section.vehicles.column.bod' }}</th>
-                    <th>{{ localize 'shadowrun6.section.vehicles.column.arm' }}</th>
-                    <th>{{ localize 'shadowrun6.section.vehicles.column.pil' }}</th>
-                    <th>{{ localize 'shadowrun6.section.vehicles.column.sen' }}</th>
-                    {{#if (eq item.system.type "VEHICLES")}}
-                    <th>{{ localize 'shadowrun6.section.vehicles.column.sea' }}</th>
-                    {{/if}}
-		{{/if}}
-		<th>{{ localize 'shadowrun6.item.availability' }}</th>
-		<th>{{ localize 'shadowrun6.item.price' }} </th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr style="text-align:center">
-     {{#if (or
-            (eq item.system.type "WEAPON_FIREARMS")
-            (eq item.system.type "WEAPON_RANGED")
-            (eq item.system.type "WEAPON_CLOSE_COMBAT")
-            (eq item.system.type "WEAPON_SPECIAL"))}}
-		<td>{{item.system.dmgDef}}</td>
-		<td>{{firemodes item.system.modes}}</td>
-		<td>{{{attackrating item.system.attackRating}}}</td>
-    	{{/if}}
-		{{#if (eq item.system.type "ARMOR")}}
-		<td>{{item.system.defense}}</td>
-		<td>{{item.system.capacity}}</td>
-		<td>{{item.system.social}}</td>
-		{{/if}}
-     <!-- ********** VEHICLE ********** -->
-     {{#if (or
-            (eq item.system.type "VEHICLES")
-            (eq item.system.type "DRONE_MICRO")
-            (eq item.system.type "DRONE_MINI")
-            (eq item.system.type "DRONE_SMALL")
-            (eq item.system.type "DRONE_MEDIUM")
-            (eq item.system.type "DRONE_LARGE"))}}
-       <td>{{item.system.handlOn}}</td>
-       <td>{{item.system.handlOff}}</td>
-       <td>{{item.system.accOn}}</td>
-       <td>{{item.system.spdiOn}}</td>
-       <td>{{item.system.tspd}}</td>
-                    <td>{{item.system.bod}}</td>
-                    <td>{{item.system.arm}}</td>
-                    <td>{{item.system.pil}}</td>
-                    <td>{{item.system.sen}}</td>
-                    {{#if (eq item.system.type "VEHICLES")}}
-                    <td>{{item.system.sea}}></td>
-                    {{/if}}
-		{{/if}}
-	  <td>{{item.system.availDef}}</td>
-	  <td>{{item.system.price}}</td>
-	</tr>
-	</tbody>
-   </table>
+    <section class="sheet-body">
+    <table style="width: 25em">
+        <thead>
+        <tr style="align: center">
+        <!-- ********** WEAPONS ********** -->
+        {{#if (or
+                (eq item.system.type "WEAPON_FIREARMS")
+                (eq item.system.type "WEAPON_RANGED")
+                (eq item.system.type "WEAPON_CLOSE_COMBAT")
+                (eq item.system.type "WEAPON_SPECIAL"))}}
+            <th>{{ localize 'shadowrun6.item.damage' }}</th>
+            <th>{{ localize 'shadowrun6.item.mode' }}</th>
+            <th>{{ localize 'shadowrun6.item.attackvalues' }}</th>
+        {{/if}}
+        <!-- ********** ARMOR ********** -->
+            {{#if (eq item.system.type "ARMOR")}}
+        <th>{{localize 'shadowrun6.item.defencerating'}}</th>
+            <th>{{localize 'shadowrun6.item.capacity'}}</th>
+        <th>{{localize 'shadowrun6.item.social'}}</th>
+            {{/if}}
+        <!-- ********** VEHICLE ********** -->
+        {{#if (or
+                (eq item.system.type "VEHICLES")
+                (eq item.system.type "DRONE_MICRO")
+                (eq item.system.type "DRONE_MINI")
+                (eq item.system.type "DRONE_SMALL")
+                (eq item.system.type "DRONE_MEDIUM")
+                (eq item.system.type "DRONE_LARGE"))}}
+        <th colspan="2">{{ localize 'shadowrun6.section.vehicles.column.handling' }}</th>
+        <th>{{ localize 'shadowrun6.section.vehicles.column.acc' }}</th>
+        <th>{{ localize 'shadowrun6.section.vehicles.column.spdi' }}</th>
+        <th>{{ localize 'shadowrun6.section.vehicles.column.tspd' }}</th>
+                        <th>{{ localize 'shadowrun6.section.vehicles.column.bod' }}</th>
+                        <th>{{ localize 'shadowrun6.section.vehicles.column.arm' }}</th>
+                        <th>{{ localize 'shadowrun6.section.vehicles.column.pil' }}</th>
+                        <th>{{ localize 'shadowrun6.section.vehicles.column.sen' }}</th>
+                        {{#if (eq item.system.type "VEHICLES")}}
+                        <th>{{ localize 'shadowrun6.section.vehicles.column.sea' }}</th>
+                        {{/if}}
+            {{/if}}
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="text-align:center">
+        {{#if (or
+                (eq item.system.type "WEAPON_FIREARMS")
+                (eq item.system.type "WEAPON_RANGED")
+                (eq item.system.type "WEAPON_CLOSE_COMBAT")
+                (eq item.system.type "WEAPON_SPECIAL"))}}
+            <td>{{item.system.dmgDef}}</td>
+            <td>{{firemodes item.system.modes}}</td>
+            <td>{{{attackrating item.system.attackRating}}}</td>
+            {{/if}}
+            {{#if (eq item.system.type "ARMOR")}}
+            <td>{{item.system.defense}}</td>
+            <td>{{item.system.capacity}}</td>
+            <td>{{item.system.social}}</td>
+            {{/if}}
+        <!-- ********** VEHICLE ********** -->
+        {{#if (or
+                (eq item.system.type "VEHICLES")
+                (eq item.system.type "DRONE_MICRO")
+                (eq item.system.type "DRONE_MINI")
+                (eq item.system.type "DRONE_SMALL")
+                (eq item.system.type "DRONE_MEDIUM")
+                (eq item.system.type "DRONE_LARGE"))}}
+        <td>{{item.system.handlOn}}</td>
+        <td>{{item.system.handlOff}}</td>
+        <td>{{item.system.accOn}}</td>
+        <td>{{item.system.spdiOn}}</td>
+        <td>{{item.system.tspd}}</td>
+                        <td>{{item.system.bod}}</td>
+                        <td>{{item.system.arm}}</td>
+                        <td>{{item.system.pil}}</td>
+                        <td>{{item.system.sen}}</td>
+                        {{#if (eq item.system.type "VEHICLES")}}
+                        <td>{{item.system.sea}}></td>
+                        {{/if}}
+            {{/if}}
+        </tr>
+        </tbody>
+    </table>
+    </section>
 
 	{{#if item.system.skill}}
    <p>
@@ -262,12 +254,14 @@
                 </tr>
             </table>
             {{/if}}
+            <!-- Accessories -->
+            <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
+            <p>{{item.system.accessories}}</p>
+
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            <div class="data-desc" id="data-desc">{{{item.enriched.description}}}</div>
         </div>
     </section>
-   <!-- Accessories -->
-	<h3>{{localize 'shadowrun6.item.accessories'}}</h3>
-    <p>{{item.system.accessories}}</p>
-
-	<h3>{{localize 'shadowrun6.item.description'}}</h3>{{log "JEROEN" item}}
-	<div class="data-desc" id="data-desc">{{{item.enriched.description}}}</div>
 </form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}
