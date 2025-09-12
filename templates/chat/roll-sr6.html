@@ -86,6 +86,14 @@
       {{/if}}
     </div>
   {{/if}}
+  
+   {{#if (eq configured.skillSpec "sprinting")}}
+   <!-- Sprinting Details -->
+   <div class="chat-sprinting">
+      <hr>
+      <h4>{{ configured.sprintingResult }}</h4>
+   </div>
+   {{/if}}
 
    {{#if (eq rollType "legwork")}}
    <!-- Legwork Details -->

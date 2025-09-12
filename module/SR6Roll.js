@@ -165,6 +165,7 @@ export default class SR6Roll extends Roll {
         if (this.configured?.itemId) this.options.itemId = this.configured.itemId;  // Support for AA
         this.finished = new SR6ChatMessageData(this.configured);
         this.finished.badLuck = this.finished.actor?.system?.badLuck;
+        this.finished.actorTraits = this.finished.actor?.traits;
         this.finished.glitch = this.isGlitch();
         this.finished.criticalglitch = this.isCriticalGlitch();
         this.finished.success = this.isSuccess();
@@ -536,6 +537,14 @@ export default class SR6Roll extends Roll {
 
             // Fixing rollMode
             this.finished.rollMode = this.data.rollMode;
+
+            // Setting Sprint text
+            if (this.finished.configured.skillSpec === "sprinting") {
+                this.finished.configured.sprintingResult = game.i18n.format("shadowrun6.derived.movement.sprint_result", { 
+                    name: this.finished.actor.name,
+                    metersSprinted: this.finished.actorTraits.movementSprintBase + ( this.finished.actorTraits.movementSprintMultiplier * this.finished.total )
+                });
+            }
 
             return renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
         }
