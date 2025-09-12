@@ -1015,6 +1015,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     _matrixActionAvailable() {
         let matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS).filter(([actionId, action]) => {
             action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name')
+            if (action.skill === "cracking" && !this.actor.system.skills.cracking.pool) return false
             if (action.linkedAttr === null || action.linkedAttr === undefined) return true;
             if (action.linkedAttr === "a" && this.actor.system.persona?.used?.a > 0) return true;
             if (action.linkedAttr === "s" && this.actor.system.persona?.used?.s > 0) return true;

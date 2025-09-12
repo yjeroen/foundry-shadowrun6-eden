@@ -363,7 +363,7 @@ function getMatrixActionPool(key, actor) {
     const action = CONFIG.SR6.MATRIX_ACTIONS[key];
     const skill = getSystemData(actor).skills[action.skill];
     let pool = 0;
-    if (skill) {
+    if (skill && skill.pool) {
         pool = skill.points + skill.modifier;
         if (skill.expertise == action.specialization) {
             pool += 3;
@@ -371,10 +371,10 @@ function getMatrixActionPool(key, actor) {
         else if (skill.specialization == action.specialization) {
             pool += 2;
         }
-    }
-    if (action.attrib) {
-        const attrib = getSystemData(actor).attributes[action.attrib];
-        pool += attrib.pool;
+        if (action.attrib) {
+            const attrib = getSystemData(actor).attributes[action.attrib];
+            pool += attrib.pool;
+        }
     }
     return pool;
 }
