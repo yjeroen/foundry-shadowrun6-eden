@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?amily=Prosto One:wght@400;700&display=swap');
+
+:root body, 
+body.game.foundry-modern .app {
+    --font-h4: "Prosto One", sans-serif;
+    --font-h4-size: var(--font-size-30);
+}
+
+.game h4.divider {
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.shadowrun6.sheet.item {
+  width: 745px;
+}
