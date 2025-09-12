@@ -83,5 +83,13 @@
 				<td class="centered">{{system.derived.lift_carry.pool}}</td>
 				<td><a class="item-control attributeonly-roll skill-pool" data-pool="{{system.derived.lift_carry.pool}}" data-roll-id="lift_carry"><i class="fas fa-dice-six"></i></a></td>
 			</tr>
+			<!-- Movement -->
+			<tr>
+				<td><b>{{ localize 'shadowrun6.derived.movement.label' }}</b></td>
+				<td class="centered"><label>{{actor.traits.movementRate}}{{ localize 'shadowrun6.derived.movement.meter_short' }}</label></td>
+				<td class="centered"><label>{{actor.traits.movementSprintBase}}{{ localize 'shadowrun6.derived.movement.meter_short' }}</label></td>
+				<td class="centered">&nbsp;<label>+{{actor.traits.movementSprintMultiplier}} x</label></td>
+				<td><a class="item-control skill-roll" data-skill="athletics" data-skillspec="sprinting" data-roll-id="sprint"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
 		</table>
 	</div>

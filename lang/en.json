@@ -233,6 +233,11 @@
       "defense_rating": "Defense Rating",
       "judge_intentions": "Judge Intentions",
       "lift_carry": "Lift / Carry",
+      "movement": {
+        "label": "Movement / Sprint",
+        "sprint_result": "{name} sprinted {metersSprinted} meters.",
+        "meter_short": "m"
+      },
       "memory": "Memory",
       "matrix_perception": "Matrix Perception",
       "heal": {
@@ -1924,7 +1929,10 @@
       "dicePoolMod": "Dice Pool Modifier",
       "wild": "Use Wild Die (set Override: true)",
       "badLuck": "Bad Luck glitches (set Override: true)",
-      "painTolerance": "Pain Tolerance (set Override: 'high' or 'low')"
+      "painTolerance": "Pain Tolerance (set Override: 'high' or 'low')",
+      "movementRate": "Movement Rate",
+      "movementSprintBase": "Movement Sprint Base",
+      "movementSprintMultiplier": "Movement Sprint Multiplier"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",

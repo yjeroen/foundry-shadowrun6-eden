@@ -88,9 +88,14 @@ export default class Shadowrun6Actor extends Actor {
      * @memberof ClientDocumentMixin#
      */
     prepareBaseData() {
+        //TODO move these to traits
         this.system.dicePoolMod = 0;
         this.system.badLuck = false;
         this.system.painTolerance = null;
+        this.traits = {};
+        this.traits.movementRate = 10;
+        this.traits.movementSprintBase = 15;
+        this.traits.movementSprintMultiplier = 1;
     }
 
     /** @inheritDoc */
