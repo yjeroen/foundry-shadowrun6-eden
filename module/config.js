@@ -1015,6 +1015,9 @@ export class SR6Config {
         system_dicePoolMod: game.i18n.format("shadowrun6.active_effect.dicePoolMod"),
         system_badLuck: game.i18n.format("shadowrun6.active_effect.badLuck"),
         system_painTolerance: game.i18n.format("shadowrun6.active_effect.painTolerance"),
+        traits_movementRate: game.i18n.format("shadowrun6.active_effect.movementRate"),
+        traits_movementSprintBase: game.i18n.format("shadowrun6.active_effect.movementSprintBase"),
+        traits_movementSprintMultiplier: game.i18n.format("shadowrun6.active_effect.movementSprintMultiplier"),
 
         system_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.physical_monitor")}),
         system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor")}),
