@@ -1,0 +1,25 @@
+{{!-- Sheet Header --}}
+<header class="sheet-header" style="flex: none;">
+    <div style="padding-right: 6px;">
+        <img class="profile-img" src="{{actor.img}}" title="{{actor.name}}" height="120" width="120" />
+    </div>
+    <div class="header-fields" style="flex:3">
+        <h1><input type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+    </div>
+</header>
+
+<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Basics Tab --}}
+                
+                {{#if actor.enriched.notes}}
+                <div class="section" style="margin: 5px">
+                    {{{actor.enriched.notes}}}                        
+                </div>
+                {{/if}}
+
+    </section>
+
+</form>

@@ -1,13 +1,14 @@
-<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
-  	{{#if system.genesisID}}
-	<h2>{{localize (concat (concat "npc." system.genesisID) ".name")}}</h2>
-	<h4  style="font-style: italic">{{localize (concat (concat "npc." system.genesisID) ".src")}}</h4>
-	<div class="data-desc" id="data-desc"/>{{localize (concat (concat "npc." system.genesisID) ".desc")}}</div>
-	{{else}}
-	<h2>{{system.name}}</h2>
-	<div class="data-desc" id="data-desc">{{system.description}}</div>
-   {{/if}}
+{{!-- Sheet Header --}}
+<header class="sheet-header" style="flex: none;">
+    <div style="padding-right: 6px;">
+        <img class="profile-img" src="{{actor.img}}" title="{{actor.name}}" height="120" width="120" />
+    </div>
+    <div class="header-fields" style="flex:3">
+        <h1><input type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
+    </div>
+</header>
 
+<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
     {{!-- Sheet Body --}}
     <section class="sheet-body">
 
@@ -33,13 +34,12 @@
                     </dl>
                 </div>
                 
-                {{#if system.notes}}
+                {{#if actor.enriched.notes}}
                 <div class="section" style="margin: 5px">
-                    {{system.notes}}                        
+                    {{{actor.enriched.notes}}}                        
                 </div>
                 {{/if}}
 
     </section>
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="550" />
 
 </form>
