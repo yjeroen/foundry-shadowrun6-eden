@@ -67,6 +67,8 @@ export default class SR6Item extends Item {
    */
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
+    if (!this.isOwner) return false;
+    
     console.log("SR6E | SR6Item._onUpdate()", changed);
     this._checkPersonaChanges(changed);
     this._informInCombatChanges(changed);

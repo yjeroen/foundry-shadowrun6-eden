@@ -1396,6 +1396,7 @@ export default class Shadowrun6Actor extends Actor {
      *
      */
     async _checkPersonaChanges(changes) {
+        if (!this.isOwner) return false;
         console.log("SR6E | Shadowrun6Actor._checkPersonaChanges()", changes);
         if (this.system.mortype == "technomancer") {
             if (changes.system?.attributes !== undefined || changes.system?.persona?.living?.mod !== undefined) {
