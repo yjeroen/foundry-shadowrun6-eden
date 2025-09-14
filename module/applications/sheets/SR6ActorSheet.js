@@ -67,7 +67,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         console.log("SR6E | in template()", getSystemData(this.actor));
         console.log("SR6E | default: ", super.template);
         const path = "systems/shadowrun6-eden/templates/actor/";
-        if (this.isEditable) {
+        if (this.isEditable || (!this.document.limited && this.actor.type === 'Player')) { // Also show readwrite sheet if Observer
             console.log("SR6E | ReadWrite sheet ");
             return super.template;
         }
@@ -85,6 +85,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
+        if (this.actor.isOwner || !this.document.limited) {
+            html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
+            html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
+        }
         // Owner Only Listeners
         if (this.actor.isOwner) {
             // ActiveEffect buttons
@@ -98,8 +102,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".matrix-persona-attributes .matrix-attribute").click(this._onMatrixAttributesSwitch.bind(this));
 
             html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
-            html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
-            html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
             // Roll Skill Checks
             html.find(".skill-roll").click(this._onRollSkillCheck.bind(this));
             html.find(".spell-roll").click(this._onRollSpellCheck.bind(this));
