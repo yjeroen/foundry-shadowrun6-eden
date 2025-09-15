@@ -96,7 +96,6 @@ export default class Shadowrun6Actor extends Actor {
         this.traits.movementRate = 10;
         this.traits.movementSprintBase = 15;
         this.traits.movementSprintMultiplier = 1;
-        // TODO currently this applies to any physical soak; Spirits shouldnt be able to have hardened armor apply to indirect combat spells
         this.traits.hardenedArmor = 0;
         this.traits.immunityNormalWeapons = false;
     }
@@ -463,6 +462,11 @@ export default class Shadowrun6Actor extends Actor {
                     skill.points = force;
                 }
             });
+
+            // Spirits have Immunity to Normal Weapons which give a specialized Hardened Armor
+            this.traits.immunityNormalWeapons = true;
+            this.traits.hardenedArmor = force;
+
             // Magic rating
             system.attributes.mag.base = force;
             system.essence = force;
@@ -499,6 +503,7 @@ export default class Shadowrun6Actor extends Actor {
         const actor = this;
         // Only run on lifeforms
         if (isLifeform(system)) {
+            // TODO: This isnt modifying attributes.essense but that isnt used to no problem
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
                 if (!(system.attributes[attr].base) || parseInt(system.attributes[attr].base) < 1)
                     system.attributes[attr].base = 1;
