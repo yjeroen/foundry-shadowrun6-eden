@@ -295,6 +295,25 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             }
         }
 
+        // Updating target Edge
+        if (configured.edgeTarget > 0 && game.users.activeGM) {
+            console.log("SR6E | Target(s) gain Edge | START");
+            const targets = game.user.targets;
+            let targetNames = [];
+            targets.forEach(token => {
+                if (token.actor.system.edge.value === 7 && configured.edgeTarget > 0) return;
+                console.log(`SR6E | Requesting GM to update target ${token.name} with Edge adjustment of`, configured.edgeTarget);
+                const success = game.sr6.sockets.updateTargetEdge(token.actor.uuid, configured.edgeTarget); 
+                if (success) targetNames.push(token.name);
+            });
+            console.log("SR6E | Target(s) gain Edge | END");
+            if (targetNames.length) {
+                configured.edge_message = game.i18n.format("shadowrun6.roll.edge.gain_player", { name: targetNames.join(', '), value: configured.edgeTarget });
+            } else {
+                configured.edge_message = "";
+            }
+        }
+
         // Update Ammunition
         if (prepared.calcRounds > 0 && prepared.item.system.ammocap > 0) {
             const newAmmoCount = Math.max(0, prepared.item.system.ammocount - prepared.calcRounds )

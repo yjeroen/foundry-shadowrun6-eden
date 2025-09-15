@@ -216,9 +216,15 @@ export class RollDialog extends Dialog {
                 }
             }
             if (configured.edgeTarget != 0) {
-                //configured.targets
-                //TODO automatic target - name recognition & edge increase
-                let targetName = game.i18n.localize("shadowrun6.roll.edge.add_manually_to_target"); //this.targetName ? this.targetName : (game as Game).i18n.localize("shadowrun6.roll.target");
+                let targetName = game.i18n.localize("shadowrun6.roll.edge.add_manually_to_target");
+                if (game.user.targets.size && game.users.activeGM) {
+                    let targetNames = [];
+                    game.user.targets.forEach(token => {
+                        if (token.actor.system.edge.value === 7 && configured.edgeTarget > 0) return;
+                        targetNames.push(token.name);
+                    });
+                    targetName = targetNames.join(', ');
+                }
                 if(innerText != "") {
                     innerText += "\r\n";
                 }
