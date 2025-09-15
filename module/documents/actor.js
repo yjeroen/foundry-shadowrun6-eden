@@ -2265,11 +2265,19 @@ export default class Shadowrun6Actor extends Actor {
     async importFromJSON(json) {
         console.log("SR6E | importFromJSON");
         const sourceData = JSON.parse(json);
-        // Checking if user is trying to import GENESIS or COMMLINK data
+        // Checking if user is trying to import GENESIS/COMMLINK save instead of a Foundry Print export
         if (sourceData.system === "SHADOWRUN6") {
             ui.notifications.error("shadowrun6.ui.notifications.wrong_import_file", { localize: true });
             return;
         }
+        // Modify imported GENESIS/COMMLINK items
+        sourceData.items?.forEach(item => {
+            if (item.data?.genesisID) {
+                if (item.data.type === "WEAPON_CLOSE_COMBAT") {
+                    item.data.attackRating[0] -= sourceData.data.attributes.str.pool;
+                }
+            }
+        })
 
         return super.importFromJSON(JSON.stringify(sourceData));
     }
