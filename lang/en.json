@@ -1437,6 +1437,10 @@
       "cantDodgeBullets": {
         "hint": "Any Opposed test for an attack is instead a Simple test against a threshold that is set by distance and the size of the target defensepool. The target of the attack may still use Edge Boosts against the attacker's dice. (SWC p.151)",
         "name": "You Can't Dodge Bullets"
+      },
+      "expandedSpecializations": {
+        "hint": "Use no limit on the number  of specializations a skill may have. You are not required to purchase an expertise before taking additional specializations. Expertises are still limited to one per skill (SWC p.153)",
+        "name": "Expanded Specializations"
       }
     },
     "sin" : {

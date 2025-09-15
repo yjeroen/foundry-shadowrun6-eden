@@ -146,4 +146,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "cantDodgeBullets", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "expandedSpecializations", {
+        name: "shadowrun6.settings.expandedSpecializations.name",
+        hint: "shadowrun6.settings.expandedSpecializations.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting expandedSpecializations changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "expandedSpecializations", toggle);
+        }
+    });
 };
