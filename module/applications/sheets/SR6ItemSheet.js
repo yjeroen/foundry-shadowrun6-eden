@@ -532,9 +532,7 @@ export default class SR6ItemSheet extends ItemSheet {
         if (item.type !== 'mod') return;
 
         const itemThatWasModded = item.system.installedIn;
-        await item.update({'system.embeddedInUuid': null});
-        itemThatWasModded.render();
-        console.log('JEROEN rendering itemSheet', this, itemThatWasModded);
+        await item.update({'system.embeddedInUuid': null}, {itemThatWasModded: itemThatWasModded.id});
     }
 
     async _collapsibleItems(event) {

@@ -67,12 +67,11 @@ export default class SR6Item extends Item {
    */
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
-    if (!this.isOwner) return false;
-    
+
     console.log("SR6E | SR6Item._onUpdate()", changed);
     this._checkPersonaChanges(changed);
     this._informInCombatChanges(changed);
-    this._updateItemModSheet(changed);
+    this._updateItemModSheet(changed, options);
   }
 
  /**
@@ -113,6 +112,7 @@ export default class SR6Item extends Item {
 
   async _checkPersonaChanges(changed) {
     console.log("SR6E | SR6Item._checkPersonaChanges()");
+    if (!this.isOwner) return false;
     if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
       if (changed.delete === true || changed.system?.usedForPool !== undefined) {
         await this.parent.updatePersona();
@@ -442,7 +442,11 @@ export default class SR6Item extends Item {
     return await mod.update({"system.embeddedInUuid": this.uuid});
   }
 
-  _updateItemModSheet(changed) {
+  _updateItemModSheet(changed, options) {
+    if (options.itemThatWasModded) {
+      const itemThatWasModded = this.actor.items.get(options.itemThatWasModded);
+      itemThatWasModded.render();
+    }
     if (changed.name && this.actor) {
       for (const item of this.actor.items) {
         // Check if there are any items embedded into this one, and if so rerender their open sheet
