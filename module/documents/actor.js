@@ -505,7 +505,7 @@ export default class Shadowrun6Actor extends Actor {
                 // Attribute Pool cannot be lower than 1 and cannot apply a Mod higher than 4
                 if (parseInt(system.attributes[attr].mod) > 4 ) 
                     system.attributes[attr].modString = game.i18n.localize("attrib.max_augment");
-                system.attributes[attr].pool = Math.max(1, parseInt(system.attributes[attr].base) + Math.min(4, parseInt(system.attributes[attr].mod)) );
+                system.attributes[attr].pool = Math.max(0, parseInt(system.attributes[attr].base) + Math.min(4, parseInt(system.attributes[attr].mod)) );
                 
                 // Supporting Pool Overrides
                 if (actor.overrides?.system?.attributes && actor.overrides?.system?.attributes[attr]?.pool !== undefined) system.attributes[attr].pool = actor.overrides.system.attributes[attr].pool;
