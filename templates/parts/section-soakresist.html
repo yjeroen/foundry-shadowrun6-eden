@@ -1,4 +1,4 @@
-	<div class="section" style="display: inline-block; width: 38%; margin: 5px; min-width: 290px;">
+	<div class="section" style="display: inline-block; width: 39%; margin: 5px; min-width: 290px;">
 		<h2 class="section-title">{{ localize 'shadowrun6.section.defense' }}</h2>
 
 		<table>
@@ -61,6 +61,16 @@
 				  style="width: 2em" ></td>
 				<td class="centered" title="{{system.defensepool.spells_indirect.modString}}">{{system.defensepool.spells_indirect.pool}}</td>
 				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.spells_indirect.pool}}" data-roll-id="spells_indirect"><i class="fas fa-dice-six"></i></a></td>
+			</tr>
+		</table>
+
+		<table>
+			<tr>
+				<th style="padding: 0 8px 0 2px; text-align: left; width: 135px;">{{ localize 'shadowrun6.label.soak' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.pool' }}</th>
+				<th style="padding: 0 5px 0 5px;"></th>
 			</tr>
 			<!-- Resist Toxin -->
 			<tr>

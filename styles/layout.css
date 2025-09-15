@@ -771,3 +771,6 @@ body.game .shadowrun6.sheet .window-content {
 .shadowrun6.sheet.item {
   width: 620px;
 }
+.shadowrun6.sheet.item .window-content {
+  min-height: 200px;
+}

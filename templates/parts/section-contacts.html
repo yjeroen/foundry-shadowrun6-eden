@@ -20,12 +20,12 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'contact'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> 				  <input name="contactName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{item.system.description}}" disabled></td>
-			<td class="centered"> <input name="contactType{{id}}" type="text" value="{{item.system.type}}" data-field="system.type" class="secondary" disabled></td>
-			<td class="centered"> <input name="contactRating{{id}}" type="text" value="{{item.system.rating}}" data-field="system.rating" class="secondary" disabled></td>
-			<td class="centered"> <input name="contactLoyality{{id}}" type="text" value="{{item.system.loyalty}}" data-field="system.loyalty" class="secondary" disabled></td>
-			<td class="centered"> <input name="contactFavors{{id}}" type="number" value="{{item.system.favors}}" data-field="system.favors" class="box" /></td>
-			<td class="centered" style="font-size: 16px;"> <a class="item-control legwork-roll" data-connection="{{item.system.rating}}" data-loyalty="{{item.system.loyalty}}" data-contact="{{item.name}}" data-roll-id="legwork"><i class="fas fa-dice-six" title="{{localize 'shadowrun6.contact.legwork'}}"></i></a></td>
+			<td>{{item.name}}</td>
+			<td class="centered">{{item.system.type}}</td>
+			<td class="centered">{{item.system.rating}}</td>
+			<td class="centered">{{item.system.loyalty}}</td>
+			<td class="centered"><input name="contactFavors{{id}}" type="number" value="{{item.system.favors}}" data-field="system.favors" class="box" /></td>
+			<td class="centered" style="font-size: 16px;"><a class="item-control legwork-roll" data-connection="{{item.system.rating}}" data-loyalty="{{item.system.loyalty}}" data-contact="{{item.name}}" data-roll-id="legwork"><i class="fas fa-dice-six" title="{{localize 'shadowrun6.contact.legwork'}}"></i></a></td>
 			<td class="centered">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
 				class="fas fa-edit"></i></a> <a class="item-control item-delete"

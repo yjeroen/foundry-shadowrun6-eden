@@ -664,6 +664,7 @@
 	    "rating2": "Rating 2",
 	    "rating3": "Rating 3",
 	    "slower": "Decelerate",
+      "soak": "Soak",
       "soaked": "Soaked {soaked} of {threshold} damage",
       "specialization": "Specialization",
       "speed_detail": "You are moving with {speed} km/h ({speedPerTurn} Meter per turn). Your modifier for checks is {modifier}.",
@@ -1338,6 +1339,7 @@
       "skills.knowledge": "Knowledge Skills",
       "skills.knowledge_add": "Add new knowledge",
       "skills.language": "Language Skills",
+      "skills.level": "Language Level",
       "skills.language-level": {
         "expert": "Expert",
         "native": "Native",
