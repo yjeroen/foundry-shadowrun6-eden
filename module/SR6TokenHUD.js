@@ -11,6 +11,9 @@ export default class SR6TokenHUD extends TokenHUD {
     return data;
   }
 
+  /**
+   * V12 listeners
+   */
   activateListeners(html) {
       super.activateListeners(html);
       const effectsTray = html.find(".status-effects");
@@ -21,6 +24,16 @@ export default class SR6TokenHUD extends TokenHUD {
       
       // html.find("div[data-action='effects']").click((event) => this.#onClickStatusEffects(event));
   }
+
+  /**
+   * V13 listeners & default options
+   *  @inheritDoc 
+   */
+  // static DEFAULT_OPTIONS = {
+  //   actions: {
+  //     effect: {handler: SR6TokenHUD.#onToggleEffect, buttons: [0, 2]}
+  //   }
+  // };
 
   /**
    * Handle toggling a token status effect icon
