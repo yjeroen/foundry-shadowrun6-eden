@@ -1018,6 +1018,8 @@ export class SR6Config {
         traits_movementRate: game.i18n.format("shadowrun6.active_effect.movementRate"),
         traits_movementSprintBase: game.i18n.format("shadowrun6.active_effect.movementSprintBase"),
         traits_movementSprintMultiplier: game.i18n.format("shadowrun6.active_effect.movementSprintMultiplier"),
+        traits_hardenedArmor: game.i18n.format("shadowrun6.active_effect.hardenedArmor"),
+        traits_immunityNormalWeapons: game.i18n.format("shadowrun6.active_effect.immunityNormalWeapons"),
 
         system_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.physical_monitor")}),
         system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor")}),

@@ -279,6 +279,15 @@
 {{/if}}
    
    {{#if (or (eq rollType "defense") cantDodgeBullets)}}
+      {{#if actorTraits.hardenedArmor}}
+        {{#if (not actorTraits.immunityNormalWeapons)}}
+        <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
+        {{else}}
+          {{#if (ne configured.defendedWith 'spells_indirect')}}
+          <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
+          {{/if}}
+        {{/if}}
+      {{/if}}
       {{#if cantDodgeBullets}}
         {{#if success}}
           {{#iff targets.length ">" 0}}

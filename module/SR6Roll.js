@@ -218,7 +218,7 @@ export default class SR6Roll extends Roll {
                 }
             }
         }
-
+        
         this.finished.targets = this.configured.targetIds;
         console.log("SR6E | targetIds in Chat message: ", this.finished.targets);
         if (this.configured.rollType == RollType.Defense) {
@@ -500,6 +500,15 @@ export default class SR6Roll extends Roll {
                     // this.finished.total = Defender hits in this roll
                     if (this.finished.total <= this.finished.threshold) {
                         this.finished.damage = this.data.calcDamage + (this.finished.threshold - 1) - this.finished.total;
+
+                        // Hardened Armor
+                        if (this.finished.rollType === RollType.Defense && this.finished.soakType === SoakType.DAMAGE_PHYSICAL ) {
+                            if (!(this.finished.actorTraits.immunityNormalWeapons && this.configured.defendedWith === Defense.SPELL_INDIRECT)) {
+                                console.log("SR6E | Applying Hardened Armor", this.finished.actorTraits.hardenedArmor);
+                                this.finished.damage = Math.max(0, this.finished.damage- this.finished.actorTraits.hardenedArmor);
+                                console.log('JEROEN', this)
+                            }
+                        }
                     }
                     if (this.finished.allowSoak === false) {
                         this.finished.rollType = RollType.Soak;

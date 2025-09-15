@@ -1125,6 +1125,7 @@
       "wound-modifier": "Use wound modifier",
       "sustained-spell-modifier": "Use sustained spell modifier",
       "criticalglitch": "Critical glitch",
+      "hardenedArmor": "Hardened Armor applied",
       "heal_apply": "Heal",
       "damage": "Damage: ",
 	    "damage_apply": "Apply damage",
@@ -1933,7 +1934,9 @@
       "painTolerance": "Pain Tolerance (set Override: 'high' or 'low')",
       "movementRate": "Movement Rate",
       "movementSprintBase": "Movement Sprint Base",
-      "movementSprintMultiplier": "Movement Sprint Multiplier"
+      "movementSprintMultiplier": "Movement Sprint Multiplier",
+      "hardenedArmor": "Hardened Armor",
+      "immunityNormalWeapons": "Immunity to Normal Weapons (Override true)"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",

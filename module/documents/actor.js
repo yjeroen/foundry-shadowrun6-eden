@@ -96,6 +96,9 @@ export default class Shadowrun6Actor extends Actor {
         this.traits.movementRate = 10;
         this.traits.movementSprintBase = 15;
         this.traits.movementSprintMultiplier = 1;
+        // TODO currently this applies to any physical soak; Spirits shouldnt be able to have hardened armor apply to indirect combat spells
+        this.traits.hardenedArmor = 0;
+        this.traits.immunityNormalWeapons = false;
     }
 
     /** @inheritDoc */
@@ -727,6 +730,10 @@ export default class Shadowrun6Actor extends Actor {
         if (data.defenserating.physical.mod) {
             data.defenserating.physical.pool += data.defenserating.physical.mod;
             data.defenserating.physical.modString += " + " + data.defenserating.physical.mod;
+        }
+        if (this.traits.hardenedArmor !== 0) {
+            data.defenserating.physical.pool += this.traits.hardenedArmor;
+            data.defenserating.physical.modString += " + " + this.traits.hardenedArmor;
         }
         items.forEach((item) => {
             let itemSystem = getSystemData(item);
@@ -1960,6 +1967,7 @@ export default class Shadowrun6Actor extends Actor {
         rollData.allowBuyHits = false;
         rollData.pool = defensePool.pool;
         rollData.rollType = RollType.Defense;
+        rollData.defendedWith = defendWith;
         rollData.performer = data;
         rollData.speaker = ChatMessage.getSpeaker({ actor: this });
         console.log("SR6E | Defend roll config ", rollData);

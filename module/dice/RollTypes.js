@@ -482,6 +482,10 @@ export class ConfiguredRoll extends CommonRollData {
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
 
+        if (copy.defendedWith) {
+            this.defendedWith = copy.defendedWith;
+        }
+
         if (copy.skillId) {
             this.skillId = copy.skillId;
             this.skillSpec = copy.skillSpec;

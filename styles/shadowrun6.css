@@ -767,6 +767,9 @@ a.item-control.disabled-roll:hover {
   font-style: italic;
   font-weight: 700;
 }
+.chat-message .message-content .resulttext {
+  margin-top: 5px;
+}
 .chat-message .message-content .success {
   color: darkgreen;
   font-weight: 700;
