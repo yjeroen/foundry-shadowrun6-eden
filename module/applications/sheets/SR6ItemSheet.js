@@ -324,7 +324,7 @@ export default class SR6ItemSheet extends ItemSheet {
      */
     async _deleteEffect(event, target) {
         if (target === undefined) target = event.target;
-        console.log("SR6E | SR3ItemSheet | ActiveEffect _deleteEffect");
+        console.log("SR6E | SR6ItemSheet | ActiveEffect _deleteEffect");
         const confirm = await foundry.applications.api.DialogV2.confirm({
             window: {
                 title: game.i18n.format("DOCUMENT.Delete", {
@@ -406,6 +406,25 @@ export default class SR6ItemSheet extends ItemSheet {
      */
 
     /**
+     * Define whether a user is able to begin a dragstart workflow for a given drag selector.
+     * @param {string} selector       The candidate HTML selector for dragging
+     * @returns {boolean}             Can the current user drag this selector?
+     * @protected
+     */
+    _canDragStart(selector) {
+        return this.isEditable;
+    }
+    /**
+     * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector.
+     * @param {string} selector       The candidate HTML selector for the drop target
+     * @returns {boolean}             Can the current user drop on this selector?
+     * @protected
+     */
+    _canDragDrop(selector) {
+        return this.isEditable;
+    }
+
+    /**
      * Callback actions which occur when a dragged element is dropped on a target.
      * @param {DragEvent} event       The originating DragEvent
      * @protected
@@ -413,7 +432,7 @@ export default class SR6ItemSheet extends ItemSheet {
     async _onDrop(event) {
         const data = TextEditor.getDragEventData(event);
         const actor = this.actor;
-        console.log("SR6E | SR3ItemSheet | _onDrop", event, data);
+        console.log("SR6E | SR6ItemSheet | _onDrop", event, data);
         const allowed = Hooks.call("dropItemSheetData", actor, this, data);
         if (allowed === false) return;
 
@@ -430,26 +449,26 @@ export default class SR6ItemSheet extends ItemSheet {
         const effect = await ActiveEffect.implementation.fromDropData(data);
         if ( !this.actor.isOwner || !effect ) return false;
         if ( effect.target === this.item ) return false;
-        console.log("SR6E | SR3ItemSheet | _onDropActiveEffect", effect.name);
+        console.log("SR6E | SR6ItemSheet | _onDropActiveEffect", effect.name);
         return ActiveEffect.create(effect.toObject(), {parent: this.item});
     }
     
     async _onDropItem(event, data) {
         if ( !this.actor || !this.actor?.isOwner ) return false;
         let droppedItem = await Item.implementation.fromDropData(data);
-        console.log("SR6E | SR3ItemSheet | _onDropItem", droppedItem);
+        console.log("SR6E | SR6ItemSheet | _onDropItem", droppedItem);
 
         if ( droppedItem.type !== 'mod' ) return false;
 
         if ( droppedItem.actor?.uuid === this.actor?.uuid ) {
             // Moving a Gear Mod from not installed to installed
-            console.log("SR6E | SR3ItemSheet | _onDropItem | Installing Mod", droppedItem.name, 'on', this.item.name);
+            console.log("SR6E | SR6ItemSheet | _onDropItem | Installing Mod", droppedItem.name, 'on', this.item.name);
             await droppedItem.update({'system.embeddedInUuid': this.item.uuid});
         } else {
             // Add Gear Mod to my actor as it isn't there yet
             const itemData = droppedItem.toObject();
             itemData.system.embeddedInUuid = this.item.uuid;
-            console.log("SR6E | SR3ItemSheet | _onDropItem | Creating an Installed Mod on Actor", droppedItem.name);
+            console.log("SR6E | SR6ItemSheet | _onDropItem | Creating an Installed Mod on Actor", droppedItem.name);
             await this._onDropItemEmbedOnActor(itemData);
         }
         this.render();
@@ -515,7 +534,7 @@ export default class SR6ItemSheet extends ItemSheet {
         const itemThatWasModded = item.system.installedIn;
         await item.update({'system.embeddedInUuid': null});
         itemThatWasModded.render();
-        this.render();
+        console.log('JEROEN rendering itemSheet', this, itemThatWasModded);
     }
 
     async _collapsibleItems(event) {
