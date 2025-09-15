@@ -206,7 +206,8 @@
       "favors": "Favors",
       "favors_short": "Fav",
       "legwork": "Legwork",
-      "type": "Type"
+      "type": "Type",
+      "pronouns": "Pronouns"
     },
     "defense": {
       "astral": "Astral Combat",

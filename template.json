@@ -603,7 +603,8 @@
 			"loyalty": 1,
 			"favors": 0,
 			"type": "",
-			"description": ""
+			"description": "",
+			"pronouns": ""
 		},
 		"critterpower": {
 			"templates": [

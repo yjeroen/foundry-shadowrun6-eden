@@ -7,12 +7,14 @@
             <table>
                 <tr>
                     <th>{{localize 'shadowrun6.contact.type'}}</th>
+                    <th>{{localize 'shadowrun6.contact.pronouns'}}</th>
                     <th>{{localize 'shadowrun6.contact.rating'}}</th>
                     <th>{{localize 'shadowrun6.contact.loyalty'}}</th>
                     <th>{{localize 'shadowrun6.contact.favors'}}</th>
                 </tr>
                 <tr>
-                    <td style="width:8em"> <input  class="box" type="text" value="{{item.system.type}}" name="system.type"  /></td>
+                    <td style="width:8em"> <input class="box" type="text" value="{{item.system.type}}" name="system.type"  /></td>
+                    <td style="width:8em"> <input class="box" type="text" value="{{item.system.pronouns}}" /></td>
                     <td class="box centered"> <input  class="box" type="number" value="{{item.system.rating}}" name="system.rating" style="width:2em" /></td>
                     <td class="box centered"> <input  class="box" type="number" value="{{item.system.loyalty}}" name="system.loyalty" style="width:2em" /></td>
                     <td class="box centered"> <input  class="box" type="number" value="{{item.system.favors}}" name="system.favors" style="width:2em" /></td>
