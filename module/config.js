@@ -825,7 +825,7 @@ export class SR6Config {
         control_device: new MatrixAction("control_device", "electronics", "software", "log", false, true, false, true, true, "wil", "f"),
         crack_file: new MatrixAction("crack_file", "cracking", "hacking", "log", true, true, false, true, true, undefined, null),
         crash_program: new MatrixAction("crash_program", "cracking", "cybercombat", "log", true, true, false, false, true, "d", "dr"),
-        data_spike: new MatrixAction("data_spike", "cracking", "cybercombat", "log", true, true, false, true, true, "d", "f", "a"),
+        data_spike: new MatrixAction("data_spike", "cracking", "cybercombat", "log", true, true, true, true, true, "d", "f", "a"),
         disarm_data_bomb: new MatrixAction("disarm_data_bomb", "cracking", "cybercombat", "log", false, true, false, true, true, "dr", "dr"),
         edit_file: new MatrixAction("edit_file", "electronics", "computer", "log", false, true, false, true, true, "int", "f"),
         encrypt_file: new MatrixAction("encrypt_file", "electronics", "computer", "log", false, true, false, true, true, null, null),
