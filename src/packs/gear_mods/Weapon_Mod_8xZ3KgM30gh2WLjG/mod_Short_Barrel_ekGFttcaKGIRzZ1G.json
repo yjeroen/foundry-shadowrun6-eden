@@ -74,12 +74,13 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "12.343",
+        "coreVersion": "13.347",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.0",
         "createdTime": null,
         "modifiedTime": null,
-        "lastModifiedBy": null
+        "lastModifiedBy": null,
+        "exportSource": null
       },
       "_key": "!items.effects!ekGFttcaKGIRzZ1G.8j6ePEuwNvU8kvYj"
     },
@@ -144,12 +145,13 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "12.343",
+        "coreVersion": "13.347",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.0",
         "createdTime": null,
         "modifiedTime": null,
-        "lastModifiedBy": null
+        "lastModifiedBy": null,
+        "exportSource": null
       },
       "_key": "!items.effects!ekGFttcaKGIRzZ1G.BPTvZxFPai85Upzm"
     },
@@ -214,12 +216,13 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "12.343",
+        "coreVersion": "13.347",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.0",
         "createdTime": null,
         "modifiedTime": null,
-        "lastModifiedBy": null
+        "lastModifiedBy": null,
+        "exportSource": null
       },
       "_key": "!items.effects!ekGFttcaKGIRzZ1G.mMOESMv9lZnxp3us"
     },
@@ -278,12 +281,13 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "12.343",
+        "coreVersion": "13.347",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.0",
         "createdTime": null,
         "modifiedTime": null,
-        "lastModifiedBy": null
+        "lastModifiedBy": null,
+        "exportSource": null
       },
       "_key": "!items.effects!ekGFttcaKGIRzZ1G.EpNzZhETQ6FrRX1G"
     }
@@ -297,12 +301,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "12.343",
+    "coreVersion": "13.347",
     "systemId": "shadowrun6-eden",
     "systemVersion": "3.3.0",
     "createdTime": 1755635448558,
     "modifiedTime": 1755635448558,
-    "lastModifiedBy": "S4L5UokAp998askq"
+    "lastModifiedBy": "S4L5UokAp998askq",
+    "exportSource": null
   },
   "_key": "!items!ekGFttcaKGIRzZ1G"
 }

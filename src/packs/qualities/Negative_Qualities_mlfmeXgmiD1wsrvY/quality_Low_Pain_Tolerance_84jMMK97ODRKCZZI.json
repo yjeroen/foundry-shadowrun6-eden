@@ -1,24 +1,23 @@
 {
   "folder": "mlfmeXgmiD1wsrvY",
-  "name": "Glass Jaw (1)",
+  "name": "Low Pain Tolerance",
   "type": "quality",
-  "_id": "2Pph07YHeRxGm5Z0",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
     "genesisID": "",
-    "description": "<p>You have 1 less Stun Box for each level of this Quality, down to a minimum of 2.</p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Manually adjust the Glass Jaw Effect so it decreases the Stun Monitor 1 per level you have of this quality.</em></p></blockquote>",
+    "description": "<p>All wound modifiers are doubled.</p>",
     "value": 0,
-    "explain": "One less stun box per level",
+    "explain": "All wound modifiers are doubled.",
     "modifier": [],
     "category": "DISADVANTAGE",
     "level": false
   },
   "effects": [
     {
-      "name": "Glass Jaw",
-      "origin": "Item.2Pph07YHeRxGm5Z0",
+      "name": "Low Pain Tolerance",
+      "origin": "Item.HYhk8RlWMNm1gSLs",
       "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
-      "_id": "IrCYe1njlO3osFvX",
+      "_id": "wngQgP22tEPWZ7ao",
       "type": "base",
       "system": {
         "level": 1,
@@ -26,17 +25,17 @@
       },
       "changes": [
         {
-          "key": "system.stun.mod",
-          "mode": 2,
-          "value": "-1",
+          "key": "system.painTolerance",
+          "mode": 5,
+          "value": "low",
           "priority": null
         }
       ],
       "disabled": false,
       "duration": {
         "startTime": null,
-        "seconds": null,
         "combat": null,
+        "seconds": null,
         "rounds": null,
         "turns": null,
         "startRound": null,
@@ -51,18 +50,15 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.2",
+        "lastModifiedBy": null
       },
-      "_key": "!items.effects!2Pph07YHeRxGm5Z0.IrCYe1njlO3osFvX"
+      "_key": "!items.effects!84jMMK97ODRKCZZI.wngQgP22tEPWZ7ao"
     }
   ],
-  "sort": 125000,
   "ownership": {
     "default": 0,
     "S4L5UokAp998askq": 3
@@ -71,13 +67,15 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698130607,
-    "modifiedTime": 1755698130607,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.2",
+    "createdTime": 1757942533758,
+    "modifiedTime": 1757942533758,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
-  "_key": "!items!2Pph07YHeRxGm5Z0"
+  "_id": "84jMMK97ODRKCZZI",
+  "sort": 0,
+  "_key": "!items!84jMMK97ODRKCZZI"
 }

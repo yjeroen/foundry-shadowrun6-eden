@@ -74,12 +74,13 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "12.343",
+        "coreVersion": "13.347",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.0",
         "createdTime": null,
         "modifiedTime": null,
-        "lastModifiedBy": null
+        "lastModifiedBy": null,
+        "exportSource": null
       },
       "_key": "!items.effects!I80GxcO4yuyDywXx.EPCdPF1fr4VB1l78"
     },
@@ -120,12 +121,13 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "12.343",
+        "coreVersion": "13.347",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.0",
         "createdTime": null,
         "modifiedTime": null,
-        "lastModifiedBy": null
+        "lastModifiedBy": null,
+        "exportSource": null
       },
       "_key": "!items.effects!I80GxcO4yuyDywXx.P5Rp6x8bXUeiKRuZ"
     }
@@ -139,12 +141,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "12.343",
+    "coreVersion": "13.347",
     "systemId": "shadowrun6-eden",
     "systemVersion": "3.3.0",
     "createdTime": 1755635448558,
     "modifiedTime": 1755635448558,
-    "lastModifiedBy": "S4L5UokAp998askq"
+    "lastModifiedBy": "S4L5UokAp998askq",
+    "exportSource": null
   },
   "_key": "!items!I80GxcO4yuyDywXx"
 }

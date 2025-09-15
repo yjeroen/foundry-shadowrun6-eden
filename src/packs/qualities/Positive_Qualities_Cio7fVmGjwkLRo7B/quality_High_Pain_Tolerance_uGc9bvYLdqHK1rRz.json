@@ -1,24 +1,23 @@
 {
   "folder": "Cio7fVmGjwkLRo7B",
-  "name": "Dermal Deposits",
+  "name": "High Pain Tolerance",
   "type": "quality",
-  "_id": "0UZwKhcgSLdtdbLX",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
     "genesisID": "",
-    "description": "<p>You gain 1 level of natural Armor. Your Unarmed Melee attacks inflict Physical damage. </p>",
+    "description": "<p>When wounded, reduce your wound penalty by one (to a minimum of 0).</p>",
     "value": 0,
-    "explain": "Add extra armor and unarmed melee do physical damage.",
+    "explain": "Reduce your wound penalty by one",
     "modifier": [],
     "category": "",
     "level": false
   },
   "effects": [
     {
-      "name": "Dermal Deposits",
-      "origin": "Item.0UZwKhcgSLdtdbLX",
+      "name": "High Pain Tolerance",
+      "origin": "Item.RNXUazQXO8jPlpSG",
       "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
-      "_id": "z3N4SHelUir2MCN8",
+      "_id": "AT0jyMh5xwCeeIPS",
       "type": "base",
       "system": {
         "level": 1,
@@ -26,17 +25,17 @@
       },
       "changes": [
         {
-          "key": "system.defenserating.physical.mod",
-          "mode": 2,
-          "value": "1",
+          "key": "system.painTolerance",
+          "mode": 5,
+          "value": "high",
           "priority": null
         }
       ],
       "disabled": false,
       "duration": {
         "startTime": null,
-        "seconds": null,
         "combat": null,
+        "seconds": null,
         "rounds": null,
         "turns": null,
         "startRound": null,
@@ -51,18 +50,15 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.2",
+        "lastModifiedBy": null
       },
-      "_key": "!items.effects!0UZwKhcgSLdtdbLX.z3N4SHelUir2MCN8"
+      "_key": "!items.effects!uGc9bvYLdqHK1rRz.AT0jyMh5xwCeeIPS"
     }
   ],
-  "sort": 200000,
   "ownership": {
     "default": 0,
     "S4L5UokAp998askq": 3
@@ -71,13 +67,15 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698132022,
-    "modifiedTime": 1755698132022,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.2",
+    "createdTime": 1757942531698,
+    "modifiedTime": 1757942531698,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
-  "_key": "!items!0UZwKhcgSLdtdbLX"
+  "_id": "uGc9bvYLdqHK1rRz",
+  "sort": 0,
+  "_key": "!items!uGc9bvYLdqHK1rRz"
 }
