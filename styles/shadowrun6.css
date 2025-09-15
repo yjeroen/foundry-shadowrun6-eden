@@ -280,22 +280,26 @@
 	box-shadow: none;
 }
 .edge label.edge-max-label {
-		z-index: 2;
-    position: absolute;
-    bottom: 2em;
-    left: 0;
-		text-align: center;
-		font-size: .75rem;
-    background-color: rgba(239,239,239,0.8);
+  z-index: 2;
+  position: absolute;
+  bottom: 20px;
+  padding: 0 2px;
+  left: 0;
+  text-align: center;
+  font-size: .75rem;
+  font-weight: bold;
+  background-color: rgba(239,239,239,0.8);
+  border-radius: 2px;
 }
 .edge input.edge-max {
-		z-index: 2;
-		font-size: .89rem;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 2em;
-      background-color: var(--section-background);
+  z-index: 2;
+  font-size: .8rem;
+  position: absolute;
+  bottom: 0;
+  left: 2px;
+  width: 30px;
+  height: 20px;
+  background-color: var(--section-background);
 }
 
 .edge {
