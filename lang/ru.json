@@ -209,7 +209,8 @@
 			"favors": "Услуги",
 			"favors_short": "Усл.",
 			"legwork": "Подготовка",
-			"type": "Тип"
+			"type": "Тип",
+			"pronouns": "Местоимения"
 		},
 		"defense": {
 			"astral": "Защита: бой в астрале",
@@ -1128,6 +1129,7 @@
 			"wound-modifier": "Использовать модификатор ранения",
 			"sustained-spell-modifier": "Использовать модификатор длительного заклинания",
 			"criticalglitch": "Критический сбой",
+			"hardenedArmor": "Применена «Крепкая броня»",
 			"heal_apply": "Вылечить",
 			"damage": "Урон: ",
 			"damage_apply": "Применить урон",
@@ -1937,7 +1939,9 @@
 			"painTolerance": "Болевой порог (установите Перезапись: high для качества «Устойчивость к боли» или low для «Низкий болевой порог»)",
 			"movementRate": "Скорость перемещения",
 			"movementSprintBase": "Основное значение рывка",
-			"movementSprintMultiplier": "Множитель рывка"
+			"movementSprintMultiplier": "Множитель рывка",
+			"hardenedArmor": "Крепкая броня",
+			"immunityNormalWeapons": "Невосприимчивость к обычному оружию (установите Перезапись: true)"
 		},
 		"KEYBINDINGS": {
 			"bindTokenControlGroup": "Связать выбранные токены в группу управления",
