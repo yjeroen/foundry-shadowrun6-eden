@@ -1,0 +1,26 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+
+    {{#iff item.system.genesisID '==' 'language'}}
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="section">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.section.skills.level'}}</th>
+                </tr>
+                <tr>
+                    <td class="centered">
+                        <select name="skillLanguagePoints" data-field="system.points" style="width: 8em; flex-grow:3">
+                            <option value="1" {{#iff item.system.points '==' 1}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.normal' }}</option>
+                            <option value="2" {{#iff item.system.points '==' 2}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.special' }}</option>
+                            <option value="3" {{#iff item.system.points '==' 3}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.expert' }}</option>
+                            <option value="4" {{#iff item.system.points '==' 4}}selected{{/iff}}>{{ localize 'shadowrun6.section.skills.language-level.native' }}</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    {{/iff}}
+</form>

@@ -115,6 +115,7 @@ Hooks.once("init", async function () {
             "martialarttech",
             "martialartstyle",
             "quality",
+            "skill",
             "spell",
             "adeptpower",
             "ritual",
