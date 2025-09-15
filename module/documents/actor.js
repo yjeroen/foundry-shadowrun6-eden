@@ -214,7 +214,7 @@ export default class Shadowrun6Actor extends Actor {
         if ( allowed === false ) return false;
 
         changes = this._tokenBarsToMonitorDmg(changes);
-
+        await this.updateGruntGroup(changes, options);
     }
     /**
      * Post-process an update operation for a single Document instance. Post-operation events occur for all connected
@@ -2299,5 +2299,17 @@ export default class Shadowrun6Actor extends Actor {
         console.log("SR6E | Looked up gruntGroup", gruntGroup);
         return gruntGroup;
     }
+    
+    async updateGruntGroup(changes, options) {
+        const gruntGroupId = this.token?.getFlag(game.system.id, 'GruntGroupId');
+        if (!gruntGroupId || options.updatingGruntGroup) return;
 
+        canvas.tokens.ownedTokens.forEach(async (token) => {
+            if (token.document.getFlag(game.system.id, 'GruntGroupId') === gruntGroupId && token.actor.uuid !== this.uuid ) {
+                if (typeof changes.system?.edge?.value !== 'undefined') {
+                    await token.actor.update({'system.edge.value': changes.system.edge.value}, {updatingGruntGroup: true});
+                }
+            }
+        });
+    }
 }
