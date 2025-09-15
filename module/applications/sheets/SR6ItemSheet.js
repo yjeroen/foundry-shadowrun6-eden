@@ -113,6 +113,15 @@ export default class SR6ItemSheet extends ItemSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
+        /*
+        * Drag & Drop
+        */
+        $(".sheet .draggable").on("dragstart", async (event) => {
+            const item = await fromUuidSync(event.currentTarget.dataset.uuid);
+            console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
+            event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
+        }).attr("draggable", "true");
+
         if (this.item.isOwner) {
             // ActiveEffect buttons
             html.find("[data-action='viewDoc']").click(
