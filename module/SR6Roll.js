@@ -207,11 +207,15 @@ export default class SR6Roll extends Roll {
                 }
             }
 
-            if (this.finished.soakType === SoakType.FADING) {
+            if (this.finished.soakType === SoakType.DRAIN) {
+                if ((this.finished.threshold - this.result) > this.finished.actor.system.attributes.mag.pool) {
+                    this.finished.monitor = MonitorType.PHYSICAL;
+                }
+            }
+            else if (this.finished.soakType === SoakType.FADING) {
                 if ((this.finished.threshold - this.result) > this.finished.actor.system.attributes.res.pool) {
                     this.finished.monitor = MonitorType.PHYSICAL;
                 }
-                // TODO add drain daamge
             }
         }
 
