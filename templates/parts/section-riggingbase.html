@@ -28,17 +28,25 @@
 		{{#if (eq item.type 'gear')}}
 		{{#if (eq item.system.type "ELECTRONICS") }}
 		{{#if (eq item.system.subtype "RIGGER_CONSOLE") }}
-      <tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseRiggerConsole{{id}}" class="collapsible closed" data-item-id="{{this.id}}"></button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
-         <td class="centered"><label class="middle-column" >{{item.system.devRating}}</label></td>
-         <td class="centered">{{item.system.d}}</td>
-         <td class="centered">{{item.system.f}}</td>
+		<tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
+			<td style="margin-right: 1rem"><button type="button" name="collapseRiggerConsole{{id}}" class="collapsible closed" data-item-id="{{this.id}}"></button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+			<td class="centered"><label class="middle-column" >{{item.system.devRating}}</label></td>
+			<td class="centered">{{item.system.d}}</td>
+			<td class="centered">{{item.system.f}}</td>
 			<td class="centered">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i
 					class="fas fa-edit"></i></a> <a class="item-control item-delete"
 				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
-         </td>
-       </tr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5">
+			<div class="collapsible-content closed" style="font-size: 0.8em;">
+				<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+				<div>{{{item.enriched.description}}} &nbsp;</div>
+			</div>
+			</td>
+		</tr>
        {{/if}}
        {{/if}}
        {{/if}}
