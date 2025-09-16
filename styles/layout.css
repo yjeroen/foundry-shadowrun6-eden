@@ -328,6 +328,12 @@ dd::after {
 .shadowrun6 .sheet-tabs {
 	background-color: rgba(255,255,255,0.5);
 }
+.skill-no-specializations {
+  padding: 0 8px;
+  max-height: 5px;
+  overflow: hidden;
+  visibility: hidden;
+}
 .collapsible-content {
   padding: 0 8px;
   max-height: 0;

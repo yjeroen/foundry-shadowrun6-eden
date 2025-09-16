@@ -36,8 +36,8 @@
          <div>
          <div style="display:block; margin-left: 2em">
 
-         	<div class="" style="padding:0px">
-         	  <table style="margin: 4px 0px 6px;">
+         	<div class="{{#if (and (not skill.specialization)(not skill.expertise))}}skill-no-specializations{{/if}}" style="padding:0px">
+         	  <table style="margin: 4px 0px;">
               {{#if skill.expertise }}
          	    <tr>
          	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">
@@ -111,7 +111,7 @@
          	  </table>
           </div>
          	<div class="collapsible-content {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" style="padding:0px">
-         	  <table style="margin: 4px 0px 6px;">
+         	  <table style="margin: 4px 0px;">
               {{#if (not skill.expertise) }}
          	    <tr>
          	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">
