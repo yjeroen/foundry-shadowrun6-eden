@@ -4,10 +4,6 @@
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="section">
-            <h3>{{localize 'shadowrun6.qualityedit.explain'}}</h3>
-            <textarea name="explain" class="box" type="text" data-field="system.explain" cols="50"
-                rows="8">{{item.system.explain}}</textarea>
-
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{editor item.enriched.description target="system.description" fieldName=item.system.description button=true owner=owner editable=editable engine="prosemirror"}}
         </div>
