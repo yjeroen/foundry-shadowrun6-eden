@@ -506,7 +506,6 @@ export default class SR6Roll extends Roll {
                             if (!(this.finished.actorTraits.immunityNormalWeapons && this.configured.defendedWith === Defense.SPELL_INDIRECT)) {
                                 console.log("SR6E | Applying Hardened Armor", this.finished.actorTraits.hardenedArmor);
                                 this.finished.damage = Math.max(0, this.finished.damage- this.finished.actorTraits.hardenedArmor);
-                                console.log('JEROEN', this)
                             }
                         }
                     }

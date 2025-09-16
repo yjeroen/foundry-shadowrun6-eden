@@ -274,6 +274,7 @@ dd::after {
 	flex-grow:6;
 	align-self: center;
 	justify-content: center;
+  font-weight: bold;
 }
 
 .skill-attrib {
@@ -284,16 +285,22 @@ dd::after {
 }
 
 .skill-pool {
-	width: 2em;
+	width: 42px;
 	flex-grow:1;
 	align-self: center;
-	text-align:center;
 	font-size: 150%;
+  text-align: right;
+}
+.skill-pool.skill span {
+  margin-right: 15px;
+}
+.skill-item .item-controls {
+  width: 44px;
 }
 .item-controls {
 	align-self: center;
 	padding: 0em;
-	text-align:right;
+	text-align: right;
 }
 .item-controls a, .item-controls span {
 	margin: 0 10px 0;

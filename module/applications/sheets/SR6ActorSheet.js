@@ -60,6 +60,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             if (item.system.accessories) item.enriched.accessories = await this.enrichedHTML(item.system.accessories);
         }
 
+        // Get sheet relevant game settings
+        data.settings = {};
+        data.settings.expandedSpecializations = game.settings.get(game.system.id, "expandedSpecializations");
+
         console.log("SR6E | Shadowrun6ActorSheet.getData()", data);
         return data;
     }
@@ -220,6 +224,24 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     await this.actor.update({ [field]: value });
                 }
             });
+            // Changes on Expanded Specializations
+            html.find(".expandedSpecializations").change(async (event) => {
+                console.log("SR6E | expandedSpecializations field changed", event);
+                const element = event.currentTarget;
+                let value = element.value;
+
+                const skill = element.dataset.skill;
+                const idx = element.dataset.idx;
+                const expandedSpecializations = `system.skills.${skill}.expandedSpecializations`;
+                const original = [...this.actor.system.skills[skill].expandedSpecializations];
+                original[idx] = value;
+                const updated = [...new Set(original.filter(spec => spec !== ''))].sort();
+                const result = await this.actor.update({
+                    [expandedSpecializations]: updated
+                });
+                if (!result) this.actor.render();
+            });
+
             // Checkbox toggle
             html.find("[data-check]").click(async (event) => {
                 const element = event.currentTarget;

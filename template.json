@@ -269,49 +269,56 @@
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"athletics": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"biotech": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"close_combat": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"con": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"conjuring": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"cracking": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"electronics": {
 						"points": 0,
@@ -325,77 +332,88 @@
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"engineering": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"exotic_weapons": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"firearms": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"influence": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"outdoors": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"perception": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"piloting": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"sorcery": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"stealth": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					},
 					"tasking": {
 						"points": 0,
 						"specialization": "",
 						"expertise": "",
 						"modifier": 0,
-						"augment": 0
+						"augment": 0,
+						"expandedSpecializations": []
 					}
 				}
 			},

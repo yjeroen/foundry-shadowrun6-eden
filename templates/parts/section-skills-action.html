@@ -1,9 +1,9 @@
 <!-- Action skills -->
-   <div class="section" style="width: 400px;">
-     <h2 class="section-title">{{ localize 'shadowrun6.section.skills.action' }}</h2>
+<div class="section" style="width: 400px;">
+  <h2 class="section-title">{{ localize 'shadowrun6.section.skills.action' }}</h2>
 
-	  <ol class="item-list">
-        {{#each skills as |skill id|}}
+  <ol class="item-list">
+    {{#each skills as |skill id|}}
         {{#if
           (or
             (and
@@ -14,11 +14,7 @@
         }}
         {{else}}
        <li class="skill-item flexrow" data-skill-id="{{id}}">
-		    {{#if skill.specialization }}
-       	<button type="button" name="collapseSkillAction{{id}}" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" data-item-id="{{this.id}}">+</button>
-        {{else}}
-       	<button type="button" name="collapseSkillAction{{id}}" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}} empty" data-item-id="{{this.id}}">+</button>
-        {{/if}}
+        <button type="button" name="collapseSkillAction{{id}}" class="collapsible-skill {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}} empty" data-item-id="{{this.id}}" style="flex: 0 0 28px">+</button>
          <label class="skill-value skill-key rollable skill-name skill-roll" data-skill="{{id}}">{{localize (concat "skill." id ) }}</label>
          <div class="skill-attrib">
            <span>{{localize (concat "attrib." (skillAttr id) "_short")}}</span>
@@ -26,10 +22,10 @@
          <div class="skill-points centered" style="width: 2em;">
            <input name="skillActionPoints{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}"  style="width: 2em" />
          </div>
-         <div class="skill-pool" style="flex-grow:2;">
+         <div class="skill-pool skill" style="flex-grow:2;">
            <span>{{skill.pool}}</span>
          </div>
-         <div class="item-controls" style="width: 3em; flex-grow:1;">
+         <div class="item-controls" style="flex-grow:1;">
            <!--a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a-->
             {{#if skill.pool }}
             <a class="item-control skill-roll" data-skill="{{id}}" title="Roll"><i class="fas fa-dice-six"></i></a>
@@ -39,26 +35,10 @@
          </div>
          <div>
          <div style="display:block; margin-left: 2em">
-         	<div class="collapsible-content {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" style="padding:0px">
-         	  <table style="margin:4px 0px 6px;">
-         	    <tr>
-         	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
-         	    	<td>
-         	    		<select name="skillSpecialization{{id}}" data-field="system.skills.{{id}}.specialization" style="width: -webkit-fill-available;">
-                   {{selectOptions (lookup ../config.skill_special id) selected=skill.specialization blank=(localize "shadowrun6.label.none") localize=true}}
-               		</select>
-               	</td>
-               	<td class="skill-pool" style="text-align: right;">
-                  <span>{{skill.poolS}}</span>
-                </td>
-               	<td class="item-controls" style="width: 3em; text-align:right">
-                  {{#if skill.poolS }}
-                  <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>
-                  {{else}}
-                  <span class="item-control skill-roll" style="color: lightgray;" title="No skill pool"><i class="fas fa-dice-six"></i></span>
-                  {{/if}}
-                </td>
-         	    </tr>
+
+         	<div class="" style="padding:0px">
+         	  <table style="margin: 4px 0px 6px;">
+              {{#if skill.expertise }}
          	    <tr>
          	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">
                   {{#if skill.exotic }}
@@ -67,15 +47,15 @@
                     {{ localize 'shadowrun6.label.expertise' }}
                   {{/if}}              
                 </td>
-         	    	<td>
+         	    	<td style="width: 10em;">
          	    		<select name="skillExpertise{{id}}" data-field="system.skills.{{id}}.expertise" style="width: -webkit-fill-available;">
                    {{selectOptions (lookup ../config.skill_special id) selected=skill.expertise blank=(localize "shadowrun6.label.none") localize=true}}
                		</select>
                	</td>
-               	<td class="skill-pool" style="text-align: right;">
+               	<td class="skill-pool">
                   <span>{{skill.poolE}}</span>
                 </td>
-               	<td class="item-controls" style="width: 3em; text-align:right">
+               	<td class="item-controls">
                   {{#if skill.poolE }}
                   <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.expertise}}" title="Roll"><i class="fas fa-dice-six"></i></a>
                   {{else}}
@@ -83,12 +63,124 @@
                   {{/if}}
                 </td>
          	    </tr>
+              {{/if}}
+              {{#if skill.specialization }}
+         	    <tr>
+         	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
+         	    	<td style="width: 10em;">
+         	    		<select name="skillSpecialization{{id}}" data-field="system.skills.{{id}}.specialization" style="width: -webkit-fill-available;">
+                   {{selectOptions (lookup ../config.skill_special id) selected=skill.specialization blank=(localize "shadowrun6.label.none") localize=true}}
+               		</select>
+               	</td>
+               	<td class="skill-pool">
+                  <span>{{skill.poolS}}</span>
+                </td>
+               	<td class="item-controls">
+                  {{#if skill.poolS }}
+                  <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+                  {{else}}
+                  <span class="item-control skill-roll" style="color: lightgray;" title="No skill pool"><i class="fas fa-dice-six"></i></span>
+                  {{/if}}
+                </td>
+         	    </tr>
+              {{/if}}
+
+              {{#if (and skill.specialization @root.settings.expandedSpecializations)}}
+              {{!-- Expanded Specializations --}}
+              {{#each skill.expandedSpecializations as |specialization|}}
+         	    <tr>
+         	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
+         	    	<td style="width: 10em;">
+         	    		<select class="expandedSpecializations" data-skill="{{id}}" data-idx="{{@index}}" style="width: -webkit-fill-available;">
+                   {{selectOptions (lookup @root.config.skill_special id) selected=specialization blank=(localize "shadowrun6.label.none") localize=true}}
+               		</select>
+               	</td>
+               	<td class="skill-pool">
+                  <span>{{skill.poolS}}</span>
+                </td>
+               	<td class="item-controls">
+                  {{#if skill.poolS }}
+                  <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+                  {{else}}
+                  <span class="item-control skill-roll" style="color: lightgray;" title="No skill pool"><i class="fas fa-dice-six"></i></span>
+                  {{/if}}
+                </td>
+         	    </tr>
+              {{/each}}
+              {{/if}}
          	  </table>
+          </div>
+         	<div class="collapsible-content {{lookup ../actor.flags.shadowrun6-eden (concat 'collapse-state-' id)}}" style="padding:0px">
+         	  <table style="margin: 4px 0px 6px;">
+              {{#if (not skill.expertise) }}
+         	    <tr>
+         	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">
+                  {{#if skill.exotic }}
+                    {{ localize 'shadowrun6.label.specialization' }}
+                  {{else}}
+                    {{ localize 'shadowrun6.label.expertise' }}
+                  {{/if}}              
+                </td>
+         	    	<td style="width: 10em;">
+         	    		<select name="skillExpertise{{id}}" data-field="system.skills.{{id}}.expertise" style="width: -webkit-fill-available;">
+                   {{selectOptions (lookup ../config.skill_special id) selected=skill.expertise blank=(localize "shadowrun6.label.none") localize=true}}
+               		</select>
+               	</td>
+               	<td class="skill-pool">
+                  <span>{{skill.poolE}}</span>
+                </td>
+               	<td class="item-controls">
+                  {{#if skill.poolE }}
+                  <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.expertise}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+                  {{else}}
+                  <span class="item-control skill-roll" style="color: lightgray;" title="No skill pool"><i class="fas fa-dice-six"></i></span>
+                  {{/if}}
+                </td>
+         	    </tr>
+              {{/if}}
+              {{#if (not skill.specialization) }}
+         	    <tr>
+         	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
+         	    	<td style="width: 10em;">
+         	    		<select name="skillSpecialization{{id}}" data-field="system.skills.{{id}}.specialization" style="width: -webkit-fill-available;">
+                   {{selectOptions (lookup ../config.skill_special id) selected=skill.specialization blank=(localize "shadowrun6.label.none") localize=true}}
+               		</select>
+               	</td>
+               	<td class="skill-pool">
+                  <span>{{skill.poolS}}</span>
+                </td>
+               	<td class="item-controls">
+                  {{#if skill.poolS }}
+                  <a class="item-control skill-roll" data-skill="{{id}}" data-skillspec="{{skill.specialization}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+                  {{else}}
+                  <span class="item-control skill-roll" style="color: lightgray;" title="No skill pool"><i class="fas fa-dice-six"></i></span>
+                  {{/if}}
+                </td>
+         	    </tr>
+              {{/if}}
+
+              {{#if (and skill.specialization @root.settings.expandedSpecializations)}}
+              {{!-- New Expanded Specializations --}}
+         	    <tr>
+         	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
+         	    	<td style="width: 10em;">
+         	    		<select class="expandedSpecializations" data-skill="{{id}}" data-idx="{{skill.expandedSpecializations.length}}" style="width: -webkit-fill-available;">
+                   {{selectOptions (lookup @root.config.skill_special id) blank=(localize "shadowrun6.label.none") localize=true}}
+               		</select>
+               	</td>
+               	<td class="skill-pool"></td>
+               	<td class="item-controls">
+                  <span class="item-control skill-roll" style="color: lightgray;" title="No skill pool"><i class="fas fa-dice-six"></i></span>
+                </td>
+         	    </tr>
+              {{/if}}
+         	  </table>
+
          	</div>
          </div>
          </div>
        </li>
        {{/if}}
-       {{/each}}
-     </ol>
-   </div>
+    {{/each}}
+  </ol>
+</div>

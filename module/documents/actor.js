@@ -212,7 +212,7 @@ export default class Shadowrun6Actor extends Actor {
         
         if (!this.isOwner) return false;
         const allowed = await super._preUpdate(changes, options, user);
-        console.log("SR6E | Shadowrun6Actor._preUpdate()");
+        console.log("SR6E | Shadowrun6Actor._preUpdate()", changes);
         if ( allowed === false ) return false;
 
         changes = this._tokenBarsToMonitorDmg(changes);
