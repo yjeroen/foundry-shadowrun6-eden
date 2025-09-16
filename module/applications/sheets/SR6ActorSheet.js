@@ -194,6 +194,21 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 console.log("SR6E | Edge coin flipped", translateX, rotateY);
             });
 
+            // Overwatch Click
+            html.find(".overwatch").mousedown(async (event) => {
+                const mousePress = event.which; // 1: Left Mouse Button, 2: Middle Mouse Button, 3: Right Mouse button
+                const icon = event.currentTarget.querySelector('img');
+                const OverWatch = this.actor.system.overwatch;
+                console.log("SR6E | OverWatch Clicked", mousePress, OverWatch);
+
+                icon.classList.remove('redGlow');
+                icon.classList.remove('yellowGlow');
+                void icon.offsetWidth;
+                // icon.classList.add('redGlow');
+                icon.classList.add('yellowGlow');
+
+            });
+
             // Changes on input data fields
             html.find("[data-field]").change(async (event) => {
                 console.log("SR6E | data-field", event);
@@ -304,6 +319,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 }
                 content.classList.toggle("closed");
                 content.classList.toggle("open");
+                
+                if (element.classList.contains("persistent") && item) {
+                    let newState = element.classList.contains("open") ? "open" : "closed";
+                    await item.setFlag("shadowrun6-eden","collapse-state", newState);
+                }
             });
             //Collapsible NPC item descriptions 
             html.find(".item-desc").click(async (event) => {

@@ -470,4 +470,9 @@ export default class SR6Item extends Item {
     }
   }
 
+  get collapsedStateOnSheet() {
+    const state = this.getFlag("shadowrun6-eden","collapse-state");
+    return state ?? "closed";
+  }
+
 }
