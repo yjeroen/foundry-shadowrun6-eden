@@ -197,16 +197,40 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             // Overwatch Click
             html.find(".overwatch").mousedown(async (event) => {
                 const mousePress = event.which; // 1: Left Mouse Button, 2: Middle Mouse Button, 3: Right Mouse button
-                const icon = event.currentTarget.querySelector('img');
-                const OverWatch = this.actor.system.overwatch;
-                console.log("SR6E | OverWatch Clicked", mousePress, OverWatch);
+                const overwatchUI = event.currentTarget;
+                const icon = overwatchUI.querySelector('img');
+                const input = overwatchUI.querySelector('input');
+                let overWatch = this.actor.system.overwatch;
+                // Check if animation isnt busy
+                if ( !overwatchUI.classList.contains('clickable') ) {
+                    return;
+                }
+                console.log("SR6E | OverWatch Clicked | mousePress:", mousePress, "| OverWatch:", overWatch);
 
+                overwatchUI.classList.remove('clickable');
                 icon.classList.remove('redGlow');
-                icon.classList.remove('yellowGlow');
+                icon.classList.remove('blueGlow');
                 void icon.offsetWidth;
-                // icon.classList.add('redGlow');
-                icon.classList.add('yellowGlow');
+                switch (mousePress) {
+                    // Left Mouse Button
+                    case 1:
+                        icon.classList.add('redGlow');
+                        overWatch++;
+                        break;
+                    // Right Mouse Button
+                    case 3:
+                        if (overWatch === 0) break;
+                        icon.classList.add('blueGlow');
+                        overWatch--;
+                        break;
+                }
 
+                input.value = overWatch;
+                setTimeout(async() => {
+                    await this.actor.update({ ["system.overwatch"]: overWatch });
+                    overwatchUI.classList.add('clickable');
+                }, 550, overWatch);
+                console.log("SR6E | OverWatch adjusted to:", overWatch);
             });
 
             // Changes on input data fields

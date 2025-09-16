@@ -275,6 +275,7 @@
 		font-size: xx-large;
 		color: white;
 		font-weight:bold;
+    pointer-events: none;
 }
 .edge input.edge-value:focus {
 	box-shadow: none;
@@ -313,7 +314,8 @@
   transform-style: preserve-3d;
   transform-origin: center right;
 }
-.edge .edge-coin.clickable {
+.edge .edge-coin.clickable,
+.overwatch.clickable {
   cursor: pointer;
 }
 
@@ -340,6 +342,38 @@
 
 .edge-coin.is-flipped {
   transform: translateX(-100%) rotateY(-180deg);
+}
+
+.overwatch {
+  display: inline-block;
+  position: relative;
+  filter: drop-shadow(0 0 4px #000000);
+}
+.overwatch img {
+  border: 0px;
+  height: auto;
+  width: 80px;
+  z-index: 0;
+  position:absolute;
+  transition: all 0.4s ease;
+}
+/* Glow effect keyframes */
+@keyframes redGlow {
+  0%  { filter: drop-shadow(0 0 0px red) saturate(100%) brightness(1); }
+  50% { filter: drop-shadow(0 0 10px red) saturate(250%) brightness(1.3); }
+  100% { filter: drop-shadow(0 0 0px red) saturate(100%) brightness(1); }
+}
+@keyframes blueGlow {
+  0%   { filter: blur(0px) brightness(1) drop-shadow(0 0 0px #00aaff); transform: scale(1); }
+  50%  { filter: blur(3px) brightness(1.3) drop-shadow(0 0 6px #00aaff); transform: scale(0.9); }
+  100% { filter: blur(0px) brightness(1) drop-shadow(0 0 0px #00aaff); transform: scale(1); }
+}
+/* Glow effect when clicked */
+.overwatch img.redGlow {
+  animation: redGlow 0.5s ease;
+}
+.overwatch img.blueGlow {
+  animation: blueGlow 0.5s ease;
 }
 
 .app.window-app.shadowrun6.actor .attributes {
