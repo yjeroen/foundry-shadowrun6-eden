@@ -93,6 +93,10 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Custom Dice Pool](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-custom-dicepool.webp?raw=true)
 
+> You can Left Click and Right Click on the OverWatch icon to increase and decrease your overwatch.
+
+![FoundryVTT Shadowrun6 OverWatch](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-overwatch-clicks.gif?raw=true)
+
 ## Patch Notes
 
 See [CHANGELOG](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/CHANGELOG.md)

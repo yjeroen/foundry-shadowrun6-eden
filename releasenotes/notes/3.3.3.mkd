@@ -1,0 +1,55 @@
+# QoL Bugfixes
+*More and more BTL fixes!*
+
+This is I hope the last minor release before I can work on the Matrix release in oct-nov. But don't worry, there are some nice matrix related character sheet improvement. Check them out below! And check out the free Patreon blog if you haven't already. Thanks chummer!
+
+### Patreon
+_**Would you like to find out more on how these features work?**_ Check out my [Patreon blog](https://www.patreon.com/DeepResonanceWare) where you can find instructions and videoclips about the new 3.3.0 features on the free tier.
+
+### Last FoundryVTT v12 release
+As announced in the last major update, the next **major** release will be focused on Matrix stuff, and will only be released for v13+.
+
+-yeroon  
+
+---
+
+### System Improvements
+- Add Clickable Overwatch Counter
+- Add Sustained Complex Form support
+- Add Expanded Specializations optional rule
+- Add Movement & Sprint to Character Sheet and results to chat message (#173)
+- Enhancement: Edge can now be rolled by clicking on its label
+- Enhancement: if defender of an attack would gain Edge, its now automatically added instead of a manual step (#181)
+- Enhancement: Changing Edge in a gruntGroup, changes the edge of all Actors within the gruntGroup
+- Add Effects for Movement, Sprint Base and Sprint Modifier (#173)
+- Add Hardened Armor and Immunity to Normal Weapons as Effects
+- Spirits automatically have Immunity to Normal Weapons and Hardened Armor
+- Add Pronouns field to Contacts
+- Allow persistant collapsible items on character sheet for matrix devices
+- Improve various sections on the character sheet for improved layout & draggable items
+- Knowledge & Language skills now have an editable sheet instead of a sort of hidden text field
+
+
+### Bug Fixes
+- Fix drag&drop onto ItemSheets to also work for non-GM users (#176)
+- Fix ItemSheets not updating on other clients when a mod was uninstalled
+- Prevent item and persona changes on clients other than owner
+- Fix error that other clients also try to update an actor that isnt their own when they make changes like switching on/off matrix devices
+- Fix NPC/Critter/Spirit skill specialization/expertise names not shown on Read Only sheet (#169)
+- Fix Spell/Form collapsible descriptions in the chat message to support html from the Editor.
+- Allow attributes (e.g. Magic/Resonance) to be Modified to 0
+- Fix Data Spike being an OUTSIDER matrix action
+- Fix close combat items imported via GENESIS/COMMLINK to get their Strength added another time by Foundry after import (#174)
+- Fix Drain Soak tests to be physical damage if results are above Magic pool (#179)
+- Fix actor read only (limited & observer) sheet
+- Fix Armor Lessens Physical Damage to convert dmg for every 8 DR instead of 4 DR (TODO in future: blast dmg converts with 4 DR)
+- Fix don't show Cracking Matrix Actions if you don't have cracking
+- Remove legacy code that prevented Read Only sheets to have correct descriptions (#172)
+- Support CSS variable width sheets (#170)
+- Another fix preventing the NPC importer to trigger on pasting text into a prosemirror
+- Change HTML and CSS structure so sections on the Magic tab of Actor Sheets are better sized (#170)
+- Fix correct styling attribute tables
+
+### Data Updates
+- Update Compendiums
+- Russian translation updates (TheFokin)
