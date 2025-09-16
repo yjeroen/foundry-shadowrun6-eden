@@ -17,7 +17,7 @@
 	    </thead>
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'complexform'}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
+		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
       		<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
 			<td>{{item.name}}</td>
 			<td class="centered" style="width: 3em">
