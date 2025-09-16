@@ -80,7 +80,7 @@ async function _showRollDialog(data) {
                 }
                 
                 data.calcPool -= (data.useWoundModifier             ? data.actor.getWoundModifier() : 0);
-                data.calcPool -= (data.useSustainedSpellModifier    ? data.actor.getSustainedSpellsModifier() : 0);
+                data.calcPool -= (data.useSustainedSpellModifier    ? data.actor.getSustainedModifier() : 0);
             }
         }
         /*
@@ -346,7 +346,7 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             let base = configured.pool ? configured.pool : 0;
             let mod = dialog.modifier ? dialog.modifier : 0;
             let woundMod = (form.useWoundModifier.checked && prepared.actor) ? prepared.actor.getWoundModifier() : 0;
-            let sustMod = (form.useSustainedSpellModifier.checked && prepared.actor) ? prepared.actor.getSustainedSpellsModifier() : 0;
+            let sustMod = (form.useSustainedSpellModifier.checked && prepared.actor) ? prepared.actor.getSustainedModifier() : 0;
             configured.pool = +base + +mod + -woundMod + -sustMod;
             prepared.calcPool = configured.pool;
             

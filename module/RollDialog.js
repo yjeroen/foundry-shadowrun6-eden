@@ -411,7 +411,7 @@ export class RollDialog extends Dialog {
         // Calculate new sum
         console.log("SR6E | updateDicePool: ", this);
         let woundMod = (this.actor) ? this.actor.getWoundModifier() : 0;
-        let sustainedMod = (this.actor) ? this.actor.getSustainedSpellsModifier() : 0;
+        let sustainedMod = (this.actor) ? this.actor.getSustainedModifier() : 0;
         if (this.actor) {
             console.log("SR6E | updateDicePool2: ", this.prepared.pool, this.modifier, woundMod, sustainedMod);
         }

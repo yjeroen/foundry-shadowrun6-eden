@@ -8,8 +8,9 @@
 <table>
 	    <thead>
 	      <tr>
+			<th></th>
 	        <th style="text-align:left">{{ localize 'shadowrun6.label.column.name' }}</th>
-	        <th>{{ localize 'shadowrun6.section.complexforms.column.duration' }}</th>
+			<th>{{ localize 'shadowrun6.section.spells.column.sustained' }}</th>
 	        <th>{{ localize 'shadowrun6.section.complexforms.column.fade' }}</th>
 	        <th colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
 	      </tr>
@@ -17,10 +18,19 @@
 		{{#each actor.items as |item id|}}
 		{{#iff item.type '==' 'complexform'}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-			<td> <input name="complexFormName{{id}}" type="text" value="{{item.name}}" data-field="name" title="{{sr6_description item.system item.type}}" disabled></td>
-			<td class="centered" style="width: 3em"> {{localize (concat "shadowrun6.spell.duration_" (concat  item.system.duration "_short"))}}</td>
-			<td class="centered"style="width: 3em"> <input name="complexFormFading{{id}}" type="text" value="{{item.system.fading}}" data-field="system.fading" data-type="Number" disabled></td>
-			<td class="centered">
+      		<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
+			<td>{{item.name}}</td>
+			<td class="centered" style="width: 3em">
+				{{!-- {{localize (concat "shadowrun6.spell.duration_" (concat  item.system.duration "_short"))}} --}}
+				{{#iff item.system.duration '==' 'sustained'}}
+				<label class="switch" title='{{localize "shadowrun6.section.sustained.toggle"}}'>
+					<input name="spellSustained{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.isSustained" {{checked item.system.isSustained}} type="checkbox" data-dtype="Boolean"/>
+						<span class="shadowrun6-slider round"></span>
+				</label>
+				{{/iff}}
+			</td>
+			<td class="centered" style="width: 3em">{{item.system.fading}}</td>
+			<td class="centered" style="width: 4em">
 				{{#iff item.system.fading ">" 0}}
 				<a class="item-control complexform-roll" data-type="Roll" data-uuid="{{item.uuid}}" data-item-id="{{item.id}}" title="Roll"><i class="fas fa-dice-six"></i></a>
 				{{/iff}}
@@ -28,10 +38,11 @@
 				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
 	   </tr>
        <tr>
-         <td colspan="6">
-         	<div class="collapsible-content closed">
-
-         	</div>
+         <td colspan="5">
+			<div class="collapsible-content closed" style="font-size: 0.8em;">
+				<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+				<div>{{{item.enriched.description}}} &nbsp;</div>
+			</div>
          </td>
        </tr>
 		{{/iff}}

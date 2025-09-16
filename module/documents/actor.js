@@ -1564,14 +1564,14 @@ export default class Shadowrun6Actor extends Actor {
         return woundModifier;
     }
     //---------------------------------------------------------
-    getSustainedSpellsModifier() {
+    getSustainedModifier() {
         const actorData = getActorData(this);
         const items = actorData.items;
         let sustainedCount = 0;
         let sustainedModifier = 0;
         items.forEach((item) => {
             let itemSystem = getSystemData(item);
-            if (item.type == "spell" && itemSystem.duration == "sustained") {
+            if ((item.type === "spell" || item.type === "complexform" ) && itemSystem.duration === "sustained") {
                 if (itemSystem.isSustained) {
                     sustainedCount++;
                 }
@@ -1581,7 +1581,7 @@ export default class Shadowrun6Actor extends Actor {
         //     sustainedCount = sustainedCount - 1;
         // }
         sustainedModifier = sustainedCount * 2;
-        console.log("SR6E | Sustained Spells Modifier: " + sustainedModifier);
+        console.log("SR6E | Sustained Spells/ComplexForms Modifier: " + sustainedModifier);
         return sustainedModifier;
     }
     //---------------------------------------------------------
