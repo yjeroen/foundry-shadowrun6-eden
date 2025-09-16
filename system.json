@@ -87,7 +87,7 @@
       "lang": "ru",
       "name": "Русский (Russian)",
       "path": "lang/ru.json",
-      "flags": {}
+      "flags": {"style": "lang/ru.css"}
     },
     {
       "lang": "cs",
