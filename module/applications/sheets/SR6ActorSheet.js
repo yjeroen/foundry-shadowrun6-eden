@@ -234,6 +234,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             });
 
             // Changes on input data fields
+            // NOTE: FoundryVTT automatically listens to changes on input/select fields that have a name starting with "system."
+            // So don't use that name in templates until full rework of ActorSheet to V2
             html.find("[data-field]").change(async (event) => {
                 console.log("SR6E | data-field", event);
                 const element = event.currentTarget;
