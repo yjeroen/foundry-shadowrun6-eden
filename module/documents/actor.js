@@ -102,7 +102,7 @@ export default class Shadowrun6Actor extends Actor {
 
     /** @inheritDoc */
     prepareEmbeddedDocuments() {
-        console.log("SR6E | SR6Actor.prepareEmbeddedDocuments()", this.uuid, this.name);
+        console.log("SR6E | Shadowrun6Actor.prepareEmbeddedDocuments()", this.name, this.uuid);
         this._embeddedPreparation = true;
         super.prepareEmbeddedDocuments();
         delete this._embeddedPreparation;
@@ -128,8 +128,7 @@ export default class Shadowrun6Actor extends Actor {
         // Modern DataModel Actors skip legacy data load flow
         if (this.system instanceof foundry.abstract.DataModel) return;
         
-
-        console.log("SR6E | Shadowrun6Actor.prepareData() ", this);
+        console.log("SR6E | Shadowrun6Actor.prepareData() START", this.name, this.uuid);
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (isPlayer(system)) {
@@ -199,7 +198,7 @@ export default class Shadowrun6Actor extends Actor {
         catch (err) {
             console.log(`SR6E | Error ${err.message}`, err.stack);
         }
-        console.log("SR6E | Shadowrun6Actor.prepareData() ", actorData.name + " = " + actorData.type);
+        console.log("SR6E | Shadowrun6Actor.prepareData() END", this.name, this.uuid);
     }
     /**
      * @Override
