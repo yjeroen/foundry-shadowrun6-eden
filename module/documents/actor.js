@@ -112,7 +112,16 @@ export default class Shadowrun6Actor extends Actor {
      * TODO rework move to prepareBaseData() and prepareDerivedData()
      */
     prepareData(callSuper=true) {
-        // This also calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
+        // Actor.prepareData() calls ClientDocument.prepareData(), which has the following flow:
+        // prepareData() {
+        //     const isTypeData = this.system instanceof foundry.abstract.TypeDataModel;
+        //     if ( isTypeData ) this.system.prepareBaseData();
+        //     this.prepareBaseData();
+        //     this.prepareEmbeddedDocuments();
+        //     if ( isTypeData ) this.system.prepareDerivedData();
+        //     this.prepareDerivedData();
+        // }
+        // prepareEmbeddedDocuments() calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
         // TODO rework vehicles completely to not be dependent on Actor.prepareData()
         if (callSuper) super.prepareData();
 
