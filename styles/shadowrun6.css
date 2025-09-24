@@ -270,11 +270,13 @@
 }
 .edge input.edge-value {
     z-index: -1;
-		position:relative;
+		position: relative;
 		text-align: center;
 		font-size: xx-large;
 		color: white;
-		font-weight:bold;
+		font-weight: bold;
+}
+.edge.overwatch input.edge-value {
     pointer-events: none;
 }
 .edge input.edge-value:focus {
