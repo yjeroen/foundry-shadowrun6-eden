@@ -229,6 +229,7 @@ export default class SR6ItemSheet extends ItemSheet {
                 this._activateEditor(div)
             );
         }
+        // Attack Rating fields
         html.find("[data-array-field]").change(async (event) => {
             const element = event.currentTarget;
             const idx = parseInt(
@@ -241,18 +242,12 @@ export default class SR6ItemSheet extends ItemSheet {
             /* Duplicate the data from the object. Sets null & NaN to 0 */
             if (field) {
                 newValue = foundry.utils.duplicate(
-                    //array.split(".").reduce(function (prev, curr) {
-                    //	return prev ? prev[curr] : null;
-                    //}, (this.object as any).system) //getActorData(this.object))
-                    this.object.system[array.split(".")[1]]
+                    this.object._source.system[array.split(".")[1]]
                 );
                 newValue[idx][field] = parseInt(element.value);
             } else {
                 newValue = foundry.utils.duplicate(
-                    //array.split(".").reduce(function (prev, curr) {
-                    //	return prev ? prev[curr] : null;
-                    //}, (this.object as any).system)
-                    this.object.system[array.split(".")[1]]
+                    this.object._source.system[array.split(".")[1]]
                 );
                 newValue[idx] = parseInt(element.value);
             }
