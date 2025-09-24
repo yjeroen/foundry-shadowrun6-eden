@@ -108,8 +108,11 @@ export default class SR6Keybindings {
             const groupId = tokenDoc.getFlag(game.system.id, 'GruntGroupId');
             if (groupId) sceneGruntGroups.push(groupId);
         });
-        sceneGruntGroups.sort((a, b) => a.id - b.id);
-        sceneGruntGroups.forEach((groupId) => newGruntGroupId = (groupId == newGruntGroupId ? newGruntGroupId+1 : newGruntGroupId) );
+        sceneGruntGroups.sort((a, b) => a - b);
+        sceneGruntGroups.forEach((groupId) => {
+            newGruntGroupId = (groupId === newGruntGroupId) ? newGruntGroupId+1 : newGruntGroupId;
+
+        });
         
         console.log(`SR6E | Keybind SHIFT-G | Form Grunt Group ${newGruntGroupId} with Tokens`, tokens);
         ui.notifications.info(game.i18n.format("shadowrun6.ui.notifications.form_grunt_group"), { console: false });
