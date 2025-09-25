@@ -1,3 +1,13 @@
+## 3.3.4
+
+### Bug Fixes
+- Fix importing of Commlink exported characters with melee weapons (#183)
+- Fix nuyen field to be uneditable (#187)
+- Fix forming GruntGroups in some cases not using a new Grunt Group ID (#189)
+- Fix itemsheet saving behavior of the Attack Rating fields, when AR was also modified by an Effect (#188)
+- Fix unnecessary submit triggers due to "system." name fields
+- Allow vehicles and drone sections on the Charactersheet to have persistent collapsible states
+
 ## 3.3.3
 
 ### System Improvements

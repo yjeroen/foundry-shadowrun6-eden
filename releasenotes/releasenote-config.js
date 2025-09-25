@@ -5,6 +5,11 @@
 
 export default [
     {
+        version: "3.3.4",
+        name: "Bugsquash!",
+        url: "https://www.patreon.com/posts/foundryvtt-3-3-4-139735646?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link"
+    },
+    {
         version: "3.3.3",
         name: "BTL Addiction!",
         url: "https://www.patreon.com/posts/sixth-world-3-3-139021895?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link"
