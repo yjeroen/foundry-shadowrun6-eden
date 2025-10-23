@@ -2,7 +2,7 @@
   "id": "shadowrun6-eden",
   "title": "Shadowrun 6th Edition",
   "description": "Shadowrun Sixth World RPG system",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "authors": [
     {
       "name": "YJeroen",
@@ -17,7 +17,7 @@
   ],
   "compatibility": {
     "minimum": "12",
-    "verified": "13.348",
+    "verified": "13.350",
     "maximum": "13"
   },
   "socket": true,
