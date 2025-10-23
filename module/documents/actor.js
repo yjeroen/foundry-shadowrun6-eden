@@ -200,6 +200,19 @@ export default class Shadowrun6Actor extends Actor {
         }
         console.log("SR6E | Shadowrun6Actor.prepareData() END", this.name, this.uuid);
     }
+
+    async _onCreate(data, options, userId) {
+        // Modern DataModel Actors skip legacy data load flow
+        if (this.system instanceof foundry.abstract.DataModel) {
+            super._onCreate(data, options, userId);
+            return;
+        }
+
+        await super._onUpdate(data, options, userId);
+        console.log("SR6E | Shadowrun6Actor._onCreate()");
+        this._addUnarmed();
+    }
+
     /**
      * @Override
      * Pre-process an update operation for a single Document instance. Pre-operation events only occur for the client
@@ -2334,5 +2347,27 @@ export default class Shadowrun6Actor extends Actor {
                 }
             }
         });
+    }
+
+    /**
+     * Adding Unarmed Item if not there
+     */
+    async _addUnarmed() {        
+        if (this.items.getName(game.i18n.localize("shadowrun6.gear.subtype.UNARMED"))) return;
+        console.log("SR6E | JEROEN Adding Unarmed Item", this.name);
+        // const data = [{name: "Special Sword", type: "weapon"}];
+        // const actor = game.actors.getName("My Hero");
+        // const created = await Item.implementation.create(data, {parent: actor});
+        const unarmedItemData = {
+            name: game.i18n.localize("shadowrun6.gear.subtype.UNARMED"),
+            type: 'gear',
+            'system.dmg': 2,
+            'system.stun': true,
+            'system.type': "WEAPON_CLOSE_COMBAT",
+            'system.subtype': "UNARMED",
+            'system.skill': "close_combat",
+            'system.skillSpec': "unarmed"
+        };
+        await this.createEmbeddedDocuments("Item", [unarmedItemData]);  
     }
 }
