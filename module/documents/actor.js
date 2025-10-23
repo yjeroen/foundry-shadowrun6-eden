@@ -2377,9 +2377,6 @@ export default class Shadowrun6Actor extends Actor {
     async _addUnarmed() {        
         if (this.items.getName(game.i18n.localize("shadowrun6.gear.subtype.UNARMED"))) return;
         console.log("SR6E | Adding Unarmed Item", this.name);
-        // const data = [{name: "Special Sword", type: "weapon"}];
-        // const actor = game.actors.getName("My Hero");
-        // const created = await Item.implementation.create(data, {parent: actor});
         const unarmedItemData = {
             name: game.i18n.localize("shadowrun6.gear.subtype.UNARMED"),
             type: 'gear',
