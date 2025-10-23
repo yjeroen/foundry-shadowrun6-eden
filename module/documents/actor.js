@@ -2313,8 +2313,30 @@ export default class Shadowrun6Actor extends Actor {
                 if (item.data.type === "WEAPON_CLOSE_COMBAT") {
                     item.data.attackRating[0] -= actorSystem.attributes.str.pool;
                 }
+                // GENESIS fills in the Close AR, but this is auto calculated by shadowrun6-eden
+                if (item.name === "Unarmed") {
+                    item.data.attackRating[0] = 0;
+                }
             }
-        })
+        });
+
+        // COMMLINK doesn't add an Unarmed item, so lets add it
+        if (sourceData.generatorName === "Commlink6") {
+            const unarmedItemData = {
+                name: game.i18n.localize("shadowrun6.gear.subtype.UNARMED"),
+                type: 'gear',
+                data: {
+                    dmg: 2,
+                    stun: true,
+                    type: "WEAPON_CLOSE_COMBAT",
+                    subtype: "UNARMED",
+                    skill: "close_combat",
+                    skillSpec: "unarmed"
+                }
+            };
+            sourceData.items.push(unarmedItemData);
+        }
+
         return super.importFromJSON(JSON.stringify(sourceData));
     }
 
@@ -2354,19 +2376,21 @@ export default class Shadowrun6Actor extends Actor {
      */
     async _addUnarmed() {        
         if (this.items.getName(game.i18n.localize("shadowrun6.gear.subtype.UNARMED"))) return;
-        console.log("SR6E | JEROEN Adding Unarmed Item", this.name);
+        console.log("SR6E | Adding Unarmed Item", this.name);
         // const data = [{name: "Special Sword", type: "weapon"}];
         // const actor = game.actors.getName("My Hero");
         // const created = await Item.implementation.create(data, {parent: actor});
         const unarmedItemData = {
             name: game.i18n.localize("shadowrun6.gear.subtype.UNARMED"),
             type: 'gear',
-            'system.dmg': 2,
-            'system.stun': true,
-            'system.type': "WEAPON_CLOSE_COMBAT",
-            'system.subtype': "UNARMED",
-            'system.skill': "close_combat",
-            'system.skillSpec': "unarmed"
+            system: {
+                dmg: 2,
+                stun: true,
+                type: "WEAPON_CLOSE_COMBAT",
+                subtype: "UNARMED",
+                skill: "close_combat",
+                skillSpec: "unarmed"
+            }
         };
         await this.createEmbeddedDocuments("Item", [unarmedItemData]);  
     }
