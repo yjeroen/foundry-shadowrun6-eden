@@ -80,9 +80,10 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
   get sourceName() {
     if ( !this.parent.origin ) return game.i18n.localize("None");
     let name;
-    let fallbackName = this.parent?.parent?.name ?? game.i18n.localize("Unknown");
+    const fallbackName = this.parent?.parent?.name ?? game.i18n.localize("Unknown");
+    const parentType = this.parent?.parent?.constructor.name;
     try {
-      name = fromUuidSync(this.parent.origin)?.name;
+      name = parentType === 'SR6Item' ? false : fromUuidSync(this.parent.origin)?.name;
     } catch(e) {}
     return name || fallbackName;
   }
