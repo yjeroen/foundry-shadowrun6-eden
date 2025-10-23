@@ -119,7 +119,10 @@ async function addUnarmedItems() {
 
     // Checking if there are actors to Migrate
     game.actors.forEach(actor => {
-        if ( docIsVersionBelow(actor, 3,3,5) && !actor.items.getName(game.i18n.localize("shadowrun6.gear.subtype.UNARMED")) ) {
+        if ( 
+            docIsVersionBelow(actor, 3,3,5) && !actor.items.getName(game.i18n.localize("shadowrun6.gear.subtype.UNARMED")) 
+            && ( actor.type === "Player" || actor.type === "NPC")
+           ) {
             migrating = true;
             actorsToMigrate.push(actor);
         }
