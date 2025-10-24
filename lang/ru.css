@@ -15,3 +15,7 @@ body.game.foundry-modern .app {
 .shadowrun6.sheet.item {
   width: 745px;
 }
+
+.shadowrun6.sheet.actor {
+  width: 945px;
+}
