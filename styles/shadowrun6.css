@@ -509,6 +509,7 @@
   top: -3px;
   width: 1rem;
   z-index: 1;
+  color: black;
 }
 
 #pause.paused {

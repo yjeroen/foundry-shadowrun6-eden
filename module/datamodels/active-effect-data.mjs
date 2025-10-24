@@ -42,23 +42,27 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
   async increase(increaseBy = 1) {
     const maxLevel = this.maxLevel ?? 99;
     if (!this.hasLevels || this.level === maxLevel) return;
-    console.log(`SR6E | Increasing statusEffect ${this.parent.name} by`, increaseBy, this);
+    console.log(`SR6E | Increasing statusEffect ${this.parent.name} by`, increaseBy);
     const newLevel = this.level + increaseBy;
+    const name = game.i18n.localize( CONFIG.statusEffects.find(e => e._id === this.parent._id).name );
     await this._checkBlinded(newLevel);
     await this.parent.update({
+      "name": `${name} (${newLevel})`,
       "system.level": Math.min(maxLevel, newLevel)
     });
   }
 
   async decrease(decreaseBy = 1) {
     if (!this.hasLevels) return;
-    console.log(`SR6E | Decreasing statusEffect ${this.name} by`, decreaseBy);
-    const newLevel = Math.max(0, this.level - decreaseBy)
+    console.log(`SR6E | Decreasing statusEffect ${this.parent.name} by`, decreaseBy);
+    const newLevel = Math.max(0, this.level - decreaseBy);
+    const name = game.i18n.localize( CONFIG.statusEffects.find(e => e._id === this.parent._id).name );
     await this._checkBlinded(newLevel);
     if (newLevel === 0) {
       await this.parent.delete();
     }
     await this.parent.update({
+      "name": `${name} (${newLevel})`,
       "system.level": newLevel
     });
   }

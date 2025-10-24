@@ -29,13 +29,59 @@ export default class SR6TokenHUD extends TokenHUD {
    * V13 listeners & default options
    *  @inheritDoc 
    */
-  // static DEFAULT_OPTIONS = {
-  //   actions: {
-  //     effect: {handler: SR6TokenHUD.#onToggleEffect, buttons: [0, 2]}
-  //   }
-  // };
+  static DEFAULT_OPTIONS = {
+    actions: {
+      effect: {handler: SR6TokenHUD.#onToggleEffectV2, buttons: [0, 2]}
+    }
+  };
 
   /**
+   * V13
+   *  @override 
+   * */
+  static PARTS = {
+    hud: {
+      root: true,
+      template: "systems/shadowrun6-eden/templates/hud/token-hud.hbs"
+    }
+  };
+
+  /**
+   * V13
+   * Handle toggling a token status effect icon
+   * @param {PointerEvent} event
+   * @param {HTMLButtonElement} target
+   * @param {boolean} [target.active]   Enable or disable the effect
+   * @param {boolean} [target.overlay]   Toggle the overlay effect?
+   * @returns {Promise<void>}
+   */
+  static async #onToggleEffectV2(event, target) {
+    console.log('SR6E | SR6TokenHUD#onToggleEffectV2');
+    event.preventDefault();
+    event.stopPropagation();
+    if ( !this.actor ) return ui.notifications.warn("HUD.WarningEffectNoActor", {localize: true});
+    const statusId = target.dataset.statusId;
+    const active = target.classList.contains("active");
+    const overlay = event.ctrlKey;
+
+    const effect = this.actor.effects.get( utils.staticId(statusId) );
+
+    if ( effect !== undefined && effect?.system.hasLevels && !overlay && !(effect?.system.level === 1 && event.button === 2) ) {
+      if ( event.button === 2 ) {
+        await effect.system.decrease();
+      } else {
+        await effect.system.increase();
+      }
+    } else {
+      await this.actor.toggleStatusEffect(statusId, {
+        active: !active,
+        overlay: overlay
+      });
+    }
+  }
+
+  /**
+   * V12
    * Handle toggling a token status effect icon
    * @param {PointerEvent} event      The click event to toggle the effect
    * @param {object} [options]        Options which modify the toggle
@@ -63,7 +109,11 @@ export default class SR6TokenHUD extends TokenHUD {
     }
   }
 
+  /**
+   * V12
+   */
   toggleStatusTray(active) {
+    console.log('SR6E | SR6TokenHUD.toggleStatusTray', active);
     if (active) {
       // updating status effects HUD
       this.actor.effects.forEach(effect => {
@@ -82,8 +132,46 @@ export default class SR6TokenHUD extends TokenHUD {
 
       });
     }
-
     super.toggleStatusTray(active);
+  }
+
+  /**
+   * V13 data for the token-hud.hbs template
+   * Get the valid status effect choices.
+   * @returns {{[id: string]: {
+   *   id: string;
+   *   _id: string;
+   *   title: string;
+   *   src: string;
+   *   isActive: boolean;
+   *   isOverlay: boolean;
+   *   cssClass: string;
+   *   level: integer;
+   * }}}
+   * @protected
+   */
+  _getStatusEffectChoices() {
+    const choices = super._getStatusEffectChoices();
+
+    // Update the status of effects which are active for the token actor
+    const activeEffects = this.actor?.effects || [];
+    for ( const effect of activeEffects ) {
+      for ( const statusId of effect.statuses ) {
+        const status = choices[statusId];
+        if ( !status ) continue;
+        if ( status._id ) {
+          if ( status._id !== effect.id ) continue;
+        } else {
+          if ( effect.statuses.size !== 1 ) continue;
+        }
+        if (effect.system.hasLevels && effect.system.level) {
+          status.level = effect.system.level;
+        }
+        break;
+      }
+    }
+
+    return choices;
   }
 
 } 
