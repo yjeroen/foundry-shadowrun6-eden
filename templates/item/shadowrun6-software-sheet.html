@@ -17,20 +17,20 @@
                 </tr>
                 <tr>
                     <td style="text-align: center">
-                        <select name="softwareType" data-field="system.type" class="typeselect">
+                        <select name="system.type" data-field="system.type" class="typeselect">
                             {{selectOptions config.SOFTWARE_TYPES selected=item.system.type localize=true}}
                         </select>
                     </td>
                     <td style="text-align: center">
                         {{#if (eq item.system.type 'AUTOSOFT')}}
-                        <select name="softwareSubtype" data-field="system.subtype" class="typeselect">
+                        <select name="system.subtype" data-field="system.subtype" class="typeselect">
                             {{selectOptions config.AUTOSOFT_TYPES selected=item.system.subtype localize=true}}
                         </select>
                         {{/if}}
                     </td>
                     <td style="text-align: center">
                         {{#if (eq item.system.type 'AUTOSOFT')}}
-                        <input type="number" data-dtype="number" name="{{item.id}}Rating" value="{{item.system.rating}}" data-field="system.rating" class="box centered" style="width: 2em" />
+                        <input type="number" data-dtype="number" name="system.rating" value="{{item.system.rating}}" data-field="system.rating" class="box centered" style="width: 2em" />
                         {{/if}}
                     </td>
                     <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2em" /></td>

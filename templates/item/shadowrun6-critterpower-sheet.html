@@ -13,23 +13,23 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="critterPowerType" data-field="system.type">
+                        <select name="system.type" data-field="system.type">
                             {{selectOptions config.spell_type selected=item.system.type localize=true}}
                         </select>
                     </td>
                     <td>
-                        <select name="critterPowerAction" data-field="system.action">
+                        <select name="system.action" data-field="system.action">
                             {{selectOptions config.adeptpower_activation selected=item.system.action
                             localize=true}}
                         </select>
                     </td>
                     <td>
-                        <select name="critterPowerRange" data-field="system.range">
+                        <select name="system.range" data-field="system.range">
                             {{selectOptions config.spell_range selected=item.system.range localize=true}}
                         </select>
                     </td>
                     <td>
-                    <select name="critterPowerDuration" data-field="system.duration">
+                    <select name="system.duration" data-field="system.duration">
                         {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                     </select>
                 </td>

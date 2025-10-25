@@ -13,17 +13,17 @@
                 <tr>
                     <!--// select leer, electronics, cracking -->
                     <td class="box centered">
-                        <select name="complexFormSkill" data-field="system.skill">
+                        <select name="system.skill" data-field="system.skill">
                             {{selectOptions config.COMPLEX_FORMS.skills selected=item.system.skill blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select name="complexFormOppAttr1" data-field="system.oppAttr1">
+                        <select name="system.oppAttr1" data-field="system.oppAttr1">
                             {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr1 blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select name="complexFormOppAttr1" data-field="system.oppAttr2">
+                        <select name="system.oppAttr2" data-field="system.oppAttr2">
                             {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr2 blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
@@ -36,15 +36,15 @@
                 </tr>
                 <tr>
                     <td class="box centered">
-                        <select name="complexFormDuration" data-field="system.duration">
+                        <select name="system.duration" data-field="system.duration">
                             {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <input name="fading" data-field="system.fading" value="{{item.system.fading}}" type="text" class="box centered" style="width:2em" />
+                        <input name="system.fading" data-field="system.fading" value="{{item.system.fading}}" type="text" class="box centered" style="width:2em" />
                     </td>
                     <td class="box centered">
-                        <input name="threshold" data-field="system.threshold" value="{{item.system.threshold}}" type="text" class="box centered" style="width:2em" />
+                        <input name="system.threshold" data-field="system.threshold" value="{{item.system.threshold}}" type="text" class="box centered" style="width:2em" />
                     </td>
                 </tr>
             </table>

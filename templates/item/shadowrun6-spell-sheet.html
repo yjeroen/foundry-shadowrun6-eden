@@ -17,23 +17,23 @@
                 </tr>
                 <tr style="text-align:center">
                     <td colspan="2">
-                        <select name="spellCategory" data-field="system.category">
+                        <select name="system.category" data-field="system.category">
                             {{selectOptions config.spell_category selected=item.system.category localize=true}}
                         </select>
                     </td>
                     <td colspan="2">
-                        <select name="spellType" data-field="system.type">
+                        <select name="system.type" data-field="system.type">
                             {{selectOptions config.spell_type selected=item.system.type localize=true}}
                         </select>
                     </td>
-                    <td><input name="isOpposed" style="vertical-align: middle;" type="checkbox" {{checked item.system.isOpposed}} data-field="system.isOpposed" /></td>
+                    <td><input name="system.isOpposed" style="vertical-align: middle;" type="checkbox" {{checked item.system.isOpposed}} data-field="system.isOpposed" /></td>
                     <td>
                     {{#if (eq item.system.category "combat")}}
-                        <select name="combatSpellType" data-field="system.combatSpellType">
+                        <select name="system.combatSpellType" data-field="system.combatSpellType">
                             {{selectOptions config.combat_spell_type selected=item.system.combatSpellType localize=true}}
                         </select>
                     {{else}}
-                        <input name="withEssence" style="vertical-align: middle;" type="checkbox" {{checked item.system.withEssence}} data-field="system.withEssence" />
+                        <input name="system.withEssence" style="vertical-align: middle;" type="checkbox" {{checked item.system.withEssence}} data-field="system.withEssence" />
                     {{/if}}
                     </td>
                 </tr>
@@ -56,17 +56,17 @@
                 </tr>
                 <tr style="text-align:center">
                     <td colspan="2">
-                        <select name="spellRange" data-field="system.range">
+                        <select name="system.range" data-field="system.range">
                             {{selectOptions config.spell_range selected=item.system.range localize=true}}
                         </select>
                     </td>
                     <td colspan="2">
-                        <select name="spellDuration" data-field="system.duration">
+                        <select name="system.duration" data-field="system.duration">
                             {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                         </select>
                     </td>
                     <td class="centered">
-                        <input name="drain" data-field="system.drain" value="{{item.system.drain}}" type="number" class="box centered" style="width:2em"/>
+                        <input name="system.drain" data-field="system.drain" value="{{item.system.drain}}" type="number" class="box centered" style="width:2em"/>
                     </td>
 
                     <!-- {{#if (eq item.system.threshold "//no spells have a static threshold//")}}
@@ -79,7 +79,7 @@
 
                     {{#if (eq item.system.category "combat")}}
                     <td>
-                        <select name="spellDamage" data-field="system.damage">
+                        <select name="system.damage" data-field="system.damage">
                             {{selectOptions config.spell_damage selected=item.system.damage localize=true}}
                         </select>
                     </td>

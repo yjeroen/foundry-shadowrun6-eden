@@ -13,17 +13,17 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="lifestyleVtype" data-field="system.type">
+                        <select name="system.type" data-field="system.type">
                             {{selectOptions config.LIFESTYLE_TYPE selected=item.system.type localize=true}}
                         </select>
                     </td>
                     <td class="centered">
-                        <span class="input-symbol-nuyen"><input name="cost" class="box" type="number" value="{{item.system.cost}}" data-field="system.cost" /></span>
+                        <span class="input-symbol-nuyen"><input name="system.cost" class="box" type="number" value="{{item.system.cost}}" data-field="system.cost" /></span>
                     </td>
                     <td class="centered">
-                        <span class="input-symbol-nuyen"><input name="paid" class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
+                        <span class="input-symbol-nuyen"><input name="system.paid" class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
                     </td>
-                    <td><input name="sin" class="box" type="text" value="{{item.system.sin}}" data-field="system.sin" /></td>
+                    <td><input name="system.sin" class="box" type="text" value="{{item.system.sin}}" data-field="system.sin" /></td>
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>

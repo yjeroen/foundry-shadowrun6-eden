@@ -19,6 +19,7 @@ export default class SR6ItemSheet extends ItemSheet {
             classes: ["shadowrun6", "sheet", "item"],
             dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}],
             width: null,
+            submitOnChange: false,  // Implemented manually via v10 listeners
         });
     }
     get template() {

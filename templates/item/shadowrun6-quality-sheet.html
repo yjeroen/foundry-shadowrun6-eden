@@ -10,14 +10,14 @@
                 </tr>
                 <tr>
                     <td class="centered">
-                        <select name="qualityCategory" data-field="system.category">
+                        <select name="system.category" data-field="system.category">
                             {{selectOptions config.QUALITY_CATEGORIES selected=item.system.category localize=true}}
                         </select>
                     </td>
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.qualityedit.explain'}}</h3>
-            <input name="explain" type="text" value="{{item.system.explain}}" data-field="system.explain" style="background-color: white; padding: 0.2em 0.5em;" placeholder="{{localize 'shadowrun6.label.details'}}" />
+            <input name="system.explain" type="text" value="{{item.system.explain}}" data-field="system.explain" style="background-color: white; padding: 0.2em 0.5em;" placeholder="{{localize 'shadowrun6.label.details'}}" />
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{editor item.enriched.description target="system.description" fieldName=item.system.description button=true owner=owner editable=editable engine="prosemirror"}}
         </div>
