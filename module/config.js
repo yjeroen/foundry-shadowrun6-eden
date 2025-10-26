@@ -1111,6 +1111,8 @@ export class SR6Config {
             collapsing_now: "PDF.book.collapsing_now",
             companion: "PDF.book.companion",
             core: "PDF.book.core",
+            core_seattle: "PDF.book.core_seattle",
+            core_berlin: "PDF.book.core_berlin",
             de_alpen: "PDF.book.de_alpen",
             de_berlin2080: "PDF.book.de_berlin2080",
             de_bundeswehr: "PDF.book.de_bundeswehr",

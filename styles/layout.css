@@ -791,3 +791,19 @@ body.game .shadowrun6.sheet .window-content {
 .sheet.journal-entry-page.read-only-pdf .window-content {
   padding: 0;
 }
+label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-fields + p.hint {
+  position: relative;
+  margin-bottom: 3rem;
+}
+label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-fields + p.hint:after {
+    content: 'Shadowrun PDF Configuration';
+    color: var(--color-form-label);
+    font-size: var(--font-size-18);
+    font-weight: bold;
+    position: absolute;
+    width: 100%;
+    height: 2rem;
+    bottom: -100%;
+    left: 0;
+    padding: 0.5rem 0;
+}

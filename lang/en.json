@@ -24,6 +24,8 @@
       "collapsing_now": "Collapsing Now",
       "companion": "Sixth World Companion",
       "core": "Core Rulebook",
+      "core_seattle": "Core Rulebook Seattle Ed",
+      "core_berlin": "Core Rulebook Berlin Ed",
       "de_alpen": "Datapuls Alpen",
       "de_berlin2080": "Berlin 2080",
       "de_bundeswehr": "Datapuls Bundeswehr",
@@ -1521,6 +1523,11 @@
       "expandedSpecializations": {
         "hint": "Use no limit on the number  of specializations a skill may have. You are not required to purchase an expertise before taking additional specializations. Expertises are still limited to one per skill (SWC p.153)",
         "name": "Expanded Specializations"
+      },
+      "pdf": {
+        "hint": "Configure the PDF journal for this Shadowrun Sixth World book.",
+        "offset.name": "Offset",
+        "offset.hint": "Configure the page offset. Example if page 12 is actually page 11, offset is 1."
       }
     },
     "sin" : {

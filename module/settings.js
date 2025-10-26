@@ -23,11 +23,6 @@ export const registerSystemSettings = () => {
         onChange: (max) => {
             console.log("SR6E | maxEdgePerRound adjusted to " + max);
             game.settings.set(SYSTEM_NAME, "maxEdgePerRound", max);
-            //      game.actors.forEach(actor => {
-            //        if (actor.type == "character") {
-            //          actor.prepareData();
-            //        }
-            //      });
         }
     });
     game.settings.register(SYSTEM_NAME, "importToCompendium", {

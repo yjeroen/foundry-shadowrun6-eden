@@ -3,6 +3,7 @@
 /* -------------------------------------------- */
 import SR6Roll from "./SR6Roll.js";
 import { registerSystemSettings } from "./settings.js";
+import { registerSystemSettingsPosti18n } from "./settings-post-i18n.js";
 import Shadowrun6Combat from "./Shadowrun6Combat.js";
 import { SR6Config } from "./config.js";
 import { preloadHandlebarsTemplates } from "./templates.js";
@@ -789,6 +790,20 @@ Hooks.once("init", async function () {
     });
 
 });
+
+/**
+ * Init hook. Called from Foundry when i18n localization is ready
+ */
+Hooks.once("i18nInit", async function () {
+    console.log(`SR6E | Continue to initialize Shadowrun 6 System post i18nInit`);
+
+    registerSystemSettingsPosti18n();
+});
+
+/**
+ * ####################################################################################
+ * Legacy Helper functions
+ */
 
 $.fn.closestData = function (dataName, defaultValue = "") {
     let value = this.closest(`[data-${dataName}]`)?.data(dataName);
