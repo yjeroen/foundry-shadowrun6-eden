@@ -17,7 +17,7 @@
     }
   },
   "PDF": {
-    "books": {
+    "book": {
       "astral_ways": "Astral Ways",
       "bestial_nature": "Bestial Nature",
       "body_shop": "Body Shop",
