@@ -556,4 +556,93 @@ function datalistOptions(choices, options) {
       valueAttr
     });
     return new Handlebars.SafeString(select.innerHTML);
-  }
+}
+
+/**
+ * Register a new core.JournalEntryPagePDFSheet
+ * Game settings for src's and page offset
+ * Create journals that are configured, save journal id's 
+ */
+
+/**
+ * Usage:
+ * await game.sr6.utils.openPdfPage('JournalEntry.M5c03seWIDzSaJ5L.JournalEntryPage.TzjnU15YacBbqqXl', 25);
+ * @param {string} journalUuid UUID of a PDF journal page
+ * @param {*} pageNumber 
+ * @returns 
+ */
+export async function openPdfPage(journalUuid, pageNumber) {
+    const journal = await fromUuid(journalUuid);
+    await journal.sheet.render(true);
+    const journalId = journal.sheet.id;
+
+    const iframe = document.querySelector(
+        `#${CSS.escape(journalId)} iframe`
+    );
+    if (!iframe) return console.warn("jumpPdfPageStable: iframe not found");
+
+    // Wait until the viewer object exists
+    const waitForViewer = (cb) => {
+        const MAX = 80; // ~8s
+        let tries = 0;
+        const tick = () => {
+            try {
+                const win = iframe.contentWindow;
+                const app = win?.PDFViewerApplication;
+                if (app && app.pdfViewer && app.eventBus) return cb(app);
+            } catch {
+                /* cross-origin? */
+            }
+            if (++tries >= MAX)
+                return console.warn("jumpPdfPageStable: viewer not found");
+            setTimeout(tick, 100);
+        };
+        tick();
+    };
+
+    const run = (app) => {
+        const go = () => {
+            // Prefer the official navigation API; this also updates history
+            const linkService = app.pdfLinkService || app.linkService;
+            if (linkService?.goToPage) {
+                linkService.goToPage(pageNumber);
+            } else if (app.pdfViewer?.currentPageNumber != null) {
+                app.pdfViewer.currentPageNumber = pageNumber;
+            } else if (typeof app.page === "number") {
+                app.page = pageNumber;
+            }
+        };
+
+        // If pages are already loaded, jump now; otherwise wait for the right event.
+        const pagesAreReady =
+            !!app.pdfViewer?._pages && app.pdfViewer._pages.length > 0;
+
+        if (pagesAreReady) {
+            // Do it on the next task so we run *after* any last init handler.
+            setTimeout(go, 0);
+            return;
+        }
+
+        // Run *after* the viewer sets its initial location/history
+        const once = (ev, fn) => {
+            const wrap = (...a) => {
+                app.eventBus.off(ev, wrap);
+                fn(...a);
+            };
+            app.eventBus.on(ev, wrap);
+        };
+
+        // `documentloaded` → PDF parsed, initial view may still apply afterward
+        // `pagesloaded`    → pages built; safe point to navigate without being reset
+        once("pagesloaded", () => setTimeout(go, 0));
+    };
+
+    const start = () => waitForViewer(run);
+
+    if (iframe.contentDocument?.readyState === "complete") {
+        start();
+    } else {
+        iframe.addEventListener("load", start, { once: true });
+    }
+
+}

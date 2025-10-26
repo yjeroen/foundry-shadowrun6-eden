@@ -787,3 +787,7 @@ body.game .shadowrun6.sheet .window-content {
 .shadowrun6.sheet.item .window-content {
   min-height: 200px;
 }
+
+.sheet.journal-entry-page.read-only-pdf .window-content {
+  padding: 0;
+}

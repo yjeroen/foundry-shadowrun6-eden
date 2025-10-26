@@ -78,6 +78,14 @@ Hooks.once("init", async function () {
     //	(CONFIG as any).compatibility.mode = 0;
     getData(game).initiative = "@initiative.physical.pool + (@initiative.physical.dicePool)d6";
 
+    // Register custom PDF Sheet
+    foundry.applications.apps.DocumentSheetConfig.registerSheet(
+        CONFIG.JournalEntryPage.documentClass, 
+        "shadowrun6-eden",
+        applications.PDFSheet,
+        { types: ["pdf"] }
+    );
+
     /**
      * Actor configuration (Datamodel > Document > Sheet)
      * @see template.json (legacy)

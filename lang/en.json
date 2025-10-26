@@ -1,12 +1,23 @@
 {
 	"Shadowrun6ActorSheetNPC": "Grunty",
-	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Grunty Redshirt",
+	"shadowrun6-eden": {
+    "Shadowrun6ActorSheetPC": "SR6 PC Sheet",
+    "Shadowrun6ActorSheetNPC": "SR6 NPC Sheet",
+    "Shadowrun6ActorSheetVehicle": "SR6 Vehicle Sheet",
+    "SR6ItemSheet": "SR6 Item Sheet",
+    "SR6ActiveEffectConfig": "SR6 Effect Config Sheet",
+    "PDFSheet": "Read Only PDF Sheet"
+  },
+  "PDFSheet.no_src": "First Change the Sheet configuration to the Default PDF Page Sheet, configure the PDF url, and then switch it back to the Read Only PDF Sheet configuration.",
   "SYSTEM": {
     "Sidebar": {
       "readme": "Patreon",
       "bugs": "Report Bug",
       "release_notes": "Release Notes"
     }
+  },
+  "PDF": {
+    "core": "Core Rulebook"
   },
   "ACTOR": {
     "TypeCritter": "Critter",

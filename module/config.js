@@ -1102,4 +1102,13 @@ export class SR6Config {
         system_skills_tasking_pool: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.tasking")})})
 
     };
+
+    PDF = {
+        core: "pdf.core",
+        close_combat: "skill.close_combat", 
+        exotic_weapons: "skill.exotic_weapons", 
+        athletics: "skill.athletics", 
+        engineering: "skill.engineering"
+    };
+
 }

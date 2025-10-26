@@ -1,0 +1,7 @@
+<section>
+    {{#if src}}
+    <iframe src="scripts/pdfjs/web/viewer.html?{{ params }}"></iframe>
+    {{else}}
+    <p>{{localize 'PDFSheet.no_src'}}</p>
+    {{/if}}
+</section>
