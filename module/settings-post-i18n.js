@@ -1,4 +1,5 @@
 import { SYSTEM_NAME } from "./constants.js";
+
 export const registerSystemSettingsPosti18n = () => {
     
     const books = game.i18n.translations.PDF.book;

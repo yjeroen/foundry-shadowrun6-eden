@@ -4,6 +4,7 @@
 import SR6Roll from "./SR6Roll.js";
 import { registerSystemSettings } from "./settings.js";
 import { registerSystemSettingsPosti18n } from "./settings-post-i18n.js";
+import { pdfJournalInit } from "./util/pdfJournalInit.js";
 import Shadowrun6Combat from "./Shadowrun6Combat.js";
 import { SR6Config } from "./config.js";
 import { preloadHandlebarsTemplates } from "./templates.js";
@@ -281,7 +282,8 @@ Hooks.once("init", async function () {
         if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
             CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
         }
-        migrateWorld();
+        await migrateWorld();
+        await pdfJournalInit();
         game.sr6.releaseNotes();
 
         

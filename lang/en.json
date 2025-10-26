@@ -17,6 +17,7 @@
     }
   },
   "PDF": {
+    "folder": "Shadowrun 6e Rules",
     "book": {
       "astral_ways": "Astral Ways",
       "bestial_nature": "Bestial Nature",
