@@ -214,8 +214,10 @@ export default class SR6ItemSheet extends ItemSheet {
                 let value;
                 if (element.type == "checkbox") {
                     value = element.checked;
+                } else if (element.type == "number"){
+                    value = parseInt(element.value) || 0;
                 } else {
-                    value = element.value;
+                    value = element.value || "";
                 }
                 const field = element.dataset.field;
                 const arrayId = element.dataset.arrayid;
@@ -245,12 +247,12 @@ export default class SR6ItemSheet extends ItemSheet {
                 newValue = foundry.utils.duplicate(
                     this.object._source.system[array.split(".")[1]]
                 );
-                newValue[idx][field] = parseInt(element.value);
+                newValue[idx][field] = parseInt(element.value) || 0;
             } else {
                 newValue = foundry.utils.duplicate(
                     this.object._source.system[array.split(".")[1]]
                 );
-                newValue[idx] = parseInt(element.value);
+                newValue[idx] = parseInt(element.value) || 0;
             }
             /* Update the value of 'array' with newValue */
             await this.object.update({ [array]: newValue });
