@@ -20,7 +20,7 @@
            <span>{{localize (concat "attrib." (skillAttr id) "_short")}}</span>
          </div>
          <div class="skill-points centered" style="width: 2em;">
-           <input name="skillActionPoints{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{skill.points}}"  style="width: 2em" />
+           <input name="skillActionPoints{{id}}" class="skill-value" type="number" data-field="system.skills.{{id}}.points" value="{{lookup (lookup @root.actor._source.system.skills id) 'points'}}"  style="width: 2em" />
          </div>
          <div class="skill-pool skill" style="flex-grow:2;">
            <span>{{skill.pool}}</span>
