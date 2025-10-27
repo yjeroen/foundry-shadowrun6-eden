@@ -152,9 +152,7 @@ export const defineHandlebarHelper = async function () {
 
     Handlebars.registerHelper('gameSetting', function (setting, namespace) {
         if (!namespace || namespace instanceof Object) namespace = game.system.id;
-        console.log('JEROEN', setting, namespace);
         if ( setting instanceof Handlebars.SafeString ) setting = setting.toString();
-        console.log('JEROEN', setting, namespace);
         try {
             return game.settings.get(namespace, setting);
         } catch {
