@@ -1,3 +1,30 @@
+## 3.3.5
+
+### System Improvements
+- Imported characters from GENESIS/Commlink will be enriched with Items (incl their Effects) from Compendia
+- Add Read Only PDF Journal Sheet that automatically loads (#202)
+- Add PDF book configuration (#202)
+- Automatic PDF Journal creation for configured books (#202)
+- Add Book ID and Pages to Items so the ItemSheet has links to the PDFs (#202)
+- Add an UNARMED weapon item automatically at creation of a character (#193)
+- Vehicles and Drones can now roll physical defense and soak from chat buttons
+- Add a Data Entry setting option in the System Settings
+
+### Bug Fixes
+- Fix Unarmed item AR when imported from GENESIS/Commlink (#193)
+- Fix capacity of Items sometimes changing on editing Social field (#192)
+- Fix source name of Effects wrongly displayed of drag&dropped items (#195)
+- Fix multiple levels of Statuses not working in V13 (#182)
+- Fix that items now also save on close (except for AR field) (#32)
+- Fix data issue that attackRatings can be null (#203)
+- Fix Skill Pool overrides not working correctly (used by Skillwires and such) (#204)
+- Fix Commlink/Genesis import to reset prototype token settings (#205)
+
+### Data Updates
+- Update Compendium pack items to include Product book name and page number (#202)
+- Russian translation updates (TheFokin)
+- Russian CSS layout corrections (TheFokin)
+
 ## 3.3.4
 
 ### Bug Fixes
