@@ -123,6 +123,12 @@ export default class SR6ItemSheet extends ItemSheet {
             event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
         }).attr("draggable", "true");
 
+        html.find(".pdf-link a").click((event) => {
+            const pdfUuid = event.currentTarget.dataset.pdfUuid;
+            const pdfPage = event.currentTarget.dataset.pdfPage;
+            game.sr6.utils.openPdfPage(pdfUuid, pdfPage);
+        });
+
         if (this.item.isOwner) {
             // ActiveEffect buttons
             html.find("[data-action='viewDoc']").click(

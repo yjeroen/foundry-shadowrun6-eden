@@ -141,6 +141,27 @@ export const defineHandlebarHelper = async function () {
         return nuyen;
     });
 
+    Handlebars.registerHelper('srBookSetting', function (productId) {
+        productId = 'pdf-' + productId;
+        if (productId === 'pdf-core') {
+            if (game.settings.get(game.system.id, 'pdf-core_berlin')) productId = 'pdf-core_berlin';
+            else if (game.settings.get(game.system.id, 'pdf-core_seattle')) productId = 'pdf-core_seattle';
+        }
+        return productId;
+    });
+
+    Handlebars.registerHelper('gameSetting', function (setting, namespace) {
+        if (!namespace || namespace instanceof Object) namespace = game.system.id;
+        console.log('JEROEN', setting, namespace);
+        if ( setting instanceof Handlebars.SafeString ) setting = setting.toString();
+        console.log('JEROEN', setting, namespace);
+        try {
+            return game.settings.get(namespace, setting);
+        } catch {
+            return false;
+        }
+    });
+
     Handlebars.registerHelper('matrixAction', function (matrixAction) {
         const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
         const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');

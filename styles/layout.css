@@ -515,6 +515,19 @@ table.spell-table td {
   margin-right: 10px;
   align-self: baseline;
 }
+.shadowrun6.item .item-sheet-header .pdf-link {
+  font-size: 13px;
+  text-align: right;
+  margin-right: 10px;
+}
+.shadowrun6.item .item-sheet-header .data-entry {
+  padding: 0 100px 0 10px;
+}
+.shadowrun6.item .item-sheet-header .data-entry input,
+.shadowrun6.item .item-sheet-header .data-entry select {
+  width: 50%; 
+  border: 1px solid black;
+}
 .shadowrun6.item .item-sheet-header img {
   background-color: var(--highlight-color);
   margin-right: 5px;

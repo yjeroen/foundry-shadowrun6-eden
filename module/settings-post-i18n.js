@@ -38,4 +38,18 @@ export const registerSystemSettingsPosti18n = () => {
         });
     }
 
+    game.settings.register(SYSTEM_NAME, `dataEntry`, {
+        name: "shadowrun6.settings.dataEntry.name",
+        hint: "shadowrun6.settings.dataEntry.hint",
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: false,
+        onChange: (toggle) => {
+            CONFIG.SR6.DATA_ENTRY = toggle;
+            console.log(`SR6E | Setting dataEntry changed to ` + toggle);
+        }
+    });
+
 };

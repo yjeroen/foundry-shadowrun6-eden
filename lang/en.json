@@ -18,6 +18,7 @@
   },
   "PDF": {
     "folder": "Shadowrun 6e Rules",
+    "page_abbr": "p.",
     "book": {
       "astral_ways": "Astral Ways",
       "bestial_nature": "Bestial Nature",
@@ -1530,6 +1531,10 @@
         "hint": "Configure the PDF journal for this Shadowrun Sixth World book.",
         "offset.name": "Offset",
         "offset.hint": "Configure the page offset. Example if page 12 is actually page 11, offset is 1."
+      },
+      "dataEntry": {
+        "hint": "Enable to change the GENESIS/Commlink ID and the Shadowrun book & page number an Item is from in the Item Sheet.",
+        "name": "Item Data Entry"
       }
     },
     "sin" : {

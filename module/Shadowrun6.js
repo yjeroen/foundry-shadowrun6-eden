@@ -60,7 +60,7 @@ Hooks.once("init", async function () {
     game.sr6.releaseNotes = releaseNotes;
     registerSystemSettings();
     defineHandlebarHelper();
-
+    
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
@@ -282,6 +282,7 @@ Hooks.once("init", async function () {
         if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
             CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
         }
+        CONFIG.SR6.DATA_ENTRY = game.settings.get(game.system.id, "dataEntry") || false;
         await migrateWorld();
         await pdfJournalInit();
         game.sr6.releaseNotes();

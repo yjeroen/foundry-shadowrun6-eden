@@ -1,9 +1,21 @@
 <div class="item-sheet-header" style="min-width:590px">
     <div style="flex-grow: inherit;">
         <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
-        <div class="rubik-glitch-regular">{{localize (concat "TYPES.Item." item.type)}}</div>
+        <div class="flexrow">
+            <div class="rubik-glitch-regular">{{localize (concat "TYPES.Item." item.type)}}</div>
+            <div class="pdf-link">
+                {{#if (and item.system.product item.system.page)}}
+                {{localize (lookup config.PDF_OPTIONS.BOOKS item.system.product)}} {{localize "PDF.page_abbr"}}{{item.system.page}}
+                {{#if (gameSetting (srBookSetting item.system.product))}}<a data-pdf-uuid="{{gameSetting (concat (srBookSetting item.system.product) "-journalUuid")}}" data-pdf-page="{{item.system.page}}"><i class="fas fa-external-link-alt" title="Open in PDF"></i></a>{{/if}}
+                {{/if}}
+            </div>
+        </div>
         {{#if config.DATA_ENTRY}}
-        <h5>genesisID: <input name="system.genesisID" type="text" value="{{item.system.genesisID}}" data-field="system.genesisID" style="width: 50%"/></h5>
+        <div class="flexcol data-entry">
+            <p class="flexrow"><span>genesisID:</span><input class="flex2" name="system.genesisID" type="text" value="{{item.system.genesisID}}" data-field="system.genesisID"/></p>
+            <p class="flexrow"><span>Book:</span><select class="flex2" name="system.product">{{selectOptions config.PDF_OPTIONS.BOOKS selected=item.system.product localize=true blank=(localize "shadowrun6.label.none") }}</select></p>
+            <p class="flexrow"><span>Page:</span><input class="flex2" name="system.page" type="text" value="{{item.system.page}}" data-field="system.page"/></p>
+        </div>        
         {{/if}}
     </div>
     <img src="{{item.img}}" data-edit="img" title="{{item.name}}"/>

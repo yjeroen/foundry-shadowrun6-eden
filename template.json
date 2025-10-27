@@ -575,7 +575,9 @@
 		"templates": {
 			"genesis": {
 				"genesisID": "",
-				"description": ""
+				"description": "",
+				"product": "",
+				"page": 0
 			},
 			"skill-value": {
 				"points": 0,
