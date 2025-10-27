@@ -31,6 +31,8 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
             genesisID: new fields.StringField({required: false, nullable: true}),
             availDef: new fields.StringField({required: false, nullable: true, initial: "1L"}),
             price: new fields.NumberField({required: true, nullable: false, initial: 0, min: 0}),
+            product: new fields.StringField({required: false, choices: CONFIG.SR6.PDF_OPTIONS.BOOKS}),
+            page: new fields.NumberField({required: false, nullable: true, initial: null, min: 1}),
         };
     }
 
