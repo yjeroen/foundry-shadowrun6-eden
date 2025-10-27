@@ -5,8 +5,10 @@
   "_id": "BFYfzxUdoLP1Okpj",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "bad_luck",
     "description": "<p>Count dice showing both 1 and 2 for determining a glitch. This does not affect critical </p><p>glitches, only regular glitches.</p>",
+    "product": "core",
+    "page": 75,
     "value": 0,
     "explain": "You Glitch on 1 and 2's.",
     "modifier": [],
@@ -51,13 +53,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!BFYfzxUdoLP1Okpj.ggEQiei80MHXCf54"
     }
@@ -71,13 +71,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698130607,
-    "modifiedTime": 1755698130607,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593466334,
+    "modifiedTime": 1761593466334,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!BFYfzxUdoLP1Okpj"
 }

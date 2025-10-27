@@ -5,8 +5,10 @@
   "_id": "2Pph07YHeRxGm5Z0",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "glass_jaw",
     "description": "<p>You have 1 less Stun Box for each level of this Quality, down to a minimum of 2.</p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Manually adjust the Glass Jaw Effect so it decreases the Stun Monitor 1 per level you have of this quality.</em></p></blockquote>",
+    "product": "core",
+    "page": 76,
     "value": 0,
     "explain": "One less stun box per level",
     "modifier": [],
@@ -51,13 +53,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!2Pph07YHeRxGm5Z0.IrCYe1njlO3osFvX"
     }
@@ -71,13 +71,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698130607,
-    "modifiedTime": 1755698130607,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593466334,
+    "modifiedTime": 1761593466334,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!2Pph07YHeRxGm5Z0"
 }

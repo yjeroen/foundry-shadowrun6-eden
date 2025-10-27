@@ -2,10 +2,13 @@
   "folder": "mlfmeXgmiD1wsrvY",
   "name": "Low Pain Tolerance",
   "type": "quality",
+  "_id": "HYhk8RlWMNm1gSLs",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "low_pain_tolerance",
     "description": "<p>All wound modifiers are doubled.</p>",
+    "product": "core",
+    "page": 78,
     "value": 0,
     "explain": "All wound modifiers are doubled.",
     "modifier": [],
@@ -53,12 +56,13 @@
         "exportSource": null,
         "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.2",
+        "systemVersion": "3.3.5",
         "lastModifiedBy": null
       },
-      "_key": "!items.effects!84jMMK97ODRKCZZI.wngQgP22tEPWZ7ao"
+      "_key": "!items.effects!HYhk8RlWMNm1gSLs.wngQgP22tEPWZ7ao"
     }
   ],
+  "sort": 0,
   "ownership": {
     "default": 0,
     "S4L5UokAp998askq": 3
@@ -70,12 +74,10 @@
     "exportSource": null,
     "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.2",
-    "createdTime": 1757942533758,
-    "modifiedTime": 1757942533758,
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593466334,
+    "modifiedTime": 1761593466334,
     "lastModifiedBy": "S4L5UokAp998askq"
   },
-  "_id": "84jMMK97ODRKCZZI",
-  "sort": 0,
-  "_key": "!items!84jMMK97ODRKCZZI"
+  "_key": "!items!HYhk8RlWMNm1gSLs"
 }

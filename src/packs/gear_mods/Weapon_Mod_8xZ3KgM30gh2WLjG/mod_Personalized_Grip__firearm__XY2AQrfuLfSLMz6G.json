@@ -10,7 +10,9 @@
     "price": 200,
     "embeddedInUuid": null,
     "type": "weapon_mod",
-    "genesisID": "personalized_grip_ranged"
+    "genesisID": "personalized_grip_ranged",
+    "product": "firing_squad",
+    "page": 62
   },
   "effects": [
     {
@@ -56,13 +58,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!XY2AQrfuLfSLMz6G.NBg8gdjDT2xwOT4V"
     }
@@ -76,13 +76,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635448558,
-    "modifiedTime": 1755635448558,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593435027,
+    "modifiedTime": 1761593435027,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!XY2AQrfuLfSLMz6G"
 }

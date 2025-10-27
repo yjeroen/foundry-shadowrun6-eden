@@ -5,12 +5,14 @@
   "_id": "0UZwKhcgSLdtdbLX",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "dermal_deposits",
     "description": "<p>You gain 1 level of natural Armor. Your Unarmed Melee attacks inflict Physical damage. </p>",
+    "product": "core",
+    "page": 74,
     "value": 0,
     "explain": "Add extra armor and unarmed melee do physical damage.",
     "modifier": [],
-    "category": "",
+    "category": "ADVANTAGE",
     "level": false
   },
   "effects": [
@@ -51,13 +53,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!0UZwKhcgSLdtdbLX.z3N4SHelUir2MCN8"
     }
@@ -71,13 +71,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698132022,
-    "modifiedTime": 1755698132022,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593467638,
+    "modifiedTime": 1761593467638,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!0UZwKhcgSLdtdbLX"
 }

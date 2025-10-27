@@ -10,7 +10,9 @@
     "price": 175,
     "embeddedInUuid": null,
     "type": "weapon_mod",
-    "genesisID": "heavy_weight"
+    "genesisID": "heavy_weight",
+    "product": "firing_squad",
+    "page": 60
   },
   "effects": [
     {
@@ -68,13 +70,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!4clfv5W56BT11Vw4.6xX6tSzRtHeAuwln"
     }
@@ -88,13 +88,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635448558,
-    "modifiedTime": 1755635448558,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593435027,
+    "modifiedTime": 1761593435027,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!4clfv5W56BT11Vw4"
 }

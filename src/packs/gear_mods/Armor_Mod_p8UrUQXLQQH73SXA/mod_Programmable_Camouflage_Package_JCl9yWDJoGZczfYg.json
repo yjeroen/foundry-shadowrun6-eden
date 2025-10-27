@@ -10,7 +10,9 @@
     "price": 75,
     "embeddedInUuid": null,
     "type": "armor_mod",
-    "genesisID": "programmable_camouflage"
+    "genesisID": "programmable_camouflage",
+    "product": "firing_squad",
+    "page": 53
   },
   "effects": [
     {
@@ -50,13 +52,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!JCl9yWDJoGZczfYg.cpQf02v8nCrrxW3b"
     },
@@ -97,13 +97,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!JCl9yWDJoGZczfYg.fTa4rj2LsLJUhJnC"
     }
@@ -117,13 +115,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635445101,
-    "modifiedTime": 1755635445101,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593431183,
+    "modifiedTime": 1761593431183,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!JCl9yWDJoGZczfYg"
 }

@@ -9,7 +9,9 @@
     "price": 80,
     "embeddedInUuid": null,
     "type": "accessory_weapon",
-    "genesisID": "laser_sight_low_power"
+    "genesisID": "laser_sight_low_power",
+    "product": "firing_squad",
+    "page": 72
   },
   "effects": [
     {
@@ -55,13 +57,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!mhbD9HHwQipMfdAr.VQ5fAKPCCBrxZrQH"
     },
@@ -108,13 +108,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!mhbD9HHwQipMfdAr.hxCEyEdwz5PeuqKQ"
     }
@@ -128,13 +126,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": "Item.3HouVn8ly3j6mBi3",
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635446804,
-    "modifiedTime": 1755635446804,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593433253,
+    "modifiedTime": 1761593433253,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_id": "mhbD9HHwQipMfdAr",
   "_key": "!items!mhbD9HHwQipMfdAr"

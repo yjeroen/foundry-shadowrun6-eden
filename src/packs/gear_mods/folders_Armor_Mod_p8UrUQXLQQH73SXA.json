@@ -11,11 +11,12 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "12.343",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635445091,
-    "modifiedTime": 1755635445111,
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593431174,
+    "modifiedTime": 1761593431203,
     "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!folders!p8UrUQXLQQH73SXA"

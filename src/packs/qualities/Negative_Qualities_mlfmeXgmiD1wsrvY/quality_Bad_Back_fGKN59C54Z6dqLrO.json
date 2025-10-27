@@ -5,12 +5,14 @@
   "_id": "fGKN59C54Z6dqLrO",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "bad_back",
     "description": "<p>Whenever you suffer from any wound modifiers, you also gain the Hobbled status. The status goes away when the modifiers do.</p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Manually enable/disable the Effect when affected.</em></p></blockquote>",
+    "product": "companion",
+    "page": 149,
     "value": 0,
     "explain": "Gain Hobbled status when severely wounded",
     "modifier": [],
-    "category": "",
+    "category": "ADVANTAGE",
     "level": false
   },
   "effects": [
@@ -46,13 +48,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!fGKN59C54Z6dqLrO.C9gNTSA7oaFoE1GE"
     }
@@ -66,13 +66,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698130607,
-    "modifiedTime": 1755698130607,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593466334,
+    "modifiedTime": 1761593466334,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!fGKN59C54Z6dqLrO"
 }

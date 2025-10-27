@@ -2,14 +2,17 @@
   "folder": "Cio7fVmGjwkLRo7B",
   "name": "High Pain Tolerance",
   "type": "quality",
+  "_id": "RNXUazQXO8jPlpSG",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "high_pain_tolerance",
     "description": "<p>When wounded, reduce your wound penalty by one (to a minimum of 0).</p>",
+    "product": "core",
+    "page": 72,
     "value": 0,
     "explain": "Reduce your wound penalty by one",
     "modifier": [],
-    "category": "",
+    "category": "ADVANTAGE",
     "level": false
   },
   "effects": [
@@ -53,12 +56,13 @@
         "exportSource": null,
         "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.2",
+        "systemVersion": "3.3.5",
         "lastModifiedBy": null
       },
-      "_key": "!items.effects!uGc9bvYLdqHK1rRz.AT0jyMh5xwCeeIPS"
+      "_key": "!items.effects!RNXUazQXO8jPlpSG.AT0jyMh5xwCeeIPS"
     }
   ],
+  "sort": 0,
   "ownership": {
     "default": 0,
     "S4L5UokAp998askq": 3
@@ -70,12 +74,10 @@
     "exportSource": null,
     "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.2",
-    "createdTime": 1757942531698,
-    "modifiedTime": 1757942531698,
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593467638,
+    "modifiedTime": 1761593467638,
     "lastModifiedBy": "S4L5UokAp998askq"
   },
-  "_id": "uGc9bvYLdqHK1rRz",
-  "sort": 0,
-  "_key": "!items!uGc9bvYLdqHK1rRz"
+  "_key": "!items!RNXUazQXO8jPlpSG"
 }

@@ -10,7 +10,9 @@
     "price": 0,
     "embeddedInUuid": null,
     "type": "armor_mod",
-    "genesisID": "ballistic_hood"
+    "genesisID": "ballistic_hood_armor",
+    "product": "core_seattle",
+    "page": 335
   },
   "effects": [
     {
@@ -50,13 +52,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!bB1XbJx5ZekYy6U5.aDI5AUyZjOS1UfRE"
     }
@@ -70,13 +70,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635445101,
-    "modifiedTime": 1755635445101,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593431183,
+    "modifiedTime": 1761593431183,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!bB1XbJx5ZekYy6U5"
 }

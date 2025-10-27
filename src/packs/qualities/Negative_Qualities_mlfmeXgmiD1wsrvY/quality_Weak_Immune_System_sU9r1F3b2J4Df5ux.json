@@ -5,8 +5,10 @@
   "_id": "sU9r1F3b2J4Df5ux",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "weak_immune_system",
     "description": "<p>You cannot spend Edge to resist the effects of an infection. The threshold for fighting off any infection you are exposed to is increased by 1. While suffering the ill effects of an illness, you suffer a –1 dice pool modifier to all tests. </p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Active the </em>Effect <em>when suffering from an illness.</em></p></blockquote>",
+    "product": "core",
+    "page": 79,
     "value": 0,
     "explain": "Cannot spenmd Edge to resist an infection.",
     "modifier": [],
@@ -51,13 +53,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!sU9r1F3b2J4Df5ux.55IrxNyNSQzR6LPq"
     }
@@ -71,13 +71,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698130607,
-    "modifiedTime": 1755698130607,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593466334,
+    "modifiedTime": 1761593466334,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!sU9r1F3b2J4Df5ux"
 }

@@ -5,12 +5,14 @@
   "_id": "gPJt0TQE4iUZwozB",
   "img": "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
   "system": {
-    "genesisID": "",
+    "genesisID": "built_tough",
     "description": "<p>You have a number of additional boxes on your Physical Condition Monitor equal to the rank of this quality.</p><hr><blockquote><p>SYSTEM NOTE</p><p><em>Manually adjust the Build Tough </em>Effect <em>so it increases the Physical Monitor 1 per level you have of this quality.</em></p></blockquote>",
+    "product": "core",
+    "page": 70,
     "value": 0,
     "explain": "Additional Physical Monitor boxes per level.",
     "modifier": [],
-    "category": "",
+    "category": "ADVANTAGE",
     "level": false
   },
   "effects": [
@@ -51,13 +53,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!gPJt0TQE4iUZwozB.sZcZUFJ3j7RsIglp"
     }
@@ -71,13 +71,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698132022,
-    "modifiedTime": 1755698132022,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593467638,
+    "modifiedTime": 1761593467638,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!gPJt0TQE4iUZwozB"
 }

@@ -10,7 +10,9 @@
     "price": 700,
     "embeddedInUuid": null,
     "type": "weapon_mod",
-    "genesisID": "revolution_arms_collapsible_stock"
+    "genesisID": "revolution_arms_collapsible_stock",
+    "product": "firing_squad",
+    "page": 62
   },
   "effects": [
     {
@@ -74,13 +76,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!04ydS2AeJwrTta2L.DyxoKLPAeJTVtnt3"
     },
@@ -145,13 +145,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!04ydS2AeJwrTta2L.6q0PKBPqIl4yVH13"
     },
@@ -216,13 +214,11 @@
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
-        "coreVersion": "13.347",
+        "exportSource": null,
+        "coreVersion": "13.348",
         "systemId": "shadowrun6-eden",
-        "systemVersion": "3.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "exportSource": null
+        "systemVersion": "3.3.5",
+        "lastModifiedBy": null
       },
       "_key": "!items.effects!04ydS2AeJwrTta2L.7QGNwvEB315kVw6J"
     }
@@ -236,13 +232,13 @@
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "13.347",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755635448558,
-    "modifiedTime": 1755635448558,
-    "lastModifiedBy": "S4L5UokAp998askq",
-    "exportSource": null
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593435027,
+    "modifiedTime": 1761593435027,
+    "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!items!04ydS2AeJwrTta2L"
 }

@@ -5,17 +5,18 @@
   "type": "Item",
   "_id": "Cio7fVmGjwkLRo7B",
   "description": "",
-  "sort": 100000,
+  "sort": 200000,
   "color": null,
   "flags": {},
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
-    "coreVersion": "12.343",
+    "exportSource": null,
+    "coreVersion": "13.348",
     "systemId": "shadowrun6-eden",
-    "systemVersion": "3.3.0",
-    "createdTime": 1755698132015,
-    "modifiedTime": 1755698132032,
+    "systemVersion": "3.3.5",
+    "createdTime": 1761593467632,
+    "modifiedTime": 1761593467646,
     "lastModifiedBy": "S4L5UokAp998askq"
   },
   "_key": "!folders!Cio7fVmGjwkLRo7B"
