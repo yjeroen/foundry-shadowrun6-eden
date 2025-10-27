@@ -12,9 +12,9 @@
         </div>
         {{#if config.DATA_ENTRY}}
         <div class="flexcol data-entry">
-            <p class="flexrow"><span>genesisID:</span><input class="flex2" name="system.genesisID" type="text" value="{{item.system.genesisID}}" data-field="system.genesisID"/></p>
-            <p class="flexrow"><span>Book:</span><select class="flex2" name="system.product">{{selectOptions config.PDF_OPTIONS.BOOKS selected=item.system.product localize=true blank=(localize "shadowrun6.label.none") }}</select></p>
-            <p class="flexrow"><span>Page:</span><input class="flex2" name="system.page" type="text" value="{{item.system.page}}" data-field="system.page"/></p>
+            <p class="flexrow"><span>genesisID:</span><input class="flex2" name="system.genesisID" data-field="system.genesisID" type="text" value="{{item.system.genesisID}}"/></p>
+            <p class="flexrow"><span>Book:</span><select class="flex2" name="system.product" data-field="system.product">{{selectOptions config.PDF_OPTIONS.BOOKS selected=item.system.product localize=true sort=true blank=(localize "shadowrun6.label.none") }}</select></p>
+            <p class="flexrow"><span>Page:</span><input class="flex2" name="system.page" data-field="system.page" type="number" value="{{item.system.page}}"/></p>
         </div>        
         {{/if}}
     </div>
