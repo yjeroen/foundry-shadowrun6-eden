@@ -193,4 +193,5 @@ export class VehicleActor {
     notes;
     ar = new Pool();
     dr = new Pool();
+    defensepool = new DefensePool();
 }

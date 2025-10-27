@@ -48,7 +48,7 @@
 	  <table>
       <thead>
         <tr>
-          <th>{{localize "shadowrun6.actor.skills" }}</th>
+          <th>{{localize "shadowrun6.label.pools" }}</th>
           <th>{{localize "shadowrun6.label.modifier" }}</th>
           <th>{{localize "shadowrun6.label.pool" }}</th>
           <th></th>
@@ -62,11 +62,27 @@
        <td style="text-align: center">
          <input name="{{id}}Evasion" class="centered" type="number" data-field="system.skills.evasion.modifier" data-dtype="Number" value="{{system.skills.evasion.modifier}}"  style="width: 2em" />
        </td>
-       <td class="skill-pool">
-         {{system.skills.evasion.pool}}
+       <td class="skill-pool" title="{{system.defensepool.physical.modString}}">
+         {{system.defensepool.physical.pool}}
        </td>
        <td class="item-controls" style="width: 3em; flex-grow:2">
-         <a class="item-control vehicleskill-roll" data-skill="evasion" data-rollType="skill" data-pool="{{system.skills.evasion.pool}}" data-caption="Defense (Attacks)" title="Roll"><i class="fas fa-dice-six"></i></a>
+         <a class="item-control vehicleskill-roll" data-skill="evasion" data-rollType="skill" data-pool="{{system.defensepool.physical.pool}}" data-caption="Defense (Attacks)" title="Roll"><i class="fas fa-dice-six"></i></a>
+       </td>
+     </tr>
+     
+      <!-- Soak -->
+      <tr>
+       <td style="margin-right: 1rem">
+         <label class="skill-value skill-key rollable skill-name skill-roll">{{localize 'shadowrun6.defense.damage_physical'}}</label>
+       </td>
+       <td style="text-align: center">
+         <input name="{{id}}Soak" class="centered" type="number" data-field="system.defensepool.damage_physical.mod" data-dtype="Number" value="{{system.defensepool.damage_physical.mod}}"  style="width: 2em" />
+       </td>
+       <td class="skill-pool" title="{{system.defensepool.damage_physical.modString}}">
+         {{system.defensepool.damage_physical.pool}}
+       </td>
+       <td class="item-controls" style="width: 3em; flex-grow:2">
+         <a class="item-control defense-roll skill-pool" data-roll-id="damage_physical" data-pool="{{system.defensepool.damage_physical.pool}}" data-caption="{{localize 'shadowrun6.defense.damage_physical'}}" title="Roll {{localize 'shadowrun6.defense.damage_physical'}} ({{system.defensepool.damage_physical.modString}})"><i class="fas fa-dice-six"></i></a>
        </td>
      </tr>
 

@@ -188,6 +188,7 @@ export default class Shadowrun6Actor extends Actor {
                 this._prepareDerivedVehicleAttributes();
                 this._prepareVehicleActorSkills();
                 this._prepareVehicleActorItems();
+                this._prepareVehicleDefensePools();
             }
 
 
@@ -870,7 +871,7 @@ export default class Shadowrun6Actor extends Actor {
 
     //---------------------------------------------------------
     /*
-     * Calculate the attributes like Initiative
+     * Calculate Defensive pools
      */
     _prepareDefensePools() {
         const system = getSystemData(this);
@@ -1003,6 +1004,33 @@ export default class Shadowrun6Actor extends Actor {
             data.defensepool.fading.pool += data.defensepool.fading.mod;
             data.defensepool.fading.modString += " + " + data.defensepool.fading.mod;
         }
+    }
+    _prepareVehicleDefensePools() {
+        const system = getSystemData(this);
+        console.log("SR6E | _prepareVehicleDefensePools - based on:", system);
+        if (isLifeform(system))
+            return;
+        if (!system.defensepool)
+            system.defensepool = new DefensePool();
+        if (!system.defensepool.physical)
+            system.defensepool.physical = new Pool();
+        // Physical Defense Test
+        system.defensepool.physical.base = system.skills.evasion.pool;
+        system.defensepool.physical.modString = game.i18n.localize("shadowrun6.vehicle.skill.evasion") + " " + system.skills.evasion.pool;
+        system.defensepool.physical.pool = system.defensepool.physical.base;
+        if (system.defensepool.physical.mod) {
+            system.defensepool.physical.pool += system.defensepool.physical.mod;
+            system.defensepool.physical.modString += " + " + system.defensepool.physical.mod;
+        }
+        // Resist physical damage
+        system.defensepool.damage_physical.base = system.bod;
+        system.defensepool.damage_physical.modString = game.i18n.localize("attrib.bod_short") + " " + system.bod;
+        system.defensepool.damage_physical.pool = system.defensepool.damage_physical.base;
+        if (system.defensepool.damage_physical.mod) {
+            system.defensepool.damage_physical.pool += system.defensepool.damage_physical.mod;
+            system.defensepool.damage_physical.modString += " + " + system.defensepool.damage_physical.mod;
+        }
+        console.log('JEROEN', this.name, system.defensepool)
     }
     //---------------------------------------------------------
     /*
@@ -1952,37 +1980,40 @@ export default class Shadowrun6Actor extends Actor {
     /**
      */
     rollDefense(defendWith, threshold, damage, monitor) {
-        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor);
         const data = getSystemData(this);
+        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, data);
 
-        if (!isLifeform(data)) {
-            throw "Can only roll defenses for lifeforms";
-        }
         let defensePool = undefined;
         let rollData = new DefenseRoll(threshold, monitor);
-        let gameI18n = game.i18n;
         switch (defendWith) {
             case Defense.PHYSICAL:
-                defensePool = data.defensepool.physical;
                 // In combat defense, the defender must have MORE hits than the attacker to completely defend
-                rollData.actionText = gameI18n.format("shadowrun6.roll.actionText.defense." + defendWith, { threshold: 0 });
-                rollData.checkText = gameI18n.localize("attrib.rea") + " + " + gameI18n.localize("attrib.int") + " (" + threshold + ")";
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.defense." + defendWith, { threshold: 0 });
+                defensePool = data.defensepool.physical;
+                if (isLifeform(data)) {
+                    rollData.checkText = game.i18n.localize("attrib.rea") + " + " + game.i18n.localize("attrib.int") + " (" + threshold + ")";
+                } else {
+                    rollData.checkText = game.i18n.localize("shadowrun6.vehicle.skill.piloting") + " / " + game.i18n.localize("shadowrun6.vehicle.skill.evasion") + " (" + threshold + ")";
+                }
                 break;
             case Defense.SPELL_INDIRECT:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle defense rolls via chatbutton for ${defendWith} are not implemented yet.`);
                 defensePool = data.defensepool.spells_indirect;
-                rollData.actionText = gameI18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
-                rollData.checkText = gameI18n.localize("attrib.rea") + " + " + gameI18n.localize("attrib.wil") + " (" + threshold + ")";
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
+                rollData.checkText = game.i18n.localize("attrib.rea") + " + " + game.i18n.localize("attrib.wil") + " (" + threshold + ")";
                 break;
             case Defense.SPELL_DIRECT:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle defense rolls via chatbutton for ${defendWith} are not implemented yet.`);
                 rollData.allowSoak = false;
                 defensePool = data.defensepool.spells_direct;
-                rollData.actionText = gameI18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
-                rollData.checkText = gameI18n.localize("attrib.wil") + " + " + gameI18n.localize("attrib.int") + " (" + threshold + ")";
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
+                rollData.checkText = game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib.int") + " (" + threshold + ")";
                 break;
             case Defense.SPELL_OTHER:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle defense rolls via chatbutton for ${defendWith} are not implemented yet.`);
                 defensePool = data.defensepool.spells_other;
-                rollData.actionText = gameI18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
-                rollData.checkText = gameI18n.localize("attrib.wil") + " + " + gameI18n.localize("attrib.int");
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
+                rollData.checkText = game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib.int");
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle defense rolls for " + defendWith);
@@ -2007,45 +2038,45 @@ export default class Shadowrun6Actor extends Actor {
     /**
      */
     rollSoak(soak, damage) {
-        console.log("SR6E | rollSoak: " + damage + " " + soak);
         const data = this.system;
-        if (!isLifeform(data)) {
-            throw "Can only roll defenses for lifeforms";
-        }
+        console.log("SR6E | rollSoak: " + damage + " " + soak, data);
+
         let defensePool = undefined;
         let rollData = new SoakRoll(damage, soak);
-        let gameI18n = game.i18n;
         switch (soak) {
             case SoakType.DAMAGE_PHYSICAL:
                 defensePool = data.defensepool.damage_physical;
                 rollData.monitor = MonitorType.PHYSICAL;
-                rollData.actionText = gameI18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = gameI18n.localize("attrib.bod") + " (" + damage + ")";
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                rollData.checkText = game.i18n.localize("attrib.bod") + " (" + damage + ")";
                 break;
             case SoakType.DAMAGE_STUN:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle soak rolls via chatbutton for ${soak} are not implemented yet.`);
                 defensePool = data.defensepool.damage_physical;
                 rollData.monitor = MonitorType.STUN;
-                rollData.actionText = gameI18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = gameI18n.localize("attrib.bod") + " (" + damage + ")";
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                rollData.checkText = game.i18n.localize("attrib.bod") + " (" + damage + ")";
                 break;
             case SoakType.DRAIN:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle soak rolls via chatbutton for ${soak} are not implemented yet.`);
                 defensePool = data.defensepool.drain;
                 rollData.monitor = MonitorType.STUN; 
-                rollData.actionText = gameI18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = gameI18n.localize("attrib.wil") + " + ? (" + damage + ")";
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                rollData.checkText = game.i18n.localize("attrib.wil") + " + ? (" + damage + ")";
                 if (data.tradition != null) {
                     rollData.checkText =
-                        gameI18n.localize("attrib.wil") + " + " + gameI18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
+                        game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
                 }
                 break;
             case SoakType.FADING:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle soak rolls via chatbutton for ${soak} are not implemented yet.`);
                 defensePool = data.defensepool.fading;
                 rollData.monitor = MonitorType.STUN;
-                rollData.actionText = gameI18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = gameI18n.localize("attrib.wil") + " + ? (" + damage + ")";
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                rollData.checkText = game.i18n.localize("attrib.wil") + " + ? (" + damage + ")";
                 if (data.tradition != null) {
                     rollData.checkText =
-                        gameI18n.localize("attrib.wil") + " + " + gameI18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
+                        game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
                 }
                 break;
             default:
