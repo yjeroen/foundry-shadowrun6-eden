@@ -2342,6 +2342,7 @@ export default class Shadowrun6Actor extends Actor {
         // GENESIS uses Actor.data in its export, while COMMLINK uses Actor.system as the actors sourceData
         const actorSystem = sourceData.data ?? sourceData.system;
         // Modify imported GENESIS/COMMLINK items
+        let GenesisCommlink = (sourceData.generatorName === "Commlink6");
         // Both GENESIS and COMMLINK use Item.data as its sourceData
         sourceData.items?.forEach(item => {
             if (item.data?.genesisID) {
@@ -2353,6 +2354,7 @@ export default class Shadowrun6Actor extends Actor {
                     item.name = game.i18n.localize("shadowrun6.gear.subtype.UNARMED");
                     item.data.attackRating[0] = 0;
                 }
+                GenesisCommlink = true;
             }
         });
 
@@ -2371,6 +2373,22 @@ export default class Shadowrun6Actor extends Actor {
                 }
             };
             sourceData.items.push(unarmedItemData);
+        }
+        
+        if (GenesisCommlink) {
+            // Overwrite default GENESIS/Commlink token settings
+            const tokenData = {
+                name: sourceData.token?.name || sourceData.name,
+                actorLink: true,
+                sight: { enabled: true },
+                displayName: CONST.TOKEN_DISPLAY_MODES.HOVER,
+                displayBars: CONST.TOKEN_DISPLAY_MODES.NONE,
+                disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                texture: { src: this.prototypeToken.texture.src },
+                lockRotation: this.prototypeToken.lockRotation
+            };
+            sourceData.token = tokenData;
+            sourceData.img = this.img;
         }
 
         return super.importFromJSON(JSON.stringify(sourceData));

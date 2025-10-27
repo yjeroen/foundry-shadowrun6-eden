@@ -684,6 +684,7 @@ Hooks.once("init", async function () {
         if (actor.type === "Player") {
             actor.prototypeToken.updateSource({
                 actorLink: true,
+                displayName: CONST.TOKEN_DISPLAY_MODES.HOVER,
                 disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY
             });
         } else if (actor.type === "NPC") {
