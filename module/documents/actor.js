@@ -1030,7 +1030,6 @@ export default class Shadowrun6Actor extends Actor {
             system.defensepool.damage_physical.pool += system.defensepool.damage_physical.mod;
             system.defensepool.damage_physical.modString += " + " + system.defensepool.damage_physical.mod;
         }
-        console.log('JEROEN', this.name, system.defensepool)
     }
     //---------------------------------------------------------
     /*
@@ -2342,9 +2341,11 @@ export default class Shadowrun6Actor extends Actor {
         // GENESIS uses Actor.data in its export, while COMMLINK uses Actor.system as the actors sourceData
         const actorSystem = sourceData.data ?? sourceData.system;
         // Modify imported GENESIS/COMMLINK items
-        let GenesisCommlink = (sourceData.generatorName === "Commlink6");
+        let GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
         // Both GENESIS and COMMLINK use Item.data as its sourceData
-        sourceData.items?.forEach(item => {
+        for (const index in sourceData.items) {
+            const item = sourceData.items[index];
+            
             if (item.data?.genesisID) {
                 if (item.data.type === "WEAPON_CLOSE_COMBAT") {
                     item.data.attackRating[0] -= actorSystem.attributes.str.pool;
@@ -2354,9 +2355,33 @@ export default class Shadowrun6Actor extends Actor {
                     item.name = game.i18n.localize("shadowrun6.gear.subtype.UNARMED");
                     item.data.attackRating[0] = 0;
                 }
-                GenesisCommlink = true;
+
+                // Fix empty knowledge skill names
+                if (item.name == "") item.name = "???";
+                
+                // Search if this genesisID exists in Compendia
+                let result;
+                game.packs.filter(p => p.documentName === "Item").some((p) => { 
+                    result = p.index.find(i => i.system.genesisID === item.data.genesisID);
+                    return (result instanceof Object)
+                })
+
+                if (result instanceof Object) {
+                    let importedItem = await fromUuid(result.uuid);
+                    importedItem = game.items.fromCompendium( importedItem, { clearFolder: true, clearOwnership: true } );
+                    if (item.data.customName) {
+                        importedItem.system.description = `<h3>${item.name}</h3>${importedItem.system.description}`;
+                        importedItem.name = item.data.customName;
+                    } else {
+                        console.log('JEROEN genesisID', item.data.genesisID);
+                        console.log('JEROEN name', item.name);
+                        importedItem.name = item.name;
+                    }
+                    if (item.data.notes) importedItem.system.description += `<hr><p>${item.data.notes}</p>`;
+                    sourceData.items[index] = importedItem;
+                }
             }
-        });
+        }
 
         // COMMLINK doesn't add an Unarmed item, so lets add it
         if (sourceData.generatorName === "Commlink6") {
