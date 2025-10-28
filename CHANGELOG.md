@@ -1,3 +1,8 @@
+## 3.3.6
+
+### Bug Fixes
+- Fix PDF settings and Unarmed Items for non-English localization (#207)
+
 ## 3.3.5
 
 ### System Improvements
