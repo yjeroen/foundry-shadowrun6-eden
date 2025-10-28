@@ -190,7 +190,7 @@ export default class SR6Item extends Item {
       if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && this.system.strWeapon === true) {
         closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
       }
-      if (this.name === game.i18n.localize("shadowrun6.gear.subtype.UNARMED") && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
+      if (this.system.genesisID === "unarmed" && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
         closeCombatAttackRatingAttribute += this.actor.system.attributes.rea.pool;
       }
       this.calculated.attackRating[0] = parseInt(this.system.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);

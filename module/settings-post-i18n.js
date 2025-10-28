@@ -2,7 +2,7 @@ import { SYSTEM_NAME } from "./constants.js";
 
 export const registerSystemSettingsPosti18n = () => {
     
-    const books = game.i18n.translations.PDF.book;
+    const books = game.i18n.translations.PDF?.book || game.i18n._fallback.PDF.book;
     const orderedBooks = Object.keys(books).sort((a, b) => books[a].localeCompare(books[b]));
 
     for (const id in orderedBooks) {

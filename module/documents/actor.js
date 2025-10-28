@@ -2394,7 +2394,8 @@ export default class Shadowrun6Actor extends Actor {
                     type: "WEAPON_CLOSE_COMBAT",
                     subtype: "UNARMED",
                     skill: "close_combat",
-                    skillSpec: "unarmed"
+                    skillSpec: "unarmed",
+                    genesisID: "unarmed"
                 }
             };
             sourceData.items.push(unarmedItemData);
@@ -2455,7 +2456,7 @@ export default class Shadowrun6Actor extends Actor {
      */
     async _addUnarmed() {        
         if (
-            this.items.getName(game.i18n.localize("shadowrun6.gear.subtype.UNARMED"))
+            this.items.some(item => item.system.genesisID === 'unarmed') 
             || ( this.type !== "Player" && this.type !== "NPC")
         ) return;
 
@@ -2469,7 +2470,8 @@ export default class Shadowrun6Actor extends Actor {
                 type: "WEAPON_CLOSE_COMBAT",
                 subtype: "UNARMED",
                 skill: "close_combat",
-                skillSpec: "unarmed"
+                skillSpec: "unarmed",
+                genesisID: "unarmed"
             }
         };
         await this.createEmbeddedDocuments("Item", [unarmedItemData]);  
