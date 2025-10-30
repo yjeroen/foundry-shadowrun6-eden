@@ -154,6 +154,7 @@ export default class SR6Item extends Item {
     if (typeof source.system?.defense === 'string') source.system.defense = parseInt(source.system.defense);
     if (typeof source.system?.capacity === 'string') source.system.capacity = parseInt(source.system.capacity);
     if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social);
+    if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating);
 
     return super.migrateData(source);
   }
