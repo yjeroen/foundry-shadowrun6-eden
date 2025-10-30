@@ -1678,7 +1678,7 @@ export default class Shadowrun6Actor extends Actor {
         if (!skillId)
             throw "Skill ID may not be undefined";
         const skl = system.skills[skillId];
-        console.log("SR6E | _getSkillPool", skl);
+        // console.log("SR6E | _getSkillPool", skl);
         if (!skillId) {
             throw "Unknown skill '" + skillId + "'";
         }
@@ -1708,7 +1708,7 @@ export default class Shadowrun6Actor extends Actor {
         // console.log("SR6E | _getSkillPool | attrib", parseInt(system.attributes[attrib].pool));
         value = parseInt("" + value);
         value += parseInt(system.attributes[attrib].pool);
-        console.log("SR6E | _getSkillPool | value", value);
+        // console.log("SR6E | _getSkillPool | value", value);
         return value;
     }
     //---------------------------------------------------------
