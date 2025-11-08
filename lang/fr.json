@@ -1,11 +1,95 @@
 {
-	"Shadowrun6ActorSheetNPC": "c",
-	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Grunty Redshirt",
+	"Shadowrun6ActorSheetNPC": "Grunty",
+	"shadowrun6-eden": {
+    "Shadowrun6ActorSheetPC": "Fiche PJ SR6",
+    "Shadowrun6ActorSheetNPC": "Fiche PNJ SR6",
+    "Shadowrun6ActorSheetVehicle": "Fiche Véhicule SR6",
+    "SR6ItemSheet": "Fiche Objet SR6",
+    "SR6ActiveEffectConfig": "Fiche de configuration d'effet SR6",
+    "PDFSheet": "Fiche PDF en lecture seule"
+  },
+  "PDFSheet.no_src": "Commencez par modifier la configuration de la fiche pour la fiche PDF par défaut, configurez l'URL PDF, puis repassez à la configuration de la fiche PDF en lecture seule.",
   "SYSTEM": {
     "Sidebar": {
       "readme": "Patreon",
       "bugs": "Report de bug",
       "release_notes": "Notes de mise à jour"
+    }
+  },
+  "PDF": {
+    "folder": "Shadowrun 6e Rules",
+    "page_abbr": "p.",
+    "book": {
+      "astral_ways": "Astral Ways",
+      "bestial_nature": "Bestial Nature",
+      "body_shop": "Body Shop",
+      "collapsing_now": "Collapsing Now",
+      "companion": "Sixth World Companion",
+      "core": "Core Rulebook",
+      "core_seattle": "Core Rulebook Seattle Ed",
+      "core_berlin": "Core Rulebook Berlin Ed",
+      "de_alpen": "Datapuls Alpen",
+      "de_berlin2080": "Berlin 2080",
+      "de_bundeswehr": "Datapuls Bundeswehr",
+      "de_feuerlaeufer": "Datapuls Feuerlaeufer",
+      "de_other": "Sonstige Quellen aus DE",
+      "de_piraten": "Datapuls Piraten der Deutschen Bucht",
+      "de_revierbericht": "Revierbericht",
+      "de_sota2081": "Datapuls SOTA2081",
+      "de_sota2082": "Datapuls SOTA2082",
+      "de_sota2083": "Datapuls SOTA2083",
+      "de_westphalen": "Datapuls Westphalen",
+      "dealers_of_death": "Dealers of Death",
+      "double_clutch": "Double Clutch",
+      "emerald": "Emerald City",
+      "firing_squad": "Firing Squad",
+      "hack_slash": "Hack & Slash",
+      "kechibi": "Kechibi Code",
+      "krime": "Krime Katalog",
+      "lofwyr": "Lofwyr's Legions",
+      "no_future": "No Future",
+      "power_plays": "Power Plays",
+      "shadow_cast": "Shadow Cast",
+      "sif_new_orleans": "New Orleans",
+      "slip_streams": "Slip Streams",
+      "smooth_operations": "Smooth Operations",
+      "street_wyrd": "Street Wyrd",
+      "tarnished_star": "Tarnished Star"
+    },
+    "code": {
+      "astral_ways": "AW",
+      "bestial_nature": "BEST",
+      "body_shop": "BS",
+      "collapsing_now": "COLL",
+      "companion": "6WC",
+      "core": "Core",
+      "de_alpen": "Alpen",
+      "de_berlin2080": "B2080",
+      "de_bundeswehr": "Bundeswehr",
+      "de_feuerlaeufer": "FEUERL",
+      "de_other": "Sonstiges DE",
+      "de_piraten": "PIR",
+      "de_revierbericht": "Revier",
+      "de_sota2081": "SOTA2081",
+      "de_sota2082": "SOTA2082",
+      "de_sota2083": "SOTA2083",
+      "de_westphalen": "Westphalen",
+      "dealers_of_death": "DD",
+      "double_clutch": "DC",
+      "emerald": "Emerald",
+      "firing_squad": "FS",
+      "hack_slash": "HnS",
+      "kechibi": "KC",
+      "krime": "KK",
+      "lofwyr": "LL",
+      "no_future": "NF",
+      "power_plays": "PP",
+      "shadow_cast": "SC",
+      "sif_new_orleans": "New Orleans",
+      "slip_streams": "SLIP",
+      "smooth_operations": "SO",
+      "street_wyrd": "WYRD",
+      "tarnished_star": "TS"
     }
   },
   "ACTOR": {
@@ -206,7 +290,8 @@
       "favors": "Faveurs",
       "favors_short": "Fav",
       "legwork": "Investigation",
-      "type": "Catégorie"
+      "type": "Catégorie",
+      "pronouns": "Pronoms"
     },
     "defense": {
       "astral": "Défense : Astrale",
@@ -233,6 +318,11 @@
       "defense_rating": "Score Défensif",
       "judge_intentions": "Jauger les intentions",
       "lift_carry": "Soulever / Transporter",
+      "movement": {
+        "label": "Mouvement / Sprint",
+        "sprint_result": "{name} a sprinté {metersSprinted} mètres.",
+        "meter_short": "m"
+      },
       "memory": "Mémoire",
       "matrix_perception": "Percéption matricielle",
       "heal": {
@@ -650,6 +740,7 @@
       "onroad": "Sur route",
       "points": "Points",
       "pool": "Réserve",
+      "pools": "Réserves",
       "poolmod": "Réserve de dés",
       "programs.short": "P",
       "progSlots" : "Empl. prog.",
@@ -658,6 +749,7 @@
       "rating2": "Indice 2",
       "rating3": "Indice 3",
 	    "slower": "Décélérer",
+      "soak": "Encaisser",
       "soaked": "Encaisser {soaked} de {threshold} dommages",
       "specialization": "Spécialisation",
       "speed_detail": "Tu te déplace à {speed} km/h ({speedPerTurn} mètres par tour). Ton modificateur pour les tests est de {modifier}.",
@@ -1119,6 +1211,7 @@
       "wound-modifier": "Utiliser le modificateur de blessure",
       "sustained-spell-modifier": "Utiliser le modificateur de sort maintenu",
       "criticalglitch": "Échec Critique",
+      "hardenedArmor": "Armure renforcée appliqué",
       "heal_apply": "Soin",
       "damage": "Dégâts : ",
 	    "damage_apply": "Appliquer dommages",
@@ -1331,6 +1424,7 @@
       "skills.knowledge": "Connaissances",
       "skills.knowledge_add": "Nouvelle connaissance",
       "skills.language": "Langues",
+      "skills.level": "Niveau de langue",
       "skills.language-level": {
         "expert": "Expert",
         "native": "Maternel",
@@ -1352,7 +1446,8 @@
       },
       "sustained": {
         "add": "Ajouter un nouveau sort",
-        "title": "Sorts maintenus"
+        "title": "Sorts maintenus",
+        "toggle": "Activer/désactiver le maintien"
       },
       "survival": "Survie",
       "vehicles": {
@@ -1427,6 +1522,19 @@
       "cantDodgeBullets": {
         "hint": "Tout test d'opposition à une attaque est à la place un test simple contre un seuil fixé par la distance et la taille du groupe de défense de la cible. La cible de l'attaque peut toujours utiliser des boosts d'avantage contre les dés de l'attaquant. (SWC p.151)",
         "name": "On n'esquive pas les balles"
+      },
+      "expandedSpecializations": {
+        "hint": "N'imposez aucune limite au nombre de spécialisations qu'une compétence peut avoir. Vous n'êtes pas tenu d'acheter une maîtrise avant de choisir des spécialisations supplémentaires. Les maîtrise restent limitées à une par compétence (SWC p.147).",
+        "name": "Spécialisations étendues"
+      },
+      "pdf": {
+        "hint": "Configurez le journal PDF pour ce livre de Shadowrun.",
+        "offset.name": "Décalage",
+        "offset.hint": "Configurez le décalage de page. Exemple : si la page 12 correspond en réalité à la page 11, le décalage est de 1."
+      },
+      "dataEntry": {
+        "hint": "Permet de modifier l'identifiant GENESIS/Commlink et le numéro du livre et de la page Shadowrun d'où provient un objet dans la fiche d'objet.",
+        "name": "Saisie des données d'objet"
       }
     },
     "sin" : {
@@ -1921,7 +2029,14 @@
       "weapon.mod": "Mod. d'Arme :",
       "stunOrPhysical": "Dommages Étourdissant (true) ou Physique (false) damage",
       "dicePoolMod": "Réserve de dé bonus",
-      "wild": "Utiliser le Dé Libre (Pour remplacer : true)"
+      "wild": "Utiliser le Dé Libre (Pour remplacer : true)",
+      "badLuck": "Trait négatif : Malchance (Surcharge : true)",
+      "painTolerance": "Endurance à la douleur (Surcharge : 'high' ou 'low')",
+      "movementRate": "Vitesse",
+      "movementSprintBase": "Vitesse de sprint de base",
+      "movementSprintMultiplier": "Multiplicateur de vitesse de Sprint",
+      "hardenedArmor": "Armure renforcée",
+      "immunityNormalWeapons": "Immunité aux armes normales (Surcharge true)"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Lier les tokens sélectionnés au groupe de contrôle",
