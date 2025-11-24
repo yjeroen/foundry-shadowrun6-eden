@@ -212,7 +212,7 @@
 				"initiative": {
 				  "astral": {
 					"mod": 0,
-					"dice": 1,
+					"dice": 2,
 					"diceMod": 0
 				  },
 				  "matrix": {
