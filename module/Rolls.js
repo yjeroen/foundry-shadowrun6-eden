@@ -233,7 +233,7 @@ async function _showRollDialog(data) {
     }
 }
 async function _dialogClosed(type, form, prepared, dialog, configured) {
-    console.log("SR6E | ENTER _dialogClosed(type=" + type + ")##########");
+    console.log("SR6E | ENTER _dialogClosed(type=" + type + ")", form, prepared, dialog, configured);
     console.log("SR6E | dialogClosed: prepared=", prepared, prepared.calcDamage);
     configured.updateSpecifics(prepared);
     console.log("SR6E | dialogClosed: configured=", configured, configured.calcDamage);
@@ -345,9 +345,10 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             configured.rollMode = form.rollMode.value;
             let base = configured.pool ? configured.pool : 0;
             let mod = dialog.modifier ? dialog.modifier : 0;
+            let useGruntGroup = (form.useGruntGroup.checked && prepared.actor) ? prepared.actor.gruntGroup : 0;
             let woundMod = (form.useWoundModifier.checked && prepared.actor) ? prepared.actor.getWoundModifier() : 0;
             let sustMod = (form.useSustainedSpellModifier.checked && prepared.actor) ? prepared.actor.getSustainedModifier() : 0;
-            configured.pool = +base + +mod + -woundMod + -sustMod;
+            configured.pool = +base + +mod + -woundMod + -sustMod + useGruntGroup.diceMod;
             prepared.calcPool = configured.pool;
             
             prepared.checkHardDiceCap();
