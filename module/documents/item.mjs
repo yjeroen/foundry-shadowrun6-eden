@@ -365,11 +365,11 @@ export default class SR6Item extends Item {
         // Don't allow Gear Mods to upgrade a weapon's AR if its already 0
         continue;
       }
-      if ( change.value.startsWith('@actor') && this.actor) {
+      if ( typeof change.value === "string" && change.value?.startsWith('@actor') && this.actor) {
         const key = change.value.substring(7);
         change.value = foundry.utils.getProperty(this.actor, key);
       }
-      if ( change.value.startsWith('@item')) {
+      if ( typeof change.value === "string" && change.value?.startsWith('@item')) {
         const key = change.value.substring(6);
         change.value = foundry.utils.getProperty(this, key);
       }
