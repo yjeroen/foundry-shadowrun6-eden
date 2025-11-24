@@ -883,7 +883,7 @@ export default class Shadowrun6Actor extends Actor {
                 data.skills[id].poolS = 0;
                 data.skills[id].poolE = 0;
                 if (data.skills[id].specialization) {
-                    if(id == 'exotic_weapons') {
+                    if(id === 'exotic_weapons') {
                         data.skills[id].exotic = true;
                         data.skills[id].poolS = data.skills[id].pool;
                     } else {
@@ -891,13 +891,14 @@ export default class Shadowrun6Actor extends Actor {
                     }
                 }
                 if (data.skills[id].expertise) {
-                    if(id == 'exotic_weapons') {
+                    if(id === 'exotic_weapons') {
                         data.skills[id].exotic = true;
                         data.skills[id].poolE = data.skills[id].pool;
                     } else {
                         data.skills[id].poolE = data.skills[id].pool + 3;
                     }
                 }
+                if(id === 'exotic_weapons') data.skills[id].pool = 0 // Only specializations have a dicepool
                 if (data.skills[id].pool < 0) {
                     data.skills[id].pool = 0;
                 }
@@ -1737,13 +1738,16 @@ export default class Shadowrun6Actor extends Actor {
             else
                 return 0;
         }
-        if (spec) {
+        if (spec && skillId !== 'exotic_weapons') {
             if (spec == skl.expertise) {
                 value += 3;
             }
             else if (spec == skl.specialization) {
                 value += 2;
             }
+        } else if (skillId === 'exotic_weapons') {
+            console.log('JEROEN', this.name, skillId, spec, attrib)
+            // TODO Should be pool 0 if not specialized
         }
         // Add attribute
         // console.log("SR6E | _getSkillPool | value", value);
