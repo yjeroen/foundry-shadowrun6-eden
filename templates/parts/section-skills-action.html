@@ -85,7 +85,7 @@
          	    </tr>
               {{/if}}
 
-              {{#if (and skill.specialization @root.settings.expandedSpecializations)}}
+              {{#if (and skill.specialization (or @root.settings.expandedSpecializations skill.exotic))}}
               {{!-- Expanded Specializations --}}
               {{#each skill.expandedSpecializations as |specialization|}}
          	    <tr>
@@ -159,7 +159,7 @@
          	    </tr>
               {{/if}}
 
-              {{#if (and skill.specialization @root.settings.expandedSpecializations)}}
+              {{#if (and skill.specialization (or @root.settings.expandedSpecializations skill.exotic))}}
               {{!-- New Expanded Specializations --}}
          	    <tr>
          	    	<td style="width: 7.5em; font-size: smaller; vertical-align:middle">{{ localize 'shadowrun6.label.specialization' }}</td>
