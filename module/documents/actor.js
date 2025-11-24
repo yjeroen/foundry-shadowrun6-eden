@@ -612,7 +612,7 @@ export default class Shadowrun6Actor extends Actor {
                 data.physical.base = 8 + Math.round(data.attributes["bod"].pool / 2);
                 data.physical.max = data.physical.base + data.physical.mod;
                 data.physical.value = data.physical.max - data.physical.dmg;
-                data.overflow.max = data.attributes["bod"].pool * 2;
+                data.overflow.max = data.attributes["bod"].pool * 2 + (data.overflow.mod ?? 0);
                 data.overflow.value = 100-Math.round(data.overflow.dmg / data.overflow.max * 100);
             }
             if (data.stun) {
