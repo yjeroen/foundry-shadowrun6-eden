@@ -2415,8 +2415,6 @@ export default class Shadowrun6Actor extends Actor {
                         importedItem.system.description = `<h3>${item.name}</h3>${importedItem.system.description}`;
                         importedItem.name = item.data.customName;
                     } else {
-                        console.log('JEROEN genesisID', item.data.genesisID);
-                        console.log('JEROEN name', item.name);
                         importedItem.name = item.name;
                     }
                     if (item.data.notes) importedItem.system.description += `<hr><p>${item.data.notes}</p>`;
