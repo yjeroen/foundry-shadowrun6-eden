@@ -1,3 +1,23 @@
+## 3.3.7
+
+### System Improvements
+- New: @item path support in the Value field of ActiveEffects to change something based on an item field (#224)
+- New: allow to set an Advanced effect for the system.overflow.mod key (#226)
+- Add Overflow Modifier preconfigured effect Key (#226)
+
+### Bug Fixes
+- Fix Item Ratings to be strings instead of integers, causing Vehicle/Drone sheet calculations to be messed up
+- Fix that attributes of Drone items (not Actors) are not editable (#213)
+- Fix an issue of the NPC Importer not triggering on ctrl-V (#222)
+- Fix Grunt Group attack rolls so the dicepool increases for every odd-numbered member of the group beyond the first (#232)
+- Fix Exotic Weapons not able to select more than two specializations as per FAQ (#235)
+- Fix Exotic Weapon having specialization/expert bonuses applied in dicerolls (#236)
+- Fix: Newly created Characters have a base Astral Initiative of 2 dice (#238)
+- Add Engineering skill preset for Effects (#241)
+
+### Data Updates
+- French translation updates (Zakarik)
+
 ## 3.3.6
 
 ### Bug Fixes
