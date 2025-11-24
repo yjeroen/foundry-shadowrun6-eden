@@ -985,6 +985,7 @@
       "stun": "Stun",
       "stun_monitor": "Stun Monitor",
       "overflow": "Overflow",
+      "overflow_monitor": "Overflow Monitor",
       "dead": "DEAD",
       "broken": "BROKEN DOWN"
     },

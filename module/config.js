@@ -1023,6 +1023,7 @@ export class SR6Config {
 
         system_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.physical_monitor")}),
         system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor")}),
+        system_overflow_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.overflow_monitor")}),
 
         system_attackrating_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.attack_rating.physical")}),
         system_attackrating_astral_mod:game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.attack_rating.astral")}),             // Magic AR
