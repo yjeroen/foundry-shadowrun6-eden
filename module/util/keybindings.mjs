@@ -38,10 +38,10 @@ export default class SR6Keybindings {
         // });
 
         document.addEventListener('paste', (e) => {
-            const selection = window.getSelection();
-            const range = selection.getRangeAt(0);
-            const container = range.startContainer;
-            const parent = container.parentElement;
+            // const selection = window.getSelection();
+            // const range = selection.getRangeAt(0);
+            // const container = range.startContainer;
+            // const parent = container.parentElement;
 
             // console.log('TEST PASTING e.target:', e.target)
             // console.log('TEST PASTING e.target.closest(div):', e.target.closest('div'))
@@ -54,7 +54,7 @@ export default class SR6Keybindings {
                 && !e.target.closest('div')?.classList?.contains('ProseMirror')
                 && !e.target.parentElement?.classList?.contains('ProseMirror')
                 && !e.target.parentElement?.classList?.contains('cm-content')
-                && !parent.classList?.contains('cm-activeLine')
+                // && !parent.classList?.contains('cm-activeLine')
                 && !e.target.offsetParent?.classList?.contains('ProseMirror')
                 && !e.target.className?.includes('ProseMirror')    ) {
 
