@@ -274,7 +274,7 @@
             <!-- ********** VEHICLES / DRONES ********** -->
             {{#if (or
             (eq item.system.type "VEHICLES")
-            (eq item.system.type "DRONES")
+            (eq (subString item.system.type 0 6) "DRONE_")
             )}}
             <table>
                 <tr>
