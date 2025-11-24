@@ -369,6 +369,10 @@ export default class SR6Item extends Item {
         const key = change.value.substring(7);
         change.value = foundry.utils.getProperty(this.actor, key);
       }
+      if ( change.value.startsWith('@item')) {
+        const key = change.value.substring(6);
+        change.value = foundry.utils.getProperty(this, key);
+      }
 
       const changes = change.effect.apply(this, change);
       Object.assign(overrides, changes);

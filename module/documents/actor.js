@@ -104,9 +104,51 @@ export default class Shadowrun6Actor extends Actor {
     prepareEmbeddedDocuments() {
         console.log("SR6E | Shadowrun6Actor.prepareEmbeddedDocuments()", this.name, this.uuid);
         this._embeddedPreparation = true;
-        super.prepareEmbeddedDocuments();
+        super.prepareEmbeddedDocuments(); // calls super.prepareEmbeddedDocuments() and then this.applyActiveEffects();
         delete this._embeddedPreparation;
     }
+
+    /**
+     * @Override
+     * Copies FoundryV13 method to add in `@item` support in the value field
+     * Apply any transformations to the Actor data which are caused by ActiveEffects.
+     */
+    applyActiveEffects() {
+        const overrides = {};
+        this.statuses.clear();
+
+        // Organize non-disabled effects by their application priority
+        const changes = [];
+        for ( const effect of this.allApplicableEffects() ) {
+            if ( !effect.active ) continue;
+            changes.push(...effect.changes.map(change => {
+                const c = foundry.utils.deepClone(change);
+                c.effect = effect;
+                c.priority = c.priority ?? (c.mode * 10);
+                return c;
+            }));
+            for ( const statusId of effect.statuses ) this.statuses.add(statusId);
+        }
+        changes.sort((a, b) => a.priority - b.priority);
+
+        // Apply all changes
+        for ( const change of changes ) {
+            if ( !change.key ) continue;
+
+            // shadowrun6-eden adds @item support:
+            if ( change.value.startsWith('@item') && change.effect.parent.documentName === 'Item') {
+                const key = change.value.substring(6);
+                change.value = foundry.utils.getProperty(change.effect.parent, key);
+            }
+
+            const changes = change.effect.apply(this, change);
+            Object.assign(overrides, changes);
+        }
+
+        // Expand the set of final overrides
+        this.overrides = foundry.utils.expandObject(overrides);
+    }
+
     /**
      * @Override
      * TODO rework move to prepareBaseData() and prepareDerivedData()
