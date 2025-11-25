@@ -345,10 +345,10 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             configured.rollMode = form.rollMode.value;
             let base = configured.pool ? configured.pool : 0;
             let mod = dialog.modifier ? dialog.modifier : 0;
-            let useGruntGroup = (form.useGruntGroup.checked && prepared.actor) ? prepared.actor.gruntGroup : 0;
+            const useGruntGroup = (form.useGruntGroup?.checked && prepared.actor) ? prepared.actor.gruntGroup?.diceMod : 0;
             let woundMod = (form.useWoundModifier.checked && prepared.actor) ? prepared.actor.getWoundModifier() : 0;
             let sustMod = (form.useSustainedSpellModifier.checked && prepared.actor) ? prepared.actor.getSustainedModifier() : 0;
-            configured.pool = +base + +mod + -woundMod + -sustMod + useGruntGroup.diceMod;
+            configured.pool = +base + +mod + -woundMod + -sustMod + useGruntGroup;
             prepared.calcPool = configured.pool;
             
             prepared.checkHardDiceCap();
