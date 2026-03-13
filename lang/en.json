@@ -1857,7 +1857,8 @@
         "form_grunt_group": "You have formed a Grunt Group with the selected Tokens.",
         "dismantle_grunt_group": "You have dismantled the Grunt Group of the selected Tokens.",
         "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration.",
-        "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group."
+        "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
+        "edge_has_been_reset": "All Edge has been reset by the GM."
       }
     },
     "EFFECT": {

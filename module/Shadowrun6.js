@@ -278,7 +278,7 @@ Hooks.once("init", async function () {
                     order: 99,
                     title: "shadowrun6.resetEdge",
                     icon: "sr6-icon-edge",
-                    onClick: () => _onClickDiceRoll(),
+                    onClick: () => game.sr6.utils.resetEdge(),
                     button: true
                 };
                 controls.tokens.tools.shadowrunResetEdge = shadowrunResetEdge;

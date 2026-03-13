@@ -665,3 +665,33 @@ export async function openPdfPage(journalUuid, pageNumber) {
     }
 
 }
+
+export async function resetEdge() {
+    if (!game.user.isGM) {
+        console.warn("SR6E | Resetting Edge is only allowed by GM's");
+        return;
+    }
+    console.info("SR6E | Reset Edge dialogue");
+
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: game.i18n.localize("shadowrun6.resetEdge") },
+        content: game.i18n.localize("shadowrun6.resetEdgeDescription"),
+        rejectClose: false,
+        modal: true
+    });
+    if ( proceed ) {
+        console.info("SR6E | Resetting Edge for all Actors in Actor tab, and all selected tokens");
+        game.actors.forEach(async (actor) => {
+            await actor.update({'system.edge.value': actor.system.edge.max});
+        });
+        canvas.tokens.controlled.forEach(async (token) => {
+            await token.actor.update({'system.edge.value': token.actor.system.edge.max});
+        });
+        const msg = game.i18n.localize("shadowrun6.ui.notifications.edge_has_been_reset");
+        await ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
+            flavor: game.i18n.localize("shadowrun6.resetEdge"),
+            content: `<span style="font-style: italic;">${msg}</span>`
+        });
+    }
+}
