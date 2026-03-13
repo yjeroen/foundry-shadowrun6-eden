@@ -39,12 +39,20 @@
   margin-left: 2%;
   height: 30px;
 }
-.shadowrun6 .npc-settings label, .shadowrun6 .npc-settings span, .shadowrun6 .npc-settings select {
+.shadowrun6 .npc-settings label, 
+.shadowrun6 .npc-settings span, 
+.shadowrun6 .npc-settings select, 
+.shadowrun6 .npc-settings input {
   line-height: 30px;
   vertical-align: middle;
   margin-right: 10px;
 }
-.shadowrun6 .npc-settings span, .shadowrun6 .npc-settings select {
+.shadowrun6 .npc-settings input:enabled {
+  background: rgba(0, 0, 0, 0.05);
+}
+.shadowrun6 .npc-settings span, 
+.shadowrun6 .npc-settings select, 
+.shadowrun6 .npc-settings input {
   width: 90px;
   margin-right: 20px;
 }
