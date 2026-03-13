@@ -1220,7 +1220,7 @@
       "edge": {
         "add_manually_to_target": "(Add manually) Target",
         "gain_player": "{name} gets {value} Edge",
-        "gain_player_capped": "{name} would {value} Edge, but cannot get more than {capped}",
+        "gain_player_capped": "{name} would gain {value} Edge, but cannot gain more than {capped}.",
         "getting": "Gaining Edge",
         "no_gain": "No one gets Edge",
         "situational": "Situational Edge",
