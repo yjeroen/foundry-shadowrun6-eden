@@ -37,6 +37,7 @@ export async function migrateWorld() {
 
     await migrateCombatSpells();    // 3.2.1
     await addUnarmedItems();        // 3.3.5
+    await migrateMetatypeNPCs();    // 3.4.0
 }
 
 function migrateChatMessage(chatMessage) {
@@ -142,6 +143,43 @@ async function addUnarmedItems() {
     for (const actor of actorsToMigrate) {
         await actor._addUnarmed();
         await actor.update({flags: flag});
+        progressedItem++;
+        progressNotification(progressedItem / actorsToMigrate.length, msg);
+    };
+
+    ui.notifications.remove(migrationMsg);
+    ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
+    console.log("SR6E | Migration | Completed")
+}
+
+async function migrateMetatypeNPCs() {
+    let migrating = false;
+    const actorsToMigrate = [];
+
+    // Checking if there are actors to Migrate
+    game.actors.forEach(actor => {
+        if ( 
+            docIsVersionBelow(actor, 3,4,0) && actor.system.metatype === "human"
+            && ( actor.type === "NPC" || actor.type === "Critter" || actor.type === "Spirit")
+           ) {
+            migrating = true;
+            actorsToMigrate.push(actor);
+        }
+    });
+    
+    // Don't migrate if there's nothing to do
+    if (!migrating) return;
+         
+    // Prepare migration
+    console.log("SR6E | Migration | migrating Actors due to changes in 3.4.0 so NPC/Critter/Spirits also have a Metatype field", actorsToMigrate)
+    const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
+    let progressedItem = 0;
+    const msg = progressNotification(0); //v13 only
+    const flag = { [SYSTEM_NAME]: { versionMigrated: '3.4.0' } };
+
+    // Migrate actors
+    for (const actor of actorsToMigrate) {
+        await actor.update({flags: flag, 'system.metatype': game.i18n.localize(`shadowrun6.npc.subtype.${String(actor.type).toLowerCase()}`)});
         progressedItem++;
         progressNotification(progressedItem / actorsToMigrate.length, msg);
     };
