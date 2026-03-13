@@ -87,7 +87,6 @@
 						"pool": 6
 					}
 				},
-				"metatype": "human",
 				"type": "mundane",
 				"gender": ""
 			},
@@ -467,7 +466,7 @@
 				"movement-template",
 				"persona-template"
 			],
-			"metatype": "",
+			"metatype": "human",
 			"mortype": "mundane",
 			"matrixIni": "vrcold",
 			"gender": "",
@@ -495,6 +494,7 @@
 				"magic-template",
 				"persona-template"
 			],
+			"metatype": "NPC",
 			"mortype": "mundane",
 			"matrixIni": "vrcold",
 			"rating" : 1,
@@ -510,6 +510,7 @@
 				"skill-template",
 				"knowledge-template"
 			],
+			"metatype": "Critter",
 			"editmode": false
 		},
 		"Spirit": {
@@ -521,6 +522,7 @@
 				"skill-template",
 				"knowledge-template"
 			],
+			"metatype": "Spirit",
 			"rating" : 1,
 			"spiritType": "air",
 			"editmode": false
