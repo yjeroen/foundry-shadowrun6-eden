@@ -186,7 +186,7 @@ export class RollDialog extends Dialog {
                 capped = true;
             }
             // Check if new Edge value would be >7
-            if (actor.edge.value + configured.edgePlayer > 7) {
+            if ((actor.edge.value + configured.edgePlayer) > 7) {
                 configured.edgePlayer = Math.max(0, 7 - actor.edge.value);
                 capped = true;
             }
@@ -204,11 +204,11 @@ export class RollDialog extends Dialog {
             let speaker = configured.speaker;
             if (configured.edgePlayer) {
                 if (capped) {
-                    configured.edgePlayer = max;
+                    // configured.edgePlayer = max;
                     innerText = game.i18n.format("shadowrun6.roll.edge.gain_player_capped", {
                         name: speaker.alias,
-                        value: configured.edgePlayer,
-                        capped: max
+                        value: max,
+                        capped: configured.edgePlayer
                     });
                 }
                 else {
