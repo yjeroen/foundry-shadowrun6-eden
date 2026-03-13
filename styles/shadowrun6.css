@@ -911,6 +911,13 @@ a.item-control.disabled-roll:hover {
   filter: drop-shadow(0px 0px 4px var(--color-shadow-primary));
 }
 
+.sr6-icon-roll {
+  color: #ff68c3;
+  transition: color 0.2s ease;
+}
+.sr6-icon-roll:hover {
+  color: revert;
+}
 .sr6-icon-edge {
   position: relative;
 }
@@ -923,6 +930,7 @@ a.item-control.disabled-roll:hover {
   background-position: center;
   background-size: 20px 20px;
   filter: grayscale(0.7) brightness(3);
+  transition: filter 0.2s ease;
 }
 .sr6-icon-edge:hover::before {
   filter: grayscale(0);

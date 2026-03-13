@@ -266,7 +266,7 @@ Hooks.once("init", async function () {
                 name: "shadowrunRoll",
                 order: 99,
                 title: "shadowrun6.roll.create",
-                icon: "fa-solid fa-dice",
+                icon: "fa-solid fa-dice sr6-icon-roll",
                 onClick: () => _onClickDiceRoll(),
                 button: true
             };
