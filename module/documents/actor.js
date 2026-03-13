@@ -1746,7 +1746,7 @@ export default class Shadowrun6Actor extends Actor {
                 value += 2;
             }
         } else if (skillId === 'exotic_weapons') {
-            console.log('JEROEN', this.name, skillId, spec, attrib)
+            // console.log('TEST exotic_weapons', this.name, skillId, spec, attrib)
             // TODO Should be pool 0 if not specialized
         }
         // Add attribute
