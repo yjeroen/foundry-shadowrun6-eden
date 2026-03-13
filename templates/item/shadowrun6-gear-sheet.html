@@ -338,13 +338,16 @@
                 </tr>
             </table>
             {{/if}}
+            {{#if (ne item.system.type "MAGICAL")}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
             {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
-            <!-- ********** Beschreibung ********** -->
+            {{/if}}
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
     </section>
 </form>
 
+{{#if (ne item.system.type "MAGICAL")}}
 {{> "systems/shadowrun6-eden/templates/item/item-mods.hbs" }}
+{{/if}}
 {{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}

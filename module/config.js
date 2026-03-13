@@ -255,7 +255,9 @@ export class SR6Config {
             TRANSGENIC_BIOWARE: "shadowrun6.gear.subtype.TRANSGENIC_BIOWARE",
         },
         MAGICAL: {
-            MAGIC_SUPPLIES: "shadowrun6.gear.subtype.MAGIC_SUPPLIES"
+            MAGICAL_FORMULA: "shadowrun6.gear.subtype.MAGICAL_FORMULA",
+            MAGIC_SUPPLIES: "shadowrun6.gear.subtype.MAGIC_SUPPLIES",
+            MAGIC_LODGE: "shadowrun6.gear.subtype.MAGIC_LODGE"
         },
         NANOWARE: {
             NANITES_COSMETIC: "shadowrun6.gear.subtype.NANITES_COSMETIC",
