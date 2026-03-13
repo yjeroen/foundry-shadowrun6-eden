@@ -44,20 +44,26 @@ export default class SR6SocketHandler {
         });
     }
 
-    updateTargetEdge(targetUuid, edgeModifier) {
+    async updateTargetEdge(targetUuid, edgeModifier) {
         if (!game.users.activeGM) return false;
-        console.log('SR6 | Socket send | updateTargetEdge requested by', game.user.name,', send to GM:', game.users.activeGM);
-        this.emit({ 
+        const data = { 
             type: 'gmUpdatesEdge', 
             userId: game.user.id,
             targetUuid: targetUuid,
             edgeModifier: edgeModifier 
-        });
+        };
+        if (game.userId !== game.users.activeGM.id) {
+            console.log('SR6 | Socket send | updateTargetEdge requested by', game.user.name,', send to GM:', game.users.activeGM);
+            this.emit(data);
+        } else {
+            console.log('SR6 | No Socket emit needed | updating Edge');
+            await this.#gmUpdatesEdge(data);
+        }
         return true;
     };
 
     async #gmUpdatesEdge(data) {
-        console.log('SR6 | Socket message received | gmUpdatesEdge on request of:', game.users.get(data.userId).name);
+        console.log('SR6 | Socket Handler | gmUpdatesEdge on request of:', game.users.get(data.userId).name);
         if (game.userId !== game.users.activeGM.id) return;
         console.log('SR6 | Socket processing | gmUpdatesEdge data', data);
         const targetActor = await fromUuid(data.targetUuid);
