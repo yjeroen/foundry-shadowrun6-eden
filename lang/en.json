@@ -2043,7 +2043,9 @@
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",
       "selectTokenControlGroup": "Select Tokens of Control Group",
       "formGruntGroup": "Create Grunt Group with selected Tokens"
-    }
+    },
+    "resetEdge": "Reset Edge",
+    "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
   },
   "SR6": {
     "Actor": {

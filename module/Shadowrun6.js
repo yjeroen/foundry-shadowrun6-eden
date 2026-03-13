@@ -271,6 +271,18 @@ Hooks.once("init", async function () {
                 button: true
             };
             controls.tokens.tools.shadowrunRoll = shadowrunRoll;
+            
+            if (game.user.isGM) {
+                const shadowrunResetEdge = {
+                    name: "shadowrunResetEdge",
+                    order: 99,
+                    title: "shadowrun6.resetEdge",
+                    icon: "sr6-icon-edge",
+                    onClick: () => _onClickDiceRoll(),
+                    button: true
+                };
+                controls.tokens.tools.shadowrunResetEdge = shadowrunResetEdge;
+            }
         }
     });
 

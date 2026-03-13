@@ -910,3 +910,20 @@ a.item-control.disabled-roll:hover {
   -webkit-filter: drop-shadow(0px 0px 4px  var(--color-shadow-primary));
   filter: drop-shadow(0px 0px 4px var(--color-shadow-primary));
 }
+
+.sr6-icon-edge {
+  position: relative;
+}
+.sr6-icon-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(../images/EdgeToken.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  filter: grayscale(0.7) brightness(3);
+}
+.sr6-icon-edge:hover::before {
+  filter: grayscale(0);
+}
