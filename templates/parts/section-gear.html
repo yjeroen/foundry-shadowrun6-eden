@@ -17,13 +17,16 @@
 		{{#iff item.type '==' 'gear'}}
 		{{#if (eq item.system.type ../geartype) }}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-       	<td style="margin-right: 1rem; width: 0.7em;">
-		{{#if item.system.accessories }}
-       	<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
-       	{{else}}
-       	<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
-       	{{/if}}
-       	</td>
+
+			{{!-- TODO: Remove accessories --}}
+			<td style="margin-right: 1rem; width: 0.7em;">
+			{{#if item.system.accessories }}
+			<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
+			{{else}}
+			<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
+			{{/if}}
+			</td>
+
 			<td style="height:20px;"> {{item.name}}</td>
 			<td style="width: 2em" class="centered">
 			{{#if item.system.needsRating}}
