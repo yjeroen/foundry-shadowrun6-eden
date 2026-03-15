@@ -23,7 +23,7 @@
                 {{/iff}}
             </td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
-         	    <label class="item-pool" data-skill="{{item.system.skill}}" data-skillspec="{{item.system.skillSpec}}">{{item.system.pool}}</label>
+         	    <label class="item-pool" data-skill="{{item.system.skill}}" data-skillspec="{{item.system.skillSpec}}">{{add item.system.pool item.system.modes.dicePoolMod}}</label>
          	    <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" data-defend-with="physical" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
             <td style="width: 10%; text-align: right">
@@ -84,7 +84,7 @@
             <td style="width: 15%"><label class="middle-column" >{{{attackrating item.calculated.attackRating}}}</label></td>
             <td style="width: 15%"></td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
-                <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
+                <label class="item-pool" data-skill="{{item.system.skill}}">{{add item.system.pool item.system.modes.dicePoolMod}}</label>
                 <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
             <td style="width: 10%; text-align: right">
@@ -156,7 +156,7 @@
                 {{/iff}}
             </td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
-                <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
+                <label class="item-pool" data-skill="{{item.system.skill}}">{{add item.system.pool item.system.modes.dicePoolMod}}</label>
                 <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
             <td style="width: 10%; text-align: right">

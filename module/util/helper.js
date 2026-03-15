@@ -262,6 +262,9 @@ export const defineHandlebarHelper = async function () {
         const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${intervalScale}_long_${pluralRules.select(number)}`);
         return localizedIntervalScale;
     });
+    Handlebars.registerHelper("add", function (a, b) {
+        return a + b;
+    });
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
