@@ -11,7 +11,7 @@
 			 <th style="text-align:left; width: 12em;">{{ localize 'shadowrun6.label.column.name' }}</th>
 			 <th style="width: 4em">{{ localize 'shadowrun6.lifestyle.type' }}</th>
 			 <th style="width: 5em;">{{ localize 'shadowrun6.lifestyle.cost' }}</th>
-			 <th style="width: 5em;" >{{ localize 'shadowrun6.lifestyle.paid' }}</th>
+			 <th style="width: 6em;" >{{ localize 'shadowrun6.lifestyle.paid' }}</th>
 			 <th style="width: 2em">{{ localize 'shadowrun6.label.column.action' }}</th>
 		   </tr>
 		 </thead>
@@ -23,8 +23,7 @@
 				{{localize (lookup ../config.LIFESTYLE_TYPE item.system.type)}}
 			</td>
 			<td class="centered">{{nuyen item.system.cost}}</td>
-			<td class="centered">
-				<span class="input-symbol-nuyen"><input name="lifestylePaid{{id}}" class="box" type="number" value="{{item.system.paid}}" data-field="system.paid" /></span>
+			<td class="centered">{{item.system.paid}} {{localizePlural 'month' item.system.paid}}
 			</td>
 			<td class="centered">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a> 
