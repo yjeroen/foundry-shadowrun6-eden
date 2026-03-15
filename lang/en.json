@@ -1283,6 +1283,7 @@
       "subject": "Chatmessage",
       "success": "Success",
       "successes": "hits",
+      "manualResult": "Result",
       "netHits": "net hits",
       "successfulDefense": "You successfully avoided being hit",
       "successfulSoak"   : "You managed to ignore the damage",
