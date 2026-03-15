@@ -586,9 +586,13 @@ export class RollDialog extends Dialog {
 
         // Calculate changed attack rating
         prepared.calcAttackRating = [...prepared.item.calculatedAttackRating];
+        let fireMode = document.getElementById("fireMode").value;
         prepared.calcAttackRating.forEach((element, index) => {
-            if (parseInt(element) >= 0)
-                prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
+            if (parseInt(element) >= 0) {
+                let calcAR = Math.max(0, parseInt(element) + parseInt(arMod) );
+                if (fireMode === "FA" && calcAR === 0) calcAR = -1;
+                prepared.calcAttackRating[index] = calcAR;
+            }
         });
         this.html.find("td[name='calcAR']").text(game.sr6.utils.attackRatingToString(prepared.calcAttackRating));
         // Update the range selector for attack rating
