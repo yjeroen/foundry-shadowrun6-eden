@@ -1502,11 +1502,11 @@ export default class Shadowrun6Actor extends Actor {
         if (!this.isOwner) return false;
         console.log("SR6E | Shadowrun6Actor._checkPersonaChanges()", changes);
         if (this.system.mortype == "technomancer") {
-            if (changes.system?.attributes !== undefined || changes.system?.persona?.living?.mod !== undefined) {
+            if (changes.system?.attributes !== undefined || changes.system?.persona?.living?.mod !== undefined || changes.system?.mortype) {
                 await this.updatePersona();
             }
         } else {
-            if (changes.system?.persona?.device?.mod !== undefined) {
+            if (changes.system?.persona?.device?.mod !== undefined || changes.system?.mortype) {
                 await this.updatePersona();
             }
         }
@@ -1537,6 +1537,7 @@ export default class Shadowrun6Actor extends Actor {
         //TODO figure out what devRating is still used for
         const actorData = getActorData(this);
         const system = getSystemData(this);
+        console.warn('JEROEN', system.persona)
         if (!system.persona)
             system.persona = new Persona();
         if (!system.persona.used)
