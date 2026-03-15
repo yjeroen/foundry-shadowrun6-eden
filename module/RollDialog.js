@@ -585,7 +585,7 @@ export class RollDialog extends Dialog {
         }
 
         // Calculate changed attack rating
-        prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
+        prepared.calcAttackRating = [...prepared.item.calculatedAttackRating];
         prepared.calcAttackRating.forEach((element, index) => {
             if (parseInt(element) >= 0)
                 prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
@@ -604,7 +604,7 @@ export class RollDialog extends Dialog {
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage
-        prepared.calcDamage = parseInt(prepared.item.calculated.dmg) + dmgMod;
+        prepared.calcDamage = parseInt(prepared.item.calculatedDamage) + dmgMod;
         this.html.find("span[name='calcDamage']").text(prepared.calcDamage.toString());
         // Calculate modified pool
         prepared.calcPool = prepared.pool + poolMod;
@@ -662,9 +662,9 @@ export class RollDialog extends Dialog {
         }
 
         // Updating DV type
-        const suffix = prepared.item.calculated.stun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
+        const suffix = prepared.item.calculatedStun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
         this.html.find("span[name='calcDamagedMonitor']").text( suffix );
-        prepared.monitor = prepared.item.calculated.stun ? MonitorType.STUN : MonitorType.PHYSICAL ;
+        prepared.monitor = prepared.item.calculatedStun ? MonitorType.STUN : MonitorType.PHYSICAL ;
 
     }
     //-------------------------------------------------------------

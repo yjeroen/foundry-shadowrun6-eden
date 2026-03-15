@@ -30,9 +30,6 @@ export default class SR6Item extends Item {
     }
     this.actor?._prepareAttributes();
 
-    this.calcAttackRating();
-    this.calcDamage();
-    this.calcAmmo();
   }
 
   /**
@@ -179,12 +176,11 @@ export default class SR6Item extends Item {
     this.system.modes.dicePoolMod = 0
   }
 
-  // TODO investigate if this can be removed due to `get calculatedAttackRating()`
-  // TODO other parts that use `calculated.attackRating` need to be reworked as well
-  calcAttackRating() {
-    if (this.system.attackRating === undefined || !this.actor) return;
+  get calculatedAttackRating() {
+    if (this.system.attackRating === undefined || !this.actor) return null;
 
-    this.calculated.attackRating = foundry.utils.deepClone(this.system.attackRating);
+    const attackRating = foundry.utils.deepClone(this.system.attackRating);
+
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling" || this.system.skillSpec === "whips") {
       let closeCombatAttackRatingAttribute = this.actor.system.attributes.str.pool;
       if (this.system.skillSpec === "whips") {
@@ -196,48 +192,36 @@ export default class SR6Item extends Item {
       if (parseInt(this.system.attackRating[0]) === 0 && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
         closeCombatAttackRatingAttribute += this.actor.system.attributes.rea.pool;
       }
-      this.calculated.attackRating[0] = parseInt(this.system.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);
+      attackRating[0] = parseInt(this.system.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);
     }
 
-    this.calculated.attackRating.forEach((rating, index) => {
+    attackRating.forEach((rating, index) => {
         if (rating === 0) {
           // Setting to -1 to transform to "-" in helper
-          this.calculated.attackRating[index] = -1;
+          attackRating[index] = -1;
+        }
+        else if (rating > 0) {
+            attackRating[index] = Math.max(0, parseInt(rating) + this.ammoLoaded.arMod );
         }
     });
+
+    return attackRating;
   }
 
-  calcDamage() {
-    if (this.system?.dmg === undefined || !this.actor) return;
-
-    this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
-    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
-      if (game.settings.get(SYSTEM_NAME, "highStrengthAddsDamage")) {
-        this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 7 ) ? 1 : 0;
-        this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 10 ) ? 1 : 0;
-      }
-    }
-  }
-
-  calcAmmo() {
-    if (this.calculated?.attackRating === undefined || this.system.ammocap === undefined) return;
-
-    let arMod=0, dmgMod=0, stun=this.system.stun, ammoLoaded = this.system.ammoLoaded;
+  get ammoLoaded() {
+    let arMod=0, dmgMod=0, stun=false, ammoLoaded = this.system.ammoLoaded;
 
     switch (ammoLoaded) {
         case "regular":
             break;
         case "apds":
-            stun = false;
             arMod = 2;
             dmgMod = -1;
             break;
         case "explosive":
-            stun = false;
             dmgMod = 1;
             break;
         case "flechette":
-            stun = false;
             arMod = 1;
             dmgMod = -1;
             break;
@@ -250,16 +234,34 @@ export default class SR6Item extends Item {
             dmgMod = -1;
             break;
     }
+    return {
+      name: ammoLoaded,
+      arMod: arMod,
+      dmgMod: dmgMod,
+      stun: stun
+    }
+  }
 
-    // Calculate item attack rating
-    this.calculated.attackRating.forEach((rating, index) => {
-        if (rating > 0) {
-            this.calculated.attackRating[index] = Math.max(0, parseInt(rating) + parseInt(arMod) );
-        }
-    });
+  get calculatedDamage() {
+    if (this.system?.dmg === undefined || !this.actor) return null;
+    
+    let dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
 
-    this.calculated.dmg = Math.max(0, this.calculated.dmg + dmgMod );
-    this.calculated.stun = stun;
+    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
+      if (game.settings.get(SYSTEM_NAME, "highStrengthAddsDamage")) {
+        dmg += ( this.actor.system.attributes.str.pool >= 7 ) ? 1 : 0;
+        dmg += ( this.actor.system.attributes.str.pool >= 10 ) ? 1 : 0;
+      }
+    }
+
+    dmg = Math.max(0, dmg + this.ammoLoaded.dmgMod );
+
+    return dmg;
+  }
+
+  get calculatedStun() {
+    const stun = this.ammoLoaded.stun || this.system.stun;
+    return stun;
   }
 
   /**
