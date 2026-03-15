@@ -256,6 +256,12 @@ export const defineHandlebarHelper = async function () {
         }
         return items;
     });
+    // intervalScale example: month
+    Handlebars.registerHelper('localizePlural', function(intervalScale, number) {
+        const pluralRules = new Intl.PluralRules(game.i18n.lang);
+        const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${intervalScale}_long_${pluralRules.select(number)}`);
+        return localizedIntervalScale;
+    });
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
