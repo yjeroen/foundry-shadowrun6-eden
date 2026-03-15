@@ -1992,7 +1992,7 @@ export default class Shadowrun6Actor extends Actor {
         }
         else if (roll.spell.category === "health") {
             if (roll.spell.withEssence) {
-                console.log("SR6E | Heal spell interacting with Essense");
+                console.log("SR6E | Heal spell interacting with Essence");
                 if (roll.spell.range ==="self" && isLifeform(this.system)) {
                     roll.threshold = 5 - Math.ceil(this.system.essence);
 
@@ -2011,8 +2011,9 @@ export default class Shadowrun6Actor extends Actor {
                             return;
                         }
                     } else {
-                        ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_before_rolling", { localize: true });
-                        return;
+                        // ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_before_rolling", { localize: true });
+                        ui.notifications.info("shadowrun6.ui.notifications.defaulting_spell_to_self", { localize: true });
+                        roll.threshold = 5 - Math.ceil(this.system.essence);
                     }
 
                 }

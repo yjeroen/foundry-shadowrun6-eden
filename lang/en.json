@@ -1816,6 +1816,7 @@
         "Target_or_select_a_token_before_rolling": "Target or select a token before rolling.",
         "Select_a_token_first": "Select a token first, or configure your Player Character actor in your User Configuration.",
         "Target_a_token_before_rolling": "Target (T) a token before rolling.",
+        "defaulting_spell_to_self": "No token targeted, defaulting to casting on yourself.",
         "Dice_roll_evaluation_failed": "Dice roll evaluation failed",
         "two_targets_but_wrong_fire_mode": "You have two targets, so you can only fire using Burst Fire: Wide Burst, or using Full Auto mode.",
         "many_targets_but_not_autofire_fire_mode": "You have more than two targets, so you can only fire using Full Auto mode.",
