@@ -1745,9 +1745,6 @@ export default class Shadowrun6Actor extends Actor {
             else if (spec == skl.specialization) {
                 value += 2;
             }
-        } else if (skillId === 'exotic_weapons') {
-            // console.log('TEST exotic_weapons', this.name, skillId, spec, attrib)
-            // TODO Should be pool 0 if not specialized
         }
         // Add attribute
         // console.log("SR6E | _getSkillPool | value", value);
@@ -1755,6 +1752,15 @@ export default class Shadowrun6Actor extends Actor {
         value = parseInt("" + value);
         value += parseInt(system.attributes[attrib].pool);
         // console.log("SR6E | _getSkillPool | value", value);
+        if (skillId === 'exotic_weapons') {
+            if (
+                skl.specialization !== spec
+                && skl.expertise !== spec
+                && !skl.expandedSpecializations.includes(spec)
+            ) {
+                value = 0;
+            }
+        }
         return value;
     }
     //---------------------------------------------------------
