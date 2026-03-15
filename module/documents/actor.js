@@ -1093,7 +1093,7 @@ export default class Shadowrun6Actor extends Actor {
                     //item.data.pool = tmpItem.actor.system.skills[item.data.skill].pool;
                     const strWeapon = (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && item.system.strWeapon) ? 'str' : undefined;
                     gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, strWeapon);
-                    gear.pool = gear.pool + +gear.modifier;
+                    gear.pool = gear.pool + gear.modifier;
                 }
             }
             if (tmpItem.type == "gear" && isWeapon(system)) {
