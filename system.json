@@ -173,6 +173,9 @@
     }
   },
   "documentTypes": {
+    "Actor": {
+      "sprite": {}
+    },
     "Item": {
       "mod": {}
     }
