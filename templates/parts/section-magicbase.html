@@ -1,22 +1,26 @@
 <div class="section magic-base">
    {{#if showMagic}}
-  	<div class="attributes">
-   	<div class="attribute" augmented-ui="b-clip-x exe">
-      	<p>{{localize "attrib.mag" }}</p>
-         <span>{{system.attributes.mag.pool}}</span>
-         <input name="magicAttributePool" type="hidden" data-dtype="Number" data-field="system.attributes.mag.pool" value="{{system.attributes.mag.pool}}" />
-         <div class="field {{id}}Changed">
-            <label>{{localize 'shadowrun6.numerical.base'}}</label>
-            <input name="magicAttributeBase" type="number" data-dtype="Number" data-field="system.attributes.mag.base" value="{{system.attributes.mag.base}}" placeholder="base" title="{{localize 'shadowrun6.numerical.baseString'}}" min="1" max="6" />
-         </div>
-         <div class="field {{id}}Changed">
-            <label>{{localize 'shadowrun6.numerical.mod'}}</label>
-            <input name="magicAttributeMod" type="number" data-dtype="Number" data-field="system.attributes.mag.mod" value="{{system.attributes.mag.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
-         </div>
+  	<div class="attributes vertical">
+		<div class="attribute" augmented-ui="b-clip-x exe">
+			<p>{{localize "attrib.mag" }}</p>
+			<span>{{system.attributes.mag.pool}}</span>
+			<input name="magicAttributePool" type="hidden" data-dtype="Number" data-field="system.attributes.mag.pool" value="{{system.attributes.mag.pool}}" />
+			<div class="field {{id}}Changed">
+				<label>{{localize 'shadowrun6.numerical.base'}}</label>
+				<input name="magicAttributeBase" type="number" data-dtype="Number" data-field="system.attributes.mag.base" value="{{system.attributes.mag.base}}" placeholder="base" title="{{localize 'shadowrun6.numerical.baseString'}}" min="1" max="6" />
+			</div>
+			<div class="field {{id}}Changed">
+				<label>{{localize 'shadowrun6.numerical.mod'}}</label>
+				<input name="magicAttributeMod" type="number" data-dtype="Number" data-field="system.attributes.mag.mod" value="{{system.attributes.mag.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
+			</div>
+		</div>
+		<div class="attribute special">
+			<p>{{localize "attrib.initiation" }}</p>
+			<input class="span" name="magicInitiation" data-dtype="Number" data-field="system.attributes.mag.initiation" value="{{system.attributes.mag.initiation}}"/>
 		</div>
    </div>
    {{/if}}
-		<div class="section" style="margin-right: 0px;">
+	<div class="section" style="margin-right: 0px;">
 		<table style="margin-top: 0; margin-bottom:0;">
 			<tr>
 				<td colspan="2"><div style="font-weight: bold; margin-bottom: 4px;">{{localize "shadowrun6.tradition.attribute"}}</div></td>
@@ -53,5 +57,5 @@
 				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.drain.pool}}" data-roll-id="drain"><i class="fas fa-dice-six"></i></a></td>
 			</tr>
 		</table>
-		</div>
+	</div>
 </div>

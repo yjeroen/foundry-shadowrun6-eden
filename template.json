@@ -70,12 +70,14 @@
 						"base": 0,
 						"mod": 0,
 						"pool": 0,
-						"min": 0
+						"min": 0,
+						"initiation": 0
 					},
 					"res": {
 						"base": 0,
 						"mod": 0,
-						"pool": 0
+						"pool": 0,
+						"submersion": 0
 					},
 					"edg": {
 						"current": 0,

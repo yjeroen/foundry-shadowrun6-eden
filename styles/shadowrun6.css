@@ -443,6 +443,32 @@
   width: 2em;
 }
 
+.app.window-app.shadowrun6.actor .attributes.vertical {
+  flex-flow: column;
+  margin-top: 0;
+  height: unset;
+}
+.app.window-app.shadowrun6.actor .attributes.vertical .attribute {
+  height: 5.25rem;
+}
+.app.window-app.shadowrun6.actor .attributes .attribute input.span {
+  width: 2em;
+  text-align: center;
+  border: 0;
+  background: none;
+  font-size: 1.125rem;
+  margin: 0 auto;
+  margin-top: .4rem;
+  color: var(--highlight-color);
+}
+.app.window-app.shadowrun6.actor .attributes.vertical .attribute.special {
+  height: unset;
+  border: 1px black solid;
+  margin-top: 0.5rem;
+  text-align: center;
+  border-radius: 0 0 18px 18px;
+}
+
 .chat-message .soak-result .damageApplied {
   color: gray;
   box-shadow: 0 0 0.05em, 0 0.06em 0.2em 0.01em inset, 0 0 0 0.07em transparent inset;

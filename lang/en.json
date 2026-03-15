@@ -185,7 +185,9 @@
     "str_short": "STR",
     "wil": "Willpower",
     "wil_short": "WIL",
-    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute."
+    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute.",
+    "initiation": "Initiation",
+    "submersion": "Submersion"
   },
   "skill": {
     "astral": "Astral",
