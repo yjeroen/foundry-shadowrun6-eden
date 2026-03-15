@@ -37,7 +37,7 @@ export async function migrateWorld() {
 
     await migrateCombatSpells();    // 3.2.1
     await addUnarmedItems();        // 3.3.5
-    await migrateMetatypeNPCs();    // 3.4.0
+    await migrateMetatypeNPCs();    // 4.0.0
 }
 
 function migrateChatMessage(chatMessage) {
@@ -159,7 +159,7 @@ async function migrateMetatypeNPCs() {
     // Checking if there are actors to Migrate
     game.actors.forEach(actor => {
         if ( 
-            docIsVersionBelow(actor, 3,4,0) && actor.system.metatype === "human"
+            docIsVersionBelow(actor, 4,0,0) && actor.system.metatype === "human"
             && ( actor.type === "NPC" || actor.type === "Critter" || actor.type === "Spirit")
            ) {
             migrating = true;
@@ -171,11 +171,11 @@ async function migrateMetatypeNPCs() {
     if (!migrating) return;
          
     // Prepare migration
-    console.log("SR6E | Migration | migrating Actors due to changes in 3.4.0 so NPC/Critter/Spirits also have a Metatype field", actorsToMigrate)
+    console.log("SR6E | Migration | migrating Actors due to changes in 4.0.0 so NPC/Critter/Spirits also have a Metatype field", actorsToMigrate)
     const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
     let progressedItem = 0;
     const msg = progressNotification(0); //v13 only
-    const flag = { [SYSTEM_NAME]: { versionMigrated: '3.4.0' } };
+    const flag = { [SYSTEM_NAME]: { versionMigrated: '4.0.0' } };
 
     // Migrate actors
     for (const actor of actorsToMigrate) {
