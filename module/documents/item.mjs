@@ -179,6 +179,8 @@ export default class SR6Item extends Item {
     this.system.modes.dicePoolMod = 0
   }
 
+  // TODO investigate if this can be removed due to `get calculatedAttackRating()`
+  // TODO other parts that use `calculated.attackRating` need to be reworked as well
   calcAttackRating() {
     if (this.system.attackRating === undefined || !this.actor) return;
 
@@ -191,7 +193,7 @@ export default class SR6Item extends Item {
       if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && this.system.strWeapon === true) {
         closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
       }
-      if (this.system.genesisID === "unarmed" && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
+      if (parseInt(this.system.attackRating[0]) === 0 && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
         closeCombatAttackRatingAttribute += this.actor.system.attributes.rea.pool;
       }
       this.calculated.attackRating[0] = parseInt(this.system.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);
