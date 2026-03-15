@@ -1537,7 +1537,6 @@ export default class Shadowrun6Actor extends Actor {
         //TODO figure out what devRating is still used for
         const actorData = getActorData(this);
         const system = getSystemData(this);
-        console.warn('JEROEN', system.persona)
         if (!system.persona)
             system.persona = new Persona();
         if (!system.persona.used)
