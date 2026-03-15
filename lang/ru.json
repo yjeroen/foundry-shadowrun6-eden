@@ -1287,6 +1287,7 @@
 			"subject": "Сообщение",
 			"success": "Успех",
 			"successes": "чистых успехов",
+			"manualResult": "Результат",
 			"netHits": "успехов всего",
 			"successfulDefense": "Ты успешно избежал попадания",
 			"successfulSoak": "Ты смог избежать урона",
