@@ -548,7 +548,7 @@ export class RollDialog extends Dialog {
 
         switch (fireModeElement.value) {
             case "wide_burst":
-                // TODO implement anticipation; i.e. two rolls to the two targets
+                // TODO: Note - Edge is calculated based on the Highest DR of all targets in Actor.rollItem()
                 arMod = prepared.item.system.modes.SA_ar_mod; // -2 default
                 dmgMod = 1;
                 if (game.user.targets.size !== 2) {

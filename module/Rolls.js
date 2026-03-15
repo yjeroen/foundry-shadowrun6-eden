@@ -355,11 +355,30 @@ async function _dialogClosed(type, form, prepared, dialog, configured) {
             /* Check for a negative pool! Set to 0 if negative so the universe doesn't explode */
             if (configured.pool < 0)
                 configured.pool = 0;
-            /* Build the roll formula */
-            console.log("SR6E | _dialogClosed configured", configured);
-            formula = createFormula(configured, dialog);
 
             configured.pool = configured.checkHardDiceCap(configured.pool);
+
+            /* Build the roll formula */
+            console.log("SR6E | _dialogClosed configured", configured);
+
+            // BF Mode with Wide Burst
+            // TODO: Note - Edge is calculated based on the Highest DR of all targets in Actor.rollItem()
+            if (configured.burstMode === "wide_burst" && configured.targetIds.length === 2) {
+                const pool = configured.pool;
+                const targets = foundry.utils.deepClone(configured.targetIds);
+                configured.pool = Math.ceil( pool/2 );
+                configured.targetIds = [targets[0]];
+                
+                // Configuring first split attack & roll it
+                formula = createFormula(configured, dialog);
+                const roll = new SR6Roll(formula, configured);
+                await roll.toMessage(roll.configured, { rollMode: roll.configured.rollMode });
+                // Configuring second split attack, will be rolled via regular flow
+                configured.pool = Math.floor( pool/2 );
+                configured.targetIds = [targets[1]];
+            }
+
+            formula = createFormula(configured, dialog);
         }
         console.log("SR6E | _dialogClosed: ", formula);
         // Execute the roll
