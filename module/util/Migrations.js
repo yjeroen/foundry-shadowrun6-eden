@@ -35,9 +35,10 @@ export async function migrateWorld() {
         migrateChatMessage(element);
     });
 
-    await migrateCombatSpells();    // 3.2.1
-    await addUnarmedItems();        // 3.3.5
-    await migrateMetatypeNPCs();    // 4.0.0
+    await migrateCombatSpells();        // 3.2.1
+    await addUnarmedItems();            // 3.3.5
+    await migrateMetatypeNPCs();        // 4.0.0
+    await migrateAstralInitiative();    // 4.0.0
 }
 
 function migrateChatMessage(chatMessage) {
@@ -180,6 +181,42 @@ async function migrateMetatypeNPCs() {
     // Migrate actors
     for (const actor of actorsToMigrate) {
         await actor.update({flags: flag, 'system.metatype': game.i18n.localize(`shadowrun6.npc.subtype.${String(actor.type).toLowerCase()}`)});
+        progressedItem++;
+        progressNotification(progressedItem / actorsToMigrate.length, msg);
+    };
+
+    ui.notifications.remove(migrationMsg);
+    ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
+    console.log("SR6E | Migration | Completed")
+}
+
+async function migrateAstralInitiative() {
+    let migrating = false;
+    const actorsToMigrate = [];
+
+    // Checking if there are actors to Migrate
+    game.actors.forEach(actor => {
+        if ( 
+            docIsVersionBelow(actor, 4,0,0) && actor.system.initiative?.astral?.dice === 1
+        ) {
+            migrating = true;
+            actorsToMigrate.push(actor);
+        }
+    });
+    
+    // Don't migrate if there's nothing to do
+    if (!migrating) return;
+         
+    // Prepare migration
+    console.log("SR6E | Migration | migrating Actors due to changes in 4.0.0 so default Astral Initiative Dicepool is 2", actorsToMigrate)
+    const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
+    let progressedItem = 0;
+    const msg = progressNotification(0); //v13 only
+    const flag = { [SYSTEM_NAME]: { versionMigrated: '4.0.0' } };
+
+    // Migrate actors
+    for (const actor of actorsToMigrate) {
+        await actor.update({ flags: flag, 'system.initiative.astral.dice': 2 });
         progressedItem++;
         progressNotification(progressedItem / actorsToMigrate.length, msg);
     };
