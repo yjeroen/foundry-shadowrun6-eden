@@ -1,16 +1,16 @@
-{{! Effects Tab }}
-{{log 'tab-effects.hbs' effects}}
+ {{! Effects Tab ApplicationV2 }}
+{{log 'tab-effects.hbs' this}}
 
-<div class="section" style="display: inline-block; width:100%">
-  <div class="section-head">
-    <h2 class="section-title">{{ localize 'shadowrun6.effect.Label' }}</h2>
-  </div>
+<section class="tab effects scrollable {{tab.cssClass}}" 
+     data-group='primary'
+     data-tab='effects'
+>
 
-  <section
-    class='tab effects flexcol {{tab.cssClass}}'
-    data-group='primary'
-    data-tab='effects'
-  >
+  <div class="section wide">
+    <div class="section-head">
+      <h2 class="section-title">{{ localize 'shadowrun6.effect.Label' }}</h2>
+    </div>
+
     <ol class='effects-list'>
       {{#each effects as |section sid|}}
         <li
@@ -22,6 +22,7 @@
           <div class='effect-source'>{{localize 'shadowrun6.effect.Source'}}</div>
           <div class='effect-source'>{{localize 'shadowrun6.effect.Duration'}}</div>
           <div class='effect-controls flexrow'>
+            {{#if @root.editMode}}
             <a
               class='effect-control'
               data-action='createDoc'
@@ -35,8 +36,9 @@
               title='{{localize 'shadowrun6.effect.Create' }}'
             >
               <i class='fas fa-plus'></i>
-              {{localize 'shadowrun6.effect.New' }}
+              {{localize 'shadowrun6.effect.New'}}
             </a>
+            {{/if}}
           </div>
         </li>
 
@@ -55,7 +57,7 @@
                 <div>{{effect.name}}</div>
               </div>
               <div class='effect-source'>
-                {{effect.system.sourceName}} {{#iff effect.parent.documentName '==' "Item"}}<a class="item-control item-edit" title="Edit"><i class="fas fa-edit"></i></a>{{/iff}}
+                {{effect.system.sourceName}} {{#iff effect.parent.documentName '==' "Item"}}<a class="item-control item-edit" title="{{localize 'shadowrun6.label.edit' }}"><i class="fas fa-edit"></i></a>{{/iff}}
                 </div>
               <div class='effect-duration'>
                 {{#iff effect.duration.type '==' "none"}}
@@ -73,17 +75,17 @@
                   <i class='fas {{#if effect.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}'></i>
                 </a>
                 <a
-                  class='effect-control'
+                  class='effect-control {{#if (not @root.editMode)}}disabled{{/if}}'
                   data-action='viewDoc'
-                  title='{{localize "DOCUMENT.Update" type='Effect'}}'
+                  title='{{localize "DOCUMENT.Update" type=(localize "shadowrun6.effect.Label_one")}}'
                 >
                   <i class='fas fa-edit'></i>
                 </a>
-                {{#iff effect.parent.documentName '==' "Actor"}}
+                {{#if (and (eq effect.parent.documentName "Actor") @root.editMode)}}
                 <a
                   class='effect-control'
                   data-action='deleteDoc'
-                  title='{{localize "DOCUMENT.Delete" type='Effect'}}'
+                  title='{{localize "DOCUMENT.Delete" type=(localize "shadowrun6.effect.Label_one")}}'
                 >
                   <i class='fas fa-trash'></i>
                 </a>
@@ -94,13 +96,14 @@
                 >
                   <i class='fas fa-trash'></i>
                 </a>
-                {{/iff}}
+                {{/if}}
               </div>
             </li>
           {{/each}}
         </ol>
       {{/each}}
     </ol>
-  </section>
 
-</div>
+  </div>
+
+</section>

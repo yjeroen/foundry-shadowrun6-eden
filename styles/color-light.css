@@ -1,6 +1,8 @@
 :root,
 .themed.theme-light,
-.themed.theme-dark {
+.themed.theme-dark,
+.game.theme-light,
+.game.theme-dark {
 	--highlight-color: #960570;
 	--accent-color: #00a8ff;
 	--section-background: #efefeb;

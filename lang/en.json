@@ -2063,6 +2063,12 @@
           }
         }
       },
+      "Tabs": {
+        "StatBlock": "Summary",
+        "Features": "Features",
+        "Biography": "Biography",
+        "Effects": "Effects"
+      },
       "sprite": {
         "FIELDS": {
           "xxx": {
@@ -2138,7 +2144,11 @@
       }
     },
     "label": {
-      "name": "Name"
+      "name": "Name",
+      "template": "TEMPLATE",
+      "unique": "UNIQUE",
+      "token": "TOKEN",
+      "editButton": "Edit Actor"
     }
   }
 }

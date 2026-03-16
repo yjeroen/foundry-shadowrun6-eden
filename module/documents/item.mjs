@@ -23,6 +23,9 @@ export default class SR6Item extends Item {
     this._migrateCleanUp();
     // console.log("SR6E | SR6Item.prepareData() DEBUG", this);
 
+    // Modern DataModel Actors skip legacy data load flow
+    if (this.actor?.system instanceof foundry.abstract.DataModel) return;
+
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     if (this.actor?.type === "Spirit") {
       this.actor._applySpiritPreset(this.actor.system.rating);
