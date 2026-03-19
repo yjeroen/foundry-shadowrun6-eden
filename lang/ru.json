@@ -1,11 +1,95 @@
 {
 	"Shadowrun6ActorSheetNPC": "Пешечка",
-	"shadowrun6-eden.Shadowrun6ActorSheetNPC": "Пешечка в красной рубашечке",
+	"shadowrun6-eden": {
+		"Shadowrun6ActorSheetPC": "SR6 бланк персонажа игрока",
+		"Shadowrun6ActorSheetNPC": "SR6 Бланк персонажа ведущего",
+		"Shadowrun6ActorSheetVehicle": "SR6 бланк Транспортного средства",
+		"SR6ItemSheet": "SR6 бланк предмета",
+		"SR6ActiveEffectConfig": "SR6 бланк настройки эффекта",
+		"PDFSheet": "Бланк PDF только для чтения"
+	},
+	"PDFSheet.no_src": "Сначала измените настройку бланка на бланк для PDF по умолчанию, настройте ссылки на PDF, а затем включите бланк PDF только для чтения.",
 	"SYSTEM": {
 		"Sidebar": {
 			"readme": "Patreon",
 			"bugs": "Сообщить об ошибке",
 			"release_notes": "Новое в этой версии"
+		}
+	},
+	"PDF": {
+		"folder": "Правила Shadowrun 6e",
+		"page_abbr": "стр.",
+		"book": {
+			"astral_ways": "Astral Ways",
+			"bestial_nature": "Bestial Nature",
+			"body_shop": "Body Shop",
+			"collapsing_now": "Collapsing Now",
+			"companion": "Sixth World Companion",
+			"core": "Основная книга правил",
+			"core_seattle": "Core Rulebook Seattle Ed",
+			"core_berlin": "Core Rulebook Berlin Ed",
+			"de_alpen": "Datapuls Alpen",
+			"de_berlin2080": "Berlin 2080",
+			"de_bundeswehr": "Datapuls Bundeswehr",
+			"de_feuerlaeufer": "Datapuls Feuerlaeufer",
+			"de_other": "Sonstige Quellen aus DE",
+			"de_piraten": "Datapuls Piraten der Deutschen Bucht",
+			"de_revierbericht": "Revierbericht",
+			"de_sota2081": "Datapuls SOTA2081",
+			"de_sota2082": "Datapuls SOTA2082",
+			"de_sota2083": "Datapuls SOTA2083",
+			"de_westphalen": "Datapuls Westphalen",
+			"dealers_of_death": "Dealers of Death",
+			"double_clutch": "Double Clutch",
+			"emerald": "Emerald City",
+			"firing_squad": "Firing Squad",
+			"hack_slash": "Hack & Slash",
+			"kechibi": "Kechibi Code",
+			"krime": "Krime Katalog",
+			"lofwyr": "Lofwyr's Legions",
+			"no_future": "Будущего нет",
+			"power_plays": "Power Plays",
+			"shadow_cast": "Shadow Cast",
+			"sif_new_orleans": "New Orleans",
+			"slip_streams": "Slip Streams",
+			"smooth_operations": "Smooth Operations",
+			"street_wyrd": "Street Wyrd",
+			"tarnished_star": "Tarnished Star"
+		},
+		"code": {
+			"astral_ways": "AW",
+			"bestial_nature": "BEST",
+			"body_shop": "BS",
+			"collapsing_now": "COLL",
+			"companion": "6WC",
+			"core": "ОКП",
+			"de_alpen": "Alpen",
+			"de_berlin2080": "B2080",
+			"de_bundeswehr": "Bundeswehr",
+			"de_feuerlaeufer": "FEUERL",
+			"de_other": "Sonstiges DE",
+			"de_piraten": "PIR",
+			"de_revierbericht": "Revier",
+			"de_sota2081": "SOTA2081",
+			"de_sota2082": "SOTA2082",
+			"de_sota2083": "SOTA2083",
+			"de_westphalen": "Westphalen",
+			"dealers_of_death": "DD",
+			"double_clutch": "DC",
+			"emerald": "Emerald",
+			"firing_squad": "FS",
+			"hack_slash": "HnS",
+			"kechibi": "KC",
+			"krime": "KK",
+			"lofwyr": "LL",
+			"no_future": "БН",
+			"power_plays": "PP",
+			"shadow_cast": "SC",
+			"sif_new_orleans": "New Orleans",
+			"slip_streams": "SLIP",
+			"smooth_operations": "SO",
+			"street_wyrd": "WYRD",
+			"tarnished_star": "TS"
 		}
 	},
 	"ACTOR": {
@@ -103,7 +187,9 @@
 		"str_short": "СИЛ",
 		"wil": "Воля",
 		"wil_short": "ВОЛ",
-		"max_augment": "Модификатор ваших аугментаций превышает максимально допустимое значение — 4. Значение соответствующей характеристики увеличено на 4."
+		"max_augment": "Модификатор ваших аугментаций превышает максимально допустимое значение — 4. Значение соответствующей характеристики увеличено на 4.",
+		"initiation": "Инициация",
+	    "submersion": "Погружение"
 	},
 	"skill": {
 		"astral": "Астрал",
@@ -366,6 +452,7 @@
 				"MACHINE_GUNS": "Пулемёты",
 				"MACHINE_PISTOLS": "Автоматические пистолеты",
 				"MAGICAL_FORMULA": "Магические формулы",
+				"MAGIC_LODGE": "Магическая мастерская",
 				"MAGIC_SUPPLIES": "Магические товары",
 				"MICRODRONES": "Микродроны",
 				"MINIDRONES": "Мини-дроны",
@@ -571,13 +658,13 @@
 			"BIOWARE": "Биоимпланты",
 			"CHEMICALS": "Химикаты",
 			"CYBERWARE": "Киберимпланты",
+			"CODEMODS": "Кодмоды",
 			"DRONES": "Дроны",
 			"ELECTRONICS": "Электроника",
 			"GENETICS": "Генетика",
-			"MAGICAL": "Волшебные",
+			"MAGICAL": "Магические товары",
 			"NANOWARE": "Нанотехнологии",
 			"SOFTWARE": "Программа",
-			"CODEMODS": "Кодмоды",
 			"SURVIVAL": "Снаряжение для выживания",
 			"TOOLS": "Инструменты",
 			"VEHICLES": "Транспортные средства",
@@ -647,6 +734,7 @@
 			"legality.legal.long": "Легально",
 			"level": "Есть уровни",
 			"mages": "Маги",
+			"MagicalGoods": "Магические товары",
 			"matrixMonitor": "Состояние Матрицы",
 			"max": "Максимум",
 			"mode_of_operation": "Режим",
@@ -659,6 +747,7 @@
 			"onroad": "На дороге",
 			"points": "Очки",
 			"pool": "Набор",
+			"pools": "Наборы",
 			"poolmod": "Модификатор набора",
 			"programs.short": "П",
 			"progSlots": "Ячейки программ",
@@ -802,7 +891,7 @@
 			},
 			"known_exploit": {
 				"name": "Войти через известную уязвимости",
-				"hint": "Попытаться использовать известные уязвимости для получения администраторского доступа. Шанс на успех снижается на пропатченных серверах и устройствах. Это действие объединяет в себе «Зондирование» и «Войти через бэкдор», но вы не можете тратить на него очки Преимущества, в то время как соперник получает временное очко Преимущества для противодействия."
+				"hint": "Попытаться использовать известные уязвимости для получения администраторского доступа. Шанс на успех снижается на пропатченных серверах и устройствах. Это действие объединяет в себе «Зондирование» и «Войти через бэкдор», но вы не можете тратить на него очки преимущества, в то время как соперник получает временное очко преимущества для противодействия."
 			},
 			"masquerade": {
 				"name": "Маскарад",
@@ -903,6 +992,7 @@
 			"stun": "Оглушение",
 			"stun_monitor": "Счётчик оглушения",
 			"overflow": "Критический",
+			"overflow_monitor": "Счётчик критического урона",
 			"dead": "МЁРТВ",
 			"broken": "СЛОМАНО"
 		},
@@ -1138,7 +1228,7 @@
 			"edge": {
 				"add_manually_to_target": "(Добавить в ручную) Цель",
 				"gain_player": "{name} получает {value} очков преимущества",
-				"gain_player_capped": "{name} получил бы {value} очков преимущества, но не может иметь больше, чем {capped}",
+				"gain_player_capped": "{name} получил(а) бы {value} очков преимущества, но не может получить больше {capped}",
 				"getting": "Получение преимущества",
 				"no_gain": "Никто не получил преимущества",
 				"situational": "Ситуативное преимущество",
@@ -1197,6 +1287,7 @@
 			"subject": "Сообщение",
 			"success": "Успех",
 			"successes": "чистых успехов",
+			"manualResult": "Результат",
 			"netHits": "успехов всего",
 			"successfulDefense": "Ты успешно избежал попадания",
 			"successfulSoak": "Ты смог избежать урона",
@@ -1411,7 +1502,7 @@
 				"name": "Порог по умолчанию"
 			},
 			"hardDiceCap": {
-				"hint": "В обычных условиях на бросок не может приходиться более двадцати кубиков. Этот предел нельзя преодолеть никаким сочетанием способностей, навыков, эффектов или доводов. Исключение: Потраченные перед проверкой очки Преимущества могут добавить кубики сверх предела.",
+				"hint": "В обычных условиях на бросок не может приходиться более двадцати кубиков. Этот предел нельзя преодолеть никаким сочетанием способностей, навыков, эффектов или доводов. Исключение: Потраченные перед проверкой очки преимущества могут добавить кубики сверх предела.",
 				"name": "Предельное количество кубиков"
 			},
 			"bleeding": {
@@ -1443,8 +1534,17 @@
 				"name": "Нельзя уворачиваться от пуль"
 			},
 			"expandedSpecializations": {
-				"hint": "Количество специализаций навыка неограничено. Для получения новой специализации не нужно получать мастерство. Для каждого навыка можно всё так же получить только одно мастерство. (SWC стр. 153)",
+				"hint": "Количество специализаций навыка не ограничено. Для получения новой специализации не нужно получать мастерство. Для каждого навыка можно всё так же получить только одно мастерство. (SWC стр. 153)",
 				"name": "Расширенные специализации"
+			},
+			"pdf": {
+				"hint": "Настройка журнала PDF ｌдля книги Shadowrun Шестой Мир.",
+				"offset.name": "Смещение",
+				"offset.hint": "Настройте смещение страниц. Например, если страница 12 указана как 11, установите Смещение 1."
+			},
+			"dataEntry": {
+				"hint": "Разрешить изменеие на Бланке предмета ID GENESIS/Commlink ID, а так же названия книги и страницы, откуда взят тот или иной предмет.",
+				"name": "Разрешить ввод данных"
 			}
 		},
 		"sin": {
@@ -1767,7 +1867,8 @@
 				"form_grunt_group": "Вы образовали отряд из выбранных токенов.",
 				"dismantle_grunt_group": "Вы распустили отряд из выбранных токенов.",
 				"form_grunt_group_failed": "Из выбранных токенов нельзя образовать отряд. В параметрах токена настройка «Привязка данных актёра» должна быть выключена.",
-				"grunt_group_takes_two": "Для создания отряда нужно выбрать больше одного токена."
+				"grunt_group_takes_two": "Для создания отряда нужно выбрать больше одного токена.",
+				"edge_has_been_reset": "Все значения количества Очков преимущества сброшены Ведущим."
 			}
 		},
 		"EFFECT": {
@@ -1781,7 +1882,7 @@
 			"frightened": "Испуг",
 			"hazed": "Пелена",
 			"hobbled": "Хромота",
-			"immobilized": "Невидимость",
+			"immobilized": "Неподвижность",
 			"invisible_improved": "Невидимость (Улучшенная)",
 			"nauseated": "Тошнота",
 			"panicked": "Паника",
@@ -1953,7 +2054,9 @@
 			"bindTokenControlGroup": "Связать выбранные токены в группу управления",
 			"selectTokenControlGroup": "Выбрать токены группы управления",
 			"formGruntGroup": "Создать отряд из выбранных токенов"
-		}
+		},
+		"resetEdge": "Сбросить преимущество",
+		"resetEdgeDescription": "Вы точно хотите сбросить количество очков преимущества для всех актёров и выбранных токенов?"
 	},
 	"SR6": {
 		"Actor": {
@@ -1984,7 +2087,6 @@
 				}
 			}
 		},
-		
 		"Item": {
 			"base": {
 				"FIELDS": {
