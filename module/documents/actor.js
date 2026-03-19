@@ -1563,7 +1563,7 @@ export default class Shadowrun6Actor extends Actor {
             const systemItem = getSystemData(tmpItem);
             if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
                 let item = getSystemData(tmpItem);
-                if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE") {
+                if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE" || item.subtype == "DATATERM" ) {
                     if (item.usedForPool) {
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
@@ -1576,6 +1576,15 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.a = (item.a);
                         system.persona.device.base.s = (item.s);
+                        system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
+                    }
+                }
+                if (item.subtype == "CYBERTERM") {
+                    if (item.usedForPool) {
+                        system.persona.device.base.a = (item.a);
+                        system.persona.device.base.s = (item.s);
+                        system.persona.device.base.d = parseInt(item.d);
+                        system.persona.device.base.f = parseInt(item.f);
                         system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
                     }
                 }
