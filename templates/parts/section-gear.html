@@ -18,7 +18,7 @@
 		{{#if (eq item.system.type ../geartype) }}
 		<tr class="item list-item" data-item-id="{{item.id}}">
        	<td style="margin-right: 1rem; width: 0.7em;">
-		{{#if item.system.accessories }}
+		{{#if item.system.description }}
        	<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
        	{{else}}
        	<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
@@ -47,9 +47,15 @@
        <tr>
          <td colspan="5">
          	<div class="collapsible-content closed" style="font-size: 0.8em;">
-        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.label.accessories' }}</div>
-			   <div>{{{item.enriched.accessories}}} &nbsp;</div>
-        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+        	   <div style="font-weight: bold;">{{ localize 'SR6.Item.mod.label.section' }}</div>
+			   {{#each (sort actor.items) as |itemmod id|}}
+			   {{#iff itemmod.type '==' 'mod'}}
+			   {{#iff itemmod.system.installedIn.id '==' item.id }}
+			   <div style="margin: 0.5rem;"><a class="content-link" draggable="false" data-link="" data-uuid="{{itemmod.uuid}}" data-id="{{itemmod.uuid}}" data-type="Item">{{itemmod.name}}</a> &nbsp;</div>
+			   {{/iff}}
+			   {{/iff}}
+			   {{/each}}
+			   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
 			   <div>{{{item.enriched.description}}} &nbsp;</div>
          	</div>
          </td>
