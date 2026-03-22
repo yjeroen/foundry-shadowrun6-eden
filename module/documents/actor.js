@@ -1093,7 +1093,7 @@ export default class Shadowrun6Actor extends Actor {
                     //item.data.pool = tmpItem.actor.system.skills[item.data.skill].pool;
                     const strWeapon = (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && item.system.strWeapon) ? 'str' : undefined;
                     gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, strWeapon);
-                    gear.pool = gear.pool + +gear.modifier;
+                    gear.pool = gear.pool + gear.modifier;
                 }
             }
             if (tmpItem.type == "gear" && isWeapon(system)) {
@@ -1105,10 +1105,10 @@ export default class Shadowrun6Actor extends Actor {
                         system.stun = true;
                     }
                 }
-                const suffix = (item.calculated.stun ?? system.stun)
+                const suffix = (item.calculatedStun ?? system.stun)
                     ? game.i18n.localize("shadowrun6.item.stun_damage")
                     : game.i18n.localize("shadowrun6.item.physical_damage");
-                system.dmgDef = item.calculated.dmg + suffix;
+                system.dmgDef = item.calculatedDamage + suffix;
             }
             if (tmpItem.type == "complexform" && isComplexForm(system)) {
                 if (!system.skill) {
@@ -1502,11 +1502,11 @@ export default class Shadowrun6Actor extends Actor {
         if (!this.isOwner) return false;
         console.log("SR6E | Shadowrun6Actor._checkPersonaChanges()", changes);
         if (this.system.mortype == "technomancer") {
-            if (changes.system?.attributes !== undefined || changes.system?.persona?.living?.mod !== undefined) {
+            if (changes.system?.attributes !== undefined || changes.system?.persona?.living?.mod !== undefined || changes.system?.mortype) {
                 await this.updatePersona();
             }
         } else {
-            if (changes.system?.persona?.device?.mod !== undefined) {
+            if (changes.system?.persona?.device?.mod !== undefined || changes.system?.mortype) {
                 await this.updatePersona();
             }
         }
@@ -1745,9 +1745,6 @@ export default class Shadowrun6Actor extends Actor {
             else if (spec == skl.specialization) {
                 value += 2;
             }
-        } else if (skillId === 'exotic_weapons') {
-            console.log('JEROEN', this.name, skillId, spec, attrib)
-            // TODO Should be pool 0 if not specialized
         }
         // Add attribute
         // console.log("SR6E | _getSkillPool | value", value);
@@ -1755,6 +1752,15 @@ export default class Shadowrun6Actor extends Actor {
         value = parseInt("" + value);
         value += parseInt(system.attributes[attrib].pool);
         // console.log("SR6E | _getSkillPool | value", value);
+        if (skillId === 'exotic_weapons') {
+            if (
+                skl.specialization !== spec
+                && skl.expertise !== spec
+                && !skl.expandedSpecializations.includes(spec)
+            ) {
+                value = 0;
+            }
+        }
         return value;
     }
     //---------------------------------------------------------
@@ -1986,7 +1992,7 @@ export default class Shadowrun6Actor extends Actor {
         }
         else if (roll.spell.category === "health") {
             if (roll.spell.withEssence) {
-                console.log("SR6E | Heal spell interacting with Essense");
+                console.log("SR6E | Heal spell interacting with Essence");
                 if (roll.spell.range ==="self" && isLifeform(this.system)) {
                     roll.threshold = 5 - Math.ceil(this.system.essence);
 
@@ -2005,8 +2011,9 @@ export default class Shadowrun6Actor extends Actor {
                             return;
                         }
                     } else {
-                        ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_before_rolling", { localize: true });
-                        return;
+                        // ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_before_rolling", { localize: true });
+                        ui.notifications.info("shadowrun6.ui.notifications.defaulting_spell_to_self", { localize: true });
+                        roll.threshold = 5 - Math.ceil(this.system.essence);
                     }
 
                 }

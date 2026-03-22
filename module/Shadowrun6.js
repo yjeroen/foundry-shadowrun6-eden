@@ -97,16 +97,16 @@ Hooks.once("init", async function () {
      * @see sheets.Shadowrun6ActorSheetNPC
      * @see sheets.Shadowrun6ActorSheetVehicle
      */
-    // Object.assign(CONFIG.Actor.dataModels, {
-    //     sprite: datamodels.SR6SpriteActorData
-    // });
+    Object.assign(CONFIG.Actor.dataModels, {
+        sprite: datamodels.SR6SpriteActorData
+    });
     CONFIG.Actor.defaultType = "Player";
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
-    // Actors.registerSheet("shadowrun6-eden", applications.SR6BaseActorSheet, { types: ["sprite"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.SR6SpriteActorSheet, { types: ["sprite"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
@@ -266,11 +266,23 @@ Hooks.once("init", async function () {
                 name: "shadowrunRoll",
                 order: 99,
                 title: "shadowrun6.roll.create",
-                icon: "fa-solid fa-dice",
+                icon: "fa-solid fa-dice sr6-icon-roll",
                 onClick: () => _onClickDiceRoll(),
                 button: true
             };
             controls.tokens.tools.shadowrunRoll = shadowrunRoll;
+            
+            if (game.user.isGM) {
+                const shadowrunResetEdge = {
+                    name: "shadowrunResetEdge",
+                    order: 99,
+                    title: "shadowrun6.resetEdge",
+                    icon: "sr6-icon-edge",
+                    onClick: () => game.sr6.utils.resetEdge(),
+                    button: true
+                };
+                controls.tokens.tools.shadowrunResetEdge = shadowrunResetEdge;
+            }
         }
     });
 

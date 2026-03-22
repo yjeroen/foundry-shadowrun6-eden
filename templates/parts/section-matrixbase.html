@@ -2,7 +2,7 @@
 	<div style="display: flex; flex-direction: column; align-items: center;">
 	{{#if showResonance}}
 	{{#if system.morDef.resonance}}
-		<div class="attributes" style="margin-bottom: 10px; margin-top:0.4rem">
+	<div class="attributes vertical" style="margin:0.3rem 0;">
 		<div class="attribute" augmented-ui="b-clip-x exe">
 			<p>{{localize "attrib.res" }}</p>
 			<span>{{system.attributes.res.pool}}</span>
@@ -15,14 +15,18 @@
 				<label>{{localize 'shadowrun6.numerical.mod'}}</label>
 				<input name="matrixAttResMod" type="number" data-dtype="Number" data-field="system.attributes.res.mod" value="{{system.attributes.res.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
 			</div>
-			</div>
+		</div>
+		<div class="attribute special">
+			<p>{{localize "attrib.submersion" }}</p>
+			<input class="span" name="matrixSubmersion" data-dtype="Number" data-field="system.attributes.res.submersion" value="{{system.attributes.res.submersion}}"/>
+		</div>
 	</div>
 	{{/if}}
 	{{/if}}
-		<div class="centered rubik-glitch-regular" style="padding: 0.5rem 0 0.2rem 0;">
+		<div class="centered rubik-glitch-regular" style="padding: 0.3rem 0 0.2rem 0;">
 			{{ localize 'shadowrun6.section.matrix_base.overwatch' }}
 		</div>     
-		<div class="edge overwatch clickable" style="width: 80px; height:80px">
+		<div class="edge overwatch clickable" style="width: 80px; height:80px; margin-bottom: 0.5rem;">
 			<img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" />
 			<input name="matrixOverwatch" class="edge-value" style="z-index: 2;" type="text" data-dtype="Number" data-field="system.overwatch" value="{{system.overwatch}}" disabled/>
 		</div>

@@ -356,7 +356,7 @@ export class WeaponRoll extends SkillRoll {
             this.weapon = gear;
             this.rollType = RollType.Weapon;
             this.defendWith = Defense.PHYSICAL;
-            this.monitor = (item.calculated.stun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
+            this.monitor = (item.calculatedStun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
             // this.fireMode = 'SS';
         }
         this.pool = gear.pool;

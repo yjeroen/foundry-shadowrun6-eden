@@ -186,7 +186,7 @@ export class RollDialog extends Dialog {
                 capped = true;
             }
             // Check if new Edge value would be >7
-            if (actor.edge.value + configured.edgePlayer > 7) {
+            if ((actor.edge.value + configured.edgePlayer) > 7) {
                 configured.edgePlayer = Math.max(0, 7 - actor.edge.value);
                 capped = true;
             }
@@ -204,11 +204,11 @@ export class RollDialog extends Dialog {
             let speaker = configured.speaker;
             if (configured.edgePlayer) {
                 if (capped) {
-                    configured.edgePlayer = max;
+                    // configured.edgePlayer = max;
                     innerText = game.i18n.format("shadowrun6.roll.edge.gain_player_capped", {
                         name: speaker.alias,
-                        value: configured.edgePlayer,
-                        capped: max
+                        value: max,
+                        capped: configured.edgePlayer
                     });
                 }
                 else {
@@ -548,7 +548,7 @@ export class RollDialog extends Dialog {
 
         switch (fireModeElement.value) {
             case "wide_burst":
-                // TODO implement anticipation; i.e. two rolls to the two targets
+                // TODO: Note - Edge is calculated based on the Highest DR of all targets in Actor.rollItem()
                 arMod = prepared.item.system.modes.SA_ar_mod; // -2 default
                 dmgMod = 1;
                 if (game.user.targets.size !== 2) {
@@ -585,10 +585,14 @@ export class RollDialog extends Dialog {
         }
 
         // Calculate changed attack rating
-        prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
+        prepared.calcAttackRating = [...prepared.item.calculatedAttackRating];
+        let fireMode = document.getElementById("fireMode").value;
         prepared.calcAttackRating.forEach((element, index) => {
-            if (parseInt(element) >= 0)
-                prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
+            if (parseInt(element) >= 0) {
+                let calcAR = Math.max(0, parseInt(element) + parseInt(arMod) );
+                if (fireMode === "FA" && calcAR === 0) calcAR = -1;
+                prepared.calcAttackRating[index] = calcAR;
+            }
         });
         this.html.find("td[name='calcAR']").text(game.sr6.utils.attackRatingToString(prepared.calcAttackRating));
         // Update the range selector for attack rating
@@ -604,7 +608,7 @@ export class RollDialog extends Dialog {
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage
-        prepared.calcDamage = parseInt(prepared.item.calculated.dmg) + dmgMod;
+        prepared.calcDamage = parseInt(prepared.item.calculatedDamage) + dmgMod;
         this.html.find("span[name='calcDamage']").text(prepared.calcDamage.toString());
         // Calculate modified pool
         prepared.calcPool = prepared.pool + poolMod;
@@ -662,9 +666,9 @@ export class RollDialog extends Dialog {
         }
 
         // Updating DV type
-        const suffix = prepared.item.calculated.stun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
+        const suffix = prepared.item.calculatedStun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
         this.html.find("span[name='calcDamagedMonitor']").text( suffix );
-        prepared.monitor = prepared.item.calculated.stun ? MonitorType.STUN : MonitorType.PHYSICAL ;
+        prepared.monitor = prepared.item.calculatedStun ? MonitorType.STUN : MonitorType.PHYSICAL ;
 
     }
     //-------------------------------------------------------------

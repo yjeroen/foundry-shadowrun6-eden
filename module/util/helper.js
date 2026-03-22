@@ -256,6 +256,23 @@ export const defineHandlebarHelper = async function () {
         }
         return items;
     });
+    // intervalScale example: month
+    Handlebars.registerHelper('localizePlural', function(intervalScale, number) {
+        const pluralRules = new Intl.PluralRules(game.i18n.lang);
+        const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${intervalScale}_long_${pluralRules.select(number)}`);
+        return localizedIntervalScale;
+    });
+    Handlebars.registerHelper("add", function (a, b) {
+        return a + b;
+    });
+    Handlebars.registerHelper("span", function (content, systemField) {
+        let name = "";
+        if (systemField instanceof foundry.data.fields.DataField) {
+            content = game.i18n.localize(systemField.choices[content]);
+            name = ` data-field="${systemField.fieldPath}"`;
+        }
+        return new Handlebars.SafeString(`<span${name}>${Handlebars.escapeExpression(content)}</span>`);
+    });
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
@@ -665,3 +682,74 @@ export async function openPdfPage(journalUuid, pageNumber) {
     }
 
 }
+
+export async function resetEdge() {
+    if (!game.user.isGM) {
+        console.warn("SR6E | Resetting Edge is only allowed by GM's");
+        return;
+    }
+    console.info("SR6E | Reset Edge dialogue");
+
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: game.i18n.localize("shadowrun6.resetEdge") },
+        content: game.i18n.localize("shadowrun6.resetEdgeDescription"),
+        rejectClose: false,
+        modal: true
+    });
+    if ( proceed ) {
+        console.info("SR6E | Resetting Edge for all Actors in Actor tab, and all selected tokens");
+        game.actors.forEach(async (actor) => {
+            await actor.update({'system.edge.value': actor.system.edge.max});
+        });
+        canvas.tokens.controlled.forEach(async (token) => {
+            await token.actor.update({'system.edge.value': token.actor.system.edge.max});
+        });
+        const msg = game.i18n.localize("shadowrun6.ui.notifications.edge_has_been_reset");
+        await ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
+            flavor: game.i18n.localize("shadowrun6.resetEdge"),
+            content: `<span style="font-style: italic;">${msg}</span>`
+        });
+    }
+}
+
+// ##########################
+// Boilerplate Effect Helper
+// TODO: Unclear if this is needed
+// ##########################
+
+/**
+ * Manage Active Effect instances through an Actor or Item Sheet via effect control buttons.
+ * @param {MouseEvent} event      The left-click event on the effect control
+ * @param {Actor|Item} owner      The owning document which manages this effect
+ */
+export function onManageActiveEffect(event, owner) {
+  event.preventDefault();
+  const a = event.currentTarget;
+  const li = a.closest('li');
+  const effect = li.dataset.effectId
+    ? owner.effects.get(li.dataset.effectId)
+    : null;
+  switch (a.dataset.action) {
+    case 'create':
+      return owner.createEmbeddedDocuments('ActiveEffect', [
+        {
+          name: game.i18n.format('DOCUMENT.New', {
+            type: game.i18n.localize('DOCUMENT.ActiveEffect'),
+          }),
+          icon: 'icons/svg/aura.svg',
+          origin: owner.uuid,
+          'duration.rounds':
+            li.dataset.effectType === 'temporary' ? 1 : undefined,
+          disabled: li.dataset.effectType === 'inactive',
+        },
+      ]);
+    case 'edit':
+      return effect.sheet.render(true);
+    case 'delete':
+      return effect.delete();
+    case 'toggle':
+      return effect.update({ disabled: !effect.disabled });
+  }
+}
+

@@ -36,15 +36,23 @@
 
 .shadowrun6 .npc-settings {
   display:flex;
-  margin-left: 2%;
+  margin-left: 4px;
   height: 30px;
 }
-.shadowrun6 .npc-settings label, .shadowrun6 .npc-settings span, .shadowrun6 .npc-settings select {
-  line-height: 30px;
+.shadowrun6 .npc-settings label, 
+.shadowrun6 .npc-settings span, 
+.shadowrun6 .npc-settings select, 
+.shadowrun6 .npc-settings input {
+  line-height: 32px;
   vertical-align: middle;
   margin-right: 10px;
 }
-.shadowrun6 .npc-settings span, .shadowrun6 .npc-settings select {
+.shadowrun6 .npc-settings input:enabled {
+  background: rgba(0, 0, 0, 0.05);
+}
+.shadowrun6 .npc-settings span, 
+.shadowrun6 .npc-settings select, 
+.shadowrun6 .npc-settings input {
   width: 90px;
   margin-right: 20px;
 }
@@ -433,6 +441,32 @@
   bottom: 0;
   right: 0;
   width: 2em;
+}
+
+.app.window-app.shadowrun6.actor .attributes.vertical {
+  flex-flow: column;
+  margin-top: 0;
+  height: unset;
+}
+.app.window-app.shadowrun6.actor .attributes.vertical .attribute {
+  height: 5.25rem;
+}
+.app.window-app.shadowrun6.actor .attributes .attribute input.span {
+  width: 2em;
+  text-align: center;
+  border: 0;
+  background: none;
+  font-size: 1.125rem;
+  margin: 0 auto;
+  margin-top: .4rem;
+  color: var(--highlight-color);
+}
+.app.window-app.shadowrun6.actor .attributes.vertical .attribute.special {
+  height: unset;
+  border: 1px black solid;
+  margin-top: 0.5rem;
+  text-align: center;
+  border-radius: 0 0 18px 18px;
 }
 
 .chat-message .soak-result .damageApplied {
@@ -873,20 +907,61 @@ a.item-control.disabled-roll:hover {
   line-height: 1em;
 }
 .application.shadowrun6 {
-    box-shadow: 0 0 10px var(--color-shadow-primary);
-    background: url(../images/denim075.png) repeat;
-    background-color: rgb(0 0 0 / 35%);
+  box-shadow: 0 0 10px var(--color-shadow-primary);
+  background: url(../images/denim075.png) repeat;
+  background-color: rgb(0 0 0 / 35%);
+  --sr6-color-text-primary: black;
+  --sr6-color-text-secondary: grey;
+  --sr6-color-text-emphatic: black;
+  color: var(--sr6-color-text-primary);
 }
 .application.shadowrun6 .window-header {
   background: unset;
 }
-.application.shadowrun6 .npc-settings select[name="system.rating"] {
+.application.shadowrun6 .window-resize-handle {
+  filter: none;
+}
+.application.shadowrun6 .header-control.toggleEditActor i {
+  margin-top: 2px;
+}
+
+.application.shadowrun6.actor header.sheet-header {
+  min-width: unset;
+  display: flex;
+  flex-direction: row;
+}
+.application.shadowrun6 .prototype-actor {
+  position: fixed;
+  color: grey;
+  font-weight: bold;
+  top: 8px;
+  right: 110px;
+  font-family: 'Signika';
+  font-size: 22px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.application.shadowrun6 .header-fields {
+  margin-left: 8px;
+  width: 100%;
+}
+.application.shadowrun6 .header-fields .document-name {
+  padding-right: 95px;
+}
+.application.shadowrun6 .header-fields h1 {
+  padding-bottom: 0;
+  width: 100%;
+}
+.application.shadowrun6 .npc-settings select[name="system.rating"],
+.application.shadowrun6 .npc-settings span[data-field="system.rating"] {
   width: 60px;
 }
-.application.shadowrun6 .npc-settings select[name="system.type"] {
+.application.shadowrun6 .npc-settings select[name="system.type"],
+.application.shadowrun6 .npc-settings span[data-field="system.type"] {
   width: 120px;
 }
-.application.shadowrun6:not(.minimized)::after {
+
+.application.shadowrun6::after {
 	display: block;
 	content: "";
 	position: fixed;
@@ -898,7 +973,133 @@ a.item-control.disabled-roll:hover {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center top;
+	pointer-events: none;
+
+	opacity: 0;
+	transform: translateY(6px) scale(0.96);
+	filter:
+		blur(6px)
+		brightness(1.8)
+		drop-shadow(0px 0px 8px var(--color-shadow-primary));
+}
+.application.shadowrun6:not(.minimized)::after {
+	animation: sr6-hologram-in 650ms ease-out forwards;
+}
+.application.shadowrun6.minimized::after {
+	animation: none;
+	opacity: 0;
+	transform: translateY(6px) scale(0.96);
+	filter: blur(6px) brightness(1.8) drop-shadow(0px 0px 8px var(--color-shadow-primary));
+}
+@keyframes sr6-hologram-in {
+	0%   { opacity: 0;    transform: translateY(10px) scale(.9);                  filter: blur(10px)  brightness(2.3)  drop-shadow(0 0 12px var(--color-shadow-primary)); }
+	12%  { opacity: .25;  transform: translateY(7px) scale(.94);                  filter: blur(6px)   brightness(2.1)  drop-shadow(0 0 10px var(--color-shadow-primary)); }
+	24%  { opacity: .7;   transform: translateY(3px) scale(.985);                 filter: blur(2px)   brightness(1.7)  drop-shadow(0 0 8px var(--color-shadow-primary)); }
+	32%  { opacity: .45;  transform: translate(-1px, 2px) scale(.975);            filter: blur(3px)   brightness(1.9)  drop-shadow(0 0 9px var(--color-shadow-primary)); }
+	40%  { opacity: .85;  transform: translate(1px, 1px) scale(1.01);             filter: blur(1px)   brightness(1.5)  drop-shadow(0 0 7px var(--color-shadow-primary)); }
+	52%  { opacity: .65;  transform: translate(-.5px, 0) scale(.995);             filter: blur(1.5px) brightness(1.35) drop-shadow(0 0 6px var(--color-shadow-primary)); }
+	70%  { opacity: .95;  transform: translateY(0) scale(1.003);                  filter: blur(.4px)  brightness(1.15) drop-shadow(0 0 5px var(--color-shadow-primary)); }
+	100% { opacity: 1;    transform: translateY(0) scale(1);                      filter: blur(0)     brightness(1)    drop-shadow(0 0 4px var(--color-shadow-primary)); }
+}
+
+.application.shadowrun6 nav.tabs [data-tab] {
+  color: var(--sr6-color-text-secondary);
+}
+.application.shadowrun6 nav.tabs [data-tab]:hover {
+  color: var(--sr6-color-text-emphatic);
+}
+.application.shadowrun6 nav.tabs [data-tab].active {
+  color: var(--sr6-color-text-emphatic);
+}
+.application.shadowrun6 .sheet-tabs {
+  margin: 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.application.shadowrun6 .sheet-tabs.tabs > a:first-child {
+  padding-left: 2px;
+}
+.application.shadowrun6 .sheet-tabs.tabs > a:last-child {
+  padding-right: 2px;
+}
+.application.shadowrun6 nav.tabs [data-tab]:not(.active) {
+  text-shadow: 0 0 .1px, 0 0 .1px, 0 0 8px white;
+}
+
+/* Tabs Scrolling Behavior */
+.application.shadowrun6 .sheet-tabs.tabs {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  min-height: 2.35rem;
+}
+.application.shadowrun6 .sheet-tabs.tabs::-webkit-scrollbar {
+  display: none;
+}
+.application.shadowrun6 .sheet-tabs.tabs > a {
+  flex: 0 0 auto;
+}
+.application.shadowrun6 .sheet-tabs.tabs.can-scroll-left::before,
+.application.shadowrun6 .sheet-tabs.tabs.can-scroll-right::after {
+  position: sticky;
+  top: 0;
+  width: 24px;
+  height: 100%;
+  display: grid;
+  place-items: center;
   pointer-events: none;
-  -webkit-filter: drop-shadow(0px 0px 4px  var(--color-shadow-primary));
-  filter: drop-shadow(0px 0px 4px var(--color-shadow-primary));
+  z-index: 3;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  padding: 0 2px;
+}
+.application.shadowrun6 .sheet-tabs.tabs.can-scroll-left::before {
+  content: "«";
+  left: 0px;
+  background-color: #F7F7F7;
+  box-shadow: 6px 0 6px rgba(247, 247, 247, 1);
+}
+.application.shadowrun6 .sheet-tabs.tabs.can-scroll-right::after {
+  content: "»";
+  right: 0px;
+  background-color: #828182;
+  box-shadow: -6px 0 6px rgba(130, 129, 130, 1);
+}
+/* END Tabs Scrolling Behavior */
+
+body.game .application.shadowrun6 .window-content {
+  scrollbar-gutter: auto;
+}
+.application.shadowrun6 .section.wide {
+  margin: 5px 0;
+}
+
+.sr6-icon-roll {
+  color: #ff68c3;
+  transition: color 0.2s ease;
+}
+.sr6-icon-roll:hover {
+  color: revert;
+}
+.sr6-icon-edge {
+  position: relative;
+}
+.sr6-icon-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(../images/EdgeToken.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  filter: grayscale(0.7) brightness(3);
+  transition: filter 0.2s ease;
+}
+.sr6-icon-edge:hover::before {
+  filter: grayscale(0);
 }

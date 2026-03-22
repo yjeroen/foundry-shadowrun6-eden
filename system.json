@@ -5,7 +5,7 @@
   "version": "3.3.9",
   "authors": [
     {
-      "name": "YJeroen",
+      "name": "Yeroon",
       "discord": "yeroon.",
       "url": "https://www.patreon.com/DeepResonanceWare"
     },
@@ -16,7 +16,7 @@
     }
   ],
   "compatibility": {
-    "minimum": "12",
+    "minimum": "13",
     "verified": "13.351",
     "maximum": "13"
   },
@@ -173,6 +173,9 @@
     }
   },
   "documentTypes": {
+    "Actor": {
+      "sprite": {}
+    },
     "Item": {
       "mod": {}
     }

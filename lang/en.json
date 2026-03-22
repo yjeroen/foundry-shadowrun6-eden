@@ -185,7 +185,9 @@
     "str_short": "STR",
     "wil": "Willpower",
     "wil_short": "WIL",
-    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute."
+    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute.",
+    "initiation": "Initiation",
+    "submersion": "Submersion"
   },
   "skill": {
     "astral": "Astral",
@@ -448,6 +450,7 @@
         "MACHINE_PISTOLS": "Machine Pistols",
         "MAGICAL_FORMULA": "Magical Formula",
         "MAGIC_SUPPLIES": "Magical Supplies",
+        "MAGIC_LODGE": "Magical Lodge",
 			"MICRODRONES": "Microdrones",
 			"MINIDRONES": "Minidrones",
 			"MEDIUM_DRONES": "Medium Drones",
@@ -656,7 +659,7 @@
       "DRONES": "Drones",
       "ELECTRONICS": "Electronics",
       "GENETICS": "Geneware",
-      "MAGICAL": "Magical",
+      "MAGICAL": "Magical Goods",
       "NANOWARE": "Nanoware",
       "SOFTWARE": "Software",
       "SURVIVAL": "Survival gear",
@@ -728,6 +731,7 @@
       "legality.legal.long": "Legal",
       "level": "Has levels",
       "mages": "Mages",
+      "MagicalGoods": "Magical Goods",
       "matrixMonitor": "Matrix Monitor",
       "max": "Maximum",
       "mode_of_operation": "Mode of Operation",
@@ -1220,7 +1224,7 @@
       "edge": {
         "add_manually_to_target": "(Add manually) Target",
         "gain_player": "{name} gets {value} Edge",
-        "gain_player_capped": "{name} would {value} Edge, but cannot get more than {capped}",
+        "gain_player_capped": "{name} would gain {value} Edge, but cannot gain more than {capped}.",
         "getting": "Gaining Edge",
         "no_gain": "No one gets Edge",
         "situational": "Situational Edge",
@@ -1279,6 +1283,7 @@
       "subject": "Chatmessage",
       "success": "Success",
       "successes": "hits",
+      "manualResult": "Result",
       "netHits": "net hits",
       "successfulDefense": "You successfully avoided being hit",
       "successfulSoak"   : "You managed to ignore the damage",
@@ -1811,6 +1816,7 @@
         "Target_or_select_a_token_before_rolling": "Target or select a token before rolling.",
         "Select_a_token_first": "Select a token first, or configure your Player Character actor in your User Configuration.",
         "Target_a_token_before_rolling": "Target (T) a token before rolling.",
+        "defaulting_spell_to_self": "No token targeted, defaulting to casting on yourself.",
         "Dice_roll_evaluation_failed": "Dice roll evaluation failed",
         "two_targets_but_wrong_fire_mode": "You have two targets, so you can only fire using Burst Fire: Wide Burst, or using Full Auto mode.",
         "many_targets_but_not_autofire_fire_mode": "You have more than two targets, so you can only fire using Full Auto mode.",
@@ -1857,7 +1863,8 @@
         "form_grunt_group": "You have formed a Grunt Group with the selected Tokens.",
         "dismantle_grunt_group": "You have dismantled the Grunt Group of the selected Tokens.",
         "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration.",
-        "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group."
+        "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
+        "edge_has_been_reset": "All Edge has been reset by the GM."
       }
     },
     "EFFECT": {
@@ -2006,8 +2013,8 @@
         "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
         "3": "As normal in Shadowrun 6E, Attribute Modifiers are automatically capped at +4."
       },
-      "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item.",
-      "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in.",
+      "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item. Do <strong>NOT</strong> use Attribute Keys meant for Gear Mods on Actors, and visa versa.",
+      "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in. Do <strong>NOT</strong> use Attribute Keys meant for Actors on Gear Mods, and visa versa.",
       "more_info": "For more information, see the following link:",
       "advanced": "Advanced?",
       "advanced_hint": "If checked, you can enter custom System Attribute Keys instead of only the Shadowrun 6E system advised list.",
@@ -2043,7 +2050,9 @@
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",
       "selectTokenControlGroup": "Select Tokens of Control Group",
       "formGruntGroup": "Create Grunt Group with selected Tokens"
-    }
+    },
+    "resetEdge": "Reset Edge",
+    "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
   },
   "SR6": {
     "Actor": {
@@ -2053,6 +2062,12 @@
             "label": "Notes"
           }
         }
+      },
+      "Tabs": {
+        "StatBlock": "Summary",
+        "Features": "Features",
+        "Biography": "Biography",
+        "Effects": "Effects"
       },
       "sprite": {
         "FIELDS": {
@@ -2129,7 +2144,11 @@
       }
     },
     "label": {
-      "name": "Name"
+      "name": "Name",
+      "template": "TEMPLATE",
+      "unique": "UNIQUE",
+      "token": "TOKEN",
+      "editButton": "Edit Actor"
     }
   }
 }

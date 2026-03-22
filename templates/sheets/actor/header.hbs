@@ -10,6 +10,9 @@
     height='100'
     width='100'
   />
+  <div class="prototype-actor">
+    {{#if actor.token}}{{localize 'SR6.label.token'}}{{else}}{{#if linkedToken}}{{localize 'SR6.label.unique'}}{{else}}{{localize 'SR6.label.template'}}{{/if}}{{/if}}
+  </div>
   <div class='header-fields'>
     <div class='document-name'>
       <h1>{{formInput fields.name value=actor.name placeholder=fields.name.label}}</h1>
@@ -18,15 +21,26 @@
         <label for='system.rating'>{{localize systemFields.rating.label}}</label>
         {{!-- TODO: numberInput doesn't automatically look at dataModel for min --}}
         {{!-- {{numberInput system.rating name="system.rating" min=1}} --}}
-        {{formInput systemFields.rating value=system.rating}}
+        
+        {{#if editMode}}
+        {{formInput systemFields.rating value=source.rating}}
+        {{else}}
+        {{span system.rating systemFields.rating}}
+        {{/if}}
+
         <label for='system.type'>{{localize systemFields.type.label}}</label>
-        {{formInput systemFields.type value=system.type localize=true}}
-        <div class=''>
+        {{#if editMode}}
+        {{formInput systemFields.type value=source.type localize=true}}
+        {{else}}
+        {{span system.type systemFields.type}}
+        {{/if}}
+        
+        {{!-- <div class=''>
           {{#if (eq actor.type 'character')}}
           {{/if}}
           {{#if (eq actor.type 'npc')}}
           {{/if}}
-        </div>
+        </div> --}}
     </div>
   </div>
 </header>

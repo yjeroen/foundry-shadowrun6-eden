@@ -34,7 +34,7 @@
   <div>
     <div class="dice-result">
       <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}">
-        <div>{{formula}}</div>
+        <div class="resulttext">{{#if (not configured.rollType)}}/r {{/if}}{{formula}}</div>
         <br/>
         {{#if system.extended}}
             <div class="resulttext" style="flex:2;text-align: right;">{{ localize 'shadowrun6.roll.accumulated' }}: <b>{{system.extendedAccumulate}}</b> / {{system.threshold}}</div>
@@ -46,15 +46,22 @@
                   <div class="resulttext" style="flex:2">{{total}} {{localize 'shadowrun6.roll.hits'}}
                   </div>
               {{else}}
+                {{#if (not configured.rollType)}}
+                  {{!-- Manual FoundryVTT /r --}}
+                  <div class="resulttext" style="flex:2">                  
+                    {{localize 'shadowrun6.roll.manualResult'}}: <b>{{total}}</b>
+                  </div>
+                {{else}}
                   {{#if success}}
-                  <div class="resulttext" style="flex:2">
-                    {{localize 'shadowrun6.roll.success'}}: <b>{{total}}</b> {{localize 'shadowrun6.roll.successes'}}{{#if netHits}}, <b>{{netHits}}</b> {{localize 'shadowrun6.roll.netHits'}}{{/if}}
-                  </div>
+                    <div class="resulttext" style="flex:2">                  
+                      {{localize 'shadowrun6.roll.success'}}: <b>{{total}}</b> {{localize 'shadowrun6.roll.successes'}}{{#if netHits}}, <b>{{netHits}}</b> {{localize 'shadowrun6.roll.netHits'}}{{/if}}
+                    </div>
                   {{else}}
-                  <div class="resulttext" style="flex:2">
-                    {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
-                  </div>
+                    <div class="resulttext" style="flex:2">
+                      {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
+                    </div>
                   {{/if}}
+                {{/if}}
               {{/if}}
             {{/if}}
         {{/if}}

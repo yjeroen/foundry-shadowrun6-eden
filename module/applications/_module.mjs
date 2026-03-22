@@ -6,6 +6,7 @@ export {default as Shadowrun6ActorSheetPC} from "./sheets/ActorSheetPC.js"
 export {default as Shadowrun6ActorSheetVehicle} from "./sheets/ActorSheetVehicle.js"
 export {default as CompendiumActorSheetNPC} from "./sheets/CompendiumActorSheetNPC.js"
 export {default as SR6BaseActorSheet} from "./sheets/base-actor-sheet.mjs"
+export {default as SR6SpriteActorSheet} from "./sheets/sprite-actor-sheet.mjs"
 export {default as PDFSheet} from "./sheets/PDFJournalSheet.mjs"
 
 // Item Applications

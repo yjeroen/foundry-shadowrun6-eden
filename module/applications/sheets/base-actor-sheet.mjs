@@ -1,14 +1,16 @@
-// import { prepareActiveEffectCategories } from "../helpers/effects.mjs";
-
 const { api, sheets } = foundry.applications;
 
 /**
- * Extend the basic ActorSheet with some very simple modifications
+ * Extend the basic ActorSheet
  * @extends {ActorSheetV2}
  */
 export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     sheets.ActorSheetV2
 ) {
+    #tabScrollCleanup = null;
+    #editMode = false;
+    _defaultTab = "";
+
     /** @override */
     static DEFAULT_OPTIONS = {
         classes: ["shadowrun6", "actor"],
@@ -18,6 +20,15 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         },
         window: {
             resizable: true,
+            controls: [
+                {
+                    action: "configurePrototypeToken2",
+                    icon: "fa-solid fa-fw fa-circle-user",
+                    label: "TEST",
+                    visible: true,
+                    ownership: "OWNER",
+                }
+            ]
         },
         actions: {
             onEditImage: this._onEditImage,
@@ -42,6 +53,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         tabs: {
             // Foundry-provided generic template
             template: "templates/generic/tab-navigation.hbs",
+            scrollable: [""],
+        },
+        statblock: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/statblock-tab.hbs",
+            scrollable: [""],
         },
         features: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",
@@ -67,36 +83,35 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
     /** @override */
     _prepareSubmitData(event, form, formData) {
+        let submitData;
         try {
-            const submitData = super._prepareSubmitData(event, form, formData);
-            return submitData;
+             submitData = super._prepareSubmitData(event, form, formData);
         } catch (error) {
             // TODO: error very hard to localize
+            // TODO sometimes (if e.g. the number was already on min, but you then go to an invalid number on a bad validation the sheet doesn't get rerendered
             ui.notifications.error(`${error.name}: ${error.message}`);
-            // this.render();
-        } finally {
-            // TODO This might cause a duplicate render, but else sometimes (if e.g. the number was already on min, 
-            // but you then go to an invalid number) on a bad validation the sheet doesn't get rerendered
-            this.render();
-        }
+        } 
+        
+        return submitData;
     }
 
     /** @override */
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
         // Not all parts always render
-        options.parts = ["header", "tabs", "biography"];
-        // Don't show the other tabs if only limited view
-        if (this.document.limited) return;
-        // Control which parts show based on document subtype
-        switch (this.document.type) {
-            case "character":
-                options.parts.push("features", "gear", "magic", "effects");
-                break;
-            case "npc":
-                options.parts.push("gear", "effects");
-                break;
-        }
+        options.parts = ["header", "tabs"];
+        
+        // // Don't show the other tabs if only limited permissions view
+        // if (this.document.limited) return;
+        // // Control which parts show based on document subtype
+        // switch (this.document.type) {
+        //     case "character":
+        //         options.parts.push("features", "gear", "magic", "effects");
+        //         break;
+        //     case "npc":
+        //         options.parts.push("gear", "effects");
+        //         break;
+        // }
     }
 
     /* -------------------------------------------- */
@@ -106,13 +121,17 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // Output initialization
         const context = {
             // Validates both permissions and compendium status
+            editMode: this.document.isOwner && this.isEditable && this.#editMode,
             editable: this.isEditable,
             owner: this.document.isOwner,
             limited: this.document.limited,
             // Add the actor document.
             actor: this.actor,
+            // Boolean if the Actor is linked
+            linkedToken: this.actor.prototypeToken.actorLink,
             // Add the actor's data to context.data for easier access, as well as flags.
             system: this.actor.system,
+            source: this.actor._source.system,
             flags: this.actor.flags,
             // Adding a pointer to CONFIG.SR6
             config: CONFIG.SR6,
@@ -131,6 +150,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     /** @override */
     async _preparePartContext(partId, context) {
         switch (partId) {
+            case "statblock":
             case "features":
             case "magic":
             case "gear":
@@ -140,8 +160,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 context.tab = context.tabs[partId];
                 // Enrich biography info for display
                 // Enrichment turns text like `[[/r 1d20]]` into buttons
-                context.enrichedBiography = await TextEditor.enrichHTML(
-                    this.actor.system.biography,
+                context.enrichedDescription = await TextEditor.enrichHTML(
+                    this.actor.system.description,
                     {
                         // Whether to show secret blocks in the finished html
                         secrets: this.document.isOwner,
@@ -151,11 +171,19 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                         relativeTo: this.actor,
                     }
                 );
+                context.enrichedNotes = await TextEditor.enrichHTML(
+                    this.actor.system.notes,
+                    {
+                        secrets: this.document.isOwner,
+                        rollData: this.actor.getRollData(),
+                        relativeTo: this.actor,
+                    }
+                );
                 break;
             case "effects":
                 context.tab = context.tabs[partId];
                 // Prepare active effects
-                context.effects = prepareActiveEffectCategories(
+                context.effects = game.sr6.utils.prepareActiveEffectCategories(
                     // A generator that returns all effects stored on the actor
                     // as well as any items
                     this.actor.allApplicableEffects()
@@ -175,7 +203,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // If you have sub-tabs this is necessary to change
         const tabGroup = "primary";
         // Default tab for first time it's rendered this session
-        if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = "biography";
+        if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = this._defaultTab;
         return parts.reduce((tabs, partId) => {
             const tab = {
                 cssClass: "",
@@ -191,6 +219,10 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 case "header":
                 case "tabs":
                     return tabs;
+                case "statblock":
+                    tab.id = "statblock";
+                    tab.label += "StatBlock";
+                    break;
                 case "biography":
                     tab.id = "biography";
                     tab.label += "Biography";
@@ -287,6 +319,52 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // You may want to add other special handling here
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
+        
+        const nav = this.element.querySelector(".sheet-tabs.tabs");
+        if (!nav) return;
+        this.#tabScrollCleanup?.();
+        this.#tabScrollCleanup = this._setupHoverScrollTabs(nav);
+    }
+
+    /**
+     * Actions performed after a first render of the Application.
+     * @param {ApplicationRenderContext} context      Prepared context data
+     * @param {RenderOptions} options                 Provided render options
+     * @returns {Promise<void>}
+     * @protected
+     */
+    async _onFirstRender(context, options) {
+        await this._renderEditButton(options);
+
+        const nav = this.element.querySelector(".sheet-tabs.tabs");
+        if (!nav) return;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                this._scrollActiveTabIntoView(nav, false);
+            });
+        });
+    }
+
+  /**
+   * Render the outer framing HTMLElement which wraps the inner HTML of the Application.
+   * @param {RenderOptions} options                 Options which configure application rendering behavior
+   * @returns {Promise<HTMLElement>}
+   * @protected
+   */
+    async _renderEditButton(options) {
+        if (!this.document.isOwner || !this.isEditable) return;
+
+        const label = game.i18n.localize("SR6.label.editButton");
+        const windowTitle = this.element.querySelector(".window-header .window-title");
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "header-control icon toggleEditActor";
+        editButton.dataset.tooltip = label;
+        editButton.setAttribute("aria-label", label);
+        editButton.dataset.action = "toggleEditActor";
+        editButton.innerHTML = `<i class="fa-solid fa-toggle-off"></i>`;
+                
+        windowTitle.after(editButton);
     }
 
     /**************
@@ -294,6 +372,41 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      *   ACTIONS
      *
      **************/
+
+    /**
+     * A generic event handler for action clicks which can be extended by subclasses.
+     * Action handlers defined in DEFAULT_OPTIONS are called first. This method is only called for actions which have
+     * no defined handler.
+     * @param {PointerEvent} event      The originating click event
+     * @param {HTMLElement} target      The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    _onClickAction(event, target) {
+        const action = target.dataset.action;
+        switch ( action ) {
+            case "toggleEditActor":
+                this.toggleControls(false);
+                this._onToggleEditActor(event);
+                break;
+        }
+    }
+
+    /**
+     * Handle click event on the toggleEditActor button
+     * @param {PointerEvent} event
+     * @protected
+     */
+    _onToggleEditActor(event) {
+        const button = event.target;
+        const icon = button.querySelector("i");
+
+        this.#editMode = !this.#editMode;
+        const isEnabled = this.#editMode;
+        button.setAttribute("aria-pressed", String(isEnabled));
+        icon.classList.toggle("fa-toggle-off", !isEnabled);
+        icon.classList.toggle("fa-toggle-on", isEnabled);
+        this.render();
+    }
 
     /**
      * Handle changing a Document's image.
@@ -348,6 +461,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _deleteDoc(event, target) {
         const doc = this._getEmbeddedDocument(target);
         await doc.delete();
+        this.render();
     }
 
     /**
@@ -369,6 +483,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 parent: this.actor,
             }),
         };
+        switch (target.dataset.documentClass) {
+                case "ActiveEffect":
+                    docData.img = 'systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg';
+                    break;
+        }
         // Loop through the dataset and add it to our docData
         for (const [dataKey, value] of Object.entries(target.dataset)) {
             // These data attributes are reserved for the action handling
@@ -381,6 +500,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Finally, create the embedded document!
         await docCls.create(docData, { parent: this.actor });
+        this.render();
     }
 
     /**
@@ -394,6 +514,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _toggleEffect(event, target) {
         const effect = this._getEmbeddedDocument(target);
         await effect.update({ disabled: !effect.disabled });
+        this.render();
     }
 
     /**
@@ -615,5 +736,107 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 input.disabled = true;
             }
         }
+    }
+
+    /********************
+     *
+     * Tab Scrolling Behavior
+     *
+     ********************/
+
+    async close(options = {}) {
+        this.#tabScrollCleanup?.();
+        this.#tabScrollCleanup = null;
+        return super.close(options);
+    }
+
+    _setupHoverScrollTabs(nav) {
+        let raf = null;
+        let scrollSpeed = 0;
+
+        const edgeSize = 80;
+        const maxSpeed = 5;
+
+        const step = () => {
+            if (scrollSpeed !== 0) {
+                nav.scrollLeft += scrollSpeed;
+                this._updateTabScrollIndicators(nav);
+                raf = requestAnimationFrame(step);
+            } else {
+                raf = null;
+            }
+        };
+
+        const startScrolling = () => {
+            if (!raf) raf = requestAnimationFrame(step);
+        };
+
+        const stopScrolling = () => {
+            scrollSpeed = 0;
+        };
+
+        const onMouseMove = (event) => {
+            const rect = nav.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+
+            if (x < edgeSize) {
+                const factor = 1 - (x / edgeSize);
+                scrollSpeed = -maxSpeed * factor;
+                startScrolling();
+            } else if (x > rect.width - edgeSize) {
+                const factor = (x - (rect.width - edgeSize)) / edgeSize;
+                scrollSpeed = maxSpeed * factor;
+                startScrolling();
+            } else {
+                stopScrolling();
+            }
+        };
+
+        const onMouseLeave = () => stopScrolling();
+        const onScroll = () => this._updateTabScrollIndicators(nav);
+
+        const onClick = () => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => this._scrollActiveTabIntoView(nav, true));
+            });
+        };
+
+        const ro = new ResizeObserver(() => this._updateTabScrollIndicators(nav));
+        ro.observe(nav);
+
+        nav.addEventListener("mousemove", onMouseMove);
+        nav.addEventListener("mouseleave", onMouseLeave);
+        nav.addEventListener("scroll", onScroll);
+        nav.addEventListener("click", onClick);
+
+        this._updateTabScrollIndicators(nav);
+
+        return () => {
+            if (raf) cancelAnimationFrame(raf);
+            nav.removeEventListener("mousemove", onMouseMove);
+            nav.removeEventListener("mouseleave", onMouseLeave);
+            nav.removeEventListener("scroll", onScroll);
+            nav.removeEventListener("click", onClick);
+        };
+    }
+
+    _scrollActiveTabIntoView(nav, smooth = true) {
+        const activeTab = nav.querySelector(".active");
+        if (!activeTab) return;
+
+        activeTab.scrollIntoView({
+            behavior: smooth ? "smooth" : "instant",
+            inline: "center",
+            block: "nearest"
+        });
+    }
+
+    _updateTabScrollIndicators(nav) {
+        const maxScrollLeft = nav.scrollWidth - nav.clientWidth;
+        const threshold = 4;
+
+        nav.classList.toggle("can-scroll-left", nav.scrollLeft > threshold);
+        nav.classList.toggle("can-scroll-right", nav.scrollLeft < maxScrollLeft - threshold);
+        this._scrollActiveTabIntoView(nav)
     }
 }
