@@ -26,7 +26,7 @@
       </h1>
     </div>
     <div class='npc-settings'>
-        <label for='system.rating'>{{localize systemFields.rating.label}}</label>
+        <label for='system.rating'>{{localize systemFields.rating.label}}:</label>
         {{!-- TODO: numberInput doesn't automatically look at dataModel for min --}}
         {{!-- {{numberInput system.rating name="system.rating" min=1}} --}}
         
@@ -36,7 +36,7 @@
         {{span system.rating systemFields.rating}}
         {{/if}}
 
-        <label for='system.type'>{{localize systemFields.type.label}}</label>
+        <label for='system.type'>{{localize systemFields.type.label}}:</label>
         {{#if editMode}}
         {{formInput systemFields.type value=source.type localize=true}}
         {{else}}

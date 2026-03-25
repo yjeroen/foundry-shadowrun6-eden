@@ -914,6 +914,10 @@ a.item-control.disabled-roll:hover {
   --sr6-color-text-secondary: grey;
   --sr6-color-text-emphatic: black;
   color: var(--sr6-color-text-primary);
+  
+  --accent: #b00078;
+  --text: #111;
+  --font: Arial, Helvetica, sans-serif;
 }
 .application.shadowrun6 .window-header {
   background: unset;
@@ -931,6 +935,9 @@ a.item-control.disabled-roll:hover {
   min-width: unset;
   display: flex;
   flex-direction: row;
+}
+.application.shadowrun6 .profile-img[data-edit="img"] {
+  cursor: pointer;
 }
 .application.shadowrun6 .prototype-actor {
   position: fixed;
@@ -953,6 +960,12 @@ a.item-control.disabled-roll:hover {
 .application.shadowrun6 .header-fields h1 {
   padding-bottom: 0;
   width: 100%;
+}
+.application.shadowrun6 .npc-settings {
+  margin: 6px 2px;
+}
+.shadowrun6 .npc-settings label {
+  padding: 0;
 }
 .application.shadowrun6 .npc-settings select[name="system.rating"],
 .application.shadowrun6 .npc-settings span[data-field="system.rating"] {
@@ -1104,4 +1117,130 @@ body.game .application.shadowrun6 .window-content {
 }
 .sr6-icon-edge:hover::before {
   filter: grayscale(0);
+}
+
+.application.shadowrun6 .window-content h1 {
+  font-family: var(--font);
+  font-size: 1.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: none;
+}
+.application.shadowrun6 .window-content h1 input {
+  text-decoration: dotted;
+  text-decoration-line: underline;
+  font-size: 1.9rem;
+  line-height: 1.9rem;
+  height: 1.9rem;
+  color: unset;
+  padding: 0;
+}
+
+/* SR6 Stat Block */
+.stat-block {
+  --bg: #ebebeb;
+  --label-bg: #ddddd9;
+
+  display: inline-block;
+  max-width: 100%;
+  background: var(--bg);
+  padding: 10px 10px 12px;
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+.stat-block .title {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: var(--font);
+  color: var(--accent);
+  border: none;
+}
+
+.stat-block .meta {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.stat-block .meta strong {
+  font-weight: 800;
+}
+
+.stat-block .stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 0;
+  margin: 10px 0;
+  font-family: var(--font);
+  font-size: 0.85rem;
+}
+
+.stat-block .stat {
+  flex: 1 1 42px;
+  min-width: 42px;
+  text-align: center;
+}
+
+.stat-block .stat.wide {
+  min-width: 50px;
+  flex-basis: 50px;
+}
+
+.stat-block .stat.move {
+  min-width: 65px;
+  flex-basis: 65px;
+}
+
+.stat-block .stat-label {
+  background: var(--label-bg);
+  color: var(--accent);
+  font-weight: 800;
+  padding: 1px 4px;
+  text-transform: uppercase;
+}
+
+.stat-block .stat-value {
+  padding-top: 2px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.stat-block .content {
+  font-size: 0.92rem;
+  line-height: 1.24;
+}
+
+.stat-block .row {
+  margin-bottom: 4px;
+}
+
+.stat-block .label {
+  font-weight: 800;
+}
+
+.stat-block .row p {
+  display: inline;
+  margin: 0;
+}
+
+.stat-block .row-weapons .label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.stat-block .weapon-list {
+  padding-left: 18px;
+}
+
+.stat-block .weapon-list>div {
+  padding-left: 22px;
+  text-indent: -22px;
+  line-height: 1.24;
+  margin-bottom: 2px;
 }
