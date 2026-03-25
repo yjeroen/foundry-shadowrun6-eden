@@ -268,8 +268,8 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("span", function (content, systemField) {
         let name = "";
         if (systemField instanceof foundry.data.fields.DataField) {
-            content = game.i18n.localize(systemField.choices[content]);
             name = ` data-field="${systemField.fieldPath}"`;
+            if (systemField.choices) content = game.i18n.localize(systemField.choices[content]);
         }
         return new Handlebars.SafeString(`<span${name}>${Handlebars.escapeExpression(content)}</span>`);
     });

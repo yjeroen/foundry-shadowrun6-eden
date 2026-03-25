@@ -15,7 +15,13 @@
   </div>
   <div class='header-fields'>
     <div class='document-name'>
-      <h1>{{formInput fields.name value=actor.name placeholder=fields.name.label}}</h1>
+      <h1>
+        {{#if editMode}}
+        {{formInput fields.name value=actor.name placeholder=fields.name.label}}
+        {{else}}
+        {{span actor.name fields.name}}
+        {{/if}}
+      </h1>
     </div>
     <div class='npc-settings'>
         <label for='system.rating'>{{localize systemFields.rating.label}}</label>
