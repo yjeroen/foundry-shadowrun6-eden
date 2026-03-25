@@ -2148,7 +2148,8 @@
       "template": "TEMPLATE",
       "unique": "UNIQUE",
       "token": "TOKEN",
-      "editButton": "Edit Actor"
+      "editButton": "Edit Actor",
+      "editImage": "Click to change image"
     }
   }
 }

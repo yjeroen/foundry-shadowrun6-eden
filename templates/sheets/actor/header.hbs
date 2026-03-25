@@ -4,9 +4,11 @@
   <img
     class='profile-img'
     src='{{actor.img}}'
+    {{#if editMode}}
     data-edit='img'
     data-action='onEditImage'
-    title='{{actor.name}}'
+    title='{{localize 'SR6.label.editImage'}}'
+    {{/if}}
     height='100'
     width='100'
   />
