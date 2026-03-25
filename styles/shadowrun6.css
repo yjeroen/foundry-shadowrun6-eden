@@ -1181,19 +1181,18 @@ body.game .application.shadowrun6 .window-content {
 }
 
 .stat-block .stat {
-  flex: 1 1 42px;
+  flex: 1 1 auto;
   min-width: 42px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .stat-block .stat.wide {
   min-width: 50px;
-  flex-basis: 50px;
 }
 
 .stat-block .stat.move {
   min-width: 65px;
-  flex-basis: 65px;
 }
 
 .stat-block .stat-label {
