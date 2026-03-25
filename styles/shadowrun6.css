@@ -919,7 +919,9 @@ a.item-control.disabled-roll:hover {
   background: unset;
 }
 .application.shadowrun6 .window-resize-handle {
-  filter: none;
+  filter: drop-shadow(0 0 1px rgb(247 247 247 / 1)) 
+          drop-shadow(0 0 3px rgb(247 247 247 / 0.95))
+          drop-shadow(0 0 6px rgb(247 247 247 / 0.75));
 }
 .application.shadowrun6 .header-control.toggleEditActor i {
   margin-top: 2px;
