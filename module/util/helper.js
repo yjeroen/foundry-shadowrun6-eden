@@ -701,6 +701,7 @@ export async function resetEdge() {
         game.actors.forEach(async (actor) => {
             await actor.update({'system.edge.value': actor.system.edge.max});
         });
+        // or all tokens on scene? canvas.tokens.ownedTokens
         canvas.tokens.controlled.forEach(async (token) => {
             await token.actor.update({'system.edge.value': token.actor.system.edge.max});
         });
