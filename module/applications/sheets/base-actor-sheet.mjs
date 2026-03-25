@@ -315,7 +315,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      */
     async _onRender(context, options) {
         await super._onRender(context, options);
-        this.#disableOverrides();
         // You may want to add other special handling here
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
@@ -702,40 +701,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     async _onDropItemCreate(itemData, event) {
         itemData = itemData instanceof Array ? itemData : [itemData];
         return this.actor.createEmbeddedDocuments("Item", itemData);
-    }
-
-    /********************
-     *
-     * Actor Override Handling
-     *
-     ********************/
-
-    /**
-     * Submit a document update based on the processed form data.
-     * @param {SubmitEvent} event                   The originating form submission event
-     * @param {HTMLFormElement} form                The form element that was submitted
-     * @param {object} submitData                   Processed and validated form data to be used for a document update
-     * @returns {Promise<void>}
-     * @protected
-     * @override
-     */
-    async _processSubmitData(event, form, submitData) {
-        const overrides = foundry.utils.flattenObject(this.actor.overrides);
-        for (let k of Object.keys(overrides)) delete submitData[k];
-        await this.document.update(submitData);
-    }
-
-    /**
-     * Disables inputs subject to active effects
-     */
-    #disableOverrides() {
-        const flatOverrides = foundry.utils.flattenObject(this.actor.overrides);
-        for (const override of Object.keys(flatOverrides)) {
-            const input = this.element.querySelector(`[name="${override}"]`);
-            if (input) {
-                input.disabled = true;
-            }
-        }
     }
 
     /********************
