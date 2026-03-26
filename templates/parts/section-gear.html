@@ -49,12 +49,15 @@
        <tr>
          <td colspan="5">
          	<div class="collapsible-content closed" style="font-size: 0.8em;">
-				{{!-- TODO: Remove accessories --}}
-			   {{#if item.system.accessories }}
-        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.label.accessories' }}</div>
-			   <div>{{{item.enriched.accessories}}} &nbsp;</div>
-			   {{/if}}
-        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+        	   <div style="font-weight: bold;">{{ localize 'SR6.Item.mod.label.section' }}</div>
+			   {{#each (sort actor.items) as |itemmod id|}}
+			   {{#iff itemmod.type '==' 'mod'}}
+			   {{#iff itemmod.system.installedIn.id '==' item.id }}
+			   <div style="margin: 0.5rem;"><a class="content-link" draggable="false" data-link="" data-uuid="{{itemmod.uuid}}" data-id="{{itemmod.uuid}}" data-type="Item">{{itemmod.name}}</a> &nbsp;</div>
+			   {{/iff}}
+			   {{/iff}}
+			   {{/each}}
+			   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
 			   <div>{{{item.enriched.description}}} &nbsp;</div>
          	</div>
          </td>
