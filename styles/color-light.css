@@ -79,11 +79,12 @@ body.game .app.window-app .window-content,
 	background-position: left top;
 }
 
-body.game .shadowrun6.actor .window-content {
+body.game .app.shadowrun6.actor .window-content {
 	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: right top, left top;
 	background-repeat: no-repeat, repeat;
 }
+
 body.game .shadowrun6.sheet .window-content {
 	scrollbar-gutter: stable;
 }
@@ -122,6 +123,7 @@ table thead, table tfoot {
 body.game .app table tr th:first-child {
 	padding-left: 3px;
 }
+
 .foundry-modern .settings-sidebar .info .title {
 	font-size: var(--font-size-24);
 	font-weight: 400;
