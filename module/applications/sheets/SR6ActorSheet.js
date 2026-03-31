@@ -174,12 +174,14 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     coin.dataset.translatex = translateX;
                     coin.dataset.rotatey = rotateY;
                     coin.style.transition = 'none';
-                    coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
-                    setTimeout(async() => {
-                        coin.style.transition = 'transform 0.6s';
-                        coin.classList.add('clickable');
-                        await this.actor.update({ ["system.edge.value"]: edge });
-                    }, 20, edge);
+                    console.log('JEROEN', 'translateX('+translateX+'%) rotateY('+rotateY+'deg)')
+                    debugger
+                    // coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
+                    // setTimeout(async() => {
+                    //     coin.style.transition = 'transform 0.6s';
+                    //     coin.classList.add('clickable');
+                    //     await this.actor.update({ ["system.edge.value"]: edge });
+                    // }, 20, edge);
                 }, 650, edge);
 
                 if (game.combats.active !== undefined) {

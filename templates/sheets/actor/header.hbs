@@ -1,5 +1,8 @@
 {{log "*** header.hbs ***" this}}
 {{! Sheet Header }}
+{{#iff system.type "==" "data"}}
+  {{> "systems/shadowrun6-eden/templates/sheets/actor/header2.hbs" }}
+{{else}}
 <header class='sheet-header'>
   <img
     class='profile-img'
@@ -7,7 +10,7 @@
     {{#if editMode}}
     data-edit='img'
     data-action='onEditImage'
-    title='{{localize 'SR6.label.editImage'}}'
+    title='{{localize 'SR6.title.editImage'}}'
     {{/if}}
     height='100'
     width='100'
@@ -52,3 +55,4 @@
     </div>
   </div>
 </header>
+{{/iff}}

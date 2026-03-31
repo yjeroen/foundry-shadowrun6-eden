@@ -84,76 +84,18 @@ export default class Shadowrun6Actor extends Actor {
     }
 
     /**
-     * Prepare data related to this Document itself, before any embedded Documents or derived data is computed.
-     * @memberof ClientDocumentMixin#
-     */
-    prepareBaseData() {
-        //TODO move these to traits
-        this.system.dicePoolMod = 0;
-        this.system.badLuck = false;
-        this.system.painTolerance = null;
-        this.traits = {};
-        this.traits.movementRate = 10;
-        this.traits.movementSprintBase = 15;
-        this.traits.movementSprintMultiplier = 1;
-        this.traits.hardenedArmor = 0;
-        this.traits.immunityNormalWeapons = false;
-    }
-
-    /** @inheritDoc */
-    prepareEmbeddedDocuments() {
-        console.log("SR6E | Shadowrun6Actor.prepareEmbeddedDocuments()", this.name, this.uuid);
-        this._embeddedPreparation = true;
-        super.prepareEmbeddedDocuments(); // calls super.prepareEmbeddedDocuments() and then this.applyActiveEffects();
-        delete this._embeddedPreparation;
-    }
-
-    /**
-     * @Override
-     * Copies FoundryV13 method to add in `@item` support in the value field
-     * Apply any transformations to the Actor data which are caused by ActiveEffects.
-     */
-    applyActiveEffects() {
-        const overrides = {};
-        this.statuses.clear();
-
-        // Organize non-disabled effects by their application priority
-        const changes = [];
-        for ( const effect of this.allApplicableEffects() ) {
-            if ( !effect.active ) continue;
-            changes.push(...effect.changes.map(change => {
-                const c = foundry.utils.deepClone(change);
-                c.effect = effect;
-                c.priority = c.priority ?? (c.mode * 10);
-                return c;
-            }));
-            for ( const statusId of effect.statuses ) this.statuses.add(statusId);
-        }
-        changes.sort((a, b) => a.priority - b.priority);
-
-        // Apply all changes
-        for ( const change of changes ) {
-            if ( !change.key ) continue;
-
-            // shadowrun6-eden adds @item support:
-            if ( typeof change.value === "string" && change.value?.startsWith('@item') && change.effect.parent?.documentName === 'Item') {
-                const key = change.value.substring(6);
-                change.value = foundry.utils.getProperty(change.effect.parent, key);
-            }
-
-            const changes = change.effect.apply(this, change);
-            Object.assign(overrides, changes);
-        }
-
-        // Expand the set of final overrides
-        this.overrides = foundry.utils.expandObject(overrides);
-    }
-
-    /**
      * @Override
      * TODO rework move to prepareBaseData() and prepareDerivedData()
      */
     prepareData(callSuper=true) {
+        console.log("SR6E | Shadowrun6Actor.prepareData()", this.name, this.uuid);
+        // Prepare data for the actor. Calling the super version of this executes
+        // the following, in order: 
+        // data reset (to clear active effects),
+        // prepareBaseData(), 
+        // prepareEmbeddedDocuments() (including active effects),
+        // prepareDerivedData().
+        
         // Actor.prepareData() calls ClientDocument.prepareData(), which has the following flow:
         // prepareData() {
         //     const isTypeData = this.system instanceof foundry.abstract.TypeDataModel;
@@ -170,7 +112,7 @@ export default class Shadowrun6Actor extends Actor {
         // Modern DataModel Actors skip legacy data load flow
         if (this.system instanceof foundry.abstract.DataModel) return;
         
-        console.log("SR6E | Shadowrun6Actor.prepareData() START", this.name, this.uuid);
+        console.log("SR6E | Shadowrun6Actor.prepareData() LEGACY START");
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (isPlayer(system)) {
@@ -242,6 +184,99 @@ export default class Shadowrun6Actor extends Actor {
             console.log(`SR6E | Error ${err.message}`, err.stack);
         }
         console.log("SR6E | Shadowrun6Actor.prepareData() END", this.name, this.uuid);
+    }
+
+    /**
+     * Prepare data related to this Document itself, before any embedded Documents or derived data is computed.
+     * @override
+     * @memberof ClientDocumentMixin#
+     */
+    prepareBaseData() {
+        console.log("SR6E | Shadowrun6Actor.prepareBaseData()", this.name, this.uuid);
+        //TODO move these to traits
+        this.system.dicePoolMod = 0;
+        this.system.badLuck = false;
+        this.system.painTolerance = null;
+        this.traits = {};
+        this.traits.movementRate = 10;
+        this.traits.movementSprintBase = 15;
+        this.traits.movementSprintMultiplier = 1;
+        this.traits.hardenedArmor = 0;
+        this.traits.immunityNormalWeapons = false;
+    }
+
+    /** @inheritDoc */
+    prepareEmbeddedDocuments() {
+        console.log("SR6E | Shadowrun6Actor.prepareEmbeddedDocuments()", this.name, this.uuid);
+        this._embeddedPreparation = true;
+        super.prepareEmbeddedDocuments(); // calls super.prepareEmbeddedDocuments() and then this.applyActiveEffects();
+        delete this._embeddedPreparation;
+    }
+
+    /**
+     * @override
+     * Augment the actor source data with additional dynamic data that isn't
+     * handled by the actor's DataModel. Data calculated in this step should be
+     * available both inside and outside of character sheets (such as if an actor
+     * is queried and has a roll executed directly from it).
+     */
+    prepareDerivedData() {
+        console.log('SR6E | Shadowrun6Actor.prepareDerivedData()', this.name, this.uuid);
+        const actorData = this;
+        const flags = actorData.flags.boilerplate || {};
+    }
+    /**
+     * @Override
+     * Copies FoundryV13 method to add in `@item` support in the value field
+     * Apply any transformations to the Actor data which are caused by ActiveEffects.
+     */
+    applyActiveEffects() {
+        const overrides = {};
+        this.statuses.clear();
+
+        // Organize non-disabled effects by their application priority
+        const changes = [];
+        for ( const effect of this.allApplicableEffects() ) {
+            if ( !effect.active ) continue;
+            changes.push(...effect.changes.map(change => {
+                const c = foundry.utils.deepClone(change);
+                c.effect = effect;
+                c.priority = c.priority ?? (c.mode * 10);
+                return c;
+            }));
+            for ( const statusId of effect.statuses ) this.statuses.add(statusId);
+        }
+        changes.sort((a, b) => a.priority - b.priority);
+
+        // Apply all changes
+        for ( const change of changes ) {
+            if ( !change.key ) continue;
+
+            // shadowrun6-eden adds @item support:
+            if ( typeof change.value === "string" && change.value?.startsWith('@item') && change.effect.parent?.documentName === 'Item') {
+                const key = change.value.substring(6);
+                change.value = foundry.utils.getProperty(change.effect.parent, key);
+            }
+
+            const changes = change.effect.apply(this, change);
+            Object.assign(overrides, changes);
+        }
+
+        // Expand the set of final overrides
+        this.overrides = foundry.utils.expandObject(overrides);
+    }
+
+    /**
+     *
+     * @override
+     * Augment the actor's default getRollData() method by appending the data object
+     * generated by the its DataModel's getRollData(), or null. This polymorphic
+     * approach is useful when you have actors & items that share a parent Document,
+     * but have slightly different data preparation needs.
+     */
+    getRollData() {
+        console.log('Shadowrun6Actor.getRollData()', this.name, this.uuid);
+        return { ...super.getRollData(), ...(this.system.getRollData?.() ?? null) };
     }
 
     async _onCreate(data, options, userId) {

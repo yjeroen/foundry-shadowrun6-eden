@@ -2148,8 +2148,21 @@
       "template": "TEMPLATE",
       "unique": "UNIQUE",
       "token": "TOKEN",
+      "CM.phys.short": "PHYS",
+      "CM.stun.short": "STUN",
+      "CM.matrix.short": "MTRX"
+    },
+    "title": {
       "editButton": "Edit Actor",
-      "editImage": "Click to change image"
+      "editImage": "Click to change image",
+      "showImage": "Click to show image",
+      "increaseOS": "Click to increase Overwatch Score",
+      "decreaseOS": "Click to decrease Overwatch Score",
+      "showOS": "Click to show Overwatch Score",
+      "CM.phys.dmg": "Damage on Physical Condition Monitor",
+      "CM.stun.dmg": "Damage on Stun Condition Monitor",
+      "CM.matrix.dmg": "Damage on Matrix Condition Monitor",
+      "personaModeToggle": "Toggle Persona Mode (Public/Silent)"
     }
   }
 }

@@ -39,13 +39,13 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = true;
+    game.debug = false;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
-        CONFIG.debug.hooks = false;
-        CONFIG.debug.dice = false;
-        CONFIG.debug.tokens = false;
+        CONFIG.debug.hooks = true;
+        CONFIG.debug.dice = true;
+        CONFIG.debug.tokens = true;
     }
 
     game.sr6 = {};

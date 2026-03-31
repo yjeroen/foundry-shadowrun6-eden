@@ -15,7 +15,7 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
                 firewall: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
             }),
             // conditionMonitor can be overwritten with a pointer to e.g. a Character's Deck
-            conditionMonitor: new srFields.SR6ConditionMonitorFields(),
+            matrixCM: new srFields.SR6ConditionMonitorFields(),
             initiative: new srFields.SR6InitiativeFields(),
             overwatchScore: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
         };

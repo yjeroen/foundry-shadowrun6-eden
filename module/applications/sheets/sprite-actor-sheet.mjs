@@ -8,9 +8,12 @@ const { api, sheets } = foundry.applications;
 export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
     _defaultTab = "statblock";
 
-    /** @override */
+    /**
+     * @override
+     * Auto enriched with supers by Foundry
+     * */
     static DEFAULT_OPTIONS = {
-        classes: ["sprite"]
+        classes: ["sprite"],
     };
 
     /** @override */

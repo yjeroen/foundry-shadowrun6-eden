@@ -1,0 +1,4 @@
+@layer sr6-base, sr6-v2;
+
+@import url("./shadowrun6.css") layer(sr6-base);
+@import url("./shadowrun6V2.css") layer(sr6-v2);

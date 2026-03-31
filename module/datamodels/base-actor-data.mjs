@@ -101,7 +101,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @returns {Promise<HTMLElement|HTMLCollection|null>}
      */
     async toEmbed(config, options={}) {
-    return null;
+        return null;
     }
 
     /* -------------------------------------------- */

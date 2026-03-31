@@ -3,6 +3,7 @@ import SR6MatrixPersonaData from "./matrix-persona-data.mjs";
 import SR6ConditionMonitor from "./condition-monitor-data.mjs";
 import SR6SkillData from "./skill-data.mjs";
 import SR6AttributeData from "./attribute-data.mjs";
+import SR6EdgeAttributeData from "./attribute-edge-data.mjs";
 import SR6InitiativeData from "./initiative-data.mjs";
 const {fields} = foundry.data;
 
@@ -42,6 +43,19 @@ export class SR6AttributeFields extends fields.EmbeddedDataField {
      */
     constructor(options={}, context={}) {
         super(SR6AttributeData, options, context);
+    }
+}
+
+/**
+ * Edge Attribute
+ */
+export class SR6EdgeAttributeFields extends fields.EmbeddedDataField {
+    /**
+     * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
+     * @param {DataFieldContext} [context]        Additional context which describes the field
+     */
+    constructor(options={}, context={}) {
+        super(SR6EdgeAttributeData, options, context);
     }
 }
 
