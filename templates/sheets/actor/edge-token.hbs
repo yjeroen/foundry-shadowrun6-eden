@@ -1,15 +1,14 @@
 <!-- Edge Token -->
-<div class="edge">
+  <div class="edge">
+    <button type="button" class="edge-coin clickable" data-action="onClickEdgeToken" title="{{localize 'SR6.title.changeEdge'}}">
+      <span class="edge-coin__face edge-coin__face--front">
+        <img class="edge-coin__art" src="systems/shadowrun6-eden/images/EdgeToken.webp" alt="" draggable="false"/>
+        <span class="edge-value">{{system.attributes.edge.current}}</span>
+      </span>
 
-	<div class="edge-coin clickable" data-translatex="0" data-rotatey="0" style="transform: translateX(0%) rotateY(0deg); transition: transform 0.6s;" data-action="onClickEdgeToken">
-		<div class="edge-coin__face edge-coin__face_front">
-			<img src="systems/shadowrun6-eden/images/EdgeToken.webp" style="border: 0px; height: auto; width: 96px; z-index: -1; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-			<span class="edge-value">{{system.attributes.edge.current}}</span>
-		</div>
-		<div class="edge-coin__face edge-coin__face_back">
-			<img src="systems/shadowrun6-eden/images/EdgeToken.webp" style="border: 0px; height: auto; width: 96px; z-index: -1; position:absolute; filter: drop-shadow(0 0 4px #000000);" />
-			<span class="edge-value">{{system.attributes.edge.current}}</span>
-		</div>
-	</div>
-
-</div>
+      <span class="edge-coin__face edge-coin__face--back">
+        <img class="edge-coin__art" src="systems/shadowrun6-eden/images/EdgeToken.webp" alt="" draggable="false"/>
+        <span class="edge-value">{{system.attributes.edge.current}}</span>
+      </span>
+    </button>
+  </div>

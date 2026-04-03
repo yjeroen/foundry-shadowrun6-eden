@@ -47,12 +47,6 @@
 /* ======================= ApplicationV2 Header ======================= */
 /* ======================================================================== */
 
-.sr6 .actor-header {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding-right: clamp(5px, calc(5px + (100cqw - 660px)), 45px);
-}
 .sr6 .hud-shell input,
 .sr6 .hud-shell select {
     text-transform: none;
@@ -88,36 +82,6 @@
     font-size: 22px;
     opacity: 0.15;
     z-index: 0;
-}
-
-.sr6 .actor-header .hud-shell {
-    flex: 1 1 auto;
-    min-width: min-content;
-}
-
-.sr6.actor .edge {
-    container-type: inline-size;
-    aspect-ratio: 1 / 1;
-    height: auto;
-    max-width: 74px;
-    min-width: 50px;
-    margin-left: 10px;
-    transition:
-        opacity 0.2s ease,
-        max-width 0.4s ease;
-}
-.sr6.actor .edge img {
-    bottom: 0;
-}
-.edge-coin__face {
-    display: grid;
-    place-items: center;
-}
-.sr6.actor .edge-value {
-    font-size: clamp(1.5rem, calc(0.042rem + 46.7cqw), 2.2rem);
-    text-shadow: 1px 1px 3px black, 1px 1px 3px black, 1px 1px 3px black;
-    line-height: 1;
-    color: white;
 }
 
 .sr6 .hud-shell {
@@ -183,9 +147,6 @@
     );
 
     font-family: var(--font-main);
-    position: relative;
-    width: auto;
-	min-width: max-content;
     filter:
         drop-shadow(0 0 4px rgba(124, 243, 255, 0.85)) drop-shadow(0 0 18px rgba(124, 243, 255, 0.55)) drop-shadow(0 0 55px rgba(124, 243, 255, 0.15));
 }
@@ -1352,10 +1313,6 @@
 }
 
 @container (max-width: 622px) {
-    .sr6.actor .edge {
-        width: 50px;
-        max-width: 50px;
-    }
     .sr6 .track {
         gap: 0;
     }
@@ -1364,9 +1321,199 @@
         opacity: 0;
     }
 }
+
+/* ======================================================================== */
+/* Actor Header Layout                                                      */
+/* ======================================================================== */
+
+.sr6 .actor-header {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    gap: 10px;
+    padding-right: clamp(5px, calc(5px + (100cqw - 660px)), 45px);
+    container-type: inline-size;
+}
+
+.sr6 .actor-header .hud-shell {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.sr6 .hud-shell {
+    position: relative;
+    min-width: max-content;
+}
+
+/* ======================================================================== */
+/* Edge Column                                                              */
+/* ======================================================================== */
+
+.sr6.actor .edge {
+    container-type: inline-size;
+    flex: 0 0 auto;
+    align-self: flex-end;
+
+    inline-size: clamp(50px, calc(50px + (24 * ((100cqi - 555px) / 67))), 74px);
+    block-size: clamp(50px, calc(50px + (24 * ((100cqi - 555px) / 67))), 74px);
+
+    opacity: 1;
+    transition:
+        inline-size 0.4s ease,
+        block-size 0.4s ease,
+        opacity 0.2s ease;
+}
+
+@container (max-width: 622px) {
+    .sr6.actor .edge {
+        inline-size: 50px;
+        block-size: 50px;
+    }
+}
+
 @container (max-width: 555px) {
     .sr6.actor .edge {
-        max-width: 0;
+        inline-size: 0;
+        block-size: 0;
         opacity: 0;
+        pointer-events: none;
+    }
+}
+
+/* ======================================================================== */
+/* Edge Coin                                                                */
+/* ======================================================================== */
+
+.sr6.actor .edge-coin {
+    --edge-translate-x: 0%;
+    --edge-rotate-y: 0deg;
+
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    transform-style: preserve-3d;
+    transform: translateX(var(--edge-translate-x)) rotateY(var(--edge-rotate-y));
+    transition: transform 0.6s ease;
+}
+
+.sr6.actor .edge-coin,
+.sr6.actor .edge-coin:focus,
+.sr6.actor .edge-coin:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.sr6.actor .edge-coin.edge-coin--resetting {
+    transition: none;
+}
+
+.sr6.actor .edge-coin:not(.clickable) {
+    cursor: default;
+}
+
+/* ======================================================================== */
+/* Coin Faces                                                               */
+/* ======================================================================== */
+
+.sr6.actor .edge-coin__face {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.sr6.actor .edge-coin__face--front {
+    transform: rotateY(0deg);
+}
+
+.sr6.actor .edge-coin__face--back {
+    transform: rotateY(180deg);
+}
+
+/* ======================================================================== */
+/* Token Art                                                                */
+/* ======================================================================== */
+
+.sr6.actor .edge-coin__art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 0;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 0 4px #000000);
+}
+
+/* ======================================================================== */
+/* Edge Value                                                               */
+/* ======================================================================== */
+
+.sr6.actor .edge-value {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    font-size: clamp(1.15rem, 42cqi, 2.2rem);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    user-select: none;
+    text-shadow: 1px 1px 3px black, 1px 1px 3px black, 1px 1px 3px black;
+}
+
+.sr6.actor .edge-coin__face--back .edge-value {
+    margin-right: 1px;
+}
+
+/* ======================================================================== */
+/* Edge Coin Error Shake                                                    */
+/* ======================================================================== */
+
+.sr6.actor .edge-coin.edge-coin--error {
+    animation: edge-coin-shake 260ms ease;
+}
+
+@keyframes edge-coin-shake {
+    0% {
+        transform: translateX(var(--edge-translate-x)) rotateY(var(--edge-rotate-y));
+    }
+    20% {
+        transform: translateX(calc(var(--edge-translate-x) - 6%)) rotateY(var(--edge-rotate-y));
+    }
+    40% {
+        transform: translateX(calc(var(--edge-translate-x) + 5%)) rotateY(var(--edge-rotate-y));
+    }
+    60% {
+        transform: translateX(calc(var(--edge-translate-x) - 4%)) rotateY(var(--edge-rotate-y));
+    }
+    80% {
+        transform: translateX(calc(var(--edge-translate-x) + 2%)) rotateY(var(--edge-rotate-y));
+    }
+    100% {
+        transform: translateX(var(--edge-translate-x)) rotateY(var(--edge-rotate-y));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sr6.actor .edge-coin.edge-coin--error {
+        animation: none;
     }
 }

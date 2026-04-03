@@ -165,22 +165,12 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
 
                 coin.querySelector('.edge-coin__face_back .edge-value').setAttribute('value', edge);
-                
-                // Reset
-                setTimeout(async() => {
-                    coin.querySelector('.edge-coin__face_front .edge-value').setAttribute('value', edge);
-                    rotateY = 0;
-                    translateX = 0;
-                    coin.dataset.translatex = translateX;
-                    coin.dataset.rotatey = rotateY;
-                    coin.style.transition = 'none';
-                    coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
-                    setTimeout(async() => {
-                        coin.style.transition = 'transform 0.6s';
-                        coin.classList.add('clickable');
-                        await this.actor.update({ ["system.edge.value"]: edge });
-                    }, 20, edge);
-                }, 650, edge);
+
+                setTimeout(async () => {
+                    requestAnimationFrame(async () => {
+                        await this.actor.update({ "system.edge.value": edge });
+                    });
+                }, 600);
 
                 if (game.combats.active !== undefined) {
                     const msg = game.i18n.format("shadowrun6.ui.notifications.character_has_changed_edge", { character: this.actor.name, oldEdge: oldEdge, edge: edge  });

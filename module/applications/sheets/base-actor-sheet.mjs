@@ -654,73 +654,53 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     /**
-     * Handle clicking on the Edge token which causes a flip leftwards or rightwards
-     * @param {*} event 
-     * @param {*} target 
+     * Handle clicking on the Edge token.
+     * Left click = +1
+     * Right click = -1
      */
     static async _onClickEdgeToken(event, target) {
-        const mousePress = event.which; // 1: Left Mouse Button, 2: Middle Mouse Button, 3: Right Mouse button
         const coin = target;
-        const oldEdge = this.actor.system.attributes.edge.current;
-        console.log(`SR6E | _onClickEdgeToken | mousePress: ${mousePress} | oldEdge: ${oldEdge}`);
-        let edge = oldEdge;
         // Check if coin isn't already being flipped
-        if ( !coin.classList.contains('clickable') ) {
-            return;
-        }
-        // Check if edge is already 0 or 7
-        if (mousePress === 3 && edge === 0) {
-            return;
-        } else if (mousePress !== 3 && edge === 7) {
-            return;
-        }
-
-        let translateX = parseInt(coin.dataset.translatex); // -100 ~ 0
-        let rotateY = parseInt(coin.dataset.rotatey);       // -180 ~ 0 ~ 180
-        coin.classList.remove('clickable');
-
-        if (mousePress === 3) { // Rotate left
-            rotateY = 180;
-            edge = edge - 1;
-        } else {                // Rotate right
-            rotateY = -180;
-            edge = edge + 1;
-        }
-        translateX = -100;
-        coin.dataset.translatex = translateX;
-        coin.dataset.rotatey = rotateY;
-        coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
-
-        coin.querySelector('.edge-coin__face_back .edge-value').textContent = edge;
+        if (!coin.classList.contains("clickable")) return;
         
-        // Reset
-        setTimeout(async() => {
-            coin.querySelector('.edge-coin__face_front .edge-value').textContent = edge;
-            rotateY = 0;
-            translateX = 0;
-            coin.dataset.translatex = translateX;
-            coin.dataset.rotatey = rotateY;
-            coin.style.transition = 'none';
-            coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
-            
-            setTimeout(async() => {
-                coin.style.transition = 'transform 0.6s';
-                coin.classList.add('clickable');
-                await this.actor.update({ "system.attributes.edge.current": edge });
-            }, 20, edge);
-        }, 650, edge);
+        const isRightClick = event.button === 2 || event.which === 3;
+        const oldEdge = this.actor.system.attributes.edge.current;
 
-        if (game.combats.active !== undefined) {
-            const msg = game.i18n.format("shadowrun6.ui.notifications.character_has_changed_edge", { character: this.actor.name, oldEdge: oldEdge, edge: edge  });
+        if ((isRightClick && oldEdge <= 0) || (!isRightClick && oldEdge >= 7)) {
+            coin.classList.add("edge-coin--error");
+            coin.addEventListener("animationend", () => {
+                coin.classList.remove("edge-coin--error");
+            }, { once: true });
+            return;
+        }
+
+        coin.classList.remove("clickable");
+
+        const newEdge = isRightClick ? oldEdge - 1 : oldEdge + 1;
+        const rotateY = isRightClick ? "180deg" : "-180deg";
+        const backValue = coin.querySelector(".edge-coin__face--back .edge-value");
+        backValue.textContent = newEdge;
+
+        coin.style.setProperty("--edge-translate-x", "-100%");
+        coin.style.setProperty("--edge-rotate-y", rotateY);
+
+        setTimeout(async () => {
+            requestAnimationFrame(async () => {
+                await this.actor.update({ "system.attributes.edge.current": newEdge });
+            });
+        }, 600);
+
+        if (game.combats.active) {
+            const msg = game.i18n.format("shadowrun6.ui.notifications.character_has_changed_edge", { character: this.actor.name, oldEdge, edge: newEdge });
             await ChatMessage.create({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: game.i18n.localize("shadowrun6.label.edge_changes_combat"),
-                content: `<span style="font-style: italic;">${msg}</span>`
+                content: `<span class="sr6-edge-chat-msg">${msg}</span>`
             });
         }
-        
-        console.log("SR6E | Edge coin flipped", translateX, rotateY);
+        console.log("SR6E | Edge coin flipped", newEdge, rotateY);
     }
+
 
     /**
      * Renders an embedded document's sheet

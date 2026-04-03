@@ -288,6 +288,7 @@
 }
 .edge input.edge-value:focus {
 	box-shadow: none;
+  outline: none;
 }
 .edge label.edge-max-label {
   z-index: 2;
