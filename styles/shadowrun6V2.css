@@ -116,6 +116,8 @@
 .sr6.actor .edge-value {
     font-size: clamp(1.5rem, calc(0.042rem + 46.7cqw), 2.2rem);
     text-shadow: 1px 1px 3px black, 1px 1px 3px black, 1px 1px 3px black;
+    line-height: 1;
+    color: white;
 }
 
 .sr6 .hud-shell {

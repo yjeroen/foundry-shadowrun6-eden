@@ -654,7 +654,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     /**
-     * Handle clicking on the Edge token
+     * Handle clicking on the Edge token which causes a flip leftwards or rightwards
      * @param {*} event 
      * @param {*} target 
      */
@@ -691,18 +691,16 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         coin.dataset.rotatey = rotateY;
         coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
 
-        coin.querySelector('.edge-coin__face_back .edge-value').setAttribute('value', edge);
+        coin.querySelector('.edge-coin__face_back .edge-value').textContent = edge;
         
         // Reset
         setTimeout(async() => {
-            coin.querySelector('.edge-coin__face_front .edge-value').setAttribute('value', edge);
+            coin.querySelector('.edge-coin__face_front .edge-value').textContent = edge;
             rotateY = 0;
             translateX = 0;
             coin.dataset.translatex = translateX;
             coin.dataset.rotatey = rotateY;
             coin.style.transition = 'none';
-            
-            // At this moment the content of the div moves up by a pixel??!
             coin.style.transform = 'translateX('+translateX+'%) rotateY('+rotateY+'deg)';
             
             setTimeout(async() => {
