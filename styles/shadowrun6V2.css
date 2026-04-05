@@ -1213,6 +1213,7 @@
     position: absolute;
     left: calc(-1 * var(--connector-length) - 0.3px);
     top: 50%;
+    z-index: -1;
     width: var(--connector-length);
     height: var(--connector-thickness);
     transform: translateY(-50%) rotate(var(--connector-angle));
@@ -1338,13 +1339,38 @@
 .sr6 .portrait-wrap {
     width: var(--portrait-size);
     transition:
-        width 0.4s ease;
+        width 0.4s ease,
+        opacity 0.4s ease;
 }
 
 .sr6 .portrait {
     transition:
         width 0.4s ease,
         height 0.4s ease;
+}
+
+/* screen off */
+@keyframes sr6-screen-off {
+	0%   { opacity: 1;    transform: scale(1);                          filter: blur(0)     brightness(1)    ; }
+	12%  { opacity: .95;  transform: translateY(0) scale(1.003);        filter: blur(.4px)  brightness(1.15) ; }
+	24%  { opacity: .65;  transform: translate(-.5px, 0) scale(.995);   filter: blur(1.5px) brightness(1.35) ; }
+	36%  { opacity: .85;  transform: translate(1px, 1px) scale(1.01);   filter: blur(1px)   brightness(1.5)  ; }
+	48%  { opacity: .45;  transform: translate(-1px, 2px) scale(.975);  filter: blur(3px)   brightness(1.4)  ; }
+	60%  { opacity: .25;  transform: scale(.96);                        filter: blur(4px)   brightness(.9)   ; }
+	78%  { opacity: .12;  transform: scale(.93);                        filter: blur(7px)   brightness(.45)  ; }
+	100% { opacity: 0;    transform: scale(.9);                         filter: blur(10px)  brightness(.15)  ; }
+}
+
+/* screen on */
+@keyframes sr6-screen-on {
+	0%   { opacity: 0;    transform: scale(.9);                         filter: blur(10px)  brightness(2.3)  ; }
+	12%  { opacity: .25;  transform: scale(.94);                        filter: blur(6px)   brightness(2.1)  ; }
+	24%  { opacity: .7;   transform: scale(.985);                       filter: blur(2px)   brightness(1.7)  ; }
+	32%  { opacity: .45;  transform: translate(-1px, 2px) scale(.975);  filter: blur(3px)   brightness(1.9)  ; }
+	40%  { opacity: .85;  transform: translate(1px, 1px) scale(1.01);   filter: blur(1px)   brightness(1.5)  ; }
+	52%  { opacity: .65;  transform: translate(-.5px, 0) scale(.995);   filter: blur(1.5px) brightness(1.35) ; }
+	70%  { opacity: .95;  transform: translateY(0) scale(1.003);        filter: blur(.4px)  brightness(1.15) ; }
+	100% { opacity: 1;    transform: scale(1);                          filter: blur(0)     brightness(1)    ; }
 }
 
 @container (max-width: 505px) {
@@ -1360,6 +1386,7 @@
         opacity: 0;
         overflow: hidden;
         pointer-events: none;
+        animation: sr6-screen-off 200ms ease-out forwards;
     }
 
     .sr6 .portrait-panel {
@@ -1368,6 +1395,12 @@
 
     .sr6 .status-panel {
         min-height: var(--portrait-size);
+    }
+}
+
+@container (min-width: 506px) {
+    .sr6 .portrait-panel {
+	    animation: sr6-screen-on 650ms ease-out forwards;
     }
 }
 
