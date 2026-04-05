@@ -153,7 +153,7 @@
 
 .sr6 .hud {
     position: relative;
-    padding: 10px 16px;
+    padding: 10px 12px;
     display: grid;
     grid-template-columns: auto minmax(max-content, 1fr);
     gap: 14px;
@@ -510,7 +510,6 @@
 
 .sr6 .portrait-wrap {
     position: relative;
-    width: var(--portrait-size);
     aspect-ratio: 1;
     border-radius: 50%;
     display: grid;
@@ -618,7 +617,7 @@
 .sr6 .status-panel-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 12px;
+    column-gap: 4px;
     align-items: stretch;
     min-height: 0;
 }
@@ -697,11 +696,11 @@
 }
 .sr6 .traits select[name="system.rating"],
 .sr6 .traits span[data-field="system.rating"] {
-  width: 60px;
+  width: 40px;
 }
 .sr6 .traits select[name="system.type"],
 .sr6 .traits span[data-field="system.type"] {
-  width: 120px;
+  width: 100px;
 }
 
 .sr6 .hud-overwatch {
@@ -719,6 +718,7 @@
     display: grid;
     place-items: center;
     width: calc(var(--overwatch-eye-width) + (var(--overwatch-side-width) * 2) + (var(--overwatch-side-gap) * 2));
+    width: calc(var(--overwatch-eye-width) + (var(--overwatch-side-width) * 1.5) + (var(--overwatch-side-gap) * 1.5));
     height: var(--overwatch-eye-height);
     flex: 0 0 auto;
     isolation: isolate;
@@ -1067,7 +1067,8 @@
 
 .sr6 .track {
     display: grid;
-    grid-template-columns: minmax(340px, 1fr) max-content;
+    /* determines min width of HUD together with the content of .traits */
+    grid-template-columns: minmax(200px, 1fr) max-content;
     gap: 6px 10px;
     align-items: center;
     min-width: max-content;
@@ -1172,10 +1173,10 @@
     line-height: 1;
     text-align: left;
 
-    width: 8ch;
+    max-width: 8ch;
     opacity: 1;
     transition:
-        opacity 0.2s ease,
+        opacity 0.4s ease,
         max-width 0.4s ease;
 }
 .sr6 .track-value input {
@@ -1312,13 +1313,61 @@
     }
 }
 
-@container (max-width: 622px) {
+/* Track and Track Value transitions */
+@container (max-width: 555px) {
     .sr6 .track {
         gap: 0;
     }
     .sr6 .track-value {
         max-width: 0;
         opacity: 0;
+    }
+}
+
+/* Portrait transitions */
+.sr6 .hud {
+    transition:
+        gap 0.4s ease;
+}
+
+.sr6 .status-panel {
+    min-height: var(--portrait-size);
+}
+
+.sr6 .portrait-panel,
+.sr6 .portrait-wrap {
+    width: var(--portrait-size);
+    transition:
+        width 0.4s ease;
+}
+
+.sr6 .portrait {
+    transition:
+        width 0.4s ease,
+        height 0.4s ease;
+}
+
+@container (max-width: 505px) {
+    .sr6 .hud {
+        gap: 0;
+    }
+
+    .sr6 .track .slots::before {
+        display: none;
+    }
+
+    .sr6 .portrait-panel {
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .sr6 .portrait-panel {
+        --portrait-size: 0px;
+    }
+
+    .sr6 .status-panel {
+        min-height: var(--portrait-size);
     }
 }
 
@@ -1338,13 +1387,9 @@
 }
 
 .sr6 .actor-header .hud-shell {
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
-.sr6 .hud-shell {
     position: relative;
-    min-width: max-content;
+    flex: 1 1 auto;
+    min-width: min-content;
 }
 
 /* ======================================================================== */
@@ -1373,7 +1418,7 @@
     }
 }
 
-@container (max-width: 555px) {
+@container (max-width: 384px) {
     .sr6.actor .edge {
         inline-size: 0;
         block-size: 0;
