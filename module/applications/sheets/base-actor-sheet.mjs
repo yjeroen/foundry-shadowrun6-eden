@@ -37,6 +37,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             onTrackClick: this._onTrackClick,
             onClickOS: this._onClickOS,
             onClickEdgeToken: {handler: this._onClickEdgeToken, buttons: [0, 2]},
+            selectInputText: this._selectInputText,
             viewDoc: this._viewDoc,
             createDoc: this._createDoc,
             deleteDoc: this._deleteDoc,
@@ -55,8 +56,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         header: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/header.hbs",
             templates: [
-            "systems/shadowrun6-eden/templates/sheets/actor/edge-token.hbs",
-            "systems/shadowrun6-eden/templates/sheets/actor/header2.hbs"
+            "systems/shadowrun6-eden/templates/sheets/actor/edge-token.hbs"
         ]
         },
         tabs: {
@@ -699,6 +699,13 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             });
         }
         console.log("SR6E | Edge coin flipped", newEdge, rotateY);
+    }
+
+    static async _selectInputText(event, target) {
+        // const input = target;
+        const input = target.querySelector("input");;
+        if (!input || input.readOnly || input.disabled) return;
+        input.select();
     }
 
 

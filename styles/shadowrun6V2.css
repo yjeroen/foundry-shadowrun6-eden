@@ -654,7 +654,7 @@
 }
 
 .sr6 .designation-name input {
-    height: 0.95rem;
+    height: 1rem;
     letter-spacing: 0.08em;
 }
 
@@ -692,7 +692,7 @@
     letter-spacing: 0.05em;
 }
 .sr6 .traits select {
-    font-size: 10px;
+    font-size: 12px;
 }
 .sr6 .traits select[name="system.rating"],
 .sr6 .traits span[data-field="system.rating"] {
@@ -1386,7 +1386,7 @@
         opacity: 0;
         overflow: hidden;
         pointer-events: none;
-        animation: sr6-screen-off 200ms ease-out forwards;
+        /* animation: sr6-screen-off 200ms ease-out forwards; */
     }
 
     .sr6 .portrait-panel {
@@ -1397,12 +1397,12 @@
         min-height: var(--portrait-size);
     }
 }
-
-@container (min-width: 506px) {
+/* DISABLED DUE TO TRIGGERING ON (RE)RENDER */
+/* @container (min-width: 506px) {
     .sr6 .portrait-panel {
 	    animation: sr6-screen-on 650ms ease-out forwards;
     }
-}
+} */
 
 /* ======================================================================== */
 /* Actor Header Layout                                                      */
