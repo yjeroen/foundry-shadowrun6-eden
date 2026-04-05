@@ -56,8 +56,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         header: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/header.hbs",
             templates: [
-            "systems/shadowrun6-eden/templates/sheets/actor/edge-token.hbs"
-        ]
+                "systems/shadowrun6-eden/templates/sheets/actor/edge-token.hbs"
+            ]
         },
         tabs: {
             // Foundry-provided generic template

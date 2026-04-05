@@ -37,7 +37,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
   /** @override */
   static PARTS = {
     header: {
-      template: 'systems/shadowrun6-eden/templates/sheets/actor/header.hbs',
+      template: 'systems/shadowrun6-eden/templates/sheets/actor/header-simple.hbs',
     },
     tabs: {
       // Foundry-provided generic template
