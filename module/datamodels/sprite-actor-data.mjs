@@ -62,6 +62,12 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
      */
     async _preUpdate(changes, options, user) {
         console.log("SR6E | SR6SpriteActorData._preUpdate()", changes);
+        this.#_handleTypeChange(changes);
+
+        return true;
+    }
+
+    #_handleTypeChange(changes) {
         if ( (this.type || foundry.utils.hasProperty(changes, "system.type"))  ||
              ((this.type || foundry.utils.hasProperty(changes, "system.type")) && foundry.utils.hasProperty(changes, "system.rating"))
             ) {
@@ -70,7 +76,6 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
             this.#_prepareSpriteBase(changes, type, rating);
             this.#_prepareSpriteType(changes, type, rating);
         }
-        return true;
     }
 
     #_prepareSpriteBase(changes, type, rating) {
