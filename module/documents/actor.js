@@ -636,7 +636,7 @@ export default class Shadowrun6Actor extends Actor {
         const data = system;
 
         // correcting wrongly entered monitor fields
-        if (data.physical?.dmg < 0) data.physical.dmg = 0;
+        if (data.physical?.dmg < data.overflow?.dmg*-1) data.physical.dmg = data.overflow?.dmg*-1;
         if (data.stun?.dmg < 0) data.stun.dmg = 0;
         if (data.overflow?.dmg < 0) data.overflow.dmg = 0;
 
@@ -2325,7 +2325,6 @@ export default class Shadowrun6Actor extends Actor {
             [`system.` + monitor + `.dmg`]: newDmg,
             [`system.overflow.dmg`]: newOverflow
         });
-        await this.checkUnconscious();
         console.log("SR6E | applyDamage | Added " + damage + " to monitor " + monitor + " of " + this.name + " which results in overflow " + newOverflow + " on " + this.name);
         this._prepareDerivedAttributes();
 
@@ -2335,15 +2334,49 @@ export default class Shadowrun6Actor extends Actor {
             await this.applyDamage('physical', physicalOverflow);
             ui.notifications.warn("shadowrun6.ui.notifications.do_not_revert_damage", { localize: true });
         }
+        await this.checkUnconscious();
     }
 
     async checkUnconscious() {
-        if (this.system.physical.dmg === this.system.physical.max || this.system.stun.dmg === this.system.stun.max) {
+        if (this.system.physical.dmg >= this.system.physical.max || this.system.stun.dmg === this.system.stun.max) {
             await this.toggleStatusEffect('unconscious', {active:true});
         } else {
             await this.toggleStatusEffect('unconscious', {active:false});
         }
     }
+
+    /**
+     * Tokens modify Condition Monitors as VALUE instead of DMG
+     */
+    async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
+        console.log("SR6E | modifyTokenAttribute", attribute, value, isDelta, isBar)
+        const attr = foundry.utils.getProperty(this.system, attribute);
+        const current = isBar ? attr.value : attr;
+        const update = isDelta ? current + value : value;
+        let allowed = this;
+        if (attribute === "stun" && update < 0) {
+            await this.update({"system.stun.dmg": this.system.stun.max});
+            console.log(`SR6E | applyDamage | Overflowing stun into physical of ${update} on ${this.name}`);
+            await super.modifyTokenAttribute("physical", update, isDelta, isBar)
+        }
+        else if (attribute === "physical") {
+            console.log(`SR6E | applyDamage | Overflowing physical into overflow of ${update*-1} on ${this.name}`);
+            const physicalDmg = Math.max(this.system.physical.max - update, 0);
+            const overflowDmg = Math.min(0, update) * -1;
+            // TODO JEROEN change -1 physical to 0 or positive
+            console.log('JEROEN', physicalDmg, overflowDmg)
+            await this.update({
+                "system.physical.dmg": physicalDmg,
+                "system.overflow.dmg": overflowDmg
+            });
+        }
+        else {
+            allowed = await super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+        }
+        await this.checkUnconscious();
+        return allowed;
+    }
+
     //-------------------------------------------------------------
     /*
      *
