@@ -2,7 +2,8 @@ export default [
     {
         id: "dead",
         name: "EFFECT.StatusDead",
-        img: "systems/shadowrun6-eden/icons/compendium/critical_injuries/cracked_skull.svg"
+        img: "systems/shadowrun6-eden/icons/compendium/critical_injuries/cracked_skull.svg",
+        statuses: ['prone', 'blind']
     },
     {
         id: "unconscious",
