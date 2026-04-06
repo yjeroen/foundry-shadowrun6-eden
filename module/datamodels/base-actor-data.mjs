@@ -144,7 +144,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @protected
      * @internal
      */
-    async _preUpdate(changes, options, user) {}
+    async _preUpdate(changes, options, user) {
+        console.log("SR6E | SR6BaseActorData._preUpdate()", changes, options, user);
+    }
 
     /* -------------------------------------------- */
 

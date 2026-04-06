@@ -1,6 +1,7 @@
 import SR6DataModel from "./base-model.mjs";
 
 export default class SR6ConditionMonitor extends SR6DataModel {
+    _overflow;
 
     static defineSchema() {
         const fields = foundry.data.fields;
@@ -8,18 +9,36 @@ export default class SR6ConditionMonitor extends SR6DataModel {
         return {
             // Boxes should be set in the Actor DataModel.prepareBaseData()
             max: new fields.NumberField({required: true, nullable: false, integer: true, initial: 9, min: 9}),
-            // Dmg is the number input field on the ActorSheet to determine how much damage the Actor has taken in total (incl Overflow)
-            dmg: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
+            // value is the "HP", min and max should be handled in TODO JEROEN
+            value: new fields.NumberField({required: true, nullable: false, integer: true, initial: 9}),
         };
+    }
+    
+    // TODO JEROEN in base-actor-data preUpdate
+    _configure({overflow=null}) {
+        if (overflow) {
+
+        }
     }
 
     /**
-     * The current value of boxes that aren't damaged
+     * The current value of damaged boxes
      */
-    get value() {
-        return this.max - this.dmg;
+    get dmg() {
+        return this.max - this.value;
+    }
+
+    
+    parseDmgToValue(damage) {
+        const s = String(damage);
+        const isDelta = s.startsWith("+") || s.startsWith("-");
+        const n = Number(damage);
+        const v = Number.isNaN(n) ? 0 : Math.trunc(n);
+        const newDmg = Math.max(0,  isDelta ? this.dmg + v : v  );
+        return this.max - newDmg;
     }
 
     // TODO: Support conditional overflow, with overflow pointer to other monitor
+
 
 }

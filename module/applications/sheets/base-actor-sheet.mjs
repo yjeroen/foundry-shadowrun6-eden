@@ -345,7 +345,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
+
+        // Unselect any input fields after a rerender
+        this.element.querySelectorAll("input").forEach(input => input.blur());
         
+        // Tabs
         const nav = this.element.querySelector(".sheet-tabs.tabs");
         if (!nav) return;
         this.#tabScrollCleanup?.();
@@ -416,6 +420,31 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         renderHudClock();
         setInterval(renderHudClock, 1000);
+    }
+
+    _prepareSubmitData(event, form, formData, updateData) {
+        const changes = formData.object;
+        this.#changeCmDamageToValues(formData.object);
+        
+        
+        return super._prepareSubmitData(event, form, formData, updateData);
+    }
+
+    // TODO JEROEN OVERFLOW
+    /**
+     * Convert Condition Monitor Damage to its Value
+     * @param {*} changes formData.object
+     */
+    #changeCmDamageToValues(changes) {
+        if ( "system.health.physicalCM.dmg" in changes) {
+            changes["system.health.physicalCM.value"] = this.actor.system.health.physicalCM.parseDmgToValue(changes["system.health.physicalCM.dmg"]);
+        }
+        if ( "system.health.stunCM.dmg" in changes) {
+            changes["system.health.stunCM.value"] = this.actor.system.health.stunCM.parseDmgToValue(changes["system.health.stunCM.dmg"]);
+        }
+        if ( "system.matrix.matrixCM.dmg" in changes) {
+            changes["system.matrix.matrixCM.value"] = this.actor.system.matrix.matrixCM.parseDmgToValue(changes["system.matrix.matrixCM.dmg"]);
+        }
     }
 
     /**************
@@ -511,6 +540,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const conditionMonitor = target.dataset.conditionMonitor;
         const slotClicked = event.target.closest(".slot");
         const track = event.target.closest(".track");
+        const tracks = event.target.closest(".tracks");
         if (!slotClicked || !track || track.classList.contains('inactive')) return; // clicked outside a slot or track is inactive
 
         const allSlots = [...track.querySelector(".slots").children];
@@ -525,54 +555,45 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         });
 
         // Pulsating track
-		track.classList.remove('is-pulsing');
-		void track.offsetWidth;
-		track.classList.add('is-pulsing', 'inactive');
-		clearTimeout(track._pulseTimer);
-		track._pulseTimer = setTimeout(() => {
-		    track.classList.remove('is-pulsing');
-		}, 1200);
-
+		track.classList.add('is-pulsing'); // animation
+		tracks.classList.add('inactive');
+		
         // Track Config
-        let trackColor, attr, deltaTrack, newDmg;
-        const slotNumberClicked = maxActiveIndex + 1;
+        let trackColor, attr, deltaTrack;
+        const newValue = maxActiveIndex + 1;
         if (conditionMonitor === "physical") {
             trackColor = "red";
-            attr = "system.health.physicalCM.dmg";
-            deltaTrack = slotNumberClicked - this.document.system.health.physicalCM.value;
-            newDmg = this.document.system.health.physicalCM.max - slotNumberClicked;
+            attr = "system.health.physicalCM.value";
+            deltaTrack = newValue - this.document.system.health.physicalCM.value;
         }
         else if (conditionMonitor === "stun") {
             trackColor = "blue"
-            attr = "system.health.stunCM.dmg";
-            deltaTrack = slotNumberClicked - this.document.system.health.stunCM.value;
-            newDmg = this.document.system.health.stunCM.max - slotNumberClicked;
+            attr = "system.health.stunCM.value";
+            deltaTrack = newValue - this.document.system.health.stunCM.value;
         }
         else if (conditionMonitor === "matrix") {
             trackColor = "green"
-            attr = "system.matrix.matrixCM.dmg";
-            deltaTrack = slotNumberClicked - this.document.system.matrix.matrixCM.value;
-            newDmg = this.document.system.matrix.matrixCM.max - slotNumberClicked;
+            attr = "system.matrix.matrixCM.value";
+            deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
         }
 
         // Showing delta within portrait
         const combatText = event.currentTarget.querySelector('.track-delta');
-        clearTimeout(combatText._hideTimer);
         combatText.textContent = `${deltaTrack > 0 ? "+" : ""}${deltaTrack}`;
         combatText.classList.remove('disabled', 'is-pulsing', 'red', 'blue', 'green');
-        void combatText.offsetWidth;
-        combatText.classList.add('is-pulsing', trackColor);
+        combatText.classList.add('is-pulsing', trackColor); // animation
 
         combatText.onanimationend = () => {
-            combatText.classList.remove('is-pulsing');
-            combatText._hideTimer = setTimeout(() => {
-                combatText.classList.add('disabled');
-		        track.classList.remove('inactive');
-                // Update actor
-                console.log(`SR6E | _onTrackClick | Updating actor`, attr, newDmg);
-                this.document.update({ [attr]: newDmg });
-            }, 400);
-            combatText.onanimationend = null;
+            setTimeout(() => {
+                combatText.classList.add('disabled'); // animation
+                setTimeout(() => {
+                    // Update actor and re-render sheet
+                    console.log(`SR6E | _onTrackClick | Updating actor`, attr, newValue);
+                    this.document.update({ [attr]: newValue });
+                }, 200);
+            }, 200);
+
+
         };
         
     }

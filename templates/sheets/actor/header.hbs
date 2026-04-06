@@ -117,8 +117,7 @@
             <div class="track-value" title="{{localize 'SR6.title.CM.phys.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.phys.short'}}:
               {{!-- TODO JEROEN in BaseActorSheet dynamic +/- fields incl Stun>Phy & Overflow --}}
-              {{formInput systemFields.health.fields.physicalCM.fields.dmg value=system.health.physicalCM.dmg}}
-              {{!-- {{numberInput system.health.physicalCM.dmg name="system.health.physicalCM.dmg" step=1 max=system.health.physicalCM.max}} --}}
+              <input type="text" name="system.health.physicalCM.dmg" value="{{system.health.physicalCM.dmg}}">
             </div>
           </div>
   
@@ -133,7 +132,7 @@
   
             <div class="track-value" title="{{localize 'SR6.title.CM.stun.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.stun.short'}}:
-              {{formInput systemFields.health.fields.stunCM.fields.dmg value=system.health.stunCM.dmg}}
+              <input type="text" name="system.health.stunCM.dmg" value="{{system.health.stunCM.dmg}}">
             </div>
           </div>
   
@@ -148,7 +147,7 @@
   
             <div class="track-value" title="{{localize 'SR6.title.CM.matrix.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.matrix.short'}}:
-              {{formInput systemFields.matrix.fields.matrixCM.fields.dmg value=system.matrix.matrixCM.dmg}}
+              <input type="text" name="system.matrix.matrixCM.dmg" value="{{system.matrix.matrixCM.dmg}}">
             </div>
           </div>
         </div>

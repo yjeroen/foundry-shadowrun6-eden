@@ -44,6 +44,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
             }),
             // TODO JEROEN DISABLE AFTER TESTING
             health: new fields.SchemaField({
+                overflowCM: new srFields.SR6ConditionMonitorFields(),
                 physicalCM: new srFields.SR6ConditionMonitorFields(),
                 stunCM: new srFields.SR6ConditionMonitorFields()
             })
@@ -64,7 +65,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
         console.log("SR6E | SR6SpriteActorData._preUpdate()", changes);
         this.#_handleTypeChange(changes);
 
-        return true;
+        return await super._preUpdate(changes, options, user);;
     }
 
     #_handleTypeChange(changes) {
