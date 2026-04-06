@@ -2338,7 +2338,9 @@ export default class Shadowrun6Actor extends Actor {
     }
 
     async checkUnconscious() {
-        if (this.system.physical.dmg >= this.system.physical.max || this.system.stun.dmg === this.system.stun.max) {
+        if (this.system.overflow.dmg >= this.system.overflow.max) {
+            await this.toggleStatusEffect('dead', {active:true, overlay:true});
+        } else if (this.system.physical.dmg >= this.system.physical.max || this.system.stun.dmg === this.system.stun.max) {
             await this.toggleStatusEffect('unconscious', {active:true});
         } else {
             await this.toggleStatusEffect('unconscious', {active:false});
