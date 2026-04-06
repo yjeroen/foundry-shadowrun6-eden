@@ -74,7 +74,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
     }
 
     #_prepareSpriteBase(changes, type, rating) {
-        foundry.utils.setProperty(changes, "system.matrix.conditionMonitor.boxes", Math.round( rating / 2 ) + 8);
+        foundry.utils.setProperty(changes, "system.matrix.conditionMonitor.max", Math.round( rating / 2 ) + 8);
         foundry.utils.setProperty(changes, 'system.attributes.willpower.rank', rating);
         foundry.utils.setProperty(changes, 'system.attributes.logic.rank', rating);
         foundry.utils.setProperty(changes, 'system.attributes.intuition.rank', rating);

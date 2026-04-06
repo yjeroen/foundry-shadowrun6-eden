@@ -308,7 +308,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     _prepareConditionMonitors(conditionMonitor) {
-        const boxes = conditionMonitor.boxes;
+        const boxes = conditionMonitor.max;
         const dmg = conditionMonitor.dmg;
         const slots = [];
 
@@ -540,19 +540,19 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             trackColor = "red";
             attr = "system.health.physicalCM.dmg";
             deltaTrack = slotNumberClicked - this.document.system.health.physicalCM.value;
-            newDmg = this.document.system.health.physicalCM.boxes - slotNumberClicked;
+            newDmg = this.document.system.health.physicalCM.max - slotNumberClicked;
         }
         else if (conditionMonitor === "stun") {
             trackColor = "blue"
             attr = "system.health.stunCM.dmg";
             deltaTrack = slotNumberClicked - this.document.system.health.stunCM.value;
-            newDmg = this.document.system.health.stunCM.boxes - slotNumberClicked;
+            newDmg = this.document.system.health.stunCM.max - slotNumberClicked;
         }
         else if (conditionMonitor === "matrix") {
             trackColor = "green"
             attr = "system.matrix.matrixCM.dmg";
             deltaTrack = slotNumberClicked - this.document.system.matrix.matrixCM.value;
-            newDmg = this.document.system.matrix.matrixCM.boxes - slotNumberClicked;
+            newDmg = this.document.system.matrix.matrixCM.max - slotNumberClicked;
         }
 
         // Showing delta within portrait
