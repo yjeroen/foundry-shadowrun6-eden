@@ -38,8 +38,14 @@
        <tr>
          <td colspan="6">
          	<div class="collapsible-content closed" style="vertical-align: top">
-				<label>{{ localize 'shadowrun6.label.accessories' }}</label>
-				<div class="sheet-editor-readonly">{{{item.system.accessories}}}</div>
+				<div style="display: flex; align-items: center; vertical-align: middle;">{{ localize 'SR6.Item.mod.label.section' }}:</div>
+				{{#each (sort actor.items) as |itemmod id|}}
+				{{#iff itemmod.type '==' 'mod'}}
+				{{#iff itemmod.system.installedIn.id '==' item.id }}
+				<div style="margin: 0.3rem;"><a class="content-link" draggable="false" data-link="" data-uuid="{{itemmod.uuid}}" data-id="{{itemmod.uuid}}" data-type="Item">{{itemmod.name}}</a> &nbsp;</div>
+				{{/iff}}
+				{{/iff}}
+				{{/each}}
          	</div>
          </td>
        </tr>
