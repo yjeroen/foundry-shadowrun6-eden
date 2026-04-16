@@ -2365,8 +2365,6 @@ export default class Shadowrun6Actor extends Actor {
             console.log(`SR6E | applyDamage | Overflowing physical into overflow of ${update*-1} on ${this.name}`);
             const physicalDmg = Math.max(this.system.physical.max - update, 0);
             const overflowDmg = Math.min(0, update) * -1;
-            // TODO JEROEN change -1 physical to 0 or positive
-            console.log('JEROEN', physicalDmg, overflowDmg)
             await this.update({
                 "system.physical.dmg": physicalDmg,
                 "system.overflow.dmg": overflowDmg
