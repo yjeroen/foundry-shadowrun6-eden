@@ -72,14 +72,17 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
 
     /**
      * Determine whether the character is dead.
-     * Can be called via actor.system.dead
+     * Can be called via actor.system.isDead
      * @type {boolean}
      */
-    // get dead() {
-    //   const invulnerable = CONFIG.specialStatusEffects.INVULNERABLE;
-    //   if ( this.parent.statuses.has("invulnerable") ) return false;
-    //   return this.health.value <= this.health.min;
-    // }
+    get isDead() {
+        if (!this.isLiveForm) return null;
+
+        // Example, not applicable in SR6
+        if ( this.parent.statuses.has("invulnerable") ) return false;
+
+        return this.health.overflow.value >= this.health.overflow.max;
+    }
 
     /**
      * Prepare data related to this DataModel itself, before any derived data is computed.
@@ -98,10 +101,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      *
      * Called before {@link ClientDocument#prepareDerivedData} in {@link ClientDocument#prepareData}.
      */
-    prepareDerivedData() {
-        this.#evaluateHealth();
-
-    }
+    prepareDerivedData() {}
 
     /* -------------------------------------------- */
 
@@ -157,7 +157,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @internal
      */
     async _preUpdate(changes, options, user) {
-        console.log("SR6E | SR6BaseActorData._preUpdate()", foundry.utils.duplicate(changes), changes);
+        console.log("SR6E | SR6BaseActorData._preUpdate", foundry.utils.duplicate(changes));
         this.#overflowConditionMonitors(changes)
     }
 
@@ -172,7 +172,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @protected
      * @internal
      */
-    _onUpdate(changed, options, userId) {}
+    async _onUpdate(changed, options, userId) {        
+        await this.#evaluateHealth();
+    }
 
     /* -------------------------------------------- */
 
@@ -229,8 +231,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
     async #evaluateHealth() {
         if (!this.isLiveForm) return;
 
-        if (this.health.overflow.value >= this.health.overflow.max) {
+        if (this.isDead) {
             await this.parent.toggleStatusEffect('dead', {active:true, overlay:true});
+            await this.parent.toggleStatusEffect('unconscious', {active:false});
         } else if (this.health.physicalCM.dmg >= this.health.physicalCM.max || this.health.stunCM.dmg === this.health.stunCM.max) {
             await this.parent.toggleStatusEffect('dead', {active:false});
             await this.parent.toggleStatusEffect('unconscious', {active:true});
