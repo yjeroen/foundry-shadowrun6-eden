@@ -273,6 +273,9 @@ export const defineHandlebarHelper = async function () {
         }
         return new Handlebars.SafeString(`<span${name}>${Handlebars.escapeExpression(content)}</span>`);
     });
+    Handlebars.registerHelper("dotsToDashes", function (value) {
+        return String(value).split(".").join("-");
+    });
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
