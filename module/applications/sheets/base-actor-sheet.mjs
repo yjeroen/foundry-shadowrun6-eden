@@ -423,9 +423,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     _prepareSubmitData(event, form, formData, updateData) {
-        const changes = formData.object;
         this.#changeCmDamageToValues(formData.object);
-        
         
         return super._prepareSubmitData(event, form, formData, updateData);
     }
@@ -435,14 +433,19 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @param {object} changes formData.object
      */
     #changeCmDamageToValues(changes) {
-        if ( "system.health.physicalCM.dmg" in changes) {
-            changes["system.health.physicalCM.value"] = this.actor.system.health.physicalCM.parseDmgToValue(changes["system.health.physicalCM.dmg"]);
-        }
-        if ( "system.health.stunCM.dmg" in changes) {
-            changes["system.health.stunCM.value"] = this.actor.system.health.stunCM.parseDmgToValue(changes["system.health.stunCM.dmg"]);
-        }
-        if ( "system.matrix.matrixCM.dmg" in changes) {
-            changes["system.matrix.matrixCM.value"] = this.actor.system.matrix.matrixCM.parseDmgToValue(changes["system.matrix.matrixCM.dmg"]);
+        try {
+            if ( "system.health.physicalCM.dmg" in changes) {
+                changes["system.health.physicalCM.value"] = this.actor.system.health.physicalCM.parseDmgToValue(changes["system.health.physicalCM.dmg"]);
+            }
+            if ( "system.health.stunCM.dmg" in changes) {
+                changes["system.health.stunCM.value"] = this.actor.system.health.stunCM.parseDmgToValue(changes["system.health.stunCM.dmg"]);
+            }
+            if ( "system.matrix.matrixCM.dmg" in changes) {
+                changes["system.matrix.matrixCM.value"] = this.actor.system.matrix.matrixCM.parseDmgToValue(changes["system.matrix.matrixCM.dmg"]);
+            }
+        } catch (error) {
+            console.warn(`${error.name}: ${error.message}`);
+            this.render();
         }
     }
 

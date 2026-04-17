@@ -24,7 +24,13 @@ export default class SR6ConditionMonitor extends SR6DataModel {
         const s = String(damage);
         const isDelta = s.startsWith("+") || s.startsWith("-");
         const n = Number(damage);
-        const v = Number.isNaN(n) ? 0 : Math.trunc(n);
+        if (!Number.isFinite(n)) {
+            throw new Error("SR6 | Invalid Dmg input");
+        }
+        if (this.dmg === 0 && s.startsWith("-")) {
+            throw new Error("SR6 | Dmg input causes no changes");
+        }
+        const v = Math.trunc(n);
         const newDmg = Math.max(0,  isDelta ? this.dmg + v : v  );
         return this.max - newDmg;
     }
