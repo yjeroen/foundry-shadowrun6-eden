@@ -345,6 +345,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
+
+        // Unselect any CM fields after a rerender
+        this.element.querySelectorAll(".tracks input").forEach(input => input.blur());
         
         // Tabs
         const nav = this.element.querySelector(".sheet-tabs.tabs");
@@ -427,7 +430,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         return super._prepareSubmitData(event, form, formData, updateData);
     }
 
-    // TODO JEROEN OVERFLOW
     /**
      * Convert Condition Monitor Damage to its Value
      * @param {object} changes formData.object
