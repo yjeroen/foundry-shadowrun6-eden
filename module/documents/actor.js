@@ -2338,8 +2338,11 @@ export default class Shadowrun6Actor extends Actor {
     }
 
     async checkUnconscious() {
+        if (this.system instanceof foundry.abstract.DataModel) return;
+
         if (this.system.overflow.dmg >= this.system.overflow.max) {
             await this.toggleStatusEffect('dead', {active:true, overlay:true});
+            await this.toggleStatusEffect('unconscious', {active:false});
         } else if (this.system.physical.dmg >= this.system.physical.max || this.system.stun.dmg === this.system.stun.max) {
             await this.toggleStatusEffect('dead', {active:false});
             await this.toggleStatusEffect('unconscious', {active:true});
@@ -2353,30 +2356,51 @@ export default class Shadowrun6Actor extends Actor {
      * Tokens modify Condition Monitors as VALUE instead of DMG
      */
     async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-        console.log("SR6E | modifyTokenAttribute", attribute, value, isDelta, isBar)
+        console.log("SR6E | modifyTokenAttribute", attribute, value, isDelta, isBar);
         const attr = foundry.utils.getProperty(this.system, attribute);
         const current = isBar ? attr.value : attr;
         const update = isDelta ? current + value : value;
-        let allowed = this;
-        if (attribute === "stun" && update < 0) {
-            await this.update({"system.stun.dmg": this.system.stun.max});
-            console.log(`SR6E | applyDamage | Overflowing stun into physical of ${update} on ${this.name}`);
-            await super.modifyTokenAttribute("physical", update, isDelta, isBar)
-        }
-        else if (attribute === "physical") {
-            console.log(`SR6E | applyDamage | Overflowing physical into overflow of ${update*-1} on ${this.name}`);
-            const physicalDmg = Math.max(this.system.physical.max - update, 0);
-            const overflowDmg = Math.min(0, update) * -1;
-            await this.update({
-                "system.physical.dmg": physicalDmg,
-                "system.overflow.dmg": overflowDmg
-            });
+        
+        if (this.system instanceof foundry.abstract.DataModel) {
+            if (attribute === "health.stunCM" && update < 0) {
+                console.log(`SR6E | applyDamage | Overflowing stun into physical of ${update} on ${this.name}`);
+                return await this.update({
+                    "system.health.stunCM.value": 0,
+                    "system.health.physicalCM.value": this.system.health.physicalCM.value += update
+                });
+            }
+            else if (attribute === "health.physicalCM") {
+                return await this.update({
+                    "system.health.physicalCM.value": Math.min(this.system.health.physicalCM.max, update)
+                });
+            }
+            else {
+                return await super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+            }
         }
         else {
-            allowed = await super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+            let allowed = this;
+            if (attribute === "stun" && update < 0) {
+                await this.update({"system.stun.dmg": this.system.stun.max});
+                console.log(`SR6E | applyDamage | Overflowing stun into physical of ${update} on ${this.name}`);
+                await super.modifyTokenAttribute("physical", update, isDelta, isBar)
+            }
+            else if (attribute === "physical") {
+                console.log(`SR6E | applyDamage | Overflowing physical into overflow of ${update*-1} on ${this.name}`);
+                const physicalDmg = Math.max(this.system.physical.max - update, 0);
+                const overflowDmg = Math.min(0, update) * -1;
+                await this.update({
+                    "system.physical.dmg": physicalDmg,
+                    "system.overflow.dmg": overflowDmg
+                });
+            }
+            else {
+                allowed = await super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+            }
+            await this.checkUnconscious();
+            return allowed;
         }
-        await this.checkUnconscious();
-        return allowed;
+
     }
 
     //-------------------------------------------------------------
