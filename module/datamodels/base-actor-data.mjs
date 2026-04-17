@@ -62,7 +62,14 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
         return super.migrateData(source);
     }
 
-    // >> Example getter
+    /**
+     * Tells you if this Actor is physically alive
+     * @returns {boolean}               Actor is physically alive or not
+     */
+    get isLiveForm() {
+        return (this.health && this.health.physicalCM && this.attributes?.body);
+    }
+
     /**
      * Determine whether the character is dead.
      * Can be called via actor.system.dead
@@ -79,7 +86,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      *
      * Called before {@link ClientDocument#prepareBaseData} in {@link ClientDocument#prepareData}.
      */
-    prepareBaseData() {}
+    prepareBaseData() {
+        this.#computeHealthOverflow();
+    }
 
     /* -------------------------------------------- */
 
@@ -89,7 +98,10 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      *
      * Called before {@link ClientDocument#prepareDerivedData} in {@link ClientDocument#prepareData}.
      */
-    prepareDerivedData() {}
+    prepareDerivedData() {
+        this.#evaluateHealth();
+
+    }
 
     /* -------------------------------------------- */
 
@@ -145,7 +157,8 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @internal
      */
     async _preUpdate(changes, options, user) {
-        console.log("SR6E | SR6BaseActorData._preUpdate()", changes, options, user);
+        console.log("SR6E | SR6BaseActorData._preUpdate()", foundry.utils.duplicate(changes), changes);
+        this.#overflowConditionMonitors(changes)
     }
 
     /* -------------------------------------------- */
@@ -186,5 +199,46 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @internal
      */
     _onDelete(options, userId) {}
+
+    /**
+     * 
+     * @param {object} changes 
+     */
+    #overflowConditionMonitors(changes) {
+        if (!this.health) return;
+
+        let stunCM = foundry.utils.getProperty(changes, "system.health.stunCM.value") ?? foundry.utils.getProperty(this, "health.stunCM.value");
+        let physicalCM = foundry.utils.getProperty(changes, "system.health.physicalCM.value") ?? foundry.utils.getProperty(this, "health.physicalCM.value");
+        if (stunCM < 0) {
+            physicalCM += stunCM; // stunCM is negative, so this reduces physical
+            stunCM = 0;
+        }
+        foundry.utils.setProperty(changes, "system.health.stunCM.value", stunCM);
+        foundry.utils.setProperty(changes, "system.health.physicalCM.value", physicalCM);
+    }
+
+    #computeHealthOverflow() {
+        if (!this.isLiveForm) return;
+
+        this.health.overflow = {
+            max: this.attributes.body.pool * 2,
+            value: Math.max(0, this.health.physicalCM.value * -1)
+        };
+    }
+
+    async #evaluateHealth() {
+        if (!this.isLiveForm) return;
+
+        if (this.health.overflow.value >= this.health.overflow.max) {
+            await this.parent.toggleStatusEffect('dead', {active:true, overlay:true});
+        } else if (this.health.physicalCM.dmg >= this.health.physicalCM.max || this.health.stunCM.dmg === this.health.stunCM.max) {
+            await this.parent.toggleStatusEffect('dead', {active:false});
+            await this.parent.toggleStatusEffect('unconscious', {active:true});
+        } else {
+            await this.parent.toggleStatusEffect('dead', {active:false});
+            await this.parent.toggleStatusEffect('unconscious', {active:false});
+        }
+
+    }
 
 }
