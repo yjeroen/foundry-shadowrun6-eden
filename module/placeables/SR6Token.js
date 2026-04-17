@@ -66,14 +66,12 @@ export default class SR6Token extends Token {
         if (number === 0) color = Color.fromRGB([1 - pct / 2, pct, 0]);
         else color = Color.fromRGB([0.5 * pct, 0.7 * pct, 0.5 + pct / 2]);
 
-        // Physical Monitor assumed
-        if (number === 0) {
+        // SR6 Token Bar Colors
+        if (data.attribute === "health.physicalCM" || data.attribute === "physical") {
             color = Color.fromRGB([0.54, 0.14, 0.47]);
-        } else if (this.actor.type == "Vehicle") {
-            // Matrix Monitor assumed
+        } else if (data.attribute === "matrix.matrixCM" || (number === 1 && this.actor.type == "Vehicle")) {
             color = Color.fromRGB([0, 0.78, 0.2]);
-        } else {
-            // Stun Monitor assumed
+        } else if (data.attribute === "health.stunCM" || data.attribute === "stun") {
             color = Color.fromRGB([0, 0.66, 1]);
         }
 
