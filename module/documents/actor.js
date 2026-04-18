@@ -1679,12 +1679,33 @@ export default class Shadowrun6Actor extends Actor {
         return modifier;
     }
     //---------------------------------------------------------
-    getWoundModifier() {
-        const data = getSystemData(this);
-        let woundModifier = this._getWoundModifierPerMonitor(data.physical) + this._getWoundModifierPerMonitor(data.stun);
+    getWoundModifier(includeMatrix=false) {
+        const isDataModel = this.system instanceof foundry.abstract.DataModel;
+        let physicalCM, stunCM;
+        if (isDataModel) {
+            physicalCM = this.system.health?.physicalCM?.penalty ?? 0;
+            stunCM     = this.system.health?.stunCM?.penalty ?? 0;
+        } 
+        else {
+            physicalCM = this._getWoundModifierPerMonitor(this.system.physical);
+            stunCM     = this._getWoundModifierPerMonitor(this.system.stun);
+        }
+
+        let woundModifier = physicalCM + stunCM;
         // Add High Pain Tolerance and Low Pain Tolerance support
-        if (this.system.painTolerance === "high") woundModifier = Math.max(0, woundModifier - 1);
-        if (this.system.painTolerance === "low") woundModifier = Math.max(0, woundModifier * 2);
+        switch (this.system.painTolerance) {
+            case "high":
+                woundModifier = Math.max(0, woundModifier - 1);
+                break;
+            case "low":
+                woundModifier = Math.max(0, woundModifier * 2);
+                break;
+        }
+
+        if (isDataModel && includeMatrix) {
+            woundModifier += this.system.matrix?.matrixCM?.penalty ?? 0;
+        }
+        
         /* Return the combined penalties from physical and stun damage */
         console.log("SR6E | Current Wound Penalties: " + woundModifier);
         return woundModifier;

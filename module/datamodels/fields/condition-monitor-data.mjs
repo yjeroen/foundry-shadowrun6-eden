@@ -19,6 +19,17 @@ export default class SR6ConditionMonitor extends SR6DataModel {
     get dmg() {
         return this.max - this.value;
     }
+
+    get penalty() {
+        /* Every 3 boxes = -1 penalty */
+        const remain = this.max - this.dmg;
+        let penalty = Math.floor(this.dmg / 3);
+        // In the last row, if the last box is full the modifier is increased by one
+        if (remain > 0 && this.max % 3 == remain)
+            penalty++;
+        
+        return penalty;
+    }
     
     parseDmgToValue(damage) {
         const s = String(damage);
