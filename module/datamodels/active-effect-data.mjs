@@ -8,7 +8,8 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
               initial: 1,
               min: 0
       }),
-      advanced: new fields.BooleanField()
+      advanced: new fields.BooleanField(),
+      importedSource: new fields.StringField({required: false, nullable: true}),
     }
   }
 
@@ -84,6 +85,7 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
    * So adding ActiveEffect.system.sourceName
    */
   get sourceName() {
+    if ( this.importedSource ) return this.importedSource;
     if ( !this.parent.origin ) return game.i18n.localize("None");
     let name;
     const fallbackName = this.parent?.parent?.name ?? game.i18n.localize("Unknown");

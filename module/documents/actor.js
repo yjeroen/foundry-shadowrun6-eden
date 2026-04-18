@@ -2556,11 +2556,35 @@ export default class Shadowrun6Actor extends Actor {
         }
 
         const effects = [];
-        // Fix possible wrongly added Skill Modifiers (which cannot be edited in FoundryVTT as per 4.0)
+        // Change added Attribute Modifiers to ActiveEffects
+        for (const attribute in actorSystem.attributes) {
+            if (actorSystem.attributes[attribute].mod !== 0) {
+                const effectData = {
+                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${attribute} +${actorSystem.attributes[attribute].mod}`,
+                    system: {
+                        importedSource: sourceData.generatorName ?? "GENESIS"
+                    },
+                    changes: [{
+                        key: `system.attributes.${attribute}.mod`,
+                        value: actorSystem.attributes[attribute].mod,
+                        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+                        priority: 20
+                    }],
+                    description: actorSystem.attributes[attribute].modString
+                };
+                effects.push(effectData);
+                actorSystem.attributes[attribute].mod = 0;
+            }
+            actorSystem.attributes[attribute].modString = "";
+        }
+        // Change added Skill Modifiers to ActiveEffects
         for (const skill in actorSystem.skills) {
             if (actorSystem.skills[skill].modifier !== 0) {
                 const effectData = {
                     name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${skill} +${actorSystem.skills[skill].modifier}`,
+                    system: {
+                        importedSource: sourceData.generatorName ?? "GENESIS"
+                    },
                     changes: [{
                         key: `system.skills.${skill}.modifier`,
                         value: actorSystem.skills[skill].modifier,
@@ -2611,29 +2635,6 @@ export default class Shadowrun6Actor extends Actor {
 
         await super.importFromJSON(JSON.stringify(sourceData));
 
-        // const takeCoverEffect = new ActiveEffect({
-        //     transfer: true,
-        //     name: game.i18n.localize("UTOPIA.Actors.Actions.TakeCover"),
-            // changes: [
-            //     {
-            //     key: "system.block.quantity",
-            //     value: "2",
-            //     mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-            //     priority: 1
-            //     },
-            //     {
-            //     key: "system.dodge.quantity",
-            //     value: "2",
-            //     mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
-            //     priority: 1
-            //     }
-            // ],
-        //     disabled: true,
-        //     duration: {
-        //         turns: 1
-        //     }
-        // });
-        
         this.createEmbeddedDocuments("ActiveEffect", effects);
 
         return this;
