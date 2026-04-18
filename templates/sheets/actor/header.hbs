@@ -112,7 +112,7 @@
                data-action="onTrackClick"
                {{#if (and system.isDead (not isGM))}}title="{{localize 'SR6.title.onlyGmCanRevive'}}"{{/if}}
           >
-            <div class="slots{{#if (not isGM)}} inactive{{/if}}">
+            <div class="slots{{#if (and system.isDead (not isGM))}} inactive{{/if}}">
               {{#each tracks.overflow}}
                 <div class="slot{{#if active}} active{{/if}}" style="height: 24px; --slot-index: {{@index}};">
                   {{#if active}}
@@ -128,7 +128,7 @@
                 </div>
               {{/each}}
             </div>
-            <div class="track-value" title="{{localize 'SR6.title.CM.phys.dmg'}}" data-action="selectInputText">
+            <div class="track-value{{#if (and system.isDead (not isGM))}} inactive{{/if}}" title="{{localize 'SR6.title.CM.phys.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.phys.short'}}:
               <input type="text" name="system.health.physicalCM.dmg" value="{{system.health.physicalCM.dmg}}">
             </div>
