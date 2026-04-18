@@ -22,10 +22,10 @@ export default class SR6ConditionMonitor extends SR6DataModel {
 
     get penalty() {
         /* Every 3 boxes = -1 penalty */
-        const remain = this.max - this.dmg;
+        const remain = Math.max(0, this.value);
         let penalty = Math.floor(this.dmg / 3);
         // In the last row, if the last box is full the modifier is increased by one
-        if (remain > 0 && this.max % 3 == remain)
+        if (this.max % 3 > 0 && remain === 0)
             penalty++;
         
         return penalty;

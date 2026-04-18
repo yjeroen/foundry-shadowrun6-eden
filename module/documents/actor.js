@@ -1671,10 +1671,10 @@ export default class Shadowrun6Actor extends Actor {
     //---------------------------------------------------------
     _getWoundModifierPerMonitor(monitor) {
         /* Get the penalties for physical and stun damage. Every 3 boxes = -1 penalty */
-        let remain = monitor.max - monitor.dmg;
+        const value = Math.max(0, monitor.max - monitor.dmg);
         let modifier = Math.floor(monitor.dmg / 3);
         // In the last row, if the last box is full the modifier is increased by one
-        if (remain > 0 && monitor.max % 3 == remain)
+        if (monitor.max % 3 > 0 && value === 0)
             modifier++;
         return modifier;
     }
