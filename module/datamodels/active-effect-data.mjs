@@ -14,6 +14,8 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
 
   async _preCreate(data, options, user) {
     console.log(`SR6E | SR6ActiveEffectData | _preCreate`);
+    this.parent.updateSource({ img: "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg" });
+
     const origin = await fromUuidSync(data.origin);
     if (origin?.type === "mod") {
       return this.parent.updateSource({ 'transfer': false });
