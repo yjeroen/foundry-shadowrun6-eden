@@ -904,6 +904,12 @@ export default class Shadowrun6Actor extends Actor {
             CONFIG.SR6.ATTRIB_BY_SKILL.forEach(function (skillDef, id) {
                 let attr = skillDef.attrib;
                 let attribVal = data.attributes[attr].pool;
+
+                // Skill Points cannot be negative
+                data.skills[id].points = Math.max(0, data.skills[id].points);
+                // Augmented Modifier cannot be higher than 4
+                data.skills[id].modifier = Math.min(4, data.skills[id].modifier);
+
                 data.skills[id].pool = attribVal + data.skills[id].points + data.skills[id].modifier;
                 if (data.skills[id].points == 0) {
                     if(skillDef.useUntrained) {
@@ -912,7 +918,7 @@ export default class Shadowrun6Actor extends Actor {
                         data.skills[id].pool = 0 + data.skills[id].modifier;
                     }
                 }
-                // Supporting Pool Overrides
+                // Supporting Pool Overrides >> This also overrides Augmented Maximum
                 if (actor.overrides?.system?.skills && actor.overrides?.system?.skills[id]?.pool !== undefined) data.skills[id].pool = actor.overrides.system.skills[id].pool;
 
                 data.skills[id].poolS = 0;

@@ -2011,7 +2011,7 @@
       "usage_tips": {
         "1": "In general, use a Modifier key to adjust an Attribute, Pool or Rating.",
         "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
-        "3": "As normal in Shadowrun 6E, Attribute Modifiers are automatically capped at +4."
+        "3": "As normal in Shadowrun 6E, Attribute and Skill Modifiers are automatically capped at +4."
       },
       "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item. Do <strong>NOT</strong> use Attribute Keys meant for Gear Mods on Actors, and visa versa.",
       "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in. Do <strong>NOT</strong> use Attribute Keys meant for Actors on Gear Mods, and visa versa.",
