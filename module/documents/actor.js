@@ -2560,7 +2560,7 @@ export default class Shadowrun6Actor extends Actor {
         for (const attribute in actorSystem.attributes) {
             if (actorSystem.attributes[attribute].mod !== 0) {
                 const effectData = {
-                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${attribute} +${actorSystem.attributes[attribute].mod}`,
+                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`attrib.${attribute}`)} +${actorSystem.attributes[attribute].mod}`,
                     system: {
                         importedSource: sourceData.generatorName ?? "GENESIS"
                     },
@@ -2581,7 +2581,7 @@ export default class Shadowrun6Actor extends Actor {
         for (const skill in actorSystem.skills) {
             if (actorSystem.skills[skill].modifier !== 0) {
                 const effectData = {
-                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${skill} +${actorSystem.skills[skill].modifier}`,
+                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`skill.${skill}`)} +${actorSystem.skills[skill].modifier}`,
                     system: {
                         importedSource: sourceData.generatorName ?? "GENESIS"
                     },
