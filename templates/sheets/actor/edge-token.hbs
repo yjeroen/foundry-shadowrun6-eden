@@ -1,5 +1,5 @@
 <!-- Edge Token -->
-  <div class="edge">
+  <div class="edge{{#if (not editable)}} inactive{{/if}}">
     <button type="button" class="edge-coin clickable" data-action="onClickEdgeToken" title="{{localize 'SR6.title.changeEdge'}}">
       <span class="edge-coin__face edge-coin__face--front">
         <img class="edge-coin__art" src="systems/shadowrun6-eden/images/EdgeToken.webp" alt="" draggable="false"/>
