@@ -23,15 +23,16 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             resizable: true,
             controls: [
                 {
-                    action: "configurePrototypeToken",
+                    action: "openTemplateActor",
                     icon: "fa-solid fa-fw fa-circle-user",
-                    label: "JEROEN TEST",
-                    visible: true,
+                    label: "SR6.label.viewTemplateActor",
+                    visible: function() { return (!this.actor?.prototypeToken?.actorLink && this.actor?.token) ; },
                     ownership: "OWNER",
                 }
             ]
         },
         actions: {
+            openTemplateActor: this.#onOpenTemplateActor,
             onShowImage: this._onShowImage,
             onEditImage: this._onEditImage,
             togglePersonaMode: this._togglePersonaMode,
@@ -500,6 +501,21 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 this._onToggleEditActor(event);
                 break;
         }
+    }
+
+    /**
+     * Handle header control button clicks to render the Template / Prototype Actor sheet.
+     * @this {SR6BaseActorSheet}
+     * @param {PointerEvent} event
+     */
+    static #onOpenTemplateActor(event) {
+        this.actor.token.baseActor.sheet.render({
+            force: true,
+            position: {
+                left: this.position.left + 40,
+                top: this.position.top + 40
+            }
+        });
     }
 
     /**

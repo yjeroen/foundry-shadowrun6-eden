@@ -2151,7 +2151,8 @@
       "CM.phys.short": "PHYS",
       "CM.stun.short": "STUN",
       "CM.matrix.short": "MTRX",
-      "RIP": "R.I.P."
+      "RIP": "R.I.P.",
+      "viewTemplateActor": "View Template Actor"
     },
     "title": {
       "editButton": "Edit Actor",
