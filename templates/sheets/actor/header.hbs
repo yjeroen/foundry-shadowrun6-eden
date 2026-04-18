@@ -105,15 +105,41 @@
         </div>
   
         <div class="tracks">
+          {{#iff system.health.overflow.dmg '>' 0}}
+          
+          <div class="track red overflow" data-condition-monitor="overflow" data-action="onTrackClick">
+            <div class="slots">
+              {{#each tracks.overflow}}
+                <div class="slot{{#if active}} active{{/if}}{{#if first}} first{{/if}}{{#if last}} last{{/if}}" style="height: 24px; --slot-index: {{@index}};">
+                  {{#if active}}
+                  <div class="heart-rate">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 73" preserveAspectRatio="xMidYMid meet">
+                      <polyline fill="none" stroke="#009B9E" stroke-width="3" stroke-miterlimit="10" points="0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486" />
+                    </svg>
+                    <div class="fade-in"></div>
+                    <div class="fade-out"></div>
+                  </div>
+                  {{/if}}
+                  <i class="fa-solid {{#if first}}fa-skull{{/if}}{{#if last}}fa-heart{{/if}}"></i>
+                </div>
+              {{/each}}
+            </div>
+            <div class="track-value" title="{{localize 'SR6.title.CM.phys.dmg'}}" data-action="selectInputText">
+              {{localize 'SR6.label.CM.phys.short'}}:
+              <input type="text" name="system.health.physicalCM.dmg" value="{{system.health.physicalCM.dmg}}">
+            </div>
+          </div>
+
+          {{else}}
+
           <div class="track red {{#if (not editable)}}inactive{{/if}}" data-condition-monitor="physical" data-action="onTrackClick">
             <div class="slots">
               {{#each tracks.physical}}
-                <div class="slot{{#if active}} active{{/if}}">
+                <div class="slot{{#if active}} active{{/if}}" style="--slot-index: {{@index}};">
                   {{#if penalty}}<span>{{penalty}}</span>{{/if}}
                 </div>
               {{/each}}
             </div>
-  
             <div class="track-value" title="{{localize 'SR6.title.CM.phys.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.phys.short'}}:
               <input type="text" name="system.health.physicalCM.dmg" value="{{system.health.physicalCM.dmg}}">
@@ -123,27 +149,27 @@
           <div class="track blue" data-condition-monitor="stun" data-action="onTrackClick">
             <div class="slots">
               {{#each tracks.stun}}
-                <div class="slot{{#if active}} active{{/if}}">
+                <div class="slot{{#if active}} active{{/if}}" style="--slot-index: {{@index}};">
                   {{#if penalty}}<span>{{penalty}}</span>{{/if}}
                 </div>
               {{/each}}
             </div>
-  
             <div class="track-value" title="{{localize 'SR6.title.CM.stun.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.stun.short'}}:
               <input type="text" name="system.health.stunCM.dmg" value="{{system.health.stunCM.dmg}}">
             </div>
           </div>
+
+          {{/iff}}
   
           <div class="track green" data-condition-monitor="matrix" data-action="onTrackClick">
             <div class="slots">
               {{#each tracks.matrix}}
-                <div class="slot{{#if active}} active{{/if}}">
+                <div class="slot{{#if active}} active{{/if}}" style="--slot-index: {{@index}};">
                   {{#if penalty}}<span>{{penalty}}</span>{{/if}}
                 </div>
               {{/each}}
             </div>
-  
             <div class="track-value" title="{{localize 'SR6.title.CM.matrix.dmg'}}" data-action="selectInputText">
               {{localize 'SR6.label.CM.matrix.short'}}:
               <input type="text" name="system.matrix.matrixCM.dmg" value="{{system.matrix.matrixCM.dmg}}">

@@ -8,7 +8,7 @@ export default class SR6ConditionMonitor extends SR6DataModel {
         return {
             // This is the #Boxes; Actual maximum of value must be managed in DataModel.prepareBaseData()
             max: new fields.NumberField({required: true, nullable: false, integer: true, initial: 9, min: 9}),
-            // value is the "HP", min and max should be handled in TODO JEROEN
+            // value is the "HP", min and max should be handled in Actor/DataModel prepareBaseData or prepareDerivedData
             value: new fields.NumberField({required: true, nullable: false, integer: true, initial: 9}),
         };
     }

@@ -1138,7 +1138,11 @@
 }
 
 .sr6 .track.red .slot.active {
-    background: linear-gradient(180deg, rgba(255, 115, 125, 0.98), rgba(255, 56, 78, 0.95));
+    --slot-bg-start: rgba(255, 115, 125, 0.98);
+    --slot-bg-end: rgba(255, 56, 78, 0.95);
+    --slot-bg: linear-gradient(180deg, var(--slot-bg-start), var(--slot-bg-end));
+    background: var(--slot-bg);
+
     border-color: rgba(255, 180, 190, 0.65);
     box-shadow:
         0 0 8px rgba(255, 88, 110, 0.8),
@@ -1231,70 +1235,15 @@
 
 .sr6 .track .slot.active {
     position: relative;
+    overflow: hidden;
 }
 
 .sr6 .track.is-pulsing .slot.active {
     animation: none;
 }
 
-.sr6 .track.is-pulsing .slot.active:nth-child(1) {
-    animation: track-slot-pulse 0.45s ease-out 0.00s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(2) {
-    animation: track-slot-pulse 0.45s ease-out 0.04s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(3) {
-    animation: track-slot-pulse 0.45s ease-out 0.08s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(4) {
-    animation: track-slot-pulse 0.45s ease-out 0.12s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(5) {
-    animation: track-slot-pulse 0.45s ease-out 0.16s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(6) {
-    animation: track-slot-pulse 0.45s ease-out 0.20s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(7) {
-    animation: track-slot-pulse 0.45s ease-out 0.24s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(8) {
-    animation: track-slot-pulse 0.45s ease-out 0.28s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(9) {
-    animation: track-slot-pulse 0.45s ease-out 0.32s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(10) {
-    animation: track-slot-pulse 0.45s ease-out 0.36s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(11) {
-    animation: track-slot-pulse 0.45s ease-out 0.40s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(12) {
-    animation: track-slot-pulse 0.45s ease-out 0.44s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(13) {
-    animation: track-slot-pulse 0.45s ease-out 0.48s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(14) {
-    animation: track-slot-pulse 0.45s ease-out 0.52s;
-}
-
-.sr6 .track.is-pulsing .slot.active:nth-child(15) {
-    animation: track-slot-pulse 0.45s ease-out 0.56s;
+.sr6 .track.is-pulsing .slots .slot.active {
+    animation: track-slot-pulse 0.45s ease-out calc(var(--slot-index) * 0.04s);
 }
 
 @keyframes track-slot-pulse {
@@ -1313,6 +1262,113 @@
         filter: brightness(1);
     }
 }
+
+/* Heartbeat Overflow */
+.track.overflow {
+    --hr-step: 2.5s;
+}
+
+.track .slot.active .fa-solid {
+    z-index: 1;
+}
+
+.track .slot .heart-rate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.track .slot.active .heart-rate {
+    display: block;
+}
+
+.track .slot .heart-rate svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: heartRateSvgOut var(--hr-step) linear 1;
+}
+
+.track .slot .heart-rate .fade-in,
+.track .slot .heart-rate .fade-out {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.track .slot .heart-rate .fade-in {
+    right: 0;
+    width: 100%;
+    background: var(--slot-bg, #000);
+    animation: heartRateIn var(--hr-step) linear 1;
+}
+
+.track .slot .heart-rate .fade-out {
+    left: -120%;
+    width: 120%;
+    background: var(--slot-bg, #000);
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    background-blend-mode: overlay;
+    animation: heartRateOut var(--hr-step) linear 1;
+}
+
+@keyframes heartRateIn {
+    0%   { width: 100%; }
+    50%  { width: 0; }
+    100% { width: 0; }
+}
+
+@keyframes heartRateOut {
+    0%   { left: -120%; }
+    30%  { left: -120%; }
+    70%  { opacity: 100%;}
+    80%  { left: 0; }
+    100% { left: 0; opacity: 0%;}
+}
+@keyframes heartRateOut {
+    0%   { left: -120%; }
+    30%  { left: -120%; }
+    100% { left: 0; }
+}
+@keyframes heartRateSvgOut {
+    0%   { opacity: 100%;}
+    70%  { opacity: 100%;}
+    80%  { opacity: 0%;}
+    100% { opacity: 0%;}
+}
+
+.track .slot.active .heart-rate .fade-in,
+.track .slot.active .heart-rate .fade-out,
+.track .slot.active .heart-rate svg {
+    animation-delay: calc( var(--hr-step) * 0.5 * (var(--slot-index) ) );
+}
+.track .slot.active .heart-rate:not(.heart-rate-active) .fade-in,
+.track .slot.active .heart-rate:not(.heart-rate-active) .fade-out,
+.track .slot.active .heart-rate:not(.heart-rate-active) svg {
+    animation: none;
+}
+
+.track.red.overflow .slot.active {
+    animation: overflow-red-glow 1.6s ease-in-out infinite;
+}
+
+@keyframes overflow-red-glow {
+    0%, 100% {
+        box-shadow:
+            0 0 10px 2px rgba(255, 50, 70, 0.45),
+            0 0 18px 4px rgba(255, 50, 70, 0.28),
+            inset 0 0 8px rgba(255, 255, 255, 0.12);
+    }
+    50% {
+        box-shadow:
+            0 0 16px 4px rgba(255, 40, 60, 0.95),
+            0 0 30px 8px rgba(255, 40, 60, 0.65),
+            inset 0 0 12px rgba(255, 255, 255, 0.22);
+    }
+}
+
 
 /* Track and Track Value transitions */
 @container (max-width: 555px) {

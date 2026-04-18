@@ -143,6 +143,10 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             },
         };
 
+        if (this.actor.system.health?.overflow?.dmg) {
+            context.tracks.overflow = this._prepareConditionMonitors(this.actor.system.health.overflow);
+        }
+
         // Offloading context prep to a helper function
         this._prepareItems(context);
 
@@ -324,6 +328,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             if (i <= dmg) {
                 slot.active = false;
             }
+            if (i === boxes) slot.first = true;
+            if (i === 1) slot.last = true;
             slots.unshift(slot);
         }
 
@@ -342,6 +348,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         await super._onRender(context, options);
         // --- System Special handling: ---
         this.startHudClock();
+        this.#startHeartRate()
 
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
@@ -447,6 +454,26 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             console.warn(`${error.name}: ${error.message}`);
             this.render();
         }
+    }
+
+    #startHeartRate() {
+        const overflow = this.actor.system.health?.overflow;
+        const overflowEl = this.element.querySelector(".track.overflow");
+        clearTimeout(this.element._heartRateTimeout);
+
+        if (!overflow?.dmg || !overflowEl) return;
+
+        const fullCycleMs = 2500 * 0.7 * overflow.value;
+
+        for (const hr of overflowEl.querySelectorAll(".slot.active .heart-rate")) {
+            hr.classList.remove("heart-rate-active");
+            void hr.offsetWidth;
+            hr.classList.add("heart-rate-active");
+        }
+
+        this.element._heartRateTimeout = setTimeout(() => {
+            this.#startHeartRate();
+        }, fullCycleMs);
     }
 
     /**************
@@ -558,11 +585,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Pulsating track
 		track.classList.add('is-pulsing'); // animation
-		tracks.classList.add('inactive');
+		// tracks.classList.add('inactive');
 		
         // Track Config
         let trackColor, attr, deltaTrack;
-        const newValue = maxActiveIndex + 1;
+        let newValue = maxActiveIndex + 1;
         if (conditionMonitor === "physical") {
             trackColor = "red";
             attr = "system.health.physicalCM.value";
@@ -577,6 +604,12 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             trackColor = "green"
             attr = "system.matrix.matrixCM.value";
             deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
+        }
+        if (conditionMonitor === "overflow") {
+            trackColor = "red";
+            attr = "system.health.physicalCM.value";
+            deltaTrack = newValue - this.document.system.health.overflow.value;
+            newValue = 0 - (this.document.system.health.overflow.max - newValue );
         }
 
         // Showing delta within portrait

@@ -81,7 +81,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
         // Example, not applicable in SR6
         if ( this.parent.statuses.has("invulnerable") ) return false;
 
-        return this.health.overflow.value >= this.health.overflow.max;
+        return this.health.overflow.dmg >= this.health.overflow.max;
     }
 
     /**
@@ -222,10 +222,13 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
     #computeHealthOverflow() {
         if (!this.isLiveForm) return;
 
+        // TODO JEROEN remove after testing
+        this.attributes.body.rank = 4;
         this.health.overflow = {
             max: this.attributes.body.pool * 2,
-            value: Math.max(0, this.health.physicalCM.value * -1)
+            dmg: Math.max(0, this.health.physicalCM.value * -1)
         };
+        this.health.overflow.value = this.health.overflow.max - this.health.overflow.dmg;
     }
 
     async #evaluateHealth() {
@@ -241,7 +244,6 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
             await this.parent.toggleStatusEffect('dead', {active:false});
             await this.parent.toggleStatusEffect('unconscious', {active:false});
         }
-
     }
 
 }
