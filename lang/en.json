@@ -2150,7 +2150,8 @@
       "token": "TOKEN",
       "CM.phys.short": "PHYS",
       "CM.stun.short": "STUN",
-      "CM.matrix.short": "MTRX"
+      "CM.matrix.short": "MTRX",
+      "RIP": "R.I.P."
     },
     "title": {
       "editButton": "Edit Actor",
@@ -2163,7 +2164,8 @@
       "CM.stun.dmg": "Damage on Stun Condition Monitor",
       "CM.matrix.dmg": "Damage on Matrix Condition Monitor",
       "personaModeToggle": "Toggle Persona Mode (Public/Silent)",
-      "changeEdge": "Increase (left click) or decrease (right click) Edge"
+      "changeEdge": "Increase (left click) or decrease (right click) Edge",
+      "onlyGmCanRevive": "Only your GM can revive a dead character."
     }
   }
 }

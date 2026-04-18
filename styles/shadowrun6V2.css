@@ -1369,6 +1369,59 @@
     }
 }
 
+/* Dead Track */
+.track.dead {
+    --slot-off: rgba(28, 30, 34, 0.9);
+}
+
+.sr6 .portrait-panel.dead .track-delta {
+    color: white;
+    opacity: 1;
+    visibility: visible;
+    font-size: 1.5rem;
+    text-shadow: 0 0 1px white,
+        0 0 2px white,
+        0 0 3px black,
+        0 0 3px black,
+        0 0 4px black,
+        0 0 6px black,
+        0 0 8px black,
+        0 0 10px black,
+        0 0 12px black,
+        0 0 14px black;
+}
+
+.sr6 .portrait-panel.dead .portrait-edit {
+    display: none;
+}
+
+.sr6 .portrait-panel.dead img {
+    filter: grayscale(100%) brightness(1.4) contrast(1.2) sepia(0.6);
+}
+
+.track.dead .slot {
+    animation: death-glow 4.8s ease-in-out infinite;
+}
+
+@keyframes death-glow {
+    0%, 100% {
+        box-shadow:
+            0 0 6px 1px rgba(20, 0, 0, 0.45),
+            0 0 12px 2px rgba(40, 0, 10, 0.28),
+            0 0 20px 4px rgba(0, 0, 0, 0.55),
+            inset 0 0 10px rgba(0, 0, 0, 0.38),
+            inset 0 0 4px rgba(110, 20, 30, 0.10);
+    }
+    50% {
+        box-shadow:
+            0 0 10px 2px rgba(30, 0, 4, 0.55),
+            0 0 18px 4px rgba(60, 0, 12, 0.35),
+            0 0 28px 8px rgba(0, 0, 0, 0.78),
+            inset 0 0 14px rgba(0, 0, 0, 0.52),
+            inset 0 0 6px rgba(120, 18, 28, 0.14);
+    }
+}
+
 
 /* Track and Track Value transitions */
 @container (max-width: 555px) {

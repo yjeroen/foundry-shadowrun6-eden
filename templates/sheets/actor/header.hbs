@@ -1,13 +1,13 @@
 {{log "*** header.hbs ***" this}}
 {{! Sheet Header }}
-<header class='actor-header'>
+<header class="actor-header">
   <div class="prototype-actor">
     {{#if actor.token}}{{localize 'SR6.label.token'}}{{else}}{{#if linkedToken}}{{localize 'SR6.label.unique'}}{{else}}{{localize 'SR6.label.template'}}{{/if}}{{/if}}
   </div>
   <div class="hud-shell">
     <section class="hud">
   
-      <div class="hud-meta">
+      <div class="hud-meta{{#if (not editable)}} inactive{{/if}}">
         <span class="meta-icon battery" style="--level: 72;"></span>
         <span class="meta-icon wifi" style="--signal-strength: 3;">
           <span></span><span></span><span></span><span></span>
@@ -28,8 +28,8 @@
         <span class="meta-nuyen"><span class="value">125,840</span>¥</span>
       </div>
   
-      <div class="portrait-panel">
-        <div class="track-delta disabled red">+2</div>
+      <div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
+        <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div>
         <div class="portrait-wrap">
           <div class="portrait">
             <div class="portrait-edit"><i class="fa-solid fa-image fa-fw"></i></div>
@@ -51,7 +51,7 @@
         </div>
       </div>
   
-      <div class="status-panel">
+      <div class="status-panel{{#if (not editable)}} inactive{{/if}}">
         <div class="status-panel-header">
           <div class="status-panel-header-left">
             <div class="designation-name">      
@@ -107,10 +107,14 @@
         <div class="tracks">
           {{#iff system.health.overflow.dmg '>' 0}}
           
-          <div class="track red overflow" data-condition-monitor="overflow" data-action="onTrackClick">
-            <div class="slots">
+          <div class="track red overflow{{#if system.isDead}} dead{{/if}}"
+               data-condition-monitor="overflow"
+               data-action="onTrackClick"
+               {{#if (and system.isDead (not isGM))}}title="{{localize 'SR6.title.onlyGmCanRevive'}}"{{/if}}
+          >
+            <div class="slots{{#if (not isGM)}} inactive{{/if}}">
               {{#each tracks.overflow}}
-                <div class="slot{{#if active}} active{{/if}}{{#if first}} first{{/if}}{{#if last}} last{{/if}}" style="height: 24px; --slot-index: {{@index}};">
+                <div class="slot{{#if active}} active{{/if}}" style="height: 24px; --slot-index: {{@index}};">
                   {{#if active}}
                   <div class="heart-rate">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 73" preserveAspectRatio="xMidYMid meet">
@@ -120,7 +124,7 @@
                     <div class="fade-out"></div>
                   </div>
                   {{/if}}
-                  <i class="fa-solid {{#if first}}fa-skull{{/if}}{{#if last}}fa-heart{{/if}}"></i>
+                  <i class="fa-solid {{#if (or first @root.system.isDead)}}fa-skull{{else}}{{#if last}}fa-heart{{/if}}{{/if}}"></i>
                 </div>
               {{/each}}
             </div>
