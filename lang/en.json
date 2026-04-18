@@ -2044,7 +2044,8 @@
       "movementSprintBase": "Movement Sprint Base",
       "movementSprintMultiplier": "Movement Sprint Multiplier",
       "hardenedArmor": "Hardened Armor",
-      "immunityNormalWeapons": "Immunity to Normal Weapons (Override true)"
+      "immunityNormalWeapons": "Immunity to Normal Weapons (Override true)",
+      "importedModifier": "Imported Modifier"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",

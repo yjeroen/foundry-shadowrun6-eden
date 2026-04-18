@@ -2555,6 +2555,26 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
 
+        const effects = [];
+        // Fix possible wrongly added Skill Modifiers (which cannot be edited in FoundryVTT as per 4.0)
+        for (const skill in actorSystem.skills) {
+            if (actorSystem.skills[skill].modifier !== 0) {
+                const effectData = {
+                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${skill} +${actorSystem.skills[skill].modifier}`,
+                    changes: [{
+                        key: `system.skills.${skill}.modifier`,
+                        value: actorSystem.skills[skill].modifier,
+                        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+                        priority: 20
+                    }],
+                    description: actorSystem.skills[skill].modString
+                };
+                effects.push(effectData);
+                actorSystem.skills[skill].modifier = 0;
+            }
+            actorSystem.skills[skill].modString = "";
+        }
+
         // COMMLINK doesn't add an Unarmed item, so lets add it
         if (sourceData.generatorName === "Commlink6") {
             const unarmedItemData = {
@@ -2589,7 +2609,34 @@ export default class Shadowrun6Actor extends Actor {
             sourceData.img = this.img;
         }
 
-        return super.importFromJSON(JSON.stringify(sourceData));
+        await super.importFromJSON(JSON.stringify(sourceData));
+
+        // const takeCoverEffect = new ActiveEffect({
+        //     transfer: true,
+        //     name: game.i18n.localize("UTOPIA.Actors.Actions.TakeCover"),
+            // changes: [
+            //     {
+            //     key: "system.block.quantity",
+            //     value: "2",
+            //     mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+            //     priority: 1
+            //     },
+            //     {
+            //     key: "system.dodge.quantity",
+            //     value: "2",
+            //     mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+            //     priority: 1
+            //     }
+            // ],
+        //     disabled: true,
+        //     duration: {
+        //         turns: 1
+        //     }
+        // });
+        
+        this.createEmbeddedDocuments("ActiveEffect", effects);
+
+        return this;
     }
 
     get gruntGroup() {
