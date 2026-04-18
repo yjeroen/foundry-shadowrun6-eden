@@ -8,6 +8,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     sheets.ActorSheetV2
 ) {
     #tabScrollCleanup = null;
+    #heartRateTimeout = null;
     #editMode = false;
     _defaultTab = "";
 
@@ -122,6 +123,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             editable: this.isEditable,
             owner: this.document.isOwner,
             limited: this.document.limited,
+            isGM: game.user.isGM,
             // Add the actor document.
             actor: this.actor,
             // Boolean if the Actor is linked
@@ -458,8 +460,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
     #startHeartRate() {
         const overflow = this.actor.system.health?.overflow;
-        const overflowEl = this.element.querySelector(".track.overflow");
-        clearTimeout(this.element._heartRateTimeout);
+        const overflowEl = this.element?.querySelector(".track.overflow");
+        clearTimeout(this.#heartRateTimeout);
 
         if (!overflow?.dmg || !overflowEl) return;
 
@@ -471,7 +473,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             hr.classList.add("heart-rate-active");
         }
 
-        this.element._heartRateTimeout = setTimeout(() => {
+        this.#heartRateTimeout = setTimeout(() => {
             this.#startHeartRate();
         }, fullCycleMs);
     }
@@ -605,7 +607,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             attr = "system.matrix.matrixCM.value";
             deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
         }
-        if (conditionMonitor === "overflow") {
+        else if (conditionMonitor === "overflow") {
             trackColor = "red";
             attr = "system.health.physicalCM.value";
             deltaTrack = newValue - this.document.system.health.overflow.value;
