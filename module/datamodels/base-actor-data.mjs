@@ -101,7 +101,19 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      *
      * Called before {@link ClientDocument#prepareDerivedData} in {@link ClientDocument#prepareData}.
      */
-    prepareDerivedData() {}
+    prepareDerivedData() {
+        console.log('JEROEN prepareDerivedData', this)
+        // Augmented Attribute can never be higher than +4
+        for (const key in this.attributes) {
+            const attribute = this.attributes[key];
+            attribute.mod = Math.min(4, attribute.mod);
+        }
+        // Augmented Skill can never be higher than +4
+        for (const key in this.skills) {
+            const skill = this.skills[key];
+            skill.mod = Math.min(4, skill.mod);
+        }
+    }
 
     /* -------------------------------------------- */
 
