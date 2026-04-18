@@ -653,9 +653,22 @@
     align-self: start;
 }
 
-.sr6 .designation-name input {
-    height: 1rem;
-    letter-spacing: 0.08em;
+/* Making sure that the span and input are the same size */
+.sr6 .designation-name {
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.sr6 .designation-name > span,
+.sr6 .designation-name > input {
+  box-sizing: border-box;
+  font: inherit;
+  line-height: 1;
+}
+
+.sr6 .designation-name > input {
+  margin: 0 0 1px 0;
 }
 
 .sr6 .traits {
