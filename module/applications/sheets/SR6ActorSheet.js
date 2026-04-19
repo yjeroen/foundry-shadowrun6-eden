@@ -302,7 +302,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     await item.update({ [property]: !foundry.utils.getProperty(item, property) });
             });
             //Collapsible
-            html.find(".collapsible").click(async (event) => {
+            html.find(".collapsible:not(.empty)").click(async (event) => {
                 const element = event.currentTarget;
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
                 const item = this.actor.items.get(itemId);

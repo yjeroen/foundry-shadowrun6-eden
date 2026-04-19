@@ -17,21 +17,10 @@
 			</th>
 	      </tr>
 	    </thead>
-	{{#each actor.items as |item id|}}
-	{{#if (eq item.type 'gear')}}
-		{{#if (or (eq item.system.type "CYBERWARE") 
-		          (or (eq item.system.type "BIOWARE")
-				      (or (eq item.system.type "NANOWARE") 
-					      (eq item.system.type "GENETICS")
-			)))
-		}}
+	{{#each (itemsOfAugSubtype actor.itemTypes.gear) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
 			<td style="margin-right: 1rem; width: 0.7em;">
-				{{#if item.system.description }}
-				<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
-				{{else}}
-				<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
-				{{/if}}
+				<button type="button" name="collapseGear{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>
 			</td>
 			<td style="height:20px;"> {{item.name}}</td>
 			<td class="centered"style="width: 3em">{{item.system.essence}}</td>
@@ -47,14 +36,9 @@
 		</tr>
        	<tr>
 			<td colspan="5">
-				<div class="collapsible-content closed" style="font-size: 0.8em;">
-					<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-					<div>{{{item.enriched.description}}} &nbsp;</div>
-				</div>
+  				{{> "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs" item=item actor=actor}}
 			</td>
        	</tr>
-		{{/if}}
-	{{/if}}
 	{{/each}}
 	    <tfoot>
 	      <tr>

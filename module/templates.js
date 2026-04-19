@@ -5,6 +5,7 @@
  */
 export const preloadHandlebarsTemplates = async function () {
     const templatePaths = [
+        "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs",
         "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs",
         "systems/shadowrun6-eden/templates/parts/tab-effects.hbs",
         "systems/shadowrun6-eden/templates/item/item-mods.hbs",
