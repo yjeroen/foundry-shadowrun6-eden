@@ -8,6 +8,7 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
         return {
             ...super.defineSchema(),
             // attributes should be set in the Actor DataModel.prepareBaseData()
+            // TODO JEROEN check if these need to be AttributeData objects
             attributes: new fields.SchemaField({
                 attack: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
                 sleaze: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
