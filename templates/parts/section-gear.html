@@ -13,19 +13,13 @@
 	        <th style="width: 5%">{{ localize 'shadowrun6.label.column.action' }}</th>
 	      </tr>
 	    </thead>
-		{{#each (sort actor.items) as |item id|}}
-		{{#iff item.type '==' 'gear'}}
-		{{#if (eq item.system.type ../geartype) }}
+
+		{{!-- geartype is passed into section-gear.html as variable --}}
+		{{#each (itemsOfGeartype actor.itemTypes.gear geartype) as |item id|}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
-
 			<td style="margin-right: 1rem; width: 0.7em;">
-			{{#if item.system.description }}
-			<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
-			{{else}}
-			<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
-			{{/if}}
+				<button type="button" name="collapseGear{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>
 			</td>
-
 			<td style="height:20px;"> {{item.name}}</td>
 			<td style="width: 2em" class="centered">
 			{{#if item.system.needsRating}}
@@ -48,20 +42,9 @@
 	   </tr>
        <tr>
          <td colspan="5">
-         	<div class="collapsible-content closed" style="font-size: 0.8em;">
-				{{!-- TODO: Remove accessories --}}
-			   {{#if item.system.accessories }}
-        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.label.accessories' }}</div>
-			   <div>{{{item.enriched.accessories}}} &nbsp;</div>
-			   {{/if}}
-        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-			   <div>{{{item.enriched.description}}} &nbsp;</div>
-         	</div>
+			{{> "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs" item=item actor=actor}}
          </td>
        </tr>
-		{{/if}}
-
-		{{/iff}}
 		{{/each}}
 </table>
 </div>

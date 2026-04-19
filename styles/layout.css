@@ -335,15 +335,59 @@ dd::after {
   visibility: hidden;
 }
 .collapsible-content {
-  padding: 0 8px;
+  background-color: var(--tablehead-background);
+  border: 1px inset #fcfcfc;
+  border-radius: 10px;
+  padding: 0px 8px;
+  margin: 0 0 0 14px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
   visibility: hidden;
 }
+.skills .collapsible-content {
+  margin: 0;
+}
 .collapsible-content.open {
   max-height: 500px;
   visibility: visible;
+}
+.collapsible-content > div:first-child {
+  padding-top: 4px
+}
+.collapsible-content > div:last-child {
+  padding-bottom: 4px
+}
+.collapsible-content > div:not(:first-child) {
+  margin: 0.3rem 0 0 0;
+}
+
+.collapsible-content {
+  display: flex;
+  flex-direction: column;
+}
+.collapsible-content .collapsible-content-trait span,
+.collapsible-content .mods-label {
+  font-weight: bold;
+}
+.collapsible-content .mods-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.collapsible-content .mods-list .content-link {
+  display: block;
+}
+.collapsible-content .collapsible-content-trait {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+}
+.collapsible-content .collapsible-content-trait input {
+  margin: 3px 5px;
+}
+button.collapsible.empty {
+  cursor: default;
 }
 .shadowrun6 .collapsible-skill {
 	width: 1.5em;

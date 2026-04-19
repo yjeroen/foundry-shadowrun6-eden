@@ -116,6 +116,9 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("itemNotInList", itemNotInList);
     Handlebars.registerHelper("itemTypeInList", itemTypeInList);
     Handlebars.registerHelper("itemsOfType", itemsOfType);
+    Handlebars.registerHelper("itemHasGearMods", itemHasGearMods);
+    Handlebars.registerHelper("gearModsOfItem", gearModsOfItem);
+    Handlebars.registerHelper("noDescOrMods", noDescOrMods);
     Handlebars.registerHelper("itemsOfGeartype", itemsOfGeartype);
     Handlebars.registerHelper("itemsOfAugSubtype", itemsOfAugSubtype);
     Handlebars.registerHelper("itemsOfGeartypeNoWeaponsOrAugs", itemsOfGeartypeNoWeaponsOrAugs);
@@ -287,6 +290,19 @@ function getActorData(obj) {
         return obj;
     return obj.data;
 }
+function itemHasGearMods(item, actor) {
+    return actor.items.some(gearMod => gearMod.type === "mod" && gearMod.system.installedIn?.id === item.id);
+}
+function gearModsOfItem(item, actor) {
+    return actor.items.filter((gearMod) => gearMod.type === "mod" && gearMod.system.installedIn?.id === item.id)
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+}
+function noDescOrMods(item, actor) {
+    console.log('JEROEN', !item.system.description?.length)
+    console.log('JEROEN', !itemHasGearMods(item, actor))
+    return !item.system.description?.length && !itemHasGearMods(item, actor);
+}
 function itemsOfType(items, type, sortOnSubtype = true) {
     const filtered = items.filter((elem) => getActorData(elem).type == type)
          .sort((a, b) => a.name.localeCompare(b.name));
@@ -312,6 +328,8 @@ function itemsOfAugSubtype(items) {
     return items.filter((elem) => {
         if (getSystemData(elem).type === 'BIOWARE') return true;
         else if (getSystemData(elem).type === 'CYBERWARE') return true;
+        else if (getSystemData(elem).type === 'NANOWARE') return true;
+        else if (getSystemData(elem).type === 'GENETICS') return true;
         else return false;
     }).sort((a, b) => a.name.localeCompare(b.name))
       .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
