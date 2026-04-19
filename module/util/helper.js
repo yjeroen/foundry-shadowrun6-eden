@@ -757,3 +757,21 @@ export function onManageActiveEffect(event, owner) {
   }
 }
 
+/**
+ * Limit a Dice Pool to a specific cap set by 'hardDiceCap' setting
+ * This need to be used for any dice roll
+ * @param {*} pool 
+ * @param {*} edgePoolIgnoringCap 
+ * @returns 
+ */
+export function checkDicePoolCap(pool, edgePoolIgnoringCap=0) {
+    // Limiting the dice pool if game settings tells us
+    const hardDiceCap = game.settings.get(SYSTEM_NAME, "hardDiceCap");
+    let newPool;
+    if (hardDiceCap) {
+        newPool = (pool > 20) ? 20 : pool;
+        console.log("SR6E | limiting calcPool to 20 due to game setting", pool, newPool, edgePoolIgnoringCap);
+    }
+    newPool += edgePoolIgnoringCap;
+    return newPool;
+}
