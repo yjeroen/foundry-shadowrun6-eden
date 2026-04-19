@@ -299,8 +299,6 @@ function gearModsOfItem(item, actor) {
                 .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
 }
 function noDescOrMods(item, actor) {
-    console.log('JEROEN', !item.system.description?.length)
-    console.log('JEROEN', !itemHasGearMods(item, actor))
     return !item.system.description?.length && !itemHasGearMods(item, actor);
 }
 function itemsOfType(items, type, sortOnSubtype = true) {
