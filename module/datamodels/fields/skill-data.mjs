@@ -19,6 +19,10 @@ export default class SR6SkillData extends SR6DataModel {
         return this.schema.name;
     }
 
+    get pool() {
+        return this.rank + this.mod;
+    }
+    
     validate(options) {
         if (this.name) {
             let choices = CONFIG.SR6.skill_special;
