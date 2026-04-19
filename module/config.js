@@ -373,6 +373,8 @@ export class SR6Config {
         ["ELECTRONICS",
             [
                 "COMMLINK",
+                "DATATERM",
+                "CYBERTERM",
                 "CYBERDECK",
                 "ELECTRONIC_ACCESSORIES",
                 "RIGGER_CONSOLE",
@@ -420,6 +422,8 @@ export class SR6Config {
     GEAR_SUBTYPES2 = {
         ELECTRONICS: [
             "COMMLINK",
+            "DATATERM",
+            "CYBERTERM",
             "CYBERDECK",
             "ELECTRONIC_ACCESSORIES",
             "RIGGER_CONSOLE",
