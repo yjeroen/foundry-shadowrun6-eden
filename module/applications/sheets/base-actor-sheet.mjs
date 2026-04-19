@@ -139,15 +139,20 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             // Necessary for formInput and formFields helpers
             fields: this.document.schema.fields,
             systemFields: this.document.system.schema.fields,
-            tracks: {
-                physical: this._prepareConditionMonitors(this.actor.system.health.physicalCM),
-                stun: this._prepareConditionMonitors(this.actor.system.health.stunCM),
-                matrix: this._prepareConditionMonitors(this.actor.system.matrix.matrixCM),
-            },
+            tracks: {},
         };
 
+        if (this.actor.system.health?.physicalCM) {
+            context.tracks.physical = this._prepareConditionMonitors(this.actor.system.health.physicalCM);
+        }
+        if (this.actor.system.health?.stunCM) {
+            context.tracks.stun = this._prepareConditionMonitors(this.actor.system.health.stunCM);
+        }
         if (this.actor.system.health?.overflow?.dmg) {
             context.tracks.overflow = this._prepareConditionMonitors(this.actor.system.health.overflow);
+        }
+        if (this.actor.system.matrix?.matrixCM) {
+            context.tracks.matrix = this._prepareConditionMonitors(this.actor.system.matrix.matrixCM);
         }
 
         // Offloading context prep to a helper function

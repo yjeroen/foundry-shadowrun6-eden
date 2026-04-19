@@ -9,8 +9,9 @@ export default class SR6SkillData extends SR6DataModel {
         return {
             rank: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
             mod: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0, max: 4}),
-            // TODO JEROEN: Look into replacing ArrayField with TypedObjectField in V13
-            specializations: new fields.ArrayField(new SkillSpecializationField()),
+            // TODO Replaced ArrayField with TypedObjectField in V13 >> Remove comments after testing
+            // specializations: new fields.ArrayField(new SkillSpecializationField()),
+            specializations: new fields.TypedObjectField(new SkillSpecializationField()),
             expertise: new SkillSpecializationField()
         };
     }

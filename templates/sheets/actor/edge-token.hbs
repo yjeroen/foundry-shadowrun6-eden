@@ -1,4 +1,5 @@
-<!-- Edge Token -->
+{{#if system.attributes.edge}}
+  <!-- Edge Token -->
   <div class="edge{{#if (not editable)}} inactive{{/if}}">
     <button type="button" class="edge-coin clickable" data-action="onClickEdgeToken" title="{{localize 'SR6.title.changeEdge'}}">
       <span class="edge-coin__face edge-coin__face--front">
@@ -12,3 +13,6 @@
       </span>
     </button>
   </div>
+{{else}}
+<div class="no-edge"></div>
+{{/if}}

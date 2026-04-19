@@ -1,14 +1,15 @@
 .application.sheet.actor {
-  width: 700px;
+    min-width: 366px;
+    width: 700px;
 }
 .application.sheet.actor.npc {
-  width: 830px;
+    width: 830px;
 }
 .application.sheet.actor.vehicle {
-  width: 640px;
+    width: 640px;
 }
 .application.sheet.item {
-  width: 620px;
+    width: 620px;
 }
 
 /* Preloading background images */
@@ -1519,12 +1520,6 @@
         min-height: var(--portrait-size);
     }
 }
-/* DISABLED DUE TO TRIGGERING ON (RE)RENDER */
-/* @container (min-width: 506px) {
-    .sr6 .portrait-panel {
-	    animation: sr6-screen-on 650ms ease-out forwards;
-    }
-} */
 
 /* ======================================================================== */
 /* Actor Header Layout                                                      */
@@ -1580,6 +1575,10 @@
         opacity: 0;
         pointer-events: none;
     }
+}
+
+.sr6.actor .no-edge {
+    width: clamp(0px, calc(0px + (100cqw - 660px)), 45px);
 }
 
 /* ======================================================================== */

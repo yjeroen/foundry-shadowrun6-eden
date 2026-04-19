@@ -67,7 +67,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @returns {boolean}               Actor is physically alive or not
      */
     get isLiveForm() {
-        return (this.health && this.health.physicalCM && this.attributes?.body);
+        return (this.health && this.health?.physicalCM && this.attributes?.body);
     }
 
     /**
@@ -233,8 +233,6 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
     #computeHealthOverflow() {
         if (!this.isLiveForm) return;
 
-        // TODO JEROEN remove after testing
-        this.attributes.body.rank = 4;
         this.health.overflow = {
             max: this.attributes.body.pool * 2,
             dmg: Math.max(0, this.health.physicalCM.value * -1)

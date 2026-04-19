@@ -33,9 +33,9 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
                 intuition: new srFields.SR6AttributeFields(),
                 charisma: new srFields.SR6AttributeFields(),
                 resonance: new srFields.SR6AttributeFields(),
-                // TODO JEROEN DISABLE AFTER TESTING
-                edge: new srFields.SR6EdgeAttributeFields(),
-                body: new srFields.SR6AttributeFields()
+                // Example for other Actor Types:
+                // edge: new srFields.SR6EdgeAttributeFields(),
+                // body: new srFields.SR6AttributeFields()
             }),
             skills: new fields.SchemaField({
                 electronics: new srFields.SR6SkillFields(),
@@ -43,11 +43,11 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
                 cracking: new srFields.SR6SkillFields(),
                 con: new srFields.SR6SkillFields()
             }),
-            // TODO JEROEN DISABLE AFTER TESTING
-            health: new fields.SchemaField({
-                physicalCM: new srFields.SR6ConditionMonitorFields(),
-                stunCM: new srFields.SR6ConditionMonitorFields()
-            })
+            // Example for other Actor Types:
+            // health: new fields.SchemaField({
+            //     physicalCM: new srFields.SR6ConditionMonitorFields(),
+            //     stunCM: new srFields.SR6ConditionMonitorFields()
+            // })
         };
     }
 

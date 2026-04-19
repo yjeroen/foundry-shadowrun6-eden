@@ -83,6 +83,7 @@
           </div>
   
           <div class="status-panel-header-right">
+            {{#if tracks.matrix}}
             <div class="hud-overwatch" style="--overwatch-color: var(--hud-color-bright); --os-color: var(--accent);" data-action="onClickOS">
               <span class="overwatch-side overwatch-side-left disabled" title="{{localize 'SR6.title.decreaseOS'}}" data-os-control="decrease">
                 <svg viewBox="0 0 12 24">
@@ -101,7 +102,9 @@
               </span>
               <div class="overwatch-score disabled">{{system.matrix.overwatchScore}}</div>
             </div>
+            {{/if}}
           </div>
+
         </div>
   
         <div class="tracks">
@@ -136,6 +139,7 @@
 
           {{else}}
 
+          {{#if tracks.physical}}
           <div class="track red {{#if (not editable)}}inactive{{/if}}" data-condition-monitor="physical" data-action="onTrackClick">
             <div class="slots">
               {{#each tracks.physical}}
@@ -149,7 +153,9 @@
               <input type="text" name="system.health.physicalCM.dmg" value="{{system.health.physicalCM.dmg}}">
             </div>
           </div>
+          {{/if}}
   
+          {{#if tracks.stun}}
           <div class="track blue" data-condition-monitor="stun" data-action="onTrackClick">
             <div class="slots">
               {{#each tracks.stun}}
@@ -163,9 +169,11 @@
               <input type="text" name="system.health.stunCM.dmg" value="{{system.health.stunCM.dmg}}">
             </div>
           </div>
+          {{/if}}
 
           {{/iff}}
   
+          {{#if tracks.matrix}}
           <div class="track green" data-condition-monitor="matrix" data-action="onTrackClick">
             <div class="slots">
               {{#each tracks.matrix}}
@@ -179,6 +187,8 @@
               <input type="text" name="system.matrix.matrixCM.dmg" value="{{system.matrix.matrixCM.dmg}}">
             </div>
           </div>
+          {{/if}}
+          
         </div>
       </div>
   
