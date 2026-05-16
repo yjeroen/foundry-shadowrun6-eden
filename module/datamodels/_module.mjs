@@ -9,3 +9,6 @@ export { default as SR6ModItemData } from './mod-item-data.mjs';
 
 // Export Active Effect
 export { default as SR6ActiveEffectData } from './active-effect-data.mjs';
+
+// Export object of fields
+export * as fields from './fields/fields.mjs';

@@ -9,7 +9,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 ) {
     #tabScrollCleanup = null;
     #heartRateTimeout = null;
-    #editMode = false;
+    _editMode = false;
     _defaultTab = "";
 
     /** @override */
@@ -66,8 +66,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             template: "templates/generic/tab-navigation.hbs",
             scrollable: [""],
         },
-        statblock: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/statblock-tab.hbs",
+        summary: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/summary-tab.hbs",
             scrollable: [""],
         },
         features: {
@@ -120,7 +120,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // Output initialization
         const context = {
             // Validates both permissions and compendium status
-            editMode: this.document.isOwner && this.isEditable && this.#editMode,
+            editMode: this.document.isOwner && this.isEditable && this._editMode,
             editable: this.isEditable,
             owner: this.document.isOwner,
             limited: this.document.limited,
@@ -164,7 +164,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     /** @override */
     async _preparePartContext(partId, context) {
         switch (partId) {
-            case "statblock":
+            case "summary":
             case "features":
             case "magic":
             case "gear":
@@ -233,9 +233,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 case "header":
                 case "tabs":
                     return tabs;
-                case "statblock":
-                    tab.id = "statblock";
-                    tab.label += "StatBlock";
+                case "summary":
+                    tab.id = "summary";
+                    tab.label += "Summary";
                     break;
                 case "biography":
                     tab.id = "biography";
@@ -406,7 +406,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         editButton.dataset.tooltip = label;
         editButton.setAttribute("aria-label", label);
         editButton.dataset.action = "toggleEditActor";
-        editButton.innerHTML = `<i class="fa-solid fa-toggle-off"></i>`;
+        const faToggle = this._editMode ? "fa-toggle-on" : "fa-toggle-off";
+        editButton.innerHTML = `<i class="fa-solid ${faToggle}"></i>`;
                 
         windowTitle.after(editButton);
     }
@@ -532,8 +533,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const button = event.target;
         const icon = button.querySelector("i");
 
-        this.#editMode = !this.#editMode;
-        const isEnabled = this.#editMode;
+        this._editMode = !this._editMode;
+        const isEnabled = this._editMode;
         button.setAttribute("aria-pressed", String(isEnabled));
         icon.classList.toggle("fa-toggle-off", !isEnabled);
         icon.classList.toggle("fa-toggle-on", isEnabled);

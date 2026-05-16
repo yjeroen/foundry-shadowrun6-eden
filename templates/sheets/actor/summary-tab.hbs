@@ -2,72 +2,22 @@
 <section
   class='tab statblock scrollable {{tab.cssClass}}'
   data-group='primary'
-  data-tab='statblock'
+  data-tab='summary'
 >
 
 <div class="stat-block">
-
   <div class="stat-row">
-    <div class="stat">
-      <div class="stat-label">B</div>
-      <div class="stat-value">4</div>
+
+    {{#each statblock as |attr|}}
+    <div class="stat" data-for="{{attr.field.fieldPath}}">
+      <div class="stat-label">{{localize (concat "SR6.statblock." attr.field.fieldPath)}}</div>
+      <div class="stat-value">
+        {{#if ../editMode}}{{formInput attr.field value=attr.value localize=true actor=../actor}}
+        {{else}}{{span attr.value attr.field}}{{/if}}
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-label">A</div>
-      <div class="stat-value">6(6)</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">R</div>
-      <div class="stat-value">5</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">S</div>
-      <div class="stat-value">2(2)</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">W</div>
-      <div class="stat-value">5</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">L</div>
-      <div class="stat-value">5</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">I</div>
-      <div class="stat-value">5</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">C</div>
-      <div class="stat-value">8</div>
-    </div>
-    <div class="stat wide">
-      <div class="stat-label">EDG</div>
-      <div class="stat-value">4</div>
-    </div>
-    <div class="stat wide">
-      <div class="stat-label">ESS</div>
-      <div class="stat-value">5.05</div>
-    </div>
-    <div class="stat wide">
-      <div class="stat-label">DR</div>
-      <div class="stat-value">8</div>
-    </div>
-    <div class="stat wide">
-      <div class="stat-label">I/ID</div>
-      <div class="stat-value">10/1</div>
-    </div>
-    <div class="stat wide">
-      <div class="stat-label">AC</div>
-      <div class="stat-value">A1/I2</div>
-    </div>
-    <div class="stat wide">
-      <div class="stat-label">CM</div>
-      <div class="stat-value">11/10</div>
-    </div>
-    <div class="stat move">
-      <div class="stat-label">MOVE</div>
-      <div class="stat-value">10/15/+1</div>
-    </div>
+    {{/each}}
+
   </div>
 
   <div class="content">

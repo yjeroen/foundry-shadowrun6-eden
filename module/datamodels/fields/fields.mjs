@@ -44,6 +44,15 @@ export class SR6AttributeFields extends fields.EmbeddedDataField {
     constructor(options={}, context={}) {
         super(SR6AttributeData, options, context);
     }
+    
+    /**
+     * Refer to its rank attribute
+     *  @param {FormInputConfig} config         Form element configuration parameters
+     * @returns {HTMLElement|HTMLCollection}    A rendered HTMLElement for the field
+     */
+    _toInput(config) {
+        return this.fields.rank._toInput(config);
+    }
 }
 
 /**
@@ -57,6 +66,7 @@ export class SR6EdgeAttributeFields extends fields.EmbeddedDataField {
     constructor(options={}, context={}) {
         super(SR6EdgeAttributeData, options, context);
     }
+
 }
 
 /**
@@ -69,6 +79,27 @@ export class SR6InitiativeFields extends fields.EmbeddedDataField {
      */
     constructor(options={}, context={}) {
         super(SR6InitiativeData, options, context);
+    }
+    
+    /**
+     * Refer to its rank attribute
+     *  @param {FormInputConfig} config         Form element configuration parameters
+     * @returns {HTMLElement|HTMLCollection}    A rendered HTMLElement for the field
+     */
+    _toInput(config) {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("stat-value-initiative");
+        const rankInput = this.fields.rank._toInput({
+             ...config,
+            name: this.fieldPath + ".rank"
+        });
+        const diceInput = this.fields.dice._toInput({
+             ...config,
+            name: this.fieldPath + ".dice",
+            value: foundry.utils.getProperty(config.actor, this.fieldPath + ".dice")
+        });
+        wrapper.append(rankInput, "+", diceInput, "D6");
+        return wrapper
     }
 }
 

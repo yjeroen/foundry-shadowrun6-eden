@@ -2056,16 +2056,41 @@
     "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
   },
   "SR6": {
+    "Common": {
+      "FIELDS": {
+        "name": {
+          "label": "Name"
+        },
+        "effects": {
+          "label": "Effects"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "rating": {
+          "label": "Rating"
+        },
+        "type": {
+          "label": "Type"
+        }
+      }
+    },
     "Actor": {
       "base": {
         "FIELDS": {
           "notes": {
             "label": "Notes"
+          },
+          "matrix": {
+            "label": "Matrix"
+          },
+          "attributes.attack": {
+            "label": "Attack"
           }
         }
       },
       "Tabs": {
-        "StatBlock": "Summary",
+        "Summary": "Summary",
         "Features": "Features",
         "Biography": "Biography",
         "Effects": "Effects"
@@ -2125,25 +2150,6 @@
         }
       }
     },
-    "Common": {
-      "FIELDS": {
-        "name": {
-          "label": "Name"
-        },
-        "effects": {
-          "label": "Effects"
-        },
-        "description": {
-          "label": "Description"
-        },
-        "rating": {
-          "label": "Rating"
-        },
-        "type": {
-          "label": "Type"
-        }
-      }
-    },
     "label": {
       "name": "Name",
       "template": "TEMPLATE",
@@ -2168,6 +2174,18 @@
       "personaModeToggle": "Toggle Persona Mode (Public/Silent)",
       "changeEdge": "Increase (left click) or decrease (right click) Edge",
       "onlyGmCanRevive": "Only your GM can revive a dead character."
+    },
+    "statblock": {
+      "system.matrix.attributes.attack": "ATTACK",
+      "system.matrix.attributes.sleaze": "SLEAZE",
+      "system.matrix.attributes.dataProcessing": "DATA PROC",
+      "system.matrix.attributes.firewall": "FIREWALL",
+      "system.matrix.initiative": "INIT",
+      "system.attributes.willpower": "W",
+      "system.attributes.logic": "L",
+      "system.attributes.intuition": "I",
+      "system.attributes.charisma": "C",
+      "system.attributes.resonance": "RES"
     }
   }
 }

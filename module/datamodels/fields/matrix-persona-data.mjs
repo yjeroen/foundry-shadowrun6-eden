@@ -2,6 +2,7 @@ import SR6MatrixIcon from "./matrix-icon-data.mjs";
 import * as srFields from "./fields.mjs";
 
 export default class SR6MatrixPersonaData extends SR6MatrixIcon {
+    static LOCALIZATION_PREFIXES = ["SR6.Actor.base"];
     static defineSchema() {
         const fields = foundry.data.fields;
 

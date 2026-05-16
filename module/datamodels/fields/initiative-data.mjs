@@ -7,7 +7,7 @@ export default class SR6InitiativeData extends SR6DataModel {
 
         return {
             rank: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1, positive: true}),
-            dice: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1, max: 5})
+            dice: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1, max: 5, choices: {1: "1", 2: "2", 3: "3", 4: "4", 5: "5"}}),
         };
     }
 
