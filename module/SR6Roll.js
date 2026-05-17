@@ -336,7 +336,7 @@ export default class SR6Roll extends Roll {
      */
     static createFormula(count, limit = -1, explode = false) {
         console.log("SR6E | createFormula-------------------------------");
-        if (!count) {
+        if (count!==0 &&!count) {
             throw new Error("createFormula: Number of dice not set");
         }
         let formula = `${count}d6`;
