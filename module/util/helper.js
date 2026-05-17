@@ -268,6 +268,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("add", function (a, b) {
         return a + b;
     });
+
     Handlebars.registerHelper("span", function (content, systemField) {
         let name = "";
         if (systemField instanceof foundry.data.fields.DataField) {
@@ -276,6 +277,21 @@ export const defineHandlebarHelper = async function () {
         }
         return new Handlebars.SafeString(`<span${name}>${Handlebars.escapeExpression(content)}</span>`);
     });
+
+    Handlebars.registerHelper("attrHint", function (actor, systemField) {
+        const srcAttr = foundry.utils.getProperty(actor, `_source.${systemField.fieldPath}`);
+        const attr = foundry.utils.getProperty(actor, systemField.fieldPath);
+        let changedBaseRank;
+
+        if (systemField instanceof game.sr6.datamodels.fields.SR6AttributeFields) {
+            changedBaseRank = srcAttr.rank !== attr.rank ? `(${attr.rank}) ` : ``;
+            return `Base ${srcAttr.rank}${changedBaseRank} + Mod ${attr.mod} = Pool ${attr.pool}`;
+        } else {
+            changedBaseRank = srcAttr !== attr ? `(${attr}) ` : ``;
+            return `${srcAttr}${changedBaseRank}`;
+        }
+    });
+
     Handlebars.registerHelper("dotsToDashes", function (value) {
         return String(value).split(".").join("-");
     });

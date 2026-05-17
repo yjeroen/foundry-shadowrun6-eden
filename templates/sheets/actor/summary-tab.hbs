@@ -7,12 +7,11 @@
 
 <div class="stat-block">
   <div class="stat-row">
-
     {{#each statblock as |attr|}}
     <div class="stat" data-for="{{attr.field.fieldPath}}">
       <div class="stat-label" title="{{attr.field.label}}">{{localize (concat "SR6.statblock." attr.field.fieldPath)}}</div>
-      <div class="stat-value">
-        {{#if ../editMode}}{{formInput attr.field value=attr.value localize=true actor=../actor}}
+      <div class="stat-value" title="{{attrHint @root.actor attr.field}}">
+        {{#if ../editMode}}{{formInput attr.field value=attr.value localize=true actor=@root.actor}}
         {{else}}{{span attr.value attr.field}}{{/if}}
       </div>
     </div>
