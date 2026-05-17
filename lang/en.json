@@ -2081,23 +2081,102 @@
           "notes": {
             "label": "Notes"
           },
-          "attributes.willpower": {
-            "label": "Willpower"
-          },
-          "attributes.logic": {
-            "label": "Logic"
-          },
-          "attributes.intuition": {
-            "label": "Intuition"
-          },
-          "attributes.charisma": {
-            "label": "Charisma"
-          },
-          "attributes.resonance": {
-            "label": "Resonance"
+          "attributes": {
+            "body": {
+              "label": "Body"
+            },
+            "agility": {
+              "label": "Agility"
+            },
+            "reaction": {
+              "label": "Reaction"
+            },
+            "strength": {
+              "label": "Strength"
+            },
+            "willpower": {
+              "label": "Willpower"
+            },
+            "logic": {
+              "label": "Logic"
+            },
+            "intuition": {
+              "label": "Intuition"
+            },
+            "charisma": {
+              "label": "Charisma"
+            },
+            "edge": {
+              "label": "Edge"
+            },
+            "magic": {
+              "label": "Magic"
+            },
+            "resonance": {
+              "label": "Resonance"
+            },
+            "essence": {
+              "label": "Essence"
+            }
           },
           "initiative": {
             "label": "Initiative"
+          },
+          "skills": {
+            "astral": {
+              "label": "Astral"
+            },
+            "athletics": {
+              "label": "Athletics"
+            },
+            "biotech": {
+              "label": "Biotech"
+            },
+            "close_combat": {
+              "label": "Close Combat"
+            },
+            "con": {
+              "label": "Con"
+            },
+            "conjuring": {
+              "label": "Conjuring"
+            },
+            "cracking": {
+              "label": "Cracking"
+            },
+            "electronics": {
+              "label": "Electronics"
+            },
+            "engineering": {
+              "label": "Engineering"
+            },
+            "exotic_weapons": {
+              "label": "Exotic Weapons"
+            },
+            "firearms": {
+              "label": "Firearms"
+            },
+            "influence": {
+              "label": "Influence"
+            },
+            "outdoors": {
+              "label": "Outdoors"
+            },
+            "perception": {
+              "label": "Perception"
+            },
+            "piloting": {
+              "label": "Piloting"
+            },
+            "sorcery": {
+              "label": "Sorcery"
+            },
+            "stealth": {
+              "label": "Stealth"
+            },
+            "tasking": {
+              "label": "Tasking"
+            }
           }
         }
       },
@@ -2187,7 +2266,13 @@
       "CM.stun.short": "STUN",
       "CM.matrix.short": "MTRX",
       "RIP": "R.I.P.",
-      "viewTemplateActor": "View Template Actor"
+      "viewTemplateActor": "View Template Actor",
+      "activeSkills": "Active Skills",
+      "knowledgeSkills": "Knowledge Skills",
+      "languages": "Languages",
+      "qualities": "Qualities",
+      "powers": "Powers",
+      "untrained": "Untrained"
     },
     "title": {
       "editButton": "Edit Actor",
@@ -2201,7 +2286,9 @@
       "CM.matrix.dmg": "Damage on Matrix Condition Monitor",
       "personaModeToggle": "Toggle Persona Mode (Public/Silent)",
       "changeEdge": "Increase (left click) or decrease (right click) Edge",
-      "onlyGmCanRevive": "Only your GM can revive a dead character."
+      "onlyGmCanRevive": "Only your GM can revive a dead character.",
+      "attributeHint": "Base {rank} + Mod {mod} = Pool {pool}",
+      "skillHint": "Base {rank} + Mod {mod} + {attr} {attrPool}{untrained} = Pool {pool}"
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",

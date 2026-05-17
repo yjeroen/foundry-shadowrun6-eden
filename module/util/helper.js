@@ -283,13 +283,36 @@ export const defineHandlebarHelper = async function () {
         const attr = foundry.utils.getProperty(actor, systemField.fieldPath);
         let changedBaseRank;
 
-        if (systemField instanceof game.sr6.datamodels.fields.SR6AttributeFields) {
+        if (systemField instanceof game.sr6.datamodels.fields.SR6AttributeField) {
             changedBaseRank = srcAttr.rank !== attr.rank ? `(${attr.rank}) ` : ``;
-            return `Base ${srcAttr.rank}${changedBaseRank} + Mod ${attr.mod} = Pool ${attr.pool}`;
+            return  game.i18n.format("SR6.title.attributeHint", { 
+                        rank: `${srcAttr.rank}${changedBaseRank}`, 
+                        mod: attr.mod,
+                        pool: attr.pool
+                    });
         } else {
             changedBaseRank = srcAttr !== attr ? `(${attr}) ` : ``;
             return `${srcAttr}${changedBaseRank}`;
         }
+    });
+
+    Handlebars.registerHelper("skillHint", function (actor, skillField) {
+        if (!(skillField instanceof game.sr6.datamodels.fields.SR6SkillField)) return;
+
+        const srcSkill = foundry.utils.getProperty(actor, `_source.${skillField.fieldPath}`);
+        const skill = foundry.utils.getProperty(actor, skillField.fieldPath);
+        const primaryAttribute = foundry.utils.getProperty(actor, `system.attributes.${skillField.primaryAttribute}`);
+        let changedBaseRank;
+
+        changedBaseRank = srcSkill.rank !== skill.rank ? `(${skill.rank}) ` : ``;
+        return  game.i18n.format("SR6.title.skillHint", { 
+                    rank: `${srcSkill.rank}${changedBaseRank}`, 
+                    mod: skill.mod,
+                    attr: primaryAttribute.schema.label,
+                    attrPool: primaryAttribute.pool,
+                    untrained: skill.rank === 0 && skill.schema.useUntrained ? ` - 1 ${game.i18n.localize("SR6.label.untrained")}` : "",
+                    pool: skill.defaultSkillTest
+                });
     });
 
     Handlebars.registerHelper("dotsToDashes", function (value) {

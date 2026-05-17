@@ -10,7 +10,7 @@ const {fields} = foundry.data;
 /**
  * A class object used to represent an Actors OverWatch Score
  */
-export class SR6MatrixFields extends fields.EmbeddedDataField {
+export class SR6MatrixField extends fields.EmbeddedDataField {
     /**
      * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
      * @param {DataFieldContext} [context]        Additional context which describes the field
@@ -23,7 +23,7 @@ export class SR6MatrixFields extends fields.EmbeddedDataField {
 /**
  * A Condition Monitor
  */
-export class SR6ConditionMonitorFields extends fields.EmbeddedDataField {
+export class SR6ConditionMonitorField extends fields.EmbeddedDataField {
     /**
      * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
      * @param {DataFieldContext} [context]        Additional context which describes the field
@@ -36,7 +36,7 @@ export class SR6ConditionMonitorFields extends fields.EmbeddedDataField {
 /**
  * A (physical/mental/special) Attribute
  */
-export class SR6AttributeFields extends fields.EmbeddedDataField {
+export class SR6AttributeField extends fields.EmbeddedDataField {
     /**
      * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
      * @param {DataFieldContext} [context]        Additional context which describes the field
@@ -58,7 +58,7 @@ export class SR6AttributeFields extends fields.EmbeddedDataField {
 /**
  * Edge Attribute
  */
-export class SR6EdgeAttributeFields extends fields.EmbeddedDataField {
+export class SR6EdgeAttributeField extends fields.EmbeddedDataField {
     /**
      * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
      * @param {DataFieldContext} [context]        Additional context which describes the field
@@ -72,7 +72,7 @@ export class SR6EdgeAttributeFields extends fields.EmbeddedDataField {
 /**
  * Initiative fields
  */
-export class SR6InitiativeFields extends fields.EmbeddedDataField {
+export class SR6InitiativeField extends fields.EmbeddedDataField {
     /**
      * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
      * @param {DataFieldContext} [context]        Additional context which describes the field
@@ -107,14 +107,32 @@ export class SR6InitiativeFields extends fields.EmbeddedDataField {
 /**
  * A Skill
  */
-export class SR6SkillFields extends fields.EmbeddedDataField {
+export class SR6SkillField extends fields.EmbeddedDataField {
     /**
      * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
      * @param {DataFieldContext} [context]        Additional context which describes the field
      */
-    constructor(options={}, context={}) {
+    constructor({primaryAttribute=null, useUntrained=false, ...options}={}, context={}) {
         super(SR6SkillData, options, context);
+        
+        this.primaryAttribute = primaryAttribute;
+        this.useUntrained = useUntrained;
     }
+
+    /**
+     * The attribute ID which this skill is associated with by default, used for determining the dice pool when rolling this skill. This should be one of the following strings:
+     * "body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "magic", or "resonance". This is not validated by the field itself.
+     * @type {string}
+     */
+    primaryAttribute;
+
+    /**
+     * Whether or not to include untrained ranks when calculating the dice pool for this skill. 
+     * This is used for skills which can be used untrained, and should be false for skills which cannot be used untrained.
+     * @type {boolean}
+     */
+    useUntrained;
+    
 }
 
 /**
@@ -151,7 +169,7 @@ export class SkillSpecializationField extends fields.StringField {
 /**
  * Shared contents of the attributes schema between various actor types.
  */
-export default class SR6CommonFields {
+export default class SR6CommonField {
 
     /**
      * Armor class fields shared between characters, NPCs, and vehicles.

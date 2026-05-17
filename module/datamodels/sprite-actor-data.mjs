@@ -26,27 +26,27 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
             tasksOwned: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1}),
             compiledBy: new fields.DocumentUUIDField({type: "Actor"}),
             registered: new fields.BooleanField(),
-            matrix: new srFields.SR6MatrixFields(),
+            matrix: new srFields.SR6MatrixField(),
             attributes: new fields.SchemaField({
-                willpower: new srFields.SR6AttributeFields(),
-                logic: new srFields.SR6AttributeFields(),
-                intuition: new srFields.SR6AttributeFields(),
-                charisma: new srFields.SR6AttributeFields(),
-                resonance: new srFields.SR6AttributeFields(),
+                willpower: new srFields.SR6AttributeField(),
+                logic: new srFields.SR6AttributeField(),
+                intuition: new srFields.SR6AttributeField(),
+                charisma: new srFields.SR6AttributeField(),
+                resonance: new srFields.SR6AttributeField(),
                 // Example for other Actor Types:
-                // edge: new srFields.SR6EdgeAttributeFields(),
-                // body: new srFields.SR6AttributeFields()
+                // edge: new srFields.SR6EdgeAttributeField(),
+                // body: new srFields.SR6AttributeField()
             }),
             skills: new fields.SchemaField({
-                electronics: new srFields.SR6SkillFields(),
-                engineering: new srFields.SR6SkillFields(),
-                cracking: new srFields.SR6SkillFields(),
-                con: new srFields.SR6SkillFields()
+                electronics: new srFields.SR6SkillField({primaryAttribute: "logic", useUntrained: true}),
+                engineering: new srFields.SR6SkillField({primaryAttribute: "logic", useUntrained: true}),
+                cracking: new srFields.SR6SkillField({primaryAttribute: "logic", useUntrained: false}),
+                con: new srFields.SR6SkillField({primaryAttribute: "charisma", useUntrained: true}),
             }),
             // Example for other Actor Types:
             // health: new fields.SchemaField({
-            //     physicalCM: new srFields.SR6ConditionMonitorFields(),
-            //     stunCM: new srFields.SR6ConditionMonitorFields()
+            //     physicalCM: new srFields.SR6ConditionMonitorField(),
+            //     stunCM: new srFields.SR6ConditionMonitorField()
             // })
         };
     }
