@@ -43,6 +43,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
                 cracking: new srFields.SR6SkillField({primaryAttribute: "logic", useUntrained: false}),
                 con: new srFields.SR6SkillField({primaryAttribute: "charisma", useUntrained: true}),
             }),
+            edge: new srFields.SR6EdgeAttributeField(),
             // Example for other Actor Types:
             // health: new fields.SchemaField({
             //     physicalCM: new srFields.SR6ConditionMonitorField(),

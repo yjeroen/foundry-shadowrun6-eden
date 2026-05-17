@@ -885,11 +885,19 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         event.preventDefault();
         const dataset = target.dataset;
 
-        // Handle item rolls.
+        // Handle rolls.
         switch (dataset.rollType) {
             case "item":
                 const item = this._getEmbeddedDocument(target);
                 if (item) return item.roll();
+            case "skill":
+                console.log('JEROEN', dataset)
+                const roll = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
+                if (dataset.skillSpec) roll.skillSpec = dataset.skillspec;
+                if (dataset.threshold) roll.threshold = dataset.threshold;
+                if (dataset.attrib) roll.attrib = dataset.attrib;
+                console.log("SR6E | onRollSkillCheck before ", roll);
+                return this.actor.rollSkill(roll);
         }
 
         // Handle rolls that supply the formula directly.

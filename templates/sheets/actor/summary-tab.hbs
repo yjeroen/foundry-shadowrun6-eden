@@ -25,7 +25,7 @@
       <span class="label">{{localize "SR6.label.activeSkills"}}:</span>
       <p>
         {{#each skills as |skill|}}
-          <a title="{{skillHint @root.actor skill.schema}}">{{skill.schema.label}}</a> <strong>{{span skill.defaultSkillTest skill.schema}}</strong>
+          <a data-action="roll" data-roll-type="skill" data-skill="{{skill.schema.name}}" title="{{skillHint @root.actor skill.schema}}">{{skill.schema.label}}</a> <strong>{{span skill.defaultTestPool skill.schema}}</strong>
           {{!-- TODO - specialization and expertise display --}}
           {{!-- {{#if (or skill.specializations.length skill.expertise)}}<a>({{localize (concat "SR6.skillSpec." skill.skillField.specialization)}} +{{skill.skillField.specializationBonus}})</a>{{/if}} --}}
           {{#unless @last}}, {{/unless}}

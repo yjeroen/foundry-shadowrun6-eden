@@ -50,7 +50,7 @@ export class RollDialog extends Dialog {
         this.actor = rOptions.actor;
         this.prepared = rOptions.prepared;
         this.dialogResult = rOptions.dialogResult;
-        this.edge = this.actor ? getSystemData(this.actor).edge.value : 0;
+        this.edge = this.actor ? (getSystemData(this.actor).edge?.value ?? 0) : 0;
     }
     /********************************************
      * React to changes on the dialog

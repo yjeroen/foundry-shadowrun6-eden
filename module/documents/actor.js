@@ -1788,6 +1788,11 @@ export default class Shadowrun6Actor extends Actor {
      * @return Roll name
      */
     _getSkillPool(skillId, spec, attrib = undefined) {
+        if (this.system instanceof foundry.abstract.DataModel) {
+            // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
+            const attribute = game.sr6.config.NEW.ATTRIBUTE_TO_V2[attrib]
+            return this.system.skills[skillId]?.testPool(attribute);
+        }
         const system = getSystemData(this);
         if (!skillId)
             throw "Skill ID may not be undefined";

@@ -31,6 +31,7 @@ import SR6Keybindings from './util/keybindings.mjs';
 import * as datamodels from "./datamodels/_module.mjs";
 import * as documents from "./documents/_module.mjs";
 import * as applications from "./applications/_module.mjs";
+import * as rollTypes from "./dice/RollTypes.js";
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -54,6 +55,7 @@ Hooks.once("init", async function () {
     game.sr6.documents = documents;
     game.sr6.applications = applications;
     game.sr6.utils = utils;
+    game.sr6.rollTypes = rollTypes;
     game.sr6.macros = macros;
     game.sr6.sr6roll = SR6Roll;
     game.sr6.sockets = new SR6SocketHandler();

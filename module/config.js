@@ -38,6 +38,19 @@ export class SR6Config {
             'resonance',
             'essence'
         ],
+        ATTRIBUTE_TO_V2: {
+            "bod": "body", 
+            "agi": "agility", 
+            "rea": "reaction", 
+            "str": "strength", 
+            "wil": "willpower", 
+            "log": "logic", 
+            "int": "intuition", 
+            "cha": "charisma", 
+            "mag": "magic", 
+            "res": "resonance", 
+            "ess": "essence"
+        },
         ACTOR_TYPES: {
             sprite: {
                 types: {

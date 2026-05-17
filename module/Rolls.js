@@ -61,7 +61,7 @@ async function _showRollDialog(data) {
                 console.log("SR6E | Actor is not a lifeform");
             }
             lifeform = getSystemData(data.actor);
-            data.edge = data.actor ? lifeform.edge.value : 0;
+            data.edge = data.actor ? (lifeform.edge?.value??0) : 0;
         }
         if (!data.calcPool || data.calcPool == 0) {
             data.calcPool = data.pool;

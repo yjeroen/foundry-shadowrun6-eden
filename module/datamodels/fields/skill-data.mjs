@@ -24,14 +24,14 @@ export default class SR6SkillData extends SR6DataModel {
         return this.rank + this.mod;
     }
 
-    get defaultSkillTest() {
-        return this.skillTest();
+    get defaultTestPool() {
+        return this.testPool();
     }
 
-    skillTest(attribute=null) {
+    testPool(attribute=null) {
         if (this.rank === 0 && !this.schema.useUntrained) return 0;
 
-        if (attribute === null) attribute = this.schema.primaryAttribute;
+        if (!attribute) attribute = this.schema.primaryAttribute;
         const skillPool = this.pool + (this.rank === 0 && this.schema.useUntrained ? -1 : 0);
         const attributePool = foundry.utils.getProperty(this.actor, `system.attributes.${attribute}.pool`) ?? 0;
         return skillPool + attributePool;
