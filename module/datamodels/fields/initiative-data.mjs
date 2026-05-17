@@ -1,7 +1,7 @@
 import SR6DataModel from "./base-model.mjs";
 
 export default class SR6InitiativeData extends SR6DataModel {
-
+    
     static defineSchema() {
         const fields = foundry.data.fields;
 
@@ -12,6 +12,10 @@ export default class SR6InitiativeData extends SR6DataModel {
     }
 
     get text() {
+        return `${this.rank} + ${this.dice}D6`;
+    }
+
+    get formula() {
         return `${this.rank} + ${this.dice}D6`;
     }
 

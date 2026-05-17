@@ -884,7 +884,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _onRoll(event, target) {
         event.preventDefault();
         const dataset = target.dataset;
-        let roll;
+        let rollConfig;
+        let fieldPath;
 
         // Handle rolls.
         // TODO Cleanup after complete rework of Dice Rolls (low priority)
@@ -893,22 +894,35 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 const item = this._getEmbeddedDocument(target);
                 if (item) return item.roll();
             case "skill":
-                roll = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
-                if (dataset.skillSpec) roll.skillSpec = dataset.skillspec;
-                if (dataset.threshold) roll.threshold = dataset.threshold;
-                if (dataset.attrib) roll.attrib = dataset.attrib;
-                console.log("SR6E | onRollSkillCheck before ", roll);
-                return this.actor.rollSkill(roll);
+                rollConfig = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
+                if (dataset.skillSpec) rollConfig.skillSpec = dataset.skillspec;
+                if (dataset.threshold) rollConfig.threshold = dataset.threshold;
+                if (dataset.attrib) rollConfig.attrib = dataset.attrib;
+                console.log("SR6E | onRollSkillCheck before ", rollConfig);
+                return this.actor.rollSkill(rollConfig);
             case "attribute":
-                roll = new game.sr6.rollTypes.PreparedRoll();
-                roll.rollType = game.sr6.rollTypes.RollType.Common;
-                roll.pool = this.actor.system.attributes[dataset.attribute]?.pool || 0;
-                roll.attributeTested = dataset.attribute;
-                roll.allowBuyHits = true;
-                roll.useAttributeMod = true;
-                roll.checkText = roll.actionText = this.actor.system.attributes[dataset.attribute]?.schema.label;
-                console.log("SR6E | onRollAttributeCheck before ", roll);
-                return this.actor.rollCommonCheck(roll);
+                const attr = foundry.utils.getProperty(this.actor, dataset.attributePath);
+                rollConfig = new game.sr6.rollTypes.PreparedRoll();
+                rollConfig.rollType = game.sr6.rollTypes.RollType.Common;
+                
+                rollConfig.pool = attr?.pool ?? attr ?? 0;
+                rollConfig.attributeTested = dataset.attributePath;
+                rollConfig.allowBuyHits = true;
+                rollConfig.useAttributeMod = true;
+                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
+                fieldPath = dataset.attributePath.replace("system.", "");
+                rollConfig.checkText = rollConfig.actionText =  this.actor.system.schema.getField(fieldPath)?.label;
+                console.log("SR6E | onRollAttributeCheck before ", rollConfig, attr);
+                return this.actor.rollCommonCheck(rollConfig);
+            case "initiative":
+                const initiative = foundry.utils.getProperty(this.actor, dataset.attributePath);
+                rollConfig = new game.sr6.rollTypes.ConfiguredRoll();
+                rollConfig.rollType = game.sr6.rollTypes.RollType.Initiative;
+                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
+                fieldPath = dataset.attributePath.replace("system.", "");
+                rollConfig.actionText =  this.actor.system.schema.getField(fieldPath)?.label;
+                const roll = new game.sr6.roll(initiative.text, rollConfig);
+                return await roll.toMessage(rollConfig);
         }
 
         // Handle rolls that supply the formula directly.

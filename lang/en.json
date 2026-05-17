@@ -2056,6 +2056,13 @@
     "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
   },
   "SR6": {
+    "Test": {
+      "FIELDS": {
+        "initiative": {
+          "label": "InitiativeTest"
+        }
+      }
+    },
     "Common": {
       "FIELDS": {
         "name": {
@@ -2117,6 +2124,25 @@
             },
             "essence": {
               "label": "Essence"
+            }
+          },
+          "matrix": {
+            "attributes": {
+              "attack": {
+                "label": "Attack"
+              },
+              "sleaze": {
+                "label": "Sleaze"
+              },
+              "dataProcessing": {
+                "label": "Data Processing"
+              },
+              "firewall": {
+                "label": "Firewall"
+              }
+            },
+            "initiative": {
+              "label": "Initiative"
             }
           },
           "initiative": {
@@ -2203,22 +2229,6 @@
           "modular": "//MODULAR//",
           "music": "//MUSIC//",
           "primal": "//PRIMAL//"
-        }
-      },
-      "matrix": {
-        "FIELDS": {
-          "attributes.attack": {
-            "label": "Attack"
-          },
-          "attributes.sleaze": {
-            "label": "Sleaze"
-          },
-          "attributes.dataProcessing": {
-            "label": "Data Processing"
-          },
-          "attributes.firewall": {
-            "label": "Firewall"
-          }
         }
       }
     },

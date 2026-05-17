@@ -290,6 +290,10 @@ export const defineHandlebarHelper = async function () {
                         mod: attr.mod,
                         pool: attr.pool
                     });
+        } else if (systemField instanceof game.sr6.datamodels.fields.SR6InitiativeField) {
+            changedBaseRank = srcAttr.rank !== attr.rank ? `(${attr.rank}) ` : ``;
+            const changedBaseDice = srcAttr.dice !== attr.dice ? `(${attr.dice}) ` : ``;
+            return `${srcAttr.rank}${changedBaseRank} + ${srcAttr.dice}${changedBaseDice}D6`;
         } else {
             changedBaseRank = srcAttr !== attr ? `(${attr}) ` : ``;
             return `${srcAttr}${changedBaseRank}`;

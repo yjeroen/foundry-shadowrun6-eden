@@ -697,10 +697,15 @@ export class RollDialog extends Dialog {
             const attribSelect = event.currentTarget;
             let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
             console.log("SR6E |  use attribute = " + newAttrib);
-            prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
             if (this.actor.system instanceof foundry.abstract.DataModel) {
-                prepared.checkText = this.actor.system.attributes[prepared.attributeTested].schema.label;
+                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
+                
+                prepared.pool = attr?.pool ?? attr ?? 0;
+                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
+                const fieldPath = prepared.attributeTested.replace("system.", "");
+                prepared.checkText =  this.actor.system.schema.getField(fieldPath)?.label;
             } else {
+                prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
                 prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested);
             }
             if (newAttrib) {

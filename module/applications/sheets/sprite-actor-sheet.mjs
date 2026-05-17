@@ -48,42 +48,52 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
             {
                 field: schema.getField('matrix.attributes.attack'),
                 value: system.matrix.attributes.attack,
+                rollType: "attribute"
             },
             {
                 field: schema.getField('matrix.attributes.sleaze'),
                 value: system.matrix.attributes.sleaze,
+                rollType: "attribute"
             },
             {
                 field: schema.getField('matrix.attributes.dataProcessing'),
                 value: system.matrix.attributes.dataProcessing,
+                rollType: "attribute"
             },
             {
                 field: schema.getField('matrix.attributes.firewall'),
                 value: system.matrix.attributes.firewall,
+                rollType: "attribute"
             },
             {
                 field: schema.getField('attributes.willpower'),
                 value: system.attributes.willpower[edit ? "rank" : "pool"],
+                rollType: "attribute"
             },
             {
                 field: schema.getField('attributes.logic'),
                 value: system.attributes.logic[edit ? "rank" : "pool"],
+                rollType: "attribute"
             },
             {
                 field: schema.getField('attributes.intuition'),
                 value: system.attributes.intuition[edit ? "rank" : "pool"],
+                rollType: "attribute"
             },
             {
                 field: schema.getField('attributes.charisma'),
                 value: system.attributes.charisma[edit ? "rank" : "pool"],
+                rollType: "attribute"
             },
             {
                 field: schema.getField('matrix.initiative'),
                 value: system.matrix.initiative[edit ? "rank" : "text"],
+                rollType: "initiative"
             },
             {
                 field: schema.getField('attributes.resonance'),
                 value: system.attributes.resonance[edit ? "rank" : "pool"],
+                rollType: "attribute"
             },
         ];
     }

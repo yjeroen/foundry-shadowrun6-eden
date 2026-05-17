@@ -57,7 +57,7 @@ Hooks.once("init", async function () {
     game.sr6.utils = utils;
     game.sr6.rollTypes = rollTypes;
     game.sr6.macros = macros;
-    game.sr6.sr6roll = SR6Roll;
+    game.sr6.roll = SR6Roll;
     game.sr6.sockets = new SR6SocketHandler();
     game.sr6.releaseNotes = releaseNotes;
     registerSystemSettings();
