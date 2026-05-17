@@ -1731,6 +1731,9 @@
 /* ======================= ApplicationV2 STAT BLOCK ======================= */
 /* ======================================================================== */
 
+.sr6 .stat-block {
+    width: 100%;
+}
 .sr6 .stat-block .stat-value { 
     padding: 2px 0 1px 0;
 }
@@ -1759,6 +1762,7 @@
     box-shadow: var(--input-box-shadow);
 }
 
+/* Don't show input/selects as editable on Sprites */
 .sr6.sprite .stat-block input,
 .sr6.sprite .stat-block select {
     box-shadow: none;

@@ -25,7 +25,9 @@
         </span>
         <span class="meta-icon clock"></span>
         <span class="meta-time disabled" data-world-time="">00:00:00</span>
+        {{#if (ne system.nuyen undefined)}}
         <span class="meta-nuyen"><span class="value">125,840</span>¥</span>
+        {{/if}}
       </div>
   
       <div class="portrait-panel{{#if system.isDead}} dead{{/if}}">

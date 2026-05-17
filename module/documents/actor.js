@@ -193,11 +193,11 @@ export default class Shadowrun6Actor extends Actor {
      */
     prepareBaseData() {
         console.log("SR6E | Shadowrun6Actor.prepareBaseData()", this.name, this.uuid);
-        //TODO JEROEN move these to traits
-        this.system.dicePoolMod = 0;
-        this.system.badLuck = false;
+        //TODO JEROEN move these to traits - needs migration as well due to Qualities
         this.system.painTolerance = null;
         this.traits = {};
+        this.traits.badLuck = false;
+        this.traits.dicePoolMod = 0;
         this.traits.movementRate = 10;
         this.traits.movementSprintBase = 15;
         this.traits.movementSprintMultiplier = 1;
