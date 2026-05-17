@@ -1790,7 +1790,7 @@ export default class Shadowrun6Actor extends Actor {
     _getSkillPool(skillId, spec, attrib = undefined) {
         if (this.system instanceof foundry.abstract.DataModel) {
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
-            const attribute = game.sr6.config.NEW.ATTRIBUTE_TO_V2[attrib]
+            const attribute = game.sr6.config.NEW.ATTRIBUTE_TO_V2[attrib];
             return this.system.skills[skillId]?.testPool(attribute);
         }
         const system = getSystemData(this);
@@ -2448,7 +2448,7 @@ export default class Shadowrun6Actor extends Actor {
     /*
      *
      */
-    rollCommonCheck(roll, dialogConfig, options = {}) {
+    rollCommonCheck(roll, dialogConfig = { useModifier: true, useThreshold: true }, options = {}) {
         console.log("SR6E | rollCommonCheck");
         roll.dialogConfig = dialogConfig;
         roll.actor = this;

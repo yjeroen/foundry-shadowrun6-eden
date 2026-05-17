@@ -698,10 +698,17 @@ export class RollDialog extends Dialog {
             let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
             console.log("SR6E |  use attribute = " + newAttrib);
             prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
-            prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested)
+            if (this.actor.system instanceof foundry.abstract.DataModel) {
+                prepared.checkText = this.actor.system.attributes[prepared.attributeTested].schema.label;
+            } else {
+                prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested);
+            }
             if (newAttrib) {
                 prepared.checkText += ' + ' + game.i18n.localize("attrib." + newAttrib);
-                prepared.pool += this.actor.system.attributes[newAttrib].pool;
+                if (this.actor.system instanceof foundry.abstract.DataModel) {
+                    newAttrib = game.sr6.config.NEW.ATTRIBUTE_TO_V2[newAttrib];
+                }
+                prepared.pool += this.actor.system.attributes[newAttrib]?.pool || 0;
             }
             prepared.calcPool = prepared.pool;
             prepared.actionText = prepared.checkText;

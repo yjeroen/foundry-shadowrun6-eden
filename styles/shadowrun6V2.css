@@ -39,6 +39,14 @@
     -webkit-backdrop-filter: none;
 }
 
+.sr6 div[data-action] {
+    cursor: pointer;
+}
+.sr6 div[data-action]:hover {
+    color: black;
+    text-shadow: 0 0 8px var(--color-shadow-primary);
+}
+
 .application.sr6 .inactive {
     cursor: default;
     pointer-events: none;

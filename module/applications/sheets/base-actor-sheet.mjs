@@ -884,20 +884,31 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _onRoll(event, target) {
         event.preventDefault();
         const dataset = target.dataset;
+        let roll;
 
         // Handle rolls.
+        // TODO Cleanup after complete rework of Dice Rolls (low priority)
         switch (dataset.rollType) {
             case "item":
                 const item = this._getEmbeddedDocument(target);
                 if (item) return item.roll();
             case "skill":
-                console.log('JEROEN', dataset)
-                const roll = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
+                roll = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
                 if (dataset.skillSpec) roll.skillSpec = dataset.skillspec;
                 if (dataset.threshold) roll.threshold = dataset.threshold;
                 if (dataset.attrib) roll.attrib = dataset.attrib;
                 console.log("SR6E | onRollSkillCheck before ", roll);
                 return this.actor.rollSkill(roll);
+            case "attribute":
+                roll = new game.sr6.rollTypes.PreparedRoll();
+                roll.rollType = game.sr6.rollTypes.RollType.Common;
+                roll.pool = this.actor.system.attributes[dataset.attribute]?.pool || 0;
+                roll.attributeTested = dataset.attribute;
+                roll.allowBuyHits = true;
+                roll.useAttributeMod = true;
+                roll.checkText = roll.actionText = this.actor.system.attributes[dataset.attribute]?.schema.label;
+                console.log("SR6E | onRollAttributeCheck before ", roll);
+                return this.actor.rollCommonCheck(roll);
         }
 
         // Handle rolls that supply the formula directly.

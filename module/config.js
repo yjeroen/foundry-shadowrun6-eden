@@ -81,6 +81,13 @@ export class SR6Config {
         }
     };
 
+    /**
+     * Temporary mapping of v1 attribute abbreviations to v2 attribute names. This is used for converting old rolls and other references to attributes until all code is updated to use the new attribute names. The keys are the v1 abbreviations, and the values are the v2 attribute names.
+     */
+    attributeToV1attrib(attribute) {
+        return Object.entries(this.NEW.ATTRIBUTE_TO_V2).find(([key, value]) => value === attribute)?.[0];
+    }
+
     PRIMARY_ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha"];
     SECONDARY_ATTRIBUTES = ["mag", "res", "edg", "ess", "ini", "inim", "inia", "dr"];
     ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha", "mag", "res"];
