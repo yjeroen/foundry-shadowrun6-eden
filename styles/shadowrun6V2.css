@@ -1734,6 +1734,9 @@
 .sr6 .stat-block {
     width: 100%;
 }
+.sr6 .stat-block .stat {
+    min-width: 42px;
+}
 .sr6 .stat-block .stat-value { 
     padding: 2px 0 1px 0;
 }
@@ -1745,21 +1748,28 @@
     line-height: 1;
     margin: 0 0 1px 0;
 }
-.sr6 .stat-block input {
-    width: 2rem;
-}
-.sr6 .stat-block .stat[data-for="system.matrix.initiative"] .stat-value { 
-    padding-bottom: 0;
+.sr6 .stat-block .stat-row input {
+    width: 1.6rem;
 }
 .sr6 .stat-block .stat[data-for="system.matrix.initiative"] {
-    width: 4.5rem;
+    min-width: 94px;
 }
 .sr6 .stat-block .stat[data-for="system.matrix.initiative"] input {
-    width: 1.5rem;
+    width: 1.4rem;
 }
 .sr6 .stat-block select {
     width: 1.8rem;
     box-shadow: var(--input-box-shadow);
+    font-size: 12px;
+}
+.sr6 .stat-block input[type="checkbox"], 
+.sr6 .stat-block input[type="radio"] {
+    /* --checkbox-size: var(--font-size-20); */
+    --checkbox-size: 0.92rem;
+    --checkbox-background-color: var(--color-dark-6);
+    --checkbox-checked-color: var(--label-bg);
+    --checkbox-checkmark-color: var(--color-dark-1);
+    transform: translateY(1px);
 }
 
 /* Don't show input/selects as editable on Sprites */

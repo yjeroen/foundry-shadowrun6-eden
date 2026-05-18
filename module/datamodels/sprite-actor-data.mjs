@@ -208,7 +208,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
     /**
      * Returns the lifespan in hours of the Sprite since it was compiled
      */
-    get lifeSpan() {
+    get lifespan() {
         if (this.registered)
             return Infinity;
         else

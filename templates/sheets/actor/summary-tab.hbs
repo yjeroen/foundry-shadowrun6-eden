@@ -13,7 +13,7 @@
         {{localize (concat "SR6.statblock." attr.field.fieldPath)}}
       </div>
       <div class="stat-value" title="{{attrHint @root.actor attr.field}}">
-        {{#if ../editMode}}{{formInput attr.field value=attr.value localize=true actor=@root.actor}}
+        {{#if @root.editMode}}{{formInput attr.field value=attr.value localize=true actor=@root.actor}}
         {{else}}{{span attr.value attr.field}}{{/if}}
       </div>
     </div>
@@ -53,17 +53,50 @@
 
     
     {{#if powers}}
-    <div class="row">
-      <span class="label">{{localize "SR6.label.powers"}}:</span>
-      <p>
-        {{#each skills as |skill|}}
-          <a title="1+1">{{skill.schema.label}}</a> <strong>{{span skill.defaultSkillTest skill.schema}}</strong>
-          {{!-- TODO - specialization and expertise display --}}
-          {{!-- {{#if (or skill.specializations.length skill.expertise)}}<a>({{localize (concat "SR6.skillSpec." skill.skillField.specialization)}} +{{skill.skillField.specializationBonus}})</a>{{/if}} --}}
-          {{#unless @last}}, {{/unless}}
-        {{/each}}
-      </p>
-    </div>
+      <div class="row">
+        <span class="label">{{localize "SR6.label.powers"}}:</span>
+        <p>
+          {{#each skills as |skill|}}
+            <a data-action="roll" data-roll-type="skill" data-skill="{{skill.schema.name}}" title="{{skillHint @root.actor skill.schema}}">{{skill.schema.label}}</a> <strong>{{span skill.defaultTestPool skill.schema}}</strong>
+            {{!-- TODO - specialization and expertise display --}}
+            {{!-- {{#if (or skill.specializations.length skill.expertise)}}<a>({{localize (concat "SR6.skillSpec." skill.skillField.specialization)}} +{{skill.skillField.specializationBonus}})</a>{{/if}} --}}
+            {{#unless @last}}, {{/unless}}
+          {{/each}}
+        </p>
+      </div>
+    {{/if}}
+
+    {{#if (eq actor.type "sprite")}}
+      <div class="row">
+        <span class="label">{{localize "SR6.label.deviceRating"}}:</span>
+        <p>{{system.deviceRating}}</p>
+      </div>
+
+      <div class="row">
+        <span class="label">{{systemFields.compiledBy.label}}:</span>
+        <p>{{#if system.compiledBy}}{{system.compiledBy}}{{else}}<em>{{localize "SR6.label.unknown"}}</em>{{/if}}</p>
+      </div>
+
+      <div class="row">
+        <span class="label">{{systemFields.registered.label}}:</span>
+        {{#if editMode}}
+          <p>{{formInput systemFields.registered value=system.registered localize=true actor=actor}}</p>
+        {{else}}
+          <p>{{#if system.registered}}{{localize "SR6.label.yes"}}{{else}}{{localize "SR6.label.no"}}{{/if}}</p>
+        {{/if}}
+      </div>
+
+      <div class="row">
+        <span class="label">{{systemFields.tasksOwned.label}}:</span>
+        <p>{{system.tasksOwned}}</p>
+      </div>
+
+      {{#if (ne system.registered)}}
+      <div class="row">
+        <span class="label">{{localize "SR6.label.lifespan"}}:</span>
+        <p>{{sprite.lifespan}}</p>
+      </div>
+      {{/if}}
     {{/if}}
 
     {{!-- <div class="row">
@@ -111,8 +144,6 @@
     </div> --}}
 
     <div class="row">Powers</div>
-    <div class="row">Device Rating (different from Defense Rating)</div>
-    <div class="row">Lifespan: x hours</div>
 
   </div>
 </div>

@@ -2214,8 +2214,14 @@
       },
       "sprite": {
         "FIELDS": {
-          "xxx": {
-            "label": "xxx"
+          "tasksOwned": {
+            "label": "Tasks Owned"
+          },
+          "compiledBy": {
+            "label": "Compiled By"
+          },
+          "registered": {
+            "label": "Registered"
           }
         },
         "TYPES": {
@@ -2282,7 +2288,13 @@
       "languages": "Languages",
       "qualities": "Qualities",
       "powers": "Powers",
-      "untrained": "Untrained"
+      "untrained": "Untrained",
+      "deviceRating": "Device Rating",
+      "lifespan": "Lifespan",
+      "lifespan_left": "{number} {intervalScale} left",
+      "yes": "Yes",
+      "no": "No",
+      "unknown": "<unknown>"
     },
     "title": {
       "editButton": "Edit Actor",

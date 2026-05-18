@@ -31,7 +31,7 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
         switch (partId) {
             case "summary":
                 context.statblock = this._statBlock();
-                context.summary = this._contextSummary();
+                context.sprite = this._contextSprite();
                 break;
         }
         return context;
@@ -98,19 +98,16 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
         ];
     }
 
-    _contextSummary() {
-        const summary = [
-            {
-                label: 'Active Skills',
-                items: this.actor.itemTypes.skills
-            },
-            {
-                label: 'Knowledge Skills',
-                powers: this.actor.itemTypes.powers
-            },
-        ];
+    _contextSprite() {
+        const pluralRules = new Intl.PluralRules(game.i18n.lang);
+        const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.hour_long_${pluralRules.select(this.actor.system.lifespan)}`);
+        const lifespanLeft = game.i18n.format("SR6.label.lifespan_left", { number: this.actor.system.lifespan, intervalScale: localizedIntervalScale });
 
-        return summary;
+        const sprite = {
+            lifespan: lifespanLeft
+        };
+
+        return sprite;
     }
 
 }
