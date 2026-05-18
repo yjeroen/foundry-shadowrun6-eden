@@ -1771,9 +1771,3 @@
     --checkbox-checkmark-color: var(--color-dark-1);
     transform: translateY(1px);
 }
-
-/* Don't show input/selects as editable on Sprites */
-.sr6.sprite .stat-block input,
-.sr6.sprite .stat-block select {
-    box-shadow: none;
-}
