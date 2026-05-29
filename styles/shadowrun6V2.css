@@ -717,8 +717,8 @@
 .sr6 .traits select {
     font-size: 12px;
 }
-.sr6 .traits select[name="system.rating"],
-.sr6 .traits span[data-field="system.rating"] {
+.sr6 .traits select[name="system.level"],
+.sr6 .traits span[data-field="system.level"] {
   width: 40px;
 }
 .sr6 .traits select[name="system.type"],
@@ -1770,4 +1770,9 @@
     --checkbox-checked-color: var(--label-bg);
     --checkbox-checkmark-color: var(--color-dark-1);
     transform: translateY(1px);
+    width: 1em;
+}
+/* .sr6 .stat-block .content .row:not(.skills) span:not(.label), */
+.sr6 .stat-block .content input {
+    width: 2em;
 }

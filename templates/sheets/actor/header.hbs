@@ -66,11 +66,11 @@
   
             <div class="traits">
               <div>
-                <label for="system.rating">{{localize systemFields.rating.label}}:</label>
+                <label for="system.level">{{localize systemFields.level.label}}:</label>
                 {{#if editMode}}
-                {{formInput systemFields.rating value=source.rating}}
+                {{formInput systemFields.level value=source.level}}
                 {{else}}
-                {{span system.rating systemFields.rating}}
+                {{span system.level systemFields.level}}
                 {{/if}}
               </div>
               <div>

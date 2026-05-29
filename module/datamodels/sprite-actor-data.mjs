@@ -22,7 +22,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
         return {
             ...super.defineSchema(),
             type: new fields.StringField({required: false, nullable: true, choices: this.TYPES}),
-            rating: new fields.NumberField({required: true, nullable: false, blank: false, integer: true, initial: 1, min: 1, choices: CONFIG.SR6.RATING}),
+            level: new fields.NumberField({required: true, nullable: false, blank: false, integer: true, initial: 1, min: 1, choices: CONFIG.SR6.RATING}),
             tasksOwned: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1}),
             compiledBy: new fields.DocumentUUIDField({type: "Actor"}),
             registered: new fields.BooleanField(),
@@ -71,105 +71,105 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
 
     #_handleTypeChange(changes) {
         if ( (this.type || foundry.utils.hasProperty(changes, "system.type"))  ||
-             ((this.type || foundry.utils.hasProperty(changes, "system.type")) && foundry.utils.hasProperty(changes, "system.rating"))
+             ((this.type || foundry.utils.hasProperty(changes, "system.type")) && foundry.utils.hasProperty(changes, "system.level"))
             ) {
             const type = foundry.utils.hasProperty(changes, "system.type") ? changes.system.type : this.type;
-            const rating = foundry.utils.hasProperty(changes, "system.rating") ? changes.system.rating : this.rating;
-            this.#_prepareSpriteBase(changes, type, rating);
-            this.#_prepareSpriteType(changes, type, rating);
+            const level = foundry.utils.hasProperty(changes, "system.level") ? changes.system.level : this.level;
+            this.#_prepareSpriteBase(changes, type, level);
+            this.#_prepareSpriteType(changes, type, level);
         }
     }
 
-    #_prepareSpriteBase(changes, type, rating) {
-        foundry.utils.setProperty(changes, "system.matrix.conditionMonitor.max", Math.round( rating / 2 ) + 8);
-        foundry.utils.setProperty(changes, 'system.attributes.willpower.rank', rating);
-        foundry.utils.setProperty(changes, 'system.attributes.logic.rank', rating);
-        foundry.utils.setProperty(changes, 'system.attributes.intuition.rank', rating);
-        foundry.utils.setProperty(changes, 'system.attributes.charisma.rank', rating);
-        foundry.utils.setProperty(changes, 'system.attributes.resonance.rank', rating);        
+    #_prepareSpriteBase(changes, type, level) {
+        foundry.utils.setProperty(changes, "system.matrix.conditionMonitor.max", Math.round( level / 2 ) + 8);
+        foundry.utils.setProperty(changes, 'system.attributes.willpower.rank', level);
+        foundry.utils.setProperty(changes, 'system.attributes.logic.rank', level);
+        foundry.utils.setProperty(changes, 'system.attributes.intuition.rank', level);
+        foundry.utils.setProperty(changes, 'system.attributes.charisma.rank', level);
+        foundry.utils.setProperty(changes, 'system.attributes.resonance.rank', level);        
     }
 
-    #_prepareSpriteType(changes, type, rating) {
+    #_prepareSpriteType(changes, type, level) {
         let attack, sleaze, dataProcessing, firewall, iniRank, iniDice, skills=[];
         switch (type) {
             case 'courier':
-                attack          = rating
-                sleaze          = rating + 3
-                dataProcessing  = rating + 1
-                firewall        = rating + 2
-                iniRank         = (rating * 2) + 1
+                attack          = level
+                sleaze          = level + 3
+                dataProcessing  = level + 1
+                firewall        = level + 2
+                iniRank         = (level * 2) + 1
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'crack':
-                attack          = rating
-                sleaze          = rating + 3
-                dataProcessing  = rating + 2
-                firewall        = rating + 1
-                iniRank         = (rating * 2) + 2
+                attack          = level
+                sleaze          = level + 3
+                dataProcessing  = level + 2
+                firewall        = level + 1
+                iniRank         = (level * 2) + 2
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'data':
-                attack          = rating - 1
-                sleaze          = rating
-                dataProcessing  = rating + 4
-                firewall        = rating + 1
-                iniRank         = (rating * 2) + 4
+                attack          = level - 1
+                sleaze          = level
+                dataProcessing  = level + 4
+                firewall        = level + 1
+                iniRank         = (level * 2) + 4
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'fault':
-                attack          = rating + 3
-                sleaze          = rating
-                dataProcessing  = rating + 1
-                firewall        = rating + 2
-                iniRank         = (rating * 2) + 1
+                attack          = level + 3
+                sleaze          = level
+                dataProcessing  = level + 1
+                firewall        = level + 2
+                iniRank         = (level * 2) + 1
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'machine':
-                attack          = rating + 1
-                sleaze          = rating
-                dataProcessing  = rating + 3
-                firewall        = rating + 2
-                iniRank         = (rating * 2) + 3
+                attack          = level + 1
+                sleaze          = level
+                dataProcessing  = level + 3
+                firewall        = level + 2
+                iniRank         = (level * 2) + 3
                 iniDice         = 4
                 skills          = ['electronics', 'engineering']
                 break;
             case 'assassin':
-                attack          = rating + 3
-                sleaze          = rating + 2
-                dataProcessing  = rating + 1
-                firewall        = rating
-                iniRank         = (rating * 2) + 1
+                attack          = level + 3
+                sleaze          = level + 2
+                dataProcessing  = level + 1
+                firewall        = level
+                iniRank         = (level * 2) + 1
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'defender':
-                attack          = rating
-                sleaze          = rating + 1
-                dataProcessing  = rating + 2
-                firewall        = rating + 3
-                iniRank         = (rating * 2) + 1
+                attack          = level
+                sleaze          = level + 1
+                dataProcessing  = level + 2
+                firewall        = level + 3
+                iniRank         = (level * 2) + 1
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'modular':
-                attack          = rating + 1
-                sleaze          = rating + 2
-                dataProcessing  = rating + 1
-                firewall        = rating + 2
-                iniRank         = (rating * 2) + 1
+                attack          = level + 1
+                sleaze          = level + 2
+                dataProcessing  = level + 1
+                firewall        = level + 2
+                iniRank         = (level * 2) + 1
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
             case 'music':
-                attack          = rating
-                sleaze          = rating
-                dataProcessing  = rating + 4
-                firewall        = rating
-                iniRank         = (rating * 2) + 4
+                attack          = level
+                sleaze          = level
+                dataProcessing  = level + 4
+                firewall        = level
+                iniRank         = (level * 2) + 4
                 iniDice         = 4
                 skills          = ['electronics', 'con']
                 const notes     = `Skill Con: Performance only`
@@ -178,11 +178,11 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
                 );
                 break;
             case 'primal':
-                attack          = rating + 3
-                sleaze          = rating + 1
-                dataProcessing  = rating + 3
-                firewall        = rating + 1
-                iniRank         = (rating * 2) + 3
+                attack          = level + 3
+                sleaze          = level + 1
+                dataProcessing  = level + 3
+                firewall        = level + 1
+                iniRank         = (level * 2) + 3
                 iniDice         = 4
                 skills          = ['electronics', 'cracking']
                 break;
@@ -194,15 +194,15 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
         foundry.utils.setProperty(changes, 'system.matrix.initiative.rank', iniRank);
         foundry.utils.setProperty(changes, 'system.matrix.initiative.dice', iniDice);
         skills.forEach((skill) => 
-            foundry.utils.setProperty(changes, `system.skills.${skill}.rank`, rating)
+            foundry.utils.setProperty(changes, `system.skills.${skill}.rank`, level)
         );
     }
 
     /**
-     * Returns the Device Rating of the sprite
+     * Returns the Device Level of the sprite
      */
-    get deviceRating() {
-        return this.rating;
+    get deviceLevel() {
+        return this.level;
     }
 
     /**
@@ -212,7 +212,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
         if (this.registered)
             return Infinity;
         else
-            return this.rating * 2;
+            return this.level * 2;
     }
 
 }

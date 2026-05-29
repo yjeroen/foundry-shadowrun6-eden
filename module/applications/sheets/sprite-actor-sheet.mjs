@@ -31,7 +31,7 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
         switch (partId) {
             case "summary":
                 context.statblock = this._statBlock();
-                context.statblockEditable = false; // Sprites don't have editable stats as they're based on Rating
+                context.statblockDisabled = true; // Sprites don't have editable stats as they're based on Level
                 context.sprite = this._contextSprite();
                 break;
         }
