@@ -1,0 +1,51 @@
+<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
+	{{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="section">
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.complexform.skill'}}</th>
+                    <th>{{localize 'shadowrun6.complexform.oppAttr1'}}</th>
+                    <th>{{localize 'shadowrun6.complexform.oppAttr2'}}</th>
+                    <th>{{localize 'shadowrun6.complexform.duration'}}</th>
+                </tr>
+                <tr>
+                    <!--// select leer, electronics, cracking -->
+                    <td class="box centered">
+                        <select name="system.skill" data-field="system.skill" disabled>
+                            {{selectOptions config.SPRITE_POWERS.skills selected=item.system.skill blank=(localize "shadowrun6.label.none") localize=true}}
+                        </select>
+                    </td>
+                    <td class="box centered">
+                        <select name="system.oppAttr1" data-field="system.oppAttr1" disabled>
+                            {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr1 blank=(localize "shadowrun6.label.none") localize=true}}
+                        </select>
+                    </td>
+                    <td class="box centered">
+                        <select name="system.oppAttr2" data-field="system.oppAttr2" disabled>
+                            {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr2 blank=(localize "shadowrun6.label.none") localize=true}}
+                        </select>
+                    </td>
+                    <td class="box centered">
+                        <select name="system.duration" data-field="system.duration" disabled>
+                            {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>{{localize 'shadowrun6.complexform.duration'}}</th>
+                </tr>
+                <tr>
+                    <td class="box centered">
+                        <select name="system.duration" data-field="system.duration" disabled>
+                            {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            {{item.enriched.description}}
+        </div>
+    </section>
+</form>

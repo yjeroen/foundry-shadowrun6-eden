@@ -588,6 +588,9 @@ export class SR6Config {
         complexform: {
             default: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
         },
+        spritepower: {
+            default: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
+        },
         contact: {
             default: "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg"
         },
@@ -933,6 +936,13 @@ export class SR6Config {
             "int": "attrib.int"
         }
     };
+    SPRITE_POWERS = {
+        skills: {
+            "con": "skill.con",
+            "cracking": "skill.cracking",
+            "electronics": "skill.electronics"
+        },
+    }
     
     PROGRAMS = [
         // Legal

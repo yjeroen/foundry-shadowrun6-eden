@@ -134,6 +134,7 @@
     		"adeptpower": "Adept Power",
     		"critterpower": "Critter Power",
     		"complexform": "Complex Form",
+    		"spritepower": "Sprite Power",
     		"contact" : "Contact",
     		"echo": "Echo",
         "focus": "Focus",
@@ -1011,6 +1012,7 @@
       "bodyware": "Some cool enhancement",
       "chemicals": "The good stuff",
       "complexform": "How complex do you like it?",
+      "spritepower": "Cookie",
       "contact": "Who you gonna call? Ghostbusters!",
       "critterpower": "What's so special about it?",
       "cyberware": "Some cool cyber enhancement",
@@ -2214,6 +2216,9 @@
       },
       "sprite": {
         "FIELDS": {
+          "level": {
+            "label": "Level"
+          },
           "tasksOwned": {
             "label": "Tasks Owned"
           },

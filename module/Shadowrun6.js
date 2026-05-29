@@ -135,6 +135,7 @@ Hooks.once("init", async function () {
             "focus",
             "echo",
             "complexform",
+            "spritepower",
             "sin",
             "contact",
             "lifestyle",
@@ -372,7 +373,7 @@ Hooks.once("init", async function () {
             // Do nothing, FoundryVTT Native
             return;
         } if (type === 'Roll') {
-            if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll')) {
+            if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll') || data.classList.includes('spritepower-roll')) {
                 const item = await fromUuidSync(data.uuid);
                 macroData.name = item.name;
                 if (data.skill==="firearms") {
@@ -385,6 +386,8 @@ Hooks.once("init", async function () {
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
                 } else if (data.classList.includes('complexform-roll')) {
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
+                } else if (data.classList.includes('spritepower-roll')) {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
                 }
                 else {
                     // special weapons

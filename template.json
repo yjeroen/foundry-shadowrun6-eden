@@ -561,6 +561,7 @@
 			"complexform",
 			"contact",
 			"critterpower",
+			"spritepower",
 			"echo",
 			"gear",
 			"lifestyle",
@@ -618,6 +619,16 @@
 			"skillSpec": "",
 			"attrib": "res",
 			"threshold": 0,
+			"oppAttr1": "",
+			"oppAttr2": ""
+		},
+		"spritepower": {
+			"templates": [
+				"genesis"
+			],
+			"duration": "sustained",
+			"skill": "",
+			"skillSpec": "",
 			"oppAttr1": "",
 			"oppAttr2": ""
 		},
