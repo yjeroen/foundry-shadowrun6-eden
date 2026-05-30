@@ -1776,3 +1776,37 @@
 .sr6 .stat-block .content input {
     width: 2em;
 }
+
+
+/* ======================================================================== */
+/* ======================= ApplicationV2 ITEM BLOCK ======================= */
+/* ======================================================================== */
+.sr6 .tab div.section {
+    padding-top: 6px;
+}
+.sr6 .tab div.section .item-controls {
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+}
+.sr6 .tab div.section .item-controls a {
+    margin: 0 2px;
+}
+.sr6 .tab div.section table {
+    margin: 7px 0;
+}
+.sr6 .tab div.section table th .item-controls a {
+    margin-right: 5px;
+}
+.sr6 .tab div.section table th {
+    padding: 0.25em 0;
+}
+.sr6 .tab div.section table td {
+    padding: 0;
+}
+.sr6 .tab div.section table tr {
+    background: none;
+}
+.sr6 .tab div.section button:hover {
+    color: black;
+}

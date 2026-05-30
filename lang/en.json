@@ -1337,6 +1337,9 @@
         "column.fade": "Fade",
         "title": "Complex Forms"
       },
+      "spritepowers": {
+        "title": "Sprite Powers"
+      },
       "contacts": {
         "add": "Add new contact",
         "title": "Contacts"

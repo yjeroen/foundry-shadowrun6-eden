@@ -34,8 +34,29 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
                 context.statblockDisabled = true; // Sprites don't have editable stats as they're based on Level
                 context.sprite = this._contextSprite();
                 break;
+            case "features":
+                this._prepareSpriteItems(context)
+                break;
         }
         return context;
+    }
+
+    
+    /**
+     * Organize and classify Items for Sprite sheets.
+     *
+     * @param {object} context The context object to mutate
+     */
+    _prepareSpriteItems(context) {
+        const spritePowers = [];
+
+        for (let i of this.document.items) {
+            // Append to gear.
+            if (i.type === "spritepower") {
+                spritePowers.push(i);
+            }
+        }
+        context.spritePowers = spritePowers.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     }
 
     /** 

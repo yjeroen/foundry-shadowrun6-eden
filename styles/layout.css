@@ -336,7 +336,6 @@ dd::after {
 }
 .collapsible-content {
   background-color: var(--tablehead-background);
-  border: 1px inset #fcfcfc;
   border-radius: 10px;
   padding: 0px 8px;
   margin: 0 0 0 14px;
@@ -349,6 +348,7 @@ dd::after {
   margin: 0;
 }
 .collapsible-content.open {
+  border: 1px inset #fcfcfc;
   max-height: 500px;
   visibility: visible;
 }
@@ -439,6 +439,7 @@ button.collapsible.empty {
  .switch {
   position: relative;
   display: inline-block;
+  vertical-align: middle;
   width: 36px;
   height:14px;
 }

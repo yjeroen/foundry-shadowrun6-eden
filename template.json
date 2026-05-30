@@ -627,6 +627,7 @@
 				"genesis"
 			],
 			"duration": "sustained",
+			"isSustained": false,
 			"skill": "",
 			"skillSpec": "",
 			"oppAttr1": "",

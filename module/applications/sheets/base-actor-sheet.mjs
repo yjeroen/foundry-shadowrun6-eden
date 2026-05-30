@@ -45,6 +45,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             deleteDoc: this._deleteDoc,
             toggleEffect: this._toggleEffect,
             roll: this._onRoll,
+            itemSustainToggle: this._itemSustainToggle,
+            itemDescToggle: this._itemDescToggle,
         },
         // Custom property that's merged into `this.options`
         // dragDrop: [{ dragSelector: '.draggable', dropSelector: null }],
@@ -279,19 +281,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // if you don't need to subdivide a given type like
         // this sheet does with spells
         const gear = [];
-        const features = [];
-        const spells = {
-            0: [],
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-            5: [],
-            6: [],
-            7: [],
-            8: [],
-            9: [],
-        };
+        // const features = [];
 
         // Iterate through items, allocating to containers
         for (let i of this.document.items) {
@@ -300,27 +290,14 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 gear.push(i);
             }
             // Append to features.
-            else if (i.type === "feature") {
-                features.push(i);
-            }
-            // Append to spells.
-            else if (i.type === "spell") {
-                if (i.system.spellLevel != undefined) {
-                    spells[i.system.spellLevel].push(i);
-                }
-            }
-        }
-
-        for (const s of Object.values(spells)) {
-            s.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+            // else if (i.type === "feature") {
+            //     features.push(i);
+            // }
         }
 
         // Sort then assign
         context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-        context.features = features.sort(
-            (a, b) => (a.sort || 0) - (b.sort || 0)
-        );
-        context.spells = spells;
+        // context.features = features.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     }
 
     _prepareConditionMonitors(conditionMonitor) {
@@ -874,6 +851,40 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     /**
+     * Toggles the Sustaining of an Item
+     * @this SR6BaseActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    static async _itemSustainToggle(event, target) {
+        const item = this._getEmbeddedDocument(target);
+        await item.update({ 'system.isSustained': !item.system.isSustained });
+        this.render();
+    }
+    
+    /**
+     * Determines effect parent to pass to helper
+     *
+     * @this SR6BaseActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    static async _itemDescToggle(event, target) {
+        const row = target.closest("tr.item");
+        const content = row?.nextElementSibling?.querySelector(".collapsible-content");
+        if (!content) return;
+
+        const isOpen = !target.classList.contains("open");
+        target.classList.toggle("open", isOpen);
+        target.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
+        content.classList.toggle("open", isOpen);
+        content.classList.toggle("closed", !isOpen);
+    }
+
+    /**
      * Handle clickable rolls.
      *
      * @this SR6BaseActorSheet
@@ -947,7 +958,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @returns {Item | ActiveEffect} The embedded Item or ActiveEffect
      */
     _getEmbeddedDocument(target) {
-        const docRow = target.closest("li[data-document-class]");
+        const docRow = target.closest("tr[data-document-class]") || target.closest("li[data-document-class]");
         if (docRow.dataset.documentClass === "Item") {
             return this.actor.items.get(docRow.dataset.itemId);
         } else if (docRow.dataset.documentClass === "ActiveEffect") {
