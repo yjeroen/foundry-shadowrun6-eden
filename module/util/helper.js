@@ -315,7 +315,7 @@ export const defineHandlebarHelper = async function () {
                     attr: primaryAttribute.schema.label,
                     attrPool: primaryAttribute.pool,
                     untrained: skill.rank === 0 && skill.schema.useUntrained ? ` - 1 ${game.i18n.localize("SR6.label.untrained")}` : "",
-                    pool: skill.defaultSkillTest
+                    pool: skill.defaultTestPool
                 });
     });
 
