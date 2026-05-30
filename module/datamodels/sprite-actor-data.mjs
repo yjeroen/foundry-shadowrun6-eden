@@ -201,7 +201,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
     /**
      * Returns the Device Level of the sprite
      */
-    get deviceLevel() {
+    get deviceRating() {
         return this.level;
     }
 
