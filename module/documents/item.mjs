@@ -1,5 +1,6 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
+import { SpritePowerRoll } from "../dice/RollTypes.js";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -33,6 +34,19 @@ export default class SR6Item extends Item {
     }
     this.actor?._prepareAttributes();
 
+  }
+
+  prepareDerivedData() {
+    if (this.type === 'spritepower') {
+      switch (this.system.skill) {
+        case "electronics":
+            this.system.skillSpec = "complex_forms";
+            break;
+        case "cracking":
+            this.system.skillSpec = "cybercombat";
+            break;
+      }
+    }
   }
 
   /**
@@ -297,8 +311,13 @@ export default class SR6Item extends Item {
     const rollMode = game.settings.get('core', 'rollMode');
     const label = `[${item.type}] ${item.name}`;
 
+    // If it's a power
+    if (this.type === "spritepower") {
+      const rollConfig = new SpritePowerRoll(item);
+      return this.actor.rollResonanceAbility(rollConfig);
+    }
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
+    else if (!this.system.formula) {
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
