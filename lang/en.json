@@ -2305,7 +2305,7 @@
       "untrained": "Untrained",
       "deviceRating": "Device Rating",
       "lifespan": "Lifespan",
-      "lifespan_left": "{number} {intervalScale} left",
+      "lifespan_hours": "{number} {hourScale}",
       "yes": "Yes",
       "no": "No",
       "unknown": "<unknown>"

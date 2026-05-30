@@ -123,10 +123,10 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
     _contextSprite() {
         const pluralRules = new Intl.PluralRules(game.i18n.lang);
         const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.hour_long_${pluralRules.select(this.actor.system.lifespan)}`);
-        const lifespanLeft = game.i18n.format("SR6.label.lifespan_left", { number: this.actor.system.lifespan, intervalScale: localizedIntervalScale });
+        const lifespan = game.i18n.format("SR6.label.lifespan_hours", { number: this.actor.system.lifespan, hourScale: localizedIntervalScale });
 
         const sprite = {
-            lifespan: lifespanLeft
+            lifespan: lifespan
         };
 
         return sprite;
