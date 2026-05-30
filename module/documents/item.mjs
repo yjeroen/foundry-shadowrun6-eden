@@ -309,21 +309,17 @@ export default class SR6Item extends Item {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
+    const type = game.i18n.localize(`TYPES.Item.${this.type}`);
+    const label = `[${type}] ${this.name}`;
 
-    // If it's a power
+    // If it's a rollable power
     if (this.type === "spritepower" && this.system.skill) {
       const rollConfig = new SpritePowerRoll(item);
       return this.actor.rollResonanceAbility(rollConfig);
     }
     // If there's no roll data, send a chat message.
     else if (!this.system.formula) {
-      ChatMessage.create({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-        content: item.system.description ?? '',
-      });
+      this.toChat();
     }
     // Otherwise, create a roll and send a chat message from it.
     else {
@@ -341,6 +337,34 @@ export default class SR6Item extends Item {
       });
       return roll;
     }
+  }
+
+  get defaultTestPool() {
+    if (!this.system.skill) return undefined;
+
+    if (this.type === "spritepower" || this.type === "complexform") {
+      const rollConfig = new SpritePowerRoll(this);
+      return this.actor._getSkillPool(rollConfig.skillId, rollConfig.skillSpec, rollConfig.attrib);
+    }
+  }
+
+  /**
+   * Sends the Name and Description of the Item to Chat
+   * @returns {boolean}  Success of chat message 
+   */
+  toChat() {
+    // Initialize chat data.
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    const type = game.i18n.localize(`TYPES.Item.${this.type}`);
+    const label = `[${type}] ${this.name}`;
+
+    return ChatMessage.create({
+      speaker: speaker,
+      rollMode: rollMode,
+      flavor: label,
+      content: this.system.description ?? '',
+    });
   }
 
   /**

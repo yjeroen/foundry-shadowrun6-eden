@@ -46,7 +46,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             toggleEffect: this._toggleEffect,
             roll: this._onRoll,
             itemSustainToggle: this._itemSustainToggle,
-            itemDescToggle: this._itemDescToggle,
+            itemDescToggle: {handler: this._itemDescToggle, buttons: [0, 2]},
         },
         // Custom property that's merged into `this.options`
         // dragDrop: [{ dragSelector: '.draggable', dropSelector: null }],
@@ -872,8 +872,12 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @private
      */
     static async _itemDescToggle(event, target) {
-        const row = target.closest("tr.item");
-        const content = row?.nextElementSibling?.querySelector(".collapsible-content");
+        const itemId = target.dataset.itemId;
+        const isRightClick = event.button === 2 || event.which === 3;
+        if (isRightClick) return this.actor.items.get(itemId)?.toChat();
+
+        const row = target.closest("tr.item")?.nextElementSibling || target.closest("div.row");
+        const content = row?.querySelector(`.collapsible-content[data-item-id="${itemId}"]`);
         if (!content) return;
 
         const isOpen = !target.classList.contains("open");

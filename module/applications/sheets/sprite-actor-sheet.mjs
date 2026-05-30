@@ -33,9 +33,10 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
                 context.statblock = this._statBlock();
                 context.statblockDisabled = true; // Sprites don't have editable stats as they're based on Level
                 context.sprite = this._contextSprite();
+                this._prepareSpriteItems(context);
                 break;
             case "features":
-                this._prepareSpriteItems(context)
+                this._prepareSpriteItems(context);
                 break;
         }
         return context;
@@ -56,7 +57,7 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
                 spritePowers.push(i);
             }
         }
-        context.spritePowers = spritePowers.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+        context.powers = spritePowers.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     }
 
     /** 

@@ -100,21 +100,6 @@
     </section>
   </section> --}}
 
-
-
-{{#if (itemTypeInList actor.items 'spritepower')}}
-<dt>{{ localize 'shadowrun6.section.spritepowers.title' }}</dt>
-<dd>
-	<!-- Sprite Powers -->
-	{{#each (itemsOfType actor.items 'spritepower') as |item id|}} 
-      <span class="item-span">
-         <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
-         <a class="item-control" title="Roll" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
-         {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
-      </span>
-   {{/each}}
-</dd>
-
 <!-- Sprite Powers -->
 <div class="section" style="display: inline-block; width:100%; min-width: 362px;">
  <div class="section-head">
@@ -142,13 +127,13 @@
       <th colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
     </tr>
   </thead>
-		{{#each (itemsOfType actor.items 'spritepower') as |item id|}} 
+		{{#each powers as |item id|}} 
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"
       data-item-id='{{item._id}}'
       data-drag='true'
       data-document-class='Item'
     >
-      <td style="width:1rem"><button type="button" class={{#if (not item.system.description)}}"collapsible closed empty"{{else}}"collapsible closed" data-action='itemDescToggle'{{/if}}>+</button></td>
+      <td style="width:1rem"><button type="button" class={{#if (not item.system.description)}}"collapsible closed empty"{{else}}"collapsible closed" data-action='itemDescToggle' data-item-id="{{item.id}}"{{/if}}>+</button></td>
       <td>{{item.name}}</td>
       <td class="centered" style="width: 4em">
         {{#if (eq item.system.duration 'sustained')}}
@@ -182,7 +167,7 @@
     </tr>
     <tr>
       <td colspan="5">
-        <div class="collapsible-content closed" style="font-size: 0.8em;">
+        <div class="collapsible-content closed" data-item-id="{{item.id}}">
           <div><strong>{{ localize 'shadowrun6.item.description' }}</strong></div>
           <div>{{{item.system.description}}}</div>
         </div>
@@ -191,7 +176,6 @@
     {{/each}}
 </table>
 </div>
-{{/if}}
 
 
 

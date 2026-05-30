@@ -1810,3 +1810,12 @@
 .sr6 .tab div.section button:hover {
     color: black;
 }
+.sr6 .tab .collapsible-content {
+    font-size: 0.8em;
+}
+.sr6 .item-name {
+    cursor: pointer;
+}
+.sr6 .item-name:hover {
+    text-shadow: 0 0 8px var(--color-shadow-primary);
+}

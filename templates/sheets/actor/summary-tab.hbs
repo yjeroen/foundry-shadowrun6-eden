@@ -35,6 +35,19 @@
       </p>
     </div>
     {{/if}}
+
+    {{!-- {{#if (itemTypeInList actor.items 'spritepower')}}
+    <dt>{{ localize 'shadowrun6.section.spritepowers.title' }}</dt>
+    <dd>
+      <!-- Sprite Powers -->
+      {{#each (itemsOfType actor.items 'spritepower') as |item id|}} 
+          <span class="item-span">
+            <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
+            <a class="item-control" title="Roll" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+            {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
+          </span>
+      {{/each}}
+    </dd> --}}
     
     {{!-- <div class="row">
       <span class="label">{{localize "SR6.label.knowledgeSkills"}}:</span>
@@ -51,18 +64,22 @@
       <p>Attribute Mastery (Charisma), Injury Prone, Low-Light Vision, Sinner</p>
     </div> --}}
 
-    
     {{#if powers}}
       <div class="row powers">
-        <span class="label">{{localize "SR6.label.powers"}}:</span>
+        <span class="label">{{localize "shadowrun6.section.critterpowers.title"}}:</span>
         <p>
-          {{#each skills as |skill|}}
-            <a data-action="roll" data-roll-type="skill" data-skill="{{skill.schema.name}}" title="{{skillHint @root.actor skill.schema}}">{{skill.schema.label}}</a> <strong>{{span skill.defaultTestPool skill.schema}}</strong>
-            {{!-- TODO - specialization and expertise display --}}
-            {{!-- {{#if (or skill.specializations.length skill.expertise)}}<a>({{localize (concat "SR6.skillSpec." skill.skillField.specialization)}} +{{skill.skillField.specializationBonus}})</a>{{/if}} --}}
+          {{#each powers as |item|}}
+            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' title="{{localize 'SR6.title.itemName'}}">{{item.name}}</label>
+            {{#if item.system.skill}}<a class="item-control" title="{{skillHint actor item.system.skill 'resonance'}}" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
             {{#unless @last}}, {{/unless}}
           {{/each}}
         </p>
+        {{#each powers as |item|}}
+        <div class="collapsible-content closed" data-item-id="{{item.id}}">
+          <div><strong>{{item.name}} {{ localize 'shadowrun6.item.description' }}</strong></div>
+          <div>{{{item.system.description}}}</div>
+        </div>
+        {{/each}}
       </div>
     {{/if}}
 

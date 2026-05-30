@@ -300,12 +300,20 @@ export const defineHandlebarHelper = async function () {
         }
     });
 
-    Handlebars.registerHelper("skillHint", function (actor, skillField) {
+    Handlebars.registerHelper("skillHint", function (actor, skillField, attribute=null) {
+        if (typeof skillField === "string") skillField = actor.system.schema.getField(`skills.${skillField}`);
         if (!(skillField instanceof game.sr6.datamodels.fields.SR6SkillField)) return;
 
         const srcSkill = foundry.utils.getProperty(actor, `_source.${skillField.fieldPath}`);
         const skill = foundry.utils.getProperty(actor, skillField.fieldPath);
-        const primaryAttribute = foundry.utils.getProperty(actor, `system.attributes.${skillField.primaryAttribute}`);
+        let skillAttribute;
+        if (CONFIG.SR6.NEW.ATTRIBUTES.includes(attribute)) {
+            skillAttribute = attribute;
+        }
+        else {
+            skillAttribute = skillField.primaryAttribute;
+        }
+        const primaryAttribute = foundry.utils.getProperty(actor, `system.attributes.${skillAttribute}`);
         let changedBaseRank;
 
         changedBaseRank = srcSkill.rank !== skill.rank ? `(${skill.rank}) ` : ``;
