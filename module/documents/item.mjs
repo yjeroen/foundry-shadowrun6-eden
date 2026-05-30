@@ -312,7 +312,7 @@ export default class SR6Item extends Item {
     const label = `[${item.type}] ${item.name}`;
 
     // If it's a power
-    if (this.type === "spritepower") {
+    if (this.type === "spritepower" && this.system.skill) {
       const rollConfig = new SpritePowerRoll(item);
       return this.actor.rollResonanceAbility(rollConfig);
     }

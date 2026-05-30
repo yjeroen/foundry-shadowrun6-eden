@@ -316,6 +316,19 @@ export class ComplexFormRoll extends SkillRoll {
         this.calcFade = complexFormSystem.fading;
     }
 }
+export class PowerRoll extends SkillRoll {
+
+}
+export class SpritePowerRoll extends SkillRoll {
+    constructor (item) {
+        super(item.actor.system, item.system.skill);
+
+        this.item = item;
+        this.skillSpec = item.system.skillSpec;
+        this.attrib = "res";
+    }
+
+}
 function isWeapon(obj) {
     return obj.attackRating != undefined;
 }

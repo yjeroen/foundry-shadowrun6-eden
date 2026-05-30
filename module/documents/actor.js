@@ -1841,19 +1841,19 @@ export default class Shadowrun6Actor extends Actor {
     }
     //---------------------------------------------------------
     /**
-     * Return a translated complex form name
-     * @param {Object} spell      The spell to cast
+     * Return a translated item name
+     * @param {Object} Item      The Item to translate its name of
      * @return Roll name
      */
-    _getComplexFormName(complex, item) {
-        if (complex.genesisID) {
-            const key = "shadowrun6.compendium.complexform." + complex.genesisID;
+    _getItemName(item) {
+        if (item.system.genesisID) {
+            const key = "shadowrun6.compendium.complexform." + item.system.genesisID;
             let name = game.i18n.localize(key);
             if (key != name)
                 return name;
         }
-        if (item)
-            return item.name;
+        
+        return item.name;
         throw new Error("Spell: No genesisID and no item");
     }
     //---------------------------------------------------------
@@ -2293,51 +2293,72 @@ export default class Shadowrun6Actor extends Actor {
      * @param {string} itemId       The item id of the spell
      * @return {Promise<Roll>}      A Promise which resolves to the created Roll instance
      */
-    rollComplexForm(roll) {
-        console.log("SR6E | rollComplexForm( roll=", roll);
+    rollResonanceAbility(roll) {
+        console.log("SR6E | rollResonanceAbility( roll=", roll);
         roll.threshold = roll.item.system.threshold ? roll.item.system.threshold : 0;
         // If present, replace spell name, description and source references from compendium
-        roll.formName = this._getComplexFormName(roll.form, roll.item);
-        if (roll.form.description) {
-            roll.formDesc = roll.form.description;
+        roll.itemName = this._getItemName(roll.item);
+        if (roll.item.system.description) {
+            roll.itemDesc = roll.item.system.description;
         }
-        if (roll.form.genesisID) {
-            let key = "complex_form." + roll.form.genesisID + ".";
+        if (roll.item.type === 'complexform' && roll.item.system.genesisID) {
+            const key = "complex_form." + roll.item.system.genesisID + ".";
             if (!game.i18n.localize(key + "name").startsWith(key)) {
                 // A translation exists
-                roll.formName = game.i18n.localize(key + "name");
-                roll.formDesc = game.i18n.localize(key + "desc");
-                roll.formSrc = game.i18n.localize(key + "src");
+                roll.itemName = game.i18n.localize(key + "name");
+                roll.itemDesc = game.i18n.localize(key + "desc");
+                roll.itemSrc = game.i18n.localize(key + "src");
             }
+        }
+        
+        roll.defendWith = Defense.MATRIX;
+        // Calculate pool
+        roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec, roll.attrib);
+        roll.attackRating = this._getMatrixAttackRating();
+        // Taking DataModel matrix attributes into account
+        let highestDefenseRating = this._getHighestDefenseRating((a) => a.system.defenserating?.matrix?.pool || a.system.matrix?.defenseRating);
+
+        let actionTextType;
+        if (roll.item.type === 'complexform') {
+            actionTextType = 'thread';
+            roll.attackRating = this._getSkillPool('electronics', '', 'res');
+        }
+        else if (roll.item.type === 'spritepower') {
+            actionTextType = 'using';
         }
         // Prepare action text
         switch (game.user.targets.size) {
             case 0:
-                roll.actionText = game.i18n.format("shadowrun6.roll.actionText.cast_target_none", { name: roll.formName });
+                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_none`, { name: roll.itemName });
                 break;
             case 1:
                 let targetName = game.user.targets.values().next().value.name;
-                roll.actionText = game.i18n.format("shadowrun6.roll.actionText.cast_target_one", { name: roll.formName, target: targetName });
+                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_one`, { name: roll.itemName, target: targetName });
                 break;
             default:
-                roll.actionText = game.i18n.format("shadowrun6.roll.actionText.cast_target_multiple", { name: roll.formName });
+                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_multiple`, { name: roll.itemName });
         }
         roll.actor = this;
         // Prepare check text
         roll.checkText = this._getSkillCheckText(roll);
-        
-        roll.defendWith = Defense.MATRIX;
 
-        // Calculate pool
-        roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec, roll.attrib);
-        roll.attackRating = this._getSkillPool('electronics', '', 'res');
-
-        let highestDefenseRating = this._getHighestDefenseRating((a) => a.system.defenserating.matrix.pool);
         console.log("SR6E | Highest matrix defense rating of targets: " + highestDefenseRating);
         if (highestDefenseRating > 0)
             roll.defenseRating = highestDefenseRating;
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
+    }
+    _getMatrixAttackRating() {
+        if (this.system instanceof foundry.abstract.DataModel) {
+            return this.system.matrix.attackRating;
+        }
+        return this.system.persona.used.a + this.system.persona.used.s;
+    }
+    _getMatrixDefenseRating() {
+        if (this.system instanceof foundry.abstract.DataModel) {
+            return this.system.matrix.defenseRating;
+        }
+        return this.system.persona.used.d + this.system.persona.used.f;
     }
     //-------------------------------------------------------------
     async applyDamage(monitor, damage, newDmg) {

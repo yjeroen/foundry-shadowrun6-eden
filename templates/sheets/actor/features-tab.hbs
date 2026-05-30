@@ -109,7 +109,7 @@
 	{{#each (itemsOfType actor.items 'spritepower') as |item id|}} 
       <span class="item-span">
          <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
-         <a class="item-control" data-uuid="{{item.uuid}}" title="Roll" data-action="roll" data-roll-type="complexform" data-item-id="{{item.id}}"><i class="fas fa-dice-six"></i></a>
+         <a class="item-control" title="Roll" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
          {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
       </span>
    {{/each}}
@@ -160,7 +160,7 @@
       </td>
       <td class="centered" style="width: 5em">
         <div class='item-controls'>
-          <a class="item-control complexform-roll" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}" title="Roll"><i class="fas fa-dice-six"></i></a>
+          <a class="item-control" title="Roll" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
           <a
             class='item-control item-edit'
             title='{{localize "DOCUMENT.Update" type=(localize 'TYPES.Item.spritepower')}}'

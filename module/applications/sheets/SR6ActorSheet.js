@@ -1004,7 +1004,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         }
         const cform = getSystemData(formRaw);
         let roll = new ComplexFormRoll(caster, item, itemId, cform);
-        this.actor.rollComplexForm(roll);
+        this.actor.rollResonanceAbility(roll);
     }
 
     async _onMatrixAttributesSwitch(event, html) {
