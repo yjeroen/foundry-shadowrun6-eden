@@ -2107,9 +2107,9 @@ export default class Shadowrun6Actor extends Actor {
     //-------------------------------------------------------------
     /**
      */
-    rollDefense(defendWith, threshold, damage, monitor) {
+    async rollDefense(defendWith, threshold, damage, monitor, itemUuid) {
         const data = getSystemData(this);
-        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, data);
+        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, itemUuid);
 
         let defensePool = undefined;
         let rollData = new DefenseRoll(threshold, monitor);
@@ -2142,6 +2142,22 @@ export default class Shadowrun6Actor extends Actor {
                 defensePool = data.defensepool.spells_other;
                 rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense." + defendWith);
                 rollData.checkText = game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib.int");
+                break;
+            case Defense.ITEM_DEFINED:
+                const item = await foundry.utils.fromUuid(itemUuid);
+                if (!item) return ui.notifications.error("SR6 | Error | No item passed in an ITEM_DEFINED Defense");
+
+                const oppAttr1 = item.system.oppAttr1;
+                const oppAttr2 = item.system.oppAttr2;
+                console.log(`SR6E | Defense with two item defined attributes: "${oppAttr1}", "${oppAttr2}"`);
+                
+                if (item.type === "spritepower") {
+                    defensePool = { pool: this.getMatrixPool(oppAttr1, oppAttr2) };
+                    rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
+                } else {
+                    // TODO Add other ITEM_DEFINED versus rolls like with Critter Powers
+                }
+                rollData.checkText = game.i18n.localize(`attrib.${oppAttr1}`) + " + " + game.i18n.localize(`attrib.${oppAttr2}`) + " (" + threshold + ")";
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle defense rolls for " + defendWith);
@@ -2311,7 +2327,6 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
         
-        roll.defendWith = Defense.MATRIX;
         // Calculate pool
         roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec, roll.attrib);
         roll.attackRating = this._getMatrixAttackRating();
@@ -2359,6 +2374,24 @@ export default class Shadowrun6Actor extends Actor {
             return this.system.matrix.defenseRating;
         }
         return this.system.persona.used.d + this.system.persona.used.f;
+    }
+    
+    /**
+     * Returns a Matrix Test Pool
+     * @param {number} matrixAttr   Matrix Attribute
+     * @param {number} physAttr     Physical Attribute
+     * @return {number}             Number of dice
+     */
+    getMatrixPool(matrixAttr, physAttr) {
+        if (this.system instanceof foundry.abstract.DataModel) {
+            matrixAttr = game.sr6.config.NEW.ATTRIBUTE_TO_V2[matrixAttr];
+            physAttr = game.sr6.config.NEW.ATTRIBUTE_TO_V2[physAttr];
+            return this.system.matrix.testPool(matrixAttr, physAttr);
+        }
+
+        matrixAttr = this.system.persona?.used[matrixAttr] ?? 0;
+        physAttr = this.system.attributes[physAttr]?.pool ?? 0;
+        return matrixAttr + physAttr;
     }
     //-------------------------------------------------------------
     async applyDamage(monitor, damage, newDmg) {

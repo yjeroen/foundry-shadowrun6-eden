@@ -24,6 +24,7 @@ export var SoakType;
 (function (SoakType) {
     SoakType["DAMAGE_STUN"] = "damage_stun";
     SoakType["DAMAGE_PHYSICAL"] = "damage_phys";
+    SoakType["DAMAGE_MATRIX"] = "damage_matrix";
     SoakType["DRAIN"] = "drain";
     SoakType["FADING"] = "fading";
 })(SoakType || (SoakType = {}));
@@ -156,7 +157,17 @@ export class DefenseRoll extends PreparedRoll {
         this.allowSoak = true;
         this.rollType = RollType.Defense;
         this.threshold = threshold;
-        this.soakType = (soakType === MonitorType.STUN) ? SoakType.DAMAGE_STUN : SoakType.DAMAGE_PHYSICAL;
+        switch (soakType) {
+            case MonitorType.STUN:
+                this.soakType = SoakType.DAMAGE_STUN;
+                break;
+            case MonitorType.PHYSICAL:
+                this.soakType = SoakType.DAMAGE_PHYSICAL;
+                break;
+            case MonitorType.MATRIX:
+                this.soakType = SoakType.DAMAGE_MATRIX;
+                break;
+        }
     }
 }
 export class SoakRoll extends PreparedRoll {
@@ -320,12 +331,18 @@ export class PowerRoll extends SkillRoll {
 
 }
 export class SpritePowerRoll extends SkillRoll {
+    rollType = RollType.MatrixAction;
+    
     constructor (item) {
         super(item.actor.system, item.system.skill);
 
         this.item = item;
+        this.itemUuid = item.uuid;
         this.skillSpec = item.system.skillSpec;
         this.attrib = "res";
+        this.defendWith = Defense.ITEM_DEFINED;
+        // TODO Add Sprite Power Damage for e.g. Electron Storm - needs also Item system support
+        // if (???) this.monitor = MonitorType.MATRIX;
     }
 
 }
@@ -461,6 +478,7 @@ export class ConfiguredRoll extends CommonRollData {
     /* This methods is a horrible crime - there must be a better solution */
     updateSpecifics(copy) {
         this.itemId = copy.itemId;
+        this.itemUuid = copy.itemUuid;
         this.targetIds = copy.targets;
         this.actionText = copy.actionText;
         this.attrib = copy.attrib;
@@ -561,6 +579,7 @@ export class SR6ChatMessageData {
     damageAfterSoakAlreadyApplied;
     nettoHits;
     legwork;
+    itemUuid;
     constructor(copy) {
         console.log("SR6E | ####SR6ChatMessageData####1###", copy);
         this.speaker = copy.speaker;
@@ -579,8 +598,19 @@ export class SR6ChatMessageData {
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;
-        this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
+        switch (copy.soakType) {
+            case MonitorType.STUN:
+                this.monitor = SoakType.DAMAGE_STUN;
+                break;
+            case MonitorType.PHYSICAL:
+                this.monitor = SoakType.DAMAGE_PHYSICAL;
+                break;
+            case MonitorType.MATRIX:
+                this.monitor = SoakType.DAMAGE_MATRIX;
+                break;
+        }
         if (copy.legwork) this.legwork = copy.legwork;
+        if (copy.itemUuid) this.itemUuid = copy.itemUuid;
         console.log("SR6E | ####SR6ChatMessageData####2###", this);
     }
 }

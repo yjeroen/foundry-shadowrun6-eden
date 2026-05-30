@@ -188,7 +188,8 @@ export default class SR6Roll extends Roll {
             }
         }
 
-        this.finished.monitor = this.finished.monitor ? this.finished.monitor : MonitorType.PHYSICAL;
+        // UNCLEAR WHY THIS FALLBACK IS HERE > REMOVING
+        //this.finished.monitor = this.finished.monitor ? this.finished.monitor : MonitorType.PHYSICAL;
         if (this.finished.rollType === RollType.Soak) {
             this.finished.damage = Math.max(0, this.finished.threshold - this.finished.total);
 
@@ -528,10 +529,14 @@ export default class SR6Roll extends Roll {
                     if (this.configured.spell.withEssence) {
                         this.finished.netHits = this.finished.total - this.configured.threshold;
                     }
-                } else if (this.finished.rollType === RollType.ComplexForm) {
+                } else if (this.finished.rollType === RollType.MatrixAction) {
                     if (this.configured.threshold && this.finished.total) {
                         // Show Net Hits in the chat message
                         this.finished.netHits = this.finished.total - this.configured.threshold;
+                    }
+                    else if (this.finished.isOpposed) {
+                        // Defender must have more hits than the attacker for success, not the same
+                        this.finished.threshold = this.finished.total + 1;
                     }
                 }
             }

@@ -273,13 +273,33 @@
      {{#each targets as |token id|}}
      <div>
       {{log "Token" id " = " token }}
-     	<button class="rollable" data-roll-type="defense" data-damage="{{../configured.calcDamage}}"  data-monitor="{{../monitor}}" data-defend-with="{{../defendWith}}" data-targetid="{{token.id}}" data-actorId="{{token.actorId}}" data-sceneId="{{token.sceneId}}" data-threshold="{{../threshold}}">{{localize 'shadowrun6.roll.button.defense'}} ({{../threshold}}): {{token.name}}</button>
+     	<button class="rollable" data-roll-type="defense" 
+        data-damage="{{../configured.calcDamage}}"  
+        data-monitor="{{../monitor}}" 
+        data-defend-with="{{../defendWith}}" 
+        data-targetid="{{token.id}}" 
+        data-actorId="{{token.actorId}}" 
+        data-sceneId="{{token.sceneId}}" 
+        data-threshold="{{../threshold}}"
+        {{#if ../configured.itemUuid}} data-item-uuid="{{../configured.itemUuid}}" {{/if}}
+      >
+        {{localize 'shadowrun6.roll.button.defense'}} ({{../threshold}}): {{token.name}}
+      </button>
      </div>
      {{/each}}
    {{else}}
      <!-- When no targets have been selected -->
      <div>
-  	   <button class="rollable" data-roll-type="defense" data-damage="{{configured.calcDamage}}"  data-monitor="{{monitor}}" data-defend-with="{{defendWith}}" data-targetid="{{targetId}}" data-threshold="{{threshold}}">{{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})</button>
+  	    <button class="rollable" data-roll-type="defense" 
+          data-damage="{{configured.calcDamage}}"  
+          data-monitor="{{monitor}}" 
+          data-defend-with="{{defendWith}}" 
+          data-targetid="{{targetId}}" 
+          data-threshold="{{threshold}}"
+          {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
+        >
+          {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})
+        </button>
      </div>
    {{/iff}}
    {{/if}}
@@ -311,10 +331,24 @@
         {{/if}}
       {{else}}
         {{#if success}}
-        <div class="resulttext success" style="flex:2;">{{ localize 'shadowrun6.roll.successfulDefense'}}</div>
+            <div class="resulttext success" style="flex:2;">
+              {{#if (eq configured.defendedWith "item_defined")}}
+              {{ localize 'shadowrun6.roll.successfulDefenseGeneral'}}
+              {{else}}
+              {{ localize 'shadowrun6.roll.successfulDefense'}}
+              {{/if}}
+            </div>
         {{else}}
-        <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}</div>
-  	    <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+            <div class="resulttext failure" style="flex:2;">
+              {{#if (eq configured.defendedWith "item_defined")}}
+              {{ localize 'shadowrun6.roll.failedDefenseGeneral'}}
+              {{else}}
+              {{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}
+              {{/if}}
+            </div>
+            {{#if monitor}}
+            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+            {{/if}}
         {{/if}}
       {{/if}}
    {{/if}}
@@ -322,56 +356,62 @@
    <!-- After Soak / Apply Damage -->
    {{#if (eq rollType "soak")}}
    {{log "************************Soak" this}}
-   <!-- Soak Damage -->
+    {{#if monitor}}
+    <!-- Soak Damage -->
     <hr>
     <div class="soak-result">
         {{#if success}}
           <div class="resulttext" style="flex:2">{{ localize 'shadowrun6.roll.successfulSoak'}}</div>
         {{else}}
-          <header class="part-header flexrow chat-edge-post">
-            <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.roll.failedSoak'}}</span></div>
-            <br/>
-            {{#if (eq monitor 'physical')}}
-              <div class="resulttext" style="flex:2; display: flex; flex-direction: column;">
-                <span class="failure" style="line-height: 2em; font-size: 1.2em;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
-                {{#if damageConvertedStun}}
-                <span style="color: dodgerblue; font-size: 1.2em; font-weight: bold;">{{damageConvertedStun}} {{localize 'shadowrun6.monitor.stun'}}</span>
+            
+
+              <header class="part-header flexrow chat-edge-post">
+                <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.roll.failedSoak'}}</span></div>
+                <br/>
+                {{#if (eq monitor 'physical')}}
+                  <div class="resulttext" style="flex:2; display: flex; flex-direction: column;">
+                    <span class="failure" style="line-height: 2em; font-size: 1.2em;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+                    {{#if damageConvertedStun}}
+                    <span style="color: dodgerblue; font-size: 1.2em; font-weight: bold;">{{damageConvertedStun}} {{localize 'shadowrun6.monitor.stun'}}</span>
+                    {{/if}}
+                  </div>
+                {{else}}
+                  <div class="resulttext" style="flex:2;">
+                    <span style="color: dodgerblue; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+                  </div>
                 {{/if}}
-              </div>
-            {{else}}
-              <div class="resulttext" style="flex:2;">
-                <span style="color: dodgerblue; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
-              </div>
-            {{/if}}
-          </header>
+              </header>
 
-          <hr>
+              <hr>
 
-          {{#if (or (eq actor.type "Spirit") (eq actor.type "Vehicle"))}}
-            <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
-            <span style="font-style: italic;">{{localize 'shadowrun6.ui.notifications.apply_manually'}}</span>
-          {{else}}
-            <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-              {{#if damageApplied}}
-                <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+              {{#if (or (eq actor.type "Spirit") (eq actor.type "Vehicle"))}}
+                  <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
+                  <span style="font-style: italic;">{{localize 'shadowrun6.ui.notifications.apply_manually'}}</span>
               {{else}}
-                {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{#if (eq monitor "stun")}}S{{else}}P{{/if}})
+                  <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                      {{#if damageApplied}}
+                        <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+                      {{else}}
+                        {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{#if (eq monitor "stun")}}S{{else}}P{{/if}})
+                      {{/if}}
+                  </button>
+                  {{#if damageConvertedStun}}
+                  <button style="margin-top: 5px;" class="damageConvertedStun rollable{{#if damageApplied2}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damageConvertedStun}}" data-monitor="stun" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                      {{#if damageApplied2}}
+                        <span class="damageConvertedStun damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+                      {{else}}
+                        {{localize 'shadowrun6.roll.apply_damage'}} ({{damageConvertedStun}}S)
+                      {{/if}}
+                  </button>
+                  {{/if}}
               {{/if}}
-            </button>
-            {{#if damageConvertedStun}}
-            <button style="margin-top: 5px;" class="damageConvertedStun rollable{{#if damageApplied2}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damageConvertedStun}}" data-monitor="stun" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-              {{#if damageApplied2}}
-                <span class="damageConvertedStun damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
-              {{else}}
-                {{localize 'shadowrun6.roll.apply_damage'}} ({{damageConvertedStun}}S)
-              {{/if}}
-            </button>
-            {{/if}}
-          {{/if}}
 
         {{/if}}
     </div>
-   {{/if}}
+    {{/if}}
+  {{/if}}
+
+
 {{/if}}
 
 </div>

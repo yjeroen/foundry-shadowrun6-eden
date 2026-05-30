@@ -48,6 +48,18 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
     }
 
     /**
+     * Returns a Matrix Test Pool
+     * @param {number} matrixAttr   Matrix Attribute
+     * @param {number} physAttr     Physical Attribute
+     * @return {number}             Number of dice
+     */
+    testPool(matrixAttr, physAttr) {
+        const matrix = this.attributes[matrixAttr] ?? 0;
+        const mental = foundry.utils.getProperty(this.actor, `system.attributes.${physAttr}.pool`) ?? 0;
+        return matrix + mental;
+    }
+
+    /**
      * Reset your Overwatch Score.
      */
     async rebootDevice() {

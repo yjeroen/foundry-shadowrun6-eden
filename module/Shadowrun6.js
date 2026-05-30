@@ -537,7 +537,8 @@ Hooks.once("init", async function () {
                     if (actor) {
                         const defendWith = dataset.defendWith;
                         const monitor = dataset.monitor;
-                        actor.rollDefense(defendWith, threshold, damage, monitor);
+                        const itemUuid = dataset.itemUuid;
+                        actor.rollDefense(defendWith, threshold, damage, monitor, itemUuid);
                     }
                     break;
                 case RollType.Soak:

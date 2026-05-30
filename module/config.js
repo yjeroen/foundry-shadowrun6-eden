@@ -11,13 +11,14 @@ export var Defense;
     Defense["DAMAGE"] = "damage";
     Defense["DRAIN"] = "drain";
     Defense["FADING"] = "fading";
-    Defense["MATRIX"] = "matrix";
+    Defense["ITEM_DEFINED"] = "item_defined";
 })(Defense || (Defense = {}));
 export var MonitorType;
 (function (MonitorType) {
     MonitorType["PHYSICAL"] = "physical";
     MonitorType["STUN"] = "stun";
     MonitorType["SOCIAL"] = "social";
+    MonitorType["MATRIX"] = "matrix";
 })(MonitorType || (MonitorType = {}));
 export class SR6Config {
 
@@ -49,7 +50,11 @@ export class SR6Config {
             "cha": "charisma", 
             "mag": "magic", 
             "res": "resonance", 
-            "ess": "essence"
+            "ess": "essence",
+            "a"  : "attack",
+            "s"  : "sleaze",
+            "d"  : "dataProcessing",
+            "f"  : "firewall",
         },
         ACTOR_TYPES: {
             sprite: {

@@ -188,7 +188,11 @@
     "wil_short": "WIL",
     "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute.",
     "initiation": "Initiation",
-    "submersion": "Submersion"
+    "submersion": "Submersion",
+    "a": "Matrix Attack",
+    "s": "Matrix Sleaze",
+    "d": "Matrix Dataprocessing",
+    "f": "Matrix Firewall"
   },
   "skill": {
     "astral": "Astral",
@@ -1185,7 +1189,8 @@
         "defense": {
           "physical": "Defend against physical attack",
           "spells_direct": "Defend direct combat spells",
-          "spells_indirect": "Defend indirect combat spells"
+          "spells_indirect": "Defend indirect combat spells",
+          "matrix": "Defense against a matrix event"
         },
         "soak": {
           "drain": "Resist {damage} Drain",
@@ -1253,10 +1258,11 @@
       "explode": "Explode",
       "extended": "Extended Test",
       "interval": "Interval",
-	   "fa_area": "Area",
-		"firemode": "Firemode",
+	    "fa_area": "Area",
+		  "firemode": "Firemode",
       "failure": "Failure",
       "failedDefense": "You got hit and now it is going to hurt",
+      "failedDefenseGeneral": "You failed to defend",
       "failedSoak"   : "You get damage",
       "glitch": "Glitch",
       "hits_bought": "Hits bought",
@@ -1294,6 +1300,7 @@
       "manualResult": "Result",
       "netHits": "net hits",
       "successfulDefense": "You successfully avoided being hit",
+      "successfulDefenseGeneral": "You successfully defended",
       "successfulSoak"   : "You managed to ignore the damage",
       "missedAttack"   : "You missed chummer!",
       "succesfulHit"   : "You hit 'em chummer!",
