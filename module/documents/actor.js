@@ -2151,7 +2151,7 @@ export default class Shadowrun6Actor extends Actor {
                 const oppAttr2 = item.system.oppAttr2;
                 console.log(`SR6E | Defense with two item defined attributes: "${oppAttr1}", "${oppAttr2}"`);
                 
-                if (item.type === "spritepower") {
+                if (item.type === "spritepower" || item.type === "complexform") {
                     defensePool = { pool: this.getMatrixPool(oppAttr1, oppAttr2) };
                     rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
                 } else {
@@ -2389,9 +2389,15 @@ export default class Shadowrun6Actor extends Actor {
             return this.system.matrix.testPool(matrixAttr, physAttr);
         }
 
-        matrixAttr = this.system.persona?.used[matrixAttr] ?? 0;
-        physAttr = this.system.attributes[physAttr]?.pool ?? 0;
-        return matrixAttr + physAttr;
+        const getPool = (attr) => {
+            return this.system.persona?.used[attr] ??
+                this.system.attributes[attr]?.pool ??
+                0;
+        };
+        const oppAttr1 = getPool(matrixAttr);
+        const oppAttr2 = getPool(physAttr);
+
+        return oppAttr1 + oppAttr2;
     }
     //-------------------------------------------------------------
     async applyDamage(monitor, damage, newDmg) {

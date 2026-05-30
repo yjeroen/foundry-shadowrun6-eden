@@ -317,6 +317,7 @@ export class ComplexFormRoll extends SkillRoll {
         super(actorSystem, item.system.skill);
         this.item = item;
         this.itemId = itemId;
+        this.itemUuid = item.uuid;
         this.form = complexFormSystem;
         if(item.system.skill === 'electronics') {
             this.skillSpec = "complex_forms";
@@ -324,6 +325,7 @@ export class ComplexFormRoll extends SkillRoll {
             this.skillSpec = "cybercombat";
         }
         this.attrib = "res";
+        this.defendWith = Defense.ITEM_DEFINED;
         this.calcFade = complexFormSystem.fading;
     }
 }

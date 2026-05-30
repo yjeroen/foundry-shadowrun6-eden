@@ -165,6 +165,7 @@
     "edg": "Edge",
     "edg_short": "EDG",
     "ess": "Essence",
+    "essence": "Essence",
     "ess_short": "ESS",
     "ini": "Initiative",
     "ini_short": "INI",
@@ -2257,6 +2258,13 @@
           "music": "//MUSIC//",
           "primal": "//PRIMAL//"
         }
+      },
+      "host": {
+        "FIELDS": {
+          "xxx": {
+            "label": "xxx"
+          }
+        }
       }
     },
     "Item": {
@@ -2315,7 +2323,8 @@
       "lifespan_hours": "{number} {hourScale}",
       "yes": "Yes",
       "no": "No",
-      "unknown": "<unknown>"
+      "unknown": "<unknown>",
+      "hostRating": "Host Rating"
     },
     "title": {
       "editButton": "Edit Actor",

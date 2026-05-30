@@ -51,10 +51,12 @@ export class SR6Config {
             "mag": "magic", 
             "res": "resonance", 
             "ess": "essence",
+            "essence": "essence",
             "a"  : "attack",
             "s"  : "sleaze",
             "d"  : "dataProcessing",
             "f"  : "firewall",
+            "rating": "rating",
         },
         ACTOR_TYPES: {
             sprite: {
@@ -931,14 +933,16 @@ export class SR6Config {
             "complex_forms": "shadowrun6.special.electronics.complex_forms"
         },
         attributes: {
-            "devRating": "shadowrun6.label.devicerating.long",
             "a": "shadowrun6.label.attack.long",
             "s": "shadowrun6.label.sleaze.long",
             "d": "shadowrun6.label.dataproc.long",
             "f": "shadowrun6.label.firewall.long",
             "wil": "attrib.wil",
             "log": "attrib.log",
-            "int": "attrib.int"
+            "int": "attrib.int",
+            "bod": "attrib.bod",
+            "essence": "attrib.ess",
+            "rating": "SR6.label.hostRating",
         }
     };
     SPRITE_POWERS = {
