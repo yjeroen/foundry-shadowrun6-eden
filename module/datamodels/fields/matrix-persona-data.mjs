@@ -32,6 +32,22 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
     }
 
     /**
+     * Returns your Matrix Cybercombat Attack Rating
+     * @type {number}
+     */
+    get attackRating() {
+        return this.attributes.attack + this.attributes.sleaze;
+    }
+
+    /**
+     * Returns your Matrix Cybercombat Defense Rating
+     * @type {number}
+     */
+    get defenseRating() {
+        return this.attributes.dataProcessing + this.attributes.firewall;
+    }
+
+    /**
      * Reset your Overwatch Score.
      */
     async rebootDevice() {
