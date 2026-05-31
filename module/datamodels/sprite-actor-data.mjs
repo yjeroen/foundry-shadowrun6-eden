@@ -215,4 +215,99 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
             return this.level * 2;
     }
 
+    static POWERS = {
+        camouflage: "Compendium.shadowrun6-eden.sprite_powers.Item.X2zj2g8Zm2lgcZd8",
+        captiveAudience: "Compendium.shadowrun6-eden.sprite_powers.Item.5mnBMgIuI56CbwVw",
+        cookie: "Compendium.shadowrun6-eden.sprite_powers.Item.7OXesBXY1t9O3yzq",
+        deathMark: "Compendium.shadowrun6-eden.sprite_powers.Item.efjbgwhndoTF9Y7c",
+        diagnostics: "Compendium.shadowrun6-eden.sprite_powers.Item.zSKO6quhv5ao4Jxh",
+        digitalScream: "Compendium.shadowrun6-eden.sprite_powers.Item.Ikqpa9QcVhhiQvoM",
+        electronStorm: "Compendium.shadowrun6-eden.sprite_powers.Item.NVCrfwsAg3Wzv511",
+        fractalDream: "Compendium.shadowrun6-eden.sprite_powers.Item.f815quSgPc6NkjJG",
+        harmonize: "Compendium.shadowrun6-eden.sprite_powers.Item.rUPJxlqhLSLy0Rm0",
+        hash: "Compendium.shadowrun6-eden.sprite_powers.Item.pd2ZLYcUJcuoZ7t8",
+        modular: "Compendium.shadowrun6-eden.sprite_powers.Item.eIrm7ZniQc0VpU1D",
+        override: "Compendium.shadowrun6-eden.sprite_powers.Item.1HtRoqWOOIhamzYa",
+        phantom: "Compendium.shadowrun6-eden.sprite_powers.Item.MYIpOyuO8dT3aPVX",
+        shield: "Compendium.shadowrun6-eden.sprite_powers.Item.j07BYRPDS55pvyng",
+        stability: "Compendium.shadowrun6-eden.sprite_powers.Item.nkYbTn9VzHQmlbSD",
+        suppression: "Compendium.shadowrun6-eden.sprite_powers.Item.kstnDhfPpTWOXTs1",
+        trap: "Compendium.shadowrun6-eden.sprite_powers.Item.prSKOQVv7iashbVx",
+        watermark: "Compendium.shadowrun6-eden.sprite_powers.Item.bGTgcmL0wBFICRng"
+    };
+
+    static POWERS_BY_TYPE = {
+        courier: [
+            this.POWERS.cookie,
+            this.POWERS.hash
+        ],
+        crack: [
+            this.POWERS.phantom,
+            this.POWERS.suppression
+        ],
+        data: [
+            this.POWERS.camouflage,
+            this.POWERS.watermark
+        ],
+        fault: [
+            this.POWERS.electronStorm,
+            this.POWERS.trap
+        ],
+        machine: [
+            this.POWERS.diagnostics,
+            this.POWERS.override,
+            this.POWERS.stability
+        ],
+        assassin: [
+            this.POWERS.deathMark,
+            this.POWERS.phantom
+        ],
+        defender: [
+            this.POWERS.shield,
+            this.POWERS.stability
+        ],
+        modular: [
+            this.POWERS.modular
+        ],
+        music: [
+            this.POWERS.captiveAudience,
+            this.POWERS.harmonize
+        ],
+        primal: [
+            this.POWERS.digitalScream,
+            this.POWERS.fractalDream
+        ]
+    };
+
+    async _onUpdate(changed, options, userId) {
+        await super._onUpdate(changed, options, userId);
+
+        const type = changed.system?.type;
+
+        if (type) {
+            // First delete old powers that were autoAdded
+            const actor = this.parent;
+
+            const deleteIDs = actor.items
+                             .filter((item) => item.getFlag("shadowrun6-eden", "autoAdded") === true)
+                             .map((item) => item.id);
+            await actor.deleteEmbeddedDocuments("Item", deleteIDs);
+
+            // Then autoAdd new powers
+            const POWERS_BY_TYPE = this.constructor.POWERS_BY_TYPE;
+            const flags = { flags: { 'shadowrun6-eden': { autoAdded: true } } };
+            const uuids = POWERS_BY_TYPE[type] ?? [];
+            const powers = await Promise.all(uuids.map((uuid) => fromUuid(uuid)));
+
+            const itemData = powers
+                            .map((power) => {
+                                return foundry.utils.mergeObject(power.toObject(), flags, {
+                                    inplace: false
+                                });
+                            });
+            await actor.createEmbeddedDocuments("Item", itemData);
+        }
+        
+    }
+
 }

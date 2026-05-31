@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Modular (Choose One)",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Choose any one sprite power. (<em><strong>see</strong> <strong>Sprite Power Compendium</strong></em>)</p><p>You may change this power by spending 1 task. Swapping a power also requires the sprite to take a Major Action.</p><p>You can swap powers multiple times, but each swap costs 1 task. This task does not include actually using the power. However, if the sprite is already carrying out orders, it does not require an extra task to command it to use its new power within the context of its current instructions.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "special",
+    "isSustained": false,
+    "skill": "",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780257870332,
+    "modifiedTime": 1780257870332,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "eIrm7ZniQc0VpU1D",
+  "sort": 0,
+  "_key": "!items!eIrm7ZniQc0VpU1D"
+}

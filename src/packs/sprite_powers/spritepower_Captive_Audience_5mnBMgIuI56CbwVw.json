@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Captive Audience",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Overwhelming simsense signals surround the sprite. The sprite makes a <strong>Con (Performance) + RES</strong> test and records the total hits. </p><p>Personas using VR mode within 100 meters may attempt to resist independently using <strong>INT + FW</strong>. Characters who have a knowledge skill related to art or music are more vulnerable and cannot gain or spend Edge to resist this power. </p><p>Agents, IC, and personal assistant commlink apps are entirely unaffected, as are any devices that are not running a persona, but sprites are just as vulnerable as characters with artistic knowledge skills. </p><p>Anyone who does not fully resist your power must pay twice the number of points of Edge for all Edge Boosts and Actions for a number of combat rounds equal to your net hits. </p><p>This applies to all actions, not just Matrix Actions. Jacking out or switching to AR ends the effect immediately. This power can not be used while running silently on the Matrix.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "con",
+    "skillSpec": "performance",
+    "oppAttr1": "int",
+    "oppAttr2": "f"
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250836287,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "5mnBMgIuI56CbwVw",
+  "sort": 1600000,
+  "_key": "!items!5mnBMgIuI56CbwVw"
+}

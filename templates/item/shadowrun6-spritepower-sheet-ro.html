@@ -1,5 +1,7 @@
-<form class="flexcol {{cssClass}}" autocomplete="off" style="padding-right: 100px">
-	{{!-- Sheet Body --}}
+<form class="flexcol {{cssClass}}" autocomplete="off">
+{{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
+
+    {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="section">
             <table>
@@ -12,40 +14,45 @@
                 <tr>
                     <!--// select leer, electronics, cracking -->
                     <td class="box centered">
-                        <select name="system.skill" data-field="system.skill" disabled>
+                        <select name="system.skill" data-field="system.skill">
                             {{selectOptions config.SPRITE_POWERS.skills selected=item.system.skill blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select name="system.oppAttr1" data-field="system.oppAttr1" disabled>
+                        <select name="system.oppAttr1" data-field="system.oppAttr1">
                             {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr1 blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select name="system.oppAttr2" data-field="system.oppAttr2" disabled>
+                        <select name="system.oppAttr2" data-field="system.oppAttr2">
                             {{selectOptions config.COMPLEX_FORMS.attributes selected=item.system.oppAttr2 blank=(localize "shadowrun6.label.none") localize=true}}
                         </select>
                     </td>
                     <td class="box centered">
-                        <select name="system.duration" data-field="system.duration" disabled>
+                        <select name="system.duration" data-field="system.duration">
                             {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                         </select>
                     </td>
                 </tr>
 
+                {{#if (eq item.system.skill "con")}}
                 <tr>
-                    <th>{{localize 'shadowrun6.complexform.duration'}}</th>
+                    <th>{{localize 'shadowrun6.item.skillspec'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <select name="system.duration" data-field="system.duration" disabled>
-                            {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
-                        </select>
+                    <td style="text-align: center">
+        	   			<select name="system.skillSpec" data-field="system.skillSpec">
+                            {{selectOptions (lookup config.skill_special item.system.skill) selected=item.system.skillSpec blank=(localize "shadowrun6.label.none") localize=true}}
+         				</select>
                     </td>
                 </tr>
+                {{/if}}
+                
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
-            {{item.enriched.description}}
+            {{editor item.enriched.description target="system.description" fieldName=item.system.description button=true owner=owner editable=editable engine="prosemirror"}}
         </div>
     </section>
 </form>
+
+{{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}

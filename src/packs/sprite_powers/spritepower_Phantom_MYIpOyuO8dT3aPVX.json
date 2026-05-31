@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Phantom",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Conceal a persona or device to make it invisible to Matrix searches. They can only be found with a Matrix Perception test that is specifically looking for the hidden icon; even then you can make an <strong>Electronics + RES</strong> test, with net hits becoming the threshold for the Matrix Perception test.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "electronics",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250850886,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "MYIpOyuO8dT3aPVX",
+  "sort": 400000,
+  "_key": "!items!MYIpOyuO8dT3aPVX"
+}

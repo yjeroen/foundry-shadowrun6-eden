@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Cookie",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Tag a targer persona with a cookie, so you can track it's Matrix activities. You must succeed in an opposed <strong>Cracking + RES vs. INT + FW</strong> test. If you succeed, the target is unknowingly carrying the cookie file. The file runs silent and is protected with a Rating equal to the Sprite's Level. </p><p>The file logs everything the icon does depending on the net hits: 1 hit provides bare outline, 4 or more a detailed report. The sprite (or its owner) sets a time when the cookie is placed, at that time the cookie transfers itself with all its logs to the sprite if it's still in the Matrix. </p><p>Cookies can be detected with a succesful Matrix Perception by the carrying persona. If identified, they can remove the file's protection and then delete it.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "instantaneous",
+    "isSustained": false,
+    "skill": "cracking",
+    "skillSpec": "",
+    "oppAttr1": "int",
+    "oppAttr2": "f"
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250837230,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "7OXesBXY1t9O3yzq",
+  "sort": 1500000,
+  "_key": "!items!7OXesBXY1t9O3yzq"
+}
