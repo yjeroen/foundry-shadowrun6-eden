@@ -942,7 +942,7 @@ export class SR6Config {
             "int": "attrib.int",
             "bod": "attrib.bod",
             "essence": "attrib.ess",
-            "rating": "SR6.label.hostRating",
+            "rating": "SR6.Common.FIELDS.rating.label",
         }
     };
     SPRITE_POWERS = {

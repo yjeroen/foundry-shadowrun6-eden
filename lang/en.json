@@ -2261,8 +2261,8 @@
       },
       "host": {
         "FIELDS": {
-          "xxx": {
-            "label": "xxx"
+          "rating": {
+            "label": "Host Rating"
           }
         }
       }
@@ -2323,8 +2323,7 @@
       "lifespan_hours": "{number} {hourScale}",
       "yes": "Yes",
       "no": "No",
-      "unknown": "<unknown>",
-      "hostRating": "Host Rating"
+      "unknown": "<unknown>"
     },
     "title": {
       "editButton": "Edit Actor",
