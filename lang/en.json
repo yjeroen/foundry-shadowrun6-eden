@@ -2341,7 +2341,8 @@
       "onlyGmCanRevive": "Only your GM can revive a dead character.",
       "attributeHint": "Base {rank} + Mod {mod} = Pool {pool}",
       "skillHint": "Base {rank} + Mod {mod} + {attr} {attrPool}{untrained} = Pool {pool}",
-      "itemName": "Show description (left click) or send to chat (right click)",
+      "clickItemName": "Show description (left click) or send it to chat (right click)",
+      "sendToChat": "Send description to Chat",
       "useItem": "Use {name}"
     },
     "statblock": {

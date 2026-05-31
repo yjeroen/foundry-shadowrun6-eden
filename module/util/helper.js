@@ -301,8 +301,8 @@ export const defineHandlebarHelper = async function () {
     });
 
     Handlebars.registerHelper("skillHint", function (actor, skillField, attribute=null) {
-        if (typeof skillField === "string") skillField = actor.system.schema.getField(`skills.${skillField}`);
-        if (!(skillField instanceof game.sr6.datamodels.fields.SR6SkillField)) return;
+        if (typeof skillField === "string") skillField = actor?.system?.schema?.getField(`skills.${skillField}`);
+        if (!(skillField instanceof game.sr6.datamodels.fields.SR6SkillField)) return game.i18n.format("SR6.title.sendToChat");
 
         const srcSkill = foundry.utils.getProperty(actor, `_source.${skillField.fieldPath}`);
         const skill = foundry.utils.getProperty(actor, skillField.fieldPath);

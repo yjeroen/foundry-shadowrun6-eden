@@ -69,7 +69,7 @@
         <span class="label">{{localize "shadowrun6.section.critterpowers.title"}}:</span>
         <p>
           {{#each powers as |item|}}
-            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' title="{{localize 'SR6.title.itemName'}}">{{item.name}}</label>            
+            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' title="{{localize 'SR6.title.clickItemName'}}">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" title="{{localize "shadowrun6.section.sustained.toggle"}}">
               <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
