@@ -28,7 +28,7 @@
       },
       "changes": [
         {
-          "key": "system.badLuck",
+          "key": "traits.badLuck",
           "mode": 5,
           "value": "true",
           "priority": null
@@ -54,10 +54,11 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.348",
+        "coreVersion": "13.351",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.5",
-        "lastModifiedBy": null
+        "lastModifiedBy": "S4L5UokAp998askq",
+        "modifiedTime": 1779045257332
       },
       "_key": "!items.effects!BFYfzxUdoLP1Okpj.ggEQiei80MHXCf54"
     }
