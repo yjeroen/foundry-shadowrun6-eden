@@ -145,6 +145,7 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
 
       if (converted) {
         console.log("SR6E | SR6ActiveEffectData | Migrating Actor V1 keys to V2", data);
+        ui.notifications.info("shadowrun6.ui.notifications.effect_migration_to_v2", { localize: true });
         foundry.utils.mergeObject(data, {
           system: {
             advanced: true
