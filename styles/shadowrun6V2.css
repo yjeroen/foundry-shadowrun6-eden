@@ -1777,40 +1777,7 @@
     width: 2em;
 }
 
-
-/* ======================================================================== */
-/* ======================= ApplicationV2 ITEM BLOCK ======================= */
-/* ======================================================================== */
-.sr6 .tab div.section {
-    padding-top: 6px;
-}
-.sr6 .tab div.section .item-controls {
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-}
-.sr6 .tab div.section .item-controls a {
-    margin: 0 2px;
-}
-.sr6 .tab div.section table {
-    margin: 7px 0;
-}
-.sr6 .tab div.section table th .item-controls a {
-    margin-right: 5px;
-}
-.sr6 .tab div.section table th {
-    padding: 0.25em 0;
-}
-.sr6 .tab div.section table td {
-    padding: 0;
-}
-.sr6 .tab div.section table tr {
-    background: none;
-}
-.sr6 .tab div.section button:hover {
-    color: black;
-}
-.sr6 .tab .collapsible-content {
+.sr6 .collapsible-content {
     font-size: 0.8em;
 }
 .sr6 .item-name {
@@ -1820,15 +1787,17 @@
     text-shadow: 0 0 8px var(--color-shadow-primary);
 }
 
-
+/* ======================================================================== */
+/* ======================= ApplicationV2 ITEM BLOCK ======================= */
+/* ======================================================================== */
 
 .sr6 .section .item-controls a {
     margin: 0;
 }
 
 .sr6 .section {
-  width: 100%;
-  min-width: 320px;
+    width: 100%;
+    min-width: 320px;
 }
 
 .sr6 .section-head {
@@ -1866,44 +1835,41 @@
 }
 
 .sr6 .section-row {
-  min-height: 1.7rem;
-  padding: 0 0.5rem;
+    min-height: 1.7rem;
+    padding: 0 0.5rem;
 }
 
-.sr6 .item-toggle,
-.sr6 .section-sustained,
-.sr6 .section-actions,
-.sr6 .section-actions a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.sr6 .section-column,
+.sr6 .section-column a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.sr6 .section-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.sr6 .section .item-desc-toggle:hover {
+    color: black;
 }
 
-.sr6 .section-actions {
-  gap: 5px;
+.sr6 .section .section-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.sr6 .section-actions .item-control {
-  display: inline-flex;
-  cursor: pointer;
+.sr6 .section .item-controls {
+    gap: 5px;
 }
 
-/* .sr6 .collapsible-content {
-  margin: 0 0 0 1.75rem;
-  padding: 0 0.5rem;
-  overflow: hidden;
-  max-height: 0;
-  visibility: hidden;
-  transition: max-height 0.2s ease-out;
+.sr6 .section .item-control {
+    display: inline-flex;
+    cursor: pointer;
 }
 
-.sr6 .collapsible-content.open {
-  visibility: visible;
+.sr6 .section .item-control a:hover {
+    text-shadow: 0 0 6px var(--color-shadow-primary);
 }
- */
+
+.sr6 .section .item-toggle {
+    color: black;
+    font-size: 18px;
+}

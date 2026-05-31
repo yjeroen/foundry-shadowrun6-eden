@@ -875,7 +875,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const isRightClick = event.button === 2 || event.which === 3;
         if (isRightClick) return this.actor.items.get(itemId)?.toChat();
 
-        const row = target.closest("tr.item")?.nextElementSibling || target.closest("div.row");
+        const row = target.closest("li.section-item") || target.closest("div.row");
         const content = row?.querySelector(`.collapsible-content[data-item-id="${itemId}"]`);
         if (!content) return;
 
@@ -962,8 +962,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @returns {Item | ActiveEffect} The embedded Item or ActiveEffect
      */
     _getEmbeddedDocument(target) {
-        const docRow = target.closest("tr[data-document-class]") || target.closest("li[data-document-class]");
-        if (docRow.dataset.documentClass === "Item") {
+        const docRow = target.closest("li[data-document-class]") || target;
+        if (docRow.dataset.documentClass === "Item" || docRow.dataset.itemId) {
             return this.actor.items.get(docRow.dataset.itemId);
         } else if (docRow.dataset.documentClass === "ActiveEffect") {
             const parent =
