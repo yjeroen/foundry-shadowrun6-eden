@@ -117,7 +117,7 @@ export default class SR6ItemSheet extends ItemSheet {
         /*
         * Drag & Drop
         */
-        $(".sheet .draggable").on("dragstart", async (event) => {
+        html.find(".draggable").on("dragstart", async (event) => {
             const item = await fromUuidSync(event.currentTarget.dataset.uuid);
             console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
             event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))

@@ -393,14 +393,14 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             /*
              * Drag & Drop
              */
-            $(".sheet .draggable")
+            html.find(".draggable")
                 .on("dragstart", async (event) => {
                 const item = await fromUuidSync(event.currentTarget.dataset.uuid);
                 console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
                 event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
             }).attr("draggable", "true");
 
-            $( "a[draggable='true']" ).on("dragstart", (event) => {
+            html.find( "a[draggable='true']" ).on("dragstart", (event) => {
                 console.log("SR6E | a[draggable='true'] DRAG Item Start");
                 const dragData = event.currentTarget.dataset;
                 dragData.classList = event.currentTarget.classList;
