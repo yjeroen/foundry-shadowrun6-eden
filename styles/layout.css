@@ -181,8 +181,8 @@ dt {
 }
 body.game .shadowrun6.sheet .toggle-control {
   margin-right: 2px;
-  padding-top: 1.7px;
   color: #333;
+  vertical-align: middle;
 }
 body.game .shadowrun6.sheet .toggle-control.end {
   margin-right: 0;

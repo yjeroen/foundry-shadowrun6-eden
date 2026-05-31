@@ -898,6 +898,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _onRoll(event, target) {
         event.preventDefault();
         const dataset = target.dataset;
+        console.log(`SR6E | SR6BaseActorSheet._onRoll | dataset`, dataset, this);
         let rollConfig;
         let fieldPath;
 
@@ -978,6 +979,25 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * Drag and Drop
      *
      ***************/
+
+    /**
+     * An event that occurs when a drag workflow begins for a draggable item on the sheet.
+     * If the DOM element with .draggable has the data-action="roll" attribute, it will modify the dragData which will be used by the hotbarDrop Hook.
+     * Possible classes that modify the Macro's Name are: defense-roll, attributeonly-roll, attribute-poolmod, legwork-roll, skill-roll, matrix-roll
+     * @param {DragEvent} event       The initiating drag start event
+     * @returns {Promise<void>}
+     * @protected
+     */
+    async _onDragStart(event) {
+        const target = event.currentTarget;
+        const dragData = target.dataset;
+        console.log("SR6E | DRAG Link Start", dragData);
+        if ( dragData.action === "roll" ) {
+            dragData.type = 'Roll'
+            return event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+        }
+        return await super._onDragStart(event);
+    }
 
     /**
      * Handle the dropping of ActiveEffect data onto an Actor Sheet

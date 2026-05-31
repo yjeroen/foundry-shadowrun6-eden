@@ -69,7 +69,10 @@
         <span class="label">{{localize "shadowrun6.section.critterpowers.title"}}:</span>
         <p>
           {{#each powers as |item|}}
-            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' title="{{localize 'SR6.title.itemName'}}">{{item.name}}</label>
+            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' title="{{localize 'SR6.title.itemName'}}">{{item.name}}</label>            
+            {{#if (eq item.system.duration 'sustained')}}
+            <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" title="{{localize "shadowrun6.section.sustained.toggle"}}"><i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i></a>
+            {{/if}}
             {{#if item.system.skill}}<a class="item-control" title="{{skillHint actor item.system.skill 'resonance'}}" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
             {{#unless @last}}, {{/unless}}
           {{/each}}
@@ -164,7 +167,7 @@
     <div class="row">Powers sustain toggle & defend chat button</div>
     <div class="row">Active Effects</div>
     <div class="row">Draggable macros</div>
-    <div class="row">this.defendWith should be undefined if no opposed skills set</div>
+    <div class="row">Matrix Damage actions/forms/powers</div>
 
   </div>
 </div>

@@ -56,7 +56,7 @@
             {{/if}}
           </div>
         </li>
-        {{#each spritePowers as |item id|}}
+        {{#each powers as |item id|}}
           <li
             class='item flexrow'
             data-item-id='{{item._id}}'
@@ -145,7 +145,7 @@
       </td>
       <td class="centered" style="width: 5em">
         <div class='item-controls'>
-          <a class="item-control" title="Roll" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+          <a class="item-control" title="{{skillHint actor item.system.skill 'resonance'}}" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
           <a
             class='item-control item-edit'
             title='{{localize "DOCUMENT.Update" type=(localize 'TYPES.Item.spritepower')}}'
@@ -178,7 +178,114 @@
 </div>
 
 
+<!-- Sprite Powers: -->
+<section class="section powers">
+  <header class="section-head">
+    <h2 class="section-title">
+      {{ localize 'shadowrun6.section.spritepowers.title' }}
+    </h2>
 
+    {{#if @root.editMode}}
+      <div class="item-controls">
+        <a
+          class="item-control item-create"
+          title="{{localize 'DOCUMENT.New' type=(localize 'TYPES.Item.spritepower')}}"
+          data-action="createDoc"
+          data-document-class="Item"
+          data-type="spritepower"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    {{/if}}
+  </header>
+
+  <div class="section-header">
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.name' }}</div>
+    <div>{{ localize 'shadowrun6.section.spells.column.sustained' }}</div>
+    <div>{{ localize 'shadowrun6.label.column.action' }}</div>
+  </div>
+
+  <ol class="section-list">
+    {{#each powers as |item id|}}
+      <li
+        class="section-item"
+        data-item-id="{{item.id}}"
+        data-document-class="Item"
+      >
+        <div class="section-row">
+          <div class="item-toggle">
+            <button
+              type="button"
+              class="{{#if (not item.system.description)}}collapsible closed empty{{else}}collapsible closed{{/if}}"
+              {{#if item.system.description}}
+                data-action="itemDescToggle"
+                data-item-id="{{item.id}}"
+              {{/if}}
+            >
+              +
+            </button>
+          </div>
+
+          <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
+            {{item.name}}
+          </div>
+
+          <div class="section-sustained">
+            {{#if (eq item.system.duration 'sustained')}}
+              <label class="switch" title="{{localize 'shadowrun6.section.sustained.toggle'}}">
+                <input
+                  type="checkbox"
+                  data-action="itemSustainToggle"
+                  {{checked item.system.isSustained}}
+                >
+                <span class="shadowrun6-slider round"></span>
+              </label>
+            {{/if}}
+          </div>
+
+          <div class="section-actions item-controls"> 
+            <a
+              class="item-control draggable"
+              title="{{skillHint actor item.system.skill 'resonance'}}"
+              data-action="roll"
+              data-roll-type="item"
+              data-item-id="{{item.id}}"
+              data-uuid="{{item.uuid}}"
+            >
+              <i class="fas fa-dice-six"></i>
+            </a>
+
+            <a
+              class="item-control item-edit"
+              title="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.spritepower')}}"
+              data-action="viewDoc"
+            >
+              <i class="fas fa-edit"></i>
+            </a>
+
+            {{#if @root.editMode}}
+              <a
+                class="item-control item-delete"
+                title="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.spritepower')}}"
+                data-action="deleteDoc"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+
+        <section class="collapsible-content closed" data-item-id="{{item.id}}">
+          <strong>{{ localize 'shadowrun6.item.description' }}</strong>
+          <div>{{{item.system.description}}}</div>
+        </section>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+<!-- /Sprite Powers -->
 
 
 

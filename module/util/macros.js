@@ -12,7 +12,8 @@ export default {
                     skill: rollData.skill,
                     skillspec: rollData.skillspec,
                     matrixId: rollData.matrixId,
-                    itemId: rollData.itemId
+                    itemId: rollData.itemId,
+                    rollType: rollData.rollType
                 } 
             }
         }
@@ -29,7 +30,14 @@ export default {
         }
 
         rollWith.forEach((actorSheet) => {
-            if (classList.includes('attributeonly-roll') || classList.includes('defense-roll')) {
+            if (actorSheet instanceof game.sr6.applications.SR6BaseActorSheet) {
+                game.sr6.applications.SR6BaseActorSheet._onRoll.call(
+                    actorSheet,
+                    eventSub,
+                    eventSub.currentTarget
+                );
+            }
+            else if (classList.includes('attributeonly-roll') || classList.includes('defense-roll')) {
                 actorSheet._onCommonCheck(eventSub);
             } else if (classList.includes('skill-roll')) {
                 actorSheet._onRollSkillCheck(eventSub);

@@ -2340,7 +2340,8 @@
       "onlyGmCanRevive": "Only your GM can revive a dead character.",
       "attributeHint": "Base {rank} + Mod {mod} = Pool {pool}",
       "skillHint": "Base {rank} + Mod {mod} + {attr} {attrPool}{untrained} = Pool {pool}",
-      "itemName": "Show description (left click) or send to chat (right click)"
+      "itemName": "Show description (left click) or send to chat (right click)",
+      "useItem": "Use {name}"
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",

@@ -1819,3 +1819,91 @@
 .sr6 .item-name:hover {
     text-shadow: 0 0 8px var(--color-shadow-primary);
 }
+
+
+
+.sr6 .section .item-controls a {
+    margin: 0;
+}
+
+.sr6 .section {
+  width: 100%;
+  min-width: 320px;
+}
+
+.sr6 .section-head {
+    margin-top: 2px;
+}
+
+.sr6 .section-header,
+.sr6 .section-row {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr 4em 4em;
+    align-items: center;
+    column-gap: 0.25rem;
+}
+
+.sr6 .section-header {
+    padding: 0.25rem 0.5rem;
+    font-weight: bold;
+    color: var(--highlight-color);
+    background-color: rgb(224 224 217);
+}
+
+.sr6 .section-header > :nth-child(3),
+.sr6 .section-header > :nth-child(4) {
+    text-align: center;
+}
+
+.sr6 .section-list {
+    list-style: none;
+}
+
+.sr6 .section-list,
+.sr6 .section-item {
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .section-row {
+  min-height: 1.7rem;
+  padding: 0 0.5rem;
+}
+
+.sr6 .item-toggle,
+.sr6 .section-sustained,
+.sr6 .section-actions,
+.sr6 .section-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sr6 .section-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sr6 .section-actions {
+  gap: 5px;
+}
+
+.sr6 .section-actions .item-control {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+/* .sr6 .collapsible-content {
+  margin: 0 0 0 1.75rem;
+  padding: 0 0.5rem;
+  overflow: hidden;
+  max-height: 0;
+  visibility: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.sr6 .collapsible-content.open {
+  visibility: visible;
+}
+ */

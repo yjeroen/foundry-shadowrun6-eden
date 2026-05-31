@@ -497,6 +497,7 @@ export function staticId(status) {
 
 /**
  * Create a localized actionTest for a roll
+ * Possible classes that modify the Macro's Name are: defense-roll, attributeonly-roll, attribute-poolmod, legwork-roll, skill-roll, matrix-roll
  * @param {DOMStringMap|string} classList  The html classList of the link/button that initiated the roll.
  * @param {string} rollId     The rollId, which defines the roll type.
  * @param {string} skillSpec  Optional, in case this is a skill roll with specialization

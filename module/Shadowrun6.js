@@ -373,7 +373,12 @@ Hooks.once("init", async function () {
             // Do nothing, FoundryVTT Native
             return;
         } if (type === 'Roll') {
-            if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll') || data.classList.includes('spritepower-roll')) {
+            if (data.action === 'roll') {   // SheetV2
+                const item = await fromUuidSync(data.uuid);
+                macroData.name = game.i18n.format("SR6.title.useItem", { name: item.name });
+                macroData.img = item.img;
+            } 
+            else if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll') || data.classList.includes('spritepower-roll')) {
                 const item = await fromUuidSync(data.uuid);
                 macroData.name = item.name;
                 if (data.skill==="firearms") {
@@ -393,7 +398,8 @@ Hooks.once("init", async function () {
                     // special weapons
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/cyberweapons/wolvers.svg";
                 }
-            } else {
+            } 
+            else {
                 macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
             }
             macroData.command = `game.sr6.macros.simpletest(${JSON.stringify(data)})`;
