@@ -48,7 +48,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             itemSustainToggle: this._itemSustainToggle,
             itemDescToggle: {handler: this._itemDescToggle, buttons: [0, 2]},
         },
-        // Custom property that's merged into `this.options`
+        // Custom property that's merged into `this.options`. The .draggable class is already default
         // dragDrop: [{ dragSelector: '.draggable', dropSelector: null }],
         form: {
             submitOnChange: true,
@@ -860,7 +860,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _itemSustainToggle(event, target) {
         const item = this._getEmbeddedDocument(target);
         await item.update({ 'system.isSustained': !item.system.isSustained });
-        this.render();
     }
     
     /**
