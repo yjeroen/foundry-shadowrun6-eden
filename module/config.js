@@ -91,7 +91,7 @@ export class SR6Config {
     /**
      * Temporary mapping of v1 attribute abbreviations to v2 attribute names. This is used for converting old rolls and other references to attributes until all code is updated to use the new attribute names. The keys are the v1 abbreviations, and the values are the v2 attribute names.
      */
-    attributeToV1attrib(attribute) {
+    attributeV2toV1(attribute) {
         return Object.entries(this.NEW.ATTRIBUTE_TO_V2).find(([key, value]) => value === attribute)?.[0];
     }
 
@@ -1030,10 +1030,10 @@ export class SR6Config {
         system_attributes_log_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.log")}),
         system_attributes_int_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.int")}),
         system_attributes_cha_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.cha")}),
-        system_edge_max: game.i18n.localize("attrib.edg")+" "+game.i18n.localize("shadowrun6.label.attribute"),                                 // TODO: move system.edge to system.attributes.edge
         system_attributes_mag_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.mag")}),
         system_attributes_res_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.res")}),
         system_attributes_essence_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.ess")}),
+        system_edge_max: game.i18n.localize("attrib.edg")+" "+game.i18n.localize("shadowrun6.label.attribute"),                                 // TODO: move system.edge to system.attributes.edge
 
         // ----------- Weapon Mods ----------- //
         system_attackRating_0: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_0")+")",
@@ -1090,7 +1090,7 @@ export class SR6Config {
         system_defensepool_damage__physical_mod: "shadowrun6.active_effect.defensepool.damage_physical.mod",
         system_defensepool_damage__astral_mod: "shadowrun6.active_effect.defensepool.damage_astral.mod",
         system_defensepool_drain_mod: "shadowrun6.active_effect.defensepool.drain.mod",
-        system_defensepool_matrix_mod: "shadowrun6.active_effect.defensepool.matrix.mod",
+        system_defensepool_fading_mod: "shadowrun6.active_effect.defensepool.fading.mod",
         // system_defensepool_vehicle_mod: "shadowrun6.active_effect.defensepool.vehicle.mod",      // TODO: Vehicle def pool not yet implemented
 
         system_derived_composure_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.derived.composure")}),
@@ -1149,6 +1149,126 @@ export class SR6Config {
         system_skills_stealth_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.stealth")})}),
         system_skills_tasking_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.tasking")})})
 
+    };
+
+    EFFECT_CONVERSION_TOV2 = {
+        'system.attributes.bod.mod': 'system.attributes.body.mod',
+        'system.attributes.agi.mod': 'system.attributes.agility.mod',
+        'system.attributes.rea.mod': 'system.attributes.reaction.mod',
+        'system.attributes.str.mod': 'system.attributes.strength.mod',
+        'system.attributes.wil.mod': 'system.attributes.willpower.mod',
+        'system.attributes.log.mod': 'system.attributes.logic.mod',
+        'system.attributes.int.mod': 'system.attributes.intuition.mod',
+        'system.attributes.cha.mod': 'system.attributes.charisma.mod',
+        'system.attributes.mag.mod': 'system.attributes.magic.mod',
+        'system.attributes.res.mod': 'system.attributes.resonance.mod',
+        'system.attributes.essence.mod': 'system.attributes.essence.mod',
+        'system.edge.max': 'system.edge.mod',
+
+        // 'system.attackRating.0': 'system.attackRating.0',
+        // 'system.attackRating.1': 'system.attackRating.1',
+        // 'system.attackRating.2': 'system.attackRating.2',
+        // 'system.attackRating.3': 'system.attackRating.3',
+        // 'system.attackRating.4': 'system.attackRating.4',
+
+        // 'system.modes.SA_ar_mod': 'system.modes.SA_ar_mod',
+        // 'system.modes.BF_ar_mod': 'system.modes.BF_ar_mod',
+        // 'system.modes.FA_ar_mod': 'system.modes.FA_ar_mod',
+        // 'system.dmg': 'system.dmg',
+        // 'system.stun': 'system.stun',
+        // 'system.modes.dicePoolMod': 'system.modes.dicePoolMod',
+        // 'system.wild': 'system.wild',
+        // 'system.ammocap': 'system.ammocap',
+
+        // 'system.defense': 'system.defense',
+        // 'system.social': 'system.social',
+
+        // 'system.dicePoolMod': 'system.dicePoolMod',
+        // 'system.badLuck': 'system.badLuck',
+        // 'system.painTolerance': 'system.painTolerance',
+        // 'traits.movementRate': 'traits.movementRate',
+        // 'traits.movementSprintBase': 'traits.movementSprintBase',
+        // 'traits.movementSprintMultiplier': 'traits.movementSprintMultiplier',
+        // 'traits.hardenedArmor': 'traits.hardenedArmor',
+        // 'traits.immunityNormalWeapons': 'traits.immunityNormalWeapons',
+
+        'system.physical.mod': 'system.physical.mod',
+        'system.stun.mod': 'system.stun.mod',
+        'system.overflow.mod': 'system.overflow.mod',
+
+        // 'system.attackrating.physical.mod': 'system.attackRating.physical.mod',
+        // 'system.attackrating.astral.mod': 'system.attackRating.astral.mod',
+        'system.attackrating.matrix.mod': 'system.matrix.attackRating',
+
+        // 'system.defenserating.physical.mod': 'system.defenseRating.physical.mod',
+        // 'system.defenserating.astral.mod': 'system.defenseRating.astral.mod',
+        'system.defenserating.matrix.mod': 'system.matrix.defenseRating',
+
+        // 'system.defensepool.physical.mod': 'system.defensePool.physical.mod',
+        // 'system.defensepool.astral.mod': 'system.defensePool.astral.mod',
+        // 'system.defensepool.spells_direct.mod': 'system.defensePool.spells_direct.mod',
+        // 'system.defensepool.spells_indirect.mod': 'system.defensePool.spells_indirect.mod',
+        // 'system.defensepool.toxin.mod': 'system.defensePool.toxin.mod',
+        // 'system.defensepool.damage_physical.mod': 'system.defensePool.damage_physical.mod',
+        // 'system.defensepool.damage_astral.mod': 'system.defensePool.damage_astral.mod',
+        // 'system.defensepool.drain.mod': 'system.defensePool.drain.mod',
+        // 'system.defensepool.fading.mod': 'system.defensePool.fading.mod',
+
+        // 'system.derived.composure.mod': 'system.derived.composure.mod',
+        // 'system.derived.judge_intentions.mod': 'system.derived.judge_intentions.mod',
+        // 'system.derived.memory.mod': 'system.derived.memory.mod',
+        // 'system.derived.lift_carry.mod': 'system.derived.lift_carry.mod',
+        // 'system.derived.matrix_perception.mod': 'system.derived.matrix_perception.mod',
+
+        'system.initiative.physical.mod': 'system.initiative.physical.rank',
+        'system.initiative.physical.diceMod': 'system.initiative.physical.dice',
+        'system.initiative.astral.mod': 'system.initiative.astral.rank',
+        'system.initiative.astral.diceMod': 'system.initiative.astral.dice',
+        'system.initiative.matrix.mod': 'system.initiative.matrix.rank',
+        'system.initiative.matrix.diceMod': 'system.initiative.matrix.dice',
+
+        'system.skills.astral.modifier': 'system.skills.astral.mod',
+        'system.skills.athletics.modifier': 'system.skills.athletics.mod',
+        'system.skills.biotech.modifier': 'system.skills.biotech.mod',
+        'system.skills.close_combat.modifier': 'system.skills.close_combat.mod',
+        'system.skills.con.modifier': 'system.skills.con.mod',
+        'system.skills.conjuring.modifier': 'system.skills.conjuring.mod',
+        'system.skills.cracking.modifier': 'system.skills.cracking.mod',
+        'system.skills.electronics.modifier': 'system.skills.electronics.mod',
+        'system.skills.enchanting.modifier': 'system.skills.enchanting.mod',
+        'system.skills.engineering.modifier': 'system.skills.engineering.mod',
+        'system.skills.exotic_weapons.modifier': 'system.skills.exotic_weapons.mod',
+        'system.skills.firearms.modifier': 'system.skills.firearms.mod',
+        'system.skills.influence.modifier': 'system.skills.influence.mod',
+        'system.skills.outdoors.modifier': 'system.skills.outdoors.mod',
+        'system.skills.perception.modifier': 'system.skills.perception.mod',
+        'system.skills.piloting.modifier': 'system.skills.piloting.mod',
+        'system.skills.sorcery.modifier': 'system.skills.sorcery.mod',
+        'system.skills.stealth.modifier': 'system.skills.stealth.mod',
+        'system.skills.tasking.modifier': 'system.skills.tasking.mod',
+
+        'system.attributes.agi.pool': 'system.attributes.agility.pool',
+        'system.attributes.str.pool': 'system.attributes.strength.pool',
+
+        'system.skills.astral.points': 'system.skills.astral.rank',
+        'system.skills.athletics.points': 'system.skills.athletics.rank',
+        'system.skills.biotech.points': 'system.skills.biotech.rank',
+        'system.skills.close_combat.points': 'system.skills.close_combat.rank',
+        'system.skills.con.points': 'system.skills.con.rank',
+        'system.skills.conjuring.points': 'system.skills.conjuring.rank',
+        'system.skills.cracking.points': 'system.skills.cracking.rank',
+        'system.skills.electronics.points': 'system.skills.electronics.rank',
+        'system.skills.enchanting.points': 'system.skills.enchanting.rank',
+        'system.skills.engineering.points': 'system.skills.engineering.rank',
+        'system.skills.exotic_weapons.points': 'system.skills.exotic_weapons.rank',
+        'system.skills.firearms.points': 'system.skills.firearms.rank',
+        'system.skills.influence.points': 'system.skills.influence.rank',
+        'system.skills.outdoors.points': 'system.skills.outdoors.rank',
+        'system.skills.perception.points': 'system.skills.perception.rank',
+        'system.skills.piloting.points': 'system.skills.piloting.rank',
+        'system.skills.sorcery.points': 'system.skills.sorcery.rank',
+        'system.skills.stealth.points': 'system.skills.stealth.rank',
+        'system.skills.tasking.points': 'system.skills.tasking.rank',
     };
 
     PDF_OPTIONS = {
