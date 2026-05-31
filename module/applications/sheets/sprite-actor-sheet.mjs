@@ -57,7 +57,7 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
                 spritePowers.push(i);
             }
         }
-        context.powers = spritePowers.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+        context.powers = spritePowers.sort((a, b) => (b.sort || 0) - (a.sort || 0));
     }
 
     /** 
