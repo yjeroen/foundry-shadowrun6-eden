@@ -107,6 +107,8 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
             const attribute = this.attributes[key];
             attribute.mod = Math.min(4, attribute.mod);
         }
+        // Augmented Edge Attribute can never be higher than +4
+        this.edge.mod = Math.min(4, this.edge.mod);
         // Augmented Skill can never be higher than +4
         for (const key in this.skills) {
             const skill = this.skills[key];
@@ -133,6 +135,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
 
     /**
      * Called by {@link ClientDocument#_preCreate}.
+     * Modifications to the pending Document instance must be performed using Actor's {@link updateSource}.
      *
      * @param {object} data                         The initial data object provided to the document creation request
      * @param {object} options                      Additional options which modify the creation request
