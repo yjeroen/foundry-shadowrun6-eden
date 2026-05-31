@@ -1472,7 +1472,7 @@
       "sustained": {
         "add": "Add new spell",
         "title": "Sustained Spells",
-        "toggle": "Toggle Sustaining this"
+        "toggle": "Toggle Sustaining"
       },
 		"survival": "Survival",
       "vehicles": {
