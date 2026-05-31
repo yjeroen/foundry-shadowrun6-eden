@@ -47,11 +47,17 @@
     text-shadow: 0 0 8px var(--color-shadow-primary);
 }
 
-.application.sr6 .inactive {
+.sr6 .inactive:not(.prosemirror) {
     cursor: default;
     pointer-events: none;
 }
 
+.sr6 .section .prosemirror button.toggle {
+    right: 5px;
+}
+.sr6 .section .prosemirror button.toggle i {
+    transform: translateX(-10%);
+}
 .sr6 .window-content input,
 .sr6 .window-content select {
     text-transform: none;
