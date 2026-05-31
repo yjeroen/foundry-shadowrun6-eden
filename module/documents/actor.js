@@ -223,7 +223,7 @@ export default class Shadowrun6Actor extends Actor {
     prepareDerivedData() {
         console.log('SR6E | Shadowrun6Actor.prepareDerivedData()', this.name, this.uuid);
         const actorData = this;
-        const flags = actorData.flags.boilerplate || {};
+        const flags = actorData.flags['shadowrun6-eden'] || {};
     }
     /**
      * @Override
