@@ -2258,6 +2258,9 @@
           "modular": "//MODULAR//",
           "music": "//MUSIC//",
           "primal": "//PRIMAL//"
+        },
+        "notes": {
+          "music": "Skill Con: Performance only"
         }
       },
       "host": {

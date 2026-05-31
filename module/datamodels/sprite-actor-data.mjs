@@ -172,10 +172,6 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
                 iniRank         = (level * 2) + 4
                 iniDice         = 4
                 skills          = ['electronics', 'con']
-                const notes     = `Skill Con: Performance only`
-                foundry.utils.setProperty(changes, 'system.notes', 
-                    (foundry.utils.hasProperty(changes, "system.notes") ? changes.system.notes += ' '+notes : notes)
-                );
                 break;
             case 'primal':
                 attack          = level + 3
