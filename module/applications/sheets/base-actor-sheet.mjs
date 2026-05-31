@@ -146,7 +146,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         if (this.actor.system.skills) {
             context.skills = Object.values(this.actor.system.skills)
-                                   .sort((a, b) => a.schema.label.localeCompare(b.schema.label));
+                                   .sort((a, b) => a.schema?.label.localeCompare(b.schema?.label));
         }
         if (this.actor.system.health?.physicalCM) {
             context.tracks.physical = this._prepareConditionMonitors(this.actor.system.health.physicalCM);
