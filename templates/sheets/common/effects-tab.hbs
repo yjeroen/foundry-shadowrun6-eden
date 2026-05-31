@@ -57,7 +57,7 @@
                 <div>{{effect.name}}</div>
               </div>
               <div class='effect-source'>
-                {{effect.system.sourceName}} {{#iff effect.parent.documentName '==' "Item"}}<a class="item-control item-edit" title="{{localize 'shadowrun6.label.edit' }}"><i class="fas fa-edit"></i></a>{{/iff}}
+                {{effect.system.sourceName}} {{#iff effect.parent.documentName '==' "Item"}}<a class="item-control item-edit" data-action='viewDoc' data-item-id="{{effect.parent.id}}" title="{{localize 'shadowrun6.label.edit' }}"><i class="fas fa-edit"></i></a>{{/iff}}
                 </div>
               <div class='effect-duration'>
                 {{#iff effect.duration.type '==' "none"}}

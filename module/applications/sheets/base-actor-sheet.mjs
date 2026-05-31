@@ -962,8 +962,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @returns {Item | ActiveEffect} The embedded Item or ActiveEffect
      */
     _getEmbeddedDocument(target) {
-        const docRow = target.closest("li[data-document-class]") || target;
-        if (docRow.dataset.documentClass === "Item" || docRow.dataset.itemId) {
+        const docRow = target.dataset.itemId ? target : target.closest("li[data-document-class]");
+        if (docRow.dataset.documentClass === "Item" || ( !docRow.dataset.documentClass && docRow.dataset.itemId )) {
             return this.actor.items.get(docRow.dataset.itemId);
         } else if (docRow.dataset.documentClass === "ActiveEffect") {
             const parent =
