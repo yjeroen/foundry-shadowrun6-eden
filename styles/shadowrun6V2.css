@@ -1751,6 +1751,10 @@
 .sr6 .stat-block .stat-row input {
     width: 1.6rem;
 }
+.sr6 .stat-block .stat-row input:disabled {
+    --input-box-shadow: inset 0 0 4px var(--input-background-color);
+    color: gray;
+}
 .sr6 .stat-block .stat[data-for="system.matrix.initiative"] {
     min-width: 94px;
 }
