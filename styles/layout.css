@@ -337,8 +337,7 @@ dd::after {
 .collapsible-content {
   background-color: var(--tablehead-background);
   border-radius: 10px;
-  padding: 0px 8px;
-  margin: 0 0 0 14px;
+  padding: 0px 8px 0 14px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
@@ -352,14 +351,11 @@ dd::after {
   max-height: 500px;
   visibility: visible;
 }
-.collapsible-content > div:first-child {
+.collapsible-content > * {
   padding-top: 4px
 }
-.collapsible-content > div:last-child {
-  padding-bottom: 4px
-}
-.collapsible-content > div:not(:first-child) {
-  margin: 0.3rem 0 0 0;
+.collapsible-content > *:last-child {
+  padding-bottom: 6px
 }
 
 .collapsible-content {
@@ -384,7 +380,12 @@ dd::after {
   vertical-align: middle;
 }
 .collapsible-content .collapsible-content-trait input {
-  margin: 3px 5px;
+  padding: 3px 5px;
+}
+.matrix-section .matrix-action-description {
+  font-size: var(--font-size-11);
+  text-align: left;
+  color: rgb(0 66 17);
 }
 button.collapsible.empty {
   cursor: default;
