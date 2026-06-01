@@ -55,7 +55,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         },
     };
 
-    /** @override */
+    /** @inheritdoc */
     static PARTS = {
         header: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/header.hbs",

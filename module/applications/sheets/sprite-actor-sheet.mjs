@@ -1,19 +1,32 @@
 import SR6BaseActorSheet from "./base-actor-sheet.mjs";
+import { MatrixSheetMixin } from "./mixins/_module.mjs";
 const { api, sheets } = foundry.applications;
 
 /**
  * Extend the basic SR6 ActorSheet with some very simple modifications
  * @extends {SR6BaseActorSheet}
  */
-export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
+export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorSheet ) {
     _defaultTab = "summary";
 
     /**
      * @override
-     * Auto enriched with supers by Foundry
+     * Auto merged with supers by Foundry
      * */
     static DEFAULT_OPTIONS = {
         classes: ["sprite"],
+    };
+
+    /** @inheritdoc */
+    static PARTS = {
+        ...super.PARTS,
+        features: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",
+            templates: [
+                "systems/shadowrun6-eden/templates/sheets/actor/matrix-section.hbs"
+            ],
+            scrollable: [""],
+        }
     };
 
     /** @override */
@@ -36,6 +49,8 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
                 this._prepareSpriteItems(context);
                 break;
             case "features":
+                context.matrixAccess = this._matrixAccess();
+                context.matrixActionAvailable = this._matrixActionAvailable();
                 this._prepareSpriteItems(context);
                 break;
         }
