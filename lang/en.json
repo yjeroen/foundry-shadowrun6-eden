@@ -2076,13 +2076,6 @@
     "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
   },
   "SR6": {
-    "Test": {
-      "FIELDS": {
-        "initiative": {
-          "label": "InitiativeTest"
-        }
-      }
-    },
     "Common": {
       "FIELDS": {
         "name": {
@@ -2229,7 +2222,7 @@
       "Tabs": {
         "Summary": "Summary",
         "Features": "Features",
-        "Biography": "Biography",
+        "Description": "Description",
         "Effects": "Effects"
       },
       "sprite": {

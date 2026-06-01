@@ -23,7 +23,7 @@ export default class SR6SpriteActorSheet extends SR6BaseActorSheet {
         if (this.document.limited) return;
 
         // Control which parts show based on document subtype
-        options.parts.push("summary", "features", "biography", "effects");
+        options.parts.push("summary", "features", "description", "effects");
     }
 
     async _preparePartContext(partId, context) {

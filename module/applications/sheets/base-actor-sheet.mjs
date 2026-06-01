@@ -76,8 +76,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",
             scrollable: [""],
         },
-        biography: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/biography-tab.hbs",
+        description: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/description-tab.hbs",
             scrollable: [""],
         },
         gear: {
@@ -176,9 +176,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             case "gear":
                 context.tab = context.tabs[partId];
                 break;
-            case "biography":
+            case "description":
                 context.tab = context.tabs[partId];
-                // Enrich biography info for display
+                // Enrich description info for display
                 // Enrichment turns text like `[[/r 1d20]]` into buttons
                 context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
                     this.actor.system.description,
@@ -243,9 +243,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                     tab.id = "summary";
                     tab.label += "Summary";
                     break;
-                case "biography":
-                    tab.id = "biography";
-                    tab.label += "Biography";
+                case "description":
+                    tab.id = "description";
+                    tab.label += "Description";
                     break;
                 case "features":
                     tab.id = "features";
