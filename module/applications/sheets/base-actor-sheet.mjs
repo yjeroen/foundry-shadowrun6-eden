@@ -863,7 +863,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
     
     /**
-     * Determines effect parent to pass to helper
+     * Toggles the description of an Item, either by showing the description or sending it to chat if right-clicked
      *
      * @this SR6BaseActorSheet
      * @param {PointerEvent} event   The originating click event
