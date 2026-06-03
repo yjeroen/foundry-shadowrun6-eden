@@ -720,7 +720,7 @@ Hooks.once("init", async function () {
             actor.prototypeToken.updateSource({
                 disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
                 width: 2,
-                height: 3
+                height: 2
             });
         }
 
