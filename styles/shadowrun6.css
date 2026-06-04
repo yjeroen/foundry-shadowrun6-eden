@@ -725,13 +725,13 @@ a.item-control.disabled-roll:hover {
   opacity: .5;
   transition: .5s left ease;
 }
-#matrix-access-switch-radio1:checked ~ #active-label{
+.matrix-access-switch input[value="outsider"]:checked ~ #active-label{
   left: 0;
 }
-#matrix-access-switch-radio2:checked ~ #active-label{
+.matrix-access-switch input[value="user"]:checked ~ #active-label{
   left: 33%;
 }
-#matrix-access-switch-radio3:checked ~ #active-label {
+.matrix-access-switch input[value="admin"]:checked ~ #active-label {
   left: 66%;
 }
 

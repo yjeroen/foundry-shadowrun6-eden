@@ -1,54 +1,3 @@
-{{!-- <div class="section matrix-section" style="display: inline-block; width:90%; min-width: 383px;">
-	<div class="section-head">
-		<h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
-		<div class="matrix-access-container">
-			<div class="matrix-access-switch">
-				<input type="radio" id="matrix-access-switch-radio1" name="matrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
-				<label for="matrix-access-switch-radio1">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
-				
-				<input type="radio" id="matrix-access-switch-radio2" name="matrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}}  />
-				<label for="matrix-access-switch-radio2">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
-				
-				<input type="radio" id="matrix-access-switch-radio3" name="matrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}}  />
-				<label for="matrix-access-switch-radio3">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
-				
-				<span id="active-label"></span>
-			</div>
-		</div>
-	</div>
-	<div style="column-count: 2; background: radial-gradient(circle at center, #B6B6A4 100%, transparent 100%) no-repeat center; background-size: 2px 100%; margin-right: 5px;">
-
- 		{{#each matrixActionAvailable as |action actionId|}}
-		<div style="break-inside: avoid;">
-       	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center; border-bottom: 0.5px dashed rgba(255, 255, 255, 0.5);">
-       		<label style="width: 15px; margin-right: 2px;">{{matrixAction action}}</label>
-			<label style="flex-grow:10" class="collapsible closed"><label>{{action.name}}</label></label>
-         	{{#if (ne (matrixPool actionId ../actor) 0)}}
-         	<div class="skill-pool">
-         		<label class="item-pool">{{matrixPool actionId ../actor}}</label>
-         		<a class="item-control matrix-roll{{matrixAccessLevel ../matrixAccess action}}" data-matrix-id="{{actionId}}" 
-					title="{{localize (concat 'skill.' action.skill)}} ({{localize (concat (concat 'shadowrun6.special.' action.skill) (concat '.' action.specialization) ) }})">
-						<i class="fas fa-dice-six"></i>
-				</a>
-         	</div>
-			{{else}}
-         	<div class="skill-pool" style="flex-grow:0.9; text-align:right">
-         		<label class="item-pool"></label>
-         		<label class="item-control" style="opacity:0"><i class="fas fa-dice-six"></i></label>
-         	</div>
-         	{{/if}}
-
-       	</div>
-       	<div class="collapsible-content closed">
-			<div class="matrix-action-description">{{localize (concat 'shadowrun6.matrixaction.' actionId '.hint')}}</div>
-		</div>
-		</div>
-       {{/each}}
-
-	</div>
-</div> --}}
-
-
 <!-- Matrix Actions -->
 <section class="section matrix-section">
     <header class="section-head">
@@ -56,14 +5,14 @@
     
         <div class="matrix-access-container">
             <div class="matrix-access-switch">
-                <input type="radio" id="matrix-access-switch-radio1" data-action="switchMatrixAccess" name="matrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
-                <label for="matrix-access-switch-radio1">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
+                <input type="radio" id="matrixAccess-{{actor.id}}-outsider" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
+                <label for="matrixAccess-{{actor.id}}-outsider">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
     
-                <input type="radio" id="matrix-access-switch-radio2" data-action="switchMatrixAccess" name="matrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}} />
-                <label for="matrix-access-switch-radio2">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
+                <input type="radio" id="matrixAccess-{{actor.id}}-user" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}} />
+                <label for="matrixAccess-{{actor.id}}-user">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
     
-                <input type="radio" id="matrix-access-switch-radio3" data-action="switchMatrixAccess" name="matrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}} />
-                <label for="matrix-access-switch-radio3">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
+                <input type="radio" id="matrixAccess-{{actor.id}}-admin" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}} />
+                <label for="matrixAccess-{{actor.id}}-admin">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
     
                 <span id="active-label"></span>
             </div>

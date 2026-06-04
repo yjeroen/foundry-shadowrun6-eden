@@ -3,14 +3,14 @@
 		<h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
 		<div class="matrix-access-container">
 			<div class="matrix-access-switch">
-				<input type="radio" id="matrix-access-switch-radio1" name="matrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
-				<label for="matrix-access-switch-radio1">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
+				<input type="radio" id="matrixAccess-{{actor.id}}-outsider" name="matrixAccess-{{actor.id}}" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
+				<label for="matrixAccess-{{actor.id}}-outsider">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
 				
-				<input type="radio" id="matrix-access-switch-radio2" name="matrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}}  />
-				<label for="matrix-access-switch-radio2">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
+				<input type="radio" id="matrixAccess-{{actor.id}}-user" name="matrixAccess-{{actor.id}}" value="user" {{#if matrixAccess.user}}checked{{/if}}  />
+				<label for="matrixAccess-{{actor.id}}-user">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
 				
-				<input type="radio" id="matrix-access-switch-radio3" name="matrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}}  />
-				<label for="matrix-access-switch-radio3">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
+				<input type="radio" id="matrixAccess-{{actor.id}}-admin" name="matrixAccess-{{actor.id}}" value="admin" {{#if matrixAccess.admin}}checked{{/if}}  />
+				<label for="matrixAccess-{{actor.id}}-admin">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
 				
 				<span id="active-label"></span>
 			</div>
@@ -26,7 +26,7 @@
          	{{#if (ne (matrixPool actionId ../actor) 0)}}
          	<div class="skill-pool">
          		<label class="item-pool">{{matrixPool actionId ../actor}}</label>
-         		<a class="item-control matrix-roll{{matrixAccessLevel ../matrixAccess action}}" data-matrix-id="{{actionId}}" 
+         		<a class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}" data-matrix-id="{{actionId}}" 
 					title="{{localize (concat 'skill.' action.skill)}} ({{localize (concat (concat 'shadowrun6.special.' action.skill) (concat '.' action.specialization) ) }})">
 						<i class="fas fa-dice-six"></i>
 				</a>
@@ -34,7 +34,7 @@
 			{{else}}
          	<div class="skill-pool" style="flex-grow:0.9; text-align:right">
          		<label class="item-pool"></label>
-         		<label class="item-control" style="opacity:0"><i class="fas fa-dice-six"></i></label>
+         		<label class="item-control {{matrixAccessLevel @root.matrixAccess action}}" title="{{localize 'SR6.title.noRollNeeded'}}"><i class="fas fa-square"></i></label>
          	</div>
          	{{/if}}
 
