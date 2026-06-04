@@ -898,7 +898,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _onRoll(event, target) {
         event.preventDefault();
         const dataset = target.dataset;
-        console.log(`SR6E | SR6BaseActorSheet._onRoll | dataset`, dataset, this);
+        console.log(`SR6E | SR6BaseActorSheet._onRoll | rollType`, dataset.rollType);
         let rollConfig;
         let fieldPath;
 
