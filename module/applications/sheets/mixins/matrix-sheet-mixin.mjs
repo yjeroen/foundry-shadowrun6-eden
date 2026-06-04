@@ -1,3 +1,5 @@
+import { MatrixActionRoll } from "../../../dice/RollTypes.js";
+
 /**
  * Augment an Application class with Matrix methods
  * @param {Constructor<ApplicationV2>} BaseApplication
@@ -10,6 +12,7 @@ export const MatrixSheetMixin = Base => class extends Base {
         actions: {
             switchMatrixAccess: this._onSwitchMatrixAccess,
             toggleMatrixActionDesc: this._toggleMatrixActionDesc,
+            matrixRoll: this._onMatrixRoll
         },
     };
 
@@ -89,6 +92,18 @@ export const MatrixSheetMixin = Base => class extends Base {
         content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
         content.classList.toggle("open", isOpen);
         content.classList.toggle("closed", !isOpen);
+    }
+
+    static async _onMatrixRoll(event, target) {
+        const data = target.dataset;
+        console.log("SR6E | onMatrixAction ", data);
+        if (!data) return;
+
+        const initiator = this.actor.system;
+        const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
+        let roll = new MatrixActionRoll(initiator, matrixAction);
+        console.log("SR6E | _onMatrixAction before ", roll);
+        this.actor.performMatrixAction(roll);
     }
 
 };
