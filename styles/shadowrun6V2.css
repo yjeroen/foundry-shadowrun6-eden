@@ -1883,3 +1883,46 @@
     color: black;
     font-size: 18px;
 }
+
+
+/* ======================================================================== */
+/* ===================== ApplicationV2 MATRIX SECTION ===================== */
+/* ======================================================================== */
+
+.sr6 .matrix-action-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+
+    background: radial-gradient(circle at center, #b6b6a4 100%, transparent 100%) no-repeat center;
+    background-size: 2px 100%;
+}
+
+.sr6 .matrix-action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .matrix-action .section-row {
+    display: grid;
+    grid-template-columns: 20px 1fr 30px 20px;
+    align-items: center;
+    padding: 0 2px 0 0;
+}
+
+.sr6 .item-control.disabled-roll {
+    cursor: default;
+    color: grey;
+}
+
+.sr6 .matrix-pool {
+    font-size: 19px;
+    justify-content: end;
+}
+
+.item-control .fa-square {
+    font-size: 20px;
+    cursor: default;
+    color: grey;
+}

@@ -2338,8 +2338,10 @@
       "attributeHint": "Base {rank} + Mod {mod} = Pool {pool}",
       "skillHint": "Base {rank} + Mod {mod} + {attr} {attrPool}{untrained} = Pool {pool}",
       "clickItemName": "Show description (left click) or send it to chat (right click)",
+      "showDescription": "Show description",
       "sendToChat": "Send description to Chat",
-      "useItem": "Use {name}"
+      "useItem": "Use {name}",
+      "noRollNeeded": "No roll needed"
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",

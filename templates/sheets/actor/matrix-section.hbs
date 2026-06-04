@@ -1,4 +1,4 @@
-<div class="section matrix-section" style="display: inline-block; width:90%; min-width: 383px;">
+{{!-- <div class="section matrix-section" style="display: inline-block; width:90%; min-width: 383px;">
 	<div class="section-head">
 		<h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
 		<div class="matrix-access-container">
@@ -46,5 +46,118 @@
        {{/each}}
 
 	</div>
-	</table>
-</div>
+</div> --}}
+
+
+<!-- Matrix Actions -->
+<section class="section matrix-section">
+    <header class="section-head">
+        <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+    
+        <div class="matrix-access-container">
+            <div class="matrix-access-switch">
+                <input type="radio" id="matrix-access-switch-radio1" data-action="switchMatrixAccess" name="matrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
+                <label for="matrix-access-switch-radio1">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
+    
+                <input type="radio" id="matrix-access-switch-radio2" data-action="switchMatrixAccess" name="matrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}} />
+                <label for="matrix-access-switch-radio2">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
+    
+                <input type="radio" id="matrix-access-switch-radio3" data-action="switchMatrixAccess" name="matrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}} />
+                <label for="matrix-access-switch-radio3">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
+    
+                <span id="active-label"></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="matrix-action-lists">
+        <ol class="section-list matrix-action-list">
+        {{#each matrixActions.left as |action|}}
+            <li class="section-item matrix-action" data-matrix-action-id="{{action.id}}">
+                <div class="section-row">
+                    <div class="section-column">{{matrixAction action}}</div>
+                    <div class="section-name" data-action="toggleMatrixActionDesc" title="{{localize 'SR6.title.showDescription'}}">
+                        {{action.name}}
+                    </div>
+
+                    <div class="section-column matrix-pool">
+                    {{#if action.testPool}}
+                        <label>{{action.testPool}}</label>
+                    {{else}}
+                        <label></label>
+                    {{/if}}
+                    </div>
+
+                    <div class="section-column item-controls">
+                    {{#if action.testPool}}
+                        <a
+                            class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}"
+                            data-action="matrixRoll"
+                            data-matrix-id="{{action.id}}"
+                            title="{{action.skillName}}"
+                        >
+                            <i class="fas fa-dice-six"></i>
+                        </a>
+                    {{else}}
+                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" title="{{localize 'SR6.title.noRollNeeded'}}">
+                            <i class="fas fa-square"></i>
+                        </span>
+                    {{/if}}
+                    </div>
+                </div>
+
+                <section class="collapsible-content closed" data-matrix-action-id="{{action.id}}">
+                    <div class="matrix-action-description">
+                        {{localize (concat 'shadowrun6.matrixaction.' action.id '.hint')}}
+                    </div>
+                </section>
+            </li>
+        {{/each}}
+        </ol>
+
+        <ol class="section-list matrix-action-list">
+        {{#each matrixActions.right as |action|}}
+            <li class="section-item matrix-action" data-matrix-action-id="{{action.id}}">
+                <div class="section-row">
+                    <div class="section-column">{{matrixAction action}}</div>
+                    <div class="section-name" data-action="toggleMatrixActionDesc" title="{{localize 'SR6.title.showDescription'}}">
+                        {{action.name}}
+                    </div>
+
+                    <div class="section-column matrix-pool">
+                    {{#if action.testPool}}
+                        <label>{{action.testPool}}</label>
+                    {{else}}
+                        <label></label>
+                    {{/if}}
+                    </div>
+
+                    <div class="section-column item-controls">
+                    {{#if action.testPool}}
+                        <a
+                            class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}"
+                            data-action="matrixRoll"
+                            data-matrix-id="{{action.id}}"
+                            title="{{action.skillName}}"
+                        >
+                            <i class="fas fa-dice-six"></i>
+                        </a>
+                    {{else}}
+                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" title="{{localize 'SR6.title.noRollNeeded'}}">
+                            <i class="fas fa-square"></i>
+                        </span>
+                    {{/if}}
+                    </div>
+                </div>
+
+                <section class="collapsible-content closed" data-matrix-action-id="{{action.id}}">
+                    <div class="matrix-action-description">
+                        {{localize (concat 'shadowrun6.matrixaction.' action.id '.hint')}}
+                    </div>
+                </section>
+            </li>
+        {{/each}}
+        </ol>
+    </section>
+</section>
+<!-- /Matrix Actions -->
