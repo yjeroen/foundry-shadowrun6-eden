@@ -1699,7 +1699,12 @@ export default class Shadowrun6Actor extends Actor {
         let physicalCM, stunCM;
         if (isDataModel) {
             physicalCM = this.system.health?.physicalCM?.penalty ?? 0;
-            stunCM     = this.system.health?.stunCM?.penalty ?? 0;
+            if (this.system.health?.stunCM) {
+                stunCM     = this.system.health?.stunCM?.penalty ?? 0;
+            } 
+            else { // Vehicle or Matrix actor without stun monitor
+                stunCM     = this.system.matrix?.matrixCM?.penalty ?? 0;
+            }
         } 
         else {
             physicalCM = this._getWoundModifierPerMonitor(this.system.physical);
