@@ -2341,7 +2341,8 @@
       "showDescription": "Show description",
       "sendToChat": "Send description to Chat",
       "useItem": "Use {name}",
-      "noRollNeeded": "No roll needed"
+      "noRollNeeded": "No roll needed",
+      "rollSomething": "Roll {typeOfRoll}"
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",
