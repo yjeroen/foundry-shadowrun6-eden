@@ -9,7 +9,7 @@
   <div class="stat-row">
     {{#each statblock as |attr|}}
     <div class="stat" data-for="{{attr.field.fieldPath}}">
-      <div class="stat-label" title="{{attr.field.label}}" data-action="roll" data-roll-type="{{attr.rollType}}" data-attribute-path="{{attr.field.fieldPath}}">
+      <div class="stat-label" title="{{localize 'SR6.title.rollSomething' typeOfRoll=attr.field.label}}" data-action="roll" data-roll-type="{{attr.rollType}}" data-attribute-path="{{attr.field.fieldPath}}">
         {{localize (concat "SR6.statblock." attr.field.fieldPath)}}
       </div>
       <div class="stat-value" title="{{attrHint @root.actor attr.field}}">
@@ -172,8 +172,11 @@
       </div>
     </div> --}}
 
+    <div class="row">JEROEN:</div>
+    <div class="row">Matrix rolls on actorsheetv1</div>
+    <div class="row">Items Matrix stats</div>
     <div class="row">Matrix Damage actions/forms/powers</div>
-    <div class="row">Condition Monitor penalties</div>
+    <div class="row">Items Matrix Condition Monitor penalties</div>
 
   </div>
 </div>
