@@ -4,12 +4,11 @@
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="section">
+            {{!-- Main Gear Stats --}}
             <table>
                 <tr>
-                    <!--Typ, Subtyp, Verfügbarkeit, Preis-->
                     <th>{{localize 'shadowrun6.item.type'}}</th>
                     <th>{{localize 'shadowrun6.item.subtype'}}</th>
-                    <th>{{localize 'shadowrun6.label.column.rating'}}</th>
                     <th>{{localize 'shadowrun6.label.column.count'}}</th>
                     <th>{{localize 'shadowrun6.item.availability'}}</th>
                     <th>{{localize 'shadowrun6.item.price'}}</th>
@@ -24,18 +23,62 @@
                         <select name="system.subtype" data-field="system.subtype" data-field="system.subtype" class="subtypeselect">
                             {{selectOptions config.subtypeList selected=item.system.subtype localize=true blank=(localize "shadowrun6.label.none") }}
                         </select></td>
-
-                    <td style="text-align: center"><input name="system.needsRating" style="vertical-align: middle;" type="checkbox" {{checked item.system.needsRating}}
-                            data-field="system.needsRating" /></td>
-                    <td style="text-align: center"><input name="system.countable" style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}}
-                            data-field="system.countable" /></td>
-
-                    <td style="text-align: center"><input name="system.availDef" type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered"
-                            style="width: 2em" /></td>
-                    <td style="text-align: center"><span class="input-symbol-nuyen"><input name="system.priceDef" type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered"
-                            style="width: 5em" /></span></td>
+                    <td style="text-align: center">
+                        <input name="system.countable" style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}} data-field="system.countable" />
+                    </td>
+                    <td style="text-align: center">
+                        <input name="system.availDef" type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2em" />
+                    </td>
+                    <td style="text-align: center">
+                        <span class="input-symbol-nuyen"><input name="system.priceDef" type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered" style="width: 5em" /></span>
+                    </td>
                 </tr>
             </table>
+            {{!-- Rating & Wireless Gear Stats --}}
+            {{#if (or gearConfig.hasRating gearConfig.hasDeviceRating)}}
+            <table>
+                <colgroup>
+                    {{#if gearConfig.hasRating}}
+                    <col style="width: 33.333%">
+                    {{/if}}
+                    {{#if gearConfig.hasDeviceRating}}
+                    <col style="width: 33.333%">
+                    <col style="width: 33.333%">
+                    {{/if}}
+                </colgroup>
+                <tr>
+                    {{#if gearConfig.hasRating}}
+                    <th>{{localize 'shadowrun6.label.column.rating'}}</th>
+                    {{/if}}
+                    {{#if gearConfig.hasDeviceRating}}
+                    <th>{{localize 'shadowrun6.label.devicerating.long'}}</th>
+                    <th>{{localize 'SR6.Item.base.FIELDS.wirelessEnabled.label'}}</th>
+                    {{/if}}
+                </tr>
+                <tr>
+                    {{#if gearConfig.hasRating}}
+                    <td style="text-align: center">
+                        <input name="system.needsRating" style="vertical-align: middle;" type="checkbox" {{checked item.system.needsRating}} data-field="system.needsRating" />
+                        {{#if item.system.needsRating}}
+                        <input name="system.rating" type="number" value="{{item.system.rating}}" data-field="system.rating" class="centered box" style="width:2em"/>
+                        {{/if}}
+                    </td>
+                    {{/if}}
+                    {{#if (or gearConfig.hasDeviceRating item.system.hasWirelessBonus)}}
+                    <td style="text-align: center">
+                        {{!-- TODO JEROEN change to select and add i-info --}}
+                        <input name="system.devRating" type="number" value="{{item.system.devRating}}" data-field="system.devRating" class="centered box" style="width:2em"/>
+                    </td>
+                    <td style="text-align: center">
+                        <input name="system.hasWirelessBonus" style="vertical-align: middle;" type="checkbox" {{checked item.system.hasWirelessBonus}} data-field="system.hasWirelessBonus" />
+                        {{#if item.system.hasWirelessBonus}}
+                        <input name="system.wirelessEnabled" style="vertical-align: middle;" type="checkbox" {{checked item.system.wirelessEnabled}} data-field="system.wirelessEnabled" />
+                        {{/if}}
+                    </td>
+                    {{/if}}
+                </tr>
+            </table>
+            {{/if}}
             <!-- ********** WAFFEN ********** -->
             {{#if (or
             (eq item.system.type "WEAPON_FIREARMS")

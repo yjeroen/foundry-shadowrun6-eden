@@ -1,6 +1,7 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
 import { SpritePowerRoll } from "../dice/RollTypes.js";
+import { SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -17,6 +18,24 @@ export default class SR6Item extends Item {
   prepareData() {
     // system addittions must be done before super.prepareData()
     this._addDefaultFireModePenalties();
+    
+    // JEROEN TEST
+    if (this.name === "Ares Predator VI") {
+      // Matrix Device (Any mass-produced item or consumer good, has an ARO)
+      // Electronic Matrix Device (include firearms (mechanical firing action hasn’t been seen outside of museums or period trideos for decades), cyberware, drones, vehicles, and lots of other gadgets)
+      // PAN includes all Electronic Matrix Device on your person, plus a limited number (deviceLimit) of remotely operated devices 
+      // Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.
+      // PAN's can be networked together to one controller
+      // If a device has no Data Processing or Firewall attribute, then default to Device Rating x 2 to defend against Matrix Actions.
+      // Vehicles and drones use Sensor as their Device Rating
+      // .deviceRating
+      // 
+      //
+      this.system.matrix = {
+        matrixCM: new SR6ConditionMonitorField().initialize({max: Math.ceil((this.system.deviceRating??0)/2)+8, value: 4})
+      };
+      console.log("JEROEN", this.name, this.system);
+    }
 
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).

@@ -2275,6 +2275,9 @@
           },
           "price": {
             "label": "Price"
+          },
+          "wirelessEnabled": {
+            "label": "Wireless Enabled"
           }
         }
       },

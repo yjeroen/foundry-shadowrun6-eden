@@ -21,105 +21,1115 @@ export var MonitorType;
     MonitorType["MATRIX"] = "matrix";
 })(MonitorType || (MonitorType = {}));
 export class SR6Config {
-
     DATA_ENTRY = false;
 
     NEW = {
         ATTRIBUTES: [
-            'body',
-            'agility',
-            'reaction',
-            'strength',
-            'willpower',
-            'logic',
-            'intuition',
-            'charisma',
-            'edge',
-            'magic',
-            'resonance',
-            'essence'
+            "body",
+            "agility",
+            "reaction",
+            "strength",
+            "willpower",
+            "logic",
+            "intuition",
+            "charisma",
+            "edge",
+            "magic",
+            "resonance",
+            "essence",
         ],
         ATTRIBUTE_TO_V2: {
-            "bod": "body", 
-            "agi": "agility", 
-            "rea": "reaction", 
-            "str": "strength", 
-            "wil": "willpower", 
-            "log": "logic", 
-            "int": "intuition", 
-            "cha": "charisma", 
-            "mag": "magic", 
-            "res": "resonance", 
-            "ess": "essence",
-            "essence": "essence",
-            "a"  : "attack",
-            "s"  : "sleaze",
-            "d"  : "dataProcessing",
-            "f"  : "firewall",
-            "rating": "rating",
+            bod: "body",
+            agi: "agility",
+            rea: "reaction",
+            str: "strength",
+            wil: "willpower",
+            log: "logic",
+            int: "intuition",
+            cha: "charisma",
+            mag: "magic",
+            res: "resonance",
+            ess: "essence",
+            essence: "essence",
+            a: "attack",
+            s: "sleaze",
+            d: "dataProcessing",
+            f: "firewall",
+            rating: "rating",
         },
         ACTOR_TYPES: {
             sprite: {
                 types: {
-                    'courier': 'SR6.Actor.sprite.TYPES.courier',
-                    'crack': 'SR6.Actor.sprite.TYPES.crack',
-                    'data': 'SR6.Actor.sprite.TYPES.data',
-                    'fault': 'SR6.Actor.sprite.TYPES.fault',
-                    'machine': 'SR6.Actor.sprite.TYPES.machine',
-                    'assassin': 'SR6.Actor.sprite.TYPES.assassin',
-                    'defender': 'SR6.Actor.sprite.TYPES.defender',
-                    'modular': 'SR6.Actor.sprite.TYPES.modular',
-                    'music': 'SR6.Actor.sprite.TYPES.music',
-                    'primal': 'SR6.Actor.sprite.TYPES.primal',
-                }
-            }
+                    courier: "SR6.Actor.sprite.TYPES.courier",
+                    crack: "SR6.Actor.sprite.TYPES.crack",
+                    data: "SR6.Actor.sprite.TYPES.data",
+                    fault: "SR6.Actor.sprite.TYPES.fault",
+                    machine: "SR6.Actor.sprite.TYPES.machine",
+                    assassin: "SR6.Actor.sprite.TYPES.assassin",
+                    defender: "SR6.Actor.sprite.TYPES.defender",
+                    modular: "SR6.Actor.sprite.TYPES.modular",
+                    music: "SR6.Actor.sprite.TYPES.music",
+                    primal: "SR6.Actor.sprite.TYPES.primal",
+                },
+            },
         },
         ITEM_TYPES: {
             mod: {
                 types: {
-                    'accessory_weapon': 'SR6.Item.mod.TYPES.accessory_weapon',
-                    'weapon_mod': 'SR6.Item.mod.TYPES.weapon_mod',
-                    'armor_mod': 'SR6.Item.mod.TYPES.armor_mod',
-                    'accessory_electronics': 'SR6.Item.mod.TYPES.accessory_electronics',
-                    'visual_enhancement': 'SR6.Item.mod.TYPES.visual_enhancement',
-                    'audio_enhancement': 'SR6.Item.mod.TYPES.audio_enhancement'
-                }
-            }
-        }
+                    accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
+                    weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
+                    armor_mod: "SR6.Item.mod.TYPES.armor_mod",
+                    accessory_electronics:
+                        "SR6.Item.mod.TYPES.accessory_electronics",
+                    visual_enhancement: "SR6.Item.mod.TYPES.visual_enhancement",
+                    audio_enhancement: "SR6.Item.mod.TYPES.audio_enhancement",
+                },
+            },
+        },
     };
 
     /**
      * Temporary mapping of v1 attribute abbreviations to v2 attribute names. This is used for converting old rolls and other references to attributes until all code is updated to use the new attribute names. The keys are the v1 abbreviations, and the values are the v2 attribute names.
      */
     attributeV2toV1(attribute) {
-        return Object.entries(this.NEW.ATTRIBUTE_TO_V2).find(([key, value]) => value === attribute)?.[0];
+        return Object.entries(this.NEW.ATTRIBUTE_TO_V2).find(
+            ([key, value]) => value === attribute,
+        )?.[0];
     }
 
-    PRIMARY_ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha"];
-    SECONDARY_ATTRIBUTES = ["mag", "res", "edg", "ess", "ini", "inim", "inia", "dr"];
-    ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha", "mag", "res"];
+    PRIMARY_ATTRIBUTES = [
+        "bod",
+        "agi",
+        "rea",
+        "str",
+        "wil",
+        "log",
+        "int",
+        "cha",
+    ];
+    SECONDARY_ATTRIBUTES = [
+        "mag",
+        "res",
+        "edg",
+        "ess",
+        "ini",
+        "inim",
+        "inia",
+        "dr",
+    ];
+    ATTRIBUTES = [
+        "bod",
+        "agi",
+        "rea",
+        "str",
+        "wil",
+        "log",
+        "int",
+        "cha",
+        "mag",
+        "res",
+    ];
     ATTRIBUTES_SELECTOPTIONS = {
-        "bod": "attrib.bod", 
-        "agi": "attrib.agi", 
-        "rea": "attrib.rea", 
-        "str": "attrib.str", 
-        "wil": "attrib.wil", 
-        "log": "attrib.log", 
-        "int": "attrib.int", 
-        "cha": "attrib.cha", 
-        "mag": "attrib.mag", 
-        "res": "attrib.res"
+        bod: "attrib.bod",
+        agi: "attrib.agi",
+        rea: "attrib.rea",
+        str: "attrib.str",
+        wil: "attrib.wil",
+        log: "attrib.log",
+        int: "attrib.int",
+        cha: "attrib.cha",
+        mag: "attrib.mag",
+        res: "attrib.res",
     };
-    NPC_ATTRIBUTES = ["bod", "agi", "rea", "str", "wil", "log", "int", "cha", "mag", "res", "ess"];
-    RATING = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "10", 11: "11", 12: "12"};
+    NPC_ATTRIBUTES = [
+        "bod",
+        "agi",
+        "rea",
+        "str",
+        "wil",
+        "log",
+        "int",
+        "cha",
+        "mag",
+        "res",
+        "ess",
+    ];
+    RATING = {
+        1: "1",
+        2: "2",
+        3: "3",
+        4: "4",
+        5: "5",
+        6: "6",
+        7: "7",
+        8: "8",
+        9: "9",
+        10: "10",
+        11: "11",
+        12: "12",
+    };
     QUALITY_CATEGORIES = {
-        ADVANTAGE: "QUALITY_CATEGORIES.ADVANTAGE", 
-        DISADVANTAGE: "QUALITY_CATEGORIES.DISADVANTAGE"
+        ADVANTAGE: "QUALITY_CATEGORIES.ADVANTAGE",
+        DISADVANTAGE: "QUALITY_CATEGORIES.DISADVANTAGE",
     };
     WEAPON_STUN_OPTION = {
-        "false": "shadowrun6.item.physical_damage",
-        "true": "shadowrun6.item.stun_damage",
+        false: "shadowrun6.item.physical_damage",
+        true: "shadowrun6.item.stun_damage",
     };
+
+    GEAR =  {
+        ACCESSORY: {
+            label: "shadowrun6.itemtype.ACCESSORY",
+            subtypes: {
+                ACCESSORY: {
+                    label: "shadowrun6.gear.subtype.ACCESSORY",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+            },
+        },
+        AMMUNITION: {
+            label: "shadowrun6.itemtype.AMMUNITION",
+            subtypes: {
+                AMMUNITION: {
+                    label: "shadowrun6.gear.subtype.AMMUNITION",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ROCKETS: {
+                    label: "shadowrun6.gear.subtype.ROCKETS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MISSILES: {
+                    label: "shadowrun6.gear.subtype.MISSILES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                EXPLOSIVES: {
+                    label: "shadowrun6.gear.subtype.EXPLOSIVES",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                GRENADES: {
+                    label: "shadowrun6.gear.subtype.GRENADES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                BOWS: {
+                    label: "shadowrun6.gear.subtype.BOWS",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                CROSSBOWS: {
+                    label: "shadowrun6.gear.subtype.CROSSBOWS",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BALLISTAS: {
+                    label: "shadowrun6.gear.subtype.BALLISTAS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        ARMOR: {
+            label: "shadowrun6.itemtype.ARMOR",
+            subtypes: {
+                ARMOR_BODY: {
+                    label: "shadowrun6.gear.subtype.ARMOR_BODY",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ARMOR_HELMET: {
+                    label: "shadowrun6.gear.subtype.ARMOR_HELMET",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ARMOR_SHIELD: {
+                    label: "shadowrun6.gear.subtype.ARMOR_SHIELD",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ARMOR_SOCIAL: {
+                    label: "shadowrun6.gear.subtype.ARMOR_SOCIAL",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ARMOR_CLOTHES: {
+                    label: "shadowrun6.gear.subtype.ARMOR_CLOTHES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        ARMOR_ADDITION: {
+            label: "shadowrun6.itemtype.ARMOR_ADDITION",
+            subtypes: {},
+        },
+        BIOLOGY: {
+            label: "shadowrun6.itemtype.BIOLOGY",
+            subtypes: {
+                BIOTECH: {
+                    label: "shadowrun6.gear.subtype.BIOTECH",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                SLAP_PATCHES: {
+                    label: "shadowrun6.gear.subtype.SLAP_PATCHES",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        BIOWARE: {
+            label: "shadowrun6.itemtype.BIOWARE",
+            subtypes: {
+                BIOWARE_STANDARD: {
+                    label: "shadowrun6.gear.subtype.BIOWARE_STANDARD",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BIOWARE_CULTURED: {
+                    label: "shadowrun6.gear.subtype.BIOWARE_CULTURED",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BIOWARE_IMPLANT_WEAPON: {
+                    label: "shadowrun6.gear.subtype.BIOWARE_IMPLANT_WEAPON",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BIOWARE_DERMAL: {
+                    label: "shadowrun6.gear.subtype.BIOWARE_DERMAL",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                BIOSENSE: {
+                    label: "shadowrun6.gear.subtype.BIOSENSE",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                SYMBIONTS: {
+                    label: "shadowrun6.gear.subtype.SYMBIONT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        CHEMICALS: {
+            label: "shadowrun6.itemtype.CHEMICALS",
+            subtypes: {
+                INDUSTRIAL_CHEMICALS: {
+                    label: "shadowrun6.gear.subtype.INDUSTRIAL_CHEMICALS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                TOXINS: {
+                    label: "shadowrun6.gear.subtype.TOXINS",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                DRUGS: {
+                    label: "shadowrun6.gear.subtype.DRUGS",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BTL: {
+                    label: "shadowrun6.gear.subtype.BTL",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                PERFUME: {
+                    label: "shadowrun6.gear.subtype.PERFUME",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ESPIONAGE: {
+                    label: "shadowrun6.gear.subtype.ESPIONAGE",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        CYBERWARE: {
+            label: "shadowrun6.itemtype.CYBERWARE",
+            // TODO: Add Device Rating based to Cyberware Grades
+            subtypes: {
+                CYBER_HEADWARE: {
+                    label: "shadowrun6.gear.subtype.CYBER_HEADWARE",
+                    hasRating: true,
+                    hasDeviceRating: true,
+                },
+                CYBERJACK: {
+                    label: "shadowrun6.gear.subtype.CYBERJACK",
+                    hasRating: true,
+                    hasDeviceRating: true,
+                },
+                CYBER_BODYWARE: {
+                    label: "shadowrun6.gear.subtype.CYBER_BODYWARE",
+                    hasRating: true,
+                    hasDeviceRating: true,
+                },
+                CYBER_EYEWARE: {
+                    label: "shadowrun6.gear.subtype.CYBER_EYEWARE",
+                    hasRating: true,
+                    hasDeviceRating: true,
+                },
+                CYBER_EARWARE: {
+                    label: "shadowrun6.gear.subtype.CYBER_EARWARE",
+                    hasRating: true,
+                    hasDeviceRating: true,
+                },
+                CYBER_IMPLANT_WEAPON: {
+                    label: "shadowrun6.gear.subtype.CYBER_IMPLANT_WEAPON",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                CYBER_LIMBS: {
+                    label: "shadowrun6.gear.subtype.CYBER_LIMBS",
+                    hasRating: true,
+                    hasDeviceRating: true,
+                },
+                COMMLINK: {
+                    label: "shadowrun6.gear.subtype.COMMLINK",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                CYBERDECK: {
+                    label: "shadowrun6.gear.subtype.CYBERDECK",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                CYBERNETIC_RESTRAINT: {
+                    label: "shadowrun6.gear.subtype.CYBERNETIC_RESTRAINT",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                COSMETIC: {
+                    label: "shadowrun6.gear.subtype.COSMETIC",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+            },
+        },
+        CODEMODS: {
+            label: "shadowrun6.itemtype.CODEMODS",
+            subtypes: {
+                ATTRIBUTE_CODEMOD: {
+                    label: "shadowrun6.gear.subtype.ATTRIBUTE_CODEMOD",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                CORE_CODEMOD: {
+                    label: "shadowrun6.gear.subtype.ATTRIBUTE_CODEMOD",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                PROCESSOR: {
+                    label: "shadowrun6.gear.subtype.PROCESSOR",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                IO: {
+                    label: "shadowrun6.gear.subtype.IO",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                DIGITAL_WEAPON: {
+                    label: "shadowrun6.gear.subtype.DIGITAL_WEAPON",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        DRONES: {
+            label: "shadowrun6.itemtype.DRONES",
+            subtypes: {
+                MICRODRONES: {
+                    label: "shadowrun6.gear.subtype.MICRODRONES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MINIDRONES: {
+                    label: "shadowrun6.gear.subtype.MINIDRONES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SMALL_DRONES: {
+                    label: "shadowrun6.gear.subtype.SMALL_DRONES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MEDIUM_DRONES: {
+                    label: "shadowrun6.gear.subtype.MEDIUM_DRONES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                LARGE_DRONES: {
+                    label: "shadowrun6.gear.subtype.LARGE_DRONES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        DRONE_MICRO: {
+            label: "shadowrun6.gear.subtype.MICRODRONES",
+            subtypes: {
+                GROUND: {
+                    label: "shadowrun6.gear.subtype.GROUND",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AIR: {
+                    label: "shadowrun6.gear.subtype.AIR",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AQUATIC: {
+                    label: "shadowrun6.gear.subtype.AQUATIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        DRONE_MINI: {
+            label: "shadowrun6.gear.subtype.MINIDRONES",
+            subtypes: {
+                GROUND: {
+                    label: "shadowrun6.gear.subtype.GROUND",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AIR: {
+                    label: "shadowrun6.gear.subtype.AIR",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AQUATIC: {
+                    label: "shadowrun6.gear.subtype.AQUATIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        DRONE_SMALL: {
+            label: "shadowrun6.gear.subtype.SMALL_DRONES",
+            subtypes: {
+                GROUND: {
+                    label: "shadowrun6.gear.subtype.GROUND",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AIR: {
+                    label: "shadowrun6.gear.subtype.AIR",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AQUATIC: {
+                    label: "shadowrun6.gear.subtype.AQUATIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ANTHRO: {
+                    label: "shadowrun6.gear.subtype.ANTHRO",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        DRONE_MEDIUM: {
+            label: "shadowrun6.gear.subtype.MEDIUM_DRONES",
+            subtypes: {
+                GROUND: {
+                    label: "shadowrun6.gear.subtype.GROUND",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AIR: {
+                    label: "shadowrun6.gear.subtype.AIR",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AQUATIC: {
+                    label: "shadowrun6.gear.subtype.AQUATIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ANTHRO: {
+                    label: "shadowrun6.gear.subtype.ANTHRO",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        DRONE_LARGE: {
+            label: "shadowrun6.gear.subtype.LARGE_DRONES",
+            subtypes: {
+                GROUND: {
+                    label: "shadowrun6.gear.subtype.GROUND",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AIR: {
+                    label: "shadowrun6.gear.subtype.AIR",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AQUATIC: {
+                    label: "shadowrun6.gear.subtype.AQUATIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ANTHRO: {
+                    label: "shadowrun6.gear.subtype.ANTHRO",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        ELECTRONICS: {
+            label: "shadowrun6.itemtype.ELECTRONICS",
+            subtypes: {
+                COMMLINK: {
+                    label: "shadowrun6.gear.subtype.COMMLINK",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                CYBERDECK: {
+                    label: "shadowrun6.gear.subtype.CYBERDECK",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                ELECTRONIC_ACCESSORIES: {
+                    label: "shadowrun6.gear.subtype.ELECTRONIC_ACCESSORIES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                RIGGER_CONSOLE: {
+                    label: "shadowrun6.gear.subtype.RIGGER_CONSOLE",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                RFID: {
+                    label: "shadowrun6.gear.subtype.RFID",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                COMMUNICATION: {
+                    label: "shadowrun6.gear.subtype.COMMUNICATION",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                ID_CREDIT: {
+                    label: "shadowrun6.gear.subtype.ID_CREDIT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                IMAGING: {
+                    label: "shadowrun6.gear.subtype.IMAGING",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                OPTICAL: {
+                    label: "shadowrun6.gear.subtype.OPTICAL",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AUDIO: {
+                    label: "shadowrun6.gear.subtype.AUDIO",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SENSOR_HOUSING: {
+                    label: "shadowrun6.gear.subtype.SENSOR_HOUSING",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SECURITY: {
+                    label: "shadowrun6.gear.subtype.SECURITY",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BREAKING: {
+                    label: "shadowrun6.gear.subtype.BREAKING",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                TAC_NET: {
+                    label: "shadowrun6.gear.subtype.TAC_NET",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                DATATERM: {
+                    label: "shadowrun6.gear.subtype.DATATERM",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                CYBERTERM: {
+                    label: "shadowrun6.gear.subtype.CYBERTERM",
+                    hasRating: false,
+                    hasDeviceRating: true,
+                },
+                INSTRUMENT: {
+                    label: "shadowrun6.gear.subtype.INSTRUMENT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                BTLS: {
+                    label: "shadowrun6.gear.subtype.BTLS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        GENETICS: {
+            label: "shadowrun6.itemtype.GENETICS",
+            subtypes: {
+                THERAPEUTIC: {
+                    label: "shadowrun6.gear.subtype.THERAPEUTIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                AUGMENTICS: {
+                    label: "shadowrun6.gear.subtype.AUGMENTICS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                COMPLEMENTARY_GENETIC_MODS: {
+                    label: "shadowrun6.gear.subtype.COMPLEMENTARY_GENETIC_MODS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                TRANSGENICS: {
+                    label: "shadowrun6.gear.subtype.TRANSGENICS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                TRANSGENIC_BIOWARE: {
+                    label: "shadowrun6.gear.subtype.TRANSGENIC_BIOWARE",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        MAGICAL: {
+            label: "shadowrun6.itemtype.MAGICAL",
+            subtypes: {
+                MAGICAL_FORMULA: {
+                    label: "shadowrun6.gear.subtype.MAGICAL_FORMULA",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MAGIC_SUPPLIES: {
+                    label: "shadowrun6.gear.subtype.MAGIC_SUPPLIES",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                MAGIC_LODGE: {
+                    label: "shadowrun6.gear.subtype.MAGIC_LODGE",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        NANOWARE: {
+            label: "shadowrun6.itemtype.NANOWARE",
+            subtypes: {
+                NANITES_COSMETIC: {
+                    label: "shadowrun6.gear.subtype.NANITES_COSMETIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                NANITES_THERAPEUTIC: {
+                    label: "shadowrun6.gear.subtype.NANITES_THERAPEUTIC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                NANITES_BIOAMP: {
+                    label: "shadowrun6.gear.subtype.NANITES_BIOAMP",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                NANITES_UTILITIES: {
+                    label: "shadowrun6.gear.subtype.NANITES_UTILITIES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                NANITES_TRANSIENT: {
+                    label: "shadowrun6.gear.subtype.NANITES_TRANSIENT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                NANO_CYBERWARE: {
+                    label: "shadowrun6.gear.subtype.NANO_CYBERWARE",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                NANOTECH_KIT: {
+                    label: "shadowrun6.gear.subtype.NANOTECH_KIT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        SOFTWARE: {
+            label: "shadowrun6.itemtype.SOFTWARE",
+            subtypes: {
+                AUTOSOFT: {
+                    label: "shadowrun6.gear.subtype.AUTOSOFT",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                BASIC_PROGRAM: {
+                    label: "shadowrun6.gear.subtype.BASIC_PROGRAM",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                HACKING_PROGRAM: {
+                    label: "shadowrun6.gear.subtype.HACKING_PROGRAM",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                RIGGER_PROGRAM: {
+                    label: "shadowrun6.gear.subtype.RIGGER_PROGRAM",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SKILLSOFT: {
+                    label: "shadowrun6.gear.subtype.SKILLSOFT",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                TAC_NET: {
+                    label: "shadowrun6.gear.subtype.TAC_NET",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ESOFT: {
+                    label: "shadowrun6.gear.subtype.ESOFT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                OTHER_PROGRAMS: {
+                    label: "shadowrun6.gear.subtype.OTHER_PROGRAMS",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        SURVIVAL: {
+            label: "shadowrun6.itemtype.SURVIVAL",
+            subtypes: {
+                SURVIVAL_GEAR: {
+                    label: "shadowrun6.gear.subtype.SURVIVAL_GEAR",
+                    hasRating: true,
+                    hasDeviceRating: false,
+                },
+                WINTER_GEAR: {
+                    label: "shadowrun6.gear.subtype.WINTER_GEAR",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                GRAPPLE_GUN: {
+                    label: "shadowrun6.gear.subtype.GRAPPLE_GUN",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        TOOLS: {
+            label: "shadowrun6.itemtype.TOOLS",
+            subtypes: {
+                TOOLS: {
+                    label: "shadowrun6.gear.subtype.TOOLS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SPARE_PARTS: {
+                    label: "shadowrun6.gear.subtype.SPARE_PARTS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        VEHICLES: {
+            label: "shadowrun6.itemtype.VEHICLES",
+            subtypes: {
+                AIRSHIP: {
+                    label: "shadowrun6.gear.subtype.AIRSHIP",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ATVS: {
+                    label: "shadowrun6.gear.subtype.ATVS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                BIKES: {
+                    label: "shadowrun6.gear.subtype.BIKES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                BOATS: {
+                    label: "shadowrun6.gear.subtype.BOATS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                BUS: {
+                    label: "shadowrun6.gear.subtype.BUS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                CARS: {
+                    label: "shadowrun6.gear.subtype.CARS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                HOVERCRAFT: {
+                    label: "shadowrun6.gear.subtype.HOVERCRAFT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                LAV: {
+                    label: "shadowrun6.gear.subtype.LAV",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                LTAV: {
+                    label: "shadowrun6.gear.subtype.LTAV",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                GRAV: {
+                    label: "shadowrun6.gear.subtype.GRAV",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                TRACKED: {
+                    label: "shadowrun6.gear.subtype.TRACKED",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MOD_TRAILER: {
+                    label: "shadowrun6.gear.subtype.MOD_TRAILER",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                TRUCKS: {
+                    label: "shadowrun6.gear.subtype.TRUCKS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SHIPS: {
+                    label: "shadowrun6.gear.subtype.SHIPS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SUBMARINES: {
+                    label: "shadowrun6.gear.subtype.SUBMARINES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                PWC: {
+                    label: "shadowrun6.gear.subtype.PWC",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                FIXED_WING: {
+                    label: "shadowrun6.gear.subtype.FIXED_WING",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ROTORCRAFT: {
+                    label: "shadowrun6.gear.subtype.ROTORCRAFT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                VANS: {
+                    label: "shadowrun6.gear.subtype.VANS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                VTOL: {
+                    label: "shadowrun6.gear.subtype.VTOL",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                WALKER: {
+                    label: "shadowrun6.gear.subtype.WALKER",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SPACECRAFT: {
+                    label: "shadowrun6.gear.subtype.SPACECRAFT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SPECIAL_VEHICLES: {
+                    label: "shadowrun6.gear.subtype.SPECIAL_VEHICLES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        WEAPON_CLOSE_COMBAT: {
+            label: "shadowrun6.itemtype.WEAPON_CLOSE_COMBAT",
+            subtypes: {
+                BLADES: {
+                    label: "shadowrun6.gear.subtype.BLADES",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                CLUBS: {
+                    label: "shadowrun6.gear.subtype.CLUBS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                WHIPS: {
+                    label: "shadowrun6.gear.subtype.WHIPS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                UNARMED: {
+                    label: "shadowrun6.gear.subtype.UNARMED",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                OTHER_CLOSE: {
+                    label: "shadowrun6.gear.subtype.OTHER_CLOSE",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        WEAPON_FIREARMS: {
+            label: "shadowrun6.itemtype.WEAPON_FIREARMS",
+            subtypes: {
+                TASERS: {
+                    label: "shadowrun6.gear.subtype.TASERS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                HOLDOUTS: {
+                    label: "shadowrun6.gear.subtype.HOLDOUTS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                PISTOLS_LIGHT: {
+                    label: "shadowrun6.gear.subtype.PISTOLS_LIGHT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MACHINE_PISTOLS: {
+                    label: "shadowrun6.gear.subtype.MACHINE_PISTOLS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                PISTOLS_HEAVY: {
+                    label: "shadowrun6.gear.subtype.PISTOLS_HEAVY",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SUBMACHINE_GUNS: {
+                    label: "shadowrun6.gear.subtype.SUBMACHINE_GUNS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                SHOTGUNS: {
+                    label: "shadowrun6.gear.subtype.SHOTGUNS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                RIFLE_ASSAULT: {
+                    label: "shadowrun6.gear.subtype.RIFLE_ASSAULT",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                RIFLE_HUNTING: {
+                    label: "shadowrun6.gear.subtype.RIFLE_HUNTING",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                RIFLE_SNIPER: {
+                    label: "shadowrun6.gear.subtype.RIFLE_SNIPER",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                LMG: {
+                    label: "shadowrun6.gear.subtype.LMG",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                MMG: {
+                    label: "shadowrun6.gear.subtype.MMG",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                HMG: {
+                    label: "shadowrun6.gear.subtype.HMG",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                ASSAULT_CANNON: {
+                    label: "shadowrun6.gear.subtype.ASSAULT_CANNON",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        WEAPON_RANGED: {
+            label: "shadowrun6.itemtype.WEAPON_RANGED",
+            subtypes: {
+                BOWS: {
+                    label: "shadowrun6.gear.subtype.BOWS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                CROSSBOWS: {
+                    label: "shadowrun6.gear.subtype.CROSSBOWS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                THROWING: {
+                    label: "shadowrun6.gear.subtype.THROWING",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+        WEAPON_SPECIAL: {
+            label: "shadowrun6.itemtype.WEAPON_SPECIAL",
+            subtypes: {
+                LAUNCHERS: {
+                    label: "shadowrun6.gear.subtype.LAUNCHERS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                THROWERS: {
+                    label: "shadowrun6.gear.subtype.THROWERS",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                DMSO: {
+                    label: "shadowrun6.gear.subtype.DMSO",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                DART: {
+                    label: "shadowrun6.gear.subtype.DART",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+                OTHER_SPECIAL: {
+                    label: "shadowrun6.gear.subtype.OTHER_SPECIAL",
+                    hasRating: false,
+                    hasDeviceRating: false,
+                },
+            },
+        },
+    };
+
     GEAR_TYPES = {
         ACCESSORY: "shadowrun6.itemtype.ACCESSORY",
         AMMUNITION: "shadowrun6.itemtype.AMMUNITION",
@@ -147,11 +1157,11 @@ export class SR6Config {
         WEAPON_CLOSE_COMBAT: "shadowrun6.itemtype.WEAPON_CLOSE_COMBAT",
         WEAPON_FIREARMS: "shadowrun6.itemtype.WEAPON_FIREARMS",
         WEAPON_RANGED: "shadowrun6.itemtype.WEAPON_RANGED",
-        WEAPON_SPECIAL: "shadowrun6.itemtype.WEAPON_SPECIAL"
+        WEAPON_SPECIAL: "shadowrun6.itemtype.WEAPON_SPECIAL",
     };
     GEAR_SUBTYPES = {
         ACCESSORY: {
-            ACCESSORY: "shadowrun6.gear.subtype.ACCESSORY"
+            ACCESSORY: "shadowrun6.gear.subtype.ACCESSORY",
         },
         AMMUNITION: {
             AMMUNITION: "shadowrun6.gear.subtype.AMMUNITION",
@@ -161,35 +1171,37 @@ export class SR6Config {
             GRENADES: "shadowrun6.gear.subtype.GRENADES",
             BOWS: "shadowrun6.gear.subtype.BOWS",
             CROSSBOWS: "shadowrun6.gear.subtype.CROSSBOWS",
-            BALLISTAS: "shadowrun6.gear.subtype.BALLISTAS"
+            BALLISTAS: "shadowrun6.gear.subtype.BALLISTAS",
         },
         ARMOR: {
             ARMOR_BODY: "shadowrun6.gear.subtype.ARMOR_BODY",
             ARMOR_HELMET: "shadowrun6.gear.subtype.ARMOR_HELMET",
             ARMOR_SHIELD: "shadowrun6.gear.subtype.ARMOR_SHIELD",
             ARMOR_SOCIAL: "shadowrun6.gear.subtype.ARMOR_SOCIAL",
-            ARMOR_CLOTHES: "shadowrun6.gear.subtype.ARMOR_CLOTHES"
+            ARMOR_CLOTHES: "shadowrun6.gear.subtype.ARMOR_CLOTHES",
         },
         ARMOR_ADDITION: {},
         BIOLOGY: {
             BIOTECH: "shadowrun6.gear.subtype.BIOTECH",
-            SLAP_PATCHES: "shadowrun6.gear.subtype.SLAP_PATCHES"
+            SLAP_PATCHES: "shadowrun6.gear.subtype.SLAP_PATCHES",
         },
         BIOWARE: {
             BIOWARE_STANDARD: "shadowrun6.gear.subtype.BIOWARE_STANDARD",
             BIOWARE_CULTURED: "shadowrun6.gear.subtype.BIOWARE_CULTURED",
-            BIOWARE_IMPLANT_WEAPON: "shadowrun6.gear.subtype.BIOWARE_IMPLANT_WEAPON", // Key changed in Commlink to BIOWARE_WEAPON
+            BIOWARE_IMPLANT_WEAPON:
+                "shadowrun6.gear.subtype.BIOWARE_IMPLANT_WEAPON", // Key changed in Commlink to BIOWARE_WEAPON
             BIOWARE_DERMAL: "shadowrun6.gear.subtype.BIOWARE_DERMAL",
             BIOSENSE: "shadowrun6.gear.subtype.BIOSENSE",
-            SYMBIONTS: "shadowrun6.gear.subtype.SYMBIONT"
+            SYMBIONTS: "shadowrun6.gear.subtype.SYMBIONT",
         },
         CHEMICALS: {
-            INDUSTRIAL_CHEMICALS: "shadowrun6.gear.subtype.INDUSTRIAL_CHEMICALS",
+            INDUSTRIAL_CHEMICALS:
+                "shadowrun6.gear.subtype.INDUSTRIAL_CHEMICALS",
             TOXINS: "shadowrun6.gear.subtype.TOXINS",
             DRUGS: "shadowrun6.gear.subtype.DRUGS",
             BTL: "shadowrun6.gear.subtype.BTL",
             PERFUME: "shadowrun6.gear.subtype.PERFUME",
-            ESPIONAGE: "shadowrun6.gear.subtype.ESPIONAGE"
+            ESPIONAGE: "shadowrun6.gear.subtype.ESPIONAGE",
         },
         CYBERWARE: {
             CYBER_HEADWARE: "shadowrun6.gear.subtype.CYBER_HEADWARE",
@@ -197,59 +1209,62 @@ export class SR6Config {
             CYBER_BODYWARE: "shadowrun6.gear.subtype.CYBER_BODYWARE",
             CYBER_EYEWARE: "shadowrun6.gear.subtype.CYBER_EYEWARE",
             CYBER_EARWARE: "shadowrun6.gear.subtype.CYBER_EARWARE",
-            CYBER_IMPLANT_WEAPON: "shadowrun6.gear.subtype.CYBER_IMPLANT_WEAPON",
+            CYBER_IMPLANT_WEAPON:
+                "shadowrun6.gear.subtype.CYBER_IMPLANT_WEAPON",
             CYBER_LIMBS: "shadowrun6.gear.subtype.CYBER_LIMBS",
             COMMLINK: "shadowrun6.gear.subtype.COMMLINK",
             CYBERDECK: "shadowrun6.gear.subtype.CYBERDECK",
-            CYBERNETIC_RESTRAINT: "shadowrun6.gear.subtype.CYBERNETIC_RESTRAINT",
-            COSMETIC: "shadowrun6.gear.subtype.COSMETIC"
+            CYBERNETIC_RESTRAINT:
+                "shadowrun6.gear.subtype.CYBERNETIC_RESTRAINT",
+            COSMETIC: "shadowrun6.gear.subtype.COSMETIC",
         },
         CODEMODS: {
             ATTRIBUTE_CODEMOD: "shadowrun6.gear.subtype.ATTRIBUTE_CODEMOD",
             CORE_CODEMOD: "shadowrun6.gear.subtype.ATTRIBUTE_CODEMOD",
             PROCESSOR: "shadowrun6.gear.subtype.PROCESSOR",
             IO: "shadowrun6.gear.subtype.IO",
-            DIGITAL_WEAPON: "shadowrun6.gear.subtype.DIGITAL_WEAPON"
+            DIGITAL_WEAPON: "shadowrun6.gear.subtype.DIGITAL_WEAPON",
         },
         DRONES: {
             MICRODRONES: "shadowrun6.gear.subtype.MICRODRONES",
             MINIDRONES: "shadowrun6.gear.subtype.MINIDRONES",
             SMALL_DRONES: "shadowrun6.gear.subtype.SMALL_DRONES",
             MEDIUM_DRONES: "shadowrun6.gear.subtype.MEDIUM_DRONES",
-            LARGE_DRONES: "shadowrun6.gear.subtype.LARGE_DRONES"
+            LARGE_DRONES: "shadowrun6.gear.subtype.LARGE_DRONES",
         },
         DRONE_MICRO: {
             GROUND: "shadowrun6.gear.subtype.GROUND",
             AIR: "shadowrun6.gear.subtype.AIR",
-            AQUATIC: "shadowrun6.gear.subtype.AQUATIC"
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
         },
         DRONE_MINI: {
             GROUND: "shadowrun6.gear.subtype.GROUND",
             AIR: "shadowrun6.gear.subtype.AIR",
-            AQUATIC: "shadowrun6.gear.subtype.AQUATIC"
+            AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
         },
         DRONE_SMALL: {
             GROUND: "shadowrun6.gear.subtype.GROUND",
             AIR: "shadowrun6.gear.subtype.AIR",
             AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
-            ANTHRO: "shadowrun6.gear.subtype.ANTHRO"
+            ANTHRO: "shadowrun6.gear.subtype.ANTHRO",
         },
         DRONE_MEDIUM: {
             GROUND: "shadowrun6.gear.subtype.GROUND",
             AIR: "shadowrun6.gear.subtype.AIR",
             AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
-            ANTHRO: "shadowrun6.gear.subtype.ANTHRO"
+            ANTHRO: "shadowrun6.gear.subtype.ANTHRO",
         },
         DRONE_LARGE: {
             GROUND: "shadowrun6.gear.subtype.GROUND",
             AIR: "shadowrun6.gear.subtype.AIR",
             AQUATIC: "shadowrun6.gear.subtype.AQUATIC",
-            ANTHRO: "shadowrun6.gear.subtype.ANTHRO"
+            ANTHRO: "shadowrun6.gear.subtype.ANTHRO",
         },
         ELECTRONICS: {
             COMMLINK: "shadowrun6.gear.subtype.COMMLINK",
             CYBERDECK: "shadowrun6.gear.subtype.CYBERDECK",
-            ELECTRONIC_ACCESSORIES: "shadowrun6.gear.subtype.ELECTRONIC_ACCESSORIES",
+            ELECTRONIC_ACCESSORIES:
+                "shadowrun6.gear.subtype.ELECTRONIC_ACCESSORIES",
             RIGGER_CONSOLE: "shadowrun6.gear.subtype.RIGGER_CONSOLE",
             RFID: "shadowrun6.gear.subtype.RFID",
             COMMUNICATION: "shadowrun6.gear.subtype.COMMUNICATION",
@@ -266,7 +1281,7 @@ export class SR6Config {
             INSTRUMENT: "shadowrun6.gear.subtype.INSTRUMENT",
             BTLS: "shadowrun6.gear.subtype.BTLS",
         },
-        
+
         // /** Hack&Slash custom cyberdecks */
         // CYBERDECK(
         //         ItemSubType.CORE,
@@ -277,14 +1292,15 @@ export class SR6Config {
         GENETICS: {
             THERAPEUTIC: "shadowrun6.gear.subtype.THERAPEUTIC",
             AUGMENTICS: "shadowrun6.gear.subtype.AUGMENTICS",
-            COMPLEMENTARY_GENETIC_MODS: "shadowrun6.gear.subtype.COMPLEMENTARY_GENETIC_MODS",
+            COMPLEMENTARY_GENETIC_MODS:
+                "shadowrun6.gear.subtype.COMPLEMENTARY_GENETIC_MODS",
             TRANSGENICS: "shadowrun6.gear.subtype.TRANSGENICS",
             TRANSGENIC_BIOWARE: "shadowrun6.gear.subtype.TRANSGENIC_BIOWARE",
         },
         MAGICAL: {
             MAGICAL_FORMULA: "shadowrun6.gear.subtype.MAGICAL_FORMULA",
             MAGIC_SUPPLIES: "shadowrun6.gear.subtype.MAGIC_SUPPLIES",
-            MAGIC_LODGE: "shadowrun6.gear.subtype.MAGIC_LODGE"
+            MAGIC_LODGE: "shadowrun6.gear.subtype.MAGIC_LODGE",
         },
         NANOWARE: {
             NANITES_COSMETIC: "shadowrun6.gear.subtype.NANITES_COSMETIC",
@@ -293,7 +1309,7 @@ export class SR6Config {
             NANITES_UTILITIES: "shadowrun6.gear.subtype.NANITES_UTILITIES",
             NANITES_TRANSIENT: "shadowrun6.gear.subtype.NANITES_TRANSIENT",
             NANO_CYBERWARE: "shadowrun6.gear.subtype.NANO_CYBERWARE",
-            NANOTECH_KIT: "shadowrun6.gear.subtype.NANOTECH_KIT"
+            NANOTECH_KIT: "shadowrun6.gear.subtype.NANOTECH_KIT",
         },
         SOFTWARE: {
             AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
@@ -303,16 +1319,16 @@ export class SR6Config {
             SKILLSOFT: "shadowrun6.gear.subtype.SKILLSOFT",
             TAC_NET: "shadowrun6.gear.subtype.TAC_NET",
             ESOFT: "shadowrun6.gear.subtype.ESOFT",
-            OTHER_PROGRAMS: "shadowrun6.gear.subtype.OTHER_PROGRAMS"
+            OTHER_PROGRAMS: "shadowrun6.gear.subtype.OTHER_PROGRAMS",
         },
         SURVIVAL: {
             SURVIVAL_GEAR: "shadowrun6.gear.subtype.SURVIVAL_GEAR",
             WINTER_GEAR: "shadowrun6.gear.subtype.WINTER_GEAR",
-            GRAPPLE_GUN: "shadowrun6.gear.subtype.GRAPPLE_GUN"
+            GRAPPLE_GUN: "shadowrun6.gear.subtype.GRAPPLE_GUN",
         },
         TOOLS: {
             TOOLS: "shadowrun6.gear.subtype.TOOLS",
-            SPARE_PARTS: "shadowrun6.gear.subtype.SPARE_PARTS"
+            SPARE_PARTS: "shadowrun6.gear.subtype.SPARE_PARTS",
         },
         VEHICLES: {
             AIRSHIP: "shadowrun6.gear.subtype.AIRSHIP",
@@ -337,14 +1353,14 @@ export class SR6Config {
             VTOL: "shadowrun6.gear.subtype.VTOL",
             WALKER: "shadowrun6.gear.subtype.WALKER",
             SPACECRAFT: "shadowrun6.gear.subtype.SPACECRAFT",
-            SPECIAL_VEHICLES: "shadowrun6.gear.subtype.SPECIAL_VEHICLES"
+            SPECIAL_VEHICLES: "shadowrun6.gear.subtype.SPECIAL_VEHICLES",
         },
         WEAPON_CLOSE_COMBAT: {
             BLADES: "shadowrun6.gear.subtype.BLADES",
             CLUBS: "shadowrun6.gear.subtype.CLUBS",
             WHIPS: "shadowrun6.gear.subtype.WHIPS",
             UNARMED: "shadowrun6.gear.subtype.UNARMED",
-            OTHER_CLOSE: "shadowrun6.gear.subtype.OTHER_CLOSE"
+            OTHER_CLOSE: "shadowrun6.gear.subtype.OTHER_CLOSE",
         },
         WEAPON_FIREARMS: {
             TASERS: "shadowrun6.gear.subtype.TASERS",
@@ -360,30 +1376,37 @@ export class SR6Config {
             LMG: "shadowrun6.gear.subtype.LMG",
             MMG: "shadowrun6.gear.subtype.MMG",
             HMG: "shadowrun6.gear.subtype.HMG",
-            ASSAULT_CANNON: "shadowrun6.gear.subtype.ASSAULT_CANNON"
+            ASSAULT_CANNON: "shadowrun6.gear.subtype.ASSAULT_CANNON",
         },
         WEAPON_RANGED: {
             BOWS: "shadowrun6.gear.subtype.BOWS",
             CROSSBOWS: "shadowrun6.gear.subtype.CROSSBOWS",
-            THROWING: "shadowrun6.gear.subtype.THROWING"
+            THROWING: "shadowrun6.gear.subtype.THROWING",
         },
         WEAPON_SPECIAL: {
             LAUNCHERS: "shadowrun6.gear.subtype.LAUNCHERS",
             THROWERS: "shadowrun6.gear.subtype.THROWERS",
             DMSO: "shadowrun6.gear.subtype.DMSO",
             DART: "shadowrun6.gear.subtype.DART",
-            OTHER_SPECIAL: "shadowrun6.gear.subtype.OTHER_SPECIAL"
-        }
+            OTHER_SPECIAL: "shadowrun6.gear.subtype.OTHER_SPECIAL",
+        },
     };
     GEAR_SUBTYPES_OLD = new Map([
         ["ACCESSORY", []],
-        ["AMMUNITION", ["AMMUNITION", "ROCKETS", "MISSILES", "EXPLOSIVES", "GRENADES"]],
+        [
+            "AMMUNITION",
+            ["AMMUNITION", "ROCKETS", "MISSILES", "EXPLOSIVES", "GRENADES"],
+        ],
         ["ARMOR", ["ARMOR_BODY", "ARMOR_HELMET", "ARMOR_SHIELD"]],
         ["ARMOR_ADDITION", []],
         ["BIOLOGY", ["BIOTECH", "SLAP_PATCHES"]],
-        ["BIOWARE", ["BIOWARE_STANDARD", "BIOWARE_CULTURED", "BIOWARE_IMPLANT_WEAPON"]],
+        [
+            "BIOWARE",
+            ["BIOWARE_STANDARD", "BIOWARE_CULTURED", "BIOWARE_IMPLANT_WEAPON"],
+        ],
         ["CHEMICALS", ["INDUSTRIAL_CHEMICALS", "TOXINS", "DRUGS", "BTL"]],
-        ["CYBERWARE",
+        [
+            "CYBERWARE",
             [
                 "CYBER_HEADWARE",
                 "CYBERJACK",
@@ -393,11 +1416,21 @@ export class SR6Config {
                 "CYBER_IMPLANT_WEAPON",
                 "CYBER_LIMBS",
                 "COMMLINK",
-                "CYBERDECK"
-            ]
+                "CYBERDECK",
+            ],
         ],
-        ["DRONES", ["MICRODRONES", "MINIDRONES", "SMALL_DRONES", "MEDIUM_DRONES", "LARGE_DRONES"]],
-        ["ELECTRONICS",
+        [
+            "DRONES",
+            [
+                "MICRODRONES",
+                "MINIDRONES",
+                "SMALL_DRONES",
+                "MEDIUM_DRONES",
+                "LARGE_DRONES",
+            ],
+        ],
+        [
+            "ELECTRONICS",
             [
                 "COMMLINK",
                 "DATATERM",
@@ -414,8 +1447,8 @@ export class SR6Config {
                 "SENSOR_HOUSING",
                 "SECURITY",
                 "BREAKING",
-                "TAC_NET"
-            ]
+                "TAC_NET",
+            ],
         ],
         ["GENETICS", []],
         ["MAGICAL", ["MAGIC_SUPPLIES"]],
@@ -423,9 +1456,26 @@ export class SR6Config {
         ["SOFTWARE", ["AUTOSOFT"]],
         ["SURVIVAL", ["SURVIVAL_GEAR", "GRAPPLE_GUN"]],
         ["TOOLS", ["TOOLS"]],
-        ["VEHICLES", ["BIKES", "CARS", "TRUCKS", "BOATS", "SUBMARINES", "FIXED_WING", "ROTORCRAFT", "VTOL", "WALKER"]],
-        ["WEAPON_CLOSE_COMBAT", ["BLADES", "CLUBS", "WHIPS", "UNARMED", "OTHER_CLOSE"]],
-        ["WEAPON_FIREARMS",
+        [
+            "VEHICLES",
+            [
+                "BIKES",
+                "CARS",
+                "TRUCKS",
+                "BOATS",
+                "SUBMARINES",
+                "FIXED_WING",
+                "ROTORCRAFT",
+                "VTOL",
+                "WALKER",
+            ],
+        ],
+        [
+            "WEAPON_CLOSE_COMBAT",
+            ["BLADES", "CLUBS", "WHIPS", "UNARMED", "OTHER_CLOSE"],
+        ],
+        [
+            "WEAPON_FIREARMS",
             [
                 "TASERS",
                 "HOLDOUTS",
@@ -440,11 +1490,11 @@ export class SR6Config {
                 "LMG",
                 "MMG",
                 "HMG",
-                "ASSAULT_CANNON"
-            ]
+                "ASSAULT_CANNON",
+            ],
         ],
         ["WEAPON_RANGED", ["BOWS", "CROSSBOWS", "THROWING"]],
-        ["WEAPON_SPECIAL", ["LAUNCHERS", "THROWERS", "OTHER_SPECIAL"]]
+        ["WEAPON_SPECIAL", ["LAUNCHERS", "THROWERS", "OTHER_SPECIAL"]],
     ]);
     GEAR_SUBTYPES2 = {
         ELECTRONICS: [
@@ -463,17 +1513,17 @@ export class SR6Config {
             "SENSOR_HOUSING",
             "SECURITY",
             "BREAKING",
-            "TAC_NET"
-        ]
+            "TAC_NET",
+        ],
     };
     SKILLS_WEAPON = {
-        firearms: "skill.firearms", 
-        close_combat: "skill.close_combat", 
-        exotic_weapons: "skill.exotic_weapons", 
-        athletics: "skill.athletics", 
-        engineering: "skill.engineering"
+        firearms: "skill.firearms",
+        close_combat: "skill.close_combat",
+        exotic_weapons: "skill.exotic_weapons",
+        athletics: "skill.athletics",
+        engineering: "skill.engineering",
     };
-    SOFTWARE_TYPES = {        
+    SOFTWARE_TYPES = {
         AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
         DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
         HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
@@ -489,12 +1539,12 @@ export class SR6Config {
         EVASION: "shadowrun6.autosoft_types.evasion",
         MANEUVER: "shadowrun6.autosoft_types.maneuver",
         STEALTH: "shadowrun6.autosoft_types.stealth",
-        TARGETING: "shadowrun6.autosoft_types.targeting"
+        TARGETING: "shadowrun6.autosoft_types.targeting",
     };
     MATRIX_INITIATIVE_TYPES = {
-        ar: "shadowrun6.matrixini.ar", 
+        ar: "shadowrun6.matrixini.ar",
         vrcold: "shadowrun6.matrixini.vrcold",
-        vrhot: "shadowrun6.matrixini.vrhot"
+        vrhot: "shadowrun6.matrixini.vrhot",
     };
     MOR_TYPES = {
         mundane: "shadowrun6.mortype.mundane",
@@ -502,7 +1552,7 @@ export class SR6Config {
         mysticadept: "shadowrun6.mortype.mysticadept",
         technomancer: "shadowrun6.mortype.technomancer",
         adept: "shadowrun6.mortype.adept",
-        aspectedmagician: "shadowrun6.mortype.aspectedmagician"
+        aspectedmagician: "shadowrun6.mortype.aspectedmagician",
     };
     MOR_DEFINITIONS = {
         mundane: new MagicOrResonanceDefinition(),
@@ -510,20 +1560,25 @@ export class SR6Config {
         mysticadept: new MagicOrResonanceDefinition(true, false, true, true),
         technomancer: new MagicOrResonanceDefinition(false, true, false, false),
         adept: new MagicOrResonanceDefinition(true, false, false, true),
-        aspectedmagician: new MagicOrResonanceDefinition(true, false, true, false)
+        aspectedmagician: new MagicOrResonanceDefinition(
+            true,
+            false,
+            true,
+            false,
+        ),
     };
     NPC_SUBTYPES = ["npc", "critter", "spirit", "sprite"];
     SPIRIT_TYPES = {
-        air: "shadowrun6.spirittype.air", 
-        beasts: "shadowrun6.spirittype.beasts", 
-        earth: "shadowrun6.spirittype.earth", 
-        fire: "shadowrun6.spirittype.fire", 
-        kin: "shadowrun6.spirittype.kin", 
+        air: "shadowrun6.spirittype.air",
+        beasts: "shadowrun6.spirittype.beasts",
+        earth: "shadowrun6.spirittype.earth",
+        fire: "shadowrun6.spirittype.fire",
+        kin: "shadowrun6.spirittype.kin",
         water: "shadowrun6.spirittype.water",
-        plant: "shadowrun6.spirittype.plant", 
-        guardian: "shadowrun6.spirittype.guardian", 
-        guidance: "shadowrun6.spirittype.guidance", 
-        task: "shadowrun6.spirittype.task"
+        plant: "shadowrun6.spirittype.plant",
+        guardian: "shadowrun6.spirittype.guardian",
+        guidance: "shadowrun6.spirittype.guidance",
+        task: "shadowrun6.spirittype.task",
     };
     ATTRIB_BY_SKILL = new Map([
         ["astral", new SkillDefinition("int", false)],
@@ -544,7 +1599,7 @@ export class SR6Config {
         ["piloting", new SkillDefinition("rea", true)],
         ["sorcery", new SkillDefinition("mag", false)],
         ["stealth", new SkillDefinition("agi", true)],
-        ["tasking", new SkillDefinition("res", false)]
+        ["tasking", new SkillDefinition("res", false)],
     ]);
     EDGE_BOOSTS = [
         new EdgeBoost(1, "reroll_one", "POST", "OPPONENT"),
@@ -558,7 +1613,7 @@ export class SR6Config {
         new EdgeBoost(4, "heal_1_physic", "ANYTIME"),
         new EdgeBoost(4, "reroll_failed", "POST"),
         new EdgeBoost(5, "count_2_glitch", "PRE", "OPPONENT"),
-        new EdgeBoost(5, "create_special", "ANYTIME")
+        new EdgeBoost(5, "create_special", "ANYTIME"),
     ];
     EDGE_ACTIONS = [
         new EdgeAction(1, "shank", "COMBAT"),
@@ -568,106 +1623,125 @@ export class SR6Config {
         new EdgeAction(4, "anticipation", "COMBAT"),
         new EdgeAction(4, "big_speech", "SOCIAL", "influence"),
         new EdgeAction(5, "called_shot_disarm", "COMBAT"),
-        new EdgeAction(5, "called_shot_vitals", "COMBAT")
+        new EdgeAction(5, "called_shot_vitals", "COMBAT"),
     ];
     FIRE_MODES = {
-        "SS": {
-            "loc": "shadowrun6.item.firemode.SS",
-            "firing_options": ["single_shot"]
+        SS: {
+            loc: "shadowrun6.item.firemode.SS",
+            firing_options: ["single_shot"],
         },
-        "SA": {
-            "loc": "shadowrun6.item.firemode.SA",
-            "firing_options": ["single_shot", "double_shot"]
+        SA: {
+            loc: "shadowrun6.item.firemode.SA",
+            firing_options: ["single_shot", "double_shot"],
         },
-        "BF": {
-            "loc": "shadowrun6.item.firemode.BF",
-            "firing_options": ["narrow_burst", "wide_burst"]
+        BF: {
+            loc: "shadowrun6.item.firemode.BF",
+            firing_options: ["narrow_burst", "wide_burst"],
         },
-        "FA": {
-            "loc": "shadowrun6.item.firemode.FA",
-            "firing_options": ["area_fire"]
-        }
-    }
+        FA: {
+            loc: "shadowrun6.item.firemode.FA",
+            firing_options: ["area_fire"],
+        },
+    };
     icons = {
         adeptpower: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/explosion.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/explosion.svg",
         },
         complexform: {
-            default: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg",
         },
         spritepower: {
-            default: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
         },
         contact: {
-            default: "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg",
         },
         critterpower: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg",
         },
         echo: {
-            default: "systems/shadowrun6-eden/icons/compendium/gear/bug_detector.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/gear/bug_detector.svg",
         },
         focus: {
-            default: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jewelry.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/clothing/generic_jewelry.svg",
         },
         gear: {
-            default: "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg",
         },
         skill: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
         },
         lifestyle: {
-            default: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jacket.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/clothing/generic_jacket.svg",
         },
         martialartstyle: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg",
         },
         martialarttech: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg",
         },
         metamagic: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/daze.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/daze.svg",
         },
         quality: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
         },
         ritual: {
-            default: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
         },
         sin: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Role.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/Default_Role.svg",
         },
         software: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/Default_Program.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/Default_Program.svg",
         },
         spell: {
-            default: "systems/shadowrun6-eden/icons/compendium/default/acid.svg"
+            default:
+                "systems/shadowrun6-eden/icons/compendium/default/acid.svg",
         },
         mod: {
-            default: "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg"
-        }
+            default:
+                "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+        },
     };
     spell_range = {
         line_of_sight: "shadowrun6.spell.range_line_of_sight",
         line_of_sight_area: "shadowrun6.spell.range_line_of_sight_area",
         touch: "shadowrun6.spell.range_touch",
         self: "shadowrun6.spell.range_self",
-        self_area: "shadowrun6.spell.range_self_area"
+        self_area: "shadowrun6.spell.range_self_area",
     };
     spell_category = {
         combat: "shadowrun6.spell.category_combat",
         detection: "shadowrun6.spell.category_detection",
         health: "shadowrun6.spell.category_health",
         illusion: "shadowrun6.spell.category_illusion",
-        manipulation: "shadowrun6.spell.category_manipulation"
+        manipulation: "shadowrun6.spell.category_manipulation",
     };
     spell_type = {
         physical: "shadowrun6.spell.type_physical",
-        mana: "shadowrun6.spell.type_mana"
+        mana: "shadowrun6.spell.type_mana",
     };
     combat_spell_type = {
         spells_direct: "shadowrun6.spellfeatures.direct",
-        spells_indirect: "shadowrun6.spellfeatures.indirect"
+        spells_indirect: "shadowrun6.spellfeatures.indirect",
     };
     spell_duration = {
         instantaneous: "shadowrun6.spell.duration_instantaneous",
@@ -675,36 +1749,36 @@ export class SR6Config {
         permanent: "shadowrun6.spell.duration_permanent",
         limited: "shadowrun6.spell.duration_limited",
         always: "shadowrun6.spell.duration_always",
-        special: "shadowrun6.spell.duration_special"
+        special: "shadowrun6.spell.duration_special",
     };
     spell_damage = {
         physical: "shadowrun6.spell.damage_physical",
         stun: "shadowrun6.spell.damage_stun",
         physical_special: "shadowrun6.spell.damage_physical_special",
-        stun_special: "shadowrun6.spell.damage_stun_special"
+        stun_special: "shadowrun6.spell.damage_stun_special",
     };
     tradition_attributes = {
         bod: "attrib.bod",
         log: "attrib.log",
         cha: "attrib.cha",
-        int: "attrib.int"
+        int: "attrib.int",
     };
     adeptpower_activation = {
         passive: "shadowrun6.adeptpower.activation_passive",
         minor_action: "shadowrun6.adeptpower.activation_minor",
-        major_action: "shadowrun6.adeptpower.activation_major"
+        major_action: "shadowrun6.adeptpower.activation_major",
     };
     critterpower_action = {
         auto: "shadowrun6.critterpower.action.auto",
         minor: "shadowrun6.critterpower.action.minor",
-        major: "shadowrun6.critterpower.action.major"
+        major: "shadowrun6.critterpower.action.major",
     };
     skill_special = {
         astral: {
             astral_combat: "shadowrun6.special.astral.astral_combat",
             astral_signatures: "shadowrun6.special.astral.astral_signatures",
             emotional_stress: "shadowrun6.special.astral.emotional_stress",
-            spirit_types: "shadowrun6.special.astral.spirit_types"
+            spirit_types: "shadowrun6.special.astral.spirit_types",
         },
         athletics: {
             climbing: "shadowrun6.special.athletics.climbing",
@@ -714,54 +1788,59 @@ export class SR6Config {
             sprinting: "shadowrun6.special.athletics.sprinting",
             swimming: "shadowrun6.special.athletics.swimming",
             throwing: "shadowrun6.special.athletics.throwing",
-            archery: "shadowrun6.special.athletics.archery"
+            archery: "shadowrun6.special.athletics.archery",
         },
         biotech: {
             biotechnology: "shadowrun6.special.biotech.biotechnology",
             cybertechnology: "shadowrun6.special.biotech.cybertechnology",
             first_aid: "shadowrun6.special.biotech.first_aid",
-            medicine: "shadowrun6.special.biotech.medicine"
+            medicine: "shadowrun6.special.biotech.medicine",
         },
         close_combat: {
             blades: "shadowrun6.special.close_combat.blades",
             clubs: "shadowrun6.special.close_combat.clubs",
-            unarmed: "shadowrun6.special.close_combat.unarmed"
+            unarmed: "shadowrun6.special.close_combat.unarmed",
         },
         con: {
             acting: "shadowrun6.special.con.acting",
             disguise: "shadowrun6.special.con.disguise",
             impersonation: "shadowrun6.special.con.impersonation",
-            performance: "shadowrun6.special.con.performance"
+            performance: "shadowrun6.special.con.performance",
         },
         conjuring: {
             banishing: "shadowrun6.special.conjuring.banishing",
-            summoning: "shadowrun6.special.conjuring.summoning"
+            summoning: "shadowrun6.special.conjuring.summoning",
         },
         cracking: {
             cybercombat: "shadowrun6.special.cracking.cybercombat",
-            electronic_warfare: "shadowrun6.special.cracking.electronic_warfare",
-            hacking: "shadowrun6.special.cracking.hacking"
+            electronic_warfare:
+                "shadowrun6.special.cracking.electronic_warfare",
+            hacking: "shadowrun6.special.cracking.hacking",
         },
         electronics: {
             computer: "shadowrun6.special.electronics.computer",
             hardware: "shadowrun6.special.electronics.hardware",
             software: "shadowrun6.special.electronics.software",
-            complex_forms: "shadowrun6.special.electronics.complex_forms"
+            complex_forms: "shadowrun6.special.electronics.complex_forms",
         },
         enchanting: {
             alchemy: "shadowrun6.special.enchanting.alchemy",
             artificing: "shadowrun6.special.enchanting.artificing",
-            disenchanting: "shadowrun6.special.enchanting.disenchanting"
+            disenchanting: "shadowrun6.special.enchanting.disenchanting",
         },
         engineering: {
-            aeronautics_mechanic: "shadowrun6.special.engineering.aeronautics_mechanic",
+            aeronautics_mechanic:
+                "shadowrun6.special.engineering.aeronautics_mechanic",
             armorer: "shadowrun6.special.engineering.armorer",
-            automotive_mechanic: "shadowrun6.special.engineering.automotive_mechanic",
+            automotive_mechanic:
+                "shadowrun6.special.engineering.automotive_mechanic",
             demolitions: "shadowrun6.special.engineering.demolitions",
             gunnery: "shadowrun6.special.engineering.gunnery",
-            industrial_mechanic: "shadowrun6.special.engineering.industrial_mechanic",
+            industrial_mechanic:
+                "shadowrun6.special.engineering.industrial_mechanic",
             lockpicking: "shadowrun6.special.engineering.lockpicking",
-            nautical_mechanic: "shadowrun6.special.engineering.nautical_mechanic"
+            nautical_mechanic:
+                "shadowrun6.special.engineering.nautical_mechanic",
         },
         exotic_weapons: {
             chainsaws: "shadowrun6.special.exotic_weapons.chainsaws",
@@ -772,7 +1851,7 @@ export class SR6Config {
             launchers: "shadowrun6.special.exotic_weapons.launchers",
             spray: "shadowrun6.special.exotic_weapons.spray",
             whips: "shadowrun6.special.exotic_weapons.whips",
-            other: "shadowrun6.special.exotic_weapons.other"
+            other: "shadowrun6.special.exotic_weapons.other",
         },
         firearms: {
             tasers: "shadowrun6.special.firearms.tasers",
@@ -784,14 +1863,14 @@ export class SR6Config {
             submachine_guns: "shadowrun6.special.firearms.submachine_guns",
             rifles: "shadowrun6.special.firearms.rifles",
             shotguns: "shadowrun6.special.firearms.shotguns",
-            assault_cannons: "shadowrun6.special.firearms.assault_cannons"
+            assault_cannons: "shadowrun6.special.firearms.assault_cannons",
         },
         influence: {
             etiquette: "shadowrun6.special.influence.etiquette",
             instruction: "shadowrun6.special.influence.instruction",
             intimidation: "shadowrun6.special.influence.intimidation",
             leadership: "shadowrun6.special.influence.leadership",
-            negotiation: "shadowrun6.special.influence.negotiation"
+            negotiation: "shadowrun6.special.influence.negotiation",
         },
         outdoors: {
             navigation: "shadowrun6.special.outdoors.navigation",
@@ -799,7 +1878,7 @@ export class SR6Config {
             tracking_woods: "shadowrun6.special.outdoors.tracking_woods",
             tracking_desert: "shadowrun6.special.outdoors.tracking_desert",
             tracking_urban: "shadowrun6.special.outdoors.tracking_urban",
-            tracking_other: "shadowrun6.special.outdoors.tracking_other"
+            tracking_other: "shadowrun6.special.outdoors.tracking_other",
         },
         perception: {
             visual: "shadowrun6.special.perception.visual",
@@ -808,151 +1887,785 @@ export class SR6Config {
             scent: "shadowrun6.special.perception.scent",
             taste: "shadowrun6.special.perception.taste",
             perception_woods: "shadowrun6.special.perception.perception_woods",
-            perception_desert: "shadowrun6.special.perception.perception_desert",
+            perception_desert:
+                "shadowrun6.special.perception.perception_desert",
             perception_urban: "shadowrun6.special.perception.perception_urban",
-            perception_other: "shadowrun6.special.perception.perception_other"
+            perception_other: "shadowrun6.special.perception.perception_other",
         },
         piloting: {
             ground_craft: "shadowrun6.special.piloting.ground_craft",
             aircraft: "shadowrun6.special.piloting.aircraft",
-            watercraft: "shadowrun6.special.piloting.watercraft"
+            watercraft: "shadowrun6.special.piloting.watercraft",
         },
         sorcery: {
             counterspelling: "shadowrun6.special.sorcery.counterspelling",
-            ritual_spellcasting: "shadowrun6.special.sorcery.ritual_spellcasting",
-            spellcasting: "shadowrun6.special.sorcery.spellcasting"
+            ritual_spellcasting:
+                "shadowrun6.special.sorcery.ritual_spellcasting",
+            spellcasting: "shadowrun6.special.sorcery.spellcasting",
         },
         stealth: {
             disguise: "shadowrun6.special.stealth.disguise",
             palming: "shadowrun6.special.stealth.palming",
             sneaking: "shadowrun6.special.stealth.sneaking",
-            camouflage: "shadowrun6.special.stealth.camouflage"
+            camouflage: "shadowrun6.special.stealth.camouflage",
         },
         tasking: {
             compiling: "shadowrun6.special.tasking.compiling",
             decompiling: "shadowrun6.special.tasking.decompiling",
-            registering: "shadowrun6.special.tasking.registering"
-        }
+            registering: "shadowrun6.special.tasking.registering",
+        },
     };
     VEHICLE_TYPE = {
         GROUND: "shadowrun6.vehicle.type.groundcraft",
         WATER: "shadowrun6.vehicle.type.watercraft",
-        AIR: "shadowrun6.vehicle.type.aircraft"
+        AIR: "shadowrun6.vehicle.type.aircraft",
     };
     VEHICLE_MODE = {
         manual: "shadowrun6.vehicle.mode.manual",
         riggedAR: "shadowrun6.vehicle.mode.riggedAR",
         riggedVR: "shadowrun6.vehicle.mode.riggedVR",
         rcc: "shadowrun6.vehicle.mode.rcc",
-        autonomous: "shadowrun6.vehicle.mode.autonomous"
+        autonomous: "shadowrun6.vehicle.mode.autonomous",
     };
     CONTROL_RIG_RATING = {
-        "0": "shadowrun6.label.not_present",
-        "1": "shadowrun6.label.rating1",
-        "2": "shadowrun6.label.rating2",
-        "3": "shadowrun6.label.rating3"
+        0: "shadowrun6.label.not_present",
+        1: "shadowrun6.label.rating1",
+        2: "shadowrun6.label.rating2",
+        3: "shadowrun6.label.rating3",
     };
     MATRIX_ACTIONS = {
         // MatrixAction(id, skill, specialization, attrib, illegal, major, outsider, user, admin, attr1, attr2, linkedAttr, threshold = 0)
-        backdoor_entry: new MatrixAction("backdoor_entry", "cracking", "hacking", "log", true, true, true, false, false, "wil", "f", "s"),
-        brute_force: new MatrixAction("brute_force", "cracking", "cybercombat", "log", true, true, true, true, true, "wil", "f", "a"),
-        change_icon: new MatrixAction("change_icon", null, null, null, false, false, false, true, true),
-        check_os: new MatrixAction("check_os", "cracking", "electronic_warfare", "log", true, true, false, false, true, null, null, null, 4),
-        control_device: new MatrixAction("control_device", "electronics", "software", "log", false, true, false, true, true, "wil", "f"),
-        crack_file: new MatrixAction("crack_file", "cracking", "hacking", "log", true, true, false, true, true, undefined, null),
-        crash_program: new MatrixAction("crash_program", "cracking", "cybercombat", "log", true, true, false, false, true, "d", "dr"),
-        data_spike: new MatrixAction("data_spike", "cracking", "cybercombat", "log", true, true, true, true, true, "d", "f", "a"),
-        disarm_data_bomb: new MatrixAction("disarm_data_bomb", "cracking", "cybercombat", "log", false, true, false, true, true, "dr", "dr"),
-        edit_file: new MatrixAction("edit_file", "electronics", "computer", "log", false, true, false, true, true, "int", "f"),
-        encrypt_file: new MatrixAction("encrypt_file", "electronics", "computer", "log", false, true, false, true, true, null, null),
-        enter_host: new MatrixAction("enter_host", null, null, null, false, false, true, true, true, null, null),
-        erase_matrix_signature: new MatrixAction("erase_matrix_signature", "electronics", "computer", "log", true, true, false, true, true, "wil", "f"),
-        format_device: new MatrixAction("format_device", "electronics", "software", "log", false, true, false, false, true, "wil", "f"),
-        full_matrix_defense: new MatrixAction("full_matrix_defense", null, null, null, false, true, true, true, true, null, null),
-        hash_check: new MatrixAction("hash_check", "electronics", "computer", "log", true, true, false, true, true, null, null),
-        hide: new MatrixAction("hide", "cracking", "electronic_warfare", "int", true, true, true, true, true, "int", "d"),
-        jack_out: new MatrixAction("jack_out", "electronics", "software", "wil", false, true, true, true, true, "cha", "d"),
-        jam_signals: new MatrixAction("jam_signals", "cracking", "electronic_warfare", "log", true, true, false, false, true, null, null),
-        jump_rigged: new MatrixAction("jump_rigged", "electronics", "software", "log", false, true, false, true, true, "wil", "f"),
-        matrix_perception: new MatrixAction("matrix_perception", "electronics", "computer", "int", false, true, true, true, true, "wil", "s"),
-        matrix_search: new MatrixAction("matrix_search", "electronics", "computer", "int", false, true, true, true, true, null, null),
-        probe: new MatrixAction("probe", "cracking", "hacking", "log", true, true, true, true, true, "wil", "f", "s"),
-        reboot_device: new MatrixAction("reboot_device", "electronics", "software", "log", false, true, false, false, true, "log", "wil"),
-        reconfigure: new MatrixAction("reconfigure", null, null, null, false, false, false, false, true, null, null),
-        send_message: new MatrixAction("send_message", null, null, null, false, false, true, true, true, null, null),
-        set_data_bomb: new MatrixAction("set_data_bomb", "electronics", "software", "log", true, true, false, false, true, "dr", "dr"),
-        snoop: new MatrixAction("snoop", "cracking", "electronic_warfare", "log", true, true, false, false, true, "d", "f"),
-        spoof_command: new MatrixAction("spoof_command", "cracking", "hacking", "log", true, true, true, true, true, "d", "f"),
-        switch_ifmode: new MatrixAction("switch_ifmode", null, null, null, false, false, false, false, true, null, null),
-        tarpit: new MatrixAction("tarpit", "cracking", "cybercombat", "log", true, true, true, true, true, "d", "f", "a"),
-        trace_icon: new MatrixAction("trace_icon", "electronics", "software", "int", true, true, false, false, true, "wil", "s")
+        backdoor_entry: new MatrixAction(
+            "backdoor_entry",
+            "cracking",
+            "hacking",
+            "log",
+            true,
+            true,
+            true,
+            false,
+            false,
+            "wil",
+            "f",
+            "s",
+        ),
+        brute_force: new MatrixAction(
+            "brute_force",
+            "cracking",
+            "cybercombat",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "wil",
+            "f",
+            "a",
+        ),
+        change_icon: new MatrixAction(
+            "change_icon",
+            null,
+            null,
+            null,
+            false,
+            false,
+            false,
+            true,
+            true,
+        ),
+        check_os: new MatrixAction(
+            "check_os",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            null,
+            null,
+            null,
+            4,
+        ),
+        control_device: new MatrixAction(
+            "control_device",
+            "electronics",
+            "software",
+            "log",
+            false,
+            true,
+            false,
+            true,
+            true,
+            "wil",
+            "f",
+        ),
+        crack_file: new MatrixAction(
+            "crack_file",
+            "cracking",
+            "hacking",
+            "log",
+            true,
+            true,
+            false,
+            true,
+            true,
+            undefined,
+            null,
+        ),
+        crash_program: new MatrixAction(
+            "crash_program",
+            "cracking",
+            "cybercombat",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            "d",
+            "dr",
+        ),
+        data_spike: new MatrixAction(
+            "data_spike",
+            "cracking",
+            "cybercombat",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "d",
+            "f",
+            "a",
+        ),
+        disarm_data_bomb: new MatrixAction(
+            "disarm_data_bomb",
+            "cracking",
+            "cybercombat",
+            "log",
+            false,
+            true,
+            false,
+            true,
+            true,
+            "dr",
+            "dr",
+        ),
+        edit_file: new MatrixAction(
+            "edit_file",
+            "electronics",
+            "computer",
+            "log",
+            false,
+            true,
+            false,
+            true,
+            true,
+            "int",
+            "f",
+        ),
+        encrypt_file: new MatrixAction(
+            "encrypt_file",
+            "electronics",
+            "computer",
+            "log",
+            false,
+            true,
+            false,
+            true,
+            true,
+            null,
+            null,
+        ),
+        enter_host: new MatrixAction(
+            "enter_host",
+            null,
+            null,
+            null,
+            false,
+            false,
+            true,
+            true,
+            true,
+            null,
+            null,
+        ),
+        erase_matrix_signature: new MatrixAction(
+            "erase_matrix_signature",
+            "electronics",
+            "computer",
+            "log",
+            true,
+            true,
+            false,
+            true,
+            true,
+            "wil",
+            "f",
+        ),
+        format_device: new MatrixAction(
+            "format_device",
+            "electronics",
+            "software",
+            "log",
+            false,
+            true,
+            false,
+            false,
+            true,
+            "wil",
+            "f",
+        ),
+        full_matrix_defense: new MatrixAction(
+            "full_matrix_defense",
+            null,
+            null,
+            null,
+            false,
+            true,
+            true,
+            true,
+            true,
+            null,
+            null,
+        ),
+        hash_check: new MatrixAction(
+            "hash_check",
+            "electronics",
+            "computer",
+            "log",
+            true,
+            true,
+            false,
+            true,
+            true,
+            null,
+            null,
+        ),
+        hide: new MatrixAction(
+            "hide",
+            "cracking",
+            "electronic_warfare",
+            "int",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "int",
+            "d",
+        ),
+        jack_out: new MatrixAction(
+            "jack_out",
+            "electronics",
+            "software",
+            "wil",
+            false,
+            true,
+            true,
+            true,
+            true,
+            "cha",
+            "d",
+        ),
+        jam_signals: new MatrixAction(
+            "jam_signals",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            null,
+            null,
+        ),
+        jump_rigged: new MatrixAction(
+            "jump_rigged",
+            "electronics",
+            "software",
+            "log",
+            false,
+            true,
+            false,
+            true,
+            true,
+            "wil",
+            "f",
+        ),
+        matrix_perception: new MatrixAction(
+            "matrix_perception",
+            "electronics",
+            "computer",
+            "int",
+            false,
+            true,
+            true,
+            true,
+            true,
+            "wil",
+            "s",
+        ),
+        matrix_search: new MatrixAction(
+            "matrix_search",
+            "electronics",
+            "computer",
+            "int",
+            false,
+            true,
+            true,
+            true,
+            true,
+            null,
+            null,
+        ),
+        probe: new MatrixAction(
+            "probe",
+            "cracking",
+            "hacking",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "wil",
+            "f",
+            "s",
+        ),
+        reboot_device: new MatrixAction(
+            "reboot_device",
+            "electronics",
+            "software",
+            "log",
+            false,
+            true,
+            false,
+            false,
+            true,
+            "log",
+            "wil",
+        ),
+        reconfigure: new MatrixAction(
+            "reconfigure",
+            null,
+            null,
+            null,
+            false,
+            false,
+            false,
+            false,
+            true,
+            null,
+            null,
+        ),
+        send_message: new MatrixAction(
+            "send_message",
+            null,
+            null,
+            null,
+            false,
+            false,
+            true,
+            true,
+            true,
+            null,
+            null,
+        ),
+        set_data_bomb: new MatrixAction(
+            "set_data_bomb",
+            "electronics",
+            "software",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            "dr",
+            "dr",
+        ),
+        snoop: new MatrixAction(
+            "snoop",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            "d",
+            "f",
+        ),
+        spoof_command: new MatrixAction(
+            "spoof_command",
+            "cracking",
+            "hacking",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "d",
+            "f",
+        ),
+        switch_ifmode: new MatrixAction(
+            "switch_ifmode",
+            null,
+            null,
+            null,
+            false,
+            false,
+            false,
+            false,
+            true,
+            null,
+            null,
+        ),
+        tarpit: new MatrixAction(
+            "tarpit",
+            "cracking",
+            "cybercombat",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "d",
+            "f",
+            "a",
+        ),
+        trace_icon: new MatrixAction(
+            "trace_icon",
+            "electronics",
+            "software",
+            "int",
+            true,
+            true,
+            false,
+            false,
+            true,
+            "wil",
+            "s",
+        ),
     };
     MATRIX_ACTIONS_HS = {
         // MatrixAction(id, skill, specialization, attrib, illegal, major, outsider, user, admin, attr1, attr2, linkedAttr, threshold = 0)
         // TODO add Matrix Edge Actions (HS p.31)
-        calibration: new MatrixAction("calibration", "electronics", "computer", "log", false, true, false, true, true, null, null),
-        delayed_command: new MatrixAction("delayed_command", "cracking", "hacking", "log", true, true, true, true, true, "d", "f"),
-        denial_of_service: new MatrixAction("denial_of_service", "cracking", "electronic_warfare", "log", true, true, true, false, false, "wil", "f"),
-        device_lock: new MatrixAction("device_lock", "cracking", "cybercombat", "log", true, true, true, true, true, "wil", "f"),
-        garbage_in_out: new MatrixAction("garbage_in_out", "cracking", "electronic_warfare", "log", true, true, false, true, true, "wil", "f"),
-        known_exploit: new MatrixAction("known_exploit", "cracking", "hacking", "log", true, true, true, false, false, "wil", "f", "s"),
-        masquerade: new MatrixAction("masquerade", "cracking", "electronic_warfare", "log", true, true, true, false, false, "int", "d"),
-        metahuman_middle: new MatrixAction("metahuman_middle", "cracking", "electronic_warfare", "log", true, true, true, false, false, "int", "d"),
-        modify_icon: new MatrixAction("modify_icon", "electronics", "software", "log", true, true, false, false, true, "int", "d"),
-        pop_up: new MatrixAction("pop_up", "cracking", "cybercombat", "log", true, true, true, false, false, "int", "d"),
-        squelch: new MatrixAction("squelch", "electronics", "software", "log", true, false, true, false, false, "int", "s"),
-        subvert_infrastructure: new MatrixAction("subvert_infrastructure", "electronics", "software", "log", true, true, false, false, true, "wil", "f"),
-        threat_analysis: new MatrixAction("threat_analysis", "electronics", "computer", "log", false, true, true, true, true, null, null),
-        virtual_aim: new MatrixAction("virtual_aim", null, null, null, false, false, true, false, false, null, null),
-        watchdog: new MatrixAction("watchdog", "cracking", "electronic_warfare", "log", true, false, false, true, true, "wil", "f")
+        calibration: new MatrixAction(
+            "calibration",
+            "electronics",
+            "computer",
+            "log",
+            false,
+            true,
+            false,
+            true,
+            true,
+            null,
+            null,
+        ),
+        delayed_command: new MatrixAction(
+            "delayed_command",
+            "cracking",
+            "hacking",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "d",
+            "f",
+        ),
+        denial_of_service: new MatrixAction(
+            "denial_of_service",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            true,
+            false,
+            false,
+            "wil",
+            "f",
+        ),
+        device_lock: new MatrixAction(
+            "device_lock",
+            "cracking",
+            "cybercombat",
+            "log",
+            true,
+            true,
+            true,
+            true,
+            true,
+            "wil",
+            "f",
+        ),
+        garbage_in_out: new MatrixAction(
+            "garbage_in_out",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            false,
+            true,
+            true,
+            "wil",
+            "f",
+        ),
+        known_exploit: new MatrixAction(
+            "known_exploit",
+            "cracking",
+            "hacking",
+            "log",
+            true,
+            true,
+            true,
+            false,
+            false,
+            "wil",
+            "f",
+            "s",
+        ),
+        masquerade: new MatrixAction(
+            "masquerade",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            true,
+            false,
+            false,
+            "int",
+            "d",
+        ),
+        metahuman_middle: new MatrixAction(
+            "metahuman_middle",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            true,
+            true,
+            false,
+            false,
+            "int",
+            "d",
+        ),
+        modify_icon: new MatrixAction(
+            "modify_icon",
+            "electronics",
+            "software",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            "int",
+            "d",
+        ),
+        pop_up: new MatrixAction(
+            "pop_up",
+            "cracking",
+            "cybercombat",
+            "log",
+            true,
+            true,
+            true,
+            false,
+            false,
+            "int",
+            "d",
+        ),
+        squelch: new MatrixAction(
+            "squelch",
+            "electronics",
+            "software",
+            "log",
+            true,
+            false,
+            true,
+            false,
+            false,
+            "int",
+            "s",
+        ),
+        subvert_infrastructure: new MatrixAction(
+            "subvert_infrastructure",
+            "electronics",
+            "software",
+            "log",
+            true,
+            true,
+            false,
+            false,
+            true,
+            "wil",
+            "f",
+        ),
+        threat_analysis: new MatrixAction(
+            "threat_analysis",
+            "electronics",
+            "computer",
+            "log",
+            false,
+            true,
+            true,
+            true,
+            true,
+            null,
+            null,
+        ),
+        virtual_aim: new MatrixAction(
+            "virtual_aim",
+            null,
+            null,
+            null,
+            false,
+            false,
+            true,
+            false,
+            false,
+            null,
+            null,
+        ),
+        watchdog: new MatrixAction(
+            "watchdog",
+            "cracking",
+            "electronic_warfare",
+            "log",
+            true,
+            false,
+            false,
+            true,
+            true,
+            "wil",
+            "f",
+        ),
     };
     COMPLEX_FORMS = {
         list: {
-            cleaner: new ComplexForm("electronics", "complex_forms", null, null),
-            diffusion: new ComplexForm("electronics", "complex_forms", "wil", "f"),
+            cleaner: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                null,
+                null,
+            ),
+            diffusion: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                "wil",
+                "f",
+            ),
             editor: new ComplexForm(null, null, null),
             emulate: new ComplexForm(null, null, null),
-            infusion: new ComplexForm("electronics", "complex_forms", null, null, 4),
-            mirrored_persona: new ComplexForm("electronics", "complex_forms", null, null),
-            pulse_storm: new ComplexForm("electronics", "complex_forms", "log", "d"),
+            infusion: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                null,
+                null,
+                4,
+            ),
+            mirrored_persona: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                null,
+                null,
+            ),
+            pulse_storm: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                "log",
+                "d",
+            ),
             puppeteer: new ComplexForm(null, null, null),
-            resonance_channel: new ComplexForm("electronics", "complex_forms", null, null),
-            resonance_spike: new ComplexForm("cracking", "cybercombat", "wil", "f"),
-            resonance_veil: new ComplexForm("electronics", "complex_forms", "int", "d"),
-            static_bomb: new ComplexForm("electronics", "complex_forms", "int", "d"),
-            static_veil: new ComplexForm("electronics", "complex_forms", "f", "f"),
-            stitches: new ComplexForm("electronics", "complex_forms", null, null),
-            tattletale: new ComplexForm("electronics", "complex_forms", null, null)
+            resonance_channel: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                null,
+                null,
+            ),
+            resonance_spike: new ComplexForm(
+                "cracking",
+                "cybercombat",
+                "wil",
+                "f",
+            ),
+            resonance_veil: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                "int",
+                "d",
+            ),
+            static_bomb: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                "int",
+                "d",
+            ),
+            static_veil: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                "f",
+                "f",
+            ),
+            stitches: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                null,
+                null,
+            ),
+            tattletale: new ComplexForm(
+                "electronics",
+                "complex_forms",
+                null,
+                null,
+            ),
         },
         skills: {
-            "cracking": "skill.cracking",
-            "electronics": "skill.electronics"
+            cracking: "skill.cracking",
+            electronics: "skill.electronics",
         },
         spec: {
-            "cybercombat": "shadowrun6.special.electronics.complex_forms.cybercombat",
-            "complex_forms": "shadowrun6.special.electronics.complex_forms"
+            cybercombat:
+                "shadowrun6.special.electronics.complex_forms.cybercombat",
+            complex_forms: "shadowrun6.special.electronics.complex_forms",
         },
         attributes: {
-            "a": "shadowrun6.label.attack.long",
-            "s": "shadowrun6.label.sleaze.long",
-            "d": "shadowrun6.label.dataproc.long",
-            "f": "shadowrun6.label.firewall.long",
-            "wil": "attrib.wil",
-            "log": "attrib.log",
-            "int": "attrib.int",
-            "bod": "attrib.bod",
-            "essence": "attrib.ess",
-            "rating": "SR6.Common.FIELDS.rating.label",
-        }
+            a: "shadowrun6.label.attack.long",
+            s: "shadowrun6.label.sleaze.long",
+            d: "shadowrun6.label.dataproc.long",
+            f: "shadowrun6.label.firewall.long",
+            wil: "attrib.wil",
+            log: "attrib.log",
+            int: "attrib.int",
+            bod: "attrib.bod",
+            essence: "attrib.ess",
+            rating: "SR6.Common.FIELDS.rating.label",
+        },
     };
     SPRITE_POWERS = {
         skills: {
-            "con": "skill.con",
-            "cracking": "skill.cracking",
-            "electronics": "skill.electronics"
+            con: "skill.con",
+            cracking: "skill.cracking",
+            electronics: "skill.electronics",
         },
-    }
-    
+    };
+
     PROGRAMS = [
         // Legal
         new Program("browse", 0),
@@ -975,7 +2688,7 @@ export class SR6Config {
         new Program("lockdown", 1),
         new Program("overclock", 1),
         new Program("stealth", 1),
-        new Program("trace", 1)
+        new Program("trace", 1),
     ];
     LIFESTYLE_TYPE = {
         street: "shadowrun6.lifestyle.street",
@@ -983,7 +2696,7 @@ export class SR6Config {
         low: "shadowrun6.lifestyle.low",
         middle: "shadowrun6.lifestyle.middle",
         high: "shadowrun6.lifestyle.high",
-        luxury: "shadowrun6.lifestyle.luxury"
+        luxury: "shadowrun6.lifestyle.luxury",
     };
     SIN_QUALITY = {
         REAL_SIN: "shadowrun6.sin.real_sin",
@@ -992,7 +2705,7 @@ export class SR6Config {
         GOOD_MATCH: "shadowrun6.sin.good_match",
         SUPERFICIALLY_PLAUSIBLE: "shadowrun6.sin.superficially_plausible",
         HIGHLY_PLAUSIBLE: "shadowrun6.sin.highly_plausible",
-        SECOND_LIFE: "shadowrun6.sin.second_life"
+        SECOND_LIFE: "shadowrun6.sin.second_life",
     };
     EXTENDED_INTERVALS = {
         round: "shadowrun6.dice.extended.intervalScale.round_short",
@@ -1008,7 +2721,7 @@ export class SR6Config {
         explosive: "shadowrun6.ammotypes.explosive",
         flechette: "shadowrun6.ammotypes.flechette",
         gel: "shadowrun6.ammotypes.gel",
-        sticknshock: "shadowrun6.ammotypes.sticknshock"
+        sticknshock: "shadowrun6.ammotypes.sticknshock",
     };
     // TODO: Add modification cap of 4
     // TODO: Add defensepool.xx.pool to Actor so you can override
@@ -1022,148 +2735,658 @@ export class SR6Config {
     // TODO: Add items on items
     ACTIVE_EFFECT_OPTIONS = {
         // ----------- Most used Actor Effects ----------- //
-        system_attributes_bod_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.bod")}),
-        system_attributes_agi_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.agi")}),
-        system_attributes_rea_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.rea")}),
-        system_attributes_str_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.str")}),
-        system_attributes_wil_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.wil")}),
-        system_attributes_log_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.log")}),
-        system_attributes_int_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.int")}),
-        system_attributes_cha_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.cha")}),
-        system_attributes_mag_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.mag")}),
-        system_attributes_res_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.res")}),
-        system_attributes_essence_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.ess")}),
-        system_edge_max: game.i18n.localize("attrib.edg")+" "+game.i18n.localize("shadowrun6.label.attribute"),                                 // TODO: move system.edge to system.attributes.edge
+        system_attributes_bod_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.bod") },
+        ),
+        system_attributes_agi_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.agi") },
+        ),
+        system_attributes_rea_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.rea") },
+        ),
+        system_attributes_str_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.str") },
+        ),
+        system_attributes_wil_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.wil") },
+        ),
+        system_attributes_log_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.log") },
+        ),
+        system_attributes_int_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.int") },
+        ),
+        system_attributes_cha_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.cha") },
+        ),
+        system_attributes_mag_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.mag") },
+        ),
+        system_attributes_res_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.res") },
+        ),
+        system_attributes_essence_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.ess") },
+        ),
+        system_edge_max:
+            game.i18n.localize("attrib.edg") +
+            " " +
+            game.i18n.localize("shadowrun6.label.attribute"), // TODO: move system.edge to system.attributes.edge
 
         // ----------- Weapon Mods ----------- //
-        system_attackRating_0: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_0")+")",
-        system_attackRating_1: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_1")+")",
-        system_attackRating_2: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_2")+")",
-        system_attackRating_3: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_3")+")",
-        system_attackRating_4: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.attack_rating")+" ("+game.i18n.localize("shadowrun6.roll.ar_4")+")",
+        system_attackRating_0:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.label.attack_rating") +
+            " (" +
+            game.i18n.localize("shadowrun6.roll.ar_0") +
+            ")",
+        system_attackRating_1:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.label.attack_rating") +
+            " (" +
+            game.i18n.localize("shadowrun6.roll.ar_1") +
+            ")",
+        system_attackRating_2:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.label.attack_rating") +
+            " (" +
+            game.i18n.localize("shadowrun6.roll.ar_2") +
+            ")",
+        system_attackRating_3:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.label.attack_rating") +
+            " (" +
+            game.i18n.localize("shadowrun6.roll.ar_3") +
+            ")",
+        system_attackRating_4:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.label.attack_rating") +
+            " (" +
+            game.i18n.localize("shadowrun6.roll.ar_4") +
+            ")",
 
-        system_modes_SA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_sa")+")",
+        system_modes_SA__ar__mod:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.format("shadowrun6.active_effect.Modifier", {
+                attribute: game.i18n.localize(
+                    "shadowrun6.label.attack_rating_short",
+                ),
+            }) +
+            " (" +
+            game.i18n.localize("shadowrun6.item.mode_sa") +
+            ")",
         // system_modes_SA__dmg__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.label.damage_short")+" "+game.i18n.localize("shadowrun6.active_effect.Modifier")+" ("+game.i18n.localize("shadowrun6.item.mode_sa")+")",
-        system_modes_BF__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_bf")+")",
-        system_modes_FA__ar__mod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.attack_rating_short")})+" ("+game.i18n.localize("shadowrun6.item.mode_fa")+")",        
-        system_dmg: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.label.damage_short")}),
-        system_stun: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.stunOrPhysical"),
-        system_modes_dicePoolMod: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.dicePoolMod"),
-        system_wild: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.active_effect.wild"),
-        system_ammocap: game.i18n.localize("shadowrun6.active_effect.weapon.mod")+" "+game.i18n.localize("shadowrun6.weapon.ammo_cap"),
+        system_modes_BF__ar__mod:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.format("shadowrun6.active_effect.Modifier", {
+                attribute: game.i18n.localize(
+                    "shadowrun6.label.attack_rating_short",
+                ),
+            }) +
+            " (" +
+            game.i18n.localize("shadowrun6.item.mode_bf") +
+            ")",
+        system_modes_FA__ar__mod:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.format("shadowrun6.active_effect.Modifier", {
+                attribute: game.i18n.localize(
+                    "shadowrun6.label.attack_rating_short",
+                ),
+            }) +
+            " (" +
+            game.i18n.localize("shadowrun6.item.mode_fa") +
+            ")",
+        system_dmg:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.format("shadowrun6.active_effect.Modifier", {
+                attribute: game.i18n.localize("shadowrun6.label.damage_short"),
+            }),
+        system_stun:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.active_effect.stunOrPhysical"),
+        system_modes_dicePoolMod:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.active_effect.dicePoolMod"),
+        system_wild:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.active_effect.wild"),
+        system_ammocap:
+            game.i18n.localize("shadowrun6.active_effect.weapon.mod") +
+            " " +
+            game.i18n.localize("shadowrun6.weapon.ammo_cap"),
 
         // ----------- Armor Mods ----------- //
-        system_defense: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.dr")}),
-        system_social: game.i18n.localize("shadowrun6.active_effect.armor.mod")+" "+game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.item.social_rating")}),
+        system_defense:
+            game.i18n.localize("shadowrun6.active_effect.armor.mod") +
+            " " +
+            game.i18n.format("shadowrun6.active_effect.Modifier", {
+                attribute: game.i18n.localize("attrib.dr"),
+            }),
+        system_social:
+            game.i18n.localize("shadowrun6.active_effect.armor.mod") +
+            " " +
+            game.i18n.format("shadowrun6.active_effect.Modifier", {
+                attribute: game.i18n.localize("shadowrun6.item.social_rating"),
+            }),
 
         // ----------- Less used Actor Effects ----------- //
-        system_dicePoolMod: game.i18n.format("shadowrun6.active_effect.dicePoolMod"),
+        system_dicePoolMod: game.i18n.format(
+            "shadowrun6.active_effect.dicePoolMod",
+        ),
         system_badLuck: game.i18n.format("shadowrun6.active_effect.badLuck"),
-        system_painTolerance: game.i18n.format("shadowrun6.active_effect.painTolerance"),
-        traits_movementRate: game.i18n.format("shadowrun6.active_effect.movementRate"),
-        traits_movementSprintBase: game.i18n.format("shadowrun6.active_effect.movementSprintBase"),
-        traits_movementSprintMultiplier: game.i18n.format("shadowrun6.active_effect.movementSprintMultiplier"),
-        traits_hardenedArmor: game.i18n.format("shadowrun6.active_effect.hardenedArmor"),
-        traits_immunityNormalWeapons: game.i18n.format("shadowrun6.active_effect.immunityNormalWeapons"),
+        system_painTolerance: game.i18n.format(
+            "shadowrun6.active_effect.painTolerance",
+        ),
+        traits_movementRate: game.i18n.format(
+            "shadowrun6.active_effect.movementRate",
+        ),
+        traits_movementSprintBase: game.i18n.format(
+            "shadowrun6.active_effect.movementSprintBase",
+        ),
+        traits_movementSprintMultiplier: game.i18n.format(
+            "shadowrun6.active_effect.movementSprintMultiplier",
+        ),
+        traits_hardenedArmor: game.i18n.format(
+            "shadowrun6.active_effect.hardenedArmor",
+        ),
+        traits_immunityNormalWeapons: game.i18n.format(
+            "shadowrun6.active_effect.immunityNormalWeapons",
+        ),
 
-        system_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.physical_monitor")}),
-        system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor")}),
-        system_overflow_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.monitor.overflow_monitor")}),
+        system_physical_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.monitor.physical_monitor",
+                ),
+            },
+        ),
+        system_stun_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {
+            attribute: game.i18n.localize("shadowrun6.monitor.stun_monitor"),
+        }),
+        system_overflow_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.monitor.overflow_monitor",
+                ),
+            },
+        ),
 
-        system_attackrating_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.attack_rating.physical")}),
-        system_attackrating_astral_mod:game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.attack_rating.astral")}),             // Magic AR
-        system_attackrating_matrix_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.attack_rating.matrix")}),
+        system_attackrating_physical_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.attack_rating.physical",
+                ),
+            },
+        ),
+        system_attackrating_astral_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.attack_rating.astral",
+                ),
+            },
+        ), // Magic AR
+        system_attackrating_matrix_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.attack_rating.matrix",
+                ),
+            },
+        ),
         // system_attackrating_social_mod: "shadowrun6.active_effect.attackrating.social.mod",          // TODO: Social AR not yet implemented
         // system_attackrating_vehicle_mod: "shadowrun6.active_effect.attackrating.vehicle.mod",        // TODO: Vehicle AR not yet implemented
 
-        system_defenserating_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.defense_rating.physical")}),       // TODO: Add defenserating.xx.pool to Actor so you can override
-        system_defenserating_astral_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.defense_rating.astral")}),           // Magic DR
-        system_defenserating_matrix_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.defense_rating.matrix")}),
+        system_defenserating_physical_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.defense_rating.physical",
+                ),
+            },
+        ), // TODO: Add defenserating.xx.pool to Actor so you can override
+        system_defenserating_astral_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.defense_rating.astral",
+                ),
+            },
+        ), // Magic DR
+        system_defenserating_matrix_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.defense_rating.matrix",
+                ),
+            },
+        ),
         // system_defenserating_social_mod: "shadowrun6.active_effect.defenserating.social.mod",        // TODO: Social DR not yet implemented
         // system_defenserating_vehicle_mod: "shadowrun6.active_effect.defenserating.vehicle.mod",      // TODO: Vehicle DR not yet implemented
 
-        system_defensepool_physical_mod: "shadowrun6.active_effect.defensepool.physical.mod",
-        system_defensepool_astral_mod: "shadowrun6.active_effect.defensepool.astral.mod",               // Magic defense pool 
-        system_defensepool_spells__direct_mod: "shadowrun6.active_effect.defensepool.spells_direct.mod",
-        system_defensepool_spells__indirect_mod: "shadowrun6.active_effect.defensepool.spells_indirect.mod",
-        system_defensepool_toxin_mod: "shadowrun6.active_effect.defensepool.toxin.mod",
-        system_defensepool_damage__physical_mod: "shadowrun6.active_effect.defensepool.damage_physical.mod",
-        system_defensepool_damage__astral_mod: "shadowrun6.active_effect.defensepool.damage_astral.mod",
-        system_defensepool_drain_mod: "shadowrun6.active_effect.defensepool.drain.mod",
-        system_defensepool_fading_mod: "shadowrun6.active_effect.defensepool.fading.mod",
+        system_defensepool_physical_mod:
+            "shadowrun6.active_effect.defensepool.physical.mod",
+        system_defensepool_astral_mod:
+            "shadowrun6.active_effect.defensepool.astral.mod", // Magic defense pool
+        system_defensepool_spells__direct_mod:
+            "shadowrun6.active_effect.defensepool.spells_direct.mod",
+        system_defensepool_spells__indirect_mod:
+            "shadowrun6.active_effect.defensepool.spells_indirect.mod",
+        system_defensepool_toxin_mod:
+            "shadowrun6.active_effect.defensepool.toxin.mod",
+        system_defensepool_damage__physical_mod:
+            "shadowrun6.active_effect.defensepool.damage_physical.mod",
+        system_defensepool_damage__astral_mod:
+            "shadowrun6.active_effect.defensepool.damage_astral.mod",
+        system_defensepool_drain_mod:
+            "shadowrun6.active_effect.defensepool.drain.mod",
+        system_defensepool_fading_mod:
+            "shadowrun6.active_effect.defensepool.fading.mod",
         // system_defensepool_vehicle_mod: "shadowrun6.active_effect.defensepool.vehicle.mod",      // TODO: Vehicle def pool not yet implemented
 
-        system_derived_composure_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.derived.composure")}),
-        system_derived_judge__intentions_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.derived.judge_intentions")}),
-        system_derived_memory_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.derived.memory")}),
-        system_derived_lift__carry_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.derived.lift_carry")}),
-        system_derived_matrix__perception_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("shadowrun6.derived.matrix_perception")}),
+        system_derived_composure_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("shadowrun6.derived.composure") },
+        ),
+        system_derived_judge__intentions_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.derived.judge_intentions",
+                ),
+            },
+        ),
+        system_derived_memory_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("shadowrun6.derived.memory") },
+        ),
+        system_derived_lift__carry_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("shadowrun6.derived.lift_carry") },
+        ),
+        system_derived_matrix__perception_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.localize(
+                    "shadowrun6.derived.matrix_perception",
+                ),
+            },
+        ),
 
-        system_initiative_physical_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.ini")}),
-        system_initiative_physical_diceMod: "shadowrun6.active_effect.initiative.physical.diceMod",
-        system_initiative_astral_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.inia")}),
-        system_initiative_astral_diceMod: "shadowrun6.active_effect.initiative.astral.diceMod",
-        system_initiative_matrix_mod: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.localize("attrib.inim")}),
-        system_initiative_matrix_diceMod: "shadowrun6.active_effect.initiative.matrix.diceMod",
+        system_initiative_physical_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.ini") },
+        ),
+        system_initiative_physical_diceMod:
+            "shadowrun6.active_effect.initiative.physical.diceMod",
+        system_initiative_astral_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.inia") },
+        ),
+        system_initiative_astral_diceMod:
+            "shadowrun6.active_effect.initiative.astral.diceMod",
+        system_initiative_matrix_mod: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            { attribute: game.i18n.localize("attrib.inim") },
+        ),
+        system_initiative_matrix_diceMod:
+            "shadowrun6.active_effect.initiative.matrix.diceMod",
 
-        system_skills_astral_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.astral")})}),
-        system_skills_athletics_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.athletics")})}),
-        system_skills_biotech_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.biotech")})}),
-        system_skills_close__combat_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.close_combat")})}),
-        system_skills_con_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.con")})}),
-        system_skills_conjuring_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.conjuring")})}),
-        system_skills_cracking_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.cracking")})}),
-        system_skills_electronics_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.electronics")})}),
-        system_skills_enchanting_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.enchanting")})}),
-        system_skills_engineering_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.engineering")})}),
-        system_skills_exotic__weapons_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.exotic_weapons")})}),
-        system_skills_firearms_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.firearms")})}),
-        system_skills_influence_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.influence")})}),
-        system_skills_outdoors_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.outdoors")})}),
-        system_skills_perception_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.perception")})}),
-        system_skills_piloting_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.piloting")})}),
-        system_skills_sorcery_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.sorcery")})}),
-        system_skills_stealth_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.stealth")})}),
-        system_skills_tasking_modifier: game.i18n.format("shadowrun6.active_effect.Modifier", {attribute: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.tasking")})}),
-        
-        system_attributes_agi_pool: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.localize("attrib.agi")}),
-        system_attributes_str_pool: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.localize("attrib.str")}),
+        system_skills_astral_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.astral"),
+                }),
+            },
+        ),
+        system_skills_athletics_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.athletics"),
+                }),
+            },
+        ),
+        system_skills_biotech_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.biotech"),
+                }),
+            },
+        ),
+        system_skills_close__combat_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.close_combat"),
+                }),
+            },
+        ),
+        system_skills_con_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.con"),
+                }),
+            },
+        ),
+        system_skills_conjuring_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.conjuring"),
+                }),
+            },
+        ),
+        system_skills_cracking_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.cracking"),
+                }),
+            },
+        ),
+        system_skills_electronics_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.electronics"),
+                }),
+            },
+        ),
+        system_skills_enchanting_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.enchanting"),
+                }),
+            },
+        ),
+        system_skills_engineering_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.engineering"),
+                }),
+            },
+        ),
+        system_skills_exotic__weapons_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.exotic_weapons"),
+                }),
+            },
+        ),
+        system_skills_firearms_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.firearms"),
+                }),
+            },
+        ),
+        system_skills_influence_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.influence"),
+                }),
+            },
+        ),
+        system_skills_outdoors_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.outdoors"),
+                }),
+            },
+        ),
+        system_skills_perception_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.perception"),
+                }),
+            },
+        ),
+        system_skills_piloting_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.piloting"),
+                }),
+            },
+        ),
+        system_skills_sorcery_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.sorcery"),
+                }),
+            },
+        ),
+        system_skills_stealth_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.stealth"),
+                }),
+            },
+        ),
+        system_skills_tasking_modifier: game.i18n.format(
+            "shadowrun6.active_effect.Modifier",
+            {
+                attribute: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.tasking"),
+                }),
+            },
+        ),
 
-        system_skills_astral_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.astral")})}),
-        system_skills_athletics_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.athletics")})}),
-        system_skills_biotech_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.biotech")})}),
-        system_skills_close__combat_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.close_combat")})}),
-        system_skills_con_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.con")})}),
-        system_skills_conjuring_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.conjuring")})}),
-        system_skills_cracking_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.cracking")})}),
-        system_skills_electronics_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.electronics")})}),
-        system_skills_enchanting_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.enchanting")})}),
-        system_skills_engineering_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.engineering")})}),
-        system_skills_exotic__weapons_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.exotic_weapons")})}),
-        system_skills_firearms_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.firearms")})}),
-        system_skills_influence_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.influence")})}),
-        system_skills_outdoors_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.outdoors")})}),
-        system_skills_perception_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.perception")})}),
-        system_skills_piloting_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.piloting")})}),
-        system_skills_sorcery_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.sorcery")})}),
-        system_skills_stealth_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.stealth")})}),
-        system_skills_tasking_points: game.i18n.format("shadowrun6.active_effect.Pool", {pool: game.i18n.format("shadowrun6.active_effect.Skill", {skill: game.i18n.localize("skill.tasking")})})
+        system_attributes_agi_pool: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            { pool: game.i18n.localize("attrib.agi") },
+        ),
+        system_attributes_str_pool: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            { pool: game.i18n.localize("attrib.str") },
+        ),
 
+        system_skills_astral_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.astral"),
+                }),
+            },
+        ),
+        system_skills_athletics_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.athletics"),
+                }),
+            },
+        ),
+        system_skills_biotech_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.biotech"),
+                }),
+            },
+        ),
+        system_skills_close__combat_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.close_combat"),
+                }),
+            },
+        ),
+        system_skills_con_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.con"),
+                }),
+            },
+        ),
+        system_skills_conjuring_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.conjuring"),
+                }),
+            },
+        ),
+        system_skills_cracking_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.cracking"),
+                }),
+            },
+        ),
+        system_skills_electronics_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.electronics"),
+                }),
+            },
+        ),
+        system_skills_enchanting_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.enchanting"),
+                }),
+            },
+        ),
+        system_skills_engineering_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.engineering"),
+                }),
+            },
+        ),
+        system_skills_exotic__weapons_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.exotic_weapons"),
+                }),
+            },
+        ),
+        system_skills_firearms_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.firearms"),
+                }),
+            },
+        ),
+        system_skills_influence_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.influence"),
+                }),
+            },
+        ),
+        system_skills_outdoors_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.outdoors"),
+                }),
+            },
+        ),
+        system_skills_perception_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.perception"),
+                }),
+            },
+        ),
+        system_skills_piloting_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.piloting"),
+                }),
+            },
+        ),
+        system_skills_sorcery_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.sorcery"),
+                }),
+            },
+        ),
+        system_skills_stealth_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.stealth"),
+                }),
+            },
+        ),
+        system_skills_tasking_points: game.i18n.format(
+            "shadowrun6.active_effect.Pool",
+            {
+                pool: game.i18n.format("shadowrun6.active_effect.Skill", {
+                    skill: game.i18n.localize("skill.tasking"),
+                }),
+            },
+        ),
     };
 
     EFFECT_CONVERSION_TOV2 = {
-        'system.attributes.bod.mod': 'system.attributes.body.mod',
-        'system.attributes.agi.mod': 'system.attributes.agility.mod',
-        'system.attributes.rea.mod': 'system.attributes.reaction.mod',
-        'system.attributes.str.mod': 'system.attributes.strength.mod',
-        'system.attributes.wil.mod': 'system.attributes.willpower.mod',
-        'system.attributes.log.mod': 'system.attributes.logic.mod',
-        'system.attributes.int.mod': 'system.attributes.intuition.mod',
-        'system.attributes.cha.mod': 'system.attributes.charisma.mod',
-        'system.attributes.mag.mod': 'system.attributes.magic.mod',
-        'system.attributes.res.mod': 'system.attributes.resonance.mod',
-        'system.attributes.essence.mod': 'system.attributes.essence.mod',
-        'system.edge.max': 'system.edge.mod',
+        "system.attributes.bod.mod": "system.attributes.body.mod",
+        "system.attributes.agi.mod": "system.attributes.agility.mod",
+        "system.attributes.rea.mod": "system.attributes.reaction.mod",
+        "system.attributes.str.mod": "system.attributes.strength.mod",
+        "system.attributes.wil.mod": "system.attributes.willpower.mod",
+        "system.attributes.log.mod": "system.attributes.logic.mod",
+        "system.attributes.int.mod": "system.attributes.intuition.mod",
+        "system.attributes.cha.mod": "system.attributes.charisma.mod",
+        "system.attributes.mag.mod": "system.attributes.magic.mod",
+        "system.attributes.res.mod": "system.attributes.resonance.mod",
+        "system.attributes.essence.mod": "system.attributes.essence.mod",
+        "system.edge.max": "system.edge.mod",
 
         // 'system.attackRating.0': 'system.attackRating.0',
         // 'system.attackRating.1': 'system.attackRating.1',
@@ -1192,17 +3415,17 @@ export class SR6Config {
         // 'traits.hardenedArmor': 'traits.hardenedArmor',
         // 'traits.immunityNormalWeapons': 'traits.immunityNormalWeapons',
 
-        'system.physical.mod': 'system.physical.mod',
-        'system.stun.mod': 'system.stun.mod',
-        'system.overflow.mod': 'system.overflow.mod',
+        "system.physical.mod": "system.physical.mod",
+        "system.stun.mod": "system.stun.mod",
+        "system.overflow.mod": "system.overflow.mod",
 
         // 'system.attackrating.physical.mod': 'system.attackRating.physical.mod',
         // 'system.attackrating.astral.mod': 'system.attackRating.astral.mod',
-        'system.attackrating.matrix.mod': 'system.matrix.attackRating',
+        "system.attackrating.matrix.mod": "system.matrix.attackRating",
 
         // 'system.defenserating.physical.mod': 'system.defenseRating.physical.mod',
         // 'system.defenserating.astral.mod': 'system.defenseRating.astral.mod',
-        'system.defenserating.matrix.mod': 'system.matrix.defenseRating',
+        "system.defenserating.matrix.mod": "system.matrix.defenseRating",
 
         // 'system.defensepool.physical.mod': 'system.defensePool.physical.mod',
         // 'system.defensepool.astral.mod': 'system.defensePool.astral.mod',
@@ -1220,55 +3443,57 @@ export class SR6Config {
         // 'system.derived.lift_carry.mod': 'system.derived.lift_carry.mod',
         // 'system.derived.matrix_perception.mod': 'system.derived.matrix_perception.mod',
 
-        'system.initiative.physical.mod': 'system.initiative.physical.rank',
-        'system.initiative.physical.diceMod': 'system.initiative.physical.dice',
-        'system.initiative.astral.mod': 'system.initiative.astral.rank',
-        'system.initiative.astral.diceMod': 'system.initiative.astral.dice',
-        'system.initiative.matrix.mod': 'system.initiative.matrix.rank',
-        'system.initiative.matrix.diceMod': 'system.initiative.matrix.dice',
+        "system.initiative.physical.mod": "system.initiative.physical.rank",
+        "system.initiative.physical.diceMod": "system.initiative.physical.dice",
+        "system.initiative.astral.mod": "system.initiative.astral.rank",
+        "system.initiative.astral.diceMod": "system.initiative.astral.dice",
+        "system.initiative.matrix.mod": "system.initiative.matrix.rank",
+        "system.initiative.matrix.diceMod": "system.initiative.matrix.dice",
 
-        'system.skills.astral.modifier': 'system.skills.astral.mod',
-        'system.skills.athletics.modifier': 'system.skills.athletics.mod',
-        'system.skills.biotech.modifier': 'system.skills.biotech.mod',
-        'system.skills.close_combat.modifier': 'system.skills.close_combat.mod',
-        'system.skills.con.modifier': 'system.skills.con.mod',
-        'system.skills.conjuring.modifier': 'system.skills.conjuring.mod',
-        'system.skills.cracking.modifier': 'system.skills.cracking.mod',
-        'system.skills.electronics.modifier': 'system.skills.electronics.mod',
-        'system.skills.enchanting.modifier': 'system.skills.enchanting.mod',
-        'system.skills.engineering.modifier': 'system.skills.engineering.mod',
-        'system.skills.exotic_weapons.modifier': 'system.skills.exotic_weapons.mod',
-        'system.skills.firearms.modifier': 'system.skills.firearms.mod',
-        'system.skills.influence.modifier': 'system.skills.influence.mod',
-        'system.skills.outdoors.modifier': 'system.skills.outdoors.mod',
-        'system.skills.perception.modifier': 'system.skills.perception.mod',
-        'system.skills.piloting.modifier': 'system.skills.piloting.mod',
-        'system.skills.sorcery.modifier': 'system.skills.sorcery.mod',
-        'system.skills.stealth.modifier': 'system.skills.stealth.mod',
-        'system.skills.tasking.modifier': 'system.skills.tasking.mod',
+        "system.skills.astral.modifier": "system.skills.astral.mod",
+        "system.skills.athletics.modifier": "system.skills.athletics.mod",
+        "system.skills.biotech.modifier": "system.skills.biotech.mod",
+        "system.skills.close_combat.modifier": "system.skills.close_combat.mod",
+        "system.skills.con.modifier": "system.skills.con.mod",
+        "system.skills.conjuring.modifier": "system.skills.conjuring.mod",
+        "system.skills.cracking.modifier": "system.skills.cracking.mod",
+        "system.skills.electronics.modifier": "system.skills.electronics.mod",
+        "system.skills.enchanting.modifier": "system.skills.enchanting.mod",
+        "system.skills.engineering.modifier": "system.skills.engineering.mod",
+        "system.skills.exotic_weapons.modifier":
+            "system.skills.exotic_weapons.mod",
+        "system.skills.firearms.modifier": "system.skills.firearms.mod",
+        "system.skills.influence.modifier": "system.skills.influence.mod",
+        "system.skills.outdoors.modifier": "system.skills.outdoors.mod",
+        "system.skills.perception.modifier": "system.skills.perception.mod",
+        "system.skills.piloting.modifier": "system.skills.piloting.mod",
+        "system.skills.sorcery.modifier": "system.skills.sorcery.mod",
+        "system.skills.stealth.modifier": "system.skills.stealth.mod",
+        "system.skills.tasking.modifier": "system.skills.tasking.mod",
 
-        'system.attributes.agi.pool': 'system.attributes.agility.pool',
-        'system.attributes.str.pool': 'system.attributes.strength.pool',
+        "system.attributes.agi.pool": "system.attributes.agility.pool",
+        "system.attributes.str.pool": "system.attributes.strength.pool",
 
-        'system.skills.astral.points': 'system.skills.astral.rank',
-        'system.skills.athletics.points': 'system.skills.athletics.rank',
-        'system.skills.biotech.points': 'system.skills.biotech.rank',
-        'system.skills.close_combat.points': 'system.skills.close_combat.rank',
-        'system.skills.con.points': 'system.skills.con.rank',
-        'system.skills.conjuring.points': 'system.skills.conjuring.rank',
-        'system.skills.cracking.points': 'system.skills.cracking.rank',
-        'system.skills.electronics.points': 'system.skills.electronics.rank',
-        'system.skills.enchanting.points': 'system.skills.enchanting.rank',
-        'system.skills.engineering.points': 'system.skills.engineering.rank',
-        'system.skills.exotic_weapons.points': 'system.skills.exotic_weapons.rank',
-        'system.skills.firearms.points': 'system.skills.firearms.rank',
-        'system.skills.influence.points': 'system.skills.influence.rank',
-        'system.skills.outdoors.points': 'system.skills.outdoors.rank',
-        'system.skills.perception.points': 'system.skills.perception.rank',
-        'system.skills.piloting.points': 'system.skills.piloting.rank',
-        'system.skills.sorcery.points': 'system.skills.sorcery.rank',
-        'system.skills.stealth.points': 'system.skills.stealth.rank',
-        'system.skills.tasking.points': 'system.skills.tasking.rank',
+        "system.skills.astral.points": "system.skills.astral.rank",
+        "system.skills.athletics.points": "system.skills.athletics.rank",
+        "system.skills.biotech.points": "system.skills.biotech.rank",
+        "system.skills.close_combat.points": "system.skills.close_combat.rank",
+        "system.skills.con.points": "system.skills.con.rank",
+        "system.skills.conjuring.points": "system.skills.conjuring.rank",
+        "system.skills.cracking.points": "system.skills.cracking.rank",
+        "system.skills.electronics.points": "system.skills.electronics.rank",
+        "system.skills.enchanting.points": "system.skills.enchanting.rank",
+        "system.skills.engineering.points": "system.skills.engineering.rank",
+        "system.skills.exotic_weapons.points":
+            "system.skills.exotic_weapons.rank",
+        "system.skills.firearms.points": "system.skills.firearms.rank",
+        "system.skills.influence.points": "system.skills.influence.rank",
+        "system.skills.outdoors.points": "system.skills.outdoors.rank",
+        "system.skills.perception.points": "system.skills.perception.rank",
+        "system.skills.piloting.points": "system.skills.piloting.rank",
+        "system.skills.sorcery.points": "system.skills.sorcery.rank",
+        "system.skills.stealth.points": "system.skills.stealth.rank",
+        "system.skills.tasking.points": "system.skills.tasking.rank",
     };
 
     PDF_OPTIONS = {
@@ -1307,7 +3532,7 @@ export class SR6Config {
             slip_streams: "PDF.book.slip_streams",
             smooth_operations: "PDF.book.smooth_operations",
             street_wyrd: "PDF.book.street_wyrd",
-            tarnished_star: "PDF.book.tarnished_star"
+            tarnished_star: "PDF.book.tarnished_star",
         },
         CODES: {
             astral_ways: "PDF.code.astral_ways",
@@ -1342,8 +3567,7 @@ export class SR6Config {
             slip_streams: "PDF.code.slip_streams",
             smooth_operations: "PDF.code.smooth_operations",
             street_wyrd: "PDF.code.street_wyrd",
-            tarnished_star: "PDF.code.tarnished_star"
-        }
+            tarnished_star: "PDF.code.tarnished_star",
+        },
     };
-
 }

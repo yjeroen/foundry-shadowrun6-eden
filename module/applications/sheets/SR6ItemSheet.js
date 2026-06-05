@@ -106,7 +106,26 @@ export default class SR6ItemSheet extends ItemSheet {
             }
         }
 
+        if (this.item.type === "gear") {
+            data.gearConfig = this._getGearConfig();
+        }
+
         return data;
+    }
+
+    _getGearConfig() {
+        const GEAR = CONFIG.SR6.GEAR;
+        const typeConfig = GEAR[this.item.system.type];
+        if (!typeConfig) return null;
+        const subtypeConfig = typeConfig.subtypes[this.item.system.subtype];
+        if (!subtypeConfig) return null;
+
+        const config = {
+            hasRating: subtypeConfig.hasRating ?? false,
+            hasDeviceRating: subtypeConfig.hasDeviceRating ?? false,
+        }
+
+        return config;
     }
 
     /**
