@@ -704,6 +704,14 @@ export class RollDialog extends Dialog {
                 // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
                 const fieldPath = prepared.attributeTested.replace("system.", "");
                 prepared.checkText =  this.actor.system.schema.getField(fieldPath)?.label;
+            } else if (prepared.attributeTested.startsWith("system.")) {
+                // ActorSheet V1 with dataset.attributePath
+                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
+                
+                prepared.pool = attr?.pool ?? attr ?? 0;
+                const fieldPath = prepared.attributeTested.replace("system.", "");
+                prepared.checkText =  prepared.rollLabel;
+
             } else {
                 prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
                 prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested);

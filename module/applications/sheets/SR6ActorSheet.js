@@ -808,6 +808,21 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         console.log("SR6E | onCommonCheck");
         event.preventDefault();
         const data = event.currentTarget.dataset;
+        if (data.attributePath) {
+            const attr = foundry.utils.getProperty(this.actor, data.attributePath);
+            console.log('JEROEN', attr, data.attributePath, this.actor);
+            let rollConfig = new game.sr6.rollTypes.PreparedRoll();
+            rollConfig.rollType = game.sr6.rollTypes.RollType.Common;
+            
+            rollConfig.pool = attr?.pool ?? attr ?? 0;
+            rollConfig.attributeTested = data.attributePath;
+            rollConfig.allowBuyHits = true;
+            rollConfig.useAttributeMod = true;
+            let fieldPath = data.attributePath.replace("system.", "");
+            rollConfig.checkText = rollConfig.actionText =  rollConfig.rollLabel = data.rollLabel;
+            console.log("SR6E | _onCommonCheck attribute roll ", rollConfig, attr);
+            return this.actor.rollCommonCheck(rollConfig);
+        }
         let classList = event.currentTarget.classList.value;
         let rollId = data.rollId;
         let roll = new PreparedRoll();
