@@ -597,6 +597,17 @@
 				"value": 0,
 				"explain": "",
 				"modifier": []
+			},
+			"matrix-device": {
+				"isElectronicMatrixDevice": false,
+				"matrix": {
+					"hasWirelessInterface": false,
+					"hasDataCableInterface": false,
+					"wirelessActive": false,
+					"matrixCM": {
+						"value": null
+					}
+				}
 			}
 		},
 		"adeptpower": {
@@ -697,7 +708,7 @@
 			"essence": 0,
 			"capacity": 0,
 			"natural" : false,
-			"devRating": 0,
+			"devRating": 2,
 			"a": 0,
 			"s": 0,
 			"d": 0,
@@ -723,7 +734,8 @@
 			"dualHand": false,
 			"templates": [
 				"genesis",
-				"dice-pool"
+				"dice-pool",
+				"matrix-device"
 			]
 		},
 		"lifestyle": {

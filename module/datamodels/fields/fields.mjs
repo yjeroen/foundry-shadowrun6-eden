@@ -1,5 +1,6 @@
 import {SR6Config} from "../../config.js";
 import SR6MatrixPersonaData from "./matrix-persona-data.mjs";
+import SR6MatrixDeviceData from "./matrix-device-data.mjs";
 import SR6ConditionMonitor from "./condition-monitor-data.mjs";
 import SR6SkillData from "./skill-data.mjs";
 import SR6AttributeData from "./attribute-data.mjs";
@@ -8,7 +9,7 @@ import SR6InitiativeData from "./initiative-data.mjs";
 const {fields} = foundry.data;
 
 /**
- * A class object used to represent an Actors OverWatch Score
+ * A class object used to represent an Actors Matrix Persona Attributes
  */
 export class SR6MatrixField extends fields.EmbeddedDataField {
     /**
@@ -17,6 +18,19 @@ export class SR6MatrixField extends fields.EmbeddedDataField {
      */
     constructor(options={}, context={}) {
         super(SR6MatrixPersonaData, options, context);
+    }
+}
+
+/**
+ * A class object used to represent an Items Matrix Device Attributes
+ */
+export class SR6MatrixDeviceField extends fields.EmbeddedDataField {
+    /**
+     * @param {DataFieldOptions} [options]        Options which configure the behavior of the field
+     * @param {DataFieldContext} [context]        Additional context which describes the field
+     */
+    constructor(options={}, context={}) {
+        super(SR6MatrixDeviceData, options, context);
     }
 }
 

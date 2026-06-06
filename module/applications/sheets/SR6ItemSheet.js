@@ -120,9 +120,16 @@ export default class SR6ItemSheet extends ItemSheet {
         const subtypeConfig = typeConfig.subtypes[this.item.system.subtype];
         if (!subtypeConfig) return null;
 
+        const ALWAYS_WIRELESS = ["WEAPON_FIREARMS", "WEAPON_SPECIAL"];
+
         const config = {
-            hasRating: subtypeConfig.hasRating ?? false,
-            hasDeviceRating: subtypeConfig.hasDeviceRating ?? false,
+            showRating: subtypeConfig.showRating ?? false,
+            showCountable: subtypeConfig.showCountable ?? false,
+            showMatrixDeviceConfig: subtypeConfig.showMatrixDeviceConfig ?? 0, // CONFIG.SR6.MATRIX_DEVICE_CONFIG // 0 = NEVER, 1 = OPTIONAL, 2 = ALWAYS
+            isElectronicMatrixDevice: this.item.system.isElectronicMatrixDevice || this.item.system.hasWirelessInterface || this.item.system.hasDataCableInterface,
+            disableElectronicMatrixDevice: subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS || this.item.system.hasWirelessInterface || this.item.system.hasDataCableInterface,
+            disableWirelessInterface: ALWAYS_WIRELESS.includes(this.item.system.type),
+            deviceRatingTooltip: game.i18n.translations.SR6.Item.base.FIELDS.deviceRating.tooltip
         }
 
         return config;

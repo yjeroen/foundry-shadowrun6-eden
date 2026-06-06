@@ -1,7 +1,7 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
 import { SpritePowerRoll } from "../dice/RollTypes.js";
-import { SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
+import { SR6MatrixDeviceField, SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -18,24 +18,8 @@ export default class SR6Item extends Item {
   prepareData() {
     // system addittions must be done before super.prepareData()
     this._addDefaultFireModePenalties();
-    
-    // JEROEN TEST
-    if (this.name === "Ares Predator VI") {
-      // Matrix Device (Any mass-produced item or consumer good, has an ARO)
-      // Electronic Matrix Device (include firearms (mechanical firing action hasn’t been seen outside of museums or period trideos for decades), cyberware, drones, vehicles, and lots of other gadgets)
-      // PAN includes all Electronic Matrix Device on your person, plus a limited number (deviceLimit) of remotely operated devices 
-      // Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.
-      // PAN's can be networked together to one controller
-      // If a device has no Data Processing or Firewall attribute, then default to Device Rating x 2 to defend against Matrix Actions.
-      // Vehicles and drones use Sensor as their Device Rating
-      // .deviceRating
-      // 
-      //
-      this.system.matrix = {
-        matrixCM: new SR6ConditionMonitorField().initialize({max: Math.ceil((this.system.deviceRating??0)/2)+8, value: 4})
-      };
-      console.log("JEROEN", this.name, this.system);
-    }
+
+    this._prepareElectronicMatrixDevice();
 
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
@@ -195,6 +179,48 @@ export default class SR6Item extends Item {
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};
     if (this.system?.ammoLoaded === undefined && this.system?.ammocap) this.system.ammoLoaded = 'regular';
+  }
+
+  /**
+   * Preparing the Gear System to be an Electronic Matrix Device
+   * Related template data attributes:
+   *    this.system.isElectronicMatrixDevice
+   *    this.system.matrix.hasWirelessInterface
+   *    this.system.matrix.hasDataCableInterface
+   *    this.system.matrix.wirelessActive
+   *    this.system.matrix.matrixCM.value
+   *    this.system.devRating
+   * TODO: Should no longer be necessary once Item is properly migrated to DataModel
+   */
+  _prepareElectronicMatrixDevice() {
+    if (this.type !== 'gear') return;
+    const GEAR = CONFIG.SR6.GEAR;
+    const typeConfig = GEAR[this.system.type];
+    if (!typeConfig) return;
+    const subtypeConfig = typeConfig.subtypes[this.system.subtype];
+    if (!subtypeConfig) return;
+    if (subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS) {
+      this.system.isElectronicMatrixDevice = true;
+    }
+
+    if (!this.system.isElectronicMatrixDevice) return;
+    console.log("SR6E | SR6Item | preparing Gear item as an Electronic Matrix Device");
+    
+    const ALWAYS_WIRELESS = ["WEAPON_FIREARMS", "WEAPON_SPECIAL"];
+    if (ALWAYS_WIRELESS.includes(this.system.type)) {
+      this.system.matrix.hasWirelessInterface =  true;
+    }
+
+    const deviceRating = Number(this.system.devRating) || 0;
+    if (this.system.matrix?.matrixCM?.value === null) {
+      // TODO JEROEN NEED TO TEST IF THIS WORKS AS EXPECTED
+      this.system.matrix.matrixCM.value = Math.ceil(deviceRating / 2) + 8;
+    }
+    const matrixCM = foundry.utils.deepClone(this.system.matrix?.matrixCM ?? {});
+    matrixCM.max = Math.ceil(deviceRating / 2) + 8;
+
+    this.system.matrix.matrixCM = new SR6ConditionMonitorField().initialize(matrixCM);
+
   }
 
   _addDefaultFireModePenalties() {

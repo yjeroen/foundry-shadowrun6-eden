@@ -2276,8 +2276,38 @@
           "price": {
             "label": "Price"
           },
-          "wirelessEnabled": {
-            "label": "Wireless Enabled"
+          "isElectronicMatrixDevice": {
+            "label": "Matrix Device",
+            "hint": "If enabled, this gear is considered an Electronic Matrix Device, has a Device Rating, and can be used through a DNI, AR or VR."
+          },
+          "hasWirelessInterface": {
+            "label": "Wireless Interface",
+            "hint": "If enabled, this gear is an Electronic Matrix Device with a Wireless Interface. When Wireless is active, it can be used through AR or VR. It usually has a Wireless bonus."
+          },
+          "hasDataCableInterface": {
+            "label": "Data Cable Interface",
+            "hint": "If enabled, this gear has a Data Cable Interface and can be used through a DNI. Cyberware always have a Data Cable Interface."
+          },
+          "deviceRating": {
+            "label": "Device Rating",
+            "tooltip": [
+              "The rating of the Electronic Matrix Device. Device Rating determines the devices Matrix Condition Monitor.",
+              "Most relevant devices are given a Device Rating in their rulebook, but if not provided use the following as a guideline:",
+              "<strong>1: Simple devices</strong>, like General appliances, public terminals, entertainment systems.",
+              "<strong>2: Average devices</strong>, like Personal electronics, basic cyberware, weapons, residential security devices, basic vehicles.",
+              "<strong>3: Smart devices</strong>, like Security vehicles, alphaware, corporate security devices.",
+              "<strong>4: Advanced devices</strong>, like High-end devices, betaware, military vehicles and security devices.",
+              "<strong>5: Cutting-edge devices</strong>, like credsticks, black-ops vehicles and security devices.",
+              "<strong>6+: Bleeding Edge devices</strong>, like Deltaware, Gammaware, Billion-nuyen experimental devices, space craft."
+            ]
+          },
+          "wirelessActive": {
+            "label": "Wireless Active",
+            "hint": "If enabled, this gear is currently being used through a wireless interface. Some items, like a credstick can only be used if their Wireless interface are active. The gear's Wireless Bonus can be used if this is active."
+          },
+          "cyberwareGrade": {
+            "label": "Cyberware Grade",
+            "hint": "<p>The grade of your cyberware does not just determine its essence and nuyen costs, but also it's Device Rating.<p>Device Rating determines its Matrix Condition Monitor.</p>"
           }
         }
       },
