@@ -1925,3 +1925,276 @@
     font-size: 20px;
     cursor: default;
 }
+
+
+/* ======================================================================== */
+/* ======================== ApplicationV1 Item HUD ======================== */
+/* ======================================================================== */
+
+.item .hud.item-settings {
+    --input-color: var(--text-green);
+    grid-template-columns: auto minmax(max-content, 1rem);
+    clip-path: none;
+    margin: 5px 10px 5px 5px;
+    padding: 5px;
+}
+
+.item .hud.item-settings::before {
+    border: none;
+}
+
+.sr6 .item-fields-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.sr6 .item-field {
+  display: grid;
+  grid-template-rows: auto auto;
+  place-items: center;
+  align-content: center;
+  justify-content: center;
+  flex: 0 0 8rem;
+  min-height: 2.8rem;
+}
+
+.sr6 .item-field-label {
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sr6 .item-field-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.sr6 .item-field-control input[type="number"] {
+  width: 3.4em;
+}
+
+.sr6 .item-field-control select {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ======================================================================== */
+/* ============= HUD //  MATRIX STYLE CHECKBOX INPUT SELECT =============== */
+/* ======================================================================== */
+
+.sr6 .matrix-checkbox .matrix-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-label {
+  display: inline-grid;
+  grid-template-columns: 0.9rem auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 5.8rem;
+  min-height: 1.35rem;
+  padding: 0.18rem 0.45rem;
+  cursor: pointer;
+  user-select: none;
+  color: #26f7a4;
+  background: linear-gradient(
+    180deg,
+    rgb(0 255 180 / 0.18),
+    rgb(0 70 85 / 0.35)
+  );
+  border: 1px solid rgb(38 247 164 / 0.75);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0.35rem rgb(38 247 164 / 0.35),
+    0 0 0.35rem rgb(38 247 164 / 0.35);
+  font-family: "Play", sans-serif;
+  font-size: 0.65rem;
+  font-weight: bold;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-light {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid rgb(38 247 164 / 0.8);
+  border-radius: 2px;
+  background: rgb(4 45 48 / 0.9);
+  box-shadow:
+    inset 0 0 0.25rem rgb(0 0 0 / 0.8),
+    0 0 0.25rem rgb(38 247 164 / 0.25);
+  transform: translateY(0.05rem);
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-input:checked + .matrix-checkbox-label {
+  color: #0b2b25;
+  background: linear-gradient(
+    180deg,
+    rgb(55 255 178 / 0.95),
+    rgb(17 194 135 / 0.85)
+  );
+  border-color: rgb(98 255 196 / 1);
+  box-shadow:
+    inset 0 0 0.35rem rgb(255 255 255 / 0.45),
+    0 0 0.55rem rgb(38 247 164 / 0.9);
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-input:checked + .matrix-checkbox-label .matrix-checkbox-light {
+  background: #35ffb2;
+  box-shadow:
+    inset 0 0 0.2rem rgb(255 255 255 / 0.8),
+    0 0 0.55rem rgb(38 247 164 / 1);
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-input:hover + .matrix-checkbox-label {
+  box-shadow:
+    inset 0 0 0.4rem rgb(38 247 164 / 0.45),
+    0 0 0.55rem rgb(38 247 164 / 0.65);
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-input:checked:hover + .matrix-checkbox-label {
+  box-shadow:
+    inset 0 0 0.4rem rgb(255 255 255 / 0.55),
+    0 0 0.75rem rgb(38 247 164 / 1);
+}
+
+.sr6 .matrix-checkbox .matrix-checkbox-input:focus-visible + .matrix-checkbox-label {
+  outline: 2px solid rgb(255 255 255 / 0.9);
+  outline-offset: 2px;
+}
+
+.sr6 .matrix-input {
+  height: 1.6rem;
+  padding: 0.15rem 0.45rem;
+  color: #0b2b25;
+  background: linear-gradient(
+    180deg,
+    rgb(55 255 178 / 0.9),
+    rgb(17 194 135 / 0.65)
+  );
+  border: 1px solid rgb(98 255 196 / 0.95);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0.35rem rgb(255 255 255 / 0.35),
+    0 0 0.4rem rgb(38 247 164 / 0.65);
+  font-family: "Play", sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+  outline: none;
+}
+
+.sr6 .matrix-input:hover {
+  box-shadow:
+    inset 0 0 0.4rem rgb(255 255 255 / 0.45),
+    0 0 0.65rem rgb(38 247 164 / 0.95);
+}
+
+.sr6 .matrix-input:focus {
+  border-color: white;
+  box-shadow:
+    inset 0 0 0.4rem rgb(255 255 255 / 0.65),
+    0 0 0.75rem rgb(38 247 164 / 1);
+}
+
+.sr6 .matrix-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-height: 1.6rem;
+  padding: 0.15rem 0.5rem;
+  color: #0b2b25;
+  background: linear-gradient(
+    180deg,
+    rgb(55 255 178 / 0.95),
+    rgb(17 194 135 / 0.75)
+  );
+  border: 1px solid rgb(98 255 196 / 0.95);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0.35rem rgb(255 255 255 / 0.35),
+    0 0 0.45rem rgb(38 247 164 / 0.7);
+
+  font-family: "Play", sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sr6 .matrix-button .matrix-button-text {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.sr6 .matrix-button i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  line-height: 1;
+  transform: translateY(0.05rem);
+}
+
+.sr6 .matrix-button:hover {
+  color: #041815;
+  text-shadow: 0 0 0.25rem rgb(255 255 255 / 0.65);
+  box-shadow:
+    inset 0 0 0.4rem rgb(255 255 255 / 0.5),
+    0 0 0.75rem rgb(38 247 164 / 1);
+}
+
+.sr6 .matrix-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 0 0.45rem rgb(0 0 0 / 0.35),
+    0 0 0.35rem rgb(38 247 164 / 0.75);
+}
+
+.sr6 .matrix-button:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.9);
+  outline-offset: 2px;
+}
+
+.sr6 .matrix-button.matrix-button-empty {
+  color: #e8d8ff;
+  background: linear-gradient(
+    180deg,
+    rgb(88 36 130 / 0.95),
+    rgb(38 16 64 / 0.9)
+  );
+  border-color: rgb(177 105 255 / 0.9);
+  box-shadow:
+    inset 0 0 0.35rem rgb(210 165 255 / 0.25),
+    0 0 0.45rem rgb(154 76 255 / 0.65);
+  text-shadow:
+    0 0 0.25rem rgb(210 165 255 / 0.85),
+    0 0 0.45rem rgb(154 76 255 / 0.65);
+}
+
+.sr6 .matrix-button.matrix-button-empty:hover {
+  color: #ffffff;
+  box-shadow:
+    inset 0 0 0.45rem rgb(230 200 255 / 0.35),
+    0 0 0.75rem rgb(177 105 255 / 1);
+}

@@ -867,48 +867,6 @@ label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-
     padding: 0.5rem 0;
 }
 
-.sheet .tooltip-container {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sheet .tooltip-text {
-  display: none;
-
-  position: absolute;
-  z-index: 9999;
-
-  top: calc(100% + 0.35rem);
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: max-content;
-  max-width: 32rem;
-
-  padding: 0.5rem 0.75rem;
-
-  background: #111;
-  color: white;
-  border: 1px solid #999;
-  border-radius: 4px;
-
-  text-align: left;
-  line-height: 1.35;
-  white-space: normal;
-  pointer-events: none;
-}
-
-.sheet .tooltip-container:hover .tooltip-text,
-.sheet .tooltip-container:focus-within .tooltip-text {
-  display: block;
-}
-
-.sheet .tooltip-text div + div {
-  margin-top: 0.25rem;
-}
-
 .item.sheet table td {
   text-align: center;
 }

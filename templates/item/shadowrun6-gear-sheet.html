@@ -109,19 +109,6 @@
                 </tr>
             </table>
             {{/if}}
-            <!-- Matrix Ops State -->
-            {{#if gearConfig.showMatrixDeviceConfig}}
-            <table>
-                <tr>
-                    <th>{{localize 'SR6.Item.base.FIELDS.wirelessActive.label'}}</th>
-                </tr>
-                <tr>
-                    <td>
-                        <input name="system.matrix.wirelessActive" data-field="system.matrix.wirelessActive" type="checkbox" {{checked item.system.matrix.wirelessActive}} />
-                    </td>
-                </tr>
-            </table>
-            {{/if}}
             <!-- ********** WAFFEN ********** -->
             {{#if (or
             (eq item.system.type "WEAPON_FIREARMS")
@@ -189,11 +176,6 @@
                             {{localize 'shadowrun6.weapon.ammo_cap_short'}}
                         {{/if}}
                     </th>
-                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                    <th>
-                        {{localize 'shadowrun6.weapon.ammo_loaded'}}
-                    </th>
-                    {{/if}}
                     {{#if highStrengthReducesRecoil}}
                     <th>
                         {{localize 'shadowrun6.label.dual_hand'}}
@@ -223,13 +205,6 @@
                             <input name="system.ammocap" type="number" value="{{item._source.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
-                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                    <td style="text-align: center">
-                        <select name="system.ammoLoaded" data-field="system.ammoLoaded">
-                            {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true sort=true}}
-                        </select>
-                    </td>
-                    {{/if}}
                     {{#if highStrengthReducesRecoil}}
                     <td style="text-align: center">
                         <input name="system.dualHand" style="vertical-align: middle;" type="checkbox" {{checked item.system.dualHand}} data-field="system.dualHand" />

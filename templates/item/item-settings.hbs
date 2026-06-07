@@ -1,0 +1,104 @@
+<!-- Gear Controls Section -->
+{{#if hud.show}}
+<div class="hud-shell hud item-settings">
+    <div class="flexcol">
+
+        {{#if hud.matrixCM}}
+        <div class="matrix-track">
+            <div class="track green" data-condition-monitor="matrix" data-action="onTrackClick">
+                <div class="slots">
+                    {{#each hud.matrixCM}}
+                    <div class="slot{{#if active}} active{{/if}}" style="--slot-index: {{@index}};">
+                        {{#if penalty}}<span>{{penalty}}</span>{{/if}}
+                    </div>
+                    {{/each}}
+                </div>
+
+                <div class="track-value" title="{{localize 'SR6.title.CM.matrix.dmg'}}" data-action="selectInputText">
+                    {{localize 'SR6.label.CM.matrix.short'}}:
+                    <input type="text" name="system.matrix.matrixCM.dmg" value="{{item.system.matrix.matrixCM.dmg}}">
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
+        <div class="item-fields-grid">
+            {{#if hud.showWifi}}
+            <div class="item-field wireless-active">
+                <label class="item-field-label" for="wireless-active">
+                    {{localize 'SR6.Item.base.FIELDS.wirelessActive.label'}}
+                </label>
+
+                <div class="item-field-control matrix-checkbox">
+                    <input
+                        id="wireless-active"
+                        class="matrix-checkbox-input"
+                        name="system.matrix.wirelessActive"
+                        data-field="system.matrix.wirelessActive"
+                        type="checkbox"
+                        {{checked item.system.matrix.wirelessActive}}
+                    />
+
+                    <label class="matrix-checkbox-label" for="wireless-active">
+                        <span class="matrix-checkbox-light"></span>
+                        <span class="matrix-checkbox-text">
+                            {{#if item.system.matrix.wirelessActive}}ONLINE{{else}}OFFLINE{{/if}}
+                        </span>
+                    </label>
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if hud.showAmmo}}
+            <div class="item-field">
+                <label class="item-field-label" for="ammo-capacity">
+                    {{localize 'shadowrun6.item.ammunition'}}
+                </label>
+                <div class="item-field-control">
+                    <a
+                        class="item-control weapon-ammo-reload matrix-button{{#unless item.system.ammocount}} matrix-button-empty{{/unless}}"
+                        data-item-uuid="{{item.uuid}}"
+                        title="{{localize 'shadowrun6.weapon.reload_ammo'}}"
+                    >
+                        <span class="matrix-button-text">
+                            {{item.system.ammocount}}/{{item.system.ammocap}}
+                        </span>
+                        <i class="fas fa-rotate-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {{!-- <div class="item-field">
+                <label class="item-field-label" for="ammo-capacity">
+                    {{localize 'shadowrun6.weapon.ammo_cap_short'}}
+                </label>
+                <div class="item-field-control">
+                    <input
+                        class="matrix-input"
+                        name="system.ammocap"
+                        type="number"
+                        value="{{item._source.system.ammocap}}"
+                        data-field="system.ammocap"
+                    />
+                </div>
+            </div> --}}
+
+            <div class="item-field">
+                <label class="item-field-label" for="ammo-loaded">
+                    {{localize 'shadowrun6.weapon.ammo_loaded'}}
+                </label>
+                <div class="item-field-control">
+                    <select
+                        class="matrix-input"
+                        name="system.ammoLoaded"
+                        data-field="system.ammoLoaded"
+                    >
+                        {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true sort=true}}
+                    </select>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+{{/if}}

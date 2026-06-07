@@ -2302,7 +2302,7 @@
             ]
           },
           "wirelessActive": {
-            "label": "Wireless Active",
+            "label": "Wireless",
             "hint": "If enabled, this gear is currently being used through a wireless interface. Some items, like a credstick can only be used if their Wireless interface are active. The gear's Wireless Bonus can be used if this is active."
           },
           "cyberwareGrade": {

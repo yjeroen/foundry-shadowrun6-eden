@@ -8,6 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
         "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs",
         "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs",
         "systems/shadowrun6-eden/templates/parts/tab-effects.hbs",
+        "systems/shadowrun6-eden/templates/item/item-settings.hbs",
         "systems/shadowrun6-eden/templates/item/item-mods.hbs",
         "systems/shadowrun6-eden/templates/item/item-effects.hbs",
         "systems/shadowrun6-eden/templates/item/item-effects-ro.hbs",

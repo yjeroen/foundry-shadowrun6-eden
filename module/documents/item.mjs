@@ -1,7 +1,7 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
 import { SpritePowerRoll } from "../dice/RollTypes.js";
-import { SR6MatrixDeviceField, SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
+import { SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -173,7 +173,7 @@ export default class SR6Item extends Item {
     if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social) || 0;
     if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
 
-    if (source.type === "gear" && source.system.isElectronicMatrixDevice) {
+    if (source.type === "gear" && source.system?.isElectronicMatrixDevice) {
       source.system.devRating = parseInt(source.system.devRating) || 0;
       const matrixCmValue = source.system.matrix?.matrixCM?.value;
       if (matrixCmValue === null || matrixCmValue === undefined) {
@@ -190,6 +190,7 @@ export default class SR6Item extends Item {
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};
     if (this.system?.ammoLoaded === undefined && this.system?.ammocap) this.system.ammoLoaded = 'regular';
+    if (this.system?.ammocap === null || this.system?.ammocap === "") this.system.ammocap = 0;
   }
 
   /**
@@ -217,8 +218,7 @@ export default class SR6Item extends Item {
     if (!this.system.isElectronicMatrixDevice) return;
     console.log("SR6E | SR6Item | preparing Gear item as an Electronic Matrix Device");
     
-    const ALWAYS_WIRELESS = ["WEAPON_FIREARMS", "WEAPON_SPECIAL"];
-    if (ALWAYS_WIRELESS.includes(this.system.type)) {
+    if (GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.system.type)) {
       this.system.matrix.hasWirelessInterface =  true;
     }
 

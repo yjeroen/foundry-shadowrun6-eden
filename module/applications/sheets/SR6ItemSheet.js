@@ -107,7 +107,22 @@ export default class SR6ItemSheet extends ItemSheet {
         }
 
         if (this.item.type === "gear") {
+            const system = this.item.system;
             data.gearConfig = this._getGearConfig();
+            data.hud = {};
+
+            if (system.isElectronicMatrixDevice) {
+                data.hud.matrixCM = this._prepareConditionMonitors(system.matrix.matrixCM);
+                if (system.matrix.hasWirelessInterface) {
+                    data.hud.showWifi = true;
+                }
+            }
+            if (CONFIG.SR6.GEAR.TYPES_WITH_AMMO.has(system.type) && system.subtype) {
+                data.hud.showAmmo = true;
+            }
+
+            const hasHud = Object.keys(data.hud).length > 0;
+            data.hud.show = hasHud;
         }
 
         return data;
@@ -120,7 +135,6 @@ export default class SR6ItemSheet extends ItemSheet {
         const subtypeConfig = typeConfig.subtypes[this.item.system.subtype];
         if (!subtypeConfig) return null;
 
-        const ALWAYS_WIRELESS = ["WEAPON_FIREARMS", "WEAPON_SPECIAL"];
 
         const config = {
             showRating: subtypeConfig.showRating ?? false,
@@ -128,11 +142,36 @@ export default class SR6ItemSheet extends ItemSheet {
             showMatrixDeviceConfig: subtypeConfig.showMatrixDeviceConfig ?? 0, // CONFIG.SR6.MATRIX_DEVICE_CONFIG // 0 = NEVER, 1 = OPTIONAL, 2 = ALWAYS
             isElectronicMatrixDevice: this.item.system.isElectronicMatrixDevice || this.item.system.hasWirelessInterface || this.item.system.hasDataCableInterface,
             disableElectronicMatrixDevice: subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS || this.item.system.hasWirelessInterface || this.item.system.hasDataCableInterface,
-            disableWirelessInterface: ALWAYS_WIRELESS.includes(this.item.system.type),
+            disableWirelessInterface: GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.item.system.type),
             deviceRatingTooltip: game.i18n.translations.SR6.Item.base.FIELDS.deviceRating.tooltip
         }
 
         return config;
+    }
+    
+    _prepareConditionMonitors(conditionMonitor) {
+        const boxes = conditionMonitor.max;
+        const dmg = conditionMonitor.dmg;
+        const slots = [];
+
+        let i = 0;
+        while (i < boxes) {
+            i++;
+            const slot = { active: true, penalty: null };
+            if (i === boxes && (i % 3) === (boxes % 3) ) {
+                slot.penalty = -1 * Math.ceil(i / 3);
+            } else if (i % 3 == 0) {
+                slot.penalty = -1 * (i / 3);
+            }
+            if (i <= dmg) {
+                slot.active = false;
+            }
+            if (i === boxes) slot.first = true;
+            if (i === 1) slot.last = true;
+            slots.unshift(slot);
+        }
+
+        return slots;
     }
 
     /**

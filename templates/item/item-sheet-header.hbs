@@ -3,12 +3,15 @@
         <h2><input name="name" type="text" value="{{item.name}}" data-field="name" /></h2>
         <div class="flexrow">
             <div class="rubik-glitch-regular">{{localize (concat "TYPES.Item." item.type)}}</div>
+            {{#if (and item.system.product item.system.page)}}
             <div class="pdf-link">
-                {{#if (and item.system.product item.system.page)}}
                 {{localize (lookup config.PDF_OPTIONS.BOOKS item.system.product)}} {{localize "PDF.page_abbr"}}{{item.system.page}}
                 {{#if (gameSetting (srBookSetting item.system.product))}}<a data-pdf-uuid="{{gameSetting (concat (srBookSetting item.system.product) "-journalUuid")}}" data-pdf-page="{{item.system.page}}"><i class="fas fa-external-link-alt" title="Open in PDF"></i></a>{{/if}}
-                {{/if}}
             </div>
+            {{/if}}
+        </div>
+        <div class="sr6">
+            {{> "systems/shadowrun6-eden/templates/item/item-settings.hbs" }}
         </div>
         {{#if config.DATA_ENTRY}}
         <div class="flexcol data-entry">
