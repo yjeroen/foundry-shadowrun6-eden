@@ -279,17 +279,11 @@
             )}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.dataproc.short'}}</th>
                     <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
                     <td class="box centered">
                         <input name="system.progSlots" type="number" value="{{item.system.progSlots}}" data-field="system.progSlots" class="box centered" style="width:2em" />
                     </td>
@@ -306,17 +300,11 @@
             {{#if (eq item.system.subtype "CYBERDECK")}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.attack.short'}}</th>
                     <th>{{localize 'shadowrun6.label.sleaze.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
                     <td class="box centered"> <input name="system.progSlots" type="number" value="{{item.system.progSlots}}"
                             data-field="system.progSlots" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.a" type="number" value="{{item.system.a}}" data-field="system.a"
@@ -330,7 +318,6 @@
             {{#if (eq item.system.subtype "CYBERTERM")}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.attack.short'}}</th>
                     <th>{{localize 'shadowrun6.label.sleaze.short'}}</th>
@@ -338,11 +325,6 @@
                     <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
                     <td class="box centered"> <input name="system.progSlots" type="number" value="{{item.system.progSlots}}"
                             data-field="system.progSlots" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.a" type="number" value="{{item.system.a}}" data-field="system.a"
@@ -399,7 +381,6 @@
                     {{else}}
                     <th></th>
                     {{/if}}
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
                 </tr>
                 <tr>
                     <td class="box centered"> <input name="system.bod" type="number" value="{{item.system.bod}}" data-field="system.bod"
@@ -416,11 +397,6 @@
                     {{else}}
                     <td></td>
                     {{/if}}
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
 
                 </tr>
             </table>

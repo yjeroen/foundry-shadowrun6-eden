@@ -1,6 +1,6 @@
 <!-- Gear Controls Section -->
 {{#if hud.show}}
-<div class="hud-shell hud item-settings">
+<div class="hud-shell hud item-settings{{#if hud.bricked}} matrix-bricked{{/if}}">
     <div class="flexcol">
 
         {{#if hud.matrixCM}}
@@ -14,9 +14,9 @@
                     {{/each}}
                 </div>
 
-                <div class="track-value" title="{{localize 'SR6.title.CM.matrix.dmg'}}" data-action="selectInputText">
+                <div class="track-value" data-tooltip="SR6.title.CM.matrix.dmg" data-action="selectInputText">
                     {{localize 'SR6.label.CM.matrix.short'}}:
-                    <input type="text" name="system.matrix.matrixCM.dmg" value="{{item.system.matrix.matrixCM.dmg}}">
+                    <input type="text" name="system.matrix.matrixCM.dmg" data-field="system.matrix.matrixCM.dmg" value="{{item.system.matrix.matrixCM.dmg}}">
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                     {{localize 'SR6.Item.base.FIELDS.wirelessActive.label'}}
                 </label>
 
-                <div class="item-field-control matrix-checkbox">
+                <div class="item-field-control matrix-checkbox" data-tooltip="SR6.Item.base.FIELDS.wirelessActive.hint">
                     <input
                         id="wireless-active"
                         class="matrix-checkbox-input"
@@ -37,6 +37,7 @@
                         data-field="system.matrix.wirelessActive"
                         type="checkbox"
                         {{checked item.system.matrix.wirelessActive}}
+                        {{#if hud.bricked}}disabled{{/if}}
                     />
 
                     <label class="matrix-checkbox-label" for="wireless-active">
@@ -56,9 +57,9 @@
                 </label>
                 <div class="item-field-control">
                     <a
-                        class="item-control weapon-ammo-reload matrix-button{{#unless item.system.ammocount}} matrix-button-empty{{/unless}}"
-                        data-item-uuid="{{item.uuid}}"
-                        title="{{localize 'shadowrun6.weapon.reload_ammo'}}"
+                        class="matrix-button{{#unless item.system.ammocount}} matrix-button-empty{{/unless}}"
+                        data-action="weaponReload{{#if hud.bricked}}-disabled{{/if}}"
+                        data-tooltip="shadowrun6.weapon.reload_ammo"
                     >
                         <span class="matrix-button-text">
                             {{item.system.ammocount}}/{{item.system.ammocap}}
@@ -76,22 +77,24 @@
                     <input
                         class="matrix-input"
                         name="system.ammocap"
+                        data-field="system.ammocap"
                         type="number"
                         value="{{item._source.system.ammocap}}"
-                        data-field="system.ammocap"
                     />
                 </div>
             </div> --}}
 
             <div class="item-field">
                 <label class="item-field-label" for="ammo-loaded">
-                    {{localize 'shadowrun6.weapon.ammo_loaded'}}
+                    {{localize 'SR6.Item.base.FIELDS.ammoLoaded.label'}}
                 </label>
                 <div class="item-field-control">
                     <select
                         class="matrix-input"
                         name="system.ammoLoaded"
                         data-field="system.ammoLoaded"
+                        data-tooltip="SR6.Item.base.FIELDS.ammoLoaded.hint"
+                        {{#if hud.bricked}}disabled{{/if}}
                     >
                         {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true sort=true}}
                     </select>

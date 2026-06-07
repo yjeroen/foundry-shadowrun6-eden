@@ -58,15 +58,6 @@ export default class SR6ItemSheet extends ItemSheet {
                 data.item.system.essence
             ).toFixed(2);
         }
-        if (data.item.system.devRating) {
-            data.item.maxtrixMonitor =
-                Math.ceil(data.item.system.devRating / 2) + 8;
-        } else if (
-            data.item.system.type === "VEHICLES" ||
-            data.item.system.type === "DRONES"
-        ) {
-            data.item.maxtrixMonitor = Math.ceil(data.item.system.sen / 2) + 8;
-        }
         if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat")) {
             data.rollStrengthCombat = true;
         }
@@ -119,6 +110,10 @@ export default class SR6ItemSheet extends ItemSheet {
             }
             if (CONFIG.SR6.GEAR.TYPES_WITH_AMMO.has(system.type) && system.subtype) {
                 data.hud.showAmmo = true;
+            }
+
+            if (!this.item.system.matrix.matrixCM.value) {
+                data.hud.bricked = true;
             }
 
             const hasHud = Object.keys(data.hud).length > 0;
@@ -221,6 +216,15 @@ export default class SR6ItemSheet extends ItemSheet {
                 this._collapsibleItems.bind(this)
             );
             html.find(".mod-create").click((ev) => this._onCreateNewEmbeddedItem("mod"));
+            html.find("[data-action='weaponReload']").click(
+                this._weaponReload.bind(this)
+            );
+            html.find("[data-action='onTrackClick']").click(
+                this._onTrackClick.bind(this)
+            );
+            html.find("[data-action='selectInputText']").click(
+                this._selectInputText.bind(this)
+            );
         }
 
         // Unclear why super is called; TODO rework whole itemsheet so it uses Foundry listeners instead
@@ -290,8 +294,15 @@ export default class SR6ItemSheet extends ItemSheet {
                 } else {
                     value = element.value || "";
                 }
-                const field = element.dataset.field;
+                let field = element.dataset.field;
                 const arrayId = element.dataset.arrayid;
+                
+                if ( field == "system.matrix.matrixCM.dmg") {
+                    field = "system.matrix.matrixCM.value";
+                    value = this.document.system.matrix.matrixCM.parseDmgToValue( value );
+                }
+
+                console.log("SR6E | SR6ItemSheet Updating", field, value);
                 if (arrayId) {
                     await this.object.update({ [field]: [, , 3, ,] });
                 } else {
@@ -459,6 +470,121 @@ export default class SR6ItemSheet extends ItemSheet {
             return this.actor.items.get(parentId).effects.get(effectId);
     }
 
+    /**
+     * Reloads a weapons ammo
+     *
+     * @this SR6ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @private
+     */
+    async _weaponReload(event) {
+        console.log("SR6E | _onWeaponAmmoReload");
+        event.preventDefault();
+        const weapon = this.item;
+        const updated = await weapon.update({ "system.ammocount": weapon.system.ammocap });
+        if (updated !== undefined) {
+            console.log("SR6E | Weapon's Ammo Reloaded:", updated.name, updated.uuid);
+        }
+    }
+
+    /**
+     * Handling clicking on the Matrix Track
+     *
+     * @this SR6ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @private
+     */
+    async _onTrackClick(event) {
+        const target = event.target;       // div.slot
+        const html = event.currentTarget;  // div.track
+
+        const conditionMonitor = html.dataset.conditionMonitor;
+        const slotClicked = target.closest(".slot");
+        const track = target.closest(".track");
+        const tracks = target.closest(".matrix-track");
+        if (!slotClicked || !track || track.classList.contains('inactive')) return; // clicked outside a slot or track is inactive
+
+        const allSlots = [...track.querySelector(".slots").children];
+        const index = allSlots.indexOf(slotClicked);
+        console.log(`SR6E | _onTrackClick | Condition Monitor: ${conditionMonitor} | Slot clicked: ${index}`);
+
+        // Toggling slots up to where clicked
+        const clickedWasActive = slotClicked.classList.contains("active");
+        const maxActiveIndex = clickedWasActive ? index - 1 : index;
+        allSlots.forEach((slot, i) => {
+            slot.classList.toggle("active", i <= maxActiveIndex);
+        });
+
+        // Pulsating track
+		track.classList.add('is-pulsing'); // animation
+		tracks.classList.add('inactive');
+		
+        // Track Config
+        let trackColor, attr, deltaTrack;
+        let newValue = maxActiveIndex + 1;
+        if (conditionMonitor === "matrix") {
+            trackColor = "green"
+            attr = "system.matrix.matrixCM.value";
+            deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
+        }
+
+        // TODO Showing delta within portrait
+        // const combatText = event.currentTarget.querySelector('.track-delta');
+        // combatText.textContent = `${deltaTrack > 0 ? "+" : ""}${deltaTrack}`;
+        // combatText.classList.remove('disabled', 'is-pulsing', 'red', 'blue', 'green');
+        // combatText.classList.add('is-pulsing', trackColor); // animation
+
+        // combatText.onanimationend = () => {
+            setTimeout(() => {
+                // combatText.classList.add('disabled'); // animation
+                setTimeout(() => {
+                    // Update actor and re-render sheet
+                    console.log(`SR6E | _onTrackClick | Updating`, this.document.documentName, attr, newValue);
+                    this.document.update({ [attr]: newValue });
+                }, 200);
+            }, 200);
+        // };   
+    }
+
+    /**
+     * Handling clicking on the MTRX Damage text to select the input text
+     *
+     * @this SR6ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @private
+     */
+    async _selectInputText(event) {
+        const target = event.target;
+        const input = target.querySelector("input");;
+        if (!input || input.readOnly || input.disabled) return;
+        input.select();
+    }
+
+    /** 
+     * TODO Rework to Appv2 // Currently the normal FormApplication _onSubmit/_updateObject isn't used, but html.find("[data-field]").change()
+     * @inheritDoc 
+     * */
+    async _updateObject(_event, formData) {
+        console.log('JEROEN _updateObject', formData)
+        this.#changeCmDamageToValues(formData.object);
+
+        return super._updateObject(_event, formData);
+    }
+
+    /**
+     * Convert Condition Monitor Damage to its Value
+     * @param {object} changes formData.object
+     */
+    #changeCmDamageToValues(changes) {
+        try {
+            if ( "system.matrix.matrixCM.dmg" in changes) {
+                changes["system.matrix.matrixCM.value"] = this.document.system.matrix.matrixCM.parseDmgToValue(changes["system.matrix.matrixCM.dmg"]);
+            }
+        } catch (error) {
+            console.warn(`${error.name}: ${error.message}`);
+            this.render();
+        }
+    }
     
     /**
      * Get Editor Safe Description

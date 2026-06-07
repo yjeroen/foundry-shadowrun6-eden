@@ -223,12 +223,18 @@ export default class SR6Item extends Item {
     }
 
     const deviceRating = Number(this.system.devRating) || 0;
+    const sensor = Number(this.system.sen) || 0;
     if (this.system.matrix?.matrixCM?.value === null) {
       // TODO JEROEN NEED TO TEST IF THIS WORKS AS EXPECTED
       this.system.matrix.matrixCM.value = Math.ceil(deviceRating / 2) + 8;
     }
     const matrixCM = foundry.utils.deepClone(this.system.matrix?.matrixCM ?? {});
-    matrixCM.max = Math.ceil(deviceRating / 2) + 8;
+
+    if (this.system.type === "VEHICLES" || this.system.type === "DRONES") {
+      matrixCM.max = Math.ceil(sensor / 2) + 8;
+    } else {
+      matrixCM.max = Math.ceil(deviceRating / 2) + 8;
+    }
 
     this.system.matrix.matrixCM = new SR6ConditionMonitorField().initialize(matrixCM);
 

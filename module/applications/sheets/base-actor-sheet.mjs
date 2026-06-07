@@ -590,7 +590,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Pulsating track
 		track.classList.add('is-pulsing'); // animation
-		// tracks.classList.add('inactive');
+		tracks.classList.add('inactive');
 		
         // Track Config
         let trackColor, attr, deltaTrack;
@@ -628,7 +628,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 combatText.classList.add('disabled'); // animation
                 setTimeout(() => {
                     // Update actor and re-render sheet
-                    console.log(`SR6E | _onTrackClick | Updating actor`, attr, newValue);
+                    console.log(`SR6E | _onTrackClick | Updating`, this.document.documentName, attr, newValue);
                     this.document.update({ [attr]: newValue });
                 }, 200);
             }, 200);

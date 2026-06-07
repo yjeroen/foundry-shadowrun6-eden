@@ -203,7 +203,6 @@
             {{#if (eq item.system.subtype "CYBERTERM")}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
                     <th>{{localize 'shadowrun6.label.devRating'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.attack.short'}}</th>
@@ -212,11 +211,6 @@
                     <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
                     <td class="box centered"> <input name="system.devRating" type="number" value="{{item.system.devRating}}"
                             data-field="system.devRating" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.progSlots" type="number" value="{{item.system.progSlots}}"

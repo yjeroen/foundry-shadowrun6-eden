@@ -2303,11 +2303,15 @@
           },
           "wirelessActive": {
             "label": "Wireless",
-            "hint": "If enabled, this gear is currently being used through a wireless interface. Some items, like a credstick can only be used if their Wireless interface are active. The gear's Wireless Bonus can be used if this is active."
+            "hint": "If on, this gear is currently being used through a wireless interface. Some items, like a credstick can only be used if their Wireless interface are active. The gear's Wireless Bonus can be used if this is active."
           },
           "cyberwareGrade": {
             "label": "Cyberware Grade",
             "hint": "<p>The grade of your cyberware does not just determine its essence and nuyen costs, but also it's Device Rating.<p>Device Rating determines its Matrix Condition Monitor.</p>"
+          },
+          "ammoLoaded": {
+            "label": "Ammo Loaded",
+            "hint": "Select which type of ammo is currently loaded in your ranged weapon."
           }
         }
       },
