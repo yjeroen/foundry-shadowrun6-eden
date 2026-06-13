@@ -121,7 +121,6 @@ export class MatrixDevice extends Gear {
     s;
     d;
     f;
-    devRating;
     usedForPool;
 }
 export class DevicePersona {

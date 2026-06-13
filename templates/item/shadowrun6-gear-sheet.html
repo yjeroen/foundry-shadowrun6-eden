@@ -90,18 +90,19 @@
                             type="checkbox" {{checked item.system.matrix.hasDataCableInterface}}
                             data-field="system.matrix.hasDataCableInterface"
                             data-tooltip="SR6.Item.base.FIELDS.hasDataCableInterface.hint"
+                            {{#if gearConfig.disableDataCableInterface}}disabled{{/if}}
                         />
                     </td>
                     {{#if gearConfig.isElectronicMatrixDevice}}
                     <td>
                         <select 
-                            name="system.devRating" data-field="system.devRating"
+                            name="system.matrix.deviceRating" data-field="system.matrix.deviceRating"
                             data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}"
                         >
                         {{#if (eq item.system.type "CYBERWARE")}}
-                            {{selectOptions config.GEAR.CYBERWARE.GRADES selected=item.system.devRating localize=true}}
+                            {{selectOptions config.GEAR.CYBERWARE.GRADES selected=item.system.matrix.deviceRating localize=true}}
                         {{else}}
-                            {{selectOptions config.DEVICE_RATING selected=item.system.devRating localize=true}}
+                            {{selectOptions config.DEVICE_RATING selected=item.system.matrix.deviceRating localize=true}}
                         {{/if}}
                         </select>
                     </td>

@@ -161,14 +161,14 @@
             )}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.devRating'}}</th>
+                    <th>{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.dataproc.short'}}</th>
                     <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered"> <input type="number" value="{{item.system.devRating}}"
-                            name="system.devRating" class="box centered" style="width:2em" /></td>
+                    <td class="box centered"> <input type="number" value="{{item.system.matrix.deviceRating}}"
+                            name="system.matrix.deviceRating" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input type="number" value="{{item.system.progSlots}}"
                             name="system.progSlots" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input type="number" value="{{item.system.d}}" name="system.d"
@@ -182,14 +182,14 @@
             {{#if (eq item.system.subtype "CYBERDECK")}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.devRating'}}</th>
+                    <th>{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.attack.short'}}</th>
                     <th>{{localize 'shadowrun6.label.sleaze.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered"> <input type="number" value="{{item.system.devRating}}"
-                            name="system.devRating" class="box centered" style="width:2em" /></td>
+                    <td class="box centered"> <input type="number" value="{{item.system.matrix.deviceRating}}"
+                            name="system.matrix.deviceRating" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input type="number" value="{{item.system.progSlots}}"
                             name="system.progSlots" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input type="number" value="{{item.system.a}}" name="system.a"
@@ -203,7 +203,7 @@
             {{#if (eq item.system.subtype "CYBERTERM")}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.devRating'}}</th>
+                    <th>{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.attack.short'}}</th>
                     <th>{{localize 'shadowrun6.label.sleaze.short'}}</th>
@@ -211,8 +211,8 @@
                     <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered"> <input name="system.devRating" type="number" value="{{item.system.devRating}}"
-                            data-field="system.devRating" class="box centered" style="width:2em" /></td>
+                    <td class="box centered"> <input name="system.matrix.deviceRating" type="number" value="{{item.system.matrix.deviceRating}}"
+                            data-field="system.matrix.deviceRating" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.progSlots" type="number" value="{{item.system.progSlots}}"
                             data-field="system.progSlots" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.a" type="number" value="{{item.system.a}}" data-field="system.a"

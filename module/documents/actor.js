@@ -1575,7 +1575,7 @@ export default class Shadowrun6Actor extends Actor {
         await this.update(updatedPersona);
     }
     _preparePersona() {
-        //TODO figure out what devRating is still used for
+        //TODO figure out what matrix.deviceRating is still used for
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (!system.persona)
@@ -1609,7 +1609,7 @@ export default class Shadowrun6Actor extends Actor {
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
                         if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.devRating : item.devRating) / 2 + 8;
+                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.matrix.deviceRating : item.matrix.deviceRating) / 2 + 8;
                         }
                     }
                 }
@@ -1617,7 +1617,7 @@ export default class Shadowrun6Actor extends Actor {
                     if (item.usedForPool) {
                         system.persona.device.base.a = parseInt(item.a);
                         system.persona.device.base.s = parseInt(item.s);
-                        system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
+                        system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
                     }
                 }
                 if (item.subtype == "CYBERTERM") {
@@ -1626,7 +1626,7 @@ export default class Shadowrun6Actor extends Actor {
                         system.persona.device.base.s = parseInt(item.s);
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
-                        system.persona.monitor.max = parseInt(item.devRating) / 2 + 8;
+                        system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
                     }
                 }
             }
@@ -1644,7 +1644,7 @@ export default class Shadowrun6Actor extends Actor {
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);
             system.persona.living.base.d = parseInt(system.attributes["log"].pool);
             system.persona.living.base.f = parseInt(system.attributes["wil"].pool);
-            system.persona.living.base.devRating = parseInt(system.attributes["res"].pool);
+            system.persona.living.base.matrix.deviceRating = parseInt(system.attributes["res"].pool);
             // Initiative: Data processing + Intuition
             system.persona.initiative = new Initiative();
             system.persona.initiative.base = system.persona.living.base.d + parseInt(system.attributes["int"].pool);

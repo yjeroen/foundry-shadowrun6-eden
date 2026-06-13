@@ -173,14 +173,23 @@ export default class SR6Item extends Item {
     if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social) || 0;
     if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
 
+    // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
+    if (source.type === "gear" && source.system.devRating !== undefined) {
+      source.system.matrix ??= {};
+      source.system.matrix.deviceRating = parseInt(source.system.devRating) || 2;
+      delete source.system.devRating;
+    }
+
+    if (source.system.xxxxxxxxxxxxxxxxxxxx) {
+      delete source.system.xxxxxxxxxxxxxxxxxxxx;
+    }
+
     if (source.type === "gear" && source.system?.isElectronicMatrixDevice) {
-      source.system.devRating = parseInt(source.system.devRating) || 0;
       const matrixCmValue = source.system.matrix?.matrixCM?.value;
       if (matrixCmValue === null || matrixCmValue === undefined) {
-        // TODO JEROEN NEED TO TEST IF THIS WORKS AS EXPECTED
         source.system.matrix ??= {};
         source.system.matrix.matrixCM ??= {};
-        source.system.matrix.matrixCM.value  = Math.ceil(source.system.devRating / 2) + 8;
+        source.system.matrix.matrixCM.value  = Math.ceil(source.system.matrix.deviceRating / 2) + 8;
       }
     }
 
@@ -201,7 +210,7 @@ export default class SR6Item extends Item {
    *    this.system.matrix.hasDataCableInterface
    *    this.system.matrix.wirelessActive
    *    this.system.matrix.matrixCM.value
-   *    this.system.devRating
+   *    this.system.matrix.deviceRating
    * TODO: Should no longer be necessary once Item is properly migrated to DataModel
    */
   _prepareElectronicMatrixDevice() {
@@ -211,7 +220,15 @@ export default class SR6Item extends Item {
     if (!typeConfig) return;
     const subtypeConfig = typeConfig.subtypes[this.system.subtype];
     if (!subtypeConfig) return;
-    if (subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS) {
+
+    if (this.system.type === "CYBERWARE") {
+      this.system.matrix.hasDataCableInterface = true;
+    }
+    if (
+      subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS
+      || this.system.matrix.hasWirelessInterface ===  true
+      || this.system.matrix.hasDataCableInterface ===  true
+    ) {
       this.system.isElectronicMatrixDevice = true;
     }
 
@@ -222,10 +239,9 @@ export default class SR6Item extends Item {
       this.system.matrix.hasWirelessInterface =  true;
     }
 
-    const deviceRating = Number(this.system.devRating) || 0;
+    const deviceRating = Number(this.system.matrix.deviceRating) || 0;
     const sensor = Number(this.system.sen) || 0;
     if (this.system.matrix?.matrixCM?.value === null) {
-      // TODO JEROEN NEED TO TEST IF THIS WORKS AS EXPECTED
       this.system.matrix.matrixCM.value = Math.ceil(deviceRating / 2) + 8;
     }
     const matrixCM = foundry.utils.deepClone(this.system.matrix?.matrixCM ?? {});

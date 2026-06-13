@@ -601,6 +601,7 @@
 			"matrix-device": {
 				"isElectronicMatrixDevice": false,
 				"matrix": {
+					"deviceRating": 2,
 					"hasWirelessInterface": false,
 					"hasDataCableInterface": false,
 					"wirelessActive": false,
@@ -708,7 +709,6 @@
 			"essence": 0,
 			"capacity": 0,
 			"natural" : false,
-			"devRating": 2,
 			"a": 0,
 			"s": 0,
 			"d": 0,
