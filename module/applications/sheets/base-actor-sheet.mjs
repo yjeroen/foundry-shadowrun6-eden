@@ -763,7 +763,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     static async _selectInputText(event, target) {
-        // const input = target;
         const input = target.querySelector("input");;
         if (!input || input.readOnly || input.disabled) return;
         input.select();
