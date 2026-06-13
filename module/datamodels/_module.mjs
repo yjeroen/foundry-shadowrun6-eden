@@ -10,5 +10,8 @@ export { default as SR6ModItemData } from './mod-item-data.mjs';
 // Export Active Effect
 export { default as SR6ActiveEffectData } from './active-effect-data.mjs';
 
+// Export Proxies
+export { default as SR6MatrixProxy } from './matrix-proxy.mjs';
+
 // Export object of fields
 export * as fields from './fields/fields.mjs';
