@@ -130,14 +130,14 @@ export default class SR6ItemSheet extends ItemSheet {
         const subtypeConfig = typeConfig.subtypes[this.item.system.subtype];
         if (!subtypeConfig) return null;
 
-
         const config = {
             showRating: subtypeConfig.showRating ?? false,
             showCountable: subtypeConfig.showCountable ?? false,
             showMatrixDeviceConfig: subtypeConfig.showMatrixDeviceConfig ?? 0, // CONFIG.SR6.MATRIX_DEVICE_CONFIG // 0 = NEVER, 1 = OPTIONAL, 2 = ALWAYS
-            isElectronicMatrixDevice: this.item.system.isElectronicMatrixDevice || this.item.system.hasWirelessInterface || this.item.system.hasDataCableInterface,
-            disableElectronicMatrixDevice: subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS || this.item.system.hasWirelessInterface || this.item.system.hasDataCableInterface,
+            isElectronicMatrixDevice: this.item.system.isElectronicMatrixDevice || this.item.system.matrix.hasWirelessInterface || this.item.system.matrix.hasDataCableInterface,
+            disableElectronicMatrixDevice: subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS || this.item.system.matrix.hasWirelessInterface || this.item.system.matrix.hasDataCableInterface,
             disableWirelessInterface: GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.item.system.type),
+            disableDataCableInterface: this.item.system.type === "CYBERWARE",
             deviceRatingTooltip: game.i18n.translations.SR6.Item.base.FIELDS.deviceRating.tooltip
         }
 
@@ -558,14 +558,15 @@ export default class SR6ItemSheet extends ItemSheet {
         const input = target.querySelector("input");;
         if (!input || input.readOnly || input.disabled) return;
         input.select();
+        console.log('JEROEN _selectInputText')
     }
 
     /** 
-     * TODO Rework to Appv2 // Currently the normal FormApplication _onSubmit/_updateObject isn't used, but html.find("[data-field]").change()
+     * TODO Rework to Appv2
+     * TODO Currently the normal FormApplication _onSubmit/_updateObject is only used on sheet close // html.find("[data-field]").change() is used on field change
      * @inheritDoc 
      * */
     async _updateObject(_event, formData) {
-        console.log('JEROEN _updateObject', formData)
         this.#changeCmDamageToValues(formData.object);
 
         return super._updateObject(_event, formData);
