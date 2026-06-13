@@ -2357,7 +2357,8 @@
       "lifespan_hours": "{number} {hourScale}",
       "yes": "Yes",
       "no": "No",
-      "unknown": "<unknown>"
+      "unknown": "<unknown>",
+      "matrixCmPenalty": "Matrix Damage Modifier"
     },
     "title": {
       "editButton": "Edit Actor",
@@ -2379,7 +2380,8 @@
       "sendToChat": "Send description to Chat",
       "useItem": "Use {name}",
       "noRollNeeded": "No roll needed",
-      "rollSomething": "Roll {typeOfRoll}"
+      "rollSomething": "Roll {typeOfRoll}",
+      "matrixCmPenalty": "Your Electronic Matrix Device is damaged via the Matrix."
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",

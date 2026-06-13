@@ -1135,6 +1135,10 @@ export default class Shadowrun6Actor extends Actor {
                     const strWeapon = (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && item.system.strWeapon) ? 'str' : undefined;
                     gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, strWeapon);
                     gear.pool = gear.pool + gear.modifier;
+                    // TODO rework move this whole item pools thing to to Item model
+                    if (gear.isElectronicMatrixDevice) {
+                        gear.pool -= gear.matrix.matrixCM.penalty;
+                    }
                 }
             }
             if (tmpItem.type == "gear" && isWeapon(system)) {

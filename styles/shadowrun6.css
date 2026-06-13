@@ -256,6 +256,26 @@
       justify-items: flex-start;
       position: relative;
 }
+.sr6-roll-dialog .edge-roll {
+      margin-left: 5px;
+}
+.sr6-roll-dialog input.modifier {
+    --modifier-text-color: white;
+    --modifier-shadow-color: #444;
+
+    background-color: var(--color-checkbox-checked);
+    color: var(--modifier-text-color);
+    box-shadow:
+      -1px 1px 3px 2px var(--modifier-shadow-color) inset;
+
+    filter: invert(15%) brightness(1.09);
+    width: 20px;
+    height: 20px;
+    margin: 3px 5px;
+    border-radius: 0;
+    text-align: center;
+    font-weight: 900;
+}
 .edge-roll .edge-value {
 		z-index: 1;
 		position:relative;
