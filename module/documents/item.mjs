@@ -174,14 +174,14 @@ export default class SR6Item extends Item {
     if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
 
     // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
-    if (source.type === "gear" && source.system.devRating !== undefined) {
+    if (source.type === "gear" && source.system?.devRating !== undefined) {
       source.system.matrix ??= {};
       source.system.matrix.deviceRating = parseInt(source.system.devRating) || 2;
       source.system.devRating = null;
     }
 
     if (source.type === "gear" && source.system?.isElectronicMatrixDevice) {
-      const matrixCmValue = source.system.matrix?.matrixCM?.value;
+      const matrixCmValue = source.system?.matrix?.matrixCM?.value;
       if (matrixCmValue === null || matrixCmValue === undefined) {
         source.system.matrix ??= {};
         source.system.matrix.matrixCM ??= {};

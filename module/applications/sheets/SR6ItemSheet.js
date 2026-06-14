@@ -112,7 +112,7 @@ export default class SR6ItemSheet extends ItemSheet {
                 data.hud.showAmmo = true;
             }
 
-            if (!this.item.system.matrix.matrixCM.value) {
+            if (this.item.system.matrix.matrixCM.value === 0) {
                 data.hud.bricked = true;
             }
 
