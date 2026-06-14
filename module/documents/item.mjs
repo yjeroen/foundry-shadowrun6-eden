@@ -177,11 +177,7 @@ export default class SR6Item extends Item {
     if (source.type === "gear" && source.system.devRating !== undefined) {
       source.system.matrix ??= {};
       source.system.matrix.deviceRating = parseInt(source.system.devRating) || 2;
-      delete source.system.devRating;
-    }
-
-    if (source.system.xxxxxxxxxxxxxxxxxxxx) {
-      delete source.system.xxxxxxxxxxxxxxxxxxxx;
+      source.system.devRating = null;
     }
 
     if (source.type === "gear" && source.system?.isElectronicMatrixDevice) {

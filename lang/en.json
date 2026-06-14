@@ -1884,7 +1884,8 @@
         "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration.",
         "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
         "edge_has_been_reset": "All Edge has been reset by the GM.",
-        "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2"
+        "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
+        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>Inform all players they need to adjust their Gear and Cyberware if necessary.<p>"
       }
     },
     "EFFECT": {
@@ -2358,7 +2359,8 @@
       "yes": "Yes",
       "no": "No",
       "unknown": "<unknown>",
-      "matrixCmPenalty": "Matrix Damage Modifier"
+      "matrixCmPenalty": "Matrix Damage Modifier",
+      "system_message": "//SYSTEM MESSAGE//"
     },
     "title": {
       "editButton": "Edit Actor",

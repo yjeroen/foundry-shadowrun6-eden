@@ -1268,3 +1268,11 @@ body.game .application.shadowrun6 .window-content {
   line-height: 1.24;
   margin-bottom: 2px;
 }
+
+.chat-message .system-message {
+    font-weight: bolder;
+    border: 1px rgba(128, 0, 128, 1) dashed;
+    background-color: rgba(128, 0, 128, 0.17);
+    padding: 0 0.5rem;
+    margin-top: 0.5rem;
+}

@@ -39,6 +39,7 @@ export async function migrateWorld() {
     await addUnarmedItems();            // 3.3.5
     await migrateMetatypeNPCs();        // 4.0.0
     await migrateAstralInitiative();    // 4.0.0
+    await migrateItemsDevRating();      // 4.0.0
 }
 
 function migrateChatMessage(chatMessage) {
@@ -224,4 +225,68 @@ async function migrateAstralInitiative() {
     ui.notifications.remove(migrationMsg);
     ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
     console.log("SR6E | Migration | Completed")
+}
+
+
+async function migrateItemsDevRating() {
+    const itemsToMigrate = [];
+
+    // Checking if there are items to Migrate
+    game.items.forEach(item => {
+        if ( 
+            docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
+        ) {
+            itemsToMigrate.push(item);
+        }
+    });
+
+    // Checking if there are items within actors to Migrate
+    game.actors.forEach(actor => {
+        actor.items.forEach(item => {
+            if ( 
+                docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
+            ) {
+                itemsToMigrate.push(item);
+            }
+        });
+    });
+    
+    // Don't migrate if there's nothing to do
+    if (!itemsToMigrate.length) return;
+         
+    // Prepare migration
+    console.log("SR6E | Migration | migrating Items due to changes in 4.0.0 so default Device Rating is 2", itemsToMigrate)
+    const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
+    let progressedItem = 0;
+    const msg = progressNotification(0);
+    const isV14 = game.release?.generation >= 14;
+
+    const baseData = {
+        [`flags.${SYSTEM_NAME}.versionMigrated`]: "4.4.0",
+        [isV14 ? "system.devRating" : "system.-=devRating"]: isV14 ? _del : null
+    };
+
+    // Migrate items
+    for (const item of itemsToMigrate) {
+        const source = item._source;
+        const deviceRating = Number.parseInt(source.system.devRating, 10) || 2;
+        const data = {
+            ...baseData,
+            "system.matrix.deviceRating": deviceRating
+        }
+        await item.update(data);
+        // console.log('MIGRATION TEST update()', item.name, data, item._source.system)
+        progressedItem++;
+        progressNotification(progressedItem / itemsToMigrate.length, msg);
+    };
+
+    ui.notifications.remove(migrationMsg);
+    ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
+    console.log("SR6E | Migration | Completed")
+    
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ alias: game.system.title }),
+        flavor: game.i18n.localize("SR6.label.system_message"),
+        content: `<div class="system-message">${game.i18n.localize("shadowrun6.ui.notifications.deviceRatingMigration")}</div>`
+    });
 }
