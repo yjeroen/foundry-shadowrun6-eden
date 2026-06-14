@@ -111,7 +111,7 @@
       <div class="item-controls">
         <a
           class="item-control item-create"
-          title="{{localize 'DOCUMENT.New' type=(localize 'TYPES.Item.spritepower')}}"
+          data-tooltip="{{localize 'DOCUMENT.New' type=(localize 'TYPES.Item.spritepower')}}"
           data-action="createDoc"
           data-document-class="Item"
           data-type="spritepower"
@@ -144,7 +144,7 @@
               {{#if item.system.description}}
                 data-action="itemDescToggle"
                 data-item-id="{{item.id}}"
-                title="{{localize 'SR6.title.clickItemName'}}"
+                data-tooltip="SR6.title.clickItemName"
               {{/if}}
             >
               +
@@ -160,7 +160,7 @@
               <a 
                 class="item-control item-toggle"
                 data-action='itemSustainToggle'
-                title="{{localize "shadowrun6.section.sustained.toggle"}}"
+                data-tooltip="shadowrun6.section.sustained.toggle"
               >
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
               </a>
@@ -170,7 +170,7 @@
           <div class="section-column item-controls"> 
             <a
               class="item-control draggable"
-              title="{{skillHint actor item.system.skill 'resonance'}}"
+              data-tooltip="{{skillHint actor item.system.skill 'resonance'}}"
               data-action="roll"
               data-roll-type="item"
               data-item-id="{{item.id}}"
@@ -181,7 +181,7 @@
 
             <a
               class="item-control item-edit"
-              title="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.spritepower')}}"
+              data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.spritepower')}}"
               data-action="viewDoc"
             >
               <i class="fas fa-edit"></i>
@@ -190,7 +190,7 @@
             {{#if @root.editMode}}
               <a
                 class="item-control item-delete"
-                title="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.spritepower')}}"
+                data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.spritepower')}}"
                 data-action="deleteDoc"
               >
                 <i class="fas fa-trash"></i>

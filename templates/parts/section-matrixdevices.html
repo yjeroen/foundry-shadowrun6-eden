@@ -1,7 +1,7 @@
    <div class="section" style="display: inline-block; width: 100%; min-width: 362px;">
 	<div class="section-head">
      <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_devices.title' }}</h2>
-	 <a class="item-control matrix-create" title="{{localize 'shadowrun6.section.matrix_devices.add' }}"><h2 class="fas fa-plus"></h2></a>
+	 <a class="item-control matrix-create" data-tooltip="shadowrun6.section.matrix_devices.add"><h2 class="fas fa-plus"></h2></a>
 	</div>
 	  <table>
 			<tr>
@@ -39,13 +39,13 @@
 			<label class="switch">
        			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
             	<span class="shadowrun6-slider round" 
-					  title="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
+					  data-tooltip="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
 					  ></span>
             </label>
 		</td>
 		 <td class="centered" style="width: 2.5em;">
-			<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
-			<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+			<a class="item-control item-edit" data-tooltip='shadowrun6.label.edit'><i class="fas fa-edit"></i></a>
+			<a class="item-control item-delete" data-tooltip='shadowrun6.label.delete'><i class="fas fa-trash"></i></a>
          </td>
        </tr>
        <tr>
@@ -71,13 +71,13 @@
 			<label class="switch">
        			<input name="matrixDeckUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
             	<span class="shadowrun6-slider round" 
-					  title="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
+					  data-tooltip="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
 					  ></span>
             </label>
 		 </td>
 		 <td class="centered" style="width: 2.5em;">
-			<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
-			<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+			<a class="item-control item-edit" data-tooltip='shadowrun6.label.edit'><i class="fas fa-edit"></i></a>
+			<a class="item-control item-delete" data-tooltip='shadowrun6.label.delete'><i class="fas fa-trash"></i></a>
          </td>
        </tr>
        <tr>
@@ -101,13 +101,13 @@
 			<label class="switch">
        			<input name="matrixDeckUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
             	<span class="shadowrun6-slider round" 
-					  title="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
+					  data-tooltip="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
 					  ></span>
             </label>
 		 </td>
 		 <td class="centered" style="width: 2.5em;">
-			<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
-			<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+			<a class="item-control item-edit" data-tooltip='shadowrun6.label.edit'><i class="fas fa-edit"></i></a>
+			<a class="item-control item-delete" data-tooltip='shadowrun6.label.delete'><i class="fas fa-trash"></i></a>
          </td>
        </tr>
        <tr>

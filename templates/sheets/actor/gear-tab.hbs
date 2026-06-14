@@ -8,7 +8,7 @@
         {{#if @root.editable}}
           <a
             class='item-control item-create'
-            title='{{localize "DOCUMENT.Create" type='Item'}}'
+            data-tooltip='{{localize "DOCUMENT.Create" type='Item'}}'
             data-action='createDoc'
             data-document-class='Item'
             data-type='gear'
@@ -31,7 +31,7 @@
             <a class='rollable' data-roll-type='item' data-action='roll'>
               <img
                 src='{{item.img}}'
-                title='{{item.name}}'
+                data-tooltip='{{item.name}}'
                 width='24'
                 height='24'
               />
@@ -43,7 +43,7 @@
         <div class='item-controls'>
           <a
             class='item-control item-edit'
-            title='{{localize "DOCUMENT.Update" type='Gear'}}'
+            data-tooltip='{{localize "DOCUMENT.Update" type='Gear'}}'
             data-action='viewDoc'
           >
             <i class='fas fa-edit'></i>
@@ -51,7 +51,7 @@
           {{#if @root.editable}}
             <a
               class='item-control item-delete'
-              title='{{localize "DOCUMENT.Delete" type='Gear'}}'
+              data-tooltip='{{localize "DOCUMENT.Delete" type='Gear'}}'
               data-action='deleteDoc'
             >
               <i class='fas fa-trash'></i>

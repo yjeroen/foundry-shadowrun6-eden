@@ -3,7 +3,7 @@
     <header class="section-head">
         <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
     
-        <div class="matrix-access-container">
+        <div class="matrix-access-container" data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level">
             <div class="matrix-access-switch">
                 <input type="radio" id="matrixAccess-{{actor.id}}-outsider" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
                 <label for="matrixAccess-{{actor.id}}-outsider">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
@@ -25,7 +25,7 @@
             <li class="section-item matrix-action" data-matrix-action-id="{{action.id}}">
                 <div class="section-row">
                     <div class="section-column">{{matrixAction action}}</div>
-                    <div class="section-name" data-action="toggleMatrixActionDesc" title="{{localize 'SR6.title.showDescription'}}">
+                    <div class="section-name" data-action="toggleMatrixActionDesc" data-tooltip="SR6.title.showDescription">
                         {{action.name}}
                     </div>
 
@@ -43,12 +43,12 @@
                             class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}"
                             data-action="matrixRoll"
                             data-matrix-id="{{action.id}}"
-                            title="{{action.skillName}}"
+                            data-tooltip="{{action.skillName}}"
                         >
                             <i class="fas fa-dice-six"></i>
                         </a>
                     {{else}}
-                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" title="{{localize 'SR6.title.noRollNeeded'}}">
+                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded">
                             <i class="fas fa-square"></i>
                         </span>
                     {{/if}}
@@ -69,7 +69,7 @@
             <li class="section-item matrix-action" data-matrix-action-id="{{action.id}}">
                 <div class="section-row">
                     <div class="section-column">{{matrixAction action}}</div>
-                    <div class="section-name" data-action="toggleMatrixActionDesc" title="{{localize 'SR6.title.showDescription'}}">
+                    <div class="section-name" data-action="toggleMatrixActionDesc" data-tooltip="SR6.title.showDescription">
                         {{action.name}}
                     </div>
 
@@ -87,12 +87,12 @@
                             class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}"
                             data-action="matrixRoll"
                             data-matrix-id="{{action.id}}"
-                            title="{{action.skillName}}"
+                            data-tooltip="{{action.skillName}}"
                         >
                             <i class="fas fa-dice-six"></i>
                         </a>
                     {{else}}
-                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" title="{{localize 'SR6.title.noRollNeeded'}}">
+                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded">
                             <i class="fas fa-square"></i>
                         </span>
                     {{/if}}

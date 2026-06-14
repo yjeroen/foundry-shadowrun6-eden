@@ -784,7 +784,8 @@
       "accessLevel": {
         "outsider": "OUTSIDER",
         "user": "USER",
-        "admin": "ADMIN"
+        "admin": "ADMIN",
+        "switch_access_level": "Click to switch access level to see which Matrix Actions are available."
       },
       "device": {
         "enable": "Enable Matrix Device",

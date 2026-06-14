@@ -172,7 +172,7 @@ export const defineHandlebarHelper = async function () {
         if (matrixAction.user) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.user') );
         if (matrixAction.admin) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.admin') );
 
-        const actionIcon = `<span title="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
+        const actionIcon = `<span data-tooltip="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
         return new Handlebars.SafeString(actionIcon);
     });
     Handlebars.registerHelper("matrixAccessLevel", function (currentAccess, matrixAction) {
