@@ -17,8 +17,7 @@
 	        <th colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
 	      </tr>
 	    </thead>
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'spell'}}
+		{{#each (sort actor.itemTypes.spell) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
       		<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
 			<td> {{item.name}}</td>
@@ -41,16 +40,15 @@
 				<a class="item-control spell-roll" data-type="Roll" data-uuid="{{item.uuid}}" data-item-id="{{item.id}}" title="Roll"><i class="fas fa-dice-six"></i></a>
 				<a class="item-control item-edit"   title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
 				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
-	   </tr>
-       <tr>
+		</tr>
+		<tr>
          <td colspan="7">
 			<div class="collapsible-content closed" style="font-size: 0.8em;">
 				<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
 				<div>{{{item.enriched.description}}}</div>
 			</div>
          </td>
-       </tr>
-		{{/iff}}
+		</tr>
 		{{/each}}
 	</table>
 </div>

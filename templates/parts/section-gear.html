@@ -15,7 +15,7 @@
 	    </thead>
 
 		{{!-- geartype is passed into section-gear.html as variable --}}
-		{{#each (itemsOfGeartype actor.itemTypes.gear geartype) as |item id|}}
+		{{#each (itemsOfSystemType actor.itemTypes.gear geartype) as |item id|}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
 			<td style="margin-right: 1rem; width: 0.7em;">
 				<button type="button" name="collapseGear{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>

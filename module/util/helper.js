@@ -119,7 +119,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("itemHasGearMods", itemHasGearMods);
     Handlebars.registerHelper("gearModsOfItem", gearModsOfItem);
     Handlebars.registerHelper("noDescOrMods", noDescOrMods);
-    Handlebars.registerHelper("itemsOfGeartype", itemsOfGeartype);
+    Handlebars.registerHelper("itemsOfSystemType", itemsOfSystemType);
     Handlebars.registerHelper("itemsOfAugSubtype", itemsOfAugSubtype);
     Handlebars.registerHelper("itemsOfGeartypeNoWeaponsOrAugs", itemsOfGeartypeNoWeaponsOrAugs);
     Handlebars.registerHelper("itemsOfWeapontype", itemsOfWeapontype);
@@ -250,14 +250,22 @@ export const defineHandlebarHelper = async function () {
         return false
     });
     Handlebars.registerHelper('sort', function (items) {
-        if (Array.isArray(items.contents)) {
-            return items.contents.slice().sort((a, b) => {
-                if (a.sort < b.sort) return -1;
-                if (a.sort > b.sort) return 1;
-                return 0;
-            });
-        }
-        return items;
+        const arrayToSort = Array.isArray(items?.contents)
+                            ? items.contents
+                            : Array.isArray(items)
+                                ? items
+                                : Array.from(items ?? []);
+
+        return arrayToSort.toSorted((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
+    });
+    Handlebars.registerHelper('sortAb', function (items) {
+        const arrayToSort = Array.isArray(items?.contents)
+                            ? items.contents
+                            : Array.isArray(items)
+                                ? items
+                                : Array.from(items ?? []);
+
+        return arrayToSort.toSorted((a, b) => a.name.localeCompare(b.name));
     });
     // intervalScale example: month
     Handlebars.registerHelper('localizePlural', function(intervalScale, number) {
@@ -354,14 +362,17 @@ function noDescOrMods(item, actor) {
 }
 function itemsOfType(items, type, sortOnSubtype = true) {
     const filtered = items.filter((elem) => getActorData(elem).type == type)
-         .sort((a, b) => a.name.localeCompare(b.name));
-    if (filtered[0]?.system.type && sortOnSubtype) filtered.sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    //      .sort((a, b) => a.name.localeCompare(b.name));
+    // if (filtered[0]?.system.type && sortOnSubtype) filtered.sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    
+    filtered.toSorted((a, b) => a.sort - b.sort);
     return filtered;
 }
-function itemsOfGeartype(items, geartype) {
+function itemsOfSystemType(items, geartype) {
     return items.filter((elem) => getSystemData(elem).type == geartype)
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                // .sort((a, b) => a.name.localeCompare(b.name))
+                // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                .toSorted((a, b) => a.sort - b.sort);
 }
 function itemsOfGeartypeNoWeaponsOrAugs(items) {
     return items.filter((elem) => {
@@ -370,8 +381,10 @@ function itemsOfGeartypeNoWeaponsOrAugs(items) {
         else if (getSystemData(elem).type === 'CYBERWARE') return false;
         else if (elem.type === 'gear') return true;
         else return false;
-    }).sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    })
+        // .sort((a, b) => a.name.localeCompare(b.name))
+        // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+        .toSorted((a, b) => a.sort - b.sort);
 }
 function itemsOfAugSubtype(items) {
     return items.filter((elem) => {
@@ -380,13 +393,16 @@ function itemsOfAugSubtype(items) {
         else if (getSystemData(elem).type === 'NANOWARE') return true;
         else if (getSystemData(elem).type === 'GENETICS') return true;
         else return false;
-    }).sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    })
+        // .sort((a, b) => a.name.localeCompare(b.name))
+        // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+        .toSorted((a, b) => a.sort - b.sort);
 }
 function itemsOfWeapontype(items) {
     return items.filter((elem) => getSystemData(elem).type?.startsWith('WEAPON_'))
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                // .sort((a, b) => a.name.localeCompare(b.name))
+                // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                .toSorted((a, b) => a.sort - b.sort);
 }
 function skillPointsNotZero(skills) {
     return Object.keys(skills)

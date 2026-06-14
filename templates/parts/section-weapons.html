@@ -4,7 +4,7 @@
      <a class="item-control weapon-create" title="{{localize 'shadowrun6.section.weapon.add' }}"><h2 class="fas fa-plus"></h2></a>
     </div>
       <table>
-        {{#each actor.itemTypes.gear as |item id|}}
+        {{#each (sort actor.itemTypes.gear) as |item id|}}
         {{#if (or (eq item.system.type "WEAPON_FIREARMS") (eq item.system.type "WEAPON_RANGED"))}}
         <tr class="item" data-item-id="{{this.id}}">
             <td style="margin-right: 1rem; width: 5%">
@@ -22,7 +22,7 @@
                 {{/iff}}
             </td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
-         	    <label class="item-pool" data-skill="{{item.system.skill}}" data-skillspec="{{item.system.skillSpec}}">{{item.system.pool}}</label>
+         	    <label class="item-pool" data-skill="{{item.system.skill}}" data-skillspec="{{item.system.skillSpec}}">{{add item.system.pool item.system.modes.dicePoolMod}}</label>
          	    <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" data-defend-with="physical" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
             <td style="width: 10%; text-align: right">
@@ -64,7 +64,7 @@
             <a class="item-control close-weapon-create" title="{{localize 'shadowrun6.section.weapon.add' }}"><h2 class="fas fa-plus"></h2></a>
         </div></td></tr>
 
-        {{#each actor.itemTypes.gear as |item id|}}
+        {{#each (sort actor.itemTypes.gear) as |item id|}}
         {{#iff item.system.type '==' "WEAPON_CLOSE_COMBAT"}}
         <tr class="item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
             <td style="margin-right: 1rem; width: 5%">
@@ -77,7 +77,7 @@
             <td style="width: 15%"><label class="middle-column" >{{{attackrating item.calculatedAttackRating}}}</label></td>
             <td style="width: 15%"></td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
-                <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
+                <label class="item-pool" data-skill="{{item.system.skill}}">{{add item.system.pool item.system.modes.dicePoolMod}}</label>
                 <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
             <td style="width: 10%; text-align: right">
@@ -121,7 +121,7 @@
             </td>
         </tr>
 
-        {{#each actor.itemTypes.gear as |item id|}}
+        {{#each (sort actor.itemTypes.gear) as |item id|}}
         {{#iff item.system.type '==' "WEAPON_SPECIAL"}}
         <tr class="item" data-item-id="{{this.id}}" title="{{sr6_description item.system 'item'}}">
             <td style="margin-right: 1rem; width: 5%">
@@ -143,7 +143,7 @@
                 {{/iff}}
             </td>
             <td class="skill-pool" style="width: 15%; text-align: right;">
-                <label class="item-pool" data-skill="{{item.system.skill}}">{{item.system.pool}}</label>
+                <label class="item-pool" data-skill="{{item.system.skill}}">{{add item.system.pool item.system.modes.dicePoolMod}}</label>
                 <a class="item-control weapon-roll" data-uuid="{{item.uuid}}" data-skill="{{item.system.skill}}" data-item-id="{{this.id}}" title="{{localize (concat "skill." item.system.skill)}}"><i class="fas fa-dice-six"></i></a>
             </td>
             <td style="width: 10%; text-align: right">

@@ -14,8 +14,7 @@
 	        <th>{{ localize 'shadowrun6.label.column.action' }}</th>
 	      </tr>
 	    </thead>
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'ritual'}}
+		{{#each (sort actor.itemTypes.ritual) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
        		<td style="width:1rem"><button type="button" name="collapseRitual{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
        		<td>{{item.name}}</td>
@@ -33,7 +32,6 @@
          	</div>
          </td>
        </tr>
-		{{/iff}}
 		{{/each}}
 	</table>
 </div>

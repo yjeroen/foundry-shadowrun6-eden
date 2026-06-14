@@ -15,8 +15,7 @@
 				<th style="padding: 0 5px 0 5px; width: 3em"> </th>
 				<th style="padding: 0 5px 0 5px; width: 2.5em"></th>
 			</tr>
- 		{{#each actor.items as |item id|}}
-		{{#if (eq item.type 'gear')}}
+ 		{{#each (sort actor.itemTypes.gear) as |item id|}}
 		{{#if (or
             (eq item.system.type "ELECTRONICS")
             (eq item.system.type "CYBERWARE"))
@@ -117,7 +116,6 @@
 			</div>
          </td>
        </tr>
-		{{/if}}
 		{{/if}}
 		{{/if}}
        {{/each}}

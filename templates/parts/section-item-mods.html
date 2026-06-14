@@ -15,8 +15,7 @@
 	      </tr>
 	    </thead>
 
-		{{#each (sort actor.items) as |item id|}}
-		{{#iff item.type '==' 'mod'}}
+		{{#each (sort actor.itemTypes.mod) as |item id|}}
 		{{#if (not item.system.embeddedInUuid) }}
 
 		<tr class="item list-item" data-item-id="{{item.id}}">
@@ -46,7 +45,6 @@
        </tr>
 	   
 		{{/if}}
-		{{/iff}}
 		{{/each}}
 </table>
 </div>

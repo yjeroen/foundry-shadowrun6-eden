@@ -15,7 +15,7 @@
 	        <th style="width: 5%; padding-right: 5px;">{{ localize 'shadowrun6.section.armor.column.action' }}</th>
 	      </tr>
 	    </thead>
- 		{{#each (itemsOfGeartype actor.itemTypes.gear "ARMOR") as |item id|}}
+ 		{{#each (itemsOfSystemType actor.itemTypes.gear "ARMOR") as |item id|}}
        <tr class="item" data-item-id="{{this.id}}"  title="{{sr6_description item.system 'item'}}">
        	<td style="margin-right: 1rem">
 			<button type="button" name="collapseArmor{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>

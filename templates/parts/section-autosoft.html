@@ -16,9 +16,7 @@
 			<th style="padding: 0 5px 0 5px; width: 3em"> </th>
 			<th style="padding: 0 5px 0 5px; width: 4rem"> </th>
 		</tr>
-		{{#each actor.items as |item id|}}
-		{{#if (eq item.type 'software')}}
-		{{#if (eq item.system.type 'AUTOSOFT')}} 
+		{{#each (itemsOfSystemType actor.itemTypes.software 'AUTOSOFT') as |item id|}}
 		<tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
 			<td title="{{item.system.description}}"><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
 			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{localize (lookup ../config.AUTOSOFT_TYPES item.system.subtype)}}</label></td>
@@ -30,8 +28,6 @@
                 </td>
 			</td>
 		</tr>
-		{{/if}}
-		{{/if}}
 		{{/each}}
 	</table>
 </div>

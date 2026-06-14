@@ -1648,7 +1648,7 @@ export default class Shadowrun6Actor extends Actor {
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);
             system.persona.living.base.d = parseInt(system.attributes["log"].pool);
             system.persona.living.base.f = parseInt(system.attributes["wil"].pool);
-            system.persona.living.base.matrix.deviceRating = parseInt(system.attributes["res"].pool);
+            system.persona.living.base.deviceRating = parseInt(system.attributes["res"].pool);
             // Initiative: Data processing + Intuition
             system.persona.initiative = new Initiative();
             system.persona.initiative.base = system.persona.living.base.d + parseInt(system.attributes["int"].pool);
