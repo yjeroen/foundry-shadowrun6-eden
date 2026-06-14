@@ -1,18 +1,18 @@
 <div class="section" style="display: inline-block; width: 48%; margin: 5px; min-width: 320px;">
- <div class="section-head">
+	<div class="section-head">
 	<h2 class="section-title">{{title}}</h2>
 		<a class="item-control {{geartype}}-create" title="{{localize 'shadowrun6.section.gear.add' }}"><h2 class="fas fa-plus"></h2></a>
-</div>
-<table class="item-list">
-	    <thead>
-	      <tr>
-	        <th style="width: 24px;"></th>
-	        <th style="text-align: left; padding-left: 3px;">{{ localize 'shadowrun6.label.column.name' }}</th>
-	        <th style="width: 5%">{{ localize 'shadowrun6.label.column.rating' }}</th>
-	        <th style="width: 10%">{{ localize 'shadowrun6.label.column.count' }}</th>
-	        <th style="width: 5%">{{ localize 'shadowrun6.label.column.action' }}</th>
-	      </tr>
-	    </thead>
+	</div>
+	<table class="item-list">
+		<thead>
+			<tr>
+			<th style="width: 24px;"></th>
+			<th style="text-align: left; padding-left: 3px;">{{ localize 'shadowrun6.label.column.name' }}</th>
+			<th style="width: 5%">{{ localize 'shadowrun6.label.column.rating' }}</th>
+			<th style="width: 10%">{{ localize 'shadowrun6.label.column.count' }}</th>
+			<th style="width: 5%">{{ localize 'shadowrun6.label.column.action' }}</th>
+			</tr>
+		</thead>
 
 		{{!-- geartype is passed into section-gear.html as variable --}}
 		{{#each (itemsOfSystemType actor.itemTypes.gear geartype) as |item id|}}
@@ -39,12 +39,12 @@
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
 				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
 			</td>
-	   </tr>
-       <tr>
-         <td colspan="5">
+		</tr>
+		<tr>
+			<td colspan="5">
 			{{> "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs" item=item actor=actor}}
-         </td>
-       </tr>
+			</td>
+		</tr>
 		{{/each}}
-</table>
+	</table>
 </div>
