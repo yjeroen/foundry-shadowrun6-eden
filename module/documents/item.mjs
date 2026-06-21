@@ -172,6 +172,7 @@ export default class SR6Item extends Item {
     if (typeof source.system?.capacity === 'string') source.system.capacity = parseInt(source.system.capacity) || 0;
     if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social) || 0;
     if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
+    if (typeof source.system?.matrix?.deviceRating === 'string') source.system.matrix.deviceRating = parseInt(source.system.matrix.deviceRating) || 0;
 
     // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
     if (source.type === "gear" && source.system?.devRating !== undefined) {
@@ -250,6 +251,16 @@ export default class SR6Item extends Item {
 
     this.system.matrix.matrixCM = new SR6ConditionMonitorField().initialize(matrixCM);
 
+  }
+
+  get onlineOnMatrix() {
+    return this.system.isElectronicMatrixDevice 
+            && 
+           (
+            ( this.system.matrix.hasWirelessInterface && this.system.matrix.wirelessActive )
+            ||
+            ( this.system.matrix.hasDataCableInterface )
+           )
   }
 
   _addDefaultFireModePenalties() {
