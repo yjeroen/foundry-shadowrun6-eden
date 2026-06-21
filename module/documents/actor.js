@@ -6,6 +6,8 @@ import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "../ItemType
 import { doRoll } from "../Rolls.js";
 import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType } from "../dice/RollTypes.js";
 import { getActor } from "../util/helper.js";
+import { SR6MatrixPanField } from "../datamodels/fields/fields.mjs";
+
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -106,14 +108,18 @@ export default class Shadowrun6Actor extends Actor {
         //     this.prepareDerivedData();
         // }
         // prepareEmbeddedDocuments() calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
+
+        
+        this._preparePAN();
+
         // TODO rework vehicles completely to not be dependent on Actor.prepareData()
         if (callSuper) super.prepareData();
 
         // Modern DataModel Actors skip legacy data load flow
         if (this.system instanceof foundry.abstract.DataModel) return;
         
-        console.log("SR6E | Shadowrun6Actor.prepareData() LEGACY START");
-        const actorData = getActorData(this);
+        console.log("SR6E | Shadowrun6Actor.prepareData() LEGACY START", this.name);
+        const actorData = getActorData(this); 
         const system = getSystemData(this);
         if (isPlayer(system)) {
             if (!system.karma)
@@ -222,8 +228,8 @@ export default class Shadowrun6Actor extends Actor {
      */
     prepareDerivedData() {
         console.log('SR6E | Shadowrun6Actor.prepareDerivedData()', this.name, this.uuid);
-        const actorData = this;
-        const flags = actorData.flags['shadowrun6-eden'] || {};
+        const flags = this.flags['shadowrun6-eden'] || {};
+
     }
     /**
      * @Override
@@ -1579,7 +1585,7 @@ export default class Shadowrun6Actor extends Actor {
         await this.update(updatedPersona);
     }
     _preparePersona() {
-        //TODO figure out what matrix.deviceRating is still used for
+        console.log("SR6E | _preparePersona", this.name);
         const actorData = getActorData(this);
         const system = getSystemData(this);
         if (!system.persona)
@@ -1610,6 +1616,7 @@ export default class Shadowrun6Actor extends Actor {
                 let item = getSystemData(tmpItem);
                 if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE" || item.subtype == "DATATERM" ) {
                     if (item.usedForPool) {
+                        system.persona.accessDevice = tmpItem;
                         system.persona.device.base.d = parseInt(item.d);
                         system.persona.device.base.f = parseInt(item.f);
                         if (!system.persona.monitor.max) {
@@ -1619,6 +1626,7 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 if (item.subtype == "CYBERDECK") {
                     if (item.usedForPool) {
+                        system.persona.accessDevice = tmpItem;
                         system.persona.device.base.a = parseInt(item.a);
                         system.persona.device.base.s = parseInt(item.s);
                         system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
@@ -1626,6 +1634,7 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 if (item.subtype == "CYBERTERM") {
                     if (item.usedForPool) {
+                        system.persona.accessDevice = tmpItem;
                         system.persona.device.base.a = parseInt(item.a);
                         system.persona.device.base.s = parseInt(item.s);
                         system.persona.device.base.d = parseInt(item.d);
@@ -1644,6 +1653,7 @@ export default class Shadowrun6Actor extends Actor {
                 system.persona.living.base = new MatrixDevice();
             if (!system.persona.living.mod)
                 system.persona.living.mod = new MatrixDevice();
+            system.persona.accessDevice = false;
             system.persona.living.base.a = parseInt(system.attributes["cha"].pool);
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);
             system.persona.living.base.d = parseInt(system.attributes["log"].pool);
@@ -1666,6 +1676,24 @@ export default class Shadowrun6Actor extends Actor {
         actorData.persona.damage = Math.ceil(actorData.persona.used.a/2);
         */
     }
+
+    _preparePAN() {
+        if (!isMatrixUser(this.system)) return;
+
+        const panData = foundry.utils.deepClone(this._source.system.pan ?? {});
+        panData.administratorUuid = this.uuid;
+        panData.name ||= `${this.name}'s PAN`;
+
+        this.system.pan = new SR6MatrixPanField().initialize(panData);
+        // Hack to make SR6DataModel.actor() work in legacy actors for things like the PAN
+        Object.defineProperty(this.system.pan, "actor", {
+            value: this,
+            enumerable: false,
+            configurable: false
+        });
+        console.log("SR6E | preparing PAN", this.name, panData);
+    }
+
     //---------------------------------------------------------
     /*
      * Calculate the attributes like Initiative
