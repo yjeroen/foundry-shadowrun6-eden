@@ -196,6 +196,7 @@ export class SR6Config {
     GEAR =  {
         TYPES_WITH_AMMO: new Set(["WEAPON_FIREARMS", "WEAPON_RANGED", "WEAPON_SPECIAL"]),
         TYPES_WITH_ALWAYS_WIFI: new Set(["WEAPON_FIREARMS", "WEAPON_SPECIAL"]),
+        SUBTYPES_MATRIX_ACCESS: new Set(["COMMLINK", "CYBERJACK", "RIGGER_CONSOLE", "DATATERM", "CYBERDECK", "CYBERTERM"]),
 
         ACCESSORY: {
             label: "shadowrun6.itemtype.ACCESSORY",
