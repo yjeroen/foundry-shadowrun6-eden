@@ -129,11 +129,11 @@ export default class SR6Item extends Item {
 
   async _checkPersonaChanges(changed) {
     console.log("SR6E | SR6Item._checkPersonaChanges()");
-    if (!this.isOwner) return false;
-    if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
-      if (changed.delete === true || changed.system?.usedForPool !== undefined) {
-        await this.parent.updatePersona();
-      }
+    if (!this.isOwner || this.type!=="gear") return false;
+
+    const GEAR = CONFIG.SR6.GEAR;
+    if ( GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
+      await this.parent.updatePersona();
     }
   }
 
