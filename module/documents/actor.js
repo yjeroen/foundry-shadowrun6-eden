@@ -1586,8 +1586,8 @@ export default class Shadowrun6Actor extends Actor {
     }
     _preparePersona() {
         console.log("SR6E | _preparePersona", this.name);
-        const actorData = getActorData(this);
-        const system = getSystemData(this);
+        const system = this.system;
+
         if (!system.persona)
             system.persona = new Persona();
         if (!system.persona.used)
@@ -1610,41 +1610,47 @@ export default class Shadowrun6Actor extends Actor {
         system.persona.device.base.s = 0;
         system.persona.device.base.d = 0;
         system.persona.device.base.f = 0;
-        actorData.items.forEach((tmpItem) => {
-            const systemItem = getSystemData(tmpItem);
-            if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
-                let item = getSystemData(tmpItem);
-                if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE" || item.subtype == "DATATERM" ) {
-                    if (item.usedForPool) {
-                        system.persona.accessDevice = tmpItem;
-                        system.persona.device.base.d = parseInt(item.d);
-                        system.persona.device.base.f = parseInt(item.f);
+
+        this.items.forEach((tmpItem) => {
+            const item = tmpItem;
+            const itemSystem = item.system;
+            const GEAR = CONFIG.SR6.GEAR;
+            if (item.type == "gear" && GEAR.SUBTYPES_MATRIX_ACCESS.has(itemSystem.subtype) ) {
+                
+                if (!item.onlineOnMatrix) return;
+
+                if (itemSystem.subtype == "COMMLINK" || itemSystem.subtype == "CYBERJACK" || itemSystem.subtype == "RIGGER_CONSOLE" || itemSystem.subtype == "DATATERM" ) {
+                    if (itemSystem.usedForPool) {
+                        system.persona.accessDevice = item;
+                        system.persona.device.base.d = parseInt(itemSystem.d);
+                        system.persona.device.base.f = parseInt(itemSystem.f);
                         if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.matrix.deviceRating : item.matrix.deviceRating) / 2 + 8;
+                            system.persona.monitor.max = parseInt(itemSystem.subtype == "COMMLINK" ? itemSystem.matrix.deviceRating : itemSystem.matrix.deviceRating) / 2 + 8;
                         }
                     }
                 }
-                if (item.subtype == "CYBERDECK") {
-                    if (item.usedForPool) {
-                        system.persona.accessDevice = tmpItem;
-                        system.persona.device.base.a = parseInt(item.a);
-                        system.persona.device.base.s = parseInt(item.s);
-                        system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
+                if (itemSystem.subtype == "CYBERDECK") {
+                    if (itemSystem.usedForPool) {
+                        system.persona.accessDevice = item;
+                        system.persona.device.base.a = parseInt(itemSystem.a);
+                        system.persona.device.base.s = parseInt(itemSystem.s);
+                        system.persona.monitor.max = parseInt(itemSystem.matrix.deviceRating) / 2 + 8;
                     }
                 }
-                if (item.subtype == "CYBERTERM") {
-                    if (item.usedForPool) {
-                        system.persona.accessDevice = tmpItem;
-                        system.persona.device.base.a = parseInt(item.a);
-                        system.persona.device.base.s = parseInt(item.s);
-                        system.persona.device.base.d = parseInt(item.d);
-                        system.persona.device.base.f = parseInt(item.f);
-                        system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
+                if (itemSystem.subtype == "CYBERTERM") {
+                    if (itemSystem.usedForPool) {
+                        system.persona.accessDevice = item;
+                        system.persona.device.base.a = parseInt(itemSystem.a);
+                        system.persona.device.base.s = parseInt(itemSystem.s);
+                        system.persona.device.base.d = parseInt(itemSystem.d);
+                        system.persona.device.base.f = parseInt(itemSystem.f);
+                        system.persona.monitor.max = parseInt(itemSystem.matrix.deviceRating) / 2 + 8;
                     }
                 }
             }
         });
         console.log("SR6E | preparePersona: device=", system.persona.device);
+
         // Living persona
         if (system.mortype == "technomancer") {
             if (!system.persona.living)
@@ -1663,18 +1669,7 @@ export default class Shadowrun6Actor extends Actor {
             system.persona.initiative = new Initiative();
             system.persona.initiative.base = system.persona.living.base.d + parseInt(system.attributes["int"].pool);
         }
-        /*
-        if (actorData.skills) {
-            // Attack pool
-            actorData.persona.attackPool = actorData.skills["cracking"].points + actorData.skills["cracking"].modifier;
-            if (actorData.skills.expertise=="cybercombat") { actorData.persona.attackPool+=3} else
-            if (actorData.skills.specialization=="cybercombat") { actorData.persona.attackPool+=2}
-            actorData.persona.attackPool += actorData.attributes["log"].pool;
-        }
-
-        // Damage
-        actorData.persona.damage = Math.ceil(actorData.persona.used.a/2);
-        */
+        
     }
 
     _preparePAN() {
