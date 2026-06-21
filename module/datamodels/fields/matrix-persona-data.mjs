@@ -33,6 +33,7 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
 
     /**
      * Returns your Matrix Cybercombat Attack Rating
+     * TODO JEROEN These getters arent compatible with Active Effects
      * @type {number}
      */
     get attackRating() {
