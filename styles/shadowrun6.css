@@ -697,6 +697,11 @@
   text-align: right;
   min-width: 70px;
 }
+
+.matrix-offline {
+  color: darkred;
+}
+
 .matrix-section .illegal-true {
   color: darkred;
 }
@@ -1275,4 +1280,8 @@ body.game .application.shadowrun6 .window-content {
     background-color: rgba(128, 0, 128, 0.17);
     padding: 0 0.5rem;
     margin-top: 0.5rem;
+}
+
+.section table.section-table tr > :not(:first-child) {
+    text-align: center;
 }
