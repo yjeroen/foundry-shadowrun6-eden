@@ -317,6 +317,10 @@ Hooks.once("init", async function () {
         releaseNoteLink.addEventListener("click", (e) => {
             game.sr6.releaseNotes({force: true});
         });
+        
+        document.body.addEventListener("dragstart", event => {
+            if ( event.target?.closest?.("a[data-sr6-link]") ) utils.onDragSR6Link(event);
+        });
 
     });
     Hooks.on("renderShadowrun6ActorSheetPC", (doc, options, userId) => {
@@ -335,7 +339,7 @@ Hooks.once("init", async function () {
      */
     Hooks.on("dropCanvasData", (canvas, data) => {
         console.log("SR6E | dropCanvasData hook called", canvas, data);
-        if (!(data.type === "Item" || data.type === "ActiveEffect")) {
+        if (!(data.type === "Item" || data.type === "ActiveEffect" || data.type === "PAN")) {
             return true;
         }
 

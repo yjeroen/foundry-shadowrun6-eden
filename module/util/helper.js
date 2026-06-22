@@ -801,6 +801,21 @@ export async function resetEdge() {
     }
 }
 
+  /**
+   * Begin a Drag+Drop workflow for a dynamic content link
+   * TODO evaluate if it should be moved to a different class like TextEditor.#onDragContentLink(event);
+   * @param {Event} event   The originating drag event
+   */
+  export function onDragSR6Link(event) {
+    event.stopPropagation();
+    const a = event.target.closest("a[data-sr6-link]");
+    const { cursor, sr6Link, tooltip, ...dragData } = { ...a.dataset };
+    console.info("SR6E | onDragSR6Link", dragData);
+
+    // No validation at drag, validate on drop
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
 // ##########################
 // Boilerplate Effect Helper
 // TODO: Unclear if this is needed
