@@ -2802,4 +2802,8 @@ export default class Shadowrun6Actor extends Actor {
         };
         await this.createEmbeddedDocuments("Item", [unarmedItemData]);  
     }
+
+    get isTechno() {
+        return Boolean( this.system.mortype === "technomancer" );
+    }
 }
