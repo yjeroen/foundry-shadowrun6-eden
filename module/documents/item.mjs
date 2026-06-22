@@ -132,7 +132,7 @@ export default class SR6Item extends Item {
     if (!this.isOwner || this.type!=="gear") return false;
 
     const GEAR = CONFIG.SR6.GEAR;
-    if ( GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
+    if ( this.parent && GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
       await this.parent.updatePersona();
     }
   }
@@ -616,6 +616,18 @@ export default class SR6Item extends Item {
   get collapsedStateOnSheet() {
     const state = this.getFlag("shadowrun6-eden","collapse-state");
     return state ?? "closed";
+  }
+
+  get isPrimaryAccessDevice() {
+    if (this.type !== "gear") return false;
+
+    return this.id === this.actor?.system?.persona?.accessDevice?.id;
+  }
+
+  get isAccessDevice() {
+    if (this.type !== "gear") return false;
+
+    return CONFIG.SR6.GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype);
   }
 
 }
