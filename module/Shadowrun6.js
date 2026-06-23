@@ -360,6 +360,25 @@ Hooks.once("init", async function () {
 
         return true;
     });
+
+    /**
+     * Create hooks on ActiveEffect to update an ActorSheet when a PAN is modified on it
+     * Rerenders the Administrator's ActorSheet if someone in the game has it open
+     */
+    for (const hook of ["createActiveEffect", "updateActiveEffect", "deleteActiveEffect"]) {
+        Hooks.on(hook, async (effect) => {
+            const panAdminChange = effect.changes?.find(change =>
+                change.key === "system.pan.administratorUuid"
+            );
+
+            const actorUuid = panAdminChange?.value;
+            if (!actorUuid) return;
+
+            const actor = fromUuidSync(actorUuid);
+            actor?.render(false);
+        });
+    }
+
     /*
      * Something has been dropped on the HotBar
      */
