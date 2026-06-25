@@ -1,6 +1,6 @@
-import { SYSTEM_NAME } from "./constants.js";
-import { SR6ChatMessageData, RollType } from "./dice/RollTypes.js";
-import { MonitorType } from "./config.js";
+import { SYSTEM_NAME } from "../constants.js";
+import { SR6ChatMessageData, RollType } from "../dice/RollTypes.js";
+import { MonitorType } from "../config.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }

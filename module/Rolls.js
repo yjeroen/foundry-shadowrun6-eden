@@ -1,4 +1,4 @@
-import { RollDialog } from "./RollDialog.js";
+import { RollDialog } from "./applications/RollDialog.js";
 import SR6Roll from "./SR6Roll.js";
 import { ConfiguredRoll, ReallyRoll, RollType } from "./dice/RollTypes.js";
 import { SYSTEM_NAME } from "./constants.js";
