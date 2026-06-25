@@ -66,7 +66,7 @@
 		{{/if}}
 		{{#if (eq item.system.subtype "CYBERDECK") }}
        <tr class="item" data-item-id="{{this.id}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseDeck{{id}}" class="collapsible persistent {{item.collapsedStateOnSheet}}"" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+       	<td style="margin-right: 1rem"><button type="button" name="collapseDeck{{id}}" class="collapsible persistent {{item.collapsedStateOnSheet}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
          <td><label class="middle-column" >{{item.system.a}}</label></td>
          <td><label class="middle-column" >{{item.system.s}}</label></td>
          <td><label class="middle-column" >-</label></td>
@@ -75,10 +75,17 @@
          <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
        	 <td>
 			<label class="switch">
-       			<input name="matrixDeckUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-            	<span class="shadowrun6-slider round" 
-					  data-tooltip="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
-					  ></span>
+				{{#if item.onlineOnMatrix}}
+       			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
+            	<span 
+					class="shadowrun6-slider round" 
+					data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
+				></span>
+				{{else}}
+				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.offline">
+					<i class="fa-solid fa-triangle-exclamation"></i>
+				</span>
+				{{/if}}
             </label>
 		 </td>
 		 <td class="centered" style="width: 2.5em;">
@@ -96,7 +103,7 @@
 		{{/if}}
 		{{#if (eq item.system.subtype "CYBERTERM") }}
        <tr class="item" data-item-id="{{this.id}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseDeck{{id}}" class="collapsible persistent {{item.collapsedStateOnSheet}}"" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+       	<td style="margin-right: 1rem"><button type="button" name="collapseDeck{{id}}" class="collapsible persistent {{item.collapsedStateOnSheet}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
          <td><label class="middle-column" >{{item.system.a}}</label></td>
          <td><label class="middle-column" >{{item.system.s}}</label></td>
          <td><label class="middle-column" >{{item.system.d}}</label></td>
@@ -105,10 +112,17 @@
          <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
        	 <td>
 			<label class="switch">
-       			<input name="matrixDeckUsedForPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-            	<span class="shadowrun6-slider round" 
-					  data-tooltip="{{#if item.system.usedForPool}}{{ localize 'shadowrun6.matrix.device.disable' }}{{else}}{{ localize 'shadowrun6.matrix.device.enable' }}{{/if}}"
-					  ></span>
+				{{#if item.onlineOnMatrix}}
+       			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
+            	<span 
+					class="shadowrun6-slider round" 
+					data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
+				></span>
+				{{else}}
+				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.offline">
+					<i class="fa-solid fa-triangle-exclamation"></i>
+				</span>
+				{{/if}}
             </label>
 		 </td>
 		 <td class="centered" style="width: 2.5em;">
