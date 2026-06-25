@@ -1442,13 +1442,6 @@
         "share_pan_joined": "{name}'s PAN Joined",
         "deviceLimit": "Remote Device Limit",
         "slavedTo": "Slaved to",
-        "usesMasterDefense": "uses master defense",
-        "usesOwnDefense": "uses own defense",
-        "defense": "Defense",
-        "unknownMaster": "Unknown Master",
-        "noAccessDevice": "No Matrix Access Device",
-        "ownerPan": "{owner}'s PAN",
-        "rollMatrixDefense": "Roll Matrix Defense",
         "column": {
           "nodes": "PAN Nodes",
           "access": "Access"
@@ -1459,12 +1452,7 @@
           "slaved-pan": "Slaved PAN",
           "primary-access-device": "Primary Access Device",
           "secondary-access-device": "Secondary Access Device",
-          "slaved-device": "Slaved Device",
-
-          "externalMasterDevice": "External Master Device",
-          "masterAccessDevice": "Master Access Device",
-          "slavedPanAccessDevice": "Slaved PAN Access Device",
-          "slavedDevice": "Slaved Device"
+          "slaved-device": "Slaved Device"
         }
       },
       "metamagic": {
