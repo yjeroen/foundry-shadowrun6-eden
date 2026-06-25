@@ -267,7 +267,7 @@
                     <ol class="pan-children">
                         {{#each child.children as |device|}}
                         <li 
-                            class="section-item pan-node pan-node-{{device.kind}} {{#if device.isOwner}}pan-node-own{{/if}} {{#if device.itemId}}item{{/if}}"
+                            class="section-item pan-node pan-node-{{device.type}} {{#if device.isOwner}}pan-node-own{{/if}} {{#if device.itemId}}item{{/if}}"
                             {{#if device.itemId}} data-item-id="{{device.itemId}}" data-document-class="Item" {{/if}}
                         >
                             <div class="section-row">
