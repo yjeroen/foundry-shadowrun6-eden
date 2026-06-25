@@ -17,3 +17,7 @@ export {default as SR6ActiveEffectConfig} from "./config/SR6ActiveEffectConfig.j
 
 import * as mixins from "./sheets/mixins/_module.mjs";
 export { mixins };
+
+
+// Other Applications
+export * as RollDialog from "./RollDialog.js"
