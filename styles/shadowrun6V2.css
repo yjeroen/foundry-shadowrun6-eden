@@ -1209,7 +1209,7 @@
     line-height: 1;
     text-align: left;
 
-    max-width: 8ch;
+    /* max-width: 8ch; */
     opacity: 1;
     transition:
         opacity 0.4s ease,
@@ -1950,7 +1950,7 @@
 }
 .item .hud.item-settings {
     --input-color: var(--text-green);
-    grid-template-columns: auto minmax(max-content, 1rem);
+    grid-template-columns: auto;
     clip-path: none;
     margin: 5px 10px 5px 5px;
     padding: 5px;
@@ -2214,4 +2214,264 @@
   box-shadow:
     inset 0 0 0.45rem rgb(230 200 255 / 0.35),
     0 0 0.75rem rgb(177 105 255 / 1);
+}
+
+
+/* ======================================================================== */
+/* ========================== MATRIX PAN SECTION ========================== */
+/* ======================================================================== */
+
+.sr6 .persona .stat-block {
+    --bg: none;
+    --accent: var(--highlight-color);
+    padding: 0;
+}
+
+.sr6 .matrix-track {
+    --text-green: #00b939;
+    --slot-off: rgba(45, 52, 60, 0.78);
+}
+.sr6 .persona .matrixCM {
+    padding: 0.15rem 0 0.15rem 0.5rem;
+    min-height: 1.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.sr6 .persona .matrixCM .matrix-track {
+    flex: 1;
+}
+
+.sr6 .persona .stat-block,
+.sr6 .pan .section-header,
+.sr6 .persona .section-header {
+    border-top: 1px solid var(--pan-summary-border);
+}
+
+.sr6 .pan {
+    --pan-tree-line-color: rgba(0, 0, 0, 0.55);
+    --pan-tree-line-size: 1px;
+    --pan-tree-indent: 1.15rem;
+    --pan-tree-branch-width: 0.75rem;
+    --pan-tree-node-y: 0.85rem;
+    --pan-summary-bg: rgb(238 238 232);
+    --pan-summary-border: rgb(200 200 192);
+}
+
+.sr6 .pan .pan-summary .item-controls {
+    display: flex;
+    align-items: center;
+}
+
+.sr6 .pan .section-header,
+.sr6 .pan .section-row {
+    grid-template-columns: minmax(0, 1fr) 5.75em 5em;
+}
+.sr6 .pan .pan-children .section-row,
+.sr6 .pan li[data-document-class="Item"] .section-row {
+    grid-template-columns: minmax(0, 1fr) max-content 5.75em 5em;
+}
+
+.sr6 .pan .section-header > :nth-child(1) {
+    text-align: left;
+}
+
+.sr6 .pan .section-header > :nth-child(2),
+.sr6 .pan .section-header > :nth-child(3) {
+    text-align: center;
+}
+
+.sr6 .pan .pan-summary {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0 0.5rem 0.35rem 0.2rem;
+    background: var(--pan-summary-bg);
+}
+
+.sr6 .pan .pan-summary strong,
+.sr6 .pan .pan-summary input {
+    text-align: left;
+    width: 90%;
+    padding: 1px 2px;
+    font-weight: bold;
+}
+
+.sr6 .pan .pan-summary input:disabled {
+    pointer-events: none;
+    user-select: none;
+    border: none;
+    background: none;
+}
+
+.sr6 .pan .pan-summary-row {
+    display: grid;
+    grid-template-columns: 1.25rem max-content minmax(0, 1fr) max-content;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 1.4rem;
+}
+
+.sr6 .pan .pan-summary-row.columns-5 {
+    grid-template-columns: 1.25rem max-content minmax(0, 1fr) max-content max-content;
+}
+
+.sr6 .pan .pan-summary-row > i {
+    width: 1.25rem;
+    text-align: center;
+    color: var(--highlight-color);
+    opacity: 0.9;
+}
+
+.sr6 .pan .pan-summary-label,
+.sr6 .pan .pan-muted {
+    opacity: 0.75;
+}
+
+.sr6 .pan .pan-summary strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sr6 .pan .pan-tree,
+.sr6 .pan .pan-children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .pan .pan-tree {
+    padding: 0.15rem 0;
+}
+
+.sr6 .pan .pan-node {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .pan .pan-node > .section-row {
+    position: relative;
+    z-index: 1;
+}
+
+.sr6 .pan .pan-children {
+    padding-left: calc(var(--pan-tree-indent) + var(--pan-tree-branch-width));
+}
+
+.sr6 .pan .pan-children > .pan-node::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--pan-tree-branch-width));
+    top: 0;
+    bottom: 0;
+    width: var(--pan-tree-line-size);
+    background: var(--pan-tree-line-color);
+    pointer-events: none;
+}
+
+.sr6 .pan .pan-children > .pan-node:last-child::before {
+    bottom: auto;
+    height: var(--pan-tree-node-y);
+}
+
+.sr6 .pan .pan-children > .pan-node::after {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--pan-tree-branch-width));
+    top: var(--pan-tree-node-y);
+    width: var(--pan-tree-branch-width);
+    height: var(--pan-tree-line-size);
+    background: var(--pan-tree-line-color);
+    pointer-events: none;
+}
+
+.sr6 .pan .pan-tree-name {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.sr6 .pan .pan-node-icon {
+    flex: 0 0 auto;
+    width: 1.1rem;
+    text-align: center;
+    opacity: 0.85;
+}
+
+.sr6 .pan .pan-node-external-master-device .pan-node-icon,
+.sr6 .pan .pan-node-master-access-device .pan-node-icon,
+.sr6 .pan .pan-node-slaved-pan-access-device .pan-node-icon {
+    color: var(--highlight-color);
+}
+
+.sr6 .pan .pan-node-own > .section-row .pan-node-icon {
+    color: var(--highlight-color);
+}
+
+.sr6 .pan .pan-node-slaved-device .pan-node-icon {
+    font-size: 0.9em;
+}
+
+.sr6 .pan .pan-node-name {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sr6 .pan .pan-role {
+    flex: 0 0 auto;
+    opacity: 0.65;
+    font-size: 0.85em;
+    padding-top: 0.15em;
+    white-space: nowrap;
+}
+
+.sr6 .pan .pan-node-slaved-device .pan-role {
+    font-size: 0.8em;
+}
+
+.sr6 .pan .pan-access {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 4.75em;
+    padding: 0.1rem 0.3rem;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.sr6 .pan .pan-access-admin {
+    color: var(--highlight-color);
+}
+
+.sr6 .pan .pan-access-user {
+    color: black;
+}
+
+.sr6 .pan .pan-access-outsider {
+    opacity: 0.6;
+}
+
+.sr6 .pan .item-controls {
+    gap: 5px;
+}
+
+.sr6 .pan .item-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.sr6 .pan .pan-node.pan-node-master-pan > .section-row,
+.sr6 .pan .pan-node.pan-node-external-master-pan > .section-row,
+.sr6 .pan .pan-node.pan-node-slaved-pan > .section-row {
+    font-weight: bold;
 }

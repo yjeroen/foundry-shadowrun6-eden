@@ -558,7 +558,6 @@ export default class SR6ItemSheet extends ItemSheet {
         const input = target.querySelector("input");;
         if (!input || input.readOnly || input.disabled) return;
         input.select();
-        console.log('JEROEN _selectInputText')
     }
 
     /** 

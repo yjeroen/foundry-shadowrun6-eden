@@ -64,6 +64,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         data.settings = {};
         data.settings.expandedSpecializations = game.settings.get(game.system.id, "expandedSpecializations");
 
+        this.preparePanData(data);
+
         console.log("SR6E | Shadowrun6ActorSheet.getData()", data);
         return data;
     }
@@ -100,6 +102,12 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find("[data-action='createDoc']").click(this._createDoc.bind(this));
             html.find("[data-action='deleteDoc']").click(this._deleteDoc.bind(this));
             html.find("[data-action='toggleEffect']").click(this._toggleEffect.bind(this));
+
+            // Persona and PAN controls
+            html.find("[data-action='onTrackClick']").click(this._onTrackClick.bind(this));
+            html.find("[data-action='toggleRunningSilent']").click(this._toggleRunningSilent.bind(this));
+            html.find("[data-action='editField']").click(this._editField.bind(this));
+            html.find("[data-action='sharePAN']").click(this._sharePAN.bind(this));
 
             // Matrix action view
             html.find(".matrix-access-switch input").click(this._onMatrixAccessSwitch.bind(this));
@@ -598,8 +606,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             };
             return this.actor.createEmbeddedDocuments("Item", [itemData]);
         });
+
+        // FoundryVTT already has this basic behavior in Sheet Appv1, but it needs updated hbs
         html.find(".item-edit").click((ev) => {
             const element = ev.currentTarget.closest(".item");
+            if (!element) return;
+            ev.stopPropagation();
+
             const item = this.actor.items.get(element.dataset.itemId);
             console.log("SR6E | Editing ", item);
             if (!item) {
@@ -810,7 +823,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const data = event.currentTarget.dataset;
         if (data.attributePath) {
             const attr = foundry.utils.getProperty(this.actor, data.attributePath);
-            console.log('JEROEN', attr, data.attributePath, this.actor);
             let rollConfig = new game.sr6.rollTypes.PreparedRoll();
             rollConfig.rollType = game.sr6.rollTypes.RollType.Common;
             
@@ -1104,6 +1116,155 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         return matrixActions;
     }
 
+    _prepareConditionMonitors(conditionMonitor) {
+        const boxes = conditionMonitor.max;
+        const dmg = conditionMonitor.dmg;
+        const slots = [];
+
+        let i = 0;
+        while (i < boxes) {
+            i++;
+            const slot = { active: true, penalty: null };
+            if (i === boxes && (i % 3) === (boxes % 3) ) {
+                slot.penalty = -1 * Math.ceil(i / 3);
+            } else if (i % 3 == 0) {
+                slot.penalty = -1 * (i / 3);
+            }
+            if (i <= dmg) {
+                slot.active = false;
+            }
+            if (i === boxes) slot.first = true;
+            if (i === 1) slot.last = true;
+            slots.unshift(slot);
+        }
+
+        return slots;
+    }
+
+    preparePanData(data) {
+        const actor = this.actor;
+        const system = actor.system;
+        // const matrix = system.matrix ?? {};
+        const pan = system.pan;
+        const persona = system.persona ?? {};
+
+        //TODO JEROEN rework for scenario of matrix access devices getting bricked or going offline
+        const matrixCM = actor.isTechno ? system.stun : persona.accessDevice?.system.matrix.matrixCM;
+        if (!matrixCM) return;
+
+        // TODO rework actor.persona or actor.system.persona
+        data.persona = {
+            name: actor.name,
+            attributes: {
+                a: persona.used.a,
+                s: persona.used.s,
+                d: persona.used.d,
+                f: persona.used.f,
+            },
+            accessDevice: persona.accessDevice,    // false if technomancer
+            attackRating: system.attackrating.matrix.pool,
+            defenseRating: system.defenserating.matrix.pool,
+            overwatchScore: system.overwatch,
+            matrixCM: this._prepareConditionMonitors(matrixCM),
+        };
+
+        // Helper to make matrix device nodes
+        const makeItemNode = (item) => {
+            const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
+            const isAccessDevice = item.isAccessDevice;
+            const belongsToSheetActor = item.parent?.uuid === actor.uuid;
+
+            return {
+                name: item.name,
+                access: belongsToSheetActor ? "admin" : ( pan.isSlaved ? "user": "admin" ),
+                icon: isPrimaryAccessDevice ? 'fa-laptop-code' : 'fa-microchip',
+                type: isPrimaryAccessDevice
+                    ? "primary-access-device"
+                    : isAccessDevice
+                        ? "secondary-access-device"
+                            : "slaved-device",
+                subtype: item.system.subtype,
+                isOwner: item.isOwner && belongsToSheetActor,
+                itemId: item.id,
+                item: { id: item.id },  // Needed for Matrix CM hbs
+                matrixCM: this._prepareConditionMonitors(item.system.matrix.matrixCM)
+            };
+        };
+
+        // Helper to make slaved pan nodes
+        const makePanNode = (slavedActor) => {
+            const slavedPan = slavedActor.system.pan;
+            const belongsToSheetActor = slavedActor.uuid === actor.uuid;
+            const primaryAccessDevice = slavedActor.system.persona.accessDevice;
+            const firstItem = (slavedActor.isTechno || !primaryAccessDevice) ? [] : [makeItemNode(primaryAccessDevice)];
+
+            const childItems = slavedActor.items
+                .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice)
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(makeItemNode);
+            
+            return {
+                uuid: slavedActor.uuid,
+                name: slavedPan.ownPanName,
+                icon: "fa-network-wired",
+                type: "slaved-pan",
+                access: !pan.isSlaved || slavedActor.uuid === this.actor.uuid ? "admin" : "user",
+                isOwner: slavedActor.isOwner && belongsToSheetActor,
+                children: [
+                    ...firstItem,
+                    ...childItems
+                ]
+            };
+        };
+
+
+        const panAdmin = pan.administrator;
+        const panAdminPrimaryAccessDevice = panAdmin.system.persona.accessDevice;
+        const panAdminFirstItem = (panAdmin.isTechno || !panAdminPrimaryAccessDevice) ? [] : [makeItemNode(panAdminPrimaryAccessDevice)];
+        const panAdminItems = panAdmin.items
+            .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice) // TODO: Filter datacable items if outsider
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(makeItemNode);
+        
+        const slavedActors = game.actors.filter(actor =>
+            actor.effects.some(effect =>
+                !effect.disabled &&
+                effect.changes?.some(change =>
+                    change.key === "system.pan.administratorUuid" &&
+                    change.value === panAdmin.uuid
+                )
+            )
+        );
+        const slavedPans = slavedActors
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(makePanNode);
+
+        const nodes = [
+            {
+                // Master Node
+                name: pan.name,
+                icon: 'fa-network-wired',
+                type: pan.isSlaved ? "external-master-pan" : "master-pan",
+                access: pan.isSlaved ? "user" : "admin",
+                isOwner: panAdmin.isOwner && !pan.isSlaved,
+                children: [
+                    ...panAdminFirstItem,
+                    ...panAdminItems,
+                    ...slavedPans
+                ]
+            }
+        ];
+        
+        data.pan = {
+            access: pan.isSlaved ? "user" : "admin",
+            nodes: nodes,
+        }
+
+        /**
+         * data object is used in getData()
+         */
+    }
+
     async _render(...args) {
         await super._render(...args);
 
@@ -1129,8 +1290,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     async _viewDoc(event, target) {
         if (target === undefined) target = event.target;
         const doc = this._getEmbeddedDocument(target);
-        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _viewDoc");
-        doc.sheet.render(true);
+        console.log("SR6E | Shadowrun6ActorSheet | _viewDoc");
+        doc?.sheet.render(true);
     }
 
     /**
@@ -1143,7 +1304,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      */
     async _createDoc(event, target) {
         if (target === undefined) target = event.target;
-        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _createDoc");
+        console.log("SR6E | Shadowrun6ActorSheet | _createDoc");
         // Retrieve the configured document class for Item or ActiveEffect
         const docCls = getDocumentClass(target.dataset.documentClass);
         // Prepare the document creation data by initializing it a default name.
@@ -1180,7 +1341,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      */
     async _deleteDoc(event, target) {
         if (target === undefined) target = event.target;
-        console.log("SR6E | Shadowrun6ActorSheet | ActiveEffect _deleteDoc");
+        console.log("SR6E | Shadowrun6ActorSheet | _deleteDoc");
         const confirm = await foundry.applications.api.DialogV2.confirm({
             window: { title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize("DOCUMENT.ActiveEffect") }) },
             content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.localize("DOCUMENT.ActiveEffect") })}</p>`,
@@ -1190,7 +1351,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if(!confirm) return;
         
         const doc = this._getEmbeddedDocument(target);
-        await doc.delete();
+        await doc?.delete();
     }
 
     /**
@@ -1208,6 +1369,173 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         await effect.update({ disabled: !effect.disabled });
     }
 
+    async _toggleRunningSilent(event) {
+        console.log("SR6E | Shadowrun6ActorSheet | _toggleRunningSilent");
+        const actor = this.actor;
+        await actor.update({ 'system.persona.runningSilent': !actor.system.persona.runningSilent });
+    }
+
+    async _editField(event) {
+        const editButton = event.currentTarget;
+        console.log("SR6E | Shadowrun6ActorSheet | _updatePanName", editButton);
+
+        const row = editButton.closest(".pan-summary-row");
+        const input = row.querySelector("input[data-field]");
+
+        input.disabled = false;
+        input.focus();
+        input.select();
+
+        editButton.classList.add("hidden");
+    }
+
+    async _sharePAN(event) {
+        const msg = `
+        <div class="system-message">
+            <p><em>${game.i18n.format("shadowrun6.section.pan.share_message1", { name: this.actor.name })}</em></p>
+            <p>${game.i18n.localize("shadowrun6.section.pan.share_message2")}</p>
+            <p>
+                <a 
+                    class="content-link" draggable="true" data-sr6-link
+                    data-administrator-uuid="${this.actor.uuid}" data-administrator-name="${this.actor.name}"
+                    data-type="PAN" data-tooltip="shadowrun6.section.pan.share_tooltip"
+                >
+                    ${game.i18n.format("shadowrun6.section.pan.share_join_pan", { name: this.actor.name })}
+                </a>
+            </p>
+        </div>
+        <div class="chat-tooltip">${game.i18n.localize("shadowrun6.section.pan.share_message3")}</div>
+        `;
+        
+        await ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            flavor: game.i18n.localize("shadowrun6.section.pan.share_flavor"),
+            content: msg
+        });
+    }
+
+    async _onDrop(event) {
+        const data = TextEditor.implementation.getDragEventData(event);
+        console.log("SR6E | Shadowrun6ActorSheet | _onDrop", data);
+        const actor = this.actor;
+        const allowed = Hooks.call("dropActorSheetData", actor, this, data);
+        if ( allowed === false ) return;
+
+        // Handle different data types
+        switch ( data.type ) {
+            case "PAN":
+                return this._onDropPan(event, data);
+            default:
+                return super._onDrop(event);
+        }
+    }
+
+    /**
+     * Handle the dropping of PAN data onto an Actor Sheet, which will create a custom Active Effect
+     * @param {DragEvent} event                  The concluding DragEvent which contains drop data
+     * @param {object} data                      The data transfer extracted from the event
+     * @returns {Promise<ActiveEffect|boolean>}  The created ActiveEffect object or false if it couldn't be created.
+     * @protected
+     */
+    async _onDropPan(event, data) {
+        console.log("SR6E | Shadowrun6ActorSheet | _onDropPan", data);
+        if (!this.actor.isOwner) return false;
+        if (this.actor.uuid === data.administratorUuid) return false;
+
+        const aeCls = getDocumentClass("ActiveEffect");
+        const effectData = {
+            name: game.i18n.format("shadowrun6.section.pan.share_pan_joined", { name: data.administratorName }),
+            img: "systems/shadowrun6-eden/icons/fa-network-wired-solid.svg",
+            origin: data.administratorUuid,
+            system: { advanced: true },
+            changes: [{
+                key: "system.pan.administratorUuid",
+                mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                value: data.administratorUuid
+            }]
+        };
+
+        const currentPanEffects = this.actor.effects.filter(effect =>
+            effect.changes.some(change => change.key === "system.pan.administratorUuid")
+        );
+        await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
+
+        return await aeCls.create(effectData, { parent: this.actor });
+    }
+
+    /**
+     * Handling clicking on the Matrix Track
+     *
+     * @this SR6ItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @private
+     */
+    async _onTrackClick(event) {
+        const system = this.actor.system;
+        const TECHNOMANCER = this.actor.isTechno;
+
+        const target = event.target;       // div.slot
+        const html = event.currentTarget;  // div.track
+
+        const accessDevice = this.actor.items.get(html.dataset.itemId);
+        const conditionMonitor = html.dataset.conditionMonitor;
+        
+        const slotClicked = target.closest(".slot");
+        const track = target.closest(".track");
+        const tracks = target.closest(".matrix-track");
+        if (!slotClicked || !track || track.classList.contains('inactive')) return; // clicked outside a slot or track is inactive
+
+        const allSlots = [...track.querySelector(".slots").children];
+        const index = allSlots.indexOf(slotClicked);
+        console.log(`SR6E | _onTrackClick | Condition Monitor: ${conditionMonitor} | Slot clicked: ${index}`);
+
+        // Toggling slots up to where clicked
+        const clickedWasActive = slotClicked.classList.contains("active");
+        const maxActiveIndex = clickedWasActive ? index - 1 : index;
+        allSlots.forEach((slot, i) => {
+            slot.classList.toggle("active", i <= maxActiveIndex);
+        });
+
+        // Pulsating track
+		track.classList.add('is-pulsing'); // animation
+		tracks.classList.add('inactive');
+		
+        // Track Config
+        let trackColor, attr, deltaTrack, document;
+        let newValue = maxActiveIndex + 1;
+        if (conditionMonitor === "matrix") {
+            trackColor = "green"
+        }
+
+        if (TECHNOMANCER) {
+            document = this.actor;
+            attr = "system.stun.value";
+            deltaTrack = newValue - system.stun.value;
+        }
+        else {
+            document = accessDevice;
+            attr = "system.matrix.matrixCM.value";
+            deltaTrack = newValue - accessDevice.system.matrix.matrixCM.value;
+        }
+
+        // TODO Showing delta within portrait
+        // const combatText = event.currentTarget.querySelector('.track-delta');
+        // combatText.textContent = `${deltaTrack > 0 ? "+" : ""}${deltaTrack}`;
+        // combatText.classList.remove('disabled', 'is-pulsing', 'red', 'blue', 'green');
+        // combatText.classList.add('is-pulsing', trackColor); // animation
+
+        // combatText.onanimationend = () => {
+            setTimeout(() => {
+                // combatText.classList.add('disabled'); // animation
+                setTimeout(() => {
+                    // Update actor and re-render sheet
+                    console.log(`SR6E | _onTrackClick | Updating`, document.documentName, attr, newValue);
+                    document.update({ [attr]: newValue });
+                }, 200);
+            }, 200);
+        // };   
+    }
+
     /**
      * Fetches the embedded document representing the containing HTML element
      *
@@ -1216,9 +1544,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      */
     _getEmbeddedDocument(target) {
         const docRow = target.closest('li[data-document-class]');
-        if (docRow.dataset.documentClass === 'Item') {
+        if (docRow?.dataset?.documentClass === 'Item') {
             return this.actor.items.get(docRow.dataset.itemId);
-        } else if (docRow.dataset.documentClass === 'ActiveEffect') {
+        } else if (docRow?.dataset?.documentClass === 'ActiveEffect') {
             const parent =
             docRow.dataset.parentId === this.actor.id
                 ? this.actor

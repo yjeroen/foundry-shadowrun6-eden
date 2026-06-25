@@ -442,7 +442,8 @@ button.collapsible.empty {
   display: inline-block;
   vertical-align: middle;
   width: 36px;
-  height:14px;
+  height: 14px;
+  text-align: center;
 }
 
 /* Hide default HTML checkbox */

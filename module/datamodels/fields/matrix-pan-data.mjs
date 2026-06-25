@@ -20,6 +20,10 @@ export default class SR6MatrixPAN extends SR6DataModel {
         return this.administrator.system?.pan?._name || `${this.administrator.name}'s PAN`;;
     }
 
+    get ownPanName() {
+        return this._name || `${this.actor.name}'s PAN`;;
+    }
+
     get isSlaved() {
         return this.administratorUuid !== this.actor.uuid;
     }
@@ -28,9 +32,10 @@ export default class SR6MatrixPAN extends SR6DataModel {
      * Personal Remote Device Limit, is dependent on your own Persona, not based on a PAN coordinator
      */
     get deviceLimit() {
-        const TECHNOMANCER = Boolean( this.actor.system.mortype == "technomancer" );
         const persona = this.actor.system.persona ?? {};
-        const remoteDeviceLimit = TECHNOMANCER ? persona.living?.base?.deviceRating : persona.accessDevice?.system?.matrix?.deviceRating;
+        // const TECHNOMANCER = Boolean( this.actor.system.mortype == "technomancer" );
+        // const remoteDeviceLimit = persona.living?.base?.deviceRating : persona.accessDevice?.system?.matrix?.deviceRating;
+        const remoteDeviceLimit = persona.used?.d;
         return remoteDeviceLimit;
     }
 

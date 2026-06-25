@@ -1432,6 +1432,14 @@
         "title": "Personal Area Network",
         "administrator": "Administrator's Persona",
         "name": "PAN Name",
+        "share": "Share your PAN via chat message to your chummers.",
+        "share_flavor": "//ENCRYPTED MESSAGE//",
+        "share_message1": "{name} would like to share their Personal Area Network (PAN) with you.",
+        "share_message2": "Do you accept?",
+        "share_message3": "Drag this effect onto your character sheet or token.",
+        "share_tooltip": "Dragging this onto your character sheet or token creates an Effect to join a PAN.",
+        "share_join_pan": "Join {name}'s PAN",
+        "share_pan_joined": "{name}'s PAN Joined",
         "deviceLimit": "Remote Device Limit",
         "slavedTo": "Slaved to",
         "usesMasterDefense": "uses master defense",
@@ -1448,6 +1456,7 @@
         "role": {
           "external-master-pan": "External Master PAN",
           "master-pan": "Master PAN",
+          "slaved-pan": "Slaved PAN",
           "primary-access-device": "Primary Access Device",
           "secondary-access-device": "Secondary Access Device",
           "slaved-device": "Slaved Device",
@@ -2425,7 +2434,10 @@
       "rollSomething": "Roll {typeOfRoll}",
       "matrixCmPenalty": "Your Electronic Matrix Device is damaged via the Matrix.",
       "createsPersona": "Your Persona is created by the main device you use to access the Matrix.",
-      "running_silent": "Toggle Running Silent"
+      "running_silent": "Toggle Running Silent",
+      "pan": "A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.",
+      "pan_admin": "The PAN Leader, it's Administrator, serves as the controlelr of the entire network. This persona’s Matrix stats and mental stats will form the defense pool for Matrix Actions against the entire team network",
+      "deviceLimit": "A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit. Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user. This device limit remains reserved for your own sub-PAN."
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",
