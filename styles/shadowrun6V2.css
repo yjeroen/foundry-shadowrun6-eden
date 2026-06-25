@@ -2218,7 +2218,7 @@
 
 
 /* ======================================================================== */
-/* ========================== MATRIX PAN SECTION ========================== */
+/* ===================== MATRIX PERSONA & PAN SECTION ===================== */
 /* ======================================================================== */
 
 .sr6 .persona .stat-block {
@@ -2311,10 +2311,6 @@
     min-height: 1.4rem;
 }
 
-.sr6 .pan .pan-summary-row.columns-5 {
-    grid-template-columns: 1.25rem max-content minmax(0, 1fr) max-content max-content;
-}
-
 .sr6 .pan .pan-summary-row > i {
     width: 1.25rem;
     text-align: center;
@@ -2398,12 +2394,6 @@
     width: 1.1rem;
     text-align: center;
     opacity: 0.85;
-}
-
-.sr6 .pan .pan-node-external-master-device .pan-node-icon,
-.sr6 .pan .pan-node-master-access-device .pan-node-icon,
-.sr6 .pan .pan-node-slaved-pan-access-device .pan-node-icon {
-    color: var(--highlight-color);
 }
 
 .sr6 .pan .pan-node-own > .section-row .pan-node-icon {
