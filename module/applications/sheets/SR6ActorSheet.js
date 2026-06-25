@@ -1176,56 +1176,59 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
             return {
                 name: item.name,
-                access: belongsToSheetActor ? "admin" : ( pan.isSlaved ? "user": "admin" ),
-                icon: isPrimaryAccessDevice ? 'fa-laptop-code' : 'fa-microchip',
+                access: belongsToSheetActor ? "admin" : (pan.isSlaved ? "user" : "admin"),
+                icon: isPrimaryAccessDevice ? "fa-laptop-code" : "fa-microchip",
                 type: isPrimaryAccessDevice
                     ? "primary-access-device"
                     : isAccessDevice
                         ? "secondary-access-device"
-                            : "slaved-device",
+                        : "slaved-device",
                 subtype: item.system.subtype,
                 isOwner: item.isOwner && belongsToSheetActor,
                 itemId: item.id,
-                item: { id: item.id },  // Needed for Matrix CM hbs
+                item: { id: item.id }, // Needed for Matrix CM hbs
                 matrixCM: this._prepareConditionMonitors(item.system.matrix.matrixCM)
             };
+        };
+
+        // Helper to make all matrix device nodes for an actor
+        const makeActorItemNodes = (targetActor) => {
+            const primaryAccessDevice = targetActor.system.persona.accessDevice;
+
+            const firstItem = targetActor.isTechno || !primaryAccessDevice
+                ? []
+                : [makeItemNode(primaryAccessDevice)];
+
+            const childItems = targetActor.items
+                .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice)
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(makeItemNode);
+
+            return [
+                ...firstItem,
+                ...childItems
+            ];
         };
 
         // Helper to make slaved pan nodes
         const makePanNode = (slavedActor) => {
             const slavedPan = slavedActor.system.pan;
             const belongsToSheetActor = slavedActor.uuid === actor.uuid;
-            const primaryAccessDevice = slavedActor.system.persona.accessDevice;
-            const firstItem = (slavedActor.isTechno || !primaryAccessDevice) ? [] : [makeItemNode(primaryAccessDevice)];
 
-            const childItems = slavedActor.items
-                .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice)
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map(makeItemNode);
-            
             return {
                 uuid: slavedActor.uuid,
                 name: slavedPan.ownPanName,
                 icon: "fa-network-wired",
                 type: "slaved-pan",
-                access: !pan.isSlaved || slavedActor.uuid === this.actor.uuid ? "admin" : "user",
+                access: !pan.isSlaved || slavedActor.uuid === actor.uuid ? "admin" : "user",
                 isOwner: slavedActor.isOwner && belongsToSheetActor,
-                children: [
-                    ...firstItem,
-                    ...childItems
-                ]
+                children: makeActorItemNodes(slavedActor)
             };
         };
 
-
         const panAdmin = pan.administrator;
-        const panAdminPrimaryAccessDevice = panAdmin.system.persona.accessDevice;
-        const panAdminFirstItem = (panAdmin.isTechno || !panAdminPrimaryAccessDevice) ? [] : [makeItemNode(panAdminPrimaryAccessDevice)];
-        const panAdminItems = panAdmin.items
-            .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice) // TODO: Filter datacable items if outsider
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map(makeItemNode);
-        
+        const panAdminItems = makeActorItemNodes(panAdmin);
+
         const slavedActors = game.actors.filter(actor =>
             actor.effects.some(effect =>
                 !effect.disabled &&
@@ -1235,6 +1238,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 )
             )
         );
+
         const slavedPans = slavedActors
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(makePanNode);
@@ -1243,22 +1247,21 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             {
                 // Master Node
                 name: pan.name,
-                icon: 'fa-network-wired',
+                icon: "fa-network-wired",
                 type: pan.isSlaved ? "external-master-pan" : "master-pan",
                 access: pan.isSlaved ? "user" : "admin",
                 isOwner: panAdmin.isOwner && !pan.isSlaved,
                 children: [
-                    ...panAdminFirstItem,
                     ...panAdminItems,
                     ...slavedPans
                 ]
             }
         ];
-        
+
         data.pan = {
             access: pan.isSlaved ? "user" : "admin",
             nodes: nodes,
-        }
+        };
 
         /**
          * data object is used in getData()
@@ -1472,11 +1475,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      */
     async _onTrackClick(event) {
         const system = this.actor.system;
-        const TECHNOMANCER = this.actor.isTechno;
 
         const target = event.target;       // div.slot
         const html = event.currentTarget;  // div.track
 
+        const techoCmClicked = this.actor.isTechno && !html.dataset?.itemId;
         const accessDevice = this.actor.items.get(html.dataset.itemId);
         const conditionMonitor = html.dataset.conditionMonitor;
         
@@ -1507,7 +1510,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             trackColor = "green"
         }
 
-        if (TECHNOMANCER) {
+        if (techoCmClicked) {
             document = this.actor;
             attr = "system.stun.value";
             deltaTrack = newValue - system.stun.value;
