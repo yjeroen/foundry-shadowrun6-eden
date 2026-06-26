@@ -716,6 +716,10 @@ a.item-control.disabled-roll:hover {
   cursor: unset;
 }
 
+.matrix-section .reference-label {
+  opacity: 0.4;
+}
+
 .matrix-access-switch input[type="radio"],
 .matrix-access-switch input[type="checkbox"] {
   display:none;

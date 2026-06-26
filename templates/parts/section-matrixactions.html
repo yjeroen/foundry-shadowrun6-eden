@@ -1,8 +1,9 @@
 <div class="section matrix-section" style="display: inline-block; min-width: 384px;">
 	<div class="section-head">
-		<h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+		<h2 class="section-title" data-tooltip="shadowrun6.matrix.reference.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+		<div class="reference-label" data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</div>
 		<div class="matrix-access-container" data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level">
-			<div class="matrix-access-switch">
+			<div class="matrix-access-switch free-choice">
 				<input type="radio" id="matrixAccess-{{actor.id}}-outsider" name="matrixAccess-{{actor.id}}" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
 				<label for="matrixAccess-{{actor.id}}-outsider">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
 				
@@ -22,7 +23,7 @@
 		<div style="break-inside: avoid;">
        	<div class="item" data-matrix-action-id="{{actionId}}" style="display: flex; font-size:small; align-items:center; border-bottom: 0.5px dashed rgba(255, 255, 255, 0.5);">
        		<label style="width: 15px; margin-right: 2px;">{{matrixAction action}}</label>
-			<label style="flex-grow:10" class="collapsible closed"><label>{{action.name}}</label></label>
+			<label style="flex-grow:10; line-height: 1;" class="collapsible closed"><label>{{action.name}}</label></label>
          	{{#if (ne (matrixPool actionId ../actor) 0)}}
          	<div class="skill-pool">
          		<label class="item-pool">{{matrixPool actionId ../actor}}</label>

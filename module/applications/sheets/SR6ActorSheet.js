@@ -114,7 +114,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find("[data-action='sharePAN']").click(this._sharePAN.bind(this));
 
             // Matrix action view
-            html.find(".matrix-access-switch input").click(this._onMatrixAccessSwitch.bind(this));
+            html.find(".matrix-access-switch.free-choice input").click(this._onMatrixAccessSwitch.bind(this));
             html.find(".matrix-persona-attributes .matrix-attribute").click(this._onMatrixAttributesSwitch.bind(this));
 
             html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
