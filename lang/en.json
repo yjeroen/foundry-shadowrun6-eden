@@ -787,6 +787,8 @@
         "outsider": "OUTSIDER",
         "user": "USER",
         "admin": "ADMIN",
+        "tooltip_sheetOwner_true": "{name}'s Access Level to {device}",
+        "tooltip_sheetOwner_false": "Your Access Level to target {device}",
         "switch_access_level": "Click to switch access level to see which Matrix Actions are available.",
         "access_level_device": "<p>This is your current Access Level to this device.</p><p>Click to switch access level after you have used <em>Backdoor Entry</em> or <em>Brute Force</em>.</p>",
         "access_level_device_admin": "<p>This is your current Access Level to this device.</p><p>You are ADMIN due to this being your device or you being PAN Administrator.</p>"

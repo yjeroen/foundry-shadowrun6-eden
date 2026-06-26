@@ -164,7 +164,9 @@
                 </div>
 
                 <div class="section-column">
-                    <span class="pan-access pan-access-{{node.access}}">
+                    <span class="pan-access pan-access-{{node.access}}"
+                          data-tooltip="{{localize (concat "shadowrun6.matrix.accessLevel.tooltip_sheetOwner_" @root.actor.isOwner) name=@root.actor.name device=node.name}}"
+                    >
                         {{ localize (concat 'shadowrun6.matrix.accessLevel.' node.access)}}
                     </span>
                 </div>
@@ -226,7 +228,9 @@
 
                         <div class="section-column">
                             {{#if child.access}}
-                            <span class="pan-access pan-access-{{child.access}}">
+                            <span class="pan-access pan-access-{{child.access}}"
+                                  data-tooltip="{{localize (concat "shadowrun6.matrix.accessLevel.tooltip_sheetOwner_" @root.actor.isOwner) name=@root.actor.name device=child.name}}"
+                            >
                                 {{ localize (concat 'shadowrun6.matrix.accessLevel.' child.access)}}
                             </span>
                             {{/if}}
@@ -297,7 +301,7 @@
 
                                 <div class="section-column">
                                     {{#if (and device.matrixCM (ne device.access "outsider"))}}
-                                    <div class="matrixCM {{#unless child.isOwner}}inactive{{/unless}}">
+                                    <div class="matrixCM {{#unless device.isOwner}}inactive{{/unless}}">
                                         {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=device.matrixCM item=device.item }}
                                     </div>
                                     {{/if}}
@@ -305,7 +309,9 @@
                                 
                                 <div class="section-column">
                                     {{#if device.access}}
-                                    <span class="pan-access pan-access-{{device.access}}">
+                                    <span class="pan-access pan-access-{{device.access}}"
+                                          data-tooltip="{{localize (concat "shadowrun6.matrix.accessLevel.tooltip_sheetOwner_" @root.actor.isOwner) name=@root.actor.name device=device.name}}"
+                                    >
                                         {{ localize (concat 'shadowrun6.matrix.accessLevel.' device.access)}}
                                     </span>
                                     {{/if}}

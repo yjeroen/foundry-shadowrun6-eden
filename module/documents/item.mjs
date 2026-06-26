@@ -623,14 +623,17 @@ export default class SR6Item extends Item {
 
   get isPrimaryAccessDevice() {
     if (this.type !== "gear") return false;
-
     return this.id === this.actor?.system?.persona?.accessDevice?.id;
   }
 
   get isAccessDevice() {
     if (this.type !== "gear") return false;
-
     return CONFIG.SR6.GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype);
+  }
+
+  yourMatrixAccessLevel(actorUuid) {
+    const safeUuid = actorUuid.replaceAll(".", "_");
+    return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
   }
 
 }
