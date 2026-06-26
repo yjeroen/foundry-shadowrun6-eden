@@ -72,7 +72,7 @@ export const MatrixSheetMixin = Base => class extends Base {
      */
     static async _onSwitchMatrixAccess(event, target) {
         const newAccessLevel = target.value;
-        console.log("SR6E | _onSwitchMatrixAccess to:", newAccessLevel, target.value);
+        console.log("SR6E | _onSwitchMatrixAccess to:", newAccessLevel);
         await new Promise(resolve => setTimeout(resolve, 500));
         // wait until CSS effect is ready
         await this.document.setFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`, newAccessLevel)
