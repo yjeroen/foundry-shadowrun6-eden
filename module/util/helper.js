@@ -338,6 +338,13 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("dotsToDashes", function (value) {
         return String(value).split(".").join("-");
     });
+    
+    Handlebars.registerHelper("sr6Icon", function (value) {
+        const sr6Icons = CONFIG.SR6.icon;
+        const iconHtml = sr6Icons[value]
+        return new Handlebars.SafeString( iconHtml );
+    });
+
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
