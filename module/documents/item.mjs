@@ -232,7 +232,10 @@ export default class SR6Item extends Item {
     if (!this.system.isElectronicMatrixDevice) return;
     console.log("SR6E | SR6Item | preparing Gear item as an Electronic Matrix Device");
     
-    if (GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.system.type)) {
+    if (
+      GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.system.type)
+      || GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype)
+    ) {
       this.system.matrix.hasWirelessInterface =  true;
     }
 

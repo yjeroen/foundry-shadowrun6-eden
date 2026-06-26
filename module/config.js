@@ -176,7 +176,7 @@ export class SR6Config {
         4: "4",
         5: "5",
         6: "6",
-        7: "7"
+        7: "7",
     };
     QUALITY_CATEGORIES = {
         ADVANTAGE: "QUALITY_CATEGORIES.ADVANTAGE",
@@ -191,12 +191,26 @@ export class SR6Config {
         NEVER: 0,
         OPTIONAL: 1,
         ALWAYS: 2,
-    }
+    };
 
-    GEAR =  {
-        TYPES_WITH_AMMO: new Set(["WEAPON_FIREARMS", "WEAPON_RANGED", "WEAPON_SPECIAL"]),
-        TYPES_WITH_ALWAYS_WIFI: new Set(["WEAPON_FIREARMS", "WEAPON_SPECIAL"]),
-        SUBTYPES_MATRIX_ACCESS: new Set(["COMMLINK", "CYBERJACK", "RIGGER_CONSOLE", "DATATERM", "CYBERDECK", "CYBERTERM"]),
+    GEAR = {
+        TYPES_WITH_AMMO: new Set([
+            "WEAPON_FIREARMS",
+            "WEAPON_RANGED",
+            "WEAPON_SPECIAL",
+        ]),
+        TYPES_WITH_ALWAYS_WIFI: new Set([
+            "WEAPON_FIREARMS",
+            "WEAPON_SPECIAL"
+        ]),
+        SUBTYPES_MATRIX_ACCESS: new Set([   // Also always have wifi
+            "COMMLINK",
+            "CYBERJACK",
+            "RIGGER_CONSOLE",
+            "DATATERM",
+            "CYBERDECK",
+            "CYBERTERM",
+        ]),
 
         ACCESSORY: {
             label: "shadowrun6.itemtype.ACCESSORY",
@@ -546,7 +560,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.LARGE_DRONES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONALWAYSAL,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
             },
         },
@@ -3760,5 +3774,27 @@ export class SR6Config {
             street_wyrd: "PDF.code.street_wyrd",
             tarnished_star: "PDF.code.tarnished_star",
         },
+    };
+
+    icon = {
+        // AUTHOR: Richard9394 | LICENSE: Apache License | https://www.svgrepo.com/svg/431315/terminal-box
+        terminal: `<i class="sr6-icon sr6-icon-terminal" aria-hidden="true">
+                        <svg viewBox="3 3 18 18" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                            <path
+                            class="sr6-icon-primary"
+                            d="m 19,3 c 1.1046,0 2,0.89543 2,2 v 14 c 0,1.1046 -0.8954,2 -2,2 H 5 C 3.89543,21 3,20.1046 3,19 V 5 C 3,3.89543 3.89543,3 5,3 Z m 0,2 H 5 v 14 h 14 z m -2.9999,9.0001 c 0.5523,0 1,0.4477 1,1 0,0.51285 -0.386027,0.935509 -0.883376,0.993273 L 16.0001,16.0001 h -2 c -0.5523,0 -1,-0.4477 -1,-1 0,-0.51285 0.386027,-0.935509 0.883376,-0.993272 L 14.0001,14.0001 Z M 9.05037,8.46459 11.8788,11.293 c 0.3905,0.3905 0.3905,1.0237 0,1.4142 l -2.82843,2.8285 c -0.39052,0.3905 -1.02369,0.3905 -1.41421,0 -0.39053,-0.3906 -0.39053,-1.0237 0,-1.4143 L 9.75748,12.0001 7.63616,9.8788 c -0.39053,-0.39052 -0.39053,-1.02369 0,-1.41421 0.39052,-0.39053 1.02369,-0.39053 1.41421,0 z"
+                            />
+                        </svg>
+                    </i>`,
+        // Edited by yeroon | AUTHOR: boxicons | LICENSE: CC Attribution License | https://www.svgrepo.com/svg/334935/terminal
+        darkTerminal: `<i class="sr6-icon sr6-icon-darkTerminal" aria-hidden="true">
+                            <svg viewBox="0 0 16.05 16.05" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                                <path
+                                class="sr6-icon-primary"
+                                d="M 14.048753,0 H 2.0012469 C 0.89598875,0 0,0.89822872 0,2.00625 v 12.0375 C 0,15.151771 0.89598875,16.05 2.0012469,16.05 H 14.048753 C 15.154011,16.05 16.05,15.151771 16.05,14.04375 V 2.00625 C 16.05,0.89822872 15.154011,0 14.048753,0 Z M 3.2155175,12.163584 1.5606359,10.565166 3.8550655,8.025 1.5606359,5.4848344 3.2155175,3.8864156 6.8648286,8.025 Z M 14.369364,12.0975 H 7.785 V 9.91125 h 6.584364 z"
+                                />
+                            </svg>
+                        </i>`,
+        
     };
 }
