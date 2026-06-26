@@ -1428,7 +1428,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (canvas.tokens.controlled.length > 1) return ui.notifications.warn("shadowrun6.ui.notifications.Select_a_single_token", { localize: true });
 
         const initiator = canvas.tokens.controlled[0].actor || game.user.character;
-        const matrixSheet = new SR6MatrixOperationSheet({ document: item, initiator: initiator });
+        const matrixSheet = new SR6MatrixOperationSheet({ document: item, initiator: initiator, launcher: this });
+        await this.minimize();
         matrixSheet.render(true);
     }
 
