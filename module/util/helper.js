@@ -488,7 +488,7 @@ function getSpellFeatures(spell) {
     }
     return ret.join(", ");
 }
-function getMatrixActionPool(key, actor) {
+export function getMatrixActionPool(key, actor) {
     const action = CONFIG.SR6.MATRIX_ACTIONS[key];
     const skill = getSystemData(actor).skills[action.skill];
     let pool = 0;
