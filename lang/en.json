@@ -1214,6 +1214,7 @@
       },
       "apply_damage": "Apply damage",
       "create": "Create your own Shadowrun Dice Pool",
+      "click_chat": "Click to show the dice rolled and to spend Edge",
       "damage_applied": "Damage applied",
       "damage_revert": "Revert damage back?",
       "ar_0": "Close",

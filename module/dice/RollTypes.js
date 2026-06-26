@@ -432,7 +432,8 @@ export class MatrixActionRoll extends SkillRoll {
     constructor(actor, action) {
         super(actor, action.skill);
         this.action = action;
-        this.skillSpec = this.action.spec;
+        this.skillSpec = action.spec;
+        this.description = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
     }
 }
 export class VehicleRoll extends PreparedRoll {
@@ -477,12 +478,16 @@ export class ConfiguredRoll extends CommonRollData {
     targetIds;
     threshold;
     legwork;
-    /* This methods is a horrible crime - there must be a better solution */
+    /**
+     * This methods is a horrible crime - there must be a better solution 
+     * JEROEN THIS COPIES FROM THE ORIGINAL MatrixActionRoll.contructor() TO THE configured IN THE CHAT MESSAGE!
+     * */
     updateSpecifics(copy) {
         this.itemId = copy.itemId;
         this.itemUuid = copy.itemUuid;
         this.targetIds = copy.targets;
         this.actionText = copy.actionText;
+        if (copy.description) this.description = copy.description;
         this.attrib = copy.attrib;
         // In case this was a WeaponRoll
         console.log("SR6E | Copy WeaponRoll data to ConfiguredRoll", copy.calcDamage, copy.damage);

@@ -7,6 +7,17 @@
   {{#if configured.extended}}<h3>{{localize 'shadowrun6.label.extended_test'}}</h3>{{/if}}
   <h3>{{actionText}}</h3>
 
+  {{#if configured.checkText}}
+  <h4>{{ configured.checkText }}</h4>
+  <hr/>
+  {{/if}}
+
+  {{#if configured.description}}
+  <div class="chat-roll-description">
+    {{ configured.description }}
+  </div>
+  <hr/>
+  {{/if}}
 
   {{#if (or (or edge_use edge_use_opponent) isOpposed)}}
   <div class="chat-edge" style="display:block">    
@@ -32,7 +43,7 @@
 
   {{#if publicRoll}}
   <div>
-    <div class="dice-result">
+    <div class="dice-result" data-tooltip="shadowrun6.roll.click_chat">
       <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}">
         <div class="resulttext">{{#if (not configured.rollType)}}/r {{/if}}{{formula}}</div>
         <br/>
@@ -106,7 +117,6 @@
    <!-- Legwork Details -->
    <div class="chat-legwork">
       <hr>
-      <h4>{{ configured.checkText }}</h4>
       {{#if configured.legwork.loyalty}}
         <ul>
           {{#iff total ">=" 10}}<li>{{localize 'shadowrun6.legwork.results.10' }}</li>{{/iff}}
