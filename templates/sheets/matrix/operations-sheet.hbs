@@ -1,0 +1,37 @@
+{{log "matrix/operations.hbs" this}}
+<section class="matrix-operations">
+    <header class="matrix-operations-header">
+        <h2>
+            <span>//{{item.actor.system.pan.name}}</span><wbr><span>//.{{item.name}}</span>
+        </h2>
+
+        {{#if item.actor}}
+        <div class="matrix-operations-subtitle">
+            <div class="matrix-operations-initiator">
+                <i class="fas fa-user"></i>
+                <span>{{localize "shadowrun6.matrix.persona.initiating"}}</span>
+                <strong>{{initiator.name}}</strong>
+            </div>
+            {{#if (ne initiator.uuid defender.uuid)}}
+            <div class="matrix-operations-defender">
+                <i class="fas fa-user"></i>
+                <span>{{localize "shadowrun6.matrix.persona.defending"}}</span>
+                <strong>{{defender.name}}</strong>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+
+    </header>
+
+    <section class="matrix-operations-body scrollable">
+
+      <div class="matrix-operations-settings {{#if matrixAccess.outsider}}inactive{{/if}}">
+        {{> "systems/shadowrun6-eden/templates/item/item-settings.hbs" }}
+      </div>
+
+      {{> "systems/shadowrun6-eden/templates/sheets/matrix/actions-section.hbs" }}
+
+    </section>
+
+</section>

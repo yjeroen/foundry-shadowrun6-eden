@@ -781,17 +781,25 @@
       "luxury" : "Luxury"
     },
     "matrix": {
+      "reference.title": "Reference Section",
+      "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "accessLevel": {
         "outsider": "OUTSIDER",
         "user": "USER",
         "admin": "ADMIN",
-        "switch_access_level": "Click to switch access level to see which Matrix Actions are available."
+        "switch_access_level": "Click to switch access level to see which Matrix Actions are available.",
+        "access_level_device": "<p>This is your current Access Level to this device.</p><p>Click to switch access level after you have used <em>Backdoor Entry</em> or <em>Brute Force</em>.</p>",
+        "access_level_device_admin": "<p>This is your current Access Level to this device.</p><p>You are ADMIN due to this being your device or you being PAN Administrator.</p>"
       },
       "device": {
         "enable": "Click to use this device to access the Matrix.",
         "disable": "Click to not use this device to access the Matrix.",
         "offline": "Device is not online on the Matrix due to being bricked or wrong configuration."
-      }
+      },
+      "open_operations": "Start Matrix Operations on {item}.",
+      "icon": "Icon",
+      "persona.initiating": "Initiating Persona",
+      "persona.defending": "Defending Persona"
     },
     "matrixaction": {
       "backdoor_entry": {
@@ -1862,6 +1870,7 @@
       "notifications": {
         "You_are_not_owner_of_the_target": "You are not owner of the target.",
         "You_are_not_owner_of_the_token": "You are not owner of the token.",
+        "Select_a_single_token": "You have multiple tokens selected. Only select a single token to perform this action.",
         "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "You can only choose Wide Burst when you target (T) two tokens.",
         "Target_or_select_a_token_before_rolling": "Target or select a token before rolling.",
         "Select_a_token_first": "Select a token first, or configure your Player Character actor in your User Configuration.",

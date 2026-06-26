@@ -1426,11 +1426,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     async _matrixOperations(event) {
         const html = event.currentTarget;
         const item = foundry.utils.fromUuidSync(html.dataset.itemUuid);
-        console.log("SR6E | Shadowrun6ActorSheet | _matrixOperations", item);
 
         if (canvas.tokens.controlled.length > 1) return ui.notifications.warn("shadowrun6.ui.notifications.Select_a_single_token", { localize: true });
 
         const initiator = canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
+        console.log("SR6E | Shadowrun6ActorSheet | _matrixOperations", item.name, initiator.name);
         const matrixSheet = new SR6MatrixOperationSheet({ document: item, initiator: initiator, launcher: this });
         await this.minimize();
         matrixSheet.render(true);

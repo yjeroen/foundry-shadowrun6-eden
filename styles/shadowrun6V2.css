@@ -29,12 +29,12 @@
   /* background: rgb(255 0 175 / 30%); */
   background: rgb(0 0 0 / 30%);
 }
-.application.sr6.actor .window-content {
+.application.sr6.sheet .window-content {
 	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: top right, top left;
 	background-repeat: no-repeat, repeat;
 }
-.application.sr6.actor .window-content {
+.application.sr6.sheet .window-content {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -1564,7 +1564,7 @@
 /* Edge Column                                                              */
 /* ======================================================================== */
 
-.sr6.actor .edge {
+.sr6.sheet .edge {
     container-type: inline-size;
     flex: 0 0 auto;
     align-self: flex-end;
@@ -1580,14 +1580,14 @@
 }
 
 @container (max-width: 622px) {
-    .sr6.actor .edge {
+    .sr6.sheet .edge {
         inline-size: 50px;
         block-size: 50px;
     }
 }
 
 @container (max-width: 384px) {
-    .sr6.actor .edge {
+    .sr6.sheet .edge {
         inline-size: 0;
         block-size: 0;
         opacity: 0;
@@ -1595,7 +1595,7 @@
     }
 }
 
-.sr6.actor .no-edge {
+.sr6.sheet .no-edge {
     width: clamp(0px, calc(0px + (100cqw - 660px)), 45px);
 }
 
@@ -1603,7 +1603,7 @@
 /* Edge Coin                                                                */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin {
+.sr6.sheet .edge-coin {
     --edge-translate-x: 0%;
     --edge-rotate-y: 0deg;
 
@@ -1621,18 +1621,18 @@
     transition: transform 0.6s ease;
 }
 
-.sr6.actor .edge-coin,
-.sr6.actor .edge-coin:focus,
-.sr6.actor .edge-coin:focus-visible {
+.sr6.sheet .edge-coin,
+.sr6.sheet .edge-coin:focus,
+.sr6.sheet .edge-coin:focus-visible {
     outline: none;
     box-shadow: none;
 }
 
-.sr6.actor .edge-coin.edge-coin--resetting {
+.sr6.sheet .edge-coin.edge-coin--resetting {
     transition: none;
 }
 
-.sr6.actor .edge-coin:not(.clickable) {
+.sr6.sheet .edge-coin:not(.clickable) {
     cursor: default;
 }
 
@@ -1640,7 +1640,7 @@
 /* Coin Faces                                                               */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin__face {
+.sr6.sheet .edge-coin__face {
     position: absolute;
     inset: 0;
     display: grid;
@@ -1650,11 +1650,11 @@
     pointer-events: none;
 }
 
-.sr6.actor .edge-coin__face--front {
+.sr6.sheet .edge-coin__face--front {
     transform: rotateY(0deg);
 }
 
-.sr6.actor .edge-coin__face--back {
+.sr6.sheet .edge-coin__face--back {
     transform: rotateY(180deg);
 }
 
@@ -1662,7 +1662,7 @@
 /* Token Art                                                                */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin__art {
+.sr6.sheet .edge-coin__art {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1678,7 +1678,7 @@
 /* Edge Value                                                               */
 /* ======================================================================== */
 
-.sr6.actor .edge-value {
+.sr6.sheet .edge-value {
     position: relative;
     z-index: 1;
     display: grid;
@@ -1696,7 +1696,7 @@
     text-shadow: 1px 1px 3px black, 1px 1px 3px black, 1px 1px 3px black;
 }
 
-.sr6.actor .edge-coin__face--back .edge-value {
+.sr6.sheet .edge-coin__face--back .edge-value {
     margin-right: 1px;
 }
 
@@ -1704,7 +1704,7 @@
 /* Edge Coin Error Shake                                                    */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin.edge-coin--error {
+.sr6.sheet .edge-coin.edge-coin--error {
     animation: edge-coin-shake 260ms ease;
 }
 
@@ -1730,7 +1730,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .sr6.actor .edge-coin.edge-coin--error {
+    .sr6.sheet .edge-coin.edge-coin--error {
         animation: none;
     }
 }
@@ -1805,6 +1805,7 @@
 /* ======================================================================== */
 
 .sr6 .section .item-controls a {
+    padding-top: 1px;
     margin: 0;
 }
 
@@ -1916,6 +1917,10 @@
 
 .sr6 .item-control.disabled-roll {
     cursor: default;
+    pointer-events: none;
+}
+
+.sr6 .item-control.disabled-roll i {
     color: grey;
 }
 
@@ -1948,12 +1953,17 @@
     filter: grayscale(0.7);
     cursor: not-allowed;
 }
+
 .item .hud.item-settings {
     --input-color: var(--text-green);
     grid-template-columns: auto;
     clip-path: none;
     margin: 5px 10px 5px 5px;
     padding: 5px;
+    filter: 
+        drop-shadow(0 0 2px rgba(124, 243, 255, 0.85)) 
+        drop-shadow(0 0 4px rgba(124, 243, 255, 0.55)) 
+        drop-shadow(0 0 5px rgba(124, 243, 255, 0.15));
 }
 
 .item .hud.item-settings::before {
@@ -2095,7 +2105,7 @@
   outline-offset: 2px;
 }
 
-.sr6 .matrix-input {
+.sr6 .hud .matrix-input {
   height: 1.6rem;
   padding: 0.15rem 0.45rem;
   color: #0b2b25;
@@ -2116,13 +2126,13 @@
   outline: none;
 }
 
-.sr6 .matrix-input:hover {
+.sr6 .hud .matrix-input:hover {
   box-shadow:
     inset 0 0 0.4rem rgb(255 255 255 / 0.45),
     0 0 0.65rem rgb(38 247 164 / 0.95);
 }
 
-.sr6 .matrix-input:focus {
+.sr6 .hud .matrix-input:focus {
   border-color: white;
   box-shadow:
     inset 0 0 0.4rem rgb(255 255 255 / 0.65),
@@ -2218,8 +2228,57 @@
 
 
 /* ======================================================================== */
+/* ======= Custom SVG icons in config.icon.xxx that work like FA ========== */
+/* ======================================================================== */
+
+.sr6-icon {
+    --sr6-icon-primary-color: currentColor;
+    --sr6-icon-secondary-color: currentColor;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1em;
+    height: 1em;
+
+    color: currentColor;
+    font-size: inherit;
+    line-height: 1;
+    vertical-align: -0.125em;
+}
+
+.sr6-icon svg {
+    width: 1em;
+    height: 1em;
+    display: block;
+    pointer-events: none;
+}
+
+.sr6-icon .sr6-icon-primary {
+    fill: var(--sr6-icon-primary-color);
+}
+
+.sr6-icon .sr6-icon-secondary {
+    fill: var(--sr6-icon-secondary-color);
+}
+
+body.game .app a:hover .sr6-icon {
+    filter: drop-shadow(0 0 8px var(--color-shadow-primary));
+}
+
+/* ======================================================================== */
 /* ===================== MATRIX PERSONA & PAN SECTION ===================== */
 /* ======================================================================== */
+
+.shadowrun6 .sr6 {
+    padding: 0 5px;
+}
+
+.shadowrun6 .sr6 > .section {
+    margin-left: 0;
+    margin-right: 0;
+}
 
 .sr6 .persona .stat-block {
     --bg: none;
@@ -2464,4 +2523,60 @@
 .sr6 .pan .pan-node.pan-node-external-master-pan > .section-row,
 .sr6 .pan .pan-node.pan-node-slaved-pan > .section-row {
     font-weight: bold;
+}
+
+
+/* ======================================================================== */
+/* ======================= MATRIX OPERATIONS SHEET ======================== */
+/* ======================================================================== */
+
+/* css resets */
+.sr6 .matrix-operations .hud.item-settings {
+    margin-right: 5px;
+}
+.sr6 .matrix-operations-body .section {
+    margin: 5px 0 0 0;
+}
+.sr6 .matrix-operations-body .matrix-section .section-head {
+    margin-top: 0;
+}
+
+.sr6 .matrix-operations-header {
+    margin-bottom: 3px;
+}
+
+.sr6 .matrix-operations i {
+    color: var(--highlight-color);
+}
+
+.sr6 .matrix-operations .matrix-operations-subtitle span {
+    opacity: 0.75;
+}
+
+.sr6 .matrix-operations-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem 2rem;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.sr6 .matrix-operations-initiator,
+.sr6 .matrix-operations-defender {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.sr6 .matrix-section {
+    display: inline-block;
+    min-width: 384px;
+}
+
+/* Fix .scrollable */
+.sr6 .matrix-operations {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }

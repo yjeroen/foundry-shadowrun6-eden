@@ -722,7 +722,7 @@ a.item-control.disabled-roll:hover {
 
 .matrix-access-switch input[type="radio"],
 .matrix-access-switch input[type="checkbox"] {
-  display:none;
+  display: none;
   cursor: pointer;
 }
 .matrix-access-switch {
@@ -762,6 +762,44 @@ a.item-control.disabled-roll:hover {
 }
 .matrix-access-switch input[value="admin"]:checked ~ #active-label {
   left: 66%;
+}
+
+.matrix-access-option {
+    padding: 0.2rem 0.5rem;
+    z-index: 1;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Play";
+    user-select: none;
+}
+.matrix-access-switch.inactive .matrix-access-option {
+    cursor: default;
+    pointer-events: none;
+}
+.matrix-access-switch.matrix-access-isadmin .matrix-access-option {
+    opacity: 0.6;
+}
+.matrix-access-switch .active-label {
+    position: absolute;
+    left: 0;
+    width: 34%;
+    height: 100%;
+    background: #14142a;
+    border: 1px solid rgb(0 200 50);
+    border-radius: 12px;
+    opacity: 0.5;
+    transition: 0.5s left ease;
+}
+.matrix-access-option[data-value="outsider"].active ~ .active-label {
+    left: 0;
+}
+.matrix-access-option[data-value="user"].active ~ .active-label {
+    left: 33%;
+}
+.matrix-access-option[data-value="admin"].active ~ .active-label {
+    left: 66%;
 }
 
 .matrix-persona-header {

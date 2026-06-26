@@ -1,14 +1,12 @@
 <!-- Matrix Actions -->
 <section class="section matrix-section">
     <header class="section-head">
-        <h2 class="section-title" data-tooltip="shadowrun6.matrix.reference.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
-
-        <div class="reference-label" data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</div>
+        <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
     
 		<div class="matrix-access-container"
-			data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level"
+			data-tooltip="shadowrun6.matrix.accessLevel.access_level_device{{#if isInitiatorAdmin}}_admin{{/if}}"
 		>
-			<div class="matrix-access-switch">
+			<div class="matrix-access-switch {{#if isInitiatorAdmin}}matrix-access-isadmin{{/if}} {{#if (or isInitiatorAdmin (not item.isOwner))}}inactive{{/if}}">
 				<span class="matrix-access-option {{#if matrixAccess.outsider}}active{{/if}}"
 					data-action="switchMatrixAccess" data-value="outsider"
 				>
@@ -28,6 +26,7 @@
 				<span class="active-label"></span>
 			</div>
 		</div>
+		
     </header>
 
     <section class="matrix-action-lists">

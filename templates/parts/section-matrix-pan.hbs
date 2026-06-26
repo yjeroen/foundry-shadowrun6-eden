@@ -151,7 +151,7 @@
 
     <ol class="section-list pan-tree">
         {{#each pan.nodes as |node|}}
-        <li class="section-item pan-node master-node pan-node-{{node.type}} {{#if node.isOwner}}pan-node-own{{/if}}">
+        <li class="section-item pan-node master-node pan-node-{{node.type}} {{#if node.isActorsNode}}pan-node-own{{/if}}">
             <div class="section-row">
                 <div class="section-name pan-tree-name">
                     <i class="fas {{node.icon}} pan-node-icon"></i>
@@ -172,13 +172,13 @@
                 <div class="section-column item-controls">
                     {{!-- {{#if node.rollType}}
                     <a class="item-control" data-tooltip="{{node.rollTooltip}}" data-action="roll"
-                        data-roll-type="{{node.rollType}}" {{#if node.itemId}}data-item-id="{{node.itemId}}" {{/if}}
+                        data-roll-type="{{node.rollType}}" {{#if node.item.id}}data-item-id="{{node.item.id}}" {{/if}}
                         {{#if node.uuid}}data-uuid="{{node.uuid}}" {{/if}}>
                         <i class="fas fa-shield-alt"></i>
                     </a>
                     {{/if}}
 
-                    {{#if node.itemId}}
+                    {{#if node.item.id}}
                     <a class="item-control item-edit"
                         data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
                         data-action="viewDoc">
@@ -202,11 +202,11 @@
             <ol class="pan-children">
                 {{#each node.children as |child|}}
                 <li 
-                    class="section-item pan-node pan-node-{{child.type}} {{#if child.isOwner}}pan-node-own{{/if}} {{#if child.itemId}}item{{/if}}"
-                    {{#if child.itemId}} data-item-id="{{child.itemId}}" data-document-class="Item" {{/if}}
+                    class="section-item pan-node pan-node-{{child.type}} {{#if child.isActorsNode}}pan-node-own{{/if}} {{#if child.item.id}}item{{/if}}"
+                    {{#if child.item.id}} data-item-id="{{child.item.id}}" data-document-class="Item" {{/if}}
                 >
                     <div class="section-row">
-                        <div class="section-name pan-tree-name" {{#if child.itemId}}data-tooltip="shadowrun6.gear.subtype.{{child.subtype}}"{{/if}}>
+                        <div class="section-name pan-tree-name" {{#if child.item.id}}data-tooltip="shadowrun6.gear.subtype.{{child.subtype}}"{{/if}}>
                             <i class="fas {{child.icon}} pan-node-icon"></i>
                             <span class="pan-node-name">
                                 {{child.name}}
@@ -233,30 +233,42 @@
                         </div>
                         
                         <div class="section-column item-controls">
-                            {{#if child.rollType}}
-                            <a class="item-control" data-tooltip="{{child.rollTooltip}}" data-action="roll"
-                                data-roll-type="{{child.rollType}}" {{#if child.itemId}}data-item-id="{{child.itemId}}"
-                                {{/if}} {{#if child.uuid}}data-uuid="{{child.uuid}}" {{/if}}>
-                                <i class="fas fa-shield-alt"></i>
+                            {{#if child.item.uuid}}
+                            <a class="item-control"
+                                data-action="matrixOperations"
+                                data-item-uuid="{{child.item.uuid}}"
+                                data-tooltip="{{localize "shadowrun6.matrix.open_operations" item=child.name}}"
+                            >
+                                {{sr6Icon "darkTerminal"}}
                             </a>
                             {{/if}}
 
-                            {{#if (and child.itemId child.isOwner)}}
+                            {{#if (and child.item.id child.isOwner)}}
                             <a class="item-control item-edit"
+                                data-action="viewDoc"
                                 data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
-                                data-action="viewDoc">
+                            >
                                 <i class="fas fa-edit"></i>
                             </a>
+                            
+                            {{!-- {{#if child.rollType}}
+                            <a class="item-control"
+                                data-action="roll"
+                                data-roll-type="{{child.rollType}}"
+                                {{#if child.item.id}}data-item-id="{{child.item.id}}"{{/if}} {{#if child.uuid}}data-uuid="{{child.uuid}}" {{/if}}
+                                data-tooltip="{{child.rollTooltip}}"
+                            >
+                                <i class="fas fa-shield-alt"></i>
+                            </a>
+                            {{/if}} --}}
 
                             {{!-- TODO JEROEN Not used yet // Add things like remove from PAN --}}
-                            {{!-- {{#if child.canDelete}} 
-                            {{#if @root.editMode}}
+                            {{!-- {{#if (and @root.editMode child.canDelete)}}
                             <a class="item-control item-delete"
                                 data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.gear')}}"
                                 data-action="deleteDoc">
                                 <i class="fas fa-trash"></i>
                             </a>
-                            {{/if}}
                             {{/if}} --}}
 
                             {{/if}}
@@ -267,8 +279,8 @@
                     <ol class="pan-children">
                         {{#each child.children as |device|}}
                         <li 
-                            class="section-item pan-node pan-node-{{device.type}} {{#if device.isOwner}}pan-node-own{{/if}} {{#if device.itemId}}item{{/if}}"
-                            {{#if device.itemId}} data-item-id="{{device.itemId}}" data-document-class="Item" {{/if}}
+                            class="section-item pan-node pan-node-{{device.type}} {{#if device.isActorsNode}}pan-node-own{{/if}} {{#if device.item.id}}item{{/if}}"
+                            {{#if device.item.id}} data-item-id="{{device.item.id}}" data-document-class="Item" {{/if}}
                         >
                             <div class="section-row">
                                 <div class="section-name pan-tree-name" data-tooltip="shadowrun6.gear.subtype.{{device.subtype}}">
@@ -300,31 +312,42 @@
                                 </div>
 
                                 <div class="section-column item-controls">
-                                    {{#if device.rollType}}
-                                    <a class="item-control" data-tooltip="{{device.rollTooltip}}" data-action="roll"
-                                        data-roll-type="{{device.rollType}}" {{#if
-                                        device.itemId}}data-item-id="{{device.itemId}}" {{/if}} {{#if
-                                        device.uuid}}data-uuid="{{device.uuid}}" {{/if}}>
-                                        <i class="fas fa-shield-alt"></i>
+                                    {{#if device.item.uuid}}
+                                    <a class="item-control"
+                                        data-action="matrixOperations"
+                                        data-item-uuid="{{device.item.uuid}}"
+                                        data-tooltip="{{localize "shadowrun6.matrix.open_operations" item=device.name}}"
+                                    >
+                                        {{sr6Icon "darkTerminal"}}
                                     </a>
                                     {{/if}}
 
-                                    {{#if (and device.itemId device.isOwner)}}
+                                    {{#if (and device.item.id device.isOwner)}}
                                     <a class="item-control item-edit"
+                                        data-action="viewDoc"
                                         data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
-                                        data-action="viewDoc">
+                                    >
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    {{#if device.canDelete}}
-                                    {{#if @root.editMode}}
+                                    {{!-- {{#if device.rollType}}
+                                    <a class="item-control" data-tooltip="{{device.rollTooltip}}" data-action="roll"
+                                        data-roll-type="{{device.rollType}}" {{#if
+                                        device.item.id}}data-item-id="{{device.item.id}}" {{/if}} {{#if
+                                        device.uuid}}data-uuid="{{device.uuid}}" {{/if}}>
+                                        <i class="fas fa-shield-alt"></i>
+                                    </a>
+                                    {{/if}} --}}
+
+                                    {{!-- {{#if (and @root.editMode device.canDelete)}}
                                     <a class="item-control item-delete"
+                                        data-action="deleteDoc"
                                         data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.gear')}}"
-                                        data-action="deleteDoc">
+                                    >
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    {{/if}}
-                                    {{/if}}
+                                    {{/if}} --}}
+
                                     {{/if}}
                                 </div>
                             </div>

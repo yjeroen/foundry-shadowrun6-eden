@@ -7,6 +7,7 @@ import { doRoll } from "../Rolls.js";
 import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType } from "../dice/RollTypes.js";
 import { getActor } from "../util/helper.js";
 import { SR6MatrixPanField } from "../datamodels/fields/fields.mjs";
+const { DOCUMENT_OWNERSHIP_LEVELS } = foundry.CONST;
 
 function isLifeform(obj) {
     return obj.attributes != undefined;
@@ -2806,4 +2807,5 @@ export default class Shadowrun6Actor extends Actor {
     get isTechno() {
         return Boolean( this.system.mortype === "technomancer" );
     }
+
 }
