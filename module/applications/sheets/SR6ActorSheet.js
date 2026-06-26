@@ -1176,11 +1176,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const makeItemNode = (item) => {
             const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
             const isAccessDevice = item.isAccessDevice;
-            const belongsToSheetActor = item.parent?.uuid === actor.uuid;
+            const isActorsNode = item.parent?.uuid === actor.uuid;
 
             return {
                 name: item.name,
-                access: belongsToSheetActor ? "admin" : (pan.isSlaved ? "user" : "admin"),
+                access: isActorsNode ? "admin" : (pan.isSlaved ? "user" : "admin"),
                 icon: isPrimaryAccessDevice ? "fa-laptop-code" : "fa-microchip",
                 type: isPrimaryAccessDevice
                     ? "primary-access-device"
@@ -1188,7 +1188,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                         ? "secondary-access-device"
                         : "slaved-device",
                 subtype: item.system.subtype,
-                isOwner: item.isOwner && belongsToSheetActor,
+                isOwner: item.isOwner && isActorsNode,
+                isActorsNode: isActorsNode,
                 item: item,
                 matrixCM: this._prepareConditionMonitors(item.system.matrix.matrixCM)
             };
@@ -1216,7 +1217,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         // Helper to make slaved pan nodes
         const makePanNode = (slavedActor) => {
             const slavedPan = slavedActor.system.pan;
-            const belongsToSheetActor = slavedActor.uuid === actor.uuid;
+            const isActorsNode = slavedActor.uuid === actor.uuid;
 
             return {
                 uuid: slavedActor.uuid,
@@ -1224,7 +1225,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 icon: "fa-network-wired",
                 type: "slaved-pan",
                 access: !pan.isSlaved || slavedActor.uuid === actor.uuid ? "admin" : "user",
-                isOwner: slavedActor.isOwner && belongsToSheetActor,
+                isOwner: slavedActor.isOwner && isActorsNode,
+                isActorsNode: isActorsNode,
                 children: makeActorItemNodes(slavedActor)
             };
         };
@@ -1254,6 +1256,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 type: pan.isSlaved ? "external-master-pan" : "master-pan",
                 access: pan.isSlaved ? "user" : "admin",
                 isOwner: panAdmin.isOwner && !pan.isSlaved,
+                isActorsNode: !pan.isSlaved,
                 children: [
                     ...panAdminItems,
                     ...slavedPans
@@ -1427,7 +1430,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         if (canvas.tokens.controlled.length > 1) return ui.notifications.warn("shadowrun6.ui.notifications.Select_a_single_token", { localize: true });
 
-        const initiator = canvas.tokens.controlled[0].actor || game.user.character;
+        const initiator = canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
         const matrixSheet = new SR6MatrixOperationSheet({ document: item, initiator: initiator, launcher: this });
         await this.minimize();
         matrixSheet.render(true);
