@@ -5,20 +5,29 @@
 
         <div class="reference-label" data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</div>
     
-        <div class="matrix-access-container" data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level">
-            <div class="matrix-access-switch">
-                <input type="radio" id="matrixAccess-{{actor.id}}-outsider" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
-                <label for="matrixAccess-{{actor.id}}-outsider">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
-    
-                <input type="radio" id="matrixAccess-{{actor.id}}-user" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}} />
-                <label for="matrixAccess-{{actor.id}}-user">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
-    
-                <input type="radio" id="matrixAccess-{{actor.id}}-admin" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}} />
-                <label for="matrixAccess-{{actor.id}}-admin">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
-    
-                <span id="active-label"></span>
-            </div>
-        </div>
+		<div class="matrix-access-container {{#if isInitiatorsItem}}inactive{{/if}}"
+			data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level"
+		>
+			<div class="matrix-access-switch">
+				<span class="matrix-access-option {{#if matrixAccess.outsider}}active{{/if}}"
+					data-action="switchMatrixAccess" data-value="outsider"
+				>
+					{{localize 'shadowrun6.matrix.accessLevel.outsider'}}
+				</span>
+				<span class="matrix-access-option {{#if matrixAccess.user}}active{{/if}}"
+					data-action="switchMatrixAccess" data-value="user"
+				>
+					{{localize 'shadowrun6.matrix.accessLevel.user'}}
+				</span>
+				<span class="matrix-access-option {{#if matrixAccess.admin}}active{{/if}}"
+					data-action="switchMatrixAccess" data-value="admin"
+				>
+					{{localize 'shadowrun6.matrix.accessLevel.admin'}}
+				</span>
+
+				<span class="active-label"></span>
+			</div>
+		</div>
     </header>
 
     <section class="matrix-action-lists">

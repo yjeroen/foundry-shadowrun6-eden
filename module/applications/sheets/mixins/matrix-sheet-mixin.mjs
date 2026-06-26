@@ -71,11 +71,26 @@ export const MatrixSheetMixin = Base => class extends Base {
      * @private
      */
     static async _onSwitchMatrixAccess(event, target) {
-        const newAccessLevel = target.value;
+        const container = target.closest(".matrix-access-container");
+        if (container?.classList.contains("inactive")) return;
+
+        const switchEl = target.closest(".matrix-access-switch");
+        const newAccessLevel = target.dataset.value;
+        if (!newAccessLevel || !switchEl) return;
+
         console.log("SR6E | _onSwitchMatrixAccess to:", newAccessLevel);
+
+        for (const option of switchEl.querySelectorAll(".matrix-access-option")) {
+            option.classList.toggle("active", option === target);
+        }
+
         await new Promise(resolve => setTimeout(resolve, 500));
-        // wait until CSS effect is ready
-        await this.document.setFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`, newAccessLevel)
+         // wait until CSS effect is ready
+        await this.document.setFlag(
+            "shadowrun6-eden",
+            `matrix-access.${this.#matrixUserSafeUuid}`,
+            newAccessLevel
+        );
     }
 
     /**
