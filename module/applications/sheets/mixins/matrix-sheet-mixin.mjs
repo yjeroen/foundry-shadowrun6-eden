@@ -16,8 +16,8 @@ export const MatrixSheetMixin = Base => class extends Base {
         },
     };
 
-    _matrixActions() {
-        const system = this.actor.system;
+    _matrixActions(actor = this.actor) {
+        const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
             .filter(([actionId, action]) => {
                 if (action.skill === "cracking" && !system.skills.cracking.defaultTestPool) return false;
@@ -48,9 +48,13 @@ export const MatrixSheetMixin = Base => class extends Base {
         };
     }
 
-    _matrixAccess() {
-        const matrixAccessLevel = this.actor.getFlag("shadowrun6-eden", "matrix-access") ?? "outsider";
+    get #matrixUserSafeUuid() {
+        const actor = this.initiator ?? this.actor;
+        return actor.uuid.replaceAll(".", "_");
+    }
 
+    get _matrixAccess() {
+        const matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
         return {
             outsider: matrixAccessLevel === "outsider",
             user: matrixAccessLevel === "user",
@@ -67,10 +71,11 @@ export const MatrixSheetMixin = Base => class extends Base {
      * @private
      */
     static async _onSwitchMatrixAccess(event, target) {
-        const newAccessLevel = event.target.value;
-        console.log("SR6E | _onSwitchMatrixAccess to:", newAccessLevel);
-        await new Promise(resolve => setTimeout(resolve, 500)); // wait until CSS effect is ready
-        await this.actor.setFlag("shadowrun6-eden", "matrix-access", newAccessLevel)
+        const newAccessLevel = target.value;
+        console.log("SR6E | _onSwitchMatrixAccess to:", newAccessLevel, target.value);
+        await new Promise(resolve => setTimeout(resolve, 500));
+        // wait until CSS effect is ready
+        await this.document.setFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`, newAccessLevel)
     }
 
     /**
