@@ -1189,7 +1189,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                         : "slaved-device",
                 subtype: item.system.subtype,
                 isOwner: item.isOwner && belongsToSheetActor,
-                item: { id: item.id, uuid: item.uuid },
+                item: item,
                 matrixCM: this._prepareConditionMonitors(item.system.matrix.matrixCM)
             };
         };
