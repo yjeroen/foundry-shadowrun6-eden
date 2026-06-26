@@ -1,6 +1,7 @@
 import { WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../../dice/RollTypes.js";
 import { selectAllTextOnElement } from "../../util/HtmlUtilities.js";
 import { prepareActiveEffectCategories } from "../../util/helper.js";
+import { SR6MatrixOperationSheet } from "./matrix-operation-sheet.mjs"
 
 function isLifeform(obj) {
     return obj.attributes != undefined;
@@ -91,6 +92,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
+        // Always allow
+        html.find("[data-action='matrixOperations']").click(this._matrixOperations.bind(this));
+
         if (this.actor.isOwner || !this.document.limited) {
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
@@ -1185,8 +1189,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                         : "slaved-device",
                 subtype: item.system.subtype,
                 isOwner: item.isOwner && belongsToSheetActor,
-                itemId: item.id,
-                item: { id: item.id }, // Needed for Matrix CM hbs
+                item: { id: item.id, uuid: item.uuid },
                 matrixCM: this._prepareConditionMonitors(item.system.matrix.matrixCM)
             };
         };
@@ -1415,6 +1418,18 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             flavor: game.i18n.localize("shadowrun6.section.pan.share_flavor"),
             content: msg
         });
+    }
+
+    async _matrixOperations(event) {
+        const html = event.currentTarget;
+        const item = foundry.utils.fromUuidSync(html.dataset.itemUuid);
+        console.log("SR6E | Shadowrun6ActorSheet | _matrixOperations", item);
+
+        if (canvas.tokens.controlled.length > 1) return ui.notifications.warn("shadowrun6.ui.notifications.Select_a_single_token", { localize: true });
+
+        const initiator = canvas.tokens.controlled[0].actor || game.user.character;
+        const matrixSheet = new SR6MatrixOperationSheet({ document: item, initiator: initiator });
+        matrixSheet.render(true);
     }
 
     async _onDrop(event) {
