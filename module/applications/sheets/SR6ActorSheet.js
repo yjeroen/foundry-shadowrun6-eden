@@ -1225,7 +1225,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             const slavedPan = slavedActor.system.pan;
             const isActorsNode = slavedActor.uuid === actor.uuid;
             const primaryAccessDevice = slavedActor.system.persona.accessDevice;
-            const hasAccess = this.actor?.isOwner ? false : primaryAccessDevice?.yourMatrixAccessLevel(initiator.uuid);
+            const hasAccess = this.actor?.isOwner
+                ? false
+                : primaryAccessDevice
+                ? primaryAccessDevice?.yourMatrixAccessLevel(initiator.uuid)
+                : false;
 
             return {
                 uuid: slavedActor.uuid,
@@ -1242,7 +1246,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const panAdmin = pan.administrator;
         const panAdminItems = makeActorItemNodes(panAdmin);
         const panAdminPAD= panAdmin.system.persona.accessDevice;
-        const panAdminAccess = this.actor?.isOwner ? false : panAdminPAD?.yourMatrixAccessLevel(initiator.uuid);
+        const panAdminAccess = this.actor?.isOwner 
+            ? false 
+            : panAdminPAD
+            ? panAdminPAD?.yourMatrixAccessLevel(initiator.uuid)
+            : false;
 
         const slavedActors = game.actors.filter(actor =>
             actor.effects.some(effect =>

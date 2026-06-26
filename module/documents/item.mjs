@@ -633,6 +633,9 @@ export default class SR6Item extends Item {
 
   yourMatrixAccessLevel(actorUuid) {
     const safeUuid = actorUuid.replaceAll(".", "_");
+    
+    if (actorUuid === this.actor.uuid) return "admin";
+    
     return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
   }
 
