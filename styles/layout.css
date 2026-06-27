@@ -514,7 +514,7 @@ table.spell-table td {
     justify-self: stretch;
     align-self: stretch;
     height: 100%;
-    min-height: 200px;
+    min-height: 100px;
     margin-bottom: 5px;
 }
 .locked .editor {
