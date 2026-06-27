@@ -579,15 +579,14 @@ export default class Shadowrun6Actor extends Actor {
             //Set initiative dice to 2d6 for phy and 3d6 for astral
             system.initiative.physical.dice = 2;
             system.initiative.astral.dice = 3;
-            
             system.defenserating.astral.base = force;
             system.initiative.physical.base = force * 2;
             system.initiative.physical.pool = system.initiative.physical.base + system.initiative.physical.mod;
-            system.initiative.physical.dicePool = Math.min(5, system.initiative.physical.dice + system.initiative.physical.diceMod);
+            system.initiative.physical.dicePool = Math.max(1, Math.min(5, system.initiative.physical.dice + system.initiative.physical.diceMod) );
             system.initiative.actions = system.initiative.physical.dicePool + 1;
             system.initiative.astral.base = force * 2;
             system.initiative.astral.pool = system.initiative.astral.base + system.initiative.astral.mod;
-            system.initiative.astral.dicePool = system.initiative.astral.dice + system.initiative.astral.diceMod;
+            system.initiative.astral.dicePool = Math.max(1, Math.min(5, system.initiative.astral.dice + system.initiative.astral.diceMod ) );
 
             system.physical.max = 8 + Math.round(force / 2) + system.physical.mod;
             system.physical.value = system.physical.max - system.physical.dmg;
@@ -666,16 +665,16 @@ export default class Shadowrun6Actor extends Actor {
             if (data.initiative) {
                 data.initiative.physical.base = data.attributes["rea"].pool + data.attributes["int"].pool;
                 data.initiative.physical.pool = data.initiative.physical.base + data.initiative.physical.mod;
-                data.initiative.physical.dicePool = Math.min(5, data.initiative.physical.dice + data.initiative.physical.diceMod);
+                data.initiative.physical.dicePool = Math.max(1, Math.min(5, data.initiative.physical.dice + data.initiative.physical.diceMod) );
                 data.initiative.actions = data.initiative.physical.dicePool + 1;
                 data.initiative.astral.base = data.attributes["log"].pool + data.attributes["int"].pool;
                 data.initiative.astral.pool = data.initiative.astral.base + data.initiative.astral.mod;
-                data.initiative.astral.dicePool = data.initiative.astral.dice + data.initiative.astral.diceMod;
+                data.initiative.astral.dicePool = Math.max(1, Math.min(5, data.initiative.astral.dice + data.initiative.astral.diceMod) );
                 if (!data.initiative.matrix)
                     data.initiative.matrix = new Initiative;
                 data.initiative.matrix.base = data.attributes["rea"].pool + data.attributes["int"].pool;
                 data.initiative.matrix.pool = data.initiative.matrix.base + data.initiative.matrix.mod;
-                data.initiative.matrix.dicePool = data.initiative.matrix.dice + data.initiative.matrix.diceMod;
+                data.initiative.matrix.dicePool = Math.max(1, Math.min(5, data.initiative.matrix.dice + data.initiative.matrix.diceMod) );
             }
         }
         if (!data.derived) {
