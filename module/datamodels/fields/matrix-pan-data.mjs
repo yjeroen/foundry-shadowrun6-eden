@@ -35,7 +35,7 @@ export default class SR6MatrixPAN extends SR6DataModel {
         const persona = this.actor.system.persona ?? {};
         // const TECHNOMANCER = Boolean( this.actor.system.mortype == "technomancer" );
         // const remoteDeviceLimit = persona.living?.base?.deviceRating : persona.accessDevice?.system?.matrix?.deviceRating;
-        const remoteDeviceLimit = persona.used?.d;
+        const remoteDeviceLimit = persona.accessDevice?.system?.progSlots ?? persona.used?.d;
         return remoteDeviceLimit;
     }
 
