@@ -124,8 +124,8 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
                 rollType: "attribute"
             },
             {
-                field: schema.getField('matrix.initiative'),
-                value: system.matrix.initiative[edit ? "rank" : "text"],
+                field: schema.getField('initiative.matrix'),
+                value: system.initiative.matrix[edit ? "rank" : "text"],
                 rollType: "initiative"
             },
             {

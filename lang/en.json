@@ -2198,16 +2198,22 @@
                 "label": "Firewall"
               }
             },
-            "initiative": {
-              "label": "Initiative"
-            },
             "overwatchScore": {
               "label": "Overwatch Score",
               "label_short": "OS"
             }
           },
           "initiative": {
-            "label": "Initiative"
+            "label": "Initiative",
+            "astral": {
+              "label": "Astral Initiative"
+            },
+            "physical": {
+              "label": "Physical Initiative"
+            },
+            "matrix": {
+              "label": "Matrix Initiative"
+            }
           },
           "skills": {
             "astral": {
@@ -2444,7 +2450,9 @@
       "system.matrix.attributes.sleaze": "SLEAZE",
       "system.matrix.attributes.dataProcessing": "DATA PROC",
       "system.matrix.attributes.firewall": "FIREWALL",
-      "system.matrix.initiative": "INIT",
+      "system.initiative.astral": "INIT",
+      "system.initiative.physical": "INIT",
+      "system.initiative.matrix": "INIT",
       "system.attributes.willpower": "W",
       "system.attributes.logic": "L",
       "system.attributes.intuition": "I",
