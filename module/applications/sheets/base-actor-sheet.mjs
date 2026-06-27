@@ -931,6 +931,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             case "initiative":
                 const initiative = foundry.utils.getProperty(this.actor, dataset.attributePath);
                 rollConfig = new game.sr6.rollTypes.ConfiguredRoll();
+                rollConfig.speaker = ChatMessage.getSpeaker({ actor: this.actor });
                 rollConfig.rollType = game.sr6.rollTypes.RollType.Initiative;
                 // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
                 fieldPath = dataset.attributePath.replace("system.", "");
