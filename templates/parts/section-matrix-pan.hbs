@@ -20,11 +20,13 @@
                 'shadowrun6.section.persona.accessDevice' }}</span>
             <strong>{{persona.accessDevice.name}}</strong>
             <span class="pan-muted">
+                {{#if actor.isOwner}}
                 <a class="item-control item-edit"
                     data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
                     data-action="viewDoc">
                     <i class="fas fa-edit"></i>
                 </a>
+                {{/if}}
             </span>
         </div>
         {{/if}}
@@ -120,6 +122,7 @@
             <span class="pan-summary-label" data-tooltip="SR6.title.pan">{{ localize 'shadowrun6.section.pan.name' }}</span>
             <strong><input class="box" type="text" value="{{system.pan.name}}" data-field="system.pan._name" disabled/></strong>
             <span class="item-controls">
+                {{#if actor.isOwner}}
                 <a class="item-control"
                     data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'shadowrun6.section.pan.name')}}"
                     data-action="editField">
@@ -130,6 +133,7 @@
                     data-action="sharePAN">
                 <i class="fa-solid fa-share"></i>
                 </a>
+                {{/if}}
             </span>
         </div>
         {{/if}}
