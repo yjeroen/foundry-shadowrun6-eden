@@ -43,7 +43,7 @@
 
   {{#if publicRoll}}
   <div>
-    <div class="dice-result" data-tooltip="shadowrun6.roll.click_chat">
+    <div class="dice-result" {{#unless (eq rollType "initiative")}}data-tooltip="shadowrun6.roll.click_chat"{{/unless}}>
       <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}">
         <div class="resulttext">{{#if (not configured.rollType)}}/r {{/if}}{{formula}}</div>
         <br/>
