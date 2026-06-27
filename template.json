@@ -475,6 +475,7 @@
 			"gender": "",
 			"nuyen": 0,
 			"overwatch": 0,
+			"description": "",
 			"notes": "",
 			"karma": 0,
 			"karma_total": 0,
@@ -502,6 +503,8 @@
 			"matrixIni": "vrcold",
 			"rating" : 1,
 			"gruntmeta": "",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Critter": {
@@ -514,6 +517,8 @@
 				"knowledge-template"
 			],
 			"metatype": "Critter",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Spirit": {
@@ -528,6 +533,8 @@
 			"metatype": "Spirit",
 			"rating" : 1,
 			"spiritType": "air",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Vehicle": {
@@ -554,6 +561,7 @@
 				"offRoad": false,
 				"speed": 0
 			},
+			"description": "",
 			"notes": ""
 		}
 	},
