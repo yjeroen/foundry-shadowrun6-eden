@@ -99,6 +99,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         super._configureRenderOptions(options);
         // Not all parts always render
         options.parts = ["header", "tabs"];
+
+        if (this.document.limited) {
+            // TODO add limited only view - maybe specific tabs?
+            return;
+        }
         
         // // Don't show the other tabs if only limited permissions view
         // if (this.document.limited) return;

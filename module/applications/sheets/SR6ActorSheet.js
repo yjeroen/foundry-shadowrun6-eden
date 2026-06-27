@@ -54,7 +54,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         // HTML enriching for sheets
         data.actor.enriched = {};
         data.actor.enriched.notes = await this.enrichedHTML(this.actor.system.notes);
-        if (data.actor.system.description) data.actor.enriched.description = await this.enrichedHTML(data.system.description);
+        data.actor.enriched.description = await this.enrichedHTML(this.actor.system.description);
         for (const item of data.actor.items) {
             item.enriched = {};
             item.enriched.description = await this.enrichedHTML(item.system.description);
@@ -71,20 +71,20 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         return data;
     }
     get template() {
-        console.log("SR6E | in template()", getSystemData(this.actor));
+        console.log("SR6E | Actor get template()", this.actor.name);
         console.log("SR6E | default: ", super.template);
         const path = "systems/shadowrun6-eden/templates/actor/";
         if (this.isEditable || (!this.document.limited && this.actor.type === 'Player')) { // Also show readwrite sheet if Observer
-            console.log("SR6E | ReadWrite sheet ");
+            console.log("SR6E | ReadWrite sheet: default");
             return super.template;
         }
         else {
-            console.log("SR6E | ReadOnly sheet", this);
-            let genItem = getSystemData(this.actor);
-            this.actor.descHtml = game.i18n.localize(getActorData(this.actor).type + "." + genItem.genesisID + ".desc");
-            getActorData(this.actor).descHtml2 = game.i18n.localize(getActorData(this.actor).type + "." + genItem.genesisID + ".desc");
-            console.log(`SR6E | ${path}shadowrun6-${getActorData(this.actor).type}-sheet-ro.html`);
-            return `${path}shadowrun6-${getActorData(this.actor).type}-sheet-ro.html`;
+            let template;
+            if (this.options.readOnlyTemplate) template = this.options.readOnlyTemplate
+            else template= `${path}shadowrun6-${getActorData(this.actor).type}-sheet-ro.html`;
+
+            console.log("SR6E | ReadOnly sheet:", template);
+            return template;
         }
     }
     /**
@@ -95,7 +95,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         // Always allow
         html.find("[data-action='matrixOperations']").click(this._matrixOperations.bind(this));
 
-        if (this.actor.isOwner || !this.document.limited) {
+        if (this.actor.isOwner || this.document.limited) {
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
         }

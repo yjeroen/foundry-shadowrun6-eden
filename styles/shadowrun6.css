@@ -1319,11 +1319,11 @@ body.game .application.shadowrun6 .window-content {
 }
 
 .chat-message .system-message {
-    font-weight: bolder;
-    border: 1px rgba(128, 0, 128, 1) dashed;
-    background-color: rgba(128, 0, 128, 0.17);
-    padding: 0 0.5rem;
-    margin-top: 0.5rem;
+  font-weight: bolder;
+  border: 1px rgba(128, 0, 128, 1) dashed;
+  background-color: rgba(128, 0, 128, 0.17);
+  padding: 0 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .chat-message .chat-tooltip {
@@ -1333,5 +1333,17 @@ body.game .application.shadowrun6 .window-content {
 }
 
 .section table.section-table tr > :not(:first-child) {
-    text-align: center;
+  text-align: center;
+}
+
+.npc-firstline .switch {
+  vertical-align: top;
+}
+
+/* Read Only Sheets */
+
+.sheet .read-only .track,
+.sheet .read-only a:not([data-action="matrixOperations"]) {
+  pointer-events: none;
+  cursor: default;
 }

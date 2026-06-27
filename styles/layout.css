@@ -517,6 +517,9 @@ table.spell-table td {
     min-height: 200px;
     margin-bottom: 5px;
 }
+.locked .editor {
+  min-height: max-content;
+}
 .shadowrun6.item .editor {
   min-height: 50px;
   max-width: 580px;

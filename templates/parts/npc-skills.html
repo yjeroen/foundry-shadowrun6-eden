@@ -1,7 +1,7 @@
 <dt>{{ localize 'shadowrun6.actor.skills' }}</dt>
 <dd>
 	<!-- Action skills -->
-    {{log this}}
+    {{log "npc-skills" skills}}
    {{#each (skillPointsNotZero skills) as |skill id|}}
       <span class="item-span">
       <label class="skill-key rollable skill-roll" data-skill="{{id}}">{{localize (concat "skill." id ) }}</label>

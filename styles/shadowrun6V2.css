@@ -12,6 +12,11 @@
     width: 620px;
 }
 
+/* Foundry User Interface Light/Dark Conflict Resolution */
+.sr6 {
+    --color-text-emphatic: var(--color-dark-1);
+}
+
 /* Preloading background images */
 #interface::before {
   content: url("../images/borderRight.webp") url("../images/background.webp");
@@ -2297,6 +2302,12 @@ body.game .app a:hover .sr6-icon {
     align-items: center;
 }
 
+@container (max-width: 650px) {
+    .sr6 .pan-tree .matrixCM {
+        display: none;
+    }
+}
+
 .sr6 .persona .matrixCM .matrix-track {
     flex: 1;
 }
@@ -2571,6 +2582,10 @@ body.game .app a:hover .sr6-icon {
 .sr6 .matrix-section {
     display: inline-block;
     min-width: 384px;
+}
+
+.sr6 .matrix-operations-subtitle strong {
+    text-shadow: 0 0 3px white, 0 0 3px white, 0 0 2px white;
 }
 
 /* Fix .scrollable */

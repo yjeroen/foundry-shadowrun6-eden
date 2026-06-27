@@ -1,20 +1,34 @@
-<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
-  	{{#if system.genesisID}}
-	<h2>{{localize (concat (concat "vehicle." system.genesisID) ".name")}}</h2>
-	<h4  style="font-style: italic">{{localize (concat (concat "vehicle." system.genesisID) ".src")}}</h4>
-	<div class="data-desc" id="data-desc"/>{{localize (concat (concat "vehicle." system.genesisID) ".desc")}}</div>
-	{{else}}
-	<h2>{{actor.name}}</h2>
-	<div class="data-desc" id="data-desc">{{system.description}}</div>
-   {{/if}}
+<form class="pc read-only {{cssClass}}" autocomplete="off">
+	{{ log "shadowrun6-NPC-sheet-ro.html" this}}
+	{{!-- Sheet Header --}}
+	<header class="sheet-header">
+		<div style="padding-right: 6px;">
+		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" />
+		</div>
+		<div class="header-fields">
+			<h1>{{actor.name}}</h1>
+			<div style="display:flex; flex-direction:row; align-items:center; gap: 10px">
+			{{> "systems/shadowrun6-eden/templates/parts/vehicle-monitor.html" attributes=system.attributes}}
+			</div>
+		</div>
+	</header>
+
+	{{!-- Sheet Tab Navigation --}}
+	<nav class="sheet-tabs tabs" data-group="primary">
+		<a class="item" data-tab="main">{{ localize 'shadowrun6.actor.nav.main' }}</a>
+	</nav>
 
 	{{!-- Sheet Body --}}
-   <section class="sheet-body">
-      <div class="section">
-            {{> "systems/shadowrun6-eden/templates/parts/vehicle-stats.html"}}
-            <dl>
-            </dl>
-	   </div>
-   </section>
-   <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="550" />
+	<section class="sheet-body">
+
+		{{!-- Main Tab --}}
+		<div class="tab main flexcol sr6" data-group="primary" data-tab="main">
+            {{#if system.description}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-description.hbs"}}
+            {{/if}}
+		</div>
+
+	</section>
+
+
 </form>

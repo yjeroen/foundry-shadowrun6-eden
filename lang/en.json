@@ -239,7 +239,8 @@
         "matrix": "Matrix",
         "overview": "Overview",
         "skills": "Skills",
-        "vehicles": "Vehicles"
+        "vehicles": "Vehicles",
+        "main": "Main"
       },
       "skills": "Skills",
       "spells": "Spells"
@@ -1473,6 +1474,9 @@
       "notes": {
         "title": "Notes"
       },
+      "description": {
+        "title": "Physical Description"
+      },
       "qualities": "Qualities",
       "qualities_add": "Add",
       "rigging": {
@@ -1819,6 +1823,7 @@
       "sense_single": "Single-Sense"
     },
     "spirittype": {
+      "label": "Spirit Type",
       "air": "Air",
       "beasts": "Beast",
       "earth": "Earth",
