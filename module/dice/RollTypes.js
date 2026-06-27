@@ -148,6 +148,25 @@ export class PreparedRoll extends CommonRollData {
         this.performer = copy.performer;
     }
 }
+export class ActorAttributeRoll extends PreparedRoll {
+    constructor(actor, attributePath) {
+        super();
+        
+        const attr = foundry.utils.getProperty(actor, attributePath);
+        
+        this.rollType = RollType.Common;
+        this.pool = attr?.pool ?? attr ?? 0;
+        this.attributeTested = attributePath;
+        this.allowBuyHits = true;
+        this.useAttributeMod = true;
+
+        const matrixCmModifier = actor.getMatrixCmModifier();
+        if (matrixCmModifier) {
+            this.matrixCmPenalty = matrixCmModifier;
+            this.pool = Math.max(0, this.pool - matrixCmModifier);
+        }
+    }
+}
 export class DefenseRoll extends PreparedRoll {
     damage;
     soakType;
@@ -191,13 +210,13 @@ export class SkillRoll extends PreparedRoll {
     /**
      * @param skillVal {Skill}   The actors instance of that skill
      */
-    constructor(actor, skillId) {
+    constructor(actorSystem, skillId) {
         super();
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        this.skillValue = actor.skills[skillId];
+        this.skillValue = actorSystem.skills[skillId];
         this.attrib = this.skillDef.attrib;
-        this.performer = actor;
+        this.performer = actorSystem;
     }
     copyFrom(copy) {
         super.copyFrom(copy);
@@ -392,6 +411,11 @@ export class WeaponRoll extends SkillRoll {
             // this.fireMode = 'SS';
         }
         this.pool = gear.pool;
+        if (item.system.isElectronicMatrixDevice) {
+            const matrixCmModifier = item.system.matrix.matrixCM.penalty;
+            this.matrixCmPenalty = matrixCmModifier;            
+            this.pool = Math.max(0, this.pool - matrixCmModifier);
+        }
     }
     get getModes() {
         let modes = {};
@@ -430,10 +454,27 @@ export class MatrixActionRoll extends SkillRoll {
     defenseRating;
     attackRating;
     constructor(actor, action) {
-        super(actor, action.skill);
+        super(actor.system, action.skill);
+        this.actor = actor;
         this.action = action;
         this.skillSpec = action.spec;
+
+        this.attrib = action.attrib;
+        this.skillId = action.skill;
+        this.skillSpec = action.specialization;
+        this.threshold = action.threshold;
+
+        this.actionText = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".name");
+        this.checkText = actor._getSkillCheckText(this);
         this.chatDescription = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
+
+        this.pool = actor._getSkillPool(action.skill, action.specialization, action.attrib);
+        
+        const matrixCmModifier = actor.getMatrixCmModifier();
+        if (matrixCmModifier) {
+            this.matrixCmPenalty = matrixCmModifier;
+            this.pool = Math.max(0, this.pool - matrixCmModifier);
+        }
     }
 }
 export class VehicleRoll extends PreparedRoll {
@@ -519,6 +560,10 @@ export class ConfiguredRoll extends CommonRollData {
         this.formId = copy.formId;
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
+
+        if (copy.matrixCmPenalty) {
+            this.matrixCmPenalty = copy.matrixCmPenalty;
+        }
 
         if (copy.defendedWith) {
             this.defendedWith = copy.defendedWith;

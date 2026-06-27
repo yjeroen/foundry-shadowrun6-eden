@@ -121,7 +121,7 @@ export const MatrixSheetMixin = Base => class extends Base {
 
         const initiator = this.initiator ?? this.actor;
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator.system, matrixAction);
+        let roll = new MatrixActionRoll(initiator, matrixAction);
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }

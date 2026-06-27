@@ -53,12 +53,12 @@
           <td></td>
         {{/if}}
     	</tr>
-      {{#if data.item.system.matrix.matrixCM.penalty}}
+      {{#if data.matrixCmPenalty}}
       <tr>
         <td colspan="3"></span></td>
         <td></td>
         <td style="text-align:right; width: 190px;" data-tooltip="SR6.title.matrixCmPenalty">{{localize 'SR6.label.matrixCmPenalty'}}</td>
-        <td data-tooltip="SR6.title.matrixCmPenalty"><input type="number" value="-{{data.item.system.matrix.matrixCM.penalty}}" class="modifier" disabled/></td>
+        <td data-tooltip="SR6.title.matrixCmPenalty"><input type="number" value="-{{data.matrixCmPenalty}}" class="modifier" disabled/></td>
       </tr>
       {{/if}}
       <tr>

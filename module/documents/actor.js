@@ -1142,9 +1142,6 @@ export default class Shadowrun6Actor extends Actor {
                     gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, strWeapon);
                     gear.pool = gear.pool + gear.modifier;
                     // TODO rework move this whole item pools thing to to Item model
-                    if (gear.isElectronicMatrixDevice) {
-                        gear.pool -= gear.matrix.matrixCM.penalty;
-                    }
                 }
             }
             if (tmpItem.type == "gear" && isWeapon(system)) {
@@ -1729,7 +1726,7 @@ export default class Shadowrun6Actor extends Actor {
             if (this.system.health?.stunCM) {
                 stunCM     = this.system.health?.stunCM?.penalty ?? 0;
             } 
-            else { // Vehicle or Matrix actor without stun monitor
+            else { // Vehicle or Matrix actor without stun monitor like Sprites
                 stunCM     = this.system.matrix?.matrixCM?.penalty ?? 0;
             }
         } 
@@ -1756,6 +1753,18 @@ export default class Shadowrun6Actor extends Actor {
         /* Return the combined penalties from physical and stun damage */
         console.log("SR6E | Current Wound Penalties: " + woundModifier);
         return woundModifier;
+    }
+
+    getMatrixCmModifier() {
+        if (this.isTechno) return 0; // Stun modifier is already used in roll dialog
+
+        // TODO possible rework for DataModel actors
+        // Not needed for Sprites as their Matrix CM modifier is counted as stunCM in getWoundModifier()
+        const isDataModel = this.system instanceof foundry.abstract.DataModel;
+        if (isDataModel) return 0 //this.system.matrix?.matrixCM?.penalty ?? 0;
+
+        const primaryAccessDevice = this.system.persona?.accessDevice;
+        return primaryAccessDevice.system.matrix?.matrixCM?.penalty ?? 0;
     }
     //---------------------------------------------------------
     getSustainedModifier() {
@@ -2294,44 +2303,14 @@ export default class Shadowrun6Actor extends Actor {
      */
     performMatrixAction(roll) {
         console.log("SR6E | ToDo performMatrixAction:", roll);
-        if (!isLifeform(this.system)) {
-            throw new Error("Must be executed by an Actor with Lifeform data");
-        }
-        let action = roll.action;
-        roll.attrib = action.attrib;
-        roll.skillId = action.skill;
-        roll.skillSpec = action.specialization;
-        roll.threshold = action.threshold;
-        // Prepare action text
-        roll.actionText = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".name");
+        
         // Prepare check text
-        if (!action.skill) {
+        if (!roll.action?.skill) {
             //TODO matrix actions without a test
             console.log("SR6E | ToDo: matrix actions without a test");
             return;
         }
-        roll.checkText = this._getSkillCheckText(roll);
-        // Calculate pool
-        roll.pool = this._getSkillPool(action.skill, action.specialization, action.attrib);
-        /*
-        // Roll and return
-        let data = foundry.utils.mergeObject(options, {
-            pool: value,
-            actionText: actionText,
-            checkText  : checkText,
-            attackRating : this.data.data.attackrating.matrix.pool,
-            matrixAction: action,
-            skill: action.skill,
-            spec: action.spec,
-            threshold: action.threshold,
-            isOpposed: action.opposedAttr1!=null,
-            rollType: "matrixaction",
-            isAllowDefense: action.opposedAttr1!=null,
-            useThreshold: action.threshold!=0,
-            buyHits: true
-        });
-        */
-        roll.actor = this;
+
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
     }

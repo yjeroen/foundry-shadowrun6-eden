@@ -1,4 +1,4 @@
-import { WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../../dice/RollTypes.js";
+import { ActorAttributeRoll, WeaponRoll, SkillRoll, SpellRoll, RitualRoll, PreparedRoll, RollType, MatrixActionRoll, ComplexFormRoll } from "../../dice/RollTypes.js";
 import { selectAllTextOnElement } from "../../util/HtmlUtilities.js";
 import { prepareActiveEffectCategories } from "../../util/helper.js";
 import { SR6MatrixOperationSheet } from "./matrix-operation-sheet.mjs"
@@ -826,17 +826,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         event.preventDefault();
         const data = event.currentTarget.dataset;
         if (data.attributePath) {
-            const attr = foundry.utils.getProperty(this.actor, data.attributePath);
-            let rollConfig = new game.sr6.rollTypes.PreparedRoll();
-            rollConfig.rollType = game.sr6.rollTypes.RollType.Common;
-            
-            rollConfig.pool = attr?.pool ?? attr ?? 0;
-            rollConfig.attributeTested = data.attributePath;
-            rollConfig.allowBuyHits = true;
-            rollConfig.useAttributeMod = true;
-            let fieldPath = data.attributePath.replace("system.", "");
+            let rollConfig = new ActorAttributeRoll(this.actor, data.attributePath);
+
             rollConfig.checkText = rollConfig.actionText =  rollConfig.rollLabel = data.rollLabel;
-            console.log("SR6E | _onCommonCheck attribute roll ", rollConfig, attr);
+            console.log("SR6E | _onCommonCheck attribute roll ", rollConfig, data.attributePath);
             return this.actor.rollCommonCheck(rollConfig);
         }
         let classList = event.currentTarget.classList.value;
@@ -1007,7 +1000,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             return;
         if (!event.currentTarget.dataset)
             return;
-        const attacker = getSystemData(this.actor);
+        const attacker = this.actor;
         const matrixId = event.currentTarget.dataset.matrixId;
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixId];
         let roll = new MatrixActionRoll(attacker, matrixAction);
