@@ -127,6 +127,8 @@ export class RollDialog extends Dialog {
      */
     _onCalcEdge(event) {
         console.log("SR6E | RollDialog._onCalcEdge");
+        const form = this.html[0];
+
         let configured = this.dialogResult;
         let prepared = this.prepared;
         if (!configured.actor)
@@ -135,22 +137,21 @@ export class RollDialog extends Dialog {
             configured.edgePlayer = 0;
             configured.edgeTarget = 0;
             // Check situational edge
-            const situationA = document.getElementById("situationalEdgeA");
+            const situationA = form.querySelector("#situationalEdgeA");
             if (situationA && situationA.checked) {
                 configured.edgePlayer++;
             }
-            const situationD = document.getElementById("situationalEdgeD");
+            const situationD = form.querySelector("#situationalEdgeD");
             if (situationD && situationD.checked) {
                 configured.edgeTarget++;
             }
-            const drElement = document.getElementById("dr");
+           const drElement = form.querySelector("#dr");
             if ( drElement && !isNaN(parseInt(drElement.value)) ) {
                 const dr = drElement.value ? parseInt(drElement.value) : 0;
-                const arModElem = document.getElementById("arMod");
+                const arModElem = form.querySelector("#arMod");
                 if (isItemRoll(prepared)) {
-                    const arElement = document.getElementById("baseAR");
+                    const arElement = form.querySelector("#baseAR");
                     let ar = arElement.textContent ? parseInt(arElement.textContent) : 0;
-                    //					let ar = parseInt( (arElement.children[arElement.selectedIndex] as HTMLOptionElement).value );
                     if (arModElem.value && parseInt(arModElem.value) != 0) {
                         ar += parseInt(arModElem.value);
                     }
@@ -233,7 +234,7 @@ export class RollDialog extends Dialog {
                     targetName = targetNames.join(', ');
                 }
                 if(innerText != "") {
-                    innerText += "\r\n";
+                    innerText += " - ";
                 }
                 innerText += game.i18n.format("shadowrun6.roll.edge.gain_player", { name: targetName, value: configured.edgeTarget });
             }
@@ -241,7 +242,7 @@ export class RollDialog extends Dialog {
                 innerText += "  " + game.i18n.localize("shadowrun6.roll.edge.no_gain");
             }
             configured.edge_message = innerText;
-            let edgeLabel = document.getElementById("edgeLabel");
+            const edgeLabel = form.querySelector("#edgeLabel");
             if (edgeLabel) {
                 edgeLabel.innerText = innerText;
             }
@@ -377,6 +378,7 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _useGruntGroup(event) {
+        // TODO rework all document.getElement
         const gruntGroup = this.actor?.gruntGroup;
         const useGruntGroup = (gruntGroup?.id && document.getElementById("useGruntGroup")?.checked)
         this._updateDicePool(event);

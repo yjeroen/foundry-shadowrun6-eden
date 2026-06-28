@@ -1,4 +1,4 @@
-import { EdgeAction, EdgeBoost, MagicOrResonanceDefinition, MatrixAction, Program, SkillDefinition } from "./DefinitionTypes.js";
+import { EdgeAction, EdgeBoost, MagicOrResonanceDefinition, Program, SkillDefinition } from "./DefinitionTypes.js";
 import { ComplexForm } from "./ItemTypes.js";
 export var Defense;
 (function (Defense) {
@@ -12,6 +12,7 @@ export var Defense;
     Defense["DRAIN"] = "drain";
     Defense["FADING"] = "fading";
     Defense["ITEM_DEFINED"] = "item_defined";
+    Defense["MATRIX"] = "matrix";
 })(Defense || (Defense = {}));
 export var MonitorType;
 (function (MonitorType) {
@@ -2139,6 +2140,7 @@ export class SR6Config {
         2: "shadowrun6.label.rating2",
         3: "shadowrun6.label.rating3",
     };
+    // MatrixAction
     MATRIX_ACTIONS = {
         backdoor_entry: {
             id: "backdoor_entry",

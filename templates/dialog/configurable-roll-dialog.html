@@ -3,7 +3,15 @@
 
 <form class="sr6-roll-dialog">
 	 <div style="display:flex; align-content: space-between">
-      <h3 style="flex:4; display:inline; align-self: flex-start">{{data.actionText}}</h3>
+      <h3 style="flex:4; display:inline; align-self: flex-start">
+        <span>{{data.actionText}}</span>
+        {{!-- {{#if (eq data.defendWith "matrix")}}
+          {{#if data.itemName}}
+          <span>//{{data.panName}}</span><wbr><span>//.{{data.itemName}}</span>
+          {{/if}}
+        {{/if}} --}}
+
+      </h3>
       {{#if (or data.attrib data.useAttributeMod)}}
       <span style="flex:2.2; display:inline">
          + {{localize "shadowrun6.label.attribute"}}
@@ -14,6 +22,20 @@
        </span>
         {{/if}}
     </div>
+
+    {{!-- {{#if (eq data.defendWith "matrix")}} --}}
+    {{#if data.accessLevel}}
+    <h4 class="matrix-command-line">
+      <span>{{localize (concat "shadowrun6.matrix.accessLevel." data.accessLevel)}}@//{{data.panName}}</span><wbr>
+      {{#if data.itemName}}
+      <span>//:{{data.itemName}}# </span><wbr>
+      {{else}}
+      <span>//:{{data.actor.name}}# </span><wbr>
+      {{/if}}
+      <span>{{data.actionText}}</span>
+    </h4>
+    {{/if}}
+
     {{#if data.checkText}}
     <h2 class="highlight" id="rolldia-checkText">{{data.checkText}}</h2>
     {{/if}}

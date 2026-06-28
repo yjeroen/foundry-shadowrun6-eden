@@ -2374,17 +2374,19 @@ export default class Shadowrun6Actor extends Actor {
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
     }
-    _getMatrixAttackRating() {
+
+    get matrixAttackRating() {
         if (this.system instanceof foundry.abstract.DataModel) {
             return this.system.matrix.attackRating;
         }
-        return this.system.persona.used.a + this.system.persona.used.s;
+        return this.system.attackrating.matrix.pool;
     }
-    _getMatrixDefenseRating() {
+
+    get matrixDefenseRating() {
         if (this.system instanceof foundry.abstract.DataModel) {
             return this.system.matrix.defenseRating;
         }
-        return this.system.persona.used.d + this.system.persona.used.f;
+        return this.system.defenserating.matrix.pool;
     }
     
     /**

@@ -453,10 +453,29 @@ export class MatrixActionRoll extends SkillRoll {
     targets;
     defenseRating;
     attackRating;
-    constructor(actor, action) {
+    constructor(actor, action, targetItem) {
         super(actor.system, action.skill);
-        this.actor = actor;
-        this.action = action;
+        
+        this.actor = actor; // Needs to be set for RollDialog to process edge
+        this.accessLevel = actor.sheet._matrixAccess("string");
+
+        if (targetItem) {
+            this.itemName = targetItem.name;
+            this.itemUuid = targetItem.uuid;
+            this.panName = targetItem.actor.system.pan.name;
+            this.panAdmin = targetItem.actor.system.pan.administrator.name;
+        } else {
+            this.panName = actor.system.pan.name;
+        }
+        if (action.attr1) { // Opposed Test
+            this.defendWith = Defense.MATRIX;
+            this.attackRating = actor.matrixAttackRating; 
+            if (targetItem) {
+                this.defenseRating = targetItem.actor.system.pan.administrator.matrixDefenseRating; 
+            }
+        }
+
+        this.action = action; // TODO to get oppAttr1 for Actor.rollDefense()
         this.skillSpec = action.spec;
 
         this.attrib = action.attrib;
@@ -524,6 +543,7 @@ export class ConfiguredRoll extends CommonRollData {
      * JEROEN THIS COPIES FROM THE ORIGINAL MatrixActionRoll.contructor() TO THE configured IN THE CHAT MESSAGE!
      * */
     updateSpecifics(copy) {
+        this.itemName = copy.itemName;
         this.itemId = copy.itemId;
         this.itemUuid = copy.itemUuid;
         this.targetIds = copy.targets;

@@ -1021,6 +1021,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         }
                 
     }
+    // Only used on Limited sheet - Initiator is someone else
     _onMatrixRollByInitiator(event, html) {
         const data = event.currentTarget.dataset;
         console.log("SR6E | onMatrixAction ", data);
@@ -1033,6 +1034,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }
+    // Used on own sheet for Reference Matrix Table
     _onMatrixAction(event, html) {
         event.preventDefault();
         console.log("SR6E | onMatrixAction ", event.currentTarget.dataset);
@@ -1144,8 +1146,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         }
     }
 
-    _matrixAccess() {
+    _matrixAccess(returnObject=true) {
         const matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
+        
+        if (returnObject === "string") return matrixAccessLevel;
+
         return {
             outsider: matrixAccessLevel === "outsider",
             user: matrixAccessLevel === "user",
