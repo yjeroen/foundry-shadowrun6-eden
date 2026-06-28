@@ -2451,7 +2451,7 @@
       "running_silent": "Toggle Running Silent",
       "pan": "A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.",
       "pan_admin": "The PAN Leader, it's Administrator, serves as the controlelr of the entire network. This persona’s Matrix stats and mental stats will form the defense pool for Matrix Actions against the entire team network",
-      "deviceLimit": "A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit. Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user. This device limit remains reserved for your own sub-PAN."
+      "deviceLimit": "<p>A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit.</p><p>Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.</p><p>This device limit remains reserved for your own sub-PAN.</p>"
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",

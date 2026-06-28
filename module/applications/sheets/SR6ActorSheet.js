@@ -93,6 +93,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * Initiator used in case an action is performed that can be initiated by another actor
      */
     get initiator() {
+        if (this.isOwner) return this.actor;
         return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
     }
     /**
@@ -1233,7 +1234,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
             const isAccessDevice = item.isAccessDevice;
             const isActorsNode = item.parent?.uuid === actor.uuid;
-            const hasAccess = this.actor.isOwner ? false : item.yourMatrixAccessLevel(initiator.uuid);
+            const hasAccess = this.actor.isOwner ? false : item.yourMatrixAccessLevel(initiator); // Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
 
             return {
                 name: item.name,
@@ -1275,19 +1276,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const makePanNode = (slavedActor) => {
             const slavedPan = slavedActor.system.pan;
             const isActorsNode = slavedActor.uuid === actor.uuid;
-            const primaryAccessDevice = slavedActor.system.persona.accessDevice;
-            const hasAccess = this.actor?.isOwner
-                ? false
-                : primaryAccessDevice
-                ? primaryAccessDevice?.yourMatrixAccessLevel(initiator.uuid)
-                : false;
 
             return {
                 uuid: slavedActor.uuid,
                 name: slavedPan.ownPanName,
                 icon: "fa-network-wired",
                 type: "slaved-pan",
-                access: hasAccess || ( !pan.isSlaved || slavedActor.uuid === actor.uuid ? "admin" : "user" ),
+                access: slavedActor.yourMatrixAccessLevel(initiator),
                 isOwner: slavedActor.isOwner && isActorsNode,
                 isActorsNode: isActorsNode,
                 children: makeActorItemNodes(slavedActor)
@@ -1296,12 +1291,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         const panAdmin = pan.administrator;
         const panAdminItems = makeActorItemNodes(panAdmin);
-        const panAdminPAD= panAdmin.system.persona.accessDevice;
-        const panAdminAccess = this.actor?.isOwner 
-            ? false 
-            : panAdminPAD
-            ? panAdminPAD?.yourMatrixAccessLevel(initiator.uuid)
-            : false;
 
         // Getting all actors that are part of the current PAN
         const hasJoinedMyPan = actor => actor?.effects.some(effect =>
@@ -1326,7 +1315,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 name: pan.name,
                 icon: "fa-network-wired",
                 type: pan.isSlaved ? "external-master-pan" : "master-pan",
-                access: panAdminAccess || ( pan.isSlaved ? "user" : "admin" ),
+                access: panAdmin.yourMatrixAccessLevel(initiator),
                 isOwner: panAdmin.isOwner && !pan.isSlaved,
                 isActorsNode: !pan.isSlaved,
                 children: [

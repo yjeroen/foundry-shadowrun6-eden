@@ -2786,4 +2786,53 @@ export default class Shadowrun6Actor extends Actor {
         return Boolean( this.system.mortype === "technomancer" );
     }
 
+    /**
+     * 
+     * @param {SR6Actor} actor Usually the Initiator
+     * @returns {String} The matrix-access flag for the UUID of the Initiator
+     */
+    yourMatrixAccessLevel(initiator) {
+        const primaryAccessDevice = this.system.persona.accessDevice;
+
+        if (this.isOwner) {
+            // Someone like the GM sees the Access Level as if looked at from the perspective of the Actor
+            if (this.uuid === initiator.uuid) {
+                // This Actor is the Initiator
+                return "admin"
+            }
+            if (this.system.pan.isSlaved) {
+                if (this.system.pan.administrator.uuid === initiator.uuid) {
+                    // This Actor has joined the PAN of the Initiator's
+                    return "admin"
+                }
+            } else {
+                if (this.system.pan.administrator.uuid === initiator.uuid) {
+                    // This Actor is its own PAN admin and is the Initiator
+                    return "admin"
+                }
+                return "user"
+            }
+        }
+        if (this.isTechno) {
+            if (this.system.pan.administrator.uuid === initiator.uuid) {
+                // This Actor has joined the PAN of the Initiator's
+                return "admin"
+            }
+            if (this.uuid === initiator.system.pan.administrator.uuid) {
+                // This Initiators PAN admin is this Actor
+                return "user"
+            }
+            if (this.system.pan.administrator.uuid === initiator.system.pan.administrator.uuid) {
+                // This Initiators PAN admin is also this Actor's their PAN admin
+                return "user"
+            }
+            const safeUuid = initiator.uuid.replaceAll(".", "_");
+            return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+        }
+        if (primaryAccessDevice) {
+            return primaryAccessDevice.yourMatrixAccessLevel(initiator);
+        }
+        return "outsider"
+    }
+
 }
