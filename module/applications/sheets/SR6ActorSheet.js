@@ -1245,15 +1245,22 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             ? panAdminPAD?.yourMatrixAccessLevel(initiator.uuid)
             : false;
 
-        const slavedActors = game.actors.filter(actor =>
-            actor.effects.some(effect =>
-                !effect.disabled &&
-                effect.changes?.some(change =>
-                    change.key === "system.pan.administratorUuid" &&
-                    change.value === panAdmin.uuid
-                )
+        // Getting all actors that are part of the current PAN
+        const hasJoinedMyPan = actor => actor?.effects.some(effect =>
+            !effect.disabled &&
+            effect.changes.some(change =>
+                change.key === "system.pan.administratorUuid" &&
+                change.value === panAdmin.uuid
             )
         );
+        const worldActors = game.actors.filter(actor => actor.prototypeToken.actorLink);
+        const tokenActors = Object.values(game.actors.tokens);
+        const slavedActors = [...worldActors, ...tokenActors]
+            .filter(hasJoinedMyPan);
+
+        console.log('JEROEN worldActors', worldActors)
+        console.log('JEROEN tokenActors', tokenActors)
+        console.log('JEROEN slavedActors', slavedActors)
 
         const slavedPans = slavedActors
             .sort((a, b) => a.name.localeCompare(b.name))
