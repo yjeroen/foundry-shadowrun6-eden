@@ -58,6 +58,8 @@ export class RollDialog extends Dialog {
     activateListeners(html) {
         super.activateListeners(html);
         this.html = html;
+        this._recalculateBaseAR();
+
         // React to attack/defense rating changes
         //    	html.find('.calc-edge').show(this._onCalcEdge.bind(this));
         html.find("select[name='distance']").change(this._recalculateBaseAR.bind(this));
@@ -83,7 +85,6 @@ export class RollDialog extends Dialog {
         html.find("#ampUp").change(this._onSpellConfigChange.bind(this));
         // React to changed amp up
         html.find("#incArea").change(this._onSpellConfigChange.bind(this));
-        this._recalculateBaseAR();
         // React to attribute change
         html.find(".rollAttributeSelector").change(this._onAttribChange.bind(this));
         // React to Modifier checkboxes
@@ -96,20 +97,26 @@ export class RollDialog extends Dialog {
         html.find(".extended-test").change(this._onExtendedTestCheckbox.bind(this));
     }
     //-------------------------------------------------------------
-    _recalculateBaseAR() {
-        let prepared = this.options ? this.options.prepared : this.prepared;
-        const distanceElement = document.getElementById("distance");
-        if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") && distanceElement) {
-            const optionSelected = distanceElement.options[distanceElement.selectedIndex];
-            this.dialogResult.threshold = this.prepared.cantDodgeBulletsBaseThreshold + parseInt(optionSelected.dataset.distance);
-            prepared.threshold = this.dialogResult.threshold;
-            document.getElementById("threshold").value = this.dialogResult.threshold;
+
+    /**
+     * This is initially fired on the RolLDialog by the activateListeners()
+     * Dialog.element is a jQuery object
+     */
+    _recalculateBaseAR(event) {
+        const prepared = this.options?.prepared ?? this.prepared;
+        const html = this.html;
+        const distanceElement = html.find("#distance");
+        if (!prepared || !distanceElement.length) return;
+
+        if (game.settings.get(SYSTEM_NAME, "cantDodgeBullets")) {
+            const distance = parseInt(distanceElement.find(":selected").data("distance"), 10) || 0;
+            this.dialogResult.threshold = prepared.threshold = prepared.cantDodgeBulletsBaseThreshold + distance;
+            html.find("#threshold").val(this.dialogResult.threshold);
         }
-        if (!distanceElement)
-            return;
-        let ar = parseInt(distanceElement.value);
-        const arElement = document.getElementById("baseAR");
-        arElement.textContent = ar.toString();
+
+        const ar = parseInt(distanceElement.val(), 10) || 0;
+        html.find("#baseAR").text(ar);
+        console.log("JEROEN distanceElement ar", distanceElement, ar);
         prepared.baseAR = ar;
         this._onCalcEdge(event);
     }
