@@ -1,14 +1,23 @@
 <!-- Matrix Actions -->
 <section class="section matrix-section">
     <header class="section-head">
-        <h2 class="section-title" data-tooltip="shadowrun6.matrix.reference.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
 
-        <div class="reference-label" data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</div>
+		{{#if limited}}
+		<h2 class="section-title" data-tooltip="shadowrun6.matrix.target_persona.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+		<div class="reference-label" data-tooltip="shadowrun6.matrix.target_persona.tooltip">
+			<i class="fas fa-user"></i>
+			<span>{{actor.sheet.initiator.name}} &middot; </span>
+			<span>{{localize "shadowrun6.matrix.target_persona.title"}}</span>
+		</div>
+		{{else}}
+		<h2 class="section-title" data-tooltip="shadowrun6.matrix.reference.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+		<div class="reference-label" data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</div>
+		{{/if}}
     
 		<div class="matrix-access-container"
-			data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level"
+			data-tooltip="shadowrun6.matrix.accessLevel.switch{{#if limited}}_persona{{/if}}"
 		>
-			<div class="matrix-access-switch">
+			<div class="matrix-access-switch {{#unless owner}}inactive{{/unless}}">
 				<span class="matrix-access-option {{#if matrixAccess.outsider}}active{{/if}}"
 					data-action="switchMatrixAccess" data-value="outsider"
 				>

@@ -43,6 +43,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         data.actor.system.essence = parseFloat(data.actor.system.essence).toFixed(2);
         data.matrixAccess = this._matrixAccess();
         data.matrixActionAvailable = this._matrixActionAvailable();
+        data.matrixActionActor = this.actor.limited ? this.initiator : this.actor;
 
         // Prepare active effects // overwriting super.data.effects
         data.effects = prepareActiveEffectCategories(
@@ -87,6 +88,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             return template;
         }
     }
+
+    /**
+     * Initiator used in case an action is performed that can be initiated by another actor
+     */
+    get initiator() {
+        return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
+    }
     /**
      * Activate event listeners using the prepared sheet HTML
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -98,6 +106,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (this.actor.isOwner || this.document.limited) {
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
+        }
+        if (this.document.limited) {
+            html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
+            html.find(".matrix-roll").click(this._onMatrixRollByInitiator.bind(this));
         }
         // Owner Only Listeners
         if (this.actor.isOwner) {
@@ -114,7 +126,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find("[data-action='sharePAN']").click(this._sharePAN.bind(this));
 
             // Matrix action view
-            html.find(".matrix-access-switch.free-choice input").click(this._onMatrixAccessSwitch.bind(this));
+            html.find("[data-action='switchMatrixAccess']").click(this._onSwitchMatrixAccess.bind(this));
             html.find(".matrix-persona-attributes .matrix-attribute").click(this._onMatrixAttributesSwitch.bind(this));
 
             html.find(".weapon-ammo-reload").click(this._onWeaponAmmoReload.bind(this));
@@ -993,6 +1005,33 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         this.actor.rollSpell(roll, true);
     }
     //-----------------------------------------------------
+    _onMatrixActionDescription(event, html) { //.matrix-section.persona .collapsible
+        const element = event.currentTarget;
+
+        element.classList.toggle("closed");
+        element.classList.toggle("open");
+
+        const content = element.parentElement.nextElementSibling;
+        content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
+        content.classList.toggle("closed");
+        content.classList.toggle("open");
+        if (element.parentElement.classList.contains("matrix-persona-attributes")) {
+            this.options.flags.collapseMatrixAttr = content.classList.contains("open") ? "open" : "closed";
+        }
+                
+    }
+    _onMatrixRollByInitiator(event, html) {
+        const data = event.currentTarget.dataset;
+        console.log("SR6E | onMatrixAction ", data);
+        if (!data) return;
+        
+        const initiator = this.initiator;
+
+        const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
+        let roll = new MatrixActionRoll(initiator, matrixAction);
+        console.log("SR6E | _onMatrixAction before ", roll);
+        initiator.performMatrixAction(roll);
+    }
     _onMatrixAction(event, html) {
         event.preventDefault();
         console.log("SR6E | onMatrixAction ", event.currentTarget.dataset);
@@ -1029,6 +1068,34 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const cform = getSystemData(formRaw);
         let roll = new ComplexFormRoll(caster, item, itemId, cform);
         this.actor.rollResonanceAbility(roll);
+    }
+
+    get #matrixUserSafeUuid() {
+        const actor = this.initiator ?? this.actor;
+        return actor.uuid.replaceAll(".", "_");
+    }
+    async _onSwitchMatrixAccess(event, html) {
+        const target = event.currentTarget;
+        const container = target.closest(".matrix-access-container");
+        if (container?.classList.contains("inactive")) return;
+
+        const switchEl = target.closest(".matrix-access-switch");
+        const newAccessLevel = target.dataset.value;
+        if (!newAccessLevel || !switchEl) return;
+
+        console.log("SR6E | _onSwitchMatrixAccess to:", newAccessLevel);
+
+        for (const option of switchEl.querySelectorAll(".matrix-access-option")) {
+            option.classList.toggle("active", option === target);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+         // wait until CSS effect is ready
+        await this.document.setFlag(
+            "shadowrun6-eden",
+            `matrix-access.${this.#matrixUserSafeUuid}`,
+            newAccessLevel
+        );
     }
 
     async _onMatrixAttributesSwitch(event, html) {
@@ -1076,44 +1143,35 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         }
     }
 
-    async _onMatrixAccessSwitch(event, html) {
-        console.log("SR6E | _onMatrixAccessSwitch to:", event.currentTarget.value);
-        await new Promise(resolve => setTimeout(resolve, 500)); // wait until CSS effect is ready
-        await this.actor.setFlag("shadowrun6-eden", "matrix-access", event.currentTarget.value)
-    }
-
     _matrixAccess() {
-        let matrixAccess = {
-            outsider: false,
-            user: false,
-            admin: false
+        const matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
+        return {
+            outsider: matrixAccessLevel === "outsider",
+            user: matrixAccessLevel === "user",
+            admin: matrixAccessLevel === "admin"
         };
-        const matrixAccessLevel = this.actor.getFlag("shadowrun6-eden", "matrix-access");
-        if (matrixAccessLevel === "admin") {
-            matrixAccess.admin = true;
-        } else if (matrixAccessLevel === "user") {
-            matrixAccess.user = true;
-        } else {
-            matrixAccess.outsider = true;
-        }
-        return matrixAccess;
     }
 
     _matrixActionAvailable() {
-        let matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS).filter(([actionId, action]) => {
-            action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name')
-            if (action.skill === "cracking" && !this.actor.system.skills.cracking.pool) return false
-            if (action.linkedAttr === null || action.linkedAttr === undefined) return true;
-            if (action.linkedAttr === "a" && this.actor.system.persona?.used?.a > 0) return true;
-            if (action.linkedAttr === "s" && this.actor.system.persona?.used?.s > 0) return true;
-            return false;
-        });  
-        matrixActions = Object.fromEntries(matrixActions.sort(function (a, b) {
-            var textA = a[1].name.toUpperCase();
-            var textB = b[1].name.toUpperCase();
-            return textA.localeCompare(textB);
-        }));
-        return matrixActions;
+        const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
+            .filter(([actionId, action]) => {
+                action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name');
+
+                if (this.document.limited) {
+                    if (action.skill === "cracking" && !this.initiator.system.skills.cracking.pool) return false
+                    if (action.targets?.includes("persona") && action.outsider) return true;
+                    return false;
+                }
+
+                if (action.skill === "cracking" && !this.actor.system.skills.cracking.pool) return false
+                if (action.linkedAttr === null || action.linkedAttr === undefined) return true;
+                if (action.linkedAttr === "a" && this.actor.system.persona?.used?.a > 0) return true;
+                if (action.linkedAttr === "s" && this.actor.system.persona?.used?.s > 0) return true;
+                return false;
+            })
+            .sort(([, a], [, b]) => a.name.localeCompare(b.name));  
+
+        return Object.fromEntries(matrixActions);
     }
 
     _prepareConditionMonitors(conditionMonitor) {
@@ -1168,7 +1226,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             matrixCM: this._prepareConditionMonitors(matrixCM),
         };
 
-        const initiator = canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
+        const initiator = this.initiator;
 
         // Helper to make matrix device nodes
         const makeItemNode = (item) => {
@@ -1257,10 +1315,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const tokenActors = Object.values(game.actors.tokens);
         const slavedActors = [...worldActors, ...tokenActors]
             .filter(hasJoinedMyPan);
-
-        console.log('JEROEN worldActors', worldActors)
-        console.log('JEROEN tokenActors', tokenActors)
-        console.log('JEROEN slavedActors', slavedActors)
 
         const slavedPans = slavedActors
             .sort((a, b) => a.name.localeCompare(b.name))
@@ -1447,7 +1501,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         if (canvas.tokens.controlled.length > 1) return ui.notifications.warn("shadowrun6.ui.notifications.Select_a_single_token", { localize: true });
 
-        const initiator = canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
+        const initiator = this.initiator;
         console.log("SR6E | Shadowrun6ActorSheet | _matrixOperations", item.name, initiator.name);
         const matrixSheet = new SR6MatrixOperationSheet({ document: item, initiator: initiator, launcher: this });
         await this.minimize();

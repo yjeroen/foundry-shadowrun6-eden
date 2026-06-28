@@ -784,13 +784,16 @@
     "matrix": {
       "reference.title": "Reference Section",
       "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
+      "target_persona.title": "Targetting Persona",
+      "target_persona.tooltip": "<p>This section shows Matrix Actions that can target the Persona directly.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "accessLevel": {
         "outsider": "OUTSIDER",
         "user": "USER",
         "admin": "ADMIN",
         "tooltip_sheetOwner_true": "{name}'s Access Level to {device}",
         "tooltip_sheetOwner_false": "Your Access Level to target {device}",
-        "switch_access_level": "Click to switch access level to see which Matrix Actions are available.",
+        "switch": "Click to switch access level to see which Matrix Actions are available.",
+        "switch_persona": "<p>This is your current Access Level to this persona.</p>",
         "access_level_device": "<p>This is your current Access Level to this device.</p><p>Click to switch access level after you have used <em>Backdoor Entry</em> or <em>Brute Force</em>.</p>",
         "access_level_device_admin": "<p>This is your current Access Level to this device.</p><p>You are ADMIN due to this being your device or you being PAN Administrator.</p>"
       },

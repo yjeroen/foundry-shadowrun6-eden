@@ -32,7 +32,10 @@
             {{#if system.description}}
 			{{> "systems/shadowrun6-eden/templates/parts/section-description.hbs"}}
             {{/if}}
+            {{#if (or system.persona.accessDevice actor.isTechno)}}
             {{> "systems/shadowrun6-eden/templates/parts/section-matrix-pan.hbs"}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-matrixactions.html"}}
+            {{/if}}
 		</div>
 
 	</section>

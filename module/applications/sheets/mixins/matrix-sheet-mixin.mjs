@@ -55,6 +55,8 @@ export const MatrixSheetMixin = Base => class extends Base {
 
     get _matrixAccess() {
         const matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
+        console.log(`SR6E | MatrixSheetMixin._matrixAccess`, matrixAccessLevel, this.#matrixUserSafeUuid);
+
         return {
             outsider: matrixAccessLevel === "outsider",
             user: matrixAccessLevel === "user",

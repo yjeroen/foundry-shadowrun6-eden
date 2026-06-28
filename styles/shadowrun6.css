@@ -1347,3 +1347,7 @@ body.game .application.shadowrun6 .window-content {
   pointer-events: none;
   cursor: default;
 }
+.sheet .read-only .matrix-section.persona a {
+  pointer-events: auto;
+  cursor: pointer;
+}
