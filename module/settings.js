@@ -37,6 +37,18 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "importToCompendium", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "tokensLimitedOwnership", {
+        name: "shadowrun6.settings.tokensLimitedOwnership.name",
+        hint: "shadowrun6.settings.tokensLimitedOwnership.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+        onChange: (toggle) => {
+            console.log("SR6E | tokensLimitedOwnership changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "tokensLimitedOwnership", toggle);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "hardDiceCap", {
         name: "shadowrun6.settings.hardDiceCap.name",
         hint: "shadowrun6.settings.hardDiceCap.hint",

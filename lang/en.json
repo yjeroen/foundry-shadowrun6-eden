@@ -1561,6 +1561,10 @@
         "hint": "Define if imported NPCs should be added as actors or as entries to the NPCs compendium",
         "name": "Import to compendium"
       },
+      "tokensLimitedOwnership": {
+        "hint": "If enabled, if you drop any Actor with 'Link Actor Data' disabled in its prototype onto the Canvas, the Token will have a Limited Ownership (so players can click on it to see the Read Only sheets with Matrix Persona/PAN information) if the Actor was configurd with No Ownership. This allows you to hide Actors in the Actor tab from view, while still allowing players to see their Read Only sheets.",
+        "name": "Tokens Read Only & Matrix Sheets"
+      },
       "defaultThreshold": {
         "hint": "Defines the default threshold used for any skill check",
         "name": "Default Threshold"
@@ -1936,7 +1940,9 @@
         "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
         "edge_has_been_reset": "All Edge has been reset by the GM.",
         "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
-        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>Inform all players they need to adjust their Gear and Cyberware if necessary.<p>"
+        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>Inform all players they need to adjust their Gear and Cyberware if necessary.<p>",
+        "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
+        "notificationOnce": "This message will only show once during this browser session."
       }
     },
     "EFFECT": {

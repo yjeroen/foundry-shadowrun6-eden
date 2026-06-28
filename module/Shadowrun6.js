@@ -756,6 +756,29 @@ Hooks.once("init", async function () {
             shape: CONST.TOKEN_SHAPES.ELLIPSE_1
         });
     });
+    /**
+     * After a token is created, check if we need to change Ownership rights
+     */
+    Hooks.on("createToken", (token, options, userId) => {
+        const tokensLimitedOwnership = game.settings.get(SYSTEM_NAME, "tokensLimitedOwnership");
+        if (!tokensLimitedOwnership) return;
+
+        if (
+            !token.actorLink 
+            && token.actor.ownership.default === CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE
+        ) {
+            token.actor.update({ 
+                "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED
+            });
+            if (!game.sr6.config.informedGm.tokensLimitedOwnership) {
+                foundry.ui.notifications.constructor.LIFETIME_MS = 10000;
+                ui.notifications.info("shadowrun6.ui.notifications.tokensLimitedOwnership", { localize: true });
+                ui.notifications.info("shadowrun6.ui.notifications.notificationOnce", { localize: true });
+                foundry.ui.notifications.constructor.LIFETIME_MS = 5000;
+                game.sr6.config.informedGm.tokensLimitedOwnership = true; // Only do this the first time during a browser session
+            }
+        }
+    });
     Hooks.once("dragRuler.ready", (SpeedProvider) => {
         class FictionalGameSystemSpeedProvider extends SpeedProvider {
             get colors() {
