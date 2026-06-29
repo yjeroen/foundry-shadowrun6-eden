@@ -2340,7 +2340,7 @@ export default class Shadowrun6Actor extends Actor {
         
         // Calculate pool
         roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec, roll.attrib);
-        roll.attackRating = this._getMatrixAttackRating();
+        roll.attackRating = this.matrixAttackRating;
         // Taking DataModel matrix attributes into account
         let highestDefenseRating = this._getHighestDefenseRating((a) => a.system.defenserating?.matrix?.pool || a.system.matrix?.defenseRating);
 
