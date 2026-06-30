@@ -808,7 +808,9 @@
       "persona.defending": "Defending Persona",
       "chat.initiating": "initiating",
       "chat.validating": "validating",
-      "chat.defend": "defend"
+      "chat.defend": "defend",
+      "roll.defended.success": "You succesfully defended against the Matrix event.",
+      "roll.defended.failed": "You failed to defend against the Matrix event."
     },
     "matrixaction": {
       "backdoor_entry": {

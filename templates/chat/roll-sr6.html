@@ -295,8 +295,9 @@
    {{/if}}
 
 {{#if success}}
-   <!-- Success and Defense possible -->
+   <!-- Success -->
    {{#if (and defendWith (not cantDodgeBullets))}}
+   <!-- Defense possible - Show Roll Defense button -->
    {{log "************************Defense" this}}
    <hr/>
     {{log "**Defense targets " targetIds}}
@@ -331,9 +332,8 @@
             {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
             {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
             {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
-            {{#if configured.panAdminUuid}} data-pan-admin-uuid="{{configured.panAdminUuid}}" {{/if}}
-            {{#if configured.action.attr1}} data-matrix-opp-attr1="{{configured.action.attr1}}" {{/if}}
-            {{#if configured.action.attr2}} data-matrix-opp-attr2="{{configured.action.attr2}}" {{/if}}
+            {{#if configured.panAdminUuid}} data-actor-uuid="{{configured.panAdminUuid}}" {{/if}}
+            {{#if configured.matrixActionId}} data-matrix-action-id="{{configured.matrixActionId}}" {{/if}}
           >
             {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}}){{#if configured.panAdmin}}: {{configured.panAdmin}}{{/if}}
           </button>
@@ -359,7 +359,9 @@
    {{/if}}
 {{/if}}
    
-   {{#if (or (eq rollType "defense") cantDodgeBullets)}}
+{{#if (or (eq rollType "defense") cantDodgeBullets)}}
+<!-- Defense Result -->
+<hr>
       {{#if actorTraits.hardenedArmor}}
         {{#if (not actorTraits.immunityNormalWeapons)}}
         <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
@@ -369,7 +371,9 @@
           {{/if}}
         {{/if}}
       {{/if}}
-      {{#if cantDodgeBullets}}
+
+  {{#if cantDodgeBullets}}
+
         {{#if success}}
           {{#iff targets.length ">" 0}}
           {{#each targets as |target|}}
@@ -383,29 +387,36 @@
         {{else}}
           <div class="resulttext failure" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
         {{/if}}
-      {{else}}
+
+  {{else}}
+  
         {{#if success}}
             <div class="resulttext success" style="flex:2;">
-              {{#if (eq configured.defendedWith "item_defined")}}
-              {{ localize 'shadowrun6.roll.successfulDefenseGeneral'}}
-              {{else}}
-              {{ localize 'shadowrun6.roll.successfulDefense'}}
-              {{/if}}
+              {{#switch configured.defendedWith}}
+
+                {{#case "item_defined"}}{{localize "shadowrun6.roll.successfulDefenseGeneral"}}{{/case}}
+                {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.success"}}{{/case}}
+                {{#default}}{{localize "shadowrun6.roll.successfulDefense"}}{{/default}}
+
+              {{/switch}}
             </div>
         {{else}}
             <div class="resulttext failure" style="flex:2;">
-              {{#if (eq configured.defendedWith "item_defined")}}
-              {{ localize 'shadowrun6.roll.failedDefenseGeneral'}}
-              {{else}}
-              {{ localize 'shadowrun6.roll.failedDefense'}} {{nettoDamage}}
-              {{/if}}
+              {{#switch configured.defendedWith}}
+
+                {{#case "item_defined"}}{{localize "shadowrun6.roll.failedDefenseGeneral"}}{{/case}}
+                {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.failed"}}{{/case}}
+                {{#default}}{{localize "shadowrun6.roll.failedDefense"}} {{nettoDamage}}{{/default}}
+
+              {{/switch}}
             </div>
             {{#if monitor}}
             <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
             {{/if}}
         {{/if}}
-      {{/if}}
-   {{/if}}
+
+  {{/if}}
+{{/if}}
 
    <!-- After Soak / Apply Damage -->
    {{#if (eq rollType "soak")}}
