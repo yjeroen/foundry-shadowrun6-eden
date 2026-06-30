@@ -467,9 +467,11 @@ Hooks.once("init", async function () {
             let tokenId = dataset["targetid"] ? dataset["targetid"] : dataset["targetToken"];
             let actor;
             let token;
+            console.log("SR6E | dataset ", dataset);
 
             if (actorUuid) {
-                actor = game.actors.get(actorUuid);
+                console.log("SR6E | Target is full Actor UUID");
+                actor = foundry.utils.fromUuidSync(actorUuid);
             } else if (actorId && sceneId && tokenId) {
                 console.log("SR6E | Target is a token");
                 // If scene and token ID is given, resolve token
@@ -567,7 +569,8 @@ Hooks.once("init", async function () {
                         const defendWith = dataset.defendWith;
                         const monitor = dataset.monitor;
                         const itemUuid = dataset.itemUuid;
-                        actor.rollDefense(defendWith, threshold, damage, monitor, itemUuid);
+                        const matrixActionId = dataset.matrixActionId;
+                        actor.rollDefense(defendWith, threshold, damage, monitor, itemUuid, matrixActionId);
                     }
                     break;
                 case RollType.Soak:

@@ -2148,12 +2148,14 @@ export default class Shadowrun6Actor extends Actor {
     //-------------------------------------------------------------
     /**
      */
-    async rollDefense(defendWith, threshold, damage, monitor, itemUuid) {
+    async rollDefense(defendWith, threshold, damage, monitor, itemUuid, matrixActionId) {
         const data = getSystemData(this);
-        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, itemUuid);
+        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, itemUuid, matrixActionId);
 
         let defensePool = undefined;
         let rollData = new DefenseRoll(threshold, monitor);
+        rollData.actor = this;
+
         switch (defendWith) {
             case Defense.PHYSICAL:
                 // In combat defense, the defender must have MORE hits than the attacker to completely defend
@@ -2200,6 +2202,21 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 rollData.checkText = game.i18n.localize(`attrib.${oppAttr1}`) + " + " + game.i18n.localize(`attrib.${oppAttr2}`) + " (" + threshold + ")";
                 break;
+            case Defense.MATRIX:
+                const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ matrixActionId ];
+                rollData.matrixActionId = matrixActionId;
+
+                const targetItem = await foundry.utils.fromUuid(itemUuid);
+                if (targetItem) {
+                    rollData.itemUuid = itemUuid; // Target Item.actor
+                }
+
+                console.log(`SR6E | Defense vs "${matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
+                defensePool = { pool: this.getMatrixPool(matrixAction.attr1, matrixAction.attr2) };
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
+
+                rollData.checkText = game.i18n.localize(`attrib.${matrixAction.attr1}`) + " + " + game.i18n.localize(`attrib.${matrixAction.attr2}`) + " (" + threshold + ")";
+                break;
             default:
                 console.log("SR6E | Error! Don't know how to handle defense rolls for " + defendWith);
                 ui.notifications.error("SR6E | Error! Don't know (yet) how to handle defense rolls for " + defendWith);
@@ -2209,7 +2226,6 @@ export default class Shadowrun6Actor extends Actor {
         // Prepare action text
         console.log("SR6E | DefenseRoll ", rollData);
         rollData.damage = damage;
-        rollData.actor = this;
         rollData.allowBuyHits = false;
         rollData.pool = defensePool.pool;
         rollData.rollType = RollType.Defense;
