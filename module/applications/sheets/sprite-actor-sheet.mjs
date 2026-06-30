@@ -35,7 +35,7 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
         
         // Don't show the other tabs if only limited view
         if (this.document.limited) {
-            options.parts.push();
+            options.parts.push("features", "description");
             this._defaultTab = "features";
             return;
         }
