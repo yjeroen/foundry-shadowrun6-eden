@@ -462,7 +462,7 @@ export class MatrixActionRoll extends SkillRoll {
     defenseRating;
     attackRating;
     constructor(actor, action, options={}) {
-        console.log("SR6E | Constructing MatrixActionRoll")
+        console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
         const {target, fromReferenceSection} = options;
         super(actor.system, action.skill);
         
@@ -474,6 +474,7 @@ export class MatrixActionRoll extends SkillRoll {
         }
 
         if (target instanceof game.sr6.documents.SR6Item) {
+            // item is target
             this.itemName = target.name;
             this.itemUuid = target.uuid;
             this.panName = target.actor.system.pan.name;
@@ -485,11 +486,7 @@ export class MatrixActionRoll extends SkillRoll {
             this.panAdmin = target.system.pan?.administrator?.name ?? target.name;
             this.panAdminUuid = target.system.pan?.administrator?.uuid ?? target.name;
         }
-        else {
-            // this.panName = actor.system.pan?.name ?? actor.name;
-            // this.panAdmin = actor.system.pan?.administrator?.name ?? actor.name;
-            // this.panAdminUuid = actor.system.pan?.administrator?.uuid ?? actor.uuid;
-        }
+
         if (action.attr1) { // Opposed Test
             this.defendWith = Defense.MATRIX;
             this.attackRating = actor.matrixAttackRating; 
@@ -504,6 +501,7 @@ export class MatrixActionRoll extends SkillRoll {
             }
         }
 
+        this.matrixActionId = action.id;
         this.action = action;
         this.attrib = action.attrib;
         this.skillId = action.skill;
@@ -609,6 +607,7 @@ export class ConfiguredRoll extends CommonRollData {
         this.formSrc = copy.formSrc;
 
         if (copy.accessLevel) this.accessLevel = copy.accessLevel;
+        if (copy.matrixActionId) this.matrixActionId = copy.matrixActionId;
         if (copy.panName) this.panName = copy.panName;
         if (copy.panAdmin) this.panAdmin = copy.panAdmin;
         if (copy.panAdminUuid) this.panAdminUuid = copy.panAdminUuid;
