@@ -453,31 +453,46 @@ export class MatrixActionRoll extends SkillRoll {
     targets;
     defenseRating;
     attackRating;
-    constructor(actor, action, targetItem) {
+    constructor(actor, action, target=null) {
         super(actor.system, action.skill);
         
         this.actor = actor; // Needs to be set for RollDialog to process edge
         this.accessLevel = actor.sheet._matrixAccess("string");
+        console.log("JEROEN actor", actor.name)
+        console.log("JEROEN target", target?.name, target)
 
-        if (targetItem) {
-            this.itemName = targetItem.name;
-            this.itemUuid = targetItem.uuid;
-            this.panName = targetItem.actor.system.pan.name;
-            this.panAdmin = targetItem.actor.system.pan.administrator.name;
-        } else {
-            this.panName = actor.system.pan.name;
+        if (target instanceof game.sr6.documents.SR6Item) {
+            this.itemName = target.name;
+            this.itemUuid = target.uuid;
+            this.panName = target.actor.system.pan.name;
+            this.panAdmin = target.actor.system.pan.administrator.name;
+            this.panAdminUuid = target.actor.system.pan.administrator.uuid;
+        }
+        else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
+            this.panName = target.system.pan?.name ?? target.name;
+            this.panAdmin = target.system.pan?.administrator?.name ?? target.name;
+            this.panAdminUuid = target.system.pan?.administrator?.uuid ?? target.name;
+        }
+        else {
+            // this.panName = actor.system.pan?.name ?? actor.name;
+            // this.panAdmin = actor.system.pan?.administrator?.name ?? actor.name;
+            // this.panAdminUuid = actor.system.pan?.administrator?.uuid ?? actor.uuid;
         }
         if (action.attr1) { // Opposed Test
             this.defendWith = Defense.MATRIX;
             this.attackRating = actor.matrixAttackRating; 
-            if (targetItem) {
-                this.defenseRating = targetItem.actor.system.pan.administrator.matrixDefenseRating; 
+            if (target instanceof game.sr6.documents.SR6Item) {
+                this.defenseRating = target.actor.system.pan.administrator.matrixDefenseRating; 
+            }
+            else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
+                this.defenseRating = target.system.pan?.administrator?.matrixDefenseRating ?? target.system.matrix?.defenseRating; 
+            }
+            else {
+                // this.defenseRating = actor.system.pan.administrator.matrixDefenseRating; 
             }
         }
 
-        this.action = action; // TODO to get oppAttr1 for Actor.rollDefense()
-        this.skillSpec = action.spec;
-
+        this.action = action;
         this.attrib = action.attrib;
         this.skillId = action.skill;
         this.skillSpec = action.specialization;
@@ -581,13 +596,13 @@ export class ConfiguredRoll extends CommonRollData {
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
 
-        if (copy.matrixCmPenalty) {
-            this.matrixCmPenalty = copy.matrixCmPenalty;
-        }
+        if (copy.accessLevel) this.accessLevel = copy.accessLevel;
+        if (copy.panName) this.panName = copy.panName;
+        if (copy.panAdmin) this.panAdmin = copy.panAdmin;
+        if (copy.panAdminUuid) this.panAdminUuid = copy.panAdminUuid;
+        if (copy.matrixCmPenalty) this.matrixCmPenalty = copy.matrixCmPenalty;
 
-        if (copy.defendedWith) {
-            this.defendedWith = copy.defendedWith;
-        }
+        if (copy.defendedWith) this.defendedWith = copy.defendedWith;
 
         if (copy.skillId) {
             this.skillId = copy.skillId;
@@ -682,7 +697,6 @@ export class SR6ChatMessageData {
                 break;
         }
         if (copy.legwork) this.legwork = copy.legwork;
-        if (copy.itemUuid) this.itemUuid = copy.itemUuid;
         console.log("SR6E | ####SR6ChatMessageData####2###", this);
     }
 }

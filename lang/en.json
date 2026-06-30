@@ -805,7 +805,10 @@
       "open_operations": "Start Matrix Operations on {item}.",
       "icon": "Icon",
       "persona.initiating": "Initiating Persona",
-      "persona.defending": "Defending Persona"
+      "persona.defending": "Defending Persona",
+      "chat.initiating": "initiating",
+      "chat.validating": "validating",
+      "chat.defend": "defend"
     },
     "matrixaction": {
       "backdoor_entry": {

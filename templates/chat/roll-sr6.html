@@ -7,9 +7,32 @@
   {{#if configured.extended}}<h3>{{localize 'shadowrun6.label.extended_test'}}</h3>{{/if}}
   <h3>{{actionText}}</h3>
 
-  {{#if configured.checkText}}
-  <h4>{{ configured.checkText }}</h4>
-  <hr/>
+  {{#if configured.accessLevel}}
+  <h4 class="matrix-command-line">
+    <span>{{localize (concat "shadowrun6.matrix.accessLevel." configured.accessLevel)}}@{{speaker.alias}}</span>
+    {{#if configured.panAdmin}}
+    <span>//{{configured.panName}}</span><wbr>
+    {{/if}}
+    {{#if configured.itemName}}
+      <span>//:{{configured.itemName}}</span><wbr>
+      {{else}}
+      <span>//:{{#if configured.panAdmin}}{{configured.panAdmin}}{{else}}???{{/if}}</span><wbr>
+    {{/if}}
+    <span># {{configured.actionText}}..</span>
+    <div># {{localize "shadowrun6.matrix.chat.initiating"}}..</div>
+    <div># {{ configured.checkText }}</div>
+    {{#if defendWith}}
+    <div># {{localize "shadowrun6.matrix.chat.validating"}}..</div>
+    <span>{{localize "shadowrun6.matrix.accessLevel.admin"}}@//:{{#if configured.panAdmin}}{{configured.panAdmin}}{{else}}???{{/if}}>> {{localize "shadowrun6.matrix.chat.defend"}}</span><wbr>
+    {{/if}}
+  </h4>
+  {{else}}
+
+    {{#if configured.checkText}}
+    <h4>{{ configured.checkText }}</h4>
+    <hr/>
+    {{/if}}
+
   {{/if}}
 
   {{#if configured.chatDescription}}
@@ -271,8 +294,8 @@
     </button>
    {{/if}}
 
-   <!-- Defense possible -->
 {{#if success}}
+   <!-- Success and Defense possible -->
    {{#if (and defendWith (not cantDodgeBullets))}}
    {{log "************************Defense" this}}
    <hr/>
@@ -298,19 +321,40 @@
      </div>
      {{/each}}
    {{else}}
-     <!-- When no targets have been selected -->
-     <div>
-  	    <button class="rollable" data-roll-type="defense" 
-          data-damage="{{configured.calcDamage}}"  
-          data-monitor="{{monitor}}" 
-          data-defend-with="{{defendWith}}" 
-          data-targetid="{{targetId}}" 
-          data-threshold="{{threshold}}"
-          {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
-        >
-          {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})
-        </button>
-     </div>
+
+      {{#if (eq defendWith "matrix")}}
+      <!-- Matrix Action Defense -->
+      <div>
+          <button class="rollable" data-roll-type="defense" 
+            data-defend-with="{{defendWith}}"
+            data-damage="{{configured.calcDamage}}"
+            {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
+            {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
+            {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
+            {{#if configured.panAdminUuid}} data-pan-admin-uuid="{{configured.panAdminUuid}}" {{/if}}
+            {{#if configured.action.attr1}} data-matrix-opp-attr1="{{configured.action.attr1}}" {{/if}}
+            {{#if configured.action.attr2}} data-matrix-opp-attr2="{{configured.action.attr2}}" {{/if}}
+          >
+            {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}}){{#if configured.panAdmin}}: {{configured.panAdmin}}{{/if}}
+          </button>
+      </div>
+
+      {{else}}
+      <!-- When no targets have been selected -->
+      <div>
+          <button class="rollable" data-roll-type="defense" 
+            data-defend-with="{{defendWith}}"
+            data-damage="{{configured.calcDamage}}"
+            {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
+            {{#if targetId}} data-targetid="{{targetId}}" {{/if}}
+            {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
+            {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
+          >
+            {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})
+          </button>
+      </div>
+      {{/if}}
+
    {{/iff}}
    {{/if}}
 {{/if}}

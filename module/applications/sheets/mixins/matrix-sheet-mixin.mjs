@@ -123,13 +123,14 @@ export const MatrixSheetMixin = Base => class extends Base {
 
     static async _onMatrixRoll(event, target) {
         const data = target.dataset;
-        console.log("SR6E | onMatrixAction ", data);
+        console.log("SR6E | _onMatrixAction ", data);
         if (!data) return;
 
         const initiator = this.initiator ?? this.actor;
+        const isIni = this.initiator.uuid === this.actor.uuid;
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator, matrixAction, this.item);
-        console.log("SR6E | _onMatrixAction before ", roll);
+        let roll = new MatrixActionRoll(initiator, matrixAction, this.item ?? (isIni ? undefined : this.actor) );
+        console.log("SR6E | _onMatrixAction before ", initiator.name, roll);
         initiator.performMatrixAction(roll);
     }
 

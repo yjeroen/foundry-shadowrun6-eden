@@ -26,13 +26,16 @@
     {{!-- {{#if (eq data.defendWith "matrix")}} --}}
     {{#if data.accessLevel}}
     <h4 class="matrix-command-line">
-      <span>{{localize (concat "shadowrun6.matrix.accessLevel." data.accessLevel)}}@//{{data.panName}}</span><wbr>
-      {{#if data.itemName}}
-      <span>//:{{data.itemName}}# </span><wbr>
-      {{else}}
-      <span>//:{{data.actor.name}}# </span><wbr>
+      <span>{{localize (concat "shadowrun6.matrix.accessLevel." data.accessLevel)}}@{{data.actor.name}}</span><wbr>
+      {{#if data.panAdmin}}
+      <span>//{{data.panName}}</span><wbr>
       {{/if}}
-      <span>{{data.actionText}}</span>
+      {{#if data.itemName}}
+      <span>//:{{data.itemName}}</span><wbr>
+      {{else}}
+      <span>//:{{#if data.panAdmin}}{{data.panAdmin}}{{else}}???{{/if}}</span><wbr>
+      {{/if}}
+      <span># {{data.actionText}}</span>
     </h4>
     {{/if}}
 

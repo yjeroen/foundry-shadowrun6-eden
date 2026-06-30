@@ -1030,7 +1030,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const initiator = this.initiator;
 
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator, matrixAction);
+        let roll = new MatrixActionRoll(initiator, matrixAction, this.actor);
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }
@@ -1042,10 +1042,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             return;
         if (!event.currentTarget.dataset)
             return;
-        const attacker = this.actor;
+        const initiator = this.actor;
         const matrixId = event.currentTarget.dataset.matrixId;
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixId];
-        let roll = new MatrixActionRoll(attacker, matrixAction);
+        let roll = new MatrixActionRoll(initiator, matrixAction);
         console.log("SR6E | _onMatrixAction before ", roll);
         this.actor.performMatrixAction(roll);
     }
