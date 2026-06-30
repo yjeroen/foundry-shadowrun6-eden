@@ -444,6 +444,14 @@ export class WeaponRoll extends SkillRoll {
         }
     }
 }
+/**
+ * Matrix Action Roll configuration object thats being passed to the RollDialog and later into chat
+ * @param {SR6Actor} [actor]                        The Actor that is rolling
+ * @param {object}   [action]                       The Matrix Action that is being used
+ * @param {object}   [options]                      Options provided
+ * @param {SR6Actor} [options.target]               A target Actor or Item that wants you to check what their ACL it towards this Actor
+ * @param {boolean}  [options.fromReferenceSection] True if this is being called from the Matrix Action Reference Section
+ */
 export class MatrixActionRoll extends SkillRoll {
     rollType = RollType.MatrixAction;
     itemName;
@@ -453,13 +461,17 @@ export class MatrixActionRoll extends SkillRoll {
     targets;
     defenseRating;
     attackRating;
-    constructor(actor, action, target=null) {
+    constructor(actor, action, options={}) {
+        console.log("SR6E | Constructing MatrixActionRoll")
+        const {target, fromReferenceSection} = options;
         super(actor.system, action.skill);
         
         this.actor = actor; // Needs to be set for RollDialog to process edge
-        this.accessLevel = actor.sheet._matrixAccess("string");
-        console.log("JEROEN actor", actor.name)
-        console.log("JEROEN target", target?.name, target)
+        if (target) {
+            this.accessLevel = target.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
+        } else {
+            this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
+        }
 
         if (target instanceof game.sr6.documents.SR6Item) {
             this.itemName = target.name;
@@ -555,7 +567,7 @@ export class ConfiguredRoll extends CommonRollData {
     legwork;
     /**
      * This methods is a horrible crime - there must be a better solution 
-     * JEROEN THIS COPIES FROM THE ORIGINAL MatrixActionRoll.contructor() TO THE configured IN THE CHAT MESSAGE!
+     * JEROEN THIS COPIES FROM THE ORIGINAL XxxRoll.contructor() TO THE configured IN THE CHAT MESSAGE!
      * */
     updateSpecifics(copy) {
         this.itemName = copy.itemName;

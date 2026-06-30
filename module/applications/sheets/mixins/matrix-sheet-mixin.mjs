@@ -53,14 +53,17 @@ export const MatrixSheetMixin = Base => class extends Base {
         return actor.uuid.replaceAll(".", "_");
     }
 
-    get _matrixAccess() {
+    _matrixAccess() {
+        console.log(`SR6E | MatrixSheetMixin._matrixAccess() | START`);
         let matrixAccessLevel;
         if (this.item) {
-            matrixAccessLevel = this.item.yourMatrixAccessLevel(this.initiator);
+            matrixAccessLevel = this.item.yourMatrixAccessLevel({ initiator: this.initiator });
         } else {
-            matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
+            // Only Actor currently using this sheet is Sprite
+            // matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
+            matrixAccessLevel = this.actor.yourMatrixAccessLevel({ initiator: this.initiator, fromReferenceSection: true });
         }
-        console.log(`SR6E | MatrixSheetMixin._matrixAccess`, matrixAccessLevel, this.#matrixUserSafeUuid);
+        console.log(`SR6E | MatrixSheetMixin._matrixAccess() | END`, matrixAccessLevel, this.#matrixUserSafeUuid);
 
         return {
             outsider: matrixAccessLevel === "outsider",
@@ -123,14 +126,17 @@ export const MatrixSheetMixin = Base => class extends Base {
 
     static async _onMatrixRoll(event, target) {
         const data = target.dataset;
-        console.log("SR6E | _onMatrixAction ", data);
+        console.log("SR6E | _onMatrixRoll ", data);
         if (!data) return;
 
         const initiator = this.initiator ?? this.actor;
         const isIni = this.initiator.uuid === this.actor.uuid;
+        const matrixTarget = this.item ?? (isIni ? undefined : this.actor);
+        const sheetHasActor = Boolean(this.actor);
+
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator, matrixAction, this.item ?? (isIni ? undefined : this.actor) );
-        console.log("SR6E | _onMatrixAction before ", initiator.name, roll);
+        let roll = new MatrixActionRoll(initiator, matrixAction, { target: matrixTarget, fromReferenceSection: sheetHasActor });
+        console.log("SR6E | _onMatrixRoll before ", initiator.name, roll);
         initiator.performMatrixAction(roll);
     }
 

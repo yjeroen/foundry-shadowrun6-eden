@@ -54,7 +54,7 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
                 this._prepareSpriteItems(context);
                 break;
             case "features":
-                context.matrixAccess = this._matrixAccess;
+                context.matrixAccess = this._matrixAccess();
                 context.matrixActions = this._matrixActions();
                 this._prepareSpriteItems(context);
                 break;

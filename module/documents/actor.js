@@ -2790,51 +2790,68 @@ export default class Shadowrun6Actor extends Actor {
 
     /**
      * 
-     * @param {SR6Actor} actor Usually the Initiator
-     * @returns {String} The matrix-access flag for the UUID of the Initiator
+     * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor
+     * @param {SR6Actor} [config.initiator]              An Actor that wants to check what their ACL it towards this Actor
+     * @param {boolean}  [config.fromReferenceSection]   True if this is being called from the Matrix Action Reference Section
+     * @returns {string} The matrix-access flag for the UUID of the Initiator
      */
-    yourMatrixAccessLevel(initiator) {
-        const primaryAccessDevice = this.system.persona.accessDevice;
+    yourMatrixAccessLevel(config={}) {
+        const {initiator, fromReferenceSection} = config;
+        console.log("SR6E | Actor.yourMatrixAccessLevel | Actor", this.name);
+        console.log("SR6E | Actor.yourMatrixAccessLevel | initiator", initiator?.name);
+        console.log("SR6E | Actor.yourMatrixAccessLevel | fromReferenceSection", fromReferenceSection);
+        const primaryAccessDevice = this.system.persona?.accessDevice;
 
         if (this.isOwner) {
-            // Someone like the GM sees the Access Level as if looked at from the perspective of the Actor
-            if (this.uuid === initiator.uuid) {
-                // This Actor is the Initiator
+            console.log("SR6E | Actor.yourMatrixAccessLevel | this.isOwner | view ACL from perspective of this actor");
+            if (this.uuid === initiator?.uuid) {
+                if (fromReferenceSection) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | fromReferenceSection | retrieving flag");
+                    const safeUuid = this.uuid.replaceAll(".", "_");
+                    return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "admin";
+                }
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is the Initiator");
                 return "admin"
             }
-            if (this.system.pan.isSlaved) {
-                if (this.system.pan.administrator.uuid === initiator.uuid) {
-                    // This Actor has joined the PAN of the Initiator's
+            if (this.system.pan && this.system.pan?.isSlaved) {
+                if (this.system.pan?.administrator.uuid === initiator?.uuid) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor has joined the PAN of the Initiator's");
                     return "admin"
                 }
             } else {
-                if (this.system.pan.administrator.uuid === initiator.uuid) {
-                    // This Actor is its own PAN admin and is the Initiator
+                if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.uuid) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is its own PAN admin and is the Initiator");
                     return "admin"
                 }
-                return "user"
             }
+            console.warn("SR6E | Actor.yourMatrixAccessLevel | Defaulting | retrieving flag"); // Unclear if this usecase is possible
+            const safeUuid = this.uuid.replaceAll(".", "_");
+            return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "admin";
         }
+
         if (this.isTechno) {
-            if (this.system.pan.administrator.uuid === initiator.uuid) {
-                // This Actor has joined the PAN of the Initiator's
+            console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is a Technomancer");
+            if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.uuid) {
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Techno Actor has joined the PAN of the Initiator's");
                 return "admin"
             }
-            if (this.uuid === initiator.system.pan.administrator.uuid) {
-                // This Initiators PAN admin is this Actor
+            if (this.system.pan && this.uuid === initiator?.system.pan?.administrator.uuid) {
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Initiators PAN admin is this Techno Actor");
                 return "user"
             }
-            if (this.system.pan.administrator.uuid === initiator.system.pan.administrator.uuid) {
-                // This Initiators PAN admin is also this Actor's their PAN admin
+            if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.system.pan?.administrator.uuid) {
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Initiators PAN admin is also this Techno Actor's their PAN admin");
                 return "user"
             }
-            const safeUuid = initiator.uuid.replaceAll(".", "_");
-            return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
         }
+
         if (primaryAccessDevice) {
-            return primaryAccessDevice.yourMatrixAccessLevel(initiator);
+            console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor has a primaryAccessDevice | retrieving flag");
+            return primaryAccessDevice.yourMatrixAccessLevel({ initiator: initiator ?? this });
         }
-        return "outsider"
+        
+        console.warn("SR6E | Actor.yourMatrixAccessLevel | fallback to outsider");
+        return "outsider" // TODO use an internal function to retrieve getFlag when ACL is manually changed
     }
 
 }

@@ -98,6 +98,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * Initiator used in case an action is performed that can be initiated by another actor
      */
     get initiator() {
+        if (this.actor.isOwner) return this.actor;
         return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
     }
 

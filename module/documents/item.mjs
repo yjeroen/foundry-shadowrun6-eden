@@ -633,10 +633,12 @@ export default class SR6Item extends Item {
 
   /**
    * 
-   * @param {SR6Actor} actor Usually the Initiator
-   * @returns {String} The matrix-access flag for the UUID of the Initiator
+   * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor
+   * @param {SR6Actor} [config.initiator]              An Actor that wants to check what their ACL it towards this Actor
+   * @returns {string} The matrix-access flag for the UUID of the Initiator
    */
-  yourMatrixAccessLevel(initiator) {
+  yourMatrixAccessLevel(config={}) {
+    const {initiator} = config;
     const safeUuid = initiator.uuid.replaceAll(".", "_");
 
     if (this.actor.system.pan.isSlaved) {

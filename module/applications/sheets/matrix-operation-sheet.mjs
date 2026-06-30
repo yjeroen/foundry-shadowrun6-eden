@@ -91,7 +91,7 @@ export class SR6MatrixOperationSheet extends MatrixSheetMixin( HandlebarsApplica
             defender: this.defender,
             hud: this._preparedHud,
             isInitiatorAdmin: this.isInitiatorAdmin,
-            matrixAccess: this._matrixAccess,
+            matrixAccess: this._matrixAccess(),
             matrixActions: this._matrixActions(),
         };
     }
@@ -115,9 +115,9 @@ export class SR6MatrixOperationSheet extends MatrixSheetMixin( HandlebarsApplica
     }
 
     /** @override */
-    get _matrixAccess() {
+    _matrixAccess() {
         if (this.isInitiatorAdmin) return { admin: true };
-        else return super._matrixAccess;
+        else return super._matrixAccess();
     }
 
     /** @override */

@@ -93,7 +93,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * Initiator used in case an action is performed that can be initiated by another actor
      */
     get initiator() {
-        if (this.isOwner) return this.actor;
+        if (this.actor.isOwner) return this.actor;
         return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
     }
     /**
@@ -1030,7 +1030,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const initiator = this.initiator;
 
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator, matrixAction, this.actor);
+        let roll = new MatrixActionRoll(initiator, matrixAction, { target: this.actor });
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }
@@ -1045,7 +1045,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const initiator = this.actor;
         const matrixId = event.currentTarget.dataset.matrixId;
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixId];
-        let roll = new MatrixActionRoll(initiator, matrixAction);
+        let roll = new MatrixActionRoll(initiator, matrixAction, { fromReferenceSection: true });
         console.log("SR6E | _onMatrixAction before ", roll);
         this.actor.performMatrixAction(roll);
     }
@@ -1146,11 +1146,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         }
     }
 
-    _matrixAccess(returnObject=true) {
-        const matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
+    _matrixAccess() {
+        console.log("SR6E | _matrixAccess | from this sheet", this.actor.name, this.initiator?.name);
+        const matrixAccessLevel = this.actor.yourMatrixAccessLevel({ initiator: this.initiator, fromReferenceSection: true});
         
-        if (returnObject === "string") return matrixAccessLevel;
-
         return {
             outsider: matrixAccessLevel === "outsider",
             user: matrixAccessLevel === "user",
@@ -1206,6 +1205,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
 
     preparePanData(data) {
+        console.log("SR6E | preparePanData | START");
         const actor = this.actor;
         const system = actor.system;
         // const matrix = system.matrix ?? {};
@@ -1239,7 +1239,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
             const isAccessDevice = item.isAccessDevice;
             const isActorsNode = item.parent?.uuid === actor.uuid;
-            const hasAccess = this.actor.isOwner ? false : item.yourMatrixAccessLevel(initiator); // Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
+            const hasAccess = this.actor.isOwner ? false : item.yourMatrixAccessLevel({ initiator: initiator }); // Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
 
             return {
                 name: item.name,
@@ -1287,7 +1287,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 name: slavedPan.ownPanName,
                 icon: "fa-network-wired",
                 type: "slaved-pan",
-                access: slavedActor.yourMatrixAccessLevel(initiator),
+                access: slavedActor.yourMatrixAccessLevel({ initiator: initiator }),
                 isOwner: slavedActor.isOwner && isActorsNode,
                 isActorsNode: isActorsNode,
                 children: makeActorItemNodes(slavedActor)
@@ -1320,7 +1320,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 name: pan.name,
                 icon: "fa-network-wired",
                 type: pan.isSlaved ? "external-master-pan" : "master-pan",
-                access: panAdmin.yourMatrixAccessLevel(initiator),
+                access: panAdmin.yourMatrixAccessLevel({ initiator: initiator }),
                 isOwner: panAdmin.isOwner && !pan.isSlaved,
                 isActorsNode: !pan.isSlaved,
                 children: [
@@ -1338,6 +1338,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         /**
          * data object is used in getData()
          */
+        console.log("SR6E | preparePanData | END");
     }
 
     async _render(...args) {
