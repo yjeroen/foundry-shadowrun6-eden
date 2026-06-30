@@ -232,15 +232,29 @@ export const defineHandlebarHelper = async function () {
             return opts.inverse(this);
         }
     });
-    Handlebars.registerHelper('switch', function (value, options) {
+    
+    Handlebars.registerHelper("switch", function (value, options) {
         this.switch_value = value;
+        this.switch_matched = false;
+
+        const result = options.fn(this);
+
+        delete this.switch_value;
+        delete this.switch_matched;
+
+        return result;
+    });
+
+    Handlebars.registerHelper("case", function (value, options) {
+        if (value !== this.switch_value) return "";
+        this.switch_matched = true;
         return options.fn(this);
     });
-    Handlebars.registerHelper('case', function (value, options) {
-        if (value == this.switch_value) {
-            return options.fn(this);
-        }
+
+    Handlebars.registerHelper("default", function (options) {
+        return this.switch_matched ? "" : options.fn(this);
     });
+
     Handlebars.registerHelper('isOwner', function (value, options) {
         if(value) {
             if(getActor(value.actor, value.scene, value.token)?.isOwner) {
