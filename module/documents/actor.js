@@ -2155,6 +2155,7 @@ export default class Shadowrun6Actor extends Actor {
         let defensePool = undefined;
         let rollData = new DefenseRoll(threshold, monitor);
         rollData.actor = this;
+        rollData.defendedWith = defendWith;
 
         switch (defendWith) {
             case Defense.PHYSICAL:
@@ -2195,6 +2196,7 @@ export default class Shadowrun6Actor extends Actor {
                 console.log(`SR6E | Defense with two item defined attributes: "${oppAttr1}", "${oppAttr2}"`);
                 
                 if (item.type === "spritepower" || item.type === "complexform") {
+                    rollData.defendedWith = Defense.MATRIX;
                     defensePool = { pool: this.getMatrixPool(oppAttr1, oppAttr2) };
                     rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
                 } else {
@@ -2229,7 +2231,6 @@ export default class Shadowrun6Actor extends Actor {
         rollData.allowBuyHits = false;
         rollData.pool = defensePool.pool;
         rollData.rollType = RollType.Defense;
-        rollData.defendedWith = defendWith;
         rollData.performer = data;
         rollData.speaker = ChatMessage.getSpeaker({ actor: this });
         console.log("SR6E | Defend roll config ", rollData);

@@ -496,9 +496,6 @@ export class MatrixActionRoll extends SkillRoll {
             else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
                 this.defenseRating = target.system.pan?.administrator?.matrixDefenseRating ?? target.system.matrix?.defenseRating; 
             }
-            else {
-                // this.defenseRating = actor.system.pan.administrator.matrixDefenseRating; 
-            }
         }
 
         this.matrixActionId = action.id;
