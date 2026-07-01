@@ -57,6 +57,11 @@ export const redefineHandlebarLog = async function () {
     });
 }
 export const defineHandlebarHelper = async function () {
+    Handlebars.registerHelper('debugger', function(value) {
+        console.log("debugger log", value);
+        debugger;
+    });
+
     Handlebars.registerHelper("attackrating", function (val) {
         if (!val)
             return "NULL";
