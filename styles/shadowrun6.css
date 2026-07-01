@@ -716,8 +716,13 @@ a.item-control.disabled-roll:hover {
   cursor: unset;
 }
 
-.matrix-section .reference-label {
+.matrix-section .reference-label .fa-circle-info,
+.matrix-section .reference-label span {
   opacity: 0.4;
+}
+.matrix-section .reference-label a {
+  position: relative;
+  top: -1px;
 }
 
 .matrix-access-switch input[type="radio"],

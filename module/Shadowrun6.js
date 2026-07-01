@@ -392,11 +392,17 @@ Hooks.once("init", async function () {
         };
         const { type, ...data } = droppedData;
 
-        if (type === 'Item') {
+        if (type === "Item") {
             // Do nothing, FoundryVTT Native
             return;
-        } if (type === 'Roll') {
-            if (data.action === 'roll') {   // SheetV2
+        }
+        if (data.action === "openTargetsMatrixSheet") {
+            macroData.name = game.i18n.format("shadowrun6.matrix.targetActor.macro");
+            macroData.command = "game.sr6.macros.openTargetsLimitedSheet()";
+            macroData.img = "systems/shadowrun6-eden/icons/compendium/default/Default_Target.svg";
+        }
+        if (type === "Roll") {
+            if (data.action === "roll") {   // SheetV2
                 const item = await fromUuidSync(data.uuid);
                 macroData.name = game.i18n.format("SR6.title.useItem", { name: item.name });
                 macroData.img = item.img;

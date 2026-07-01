@@ -10,7 +10,15 @@
 		</div>
 		{{else}}
 		<h2 class="section-title" data-tooltip="shadowrun6.matrix.reference.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
-		<div class="reference-label" data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</div>
+		<div class="reference-label">
+			<i class="fas fa-circle-info" data-tooltip="shadowrun6.matrix.reference.tooltip"></i>
+			<span data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}} &middot; </span>
+			<span>{{localize "shadowrun6.matrix.targetActor.title"}}</span>
+			<a class="item-control draggable" data-tooltip="shadowrun6.matrix.targetActor.tooltip" data-action="openTargetsMatrixSheet" draggable="true">
+				<i class="fas fa-crosshairs"></i>
+			</a>
+			
+		</div>
 		{{/if}}
 		
 		<div class="matrix-access-container" data-tooltip="shadowrun6.matrix.accessLevel.switch{{#if limited}}_persona{{/if}}">

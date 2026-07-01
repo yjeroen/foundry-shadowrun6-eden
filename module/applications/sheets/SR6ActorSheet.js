@@ -125,6 +125,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find("[data-action='toggleRunningSilent']").click(this._toggleRunningSilent.bind(this));
             html.find("[data-action='editField']").click(this._editField.bind(this));
             html.find("[data-action='sharePAN']").click(this._sharePAN.bind(this));
+            html.find("[data-action='openTargetsMatrixSheet']").click(this._openTargetsMatrixSheet.bind(this));
 
             // Matrix action view
             html.find("[data-action='switchMatrixAccess']").click(this._onSwitchMatrixAccess.bind(this));
@@ -421,6 +422,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".draggable")
                 .on("dragstart", async (event) => {
                 const item = await fromUuidSync(event.currentTarget.dataset.uuid);
+                if (!item) return;
                 console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
                 event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
             }).attr("draggable", "true");
@@ -1488,6 +1490,19 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             flavor: game.i18n.localize("shadowrun6.section.pan.share_flavor"),
             content: msg
         });
+    }
+
+    async _openTargetsMatrixSheet(event) {
+        console.log("SR6E | Shadowrun6ActorSheet | _openTargetsMatrixSheet");
+        const initiator = this.actor;
+        const targets = game.user.targets;
+        if (!targets.size) return ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_first", { localize: true });
+
+        for (const target of targets) {
+            const matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: this }); //V1 sheet has different arguements than V2
+            await this.minimize();
+            matrixActorSheet.render(true);
+        }
     }
 
     async _matrixOperations(event) {
