@@ -784,6 +784,9 @@
     "matrix": {
       "reference.title": "Reference Section",
       "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
+      "targetActor.title": "Initiate Target",
+      "targetActor.macro": "Open Targets Matrix Persona",
+      "targetActor.tooltip": "<p>Open your target their Limited View sheet, which shows their Matrix Persona if they are present in the Matrix via AR or VR.</p><p>You can (un)target a token by hovering your mouse over it and then press T on your keyboard.</p><p>Drag this to your hotbar if you want a shortcut.",
       "target_persona.title": "Targetting Persona",
       "target_persona.tooltip": "<p>This section shows Matrix Actions that can target the Persona directly.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "accessLevel": {
@@ -1895,6 +1898,7 @@
         "Target_or_select_a_token_before_rolling": "Target or select a token before rolling.",
         "Select_a_token_first": "Select a token first, or configure your Player Character actor in your User Configuration.",
         "Target_a_token_before_rolling": "Target (T) a token before rolling.",
+        "Target_a_token_first": "Target (T) a token first before using this.",
         "defaulting_spell_to_self": "No token targeted, defaulting to casting on yourself.",
         "Dice_roll_evaluation_failed": "Dice roll evaluation failed",
         "two_targets_but_wrong_fire_mode": "You have two targets, so you can only fire using Burst Fire: Wide Burst, or using Full Auto mode.",

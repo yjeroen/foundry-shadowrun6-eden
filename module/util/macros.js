@@ -60,6 +60,21 @@ export default {
         if (actorSheet === null) {
             ui.notifications.warn("shadowrun6.ui.notifications.You_are_not_owner_of_the_tokens", { localize: true });
         }
-        
-    }
+    },
+
+    async openTargetsLimitedSheet() {
+        console.log("SR6E | Macros | openTargetsLimitedSheet");
+        const initiator = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+        if (!initiator) return ui.notifications.warn("shadowrun6.ui.notifications.Select_a_token_first", { localize: true });
+
+        const targets = game.user.targets;
+        if (!targets.size) return ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_first", { localize: true });
+
+        for (const target of targets) {
+            const matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet }); //V1 sheet has different arguements than V2
+            await initiator.sheet.minimize();
+            matrixActorSheet.render(true);
+        }
+    },
+
 }
