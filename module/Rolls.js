@@ -29,7 +29,7 @@ export async function doRoll(data) {
             // console.log("SR6E | ==============Calling toRoll() with data", data);
             // _r.toMessage(data, { rollMode: data.rollMode });
             console.log("SR6E | ==============Calling toRoll() with _r.configured", _r);
-            _r.toMessage(_r.configured, { rollMode: _r.configured.rollMode });
+            await _r.toMessage(_r.configured, { rollMode: _r.configured.rollMode });
         }
         return _r;
     }

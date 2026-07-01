@@ -329,7 +329,7 @@
           <button class="rollable" data-roll-type="defense" 
             data-defend-with="{{defendWith}}"
             data-damage="{{configured.calcDamage}}"
-            {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
+            {{#if configured.monitor}} data-monitor="{{configured.monitor}}" {{/if}}
             {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
             {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
             {{#if configured.panAdminUuid}} data-actor-uuid="{{configured.panAdminUuid}}" {{/if}}
@@ -411,7 +411,8 @@
               {{/switch}}
             </div>
             {{#if monitor}}
-            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+            <hr>
+            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}}){{#if speaker.alias}}: {{speaker.alias}}{{/if}}</button>
             {{/if}}
         {{/if}}
 

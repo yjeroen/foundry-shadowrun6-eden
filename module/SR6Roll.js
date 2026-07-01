@@ -419,10 +419,10 @@ export default class SR6Roll extends Roll {
     /*****************************************
      * @override
      ****************************************/
-    getTooltip() {
+    async getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
+        return await renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
             {
                 parts,
                 finished: this.finished,
@@ -443,7 +443,6 @@ export default class SR6Roll extends Roll {
         console.log("SR6E | this = ", this);
         console.log("SR6E | this.data = ", this.data);
         console.log("SR6E | this.finished = ", this.finished);
-        // console.log("SR6E | this.results = ", this.results);
         try {
             if (!this._evaluated) {
                 await this.evaluate({ async: true });
@@ -563,7 +562,7 @@ export default class SR6Roll extends Roll {
                 });
             }
 
-            return renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
+            return await renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
         }
         finally {
             console.log("SR6E | LEAVE render");

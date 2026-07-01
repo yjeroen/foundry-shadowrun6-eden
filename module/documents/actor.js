@@ -1991,7 +1991,7 @@ export default class Shadowrun6Actor extends Actor {
     /*
      *
      */
-    rollItem(roll) {
+    async rollItem(roll) {
         console.log("SR6E | rollItem(", roll, ")");
         roll.actor = this;
         // Prepare check text
@@ -2040,7 +2040,7 @@ export default class Shadowrun6Actor extends Actor {
         if (highestDefenseRating > 0)
             roll.defenseRating = highestDefenseRating;
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
-        return doRoll(roll);
+        return await doRoll(roll);
     }
     //-------------------------------------------------------------
     /**

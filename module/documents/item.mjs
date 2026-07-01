@@ -407,7 +407,7 @@ export default class SR6Item extends Item {
     }
     // If there's no roll data, send a chat message.
     else if (!this.system.formula) {
-      this.toChat();
+      await this.toChat();
     }
     // Otherwise, create a roll and send a chat message from it.
     else {
@@ -418,7 +418,7 @@ export default class SR6Item extends Item {
       const roll = new Roll(rollData.formula, rollData.actor);
       // If you need to store the value first, uncomment the next line.
       // const result = await roll.evaluate();
-      roll.toMessage({
+      await roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
         flavor: label,
@@ -440,14 +440,14 @@ export default class SR6Item extends Item {
    * Sends the Name and Description of the Item to Chat
    * @returns {boolean}  Success of chat message 
    */
-  toChat() {
+  async toChat() {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     const type = game.i18n.localize(`TYPES.Item.${this.type}`);
     const label = `[${type}] ${this.name}`;
 
-    return ChatMessage.create({
+    return await ChatMessage.create({
       speaker: speaker,
       rollMode: rollMode,
       flavor: label,

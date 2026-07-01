@@ -171,20 +171,29 @@ export class DefenseRoll extends PreparedRoll {
     damage;
     soakType;
     allowSoak;
-    constructor(threshold, soakType) {
+    constructor(threshold, monitor) {
+        console.log("SR6E | Constructing DefenseRoll", threshold, monitor)
         super();
         this.allowSoak = true;
         this.rollType = RollType.Defense;
         this.threshold = threshold;
-        switch (soakType) {
+
+        switch (monitor) {
             case MonitorType.STUN:
                 this.soakType = SoakType.DAMAGE_STUN;
                 break;
+
             case MonitorType.PHYSICAL:
                 this.soakType = SoakType.DAMAGE_PHYSICAL;
                 break;
+
             case MonitorType.MATRIX:
                 this.soakType = SoakType.DAMAGE_MATRIX;
+                break;
+
+            default:
+                console.error(`Unknown monitor type "${monitor}", defaulting to physical damage.`);
+                this.soakType = SoakType.DAMAGE_PHYSICAL;
                 break;
         }
     }
@@ -498,6 +507,11 @@ export class MatrixActionRoll extends SkillRoll {
             }
         }
 
+        if (action.damage) {
+            this.damage = action.damage(actor);
+            this.monitor = MonitorType.MATRIX;
+        }
+
         this.matrixActionId = action.id;
         this.action = action;
         this.attrib = action.attrib;
@@ -617,6 +631,8 @@ export class ConfiguredRoll extends CommonRollData {
             this.skillSpec = copy.skillSpec;
         }
 
+        if (copy.actorTraits) this.actorTraits = copy.actorTraits;
+        
         this.threshold = copy.threshold;
         this.soakType = copy.soakType;
         this.monitor = copy.monitor;
@@ -693,17 +709,10 @@ export class SR6ChatMessageData {
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;
-        switch (copy.soakType) {
-            case MonitorType.STUN:
-                this.monitor = SoakType.DAMAGE_STUN;
-                break;
-            case MonitorType.PHYSICAL:
-                this.monitor = SoakType.DAMAGE_PHYSICAL;
-                break;
-            case MonitorType.MATRIX:
-                this.monitor = SoakType.DAMAGE_MATRIX;
-                break;
-        }
+        this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
+
+        if (copy.actorTraits) this.actorTraits = copy.actorTraits;
+
         if (copy.legwork) this.legwork = copy.legwork;
         console.log("SR6E | ####SR6ChatMessageData####2###", this);
     }
