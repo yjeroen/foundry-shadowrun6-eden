@@ -721,6 +721,7 @@ a.item-control.disabled-roll:hover {
   opacity: 0.4;
 }
 .matrix-section .reference-label a {
+  font-size: 16px;
   position: relative;
   top: -1px;
 }
