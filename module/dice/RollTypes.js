@@ -177,6 +177,7 @@ export class DefenseRoll extends PreparedRoll {
         this.allowSoak = true;
         this.rollType = RollType.Defense;
         this.threshold = threshold;
+        if (monitor) this.monitor = monitor;
 
         switch (monitor) {
             case MonitorType.STUN:
@@ -192,8 +193,7 @@ export class DefenseRoll extends PreparedRoll {
                 break;
 
             default:
-                console.error(`Unknown monitor type "${monitor}", defaulting to physical damage.`);
-                this.soakType = SoakType.DAMAGE_PHYSICAL;
+                console.log("SR6E | DefenseRoll | No monitor set - no soakType applied")
                 break;
         }
     }
@@ -709,7 +709,8 @@ export class SR6ChatMessageData {
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;
-        this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
+        // this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
+        if (copy.monitor) this.monitor = copy.monitor;
 
         if (copy.actorTraits) this.actorTraits = copy.actorTraits;
 
