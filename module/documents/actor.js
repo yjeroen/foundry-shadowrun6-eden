@@ -2148,13 +2148,16 @@ export default class Shadowrun6Actor extends Actor {
     //-------------------------------------------------------------
     /**
      */
-    async rollDefense(defendWith, threshold, damage, monitor, itemUuid, matrixActionId) {
+    // async rollDefense(defendWith, threshold, damage, monitor, itemUuid, matrixActionId) {
+    async rollDefense(dataset) {
+        const { defendWith, threshold, damage, monitor, itemUuid, ...options } = dataset;
         const data = getSystemData(this);
-        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, itemUuid, matrixActionId);
+        console.log("SR6E | rollDefense: ", dataset);
 
         let defensePool = undefined;
         let rollData = new DefenseRoll(threshold, monitor);
         rollData.actor = this;
+        rollData.performer = data;
         rollData.defendedWith = defendWith;
 
         switch (defendWith) {
@@ -2205,15 +2208,25 @@ export default class Shadowrun6Actor extends Actor {
                 rollData.checkText = game.i18n.localize(`attrib.${oppAttr1}`) + " + " + game.i18n.localize(`attrib.${oppAttr2}`) + " (" + threshold + ")";
                 break;
             case Defense.MATRIX:
-                const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ matrixActionId ];
-                rollData.matrixActionId = matrixActionId;
+                // this Actor is panAdmin
+                const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ options.matrixActionId ];
+                rollData.matrixActionId = options.matrixActionId;
 
-                const targetItem = await foundry.utils.fromUuid(itemUuid);
-                if (targetItem) {
-                    rollData.itemUuid = itemUuid; // Target Item.actor
+                if (options.matrixTargetUuid) {
+                    rollData.matrixTargetUuid = options.matrixTargetUuid;
+                    const matrixSoakByPanLeader = game.settings.get(SYSTEM_NAME, "matrixSoakByPanLeader");
+                    if (matrixSoakByPanLeader) {
+                        rollData.matrixTargetName = actor.name;
+                        rollData.matrixSoakUuid = this.uuid;
+                    } else {
+                        const target = fromUuidSync(options.matrixTargetUuid);
+                        const targetActor = target?.actor ?? target;
+                        rollData.matrixTargetName = targetActor.name;
+                        rollData.matrixSoakUuid = targetActor.uuid;
+                    }
                 }
 
-                console.log(`SR6E | Defense vs "${matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
+                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
                 defensePool = { pool: this.getMatrixPool(matrixAction.attr1, matrixAction.attr2) };
                 rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
 
@@ -2231,8 +2244,7 @@ export default class Shadowrun6Actor extends Actor {
         rollData.allowBuyHits = false;
         rollData.pool = defensePool.pool;
         rollData.rollType = RollType.Defense;
-        rollData.performer = data;
-        rollData.speaker = ChatMessage.getSpeaker({ actor: this });
+        rollData.speaker = ChatMessage.getSpeaker({ actor: rollData.actor });
         console.log("SR6E | Defend roll config ", rollData);
         return doRoll(rollData);
     }

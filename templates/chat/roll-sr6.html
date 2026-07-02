@@ -16,7 +16,7 @@
     {{#if configured.itemName}}
       <span>//:{{configured.itemName}}</span><wbr>
       {{else}}
-      <span>//:{{#if configured.panAdmin}}{{configured.panAdmin}}{{else}}???{{/if}}</span><wbr>
+      <span>//:{{#if configured.matrixTargetName}}{{configured.matrixTargetName}}{{else}}???{{/if}}</span><wbr>
     {{/if}}
     <span># {{configured.actionText}}..</span>
     <div># {{localize "shadowrun6.matrix.chat.initiating"}}..</div>
@@ -328,12 +328,12 @@
       <div>
           <button class="rollable" data-roll-type="defense" 
             data-defend-with="{{defendWith}}"
-            data-damage="{{configured.calcDamage}}"
+            {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
             {{#if configured.monitor}} data-monitor="{{configured.monitor}}" {{/if}}
             {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
-            {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
             {{#if configured.panAdminUuid}} data-actor-uuid="{{configured.panAdminUuid}}" {{/if}}
             {{#if configured.matrixActionId}} data-matrix-action-id="{{configured.matrixActionId}}" {{/if}}
+            {{#if configured.matrixTargetUuid}} data-matrix-target-uuid="{{configured.matrixTargetUuid}}" {{/if}}
           >
             {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}}){{#if configured.panAdmin}}: {{configured.panAdmin}}{{/if}}
           </button>
@@ -344,7 +344,7 @@
       <div>
           <button class="rollable" data-roll-type="defense" 
             data-defend-with="{{defendWith}}"
-            data-damage="{{configured.calcDamage}}"
+            {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
             {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
             {{#if targetId}} data-targetid="{{targetId}}" {{/if}}
             {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
@@ -362,31 +362,31 @@
 {{#if (or (eq rollType "defense") cantDodgeBullets)}}
 <!-- Defense Result -->
 <hr>
-      {{#if actorTraits.hardenedArmor}}
-        {{#if (not actorTraits.immunityNormalWeapons)}}
-        <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
-        {{else}}
-          {{#if (ne configured.defendedWith 'spells_indirect')}}
-          <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
-          {{/if}}
-        {{/if}}
+  {{#if actorTraits.hardenedArmor}}
+    {{#if (not actorTraits.immunityNormalWeapons)}}
+    <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
+    {{else}}
+      {{#if (ne configured.defendedWith 'spells_indirect')}}
+      <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
       {{/if}}
+    {{/if}}
+  {{/if}}
 
   {{#if cantDodgeBullets}}
 
-        {{#if success}}
-          {{#iff targets.length ">" 0}}
-          {{#each targets as |target|}}
-            <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
-            <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
-          {{/each}}
-          {{else}}
-            <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
-            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" >{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
-          {{/iff}}
+      {{#if success}}
+        {{#iff targets.length ">" 0}}
+        {{#each targets as |target|}}
+          <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+          <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+        {{/each}}
         {{else}}
-          <div class="resulttext failure" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
-        {{/if}}
+          <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+          <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" >{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+        {{/iff}}
+      {{else}}
+        <div class="resulttext failure" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
+      {{/if}}
 
   {{else}}
   
@@ -412,7 +412,20 @@
             </div>
             {{#if monitor}}
             <hr>
-            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}}){{#if speaker.alias}}: {{speaker.alias}}{{/if}}</button>
+            {{#switch configured.defendedWith}}
+
+              {{#case "matrix"}}
+                <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-actor-uuid="{{configured.matrixSoakUuid}}">
+                  {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}): {{matrixTargetName}}
+                </button>
+              {{/case}}
+              {{#default}}
+                <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                  {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}){{#if speaker.alias}}: {{speaker.alias}}{{/if}}
+                </button>
+              {{/default}}
+
+            {{/switch}}
             {{/if}}
         {{/if}}
 

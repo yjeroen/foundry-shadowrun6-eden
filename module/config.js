@@ -2156,7 +2156,19 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "s",
             threshold: 0,
-            targets: ["host", "device"]
+            onSuccess: { accessChange: "admin" },
+            targets: ["host", "device"],
+
+            /**
+            async applySuccess(actor, target) {
+                // `this` is backdoor_entry when called as action.applySuccess(...)
+                await target.update({
+                    "system.matrix.access": this.onSuccess.accessChange
+                });
+            }
+            */
+           
+
         },
         brute_force: {
             id: "brute_force",
@@ -2172,6 +2184,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "a",
             threshold: 0,
+            onSuccess: { accessChoice: ["user", "admin"] },
             targets: ["host", "device"]
         },
         change_icon: {
@@ -2204,6 +2217,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 4,
+            onSuccess: { showOs: true },
             targets: ["persona"]
         },
         control_device: {
@@ -2252,6 +2266,7 @@ export class SR6Config {
             attr2: "dr",
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { crashProgram: true },
             targets: ["device"]
         },
         data_spike: {
@@ -2268,7 +2283,14 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "a",
             threshold: 0,
-            targets: ["persona", "device"]
+            onSuccess: { damage: "Math.ceil({a}/2)" },
+            targets: ["persona", "device"],
+
+            getDamage: function (actor) {
+                let damage = Math.ceil(actor.getMatrixPool("a") / 2);
+                return damage;
+            }
+
         },
         disarm_data_bomb: {
             id: "disarm_data_bomb",
@@ -2380,6 +2402,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { fullMatrixDefense: true },
             targets: ["yourself"]
         },
         hash_check: {
@@ -2428,6 +2451,7 @@ export class SR6Config {
             attr2: "d",
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { jackOut: true },
             targets: ["yourself"]
         },
         jam_signals: {
@@ -2508,6 +2532,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "s",
             threshold: 0,
+            onSuccess: { action: "backdoor_entry" },
             targets: ["host", "device"]
         },
         reboot_device: {
@@ -2524,6 +2549,7 @@ export class SR6Config {
             attr2: "wil",
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { rebootDevice: true },
             targets: ["device"]
         },
         reconfigure: {
@@ -2636,6 +2662,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "a",
             threshold: 0,
+            onSuccess: { tarpit: true, damage: 1 },
             targets: ["persona", "device", "ic", "sprite"]
         },
         trace_icon: {
@@ -2671,6 +2698,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { calibration: true },
             targets: ["yourself"]
         },
         delayed_command: {
@@ -2703,6 +2731,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { denialOfService: true },
             targets: ["persona", "device"]
         },
         device_lock: {
@@ -2719,6 +2748,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { deviceLock: true },
             targets: ["device"]
         },
         garbage_in_out: {
@@ -2750,7 +2780,8 @@ export class SR6Config {
             attr1: "wil",
             attr2: "f",
             linkedAttr: "s",
-            threshold: 0
+            threshold: 0,
+            onSuccess: { accessChange: "admin" }
         },
         masquerade: {
             id: "masquerade",
@@ -2814,6 +2845,7 @@ export class SR6Config {
             attr2: "d",
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { popUp: true },
             targets: ["device", "persona"]
         },
         squelch: {
@@ -2862,6 +2894,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
+            onSuccess: { threatAnalysis: true },
             targets: ["yourself"]
         },
         virtual_aim: {

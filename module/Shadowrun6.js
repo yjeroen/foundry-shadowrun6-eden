@@ -572,11 +572,12 @@ Hooks.once("init", async function () {
                     /* Avoid being hit/influenced */
                     console.log("SR6E | TODO: call rollDefense with threshold " + threshold);
                     if (actor) {
-                        const defendWith = dataset.defendWith;
-                        const monitor = dataset.monitor;
-                        const itemUuid = dataset.itemUuid;
-                        const matrixActionId = dataset.matrixActionId;
-                        actor.rollDefense(defendWith, threshold, damage, monitor, itemUuid, matrixActionId);
+                        const data = {
+                            ...Object.fromEntries(Object.entries(dataset)),
+                            damage: Number(dataset.damage),
+                            threshold: Number(dataset.threshold)
+                        };
+                        actor.rollDefense(data);
                     }
                     break;
                 case RollType.Soak:

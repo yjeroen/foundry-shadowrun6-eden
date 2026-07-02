@@ -182,14 +182,17 @@ export class DefenseRoll extends PreparedRoll {
         switch (monitor) {
             case MonitorType.STUN:
                 this.soakType = SoakType.DAMAGE_STUN;
+                this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
                 break;
 
             case MonitorType.PHYSICAL:
                 this.soakType = SoakType.DAMAGE_PHYSICAL;
+                this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
                 break;
 
             case MonitorType.MATRIX:
                 this.soakType = SoakType.DAMAGE_MATRIX;
+                this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
                 break;
 
             default:
@@ -471,30 +474,30 @@ export class MatrixActionRoll extends SkillRoll {
     defenseRating;
     attackRating;
     constructor(actor, action, options={}) {
+        super(actor.system, action.skill);
         console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
         const {target, fromReferenceSection} = options;
-        super(actor.system, action.skill);
         
-        this.actor = actor; // Needs to be set for RollDialog to process edge
+        this.actor = actor; // TODO rework without actor - Needs to be set for RollDialog to process edge 
+
         if (target) {
+            let targetSystem;
+            if (target instanceof game.sr6.documents.SR6Item) {
+                targetSystem = target.actor.system;
+            }
+            else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
+                targetSystem = target.system;
+            }
             this.accessLevel = target.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
+            this.matrixTargetName = target.name;
+            this.matrixTargetUuid = target.uuid;
+            this.panName = targetSystem.pan?.name ?? target.name;
+            this.panAdmin = targetSystem.pan?.administrator?.name ?? target.name;
+            this.panAdminUuid = targetSystem.pan?.administrator?.uuid ?? target.name;
         } else {
             this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
         }
 
-        if (target instanceof game.sr6.documents.SR6Item) {
-            // item is target
-            this.itemName = target.name;
-            this.itemUuid = target.uuid;
-            this.panName = target.actor.system.pan.name;
-            this.panAdmin = target.actor.system.pan.administrator.name;
-            this.panAdminUuid = target.actor.system.pan.administrator.uuid;
-        }
-        else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
-            this.panName = target.system.pan?.name ?? target.name;
-            this.panAdmin = target.system.pan?.administrator?.name ?? target.name;
-            this.panAdminUuid = target.system.pan?.administrator?.uuid ?? target.name;
-        }
 
         if (action.attr1) { // Opposed Test
             this.defendWith = Defense.MATRIX;
@@ -507,8 +510,8 @@ export class MatrixActionRoll extends SkillRoll {
             }
         }
 
-        if (action.damage) {
-            this.damage = action.damage(actor);
+        if (action.getDamage) {
+            this.damage = action.getDamage(actor);
             this.monitor = MonitorType.MATRIX;
         }
 
@@ -619,12 +622,17 @@ export class ConfiguredRoll extends CommonRollData {
 
         if (copy.accessLevel) this.accessLevel = copy.accessLevel;
         if (copy.matrixActionId) this.matrixActionId = copy.matrixActionId;
+        if (copy.matrixTargetName) this.matrixTargetName = copy.matrixTargetName;
+        if (copy.matrixTargetUuid) this.matrixTargetUuid = copy.matrixTargetUuid;
+        if (copy.matrixSoakUuid) this.matrixSoakUuid = copy.matrixSoakUuid;
+
         if (copy.panName) this.panName = copy.panName;
         if (copy.panAdmin) this.panAdmin = copy.panAdmin;
         if (copy.panAdminUuid) this.panAdminUuid = copy.panAdminUuid;
         if (copy.matrixCmPenalty) this.matrixCmPenalty = copy.matrixCmPenalty;
 
         if (copy.defendedWith) this.defendedWith = copy.defendedWith;
+        if (copy.damageLabel) this.damageLabel = copy.damageLabel;
 
         if (copy.skillId) {
             this.skillId = copy.skillId;
@@ -711,6 +719,10 @@ export class SR6ChatMessageData {
         this.soakType = copy.soakType;
         // this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
         if (copy.monitor) this.monitor = copy.monitor;
+        if (copy.damageLabel) this.damageLabel = copy.damageLabel;
+
+        if (copy.matrixTargetName) this.matrixTargetName = copy.matrixTargetName;
+        if (copy.matrixTargetUuid) this.matrixTargetUuid = copy.matrixTargetUuid;
 
         if (copy.actorTraits) this.actorTraits = copy.actorTraits;
 

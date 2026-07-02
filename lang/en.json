@@ -813,7 +813,8 @@
       "chat.validating": "validating",
       "chat.defend": "defend",
       "roll.defended.success": "You succesfully defended against the Matrix event.",
-      "roll.defended.failed": "You failed to defend against the Matrix event."
+      "roll.defended.failed": "You failed to defend against the Matrix event.",
+      "matrix_damage.short": "M"
     },
     "matrixaction": {
       "backdoor_entry": {
@@ -1580,6 +1581,10 @@
       "hardDiceCap": {
         "hint": "In standard play, there is a maximum of 20 dice for any test. No combination of abilities, skills, effects, or augments can exceed this limit during a roll. Exception: Pre-edging a test allows you to exceed the 20-dice cap with the bonus dice granted by Edge.",
         "name": "Hard Dice Cap"
+      },
+      "matrixSoakByPanLeader": {
+        "hint": "By default, Matrix damage is resisted by the target's Firewall. (CRB p.179) If this option is enabled, the PAN leader's Firewall will be used to soak Matrix damage for all PAN members instead.",
+        "name": "Matrix Damage Soak by PAN Leader"
       },
       "bleeding": {
         "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
