@@ -1,4 +1,5 @@
 import { default as Shadowrun6ActorSheet } from "./SR6ActorSheet.js";
+import { MatrixActionRoll } from "../../dice/RollTypes.js";
 
 /**
  * Extend the basic Shadowrun6ActorSheet so its a limited sheet to use in Matrix Action targetting
@@ -17,6 +18,8 @@ export class SR6MatrixTargetSheet extends Shadowrun6ActorSheet {
             width: null,
             height: 800,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],
+            initiator: null,    // Needs to be set when opening the sheet, so we know who is targeting this actor
+            launcher: null,     // Needs to be set when opening the sheet, so we can maximize it again when closing this sheet
         });
     }
 
@@ -32,11 +35,20 @@ export class SR6MatrixTargetSheet extends Shadowrun6ActorSheet {
         return template;
     }
 
+    /** @inheritdoc */
+    async getData(options={}) {
+        const context = await super.getData(options);
+        context.limited = true;
+        console.log("SR6E | SR6MatrixTargetSheet getData()", context);
+        return context;
+    }
+
     /**
      * Initiator that targets this Actor and opened this sheet
      * @Override
      */
     get initiator() {
+        console.log("SR6E | SR6MatrixTargetSheet initiator()", this.options.initiator);
         if (this.options.initiator) return this.options.initiator;
         else return super.initiator();
     }

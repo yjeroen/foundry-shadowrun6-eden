@@ -34,6 +34,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     async getData() {
         let data = await super.getData();
         data.config = CONFIG.SR6;
+        data.sheet = this;
         if (game.release.generation >= 10) {
             data.system = data.data.system;
         }
@@ -108,12 +109,12 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
             html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
         }
-        if (this.document.limited) {
+        if (this.document.limited || this.options.initiator) {
             html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
             html.find(".matrix-roll").click(this._onMatrixRollByInitiator.bind(this));
         }
         // Owner Only Listeners
-        if (this.actor.isOwner) {
+        if (this.actor.isOwner && !this.options.initiator) {
             // ActiveEffect buttons
             html.find("[data-action='viewDoc']").click(this._viewDoc.bind(this));
             html.find("[data-action='createDoc']").click(this._createDoc.bind(this));
@@ -1241,7 +1242,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
             const isAccessDevice = item.isAccessDevice;
             const isActorsNode = item.parent?.uuid === actor.uuid;
-            const hasAccess = this.actor.isOwner ? false : item.yourMatrixAccessLevel({ initiator: initiator }); // Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
+            const hasAccess = (this.actor.isOwner  && !this.options.initiator) ? false : item.yourMatrixAccessLevel({ initiator: initiator }); // TODO Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
 
             return {
                 name: item.name,
