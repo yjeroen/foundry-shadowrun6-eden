@@ -910,6 +910,16 @@ a.item-control.disabled-roll:hover {
   color: var(--highlight-color);
   font-style: italic;
   font-weight: 700;
+  padding-top: 1px;
+}
+.chat-message .matrix-target {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 0.3em;
+}
+.chat-message .matrix-target .fas {
+  color: var(--highlight-color);
 }
 .chat-message .message-content .chat-roll-description {
   font-size: 0.8em;

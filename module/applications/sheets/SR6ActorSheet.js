@@ -104,11 +104,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     activateListeners(html) {
         // Always allow
         html.find("[data-action='matrixOperations']").click(this._matrixOperations.bind(this));
+        html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
+        html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
 
-        if (this.actor.isOwner || this.document.limited) {
-            html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
-            html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
-        }
         if (this.document.limited || this.options.initiator) {
             html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
             html.find(".matrix-roll").click(this._onMatrixRollByInitiator.bind(this));
@@ -274,7 +272,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     if (field === "system.physical.dmg" || field === "system.stun.dmg") {
                         const monitorType = field.split('.').at(1);
                         console.log("SR6E | Updating actor field " + field + ", so setting damage to monitor " + monitorType + " to " + value);
-                        await this.actor.applyDamage(monitorType, null, value);
+                        await this.actor.applyDamage({
+                            monitor: monitorType,
+                            newDmg: value,
+                        });
                         return;
                     }
 
@@ -422,7 +423,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
              */
             html.find(".draggable")
                 .on("dragstart", async (event) => {
-                const item = await fromUuidSync(event.currentTarget.dataset.uuid);
+                const item = foundry.utils.fromUuidSync(event.currentTarget.dataset.uuid);
                 if (!item) return;
                 console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
                 event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
@@ -1500,7 +1501,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (!targets.size) return ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_first", { localize: true });
 
         for (const target of targets) {
-            const matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: this }); //V1 sheet has different arguements than V2
+            let matrixActorSheet;
+            if (target.actor.isActorV2) {
+                const Sheet = target.actor._getSheetClass();
+                matrixActorSheet = new Sheet({ document: target.actor, initiator: initiator, launcher: initiator.sheet, limited: true, viewPermission: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE });
+            } else {
+                matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet }); //V1 sheet has different arguements than V2
+            }
             await this.minimize();
             matrixActorSheet.render(true);
         }

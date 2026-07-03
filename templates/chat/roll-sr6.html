@@ -415,8 +415,8 @@
             {{#switch configured.defendedWith}}
 
               {{#case "matrix"}}
-                <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-actor-uuid="{{configured.matrixSoakUuid}}">
-                  {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}): {{matrixTargetName}}
+                <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-actor-uuid="{{configured.matrixSoakUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
+                  {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}): {{configured.matrixTargetName}}
                 </button>
               {{/case}}
               {{#default}}
@@ -442,48 +442,81 @@
         {{#if success}}
           <div class="resulttext" style="flex:2">{{ localize 'shadowrun6.roll.successfulSoak'}}</div>
         {{else}}
-            
 
+            {{#switch monitor}}
+
+              {{#case "physical"}}
               <header class="part-header flexrow chat-edge-post">
                 <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.roll.failedSoak'}}</span></div>
-                <br/>
-                {{#if (eq monitor 'physical')}}
-                  <div class="resulttext" style="flex:2; display: flex; flex-direction: column;">
-                    <span class="failure" style="line-height: 2em; font-size: 1.2em;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
-                    {{#if damageConvertedStun}}
-                    <span style="color: dodgerblue; font-size: 1.2em; font-weight: bold;">{{damageConvertedStun}} {{localize 'shadowrun6.monitor.stun'}}</span>
-                    {{/if}}
-                  </div>
-                {{else}}
-                  <div class="resulttext" style="flex:2;">
-                    <span style="color: dodgerblue; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
-                  </div>
-                {{/if}}
-              </header>
-
-              <hr>
-
-              {{#if (or (eq actor.type "Spirit") (eq actor.type "Vehicle"))}}
-                  <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
-                  <span style="font-style: italic;">{{localize 'shadowrun6.ui.notifications.apply_manually'}}</span>
-              {{else}}
-                  <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-                      {{#if damageApplied}}
-                        <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
-                      {{else}}
-                        {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{#if (eq monitor "stun")}}S{{else}}P{{/if}})
-                      {{/if}}
-                  </button>
+                <div class="resulttext" style="flex:2; display: flex; flex-direction: column;">
+                  <span class="failure" style="line-height: 2em; font-size: 1.2em;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
                   {{#if damageConvertedStun}}
-                  <button style="margin-top: 5px;" class="damageConvertedStun rollable{{#if damageApplied2}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damageConvertedStun}}" data-monitor="stun" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-                      {{#if damageApplied2}}
-                        <span class="damageConvertedStun damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
-                      {{else}}
-                        {{localize 'shadowrun6.roll.apply_damage'}} ({{damageConvertedStun}}S)
-                      {{/if}}
-                  </button>
+                  <span style="color: dodgerblue; font-size: 1.2em; font-weight: bold;">{{damageConvertedStun}} {{localize 'shadowrun6.monitor.stun'}}</span>
                   {{/if}}
-              {{/if}}
+                </div>
+              </header>
+              {{/case}}
+              {{#case "stun"}}
+              <header class="part-header flexrow chat-edge-post">
+                <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.roll.failedSoak'}}</span></div>
+                <div class="resulttext" style="flex:2;">
+                  <span style="color: dodgerblue; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+                </div>
+              </header>
+              {{/case}}
+              {{#case "matrix"}}
+              <div class="chat-edge matrix-target" style="display:block">    
+                <i class="fas {{#if (eq configured.matrixTargetType "actor")}}fa-user{{else}}fa-microchip{{/if}}"></i>
+                <span class="matrix-target-name">{{configured.matrixTargetName}}</span>
+              </div>
+              <hr>
+              <header class="part-header flexrow chat-edge-post">
+                <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.matrix.failedSoak'}}</span></div>
+                <div class="resulttext" style="flex:2;">
+                  <span style="color: #00b939; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+                </div>
+              </header>
+              {{/case}}
+
+            {{/switch}}
+
+            <hr>
+
+            {{#if (eq monitor "matrix")}}
+                <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
+                  {{#if damageApplied}}
+                    <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+                  {{else}}
+                    {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{configured.damageLabel}})
+                  {{/if}}
+                </button>
+            {{else}}
+            
+                {{#if (or (eq actor.type "Spirit") (eq actor.type "Vehicle"))}}
+                    {{!-- TODO Spirit and vehicle damage not yet automated with chat buttons --}}
+                    <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
+                    <span style="font-style: italic;">{{localize 'shadowrun6.ui.notifications.apply_manually'}}</span>
+                {{else}}
+                    <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                        {{#if damageApplied}}
+                          <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+                        {{else}}
+                          {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{configured.damageLabel}})
+                        {{/if}}
+                    </button>
+                    {{#if damageConvertedStun}}
+                    <button style="margin-top: 5px;" class="damageConvertedStun rollable{{#if damageApplied2}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damageConvertedStun}}" data-monitor="stun" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                        {{#if damageApplied2}}
+                          <span class="damageConvertedStun damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
+                        {{else}}
+                          {{localize 'shadowrun6.roll.apply_damage'}} ({{damageConvertedStun}}{{localize 'shadowrun6.item.stun_damage'}})
+                        {{/if}}
+                    </button>
+                    {{/if}}
+                {{/if}}
+
+            {{/if}}
+
 
         {{/if}}
     </div>

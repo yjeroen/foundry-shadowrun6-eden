@@ -2287,7 +2287,7 @@ export class SR6Config {
             targets: ["persona", "device"],
 
             getDamage: function (actor) {
-                let damage = Math.ceil(actor.getMatrixPool("a") / 2);
+                const damage = Math.ceil(actor.getMatrixPool("a") / 2);
                 return damage;
             }
 
@@ -2663,7 +2663,13 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             onSuccess: { tarpit: true, damage: 1 },
-            targets: ["persona", "device", "ic", "sprite"]
+            targets: ["persona", "device", "ic", "sprite"],
+            
+            getDamage: function (actor) {
+                const damage = 1;
+                return damage;
+            }
+
         },
         trace_icon: {
             id: "trace_icon",

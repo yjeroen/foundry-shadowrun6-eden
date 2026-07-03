@@ -210,6 +210,23 @@ export class SoakRoll extends PreparedRoll {
         this.rollType = RollType.Soak;
         this.soakType = soakType;
         this.threshold = threshold;
+        switch (soakType) {
+            case SoakType.DAMAGE_STUN:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
+                break;
+
+            case SoakType.DAMAGE_PHYSICAL:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
+                break;
+
+            case SoakType.DAMAGE_MATRIX:
+                this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
+                break;
+
+            default:
+                console.log("SR6E | SoakRoll | No soakType set - no damageLabel applied")
+                break;
+        }
     }
 }
 export class SkillRoll extends PreparedRoll {
@@ -493,7 +510,7 @@ export class MatrixActionRoll extends SkillRoll {
             this.matrixTargetUuid = target.uuid;
             this.panName = targetSystem.pan?.name ?? target.name;
             this.panAdmin = targetSystem.pan?.administrator?.name ?? target.name;
-            this.panAdminUuid = targetSystem.pan?.administrator?.uuid ?? target.name;
+            this.panAdminUuid = targetSystem.pan?.administrator?.uuid ?? target.uuid;
         } else {
             this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
         }
@@ -624,6 +641,7 @@ export class ConfiguredRoll extends CommonRollData {
         if (copy.matrixActionId) this.matrixActionId = copy.matrixActionId;
         if (copy.matrixTargetName) this.matrixTargetName = copy.matrixTargetName;
         if (copy.matrixTargetUuid) this.matrixTargetUuid = copy.matrixTargetUuid;
+        if (copy.matrixTargetType) this.matrixTargetType = copy.matrixTargetType;
         if (copy.matrixSoakUuid) this.matrixSoakUuid = copy.matrixSoakUuid;
 
         if (copy.panName) this.panName = copy.panName;
@@ -720,9 +738,6 @@ export class SR6ChatMessageData {
         // this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
         if (copy.monitor) this.monitor = copy.monitor;
         if (copy.damageLabel) this.damageLabel = copy.damageLabel;
-
-        if (copy.matrixTargetName) this.matrixTargetName = copy.matrixTargetName;
-        if (copy.matrixTargetUuid) this.matrixTargetUuid = copy.matrixTargetUuid;
 
         if (copy.actorTraits) this.actorTraits = copy.actorTraits;
 

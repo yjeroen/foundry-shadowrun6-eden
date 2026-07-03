@@ -190,10 +190,10 @@
     "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute.",
     "initiation": "Initiation",
     "submersion": "Submersion",
-    "a": "Matrix Attack",
-    "s": "Matrix Sleaze",
-    "d": "Matrix Dataprocessing",
-    "f": "Matrix Firewall"
+    "a": "Attack",
+    "s": "Sleaze",
+    "d": "Dataprocessing",
+    "f": "Firewall"
   },
   "skill": {
     "astral": "Astral",
@@ -814,7 +814,8 @@
       "chat.defend": "defend",
       "roll.defended.success": "You succesfully defended against the Matrix event.",
       "roll.defended.failed": "You failed to defend against the Matrix event.",
-      "matrix_damage.short": "M"
+      "matrix_damage.short": "M",
+      "failedSoak": "Icon gets damage"
     },
     "matrixaction": {
       "backdoor_entry": {
@@ -1221,8 +1222,9 @@
         "soak": {
           "drain": "Resist {damage} Drain",
           "fading":"Resist {damage} Fading",
-          "damage_phys":"Resist {damage} Physical Damage",
-          "damage_stun"    :"Resist {damage} Stun Damage"
+          "damage_matrix": "Resist {damage} Matrix Damage",
+          "damage_phys": "Resist {damage} Physical Damage",
+          "damage_stun" :"Resist {damage} Stun Damage"
         }
       },
       "apply_damage": "Apply damage",
@@ -1896,7 +1898,7 @@
     },
     "ui": {
       "notifications": {
-        "You_are_not_owner_of_the_target": "You are not owner of the target.",
+        "You_are_not_owner_of_the_target": "You cannot use this, as you are not the owner of the target.",
         "You_are_not_owner_of_the_token": "You are not owner of the token.",
         "Select_a_single_token": "You have multiple tokens selected. Only select a single token to perform this action.",
         "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "You can only choose Wide Burst when you target (T) two tokens.",

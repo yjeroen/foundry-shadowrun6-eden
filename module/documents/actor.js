@@ -1726,7 +1726,7 @@ export default class Shadowrun6Actor extends Actor {
             if (this.system.health?.stunCM) {
                 stunCM     = this.system.health?.stunCM?.penalty ?? 0;
             } 
-            else { // Vehicle or Matrix actor without stun monitor like Sprites
+            else { // Matrix actor without stun monitor like Sprites
                 stunCM     = this.system.matrix?.matrixCM?.penalty ?? 0;
             }
         } 
@@ -2219,7 +2219,7 @@ export default class Shadowrun6Actor extends Actor {
                         rollData.matrixTargetName = actor.name;
                         rollData.matrixSoakUuid = this.uuid;
                     } else {
-                        const target = fromUuidSync(options.matrixTargetUuid);
+                        const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
                         const targetActor = target?.actor ?? target;
                         rollData.matrixTargetName = targetActor.name;
                         rollData.matrixSoakUuid = targetActor.uuid;
@@ -2251,9 +2251,11 @@ export default class Shadowrun6Actor extends Actor {
     //-------------------------------------------------------------
     /**
      */
-    rollSoak(soak, damage) {
+    rollSoak(soakData) {
+        const { soak, damage, ...options } = soakData;
+
         const data = this.system;
-        console.log("SR6E | rollSoak: " + damage + " " + soak, data);
+        console.log("SR6E | rollSoak: " + damage + " " + soak, options);
 
         let defensePool = undefined;
         let rollData = new SoakRoll(damage, soak);
@@ -2276,7 +2278,7 @@ export default class Shadowrun6Actor extends Actor {
                 defensePool = data.defensepool.drain;
                 rollData.monitor = MonitorType.STUN; 
                 rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = game.i18n.localize("attrib.wil") + " + ? (" + damage + ")";
+                rollData.checkText = game.i18n.localize("attrib.wil") + " (" + damage + ")";
                 if (data.tradition != null) {
                     rollData.checkText =
                         game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
@@ -2287,11 +2289,24 @@ export default class Shadowrun6Actor extends Actor {
                 defensePool = data.defensepool.fading;
                 rollData.monitor = MonitorType.STUN;
                 rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = game.i18n.localize("attrib.wil") + " + ? (" + damage + ")";
+                rollData.checkText = game.i18n.localize("attrib.wil") + " (" + damage + ")";
                 if (data.tradition != null) {
                     rollData.checkText =
                         game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
                 }
+                break;
+            case SoakType.DAMAGE_MATRIX:
+                    const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
+                    console.log("SR6E | rollSoak Matrix Damage | target:", target.name);
+                    defensePool = { pool: this.getMatrixPool("f") };
+                    rollData.monitor = MonitorType.MATRIX;
+                    rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                    rollData.checkText = game.i18n.localize("SR6.Actor.base.FIELDS.matrix.attributes.firewall.label") + " (" + damage + ")";
+
+                    rollData.matrixTargetName = target.name;
+                    rollData.matrixTargetType = (target instanceof game.sr6.documents.Shadowrun6Actor) ? "actor" : "token";
+                    rollData.matrixTargetUuid = options.matrixTargetUuid;
+
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle soak pool for " + soak);
@@ -2442,17 +2457,23 @@ export default class Shadowrun6Actor extends Actor {
         return oppAttr1 + oppAttr2;
     }
     //-------------------------------------------------------------
-    async applyDamage(monitor, damage, newDmg) {
-        console.log("SR6E | applyDamage", monitor, damage, newDmg);
+    // TODO doesnt support health/stun damage on ActorV2 yet but not necessary for Matrix Icon Actors
+    async applyDamage(damageData) { 
+        const { monitor, damage, newDmg, matrixTargetUuid, ...options } = damageData;
+        console.log("SR6E | applyDamage", damageData);
+
+        if (monitor === "matrix") return await this.applyMatrixDamage(damageData);
+
+        let result, newDamage;
         const data = this.system;
         const damageObj = data[monitor];
         console.log("SR6E | applyDamage | damageObj =", damageObj);
         let overflow = (data.overflow?.dmg) ? data.overflow.dmg : 0;
         let physicalOverflow = 0;
 
-        newDmg = (typeof newDmg !== 'undefined') ? newDmg : overflow + damageObj.dmg + damage;
+        newDamage = (typeof newDmg !== 'undefined') ? newDmg : overflow + damageObj.dmg + damage;
         // Did damage overflow the monitor?
-        let newOverflow = Math.max(0, newDmg - damageObj.max);
+        let newOverflow = Math.max(0, newDamage - damageObj.max);
 
         if (newOverflow > 0 && monitor === 'stun') {
             //need to overflow into physical instead
@@ -2460,24 +2481,79 @@ export default class Shadowrun6Actor extends Actor {
             newOverflow = 0;
         }
 
-        console.log("SR6E | applyDamage newDmg=", newDmg, "   overflow=", overflow);
+        console.log("SR6E | applyDamage newDamage=", newDamage, "   overflow=", overflow);
         // Ensure actual damage is not higher than pool
-        newDmg = Math.min(Math.max(0, newDmg), damageObj.max);
+        newDamage = Math.min(Math.max(0, newDamage), damageObj.max);
 
-        await this.update({
-            [`system.` + monitor + `.dmg`]: newDmg,
+        result = await this.update({
+            [`system.` + monitor + `.dmg`]: newDamage,
             [`system.overflow.dmg`]: newOverflow
         });
+        if (!result) return false;
         console.log("SR6E | applyDamage | Added " + damage + " to monitor " + monitor + " of " + this.name + " which results in overflow " + newOverflow + " on " + this.name);
         this._prepareDerivedAttributes();
 
         if (physicalOverflow > 0) {
             //Overflowing into physical instead
             console.log("SR6E | applyDamage | Overflowing stun into physical of " + physicalOverflow + " on " + this.name);
-            await this.applyDamage('physical', physicalOverflow);
+            await this.applyDamage({ 
+                monitor: 'physical', 
+                damage: physicalOverflow 
+            });
             ui.notifications.warn("shadowrun6.ui.notifications.do_not_revert_damage", { localize: true });
         }
+
         await this.checkUnconscious();
+
+        console.log("SR6E | Applied "+monitor+" "+damage+" damage to", this.name);
+        return true;
+    }
+
+    async applyMatrixDamage(damageData) {
+        const { damage, matrixTargetUuid } = damageData;
+        console.log("SR6E | applyMatrixDamage", matrixTargetUuid, damage);
+        const target = foundry.utils.fromUuidSync(matrixTargetUuid);
+        if (!target) {
+            console.error("SR6E | applyMatrixDamage | No target found for UUID: " + matrixTargetUuid);
+            return false;
+        }
+
+        if (target.documentName === "Item") {
+            console.log(`SR6E | applyMatrixDamage || ${target.name} is an Item, applying damage to Matrix monitor`);
+            await target.update({
+                "system.matrix.matrixCM.value": Math.max(0, target.system.matrix.matrixCM.value - damage)
+            });
+        }
+        else if (target.documentName === "Actor" && target.uuid === this.uuid) {
+            // Apply damage to this Actor
+            if (this.isTechno || this.isVehicle) {
+                console.log(`SR6E | applyMatrixDamage || ${this.name} is a Techno or Vehicle, applying damage to Stun monitor instead of Matrix monitor`);
+                damageData.monitor = MonitorType.STUN;
+                return await this.applyDamage( damageData );
+            }
+            else if (this.isActorV2) {
+                console.log(`SR6E | applyMatrixDamage || ${this.name} is a DataModel ActorV2, applying damage to Matrix monitor`);
+                await this.update({
+                    "system.matrix.matrixCM.value": Math.max(0, this.system.matrix.matrixCM.value - damage)
+                });
+            }
+            else if (this.system.persona.accessDevice) {
+                const accessDevice = this.system.persona.accessDevice;
+                console.log(`SR6E | applyMatrixDamage || ${this.name} is an ActorV2 with an accessDevice Item, applying damage to Matrix monitor of ${accessDevice.name}`);
+                damageData.matrixTargetUuid = accessDevice.uuid;
+                return await this.applyMatrixDamage( damageData );
+            }
+            else {
+                console.error("SR6E | applyMatrixDamage | Unknown how to apply damage to this Actor type: ", target);
+                return false;
+            }
+        } 
+        else {
+            console.error("SR6E | applyMatrixDamage | Target is not an Item or this Actor: ", target);
+            return false;
+        }
+
+        return true;
     }
 
     async checkUnconscious() {
@@ -2815,6 +2891,14 @@ export default class Shadowrun6Actor extends Actor {
 
     get isTechno() {
         return Boolean( this.system.mortype === "technomancer" );
+    }
+
+    get isVehicle() {
+        return Boolean( this.type === "Vehicle" );
+    }
+
+    get isActorV2() {
+        return Boolean( this.system instanceof foundry.abstract.DataModel );
     }
 
     /**

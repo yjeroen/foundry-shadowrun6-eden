@@ -374,7 +374,7 @@ Hooks.once("init", async function () {
             const actorUuid = panAdminChange?.value;
             if (!actorUuid) return;
 
-            const actor = fromUuidSync(actorUuid);
+            const actor = foundry.utils.fromUuidSync(actorUuid);
             actor?.render(false);
         });
     }
@@ -403,12 +403,12 @@ Hooks.once("init", async function () {
         }
         if (type === "Roll") {
             if (data.action === "roll") {   // SheetV2
-                const item = await fromUuidSync(data.uuid);
+                const item = foundry.utils.fromUuidSync(data.uuid);
                 macroData.name = game.i18n.format("SR6.title.useItem", { name: item.name });
                 macroData.img = item.img;
             } 
             else if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll') || data.classList.includes('spritepower-roll')) {
-                const item = await fromUuidSync(data.uuid);
+                const item = foundry.utils.fromUuidSync(data.uuid);
                 macroData.name = item.name;
                 if (data.skill==="firearms") {
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg";
@@ -462,12 +462,14 @@ Hooks.once("init", async function () {
                 tip.slideUp(200);
             }
         });
-        html.find(".rollable").click((event) => {
+        html.find(".rollable").click(async (event) => {
             //TODO allow multiple targets
             console.log("SR6E | ENTER renderChatMessage.rollable.click -> event.currentTarget = ", event.currentTarget);
             const button = event.currentTarget;
             const dataset = button.dataset;
             const actorUuid = dataset.actorUuid;
+            const matrixTargetUuid = dataset.matrixTargetUuid;
+            const rollType = dataset.rollType;
             let actorId = dataset["actorid"] ? dataset["actorid"] : dataset["targetActor"];
             let sceneId = dataset["sceneid"];
             let tokenId = dataset["targetid"] ? dataset["targetid"] : dataset["targetToken"];
@@ -478,6 +480,11 @@ Hooks.once("init", async function () {
             if (actorUuid) {
                 console.log("SR6E | Target is full Actor UUID");
                 actor = foundry.utils.fromUuidSync(actorUuid);
+            } else if (rollType === RollType.Damage && matrixTargetUuid) {
+                const target = foundry.utils.fromUuidSync(matrixTargetUuid);
+                console.log("SR6E | Target is a matrix target that needs to soak damage", target?.name);
+                actor = target?.actor || target;
+
             } else if (actorId && sceneId && tokenId) {
                 console.log("SR6E | Target is a token");
                 // If scene and token ID is given, resolve token
@@ -522,12 +529,9 @@ Hooks.once("init", async function () {
                 ui.notifications.warn("shadowrun6.ui.notifications.Target_or_select_a_token_before_rolling", { localize: true });
                 return;
             }
-            const rollType = dataset.rollType;
             console.log("SR6E | Clicked on rollable : " + rollType);
-            console.log("SR6E | dataset : ", dataset);
             const threshold = parseInt(dataset.threshold);
             const damage = dataset.damage ? parseInt(dataset.damage) : 0;
-            console.log("SR6E | Target actor ", actor);
             console.log("SR6E | Target actor ", actor.name);
             let dialogConfig;
             switch (rollType) {
@@ -585,8 +589,11 @@ Hooks.once("init", async function () {
                     //TODO call rollSoak with threshold ?
                     // console.log("SR6E | TODO: call rollSoak with threshold " + threshold + " on monitor " + dataset.soakWith);
                     if (actor) {
-                        let soak = dataset.soak;
-                        actor.rollSoak(soak, damage);
+                        const soakData = {
+                            ...Object.fromEntries(Object.entries(dataset)),
+                            damage: Number(dataset.damage)
+                        };
+                        actor.rollSoak(soakData);
                     }
                     break;
                 case RollType.Damage:
@@ -595,6 +602,11 @@ Hooks.once("init", async function () {
                     const chatMessageId = event.target.closest(".chat-message").dataset.messageId;
                     const chatMessage = game.messages.get(chatMessageId);
                     const roll = chatMessage.rolls[0];
+                    const damageData = {
+                        ...Object.fromEntries(Object.entries(dataset)),
+                        damage: Number(dataset.damage)
+                    };
+                    let result;
 
                     if (button.classList.contains('damageApplied') || button.classList.contains('revertDamageCheck')) {
                         // Damage was applied in the past, reverting back
@@ -607,9 +619,10 @@ Hooks.once("init", async function () {
                                 roll.finished.damageApplied = false;
                             }
                             roll.finished.damageApplied = false;
-                            chatMessage.update({ 'rolls': [roll] });
-                            actor.applyDamage( monitor, damage*-1 );
+                            result = await actor.applyDamage( { ...damageData, damage: damageData.damage * -1 } );
+                            if (result) chatMessage.update({ 'rolls': [roll] });
                         } else {
+
                             button.classList.remove("damageApplied");
                             button.classList.add("revertDamageCheck");
                         }
@@ -621,10 +634,9 @@ Hooks.once("init", async function () {
                         } else {
                             roll.finished.damageApplied = true;
                         }
-                        chatMessage.update({ 'rolls': [roll] });
-                        actor.applyDamage( monitor, damage );
+                        result = await actor.applyDamage( damageData );
+                        if (result) chatMessage.update({ 'rolls': [roll] });
                     }
-                    console.log("SR6E | Applied "+monitor+" "+damage+" damage to", actor);
                     break;
             }
             /*
