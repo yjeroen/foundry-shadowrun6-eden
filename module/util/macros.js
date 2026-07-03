@@ -71,9 +71,17 @@ export default {
         if (!targets.size) return ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_first", { localize: true });
 
         for (const target of targets) {
-            const matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet }); //V1 sheet has different arguements than V2
+            let matrixActorSheet;
+            if (target.actor.isActorV2) {
+                const Sheet = target.actor._getSheetClass();
+                matrixActorSheet = new Sheet({ document: target.actor, initiator: initiator, launcher: initiator.sheet, limited: true, viewPermission: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE });
+            } else {
+                matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet }); //V1 sheet has different arguements than V2
+            }
+            
             await initiator.sheet.minimize();
             matrixActorSheet.render(true);
+            console.log("SR6E | Macros | openTargetsLimitedSheet | Rendered limited sheet for target", matrixActorSheet);
         }
     },
 

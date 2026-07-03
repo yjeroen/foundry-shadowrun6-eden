@@ -1,5 +1,4 @@
 import { default as Shadowrun6ActorSheet } from "./SR6ActorSheet.js";
-import { MatrixActionRoll } from "../../dice/RollTypes.js";
 
 /**
  * Extend the basic Shadowrun6ActorSheet so its a limited sheet to use in Matrix Action targetting
