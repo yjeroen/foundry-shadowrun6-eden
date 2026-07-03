@@ -363,6 +363,7 @@
 <!-- Defense Result -->
 <hr>
   {{#if actorTraits.hardenedArmor}}
+    <!-- Extra message about hardened armor -->
     {{#if (not actorTraits.immunityNormalWeapons)}}
     <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
     {{else}}
@@ -372,8 +373,9 @@
     {{/if}}
   {{/if}}
 
-  {{#if cantDodgeBullets}}
+  {{#if (and cantDodgeBullets (ne configured.defendedWith 'matrix'))}}
 
+      <!-- Extra message about cantDodgeBullets -->
       {{#if success}}
         {{#iff targets.length ">" 0}}
         {{#each targets as |target|}}
