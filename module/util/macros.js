@@ -76,7 +76,7 @@ export default {
                 const Sheet = target.actor._getSheetClass();
                 matrixActorSheet = new Sheet({ document: target.actor, initiator: initiator, launcher: initiator.sheet, limited: true, viewPermission: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE });
             } else {
-                matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet }); //V1 sheet has different arguements than V2
+                matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet, limited: true }); //V1 sheet has different arguements than V2
             }
             
             await initiator.sheet.minimize();

@@ -44,7 +44,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         data.actor.system.essence = parseFloat(data.actor.system.essence).toFixed(2);
         data.matrixAccess = this._matrixAccess();
         data.matrixActionAvailable = this._matrixActionAvailable();
-        data.matrixActionActor = this.actor.limited ? this.initiator : this.actor;
+        data.matrixActionActor = (this.document.limited || this.options.limited) ? this.initiator : this.actor;
 
         // Prepare active effects // overwriting super.data.effects
         data.effects = prepareActiveEffectCategories(
@@ -94,6 +94,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * Initiator used in case an action is performed that can be initiated by another actor
      */
     get initiator() {
+        if (this.options.initiator) return this.options.initiator;
         if (this.actor.isOwner) return this.actor;
         return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
     }
@@ -107,12 +108,12 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
         html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
 
-        if (this.document.limited || this.options.initiator) {
+        if (this.document.limited || this.options.limited) {
             html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
             html.find(".matrix-roll").click(this._onMatrixRollByInitiator.bind(this));
         }
         // Owner Only Listeners
-        if (this.actor.isOwner && !this.options.initiator) {
+        if (this.actor.isOwner && !this.options.limited) {
             // ActiveEffect buttons
             html.find("[data-action='viewDoc']").click(this._viewDoc.bind(this));
             html.find("[data-action='createDoc']").click(this._createDoc.bind(this));
@@ -1151,8 +1152,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
 
     _matrixAccess() {
-        console.log("SR6E | _matrixAccess | from this sheet", this.actor.name, this.initiator?.name);
-        const matrixAccessLevel = this.actor.yourMatrixAccessLevel({ initiator: this.initiator, fromReferenceSection: true});
+        const matrixAccessLevel = this.actor.yourMatrixAccessLevel({ initiator: this.initiator, fromReferenceSection: true, limitedViewOverride: this.options.limited });
+        console.log(`SR6E | _matrixAccess | from initiator: ${this.initiator?.name}, to ${this.actor.name}'s sheet, with a matrixAccessLevel: ${matrixAccessLevel}`);
         
         return {
             outsider: matrixAccessLevel === "outsider",
@@ -1166,8 +1167,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .filter(([actionId, action]) => {
                 action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name');
 
-                if (this.document.limited) {
+                if (this.document.limited || this.options.limited) {
                     if (action.skill === "cracking" && !this.initiator.system.skills.cracking.pool) return false
+                    if (action.linkedAttr === "a" && !this.initiator.system.persona?.used?.a) return false;
+                    if (action.linkedAttr === "s" && !this.initiator.system.persona?.used?.s) return false;
                     if (action.targets?.includes("persona") && action.outsider) return true;
                     return false;
                 }
@@ -1243,7 +1246,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
             const isAccessDevice = item.isAccessDevice;
             const isActorsNode = item.parent?.uuid === actor.uuid;
-            const hasAccess = (this.actor.isOwner  && !this.options.initiator) ? false : item.yourMatrixAccessLevel({ initiator: initiator }); // TODO Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
+            const hasAccess = (this.actor.isOwner  && !this.options.limited) ? false : item.yourMatrixAccessLevel({ initiator: initiator }); // TODO Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
 
             return {
                 name: item.name,

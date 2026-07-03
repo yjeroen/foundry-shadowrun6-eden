@@ -43,16 +43,6 @@ export class SR6MatrixTargetSheet extends Shadowrun6ActorSheet {
     }
 
     /**
-     * Initiator that targets this Actor and opened this sheet
-     * @Override
-     */
-    get initiator() {
-        console.log("SR6E | SR6MatrixTargetSheet initiator()", this.options.initiator);
-        if (this.options.initiator) return this.options.initiator;
-        else return super.initiator();
-    }
-
-    /**
      * Actions performed after closing the Application.
      * @param {RenderOptions} options Provided render options
      * @inheritDoc

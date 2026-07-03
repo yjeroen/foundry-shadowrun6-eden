@@ -2909,13 +2909,11 @@ export default class Shadowrun6Actor extends Actor {
      * @returns {string} The matrix-access flag for the UUID of the Initiator
      */
     yourMatrixAccessLevel(config={}) {
-        const {initiator, fromReferenceSection} = config;
-        console.log("SR6E | Actor.yourMatrixAccessLevel | Actor", this.name);
-        console.log("SR6E | Actor.yourMatrixAccessLevel | initiator", initiator?.name);
-        console.log("SR6E | Actor.yourMatrixAccessLevel | fromReferenceSection", fromReferenceSection);
+        const {initiator, fromReferenceSection, limitedViewOverride} = config;
+        console.log(`SR6E | Actor.yourMatrixAccessLevel | ${this.name} | config:`, config);
         const primaryAccessDevice = this.system.persona?.accessDevice;
 
-        if (this.isOwner) {
+        if (this.isOwner && !limitedViewOverride) {
             console.log("SR6E | Actor.yourMatrixAccessLevel | this.isOwner | view ACL from perspective of this actor");
             if (this.uuid === initiator?.uuid) {
                 if (fromReferenceSection) {
@@ -2963,8 +2961,10 @@ export default class Shadowrun6Actor extends Actor {
             return primaryAccessDevice.yourMatrixAccessLevel({ initiator: initiator ?? this });
         }
         
-        console.warn("SR6E | Actor.yourMatrixAccessLevel | fallback to outsider");
-        return "outsider" // TODO use an internal function to retrieve getFlag when ACL is manually changed
+        console.warn("SR6E | Actor.yourMatrixAccessLevel | Defaulting | retrieving flag");
+        const safeUuid = this.uuid.replaceAll(".", "_");
+        return  "outsider";
+        return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider"; // TODO JEROEN use an internal function to retrieve getFlag when ACL is manually changed
     }
 
 }

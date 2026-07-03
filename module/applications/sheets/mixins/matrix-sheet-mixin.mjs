@@ -20,6 +20,14 @@ export const MatrixSheetMixin = Base => class extends Base {
         const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
             .filter(([actionId, action]) => {
+                if (this.document.limited || this.options.limited) {
+                    if (action.skill === "cracking" && !this.initiator.system.skills.cracking.pool) return false
+                    if (action.linkedAttr === "a" && !this.initiator.system.persona?.used?.a) return false;
+                    if (action.linkedAttr === "s" && !this.initiator.system.persona?.used?.s) return false;
+                    if (action.targets?.includes("persona") && action.outsider) return true;
+                    return false;
+                }
+                
                 if (action.skill === "cracking" && !system.skills.cracking.defaultTestPool) return false;
                 if (action.linkedAttr == null) return true;
                 if (action.linkedAttr === "a" && system.matrix.attributes.attack > 0) return true;
