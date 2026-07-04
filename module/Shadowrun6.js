@@ -285,6 +285,16 @@ Hooks.once("init", async function () {
                     button: true
                 };
                 controls.tokens.tools.shadowrunResetEdge = shadowrunResetEdge;
+
+                const shadowrunResetAccessLevels = {
+                    name: "shadowrunResetAccessLevels",
+                    order: 99,
+                    title: "shadowrun6.resetAccessLevels",
+                    icon: "sr6-icon-terminal",
+                    onClick: () => game.sr6.utils.resetAccessLevels(),
+                    button: true
+                };
+                controls.tokens.tools.shadowrunResetAccessLevels = shadowrunResetAccessLevels;
             }
         }
     });

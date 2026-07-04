@@ -1955,6 +1955,7 @@
         "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration.",
         "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
         "edge_has_been_reset": "All Edge has been reset by the GM.",
+        "accessLevels_have_been_reset": "All Access Levels have been reset by G.O.D.",
         "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
         "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>Inform all players they need to adjust their Gear and Cyberware if necessary.<p>",
         "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
@@ -2147,7 +2148,9 @@
       "formGruntGroup": "Create Grunt Group with selected Tokens"
     },
     "resetEdge": "Reset Edge",
-    "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
+    "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?",
+    "resetAccessLevels": "Reset All Access Levels",
+    "resetAccessLevelsDescription": "Do you want to reset Access Levels for all Actors and Tokens in the game?"
   },
   "SR6": {
     "Common": {

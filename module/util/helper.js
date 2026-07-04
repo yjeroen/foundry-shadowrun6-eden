@@ -827,12 +827,100 @@ export async function resetEdge() {
     }
 }
 
-  /**
-   * Begin a Drag+Drop workflow for a dynamic content link
-   * TODO evaluate if it should be moved to a different class like TextEditor.#onDragContentLink(event);
-   * @param {Event} event   The originating drag event
-   */
-  export function onDragSR6Link(event) {
+export async function resetAccessLevels() {
+    if (!game.user.isGM) {
+        console.warn("SR6E | Resetting Access Levels is only allowed by GM's");
+        return;
+    }
+    console.info("SR6E | Reset Access Levels dialogue");
+
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: game.i18n.localize("shadowrun6.resetAccessLevels") },
+        content: game.i18n.localize("shadowrun6.resetAccessLevelsDescription"),
+        rejectClose: false,
+        modal: true
+    });
+
+    if ( proceed ) {
+        console.info("SR6E | Resetting Access Levels for all Actors and Tokens in the game");
+
+        const operations = [];
+        const docTypesToUpdate = new Set(["Actor", "Item", "ActorDelta"]);
+        const isV14 = game.release?.generation >= 14;
+
+        if (isV14) {
+            for (const collection of [game.actors, game.scenes]) {
+                for (const doc of collection) {
+                    const { documentName, flags } = doc;
+                    if (documentName === "Actor") {
+                        if (flags["shadowrun6-eden"]?.["matrix-access"]) {
+                            operations.push({
+                                action: "update",
+                                documentName,
+                                updates: [{
+                                    _id: doc.id,
+                                    "flags.shadowrun6-eden.matrix-access": _del
+                                }]
+                            });
+                        }
+                    }
+                    for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
+                        const { parent, embeddedDocName, flags } = embeddedDoc;
+                        if (!docTypesToUpdate.has(embeddedDocName)) continue;
+                        if (!flags["shadowrun6-eden"]?.["matrix-access"]) continue;
+
+                        operations.push({
+                            action: "update",
+                            documentName: embeddedDocName,
+                            parent,
+                            updates: [{
+                                _id: embeddedDoc.id,
+                                "flags.shadowrun6-eden.matrix-access": _del
+                            }]
+                        });
+                    }
+                }
+            }
+            await foundry.documents.modifyBatch(operations);
+        }
+        else {
+            for (const collection of [game.actors, game.scenes]) {
+                for (const doc of collection) {
+                    const { documentName, flags } = doc;
+                    if (documentName === "Actor") {
+                        if (flags["shadowrun6-eden"]?.["matrix-access"]) {
+                            await doc.unsetFlag("shadowrun6-eden", "matrix-access");
+                        }
+                    }
+                    for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
+                        const { parent, embeddedDocName, flags } = embeddedDoc;
+                        if (!docTypesToUpdate.has(embeddedDocName)) continue;
+                        if (!flags["shadowrun6-eden"]?.["matrix-access"]) continue;
+
+                        await embeddedDoc.unsetFlag("shadowrun6-eden", "matrix-access");
+                    }
+                }
+            }
+        }
+
+        const msg = game.i18n.localize("shadowrun6.ui.notifications.accessLevels_have_been_reset");
+        await ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
+            title: game.i18n.localize("shadowrun6.resetAccessLevels"),
+            flavor: game.i18n.localize("shadowrun6.resetAccessLevels"),
+            content: `<span style="font-style: italic;">${msg}</span>`
+        });
+    }
+
+}
+    
+
+/**
+ * Begin a Drag+Drop workflow for a dynamic content link
+ * TODO evaluate if it should be moved to a different class like TextEditor.#onDragContentLink(event);
+ * @param {Event} event   The originating drag event
+ */
+export function onDragSR6Link(event) {
     event.stopPropagation();
     const a = event.target.closest("a[data-sr6-link]");
     const { cursor, sr6Link, tooltip, ...dragData } = { ...a.dataset };
@@ -840,7 +928,7 @@ export async function resetEdge() {
 
     // No validation at drag, validate on drop
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
-  }
+}
 
 // ##########################
 // Boilerplate Effect Helper
