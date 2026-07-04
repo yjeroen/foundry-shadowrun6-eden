@@ -11,6 +11,7 @@ export const MatrixSheetMixin = Base => class extends Base {
     static DEFAULT_OPTIONS = {
         actions: {
             switchMatrixAccess: this._onSwitchMatrixAccess,
+            openTargetsMatrixSheet: this._openTargetsMatrixSheet,
             toggleMatrixActionDesc: this._toggleMatrixActionDesc,
             matrixRoll: this._onMatrixRoll
         },
@@ -109,6 +110,25 @@ export const MatrixSheetMixin = Base => class extends Base {
             `matrix-access.${this.#matrixUserSafeUuid}`,
             newAccessLevel
         );
+    }
+
+    static async _openTargetsMatrixSheet(event) {
+        console.log("SR6E | MatrixSheetMixin | _openTargetsMatrixSheet");
+        const initiator = this.actor;
+        const targets = game.user.targets;
+        if (!targets.size) return ui.notifications.warn("shadowrun6.ui.notifications.Target_a_token_first", { localize: true });
+
+        for (const target of targets) {
+            let matrixActorSheet;
+            if (target.actor.isActorV2) {
+                const Sheet = target.actor._getSheetClass();
+                matrixActorSheet = new Sheet({ document: target.actor, initiator: initiator, launcher: initiator.sheet, limited: true, viewPermission: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE });
+            } else {
+                matrixActorSheet = new game.sr6.applications.SR6MatrixTargetSheet(target.actor, { initiator: initiator, launcher: initiator.sheet }); //V1 sheet has different arguements than V2
+            }
+            await this.minimize();
+            matrixActorSheet.render(true);
+        }
     }
 
     /**

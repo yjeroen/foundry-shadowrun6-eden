@@ -507,24 +507,26 @@ function getSpellFeatures(spell) {
     }
     return ret.join(", ");
 }
-export function getMatrixActionPool(key, actor) {
-    const action = CONFIG.SR6.MATRIX_ACTIONS[key];
-    const skill = getSystemData(actor).skills[action.skill];
-    let pool = 0;
-    if (skill && skill?.pool) {
-        pool = skill.points + skill.modifier;
-        if (skill.expertise == action.specialization) {
-            pool += 3;
-        }
-        else if (skill.specialization == action.specialization) {
-            pool += 2;
-        }
-        if (action.attrib) {
-            const attrib = getSystemData(actor).attributes[action.attrib];
-            pool += attrib?.pool || 0;
-        }
-    }
-    return pool;
+export function getMatrixActionPool(actionName, actor) {
+    const action = CONFIG.SR6.MATRIX_ACTIONS[actionName];
+    return action.skill ? actor._getSkillPool(action.skill) : 0;
+
+    // const skill = getSystemData(actor).skills[action.skill];
+    // let pool = 0;
+    // if (skill && skill?.pool) {
+    //     pool = skill.points + skill.modifier;
+    //     if (skill.expertise == action.specialization) {
+    //         pool += 3;
+    //     }
+    //     else if (skill.specialization == action.specialization) {
+    //         pool += 2;
+    //     }
+    //     if (action.attrib) {
+    //         const attrib = getSystemData(actor).attributes[action.attrib];
+    //         pool += attrib?.pool || 0;
+    //     }
+    // }
+    // return pool;
 }
 
 /**

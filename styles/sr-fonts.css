@@ -54,6 +54,7 @@ body.game.foundry-modern .application.journal-sheet {
 .game .section-head h2 {
   border-bottom: none;
   margin: 0;
+  white-space: nowrap;
 }
 
 .game .play-regular {

@@ -17,6 +17,7 @@ export class SR6MatrixTargetSheet extends Shadowrun6ActorSheet {
             width: null,
             height: 800,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],
+            limited: true,
             initiator: null,    // Needs to be set when opening the sheet, so we know who is targeting this actor
             launcher: null,     // Needs to be set when opening the sheet, so we can maximize it again when closing this sheet
         });

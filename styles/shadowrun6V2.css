@@ -2302,7 +2302,23 @@ body.game .app a:hover .sr6-icon {
     align-items: center;
 }
 
+.sr6 .pan .track {
+    grid-template-columns: minmax(200px, 1fr) max-content;
+    transition: grid-template-columns 0.5s ease;
+}
+.sr6 .pan .slot span {
+    font-size: 8px;
+    transition: font-size 0.5s ease;
+}
 @container (max-width: 650px) {
+    .sr6 .pan .track {
+        grid-template-columns: minmax(100px, 1fr) max-content;
+    }
+    .sr6 .pan .slot span {
+        font-size: 0px;
+    }
+}
+@container (max-width: 500px) {
     .sr6 .pan-tree .matrixCM {
         display: none;
     }
@@ -2488,10 +2504,13 @@ body.game .app a:hover .sr6-icon {
     font-size: 0.85em;
     padding-top: 0.15em;
     white-space: nowrap;
+    transition: font-size 0.5s ease;
 }
 
-.sr6 .pan .pan-node-slaved-device .pan-role {
-    font-size: 0.8em;
+@container (max-width: 695px) {
+    .sr6 .pan .pan-role {
+        font-size: 0px;
+    }
 }
 
 .sr6 .pan .pan-access {

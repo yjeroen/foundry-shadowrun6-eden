@@ -6,7 +6,7 @@
 		<div class="matrix-access-container"
 			data-tooltip="shadowrun6.matrix.accessLevel.access_level_device{{#if isInitiatorAdmin}}_admin{{/if}}"
 		>
-			<div class="matrix-access-switch {{#if isInitiatorAdmin}}matrix-access-isadmin{{/if}} {{#if (or isInitiatorAdmin (not item.isOwner))}}inactive{{/if}}">
+			<div class="matrix-access-switch {{#if isInitiatorAdmin}}matrix-access-isadmin{{/if}} inactive"> {{!-- Only switch item access levels using actions --}}
 				<span class="matrix-access-option {{#if matrixAccess.outsider}}active{{/if}}"
 					data-action="switchMatrixAccess" data-value="outsider"
 				>

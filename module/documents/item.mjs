@@ -641,27 +641,28 @@ export default class SR6Item extends Item {
     const {initiator} = config;
     const safeUuid = initiator.uuid.replaceAll(".", "_");
 
-    if (this.actor.system.pan.isSlaved) {
+    if (this.actor.system.pan?.isSlaved) {
       // This Item belongs to an Actor that has a Slaved PAN
       if (this.actor.uuid === initiator.uuid) {
         // This Item's Actor is the Initiator
         return "admin"
       }
-      if (this.actor.system.pan.administrator.uuid === initiator.uuid) {
+      if (this.actor.system.pan?.administrator.uuid === initiator.uuid) {
         // This Item's Actor has a PanAdmin (due to being slaved), and it is the Initiator
         return "admin"
       }
-      if (this.actor.system.pan.administrator.uuid === initiator.system.pan.administrator.uuid) {
+      if (this.actor.system.pan?.administrator.uuid === initiator.system.pan?.administrator.uuid) {
         // This Item's Actor has a PanAdmin (due to being slaved), and it is the same PAN that the initiator joined
         return "user"
       }
-    } else {
+    } 
+    else {
       // This Item belongs to an Actor that is its own Pan Admin
       if (this.actor.uuid === initiator.uuid) {
         // This Item's Actor is the Initiator's
         return "admin"
       }
-      if (this.actor.uuid === initiator.system.pan.administrator.uuid) {
+      if (this.actor.uuid === initiator.system.pan?.administrator.uuid) {
         // This Item's Actor is my (the ininitator's) Pan Admin
         return "user"
       }

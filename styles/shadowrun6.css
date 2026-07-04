@@ -718,12 +718,29 @@ a.item-control.disabled-roll:hover {
 
 .matrix-section .reference-label .fa-circle-info,
 .matrix-section .reference-label span {
+  font-size: 12px;
   opacity: 0.4;
+  transition: font-size 0.5s ease;
 }
 .matrix-section .reference-label a {
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
   top: -1px;
+}
+@container (max-width: 650px) {
+    .matrix-section .reference-label .fa-circle-info,
+    .matrix-section .reference-label span {
+      font-size: 0px;
+    }
+}
+@container (max-width: 484px) {
+    .matrix-section .reference-label .fa-circle-info,
+    .matrix-section .reference-label span {
+      display: none;
+    }
+    .matrix-section .reference-label a {
+      padding: 0 0.5em;
+    }
 }
 
 .matrix-access-switch input[type="radio"],

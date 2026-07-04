@@ -17,12 +17,12 @@
 			<a class="item-control draggable" data-tooltip="shadowrun6.matrix.targetActor.tooltip" data-action="openTargetsMatrixSheet" draggable="true">
 				<i class="fas fa-crosshairs"></i>
 			</a>
-			
 		</div>
 		{{/if}}
 		
 		<div class="matrix-access-container" data-tooltip="shadowrun6.matrix.accessLevel.switch{{#if limited}}_persona{{/if}}">
-			<div class="matrix-access-switch {{#unless owner}}inactive{{/unless}}">
+
+			<div class="matrix-access-switch {{#unless owner}}inactive{{/unless}} {{#if limited}}inactive{{/if}}">
 				<span class="matrix-access-option {{#if matrixAccess.outsider}}active{{/if}}"
 					data-action="switchMatrixAccess" data-value="outsider"
 				>
