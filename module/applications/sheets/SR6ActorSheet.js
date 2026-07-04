@@ -1321,7 +1321,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(makePanNode);
 
-        console.log("JEROEN PAN yourMatrixAccessLevel", initiator, panAdmin.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }));
         const nodes = [
             {
                 // Master Node
