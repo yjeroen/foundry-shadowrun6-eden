@@ -818,194 +818,194 @@
       "failedSoak": "Icon gets damage"
     },
     "matrixaction": {
-      "backdoor_entry": {
-        "name": "Backdoor Entry",
-        "hint": "Gain Admin access to a host or device the sneaky way. First, do a successful Probe action and add the net hits as a bonus to this dice pool."
-      },
-      "brute_force": {
-        "name": "Brute Force",
-        "hint": "Attempt to get quick access by spamming a target. When trying to switch from outsider to admin directly, the enemy gets two bonus dice and plus four Defense Rating - In any way the device will be alarmed."
-      },
-      "calibration": {
-        "name": "Calibration",
-        "hint": "Add one to the Matrix Initiative of you and your team mates (sharing an AR-feed with your PAN) for every two hits you get. The total increase of a Persona can't be higher than your Data Processing."
-      },
-      "change_icon": {
-        "name": "Change Icon",
-        "hint": "Select an Icon and replace it with another one. This won't prevent you to be tracked down, if someone attempts to."
-      },
-      "check_os": {
-        "name": "Check OS",
-        "hint": "Have a look at your Overwatch Score. Ironically this action also increases your OS."
-      },
-      "control_device": {
-        "name": "Control Device",
-        "hint": "Take control of a device as if you are the owner, until you leave the device willingly, shut it down or someone else pushes you out of control."
-      },
-      "crack_file": {
-        "name": "Crack File",
-        "hint": "Make an encrypted file readable with this action."
-      },
-      "crash_program": {
-        "name": "Crash Program",
-        "hint": "Check out what programs your opponent's device is running with a Matrix Perception, then take this action to shut it down."
-      },
-      "data_spike": {
-        "name": "Dataspike",
-        "hint": "This is the standard attack for dealing Matrix damage to a device or persona."
-      },
-      "disarm_data_bomb": {
-        "name": "Disarm Data Bomb",
-        "hint": "With this, you can disarm Data Bombs that you detected with Matrix Perception. If you fail to achieve net hits, the Data Bomb blows up."
-      },
-      "device_lock": {
-        "name": "Device Lock",
-        "hint": "Prevent the owner of a device to cut off the connection of a device to the Matrix for the duration of net hit combat rounds. Can be prolonged one time by spending a minor action."
-      },
-      "denial_of_service": {
-        "name": "Denial of Service",
-        "hint": "Create a dice penalty for all tests using this wifi device by net hits times two."
-      },
-      "delayed_command": {
-        "name": "Delayed Command",
-        "hint": "Send a command to a device with a time frame. On success, the device will acknowledge it as being sent from it's owner. After the time frame expired, the command will be executed, even when the device was cut off from the Matrix. A reboot before execution however, will delete the command."
-      },
-      "edit_file": {
-        "name": "Edit File",
-        "hint": "Add, edit, copy or delete a file with this action. During a combat, adding or changing a file needs an action for each detail. Encrypted files can't be copied."
-      },
-      "encrypt_file": {
-        "name": "Encrypt File",
-        "hint": "This makes a file unreadable without decrypting it first. The Encryption Rating is equal to the hits of this roll."
-      },
-      "enter_host": {
-        "name": "Enter/Exit Host",
-        "hint": "Get into or leave a host."
-      },
-      "erase_matrix_signature": {
-        "name": "Erase Matrix Sign",
-        "hint": "If you have a Resonance rating, remove a Matrix signature left by a technomancer or sprite with this action."
-      },
-      "format_device": {
-        "name": "Format Device",
-        "hint": "You replace the boot sector of this device with your own code, so it won't start anymore whenever it is told to reboot."
-      },
-      "full_matrix_defense": {
-        "name": "Full Matrix Defense",
-        "hint": "Add your Firewall to all defense tests that are related to the Matrix."
-      },
-      "garbage_in_out": {
-        "name": "Garbage In/Garbage Out",
-        "hint": "Mess around with the input and output signals of a device. For example, every time the owner wants to start a program, the last taken picture is deleted instead."
-      },
-      "hash_check": {
-        "name": "Hash Check",
-        "hint": "Search for encrypted files with a specific content in a host or device. Chances increase significantly by having a hash value."
-      },
-      "hide": {
-        "name": "Hide",
-        "hint": "Try to make a target lose sight to you in the Matrix. Does not work if the icon has User or Admin access to any device of your network."
-      },
-      "jack_out": {
-        "name": "Jack Out",
-        "hint": "Disconnect from the Matrix by rebooting your device. If you are link-locked, the opponent will roll against you. If you did not switch to AR first, you'll get damage by dump-shock."
-      },
-      "jam_signals": {
-        "name": "Jam Signals",
-        "hint": "While you are not using this device for other actions, this will increase the noise rating by any hits you have within a range of 100 meters."
-      },
-      "jump_rigged": {
-        "name": "Jump Into Rigged Device",
-        "hint": "The vehicle or drone you want to jump into needs a rigger adaption and you need a control rig. You can only jump in, if no one else is. Your ownership and access level also factor in if this will work or not and if you need to roll."
-      },
-      "known_exploit": {
-        "name": "Known Exploit Backdoor Entry",
-        "hint": "Try to use known exploits to get direct Admin access. Your chance of succeeding is decreased on well patched hosts or devices. This combines the Probe and Backdoor Entry actions into one. You can't get or use Edge for this action while the opponent gets one temporary Edge for free to oppose you."
-      },
-      "masquerade": {
-        "name": "Masquerade",
-        "hint": "You can pretend being someone else in the Matrix for net hit minutes. However it's hard to trick the Matrix and this won't work for things like taking ownership of devices or banking."
-      },
-      "matrix_perception": {
-        "name": "Matrix Perception",
-        "hint": "Find an icon that runs silent or collect information about a target, like it's icon and device rating, running devices, programs and other specific information."
-      },
-      "matrix_search": {
-        "name": "Matrix Search",
-        "hint": "Scan the public Matrix for information about a subject."
-      },
-      "metahuman_middle": {
-        "name": "Metahuman in the Middle",
-        "hint": "Make all Matrix communications and actions run through your device for net hit minutes."
-      },
-      "modify_icon": {
-        "name": "Modify Icon",
-        "hint": "Modify an Icon that you have Admin access for to something, that it does not represent, like making your gun look like flowers."
-      },
-      "probe": {
-        "name": "Probe",
-        "hint": "Try to find an exploit and use the Backdoor Entry action afterwards to get access. This takes some time, but in contrast to Brute Force, this won't alarm the target."
-      },
-      "pop_up": {
-        "name": "Popup",
-        "hint": "Spam your opponent with ARO windows, so they can't spend Edge for net hit rounds as they are distracted."
-      },
-      "reboot_device": {
-        "name": "Reboot Device",
-        "hint": "This will cut off a device from the Matrix by forcing it to reboot. It will be online again by the end of the following combat round."
-      },
-      "reconfigure": {
-        "name": "Reconfigure Matrix Attribute",
-        "hint": "Switch two base ratings from your Matrix Persona that are higher than 0, regardless of the source (commlink, cyberjack, etc.) they are coming from."
-      },
-      "send_message": {
-        "name": "Send Message",
-        "hint": "Deliver audio or text to somebody else, or create a live feed to them."
-      },
-      "set_data_bomb": {
-        "name": "Set Data Bomb",
-        "hint": "Attach a Data Bomb to blow up careless hackers. The rating can be up to the maximum net hits you got. Then choose, if the Data Bomb deletes the file or not."
-      },
-      "snoop": {
-        "name": "Snoop",
-        "hint": "Get your hands on data traffic that is exchanged between your target and the Matrix."
-      },
-      "spoof_command": {
-        "name": "Spoof Command",
-        "hint": "Send a command to a device pretending that you are the legitimate owner. As normal, the device then attempts to perform the action as its next available major action. "
-      },
-      "squelch": {
-        "name": "Squelch",
-        "hint": "Hinder the target from sending messages or calling someone for net hit rounds."
-      },
-      "subvert_infrastructure": {
-        "name": "Subvert Infrastructure",
-        "hint": "Make a group of similar, simple, devices of one host do what you want, like turning off street lights or rotate all security cameras to the left."
-      },
-      "switch_ifmode": {
-        "name": "Switch Interface Mode",
-        "hint": "Toggle between the AR and VR mode(s) of your interface."
-      },
-      "tarpit": {
-        "name": "Tarpit",
-        "hint": "Slow down your target by making some damage and reducing it's data processing value."
-      },
-      "threat_analysis": {
-        "name": "Threat Analysis",
-        "hint": "Mark harmfull entities and share them by AR Feed to your team mates, so they get your succcesses as bonus dice on their defense roll. Works for the physical world as well as for the Matrix."
-      },
-      "trace_icon": {
-        "name": "Trace Icon",
-        "hint": "Track down the physical location of a device or persona."
-      },
-      "virtual_aim": {
-        "name": "Virtual Aim",
-        "hint": "Gives you one bonus dice for your attack actions like Data Spike or Tarpit. Can be activated once per round, but sums up each round unless you don't do another Virtual Aim action or attack. Maximum is your Willpower."
-      },
-      "watchdog": {
-        "name": "Watchdog",
-        "hint": "Allows you to stalk and anticipate the actions of a Matrix persona or device during net hit rounds, so that you can intervene. Having the Watchdog active allows you to execute the Threat Analysis as a minor action."
-      }
+        "backdoor_entry": {
+          "name": "Backdoor Entry",
+          "hint": "Use a backdoor created by a successful Probe to gain Admin access to a host, device, or Matrix area. The Probe net hits add to this test; success does not count as illegal Admin access, while failure removes the backdoor but does not trigger an alarm, though your Overwatch Score still increases."
+        },
+        "brute_force": {
+          "name": "Brute Force",
+          "hint": "Attack a device directly to gain fast illicit access, but the target is always alerted and GOD score accumulates with each test. Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating."
+        },
+        "calibration": {
+          "name": "Calibration",
+          "hint": "Increase the Initiative Score of yourself and teammates sharing your AR Feed by 1 per 2 hits. The bonus cannot exceed your Data Processing, only one Calibration can be active, it drops by 1 each Combat Turn, and you can share with a number of users up to your Device Rating."
+        },
+        "change_icon": {
+          "name": "Change Icon",
+          "hint": "Replace a target's Icon with one you designed or copied. This can fool casual observers, but it does not change what Matrix Perception reveals."
+        },
+        "check_os": {
+          "name": "Check OS",
+          "hint": "Learn your current Overwatch Score on a successful test."
+        },
+        "control_device": {
+          "name": "Control Device",
+          "hint": "Take extended remote control of a device and use it as if you were its owner, within your current access level. Control lasts until you give it up or are forced out, and it fails automatically against a device currently jumped into by a rigger."
+        },
+        "crack_file": {
+          "name": "Crack File",
+          "hint": "Remove protection from a file, making it readable."
+        },
+        "crash_program": {
+          "name": "Crash Program",
+          "hint": "Crash one running program on the target device. You must know which program to target, usually through Matrix Perception or by seeing it in use; the program cannot restart until the device reboots."
+        },
+        "data_spike": {
+          "name": "Dataspike",
+          "hint": "Send harmful code to a persona or device, causing Matrix damage equal to your Attack Attribute divided by 2, rounded up, plus 1 box per net hit."
+        },
+        "disarm_data_bomb": {
+          "name": "Disarm Data Bomb",
+          "hint": "Disarm a Data Bomb you detected, usually with Matrix Perception. Any net hits remove and delete it; without net hits, the Data Bomb activates."
+        },
+        "device_lock": {
+          "name": "Device Lock",
+          "hint": "Prevent a device from going offline for a number of rounds equal to your net hits. After that, you may spend one Minor Action to extend the lock by 1 round, but only once."
+        },
+        "denial_of_service": {
+          "name": "Denial of Service",
+          "hint": "Pollute a wirelessly active device or persona with noise, applying a dice pool penalty equal to net hits x 2 to all tests made with that device until the end of the next combat round."
+        },
+        "delayed_command": {
+          "name": "Delayed Command",
+          "hint": "Send a command with a time delay that the device accepts as coming from its owner. If successful, it executes after the delay even if wireless is turned off, but a reboot before execution deletes it."
+        },
+        "edit_file": {
+          "name": "Edit File",
+          "hint": "Create, change, copy, delete, or protect a file. Each action changes one detail, continuous edits need one action per combat round, copied files become yours, protected files cannot be copied, and a Data Bomb triggers if not disarmed first."
+        },
+        "encrypt_file": {
+          "name": "Encrypt File",
+          "hint": "Protect a file with an Encryption Rating equal to the hits on this test, opposing future Crack File attempts."
+        },
+        "enter_host": {
+          "name": "Enter/Exit Host",
+          "hint": "Enter or leave a host. Entering requires the appropriate access level; leaving requires no special access."
+        },
+        "erase_matrix_signature": {
+          "name": "Erase Matrix Sign",
+          "hint": "Remove a Matrix signature left by a Resonance being, such as a technomancer or sprite. You must have a Resonance rating, and this illegal Matrix Action can still increase your Overwatch Score."
+        },
+        "format_device": {
+          "name": "Format Device",
+          "hint": "Rewrite a device's boot code so the next reboot shuts it down until repaired. It loses wireless modifiers and Matrix access, but may still work as a normal mechanism where possible."
+        },
+        "full_matrix_defense": {
+          "name": "Full Matrix Defense",
+          "hint": "Until the end of the combat round, add your Firewall to all Matrix-based defense tests. This is an Anytime action."
+        },
+        "garbage_in_out": {
+          "name": "Garbage In/Garbage Out",
+          "hint": "Reroute one input or output of a single device to trigger a different command. It cannot override basic safety features, and the gamemaster decides what is possible."
+        },
+        "hash_check": {
+          "name": "Hash Check",
+          "hint": "Search a host or device for encrypted files matching specific content. The threshold is 1 with a hash value or 4 when guessing, and net hits reduce the number of possible matches."
+        },
+        "hide": {
+          "name": "Hide",
+          "hint": "Make a target lose track of you in the Matrix, forcing it to spot you again with Matrix Perception. You cannot hide from an Icon with User or Admin access to anything in your network."
+        },
+        "jack_out": {
+          "name": "Jack Out",
+          "hint": "Jack yourself out of the Matrix by rebooting your device. You suffer dumpshock if you were in VR, and if you are link-locked you must beat each locking Icon to escape."
+        },
+        "jam_signals": {
+          "name": "Jam Signals",
+          "hint": "Turn your wireless device into a local jammer. As long as you take no further Matrix actions with it, add your hits to the Noise Rating for Matrix actions within 100 meters."
+        },
+        "jump_rigged": {
+          "name": "Jump Into Rigged Device",
+          "hint": "Jump into a vehicle or drone with rigger adaptation while in VR and using a control rig. You need the proper access or permission, and you cannot jump in if someone else already is."
+        },
+        "known_exploit": {
+          "name": "Known Exploit Backdoor Entry",
+          "hint": "Use known exploits to gain Admin access without a prior Probe; patched hosts or devices are harder. You cannot gain or spend Edge, the target gains 1 temporary Edge, success does not count as illegal Admin access, and failure does not alarm the target, though your Overwatch Score still increases."
+        },
+        "masquerade": {
+          "name": "Masquerade",
+          "hint": "Impersonate a persona on the Matrix for 1 minute per net hit. It can fool casual systems and observers, but not device ownership, major financial actions, or anything tied to being the true owner."
+        },
+        "matrix_perception": {
+          "name": "Matrix Perception",
+          "hint": "Spot hidden Icons or learn information about a target. More net hits reveal more details, such as Device Rating, Matrix Attributes, running programs, and other information the gamemaster provides."
+        },
+        "matrix_search": {
+          "name": "Matrix Search",
+          "hint": "Search the public Matrix for information about a subject. More hits reveal more information, using the Legwork Results table as a guideline."
+        },
+        "metahuman_middle": {
+          "name": "Metahuman in the Middle",
+          "hint": "Insert yourself between a device and its Matrix traffic. On success, all calls, communications, and Matrix actions to or from the target route through your device for minutes equal to net hits."
+        },
+        "modify_icon": {
+          "name": "Modify Icon",
+          "hint": "Make a Matrix Icon appear to be a different Icon, such as making a weapon look harmless. Each scan can reveal the disguise with an opposed test."
+        },
+        "probe": {
+          "name": "Probe",
+          "hint": "Search for weaknesses without automatically alerting the target, unless you glitch. A successful Probe creates a backdoor for Backdoor Entry, adds net hits to that later test, and usually lasts for 10 minus Host or Device Rating hours or until you go offline."
+        },
+        "pop_up": {
+          "name": "Popup",
+          "hint": "Flood a target device or persona with popup AROs or windows. On success, the target cannot spend Edge for a number of combat rounds equal to your net hits."
+        },
+        "reboot_device": {
+          "name": "Reboot Device",
+          "hint": "Force a device, persona, or PAN offline until the end of the next combat round. This resets its Overwatch Score and access, causes no dumpshock, and cannot be done while link-locked."
+        },
+        "reconfigure": {
+          "name": "Reconfigure Matrix Attribute",
+          "hint": "Swap the base ratings of two non-zero Matrix Attributes on your Matrix Persona, even if they come from different devices."
+        },
+        "send_message": {
+          "name": "Send Message",
+          "hint": "Send a short text or audio message, image, file, or live feed through the Matrix. With DNI, you can send longer, more complex messages even in AR."
+        },
+        "set_data_bomb": {
+          "name": "Set Data Bomb",
+          "hint": "Attach one Data Bomb to a file with a rating up to your net hits, choose whether it deletes the file, and set a passcode. If triggered, it deals Rating x 2 Matrix damage, may delete the file, and then deletes itself."
+        },
+        "snoop": {
+          "name": "Snoop",
+          "hint": "Intercept Matrix traffic sent to and from your target for as long as you have access. You can monitor it live or save it for later if you have storage."
+        },
+        "spoof_command": {
+          "name": "Spoof Command",
+          "hint": "Send a command to a device that it accepts as coming from its owner. The device attempts to perform it as its next available Major Action."
+        },
+        "squelch": {
+          "name": "Squelch",
+          "hint": "Prevent the target device from calling or sending messages for minutes equal to your net hits."
+        },
+        "subvert_infrastructure": {
+          "name": "Subvert Infrastructure",
+          "hint": "Slightly alter groups of similar simple devices slaved to a host, such as traffic lights or cameras. You need at least Admin access, affect one group per net hit, cannot attack with it, and sustain control with a Major Action each combat round."
+        },
+        "switch_ifmode": {
+          "name": "Switch Interface Mode",
+          "hint": "Switch your interface between AR and VR."
+        },
+        "tarpit": { 
+          "name": "Tarpit",
+          "hint": "Deal 1 + net hits Matrix damage and reduce the target's Data Processing by the same amount. Data Processing recovers by 1 each combat round, and at 0 the target cannot take Matrix actions."
+        },
+        "threat_analysis": {
+          "name": "Threat Analysis",
+          "hint": "Highlight threats for allies sharing your AR Feed, granting bonus dice to Defense tests equal to your hits until your next turn. This works in the physical world and the Matrix, and you can share with a number of users up to your Data Processing."
+        },
+        "trace_icon": {
+          "name": "Trace Icon",
+          "hint": "Find the physical location of a device or persona while you can still detect it. This does not work on IC or hosts without a physical location."
+        },
+        "virtual_aim": {
+          "name": "Virtual Aim",
+          "hint": "Gain +1 dice pool bonus for a Matrix attack such as Data Spike, Tarpit, or Resonance Spike. You can use this once per combat round, the bonus stacks up to your Willpower, and it is lost if you attack or skip Virtual Aim in a round."
+        },
+        "watchdog": {
+          "name": "Watchdog",
+          "hint": "Watch a persona or device for combat rounds equal to your net hits. You see its Matrix Actions before it uses them, may try to intervene, and can use Threat Analysis as a Minor Action against attacks from that target."
+        }
     },
     "matrixini": {
 			"ar": "AR",
