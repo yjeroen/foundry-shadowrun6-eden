@@ -493,7 +493,7 @@ export class MatrixActionRoll extends SkillRoll {
     constructor(actor, action, options={}) {
         super(actor.system, action.skill);
         console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
-        const {target, fromReferenceSection} = options;
+        const {target, fromReferenceSection, limitedViewOverride} = options;
         
         this.actor = actor; // TODO rework without actor - Needs to be set for RollDialog to process edge 
 
@@ -505,14 +505,14 @@ export class MatrixActionRoll extends SkillRoll {
             else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
                 targetSystem = target.system;
             }
-            this.accessLevel = target.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
+            this.accessLevel = target.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection, limitedViewOverride: limitedViewOverride });
             this.matrixTargetName = target.name;
             this.matrixTargetUuid = target.uuid;
             this.panName = targetSystem.pan?.name ?? target.name;
             this.panAdmin = targetSystem.pan?.administrator?.name ?? target.name;
             this.panAdminUuid = targetSystem.pan?.administrator?.uuid ?? target.uuid;
         } else {
-            this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection});
+            this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection, limitedViewOverride: limitedViewOverride });
         }
 
 

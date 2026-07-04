@@ -1035,7 +1035,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const initiator = this.initiator;
 
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator, matrixAction, { target: this.actor });
+        let roll = new MatrixActionRoll(initiator, matrixAction, { target: this.actor, limitedViewOverride: this.options.limited });
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }
@@ -1246,7 +1246,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             const isPrimaryAccessDevice = item.isPrimaryAccessDevice;
             const isAccessDevice = item.isAccessDevice;
             const isActorsNode = item.parent?.uuid === actor.uuid;
-            const hasAccess = (this.actor.isOwner  && !this.options.limited) ? false : item.yourMatrixAccessLevel({ initiator: initiator }); // TODO Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
+            const hasAccess = (this.actor.isOwner  && !this.options.limited) ? false : item.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }); // TODO Should refactor the owner into item.yourMatrixAccessLevel - but for now this works..
 
             return {
                 name: item.name,
@@ -1294,7 +1294,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 name: slavedPan.ownPanName,
                 icon: "fa-network-wired",
                 type: "slaved-pan",
-                access: slavedActor.yourMatrixAccessLevel({ initiator: initiator }),
+                access: slavedActor.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }),
                 isOwner: slavedActor.isOwner && isActorsNode,
                 isActorsNode: isActorsNode,
                 children: makeActorItemNodes(slavedActor)
@@ -1321,13 +1321,14 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(makePanNode);
 
+        console.log("JEROEN PAN yourMatrixAccessLevel", initiator, panAdmin.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }));
         const nodes = [
             {
                 // Master Node
                 name: pan.name,
                 icon: "fa-network-wired",
                 type: pan.isSlaved ? "external-master-pan" : "master-pan",
-                access: panAdmin.yourMatrixAccessLevel({ initiator: initiator }),
+                access: panAdmin.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }),
                 isOwner: panAdmin.isOwner && !pan.isSlaved,
                 isActorsNode: !pan.isSlaved,
                 children: [

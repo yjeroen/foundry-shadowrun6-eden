@@ -69,7 +69,7 @@ export const MatrixSheetMixin = Base => class extends Base {
         } else {
             // Only Actor currently using this sheet is Sprite
             // matrixAccessLevel = this.document.getFlag("shadowrun6-eden", `matrix-access.${this.#matrixUserSafeUuid}`) ?? "outsider";
-            matrixAccessLevel = this.actor.yourMatrixAccessLevel({ initiator: this.initiator, fromReferenceSection: true });
+            matrixAccessLevel = this.actor.yourMatrixAccessLevel({ initiator: this.initiator, fromReferenceSection: true, limitedViewOverride: this.options.limited });
         }
         console.log(`SR6E | MatrixSheetMixin._matrixAccess() | END`, matrixAccessLevel, this.#matrixUserSafeUuid);
 
@@ -143,7 +143,7 @@ export const MatrixSheetMixin = Base => class extends Base {
         const sheetHasActor = Boolean(this.actor);
 
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
-        let roll = new MatrixActionRoll(initiator, matrixAction, { target: matrixTarget, fromReferenceSection: sheetHasActor });
+        let roll = new MatrixActionRoll(initiator, matrixAction, { target: matrixTarget, fromReferenceSection: sheetHasActor, limitedViewOverride: this.options.limited });
         console.log("SR6E | _onMatrixRoll before ", initiator.name, roll);
         initiator.performMatrixAction(roll);
     }
