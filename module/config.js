@@ -2233,7 +2233,7 @@ export class SR6Config {
             async onDefenseRoll(defenseRoll) {
                 if (defenseRoll.matrixActionOption === "brute_force_admin") {
                     console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +2 Firewall as a Bonus Dice Modifier", defenseRoll);
-                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.brute_force.to_admin";
+                    defenseRoll.matrixActionDescription = "shadowrun6.matrixaction.brute_force.to_admin";
                     defenseRoll.modifier = (defenseRoll.modifier || 0) + 2;
                 }
             },
