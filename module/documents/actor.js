@@ -2216,6 +2216,8 @@ export default class Shadowrun6Actor extends Actor {
                 rollData.matrixTargetUuid = options.matrixTargetUuid;
                 rollData.matrixTargetName = target.name;
 
+                if (options.matrixActionOption) rollData.matrixActionOption = options.matrixActionOption;
+
                 if (options.matrixTargetUuid && monitor === "matrix") {
                     const matrixSoakByPanLeader = game.settings.get(SYSTEM_NAME, "matrixSoakByPanLeader");
                     if (matrixSoakByPanLeader) {
@@ -2247,7 +2249,15 @@ export default class Shadowrun6Actor extends Actor {
         rollData.pool = defensePool.pool;
         rollData.rollType = RollType.Defense;
         rollData.speaker = ChatMessage.getSpeaker({ actor: rollData.actor });
-        console.log("SR6E | Defend roll config ", rollData);
+
+        if (defendWith === Defense.MATRIX) {
+            const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ options.matrixActionId ];
+            if (matrixAction.onDefenseRoll) {
+                await matrixAction.onDefenseRoll(rollData);
+            }
+        }
+
+        console.log("SR6E | Defend roll config", rollData);
         return doRoll(rollData);
     }
     //-------------------------------------------------------------

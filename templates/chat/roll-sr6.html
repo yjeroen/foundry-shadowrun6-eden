@@ -549,6 +549,7 @@
                 <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccess" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#if configured.matrixActionOption}} data-matrix-action-option="{{configured.matrixActionOption}}" {{/if}}
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
                 >
                   {{localize "SR6.label.gm_do_something"}} {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onSuccess.button")}}
@@ -565,6 +566,7 @@
                 <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailure" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#if configured.matrixActionOption}} data-matrix-action-option="{{configured.matrixActionOption}}" {{/if}}
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
                 >
                   {{localize "SR6.label.gm_do_something"}} {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onFailure.button")}}
@@ -585,6 +587,7 @@
                 <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccesfulDefense" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#if configured.matrixActionOption}} data-matrix-action-option="{{configured.matrixActionOption}}" {{/if}}
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
                 >
                   {{localize "SR6.label.gm_do_something"}} {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onSuccesfulDefense.button")}}
@@ -601,6 +604,7 @@
                 <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailedDefense" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#if configured.matrixActionOption}} data-matrix-action-option="{{configured.matrixActionOption}}" {{/if}}
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
                 >
                   {{#if buttonApplied}}<i class="fas fa-circle-check"></i>{{else}}{{sr6Icon "darkTerminal"}}{{/if}}

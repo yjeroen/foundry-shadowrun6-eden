@@ -832,7 +832,11 @@
         },
         "brute_force": {
           "name": "Brute Force",
-          "hint": "Attack a device directly to gain fast illicit access, but the target is always alerted and GOD score accumulates with each test. Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating."
+          "hint": "Attack a device directly to gain fast illicit access, but the target is always alerted and GOD score accumulates with each test. Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating.",
+          "onClick": "<p>Do you want to gain ADMIN access without first gaining USER access?</p><p>Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating.</p>",
+          "matrixActionOption": "Initiator has chosen to Brute Force directly to the ADMIN access level.",
+          "onFailedDefense.span": "brute forcing",
+          "onFailedDefense.button": "Apply access level"
         },
         "calibration": {
           "name": "Calibration",

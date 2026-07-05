@@ -164,6 +164,12 @@ export const MatrixSheetMixin = Base => class extends Base {
 
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
         let roll = new MatrixActionRoll(initiator, matrixAction, { target: matrixTarget, fromReferenceSection: sheetHasActor, limitedViewOverride: this.options.limited });
+        
+        // modify MatrixActionRoll if necessary
+        if (matrixAction.onMatrixActionRoll) {
+            await matrixAction.onMatrixActionRoll(roll);
+        }
+        
         console.log("SR6E | _onMatrixRoll before ", initiator.name, roll);
         initiator.performMatrixAction(roll);
     }

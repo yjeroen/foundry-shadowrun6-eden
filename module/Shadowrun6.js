@@ -654,13 +654,14 @@ Hooks.once("init", async function () {
                 case RollType.MatrixResult:
                     // Not really a RollType, but a way to apply MatrixAction RollType results
                     if (!game.user.isGM) return;
-                    const { resultType, matrixActionId, matrixTargetUuid } = dataset;
+                    const { resultType, matrixActionId, matrixTargetUuid, matrixActionOption } = dataset;
                     const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixActionId];
                     const resultData = {
                         initiator: actor,
                         defender: foundry.utils.fromUuidSync(matrixTargetUuid),  // Can be Actor or Item
                         hits: Number(dataset.hits),
                         netHits: Math.max(0, Number(dataset.threshold) - 1 - Number(dataset.hits) ),
+                        matrixActionOption: matrixActionOption
                     };
                     console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender.name} | Result: ${resultType}`);
 

@@ -492,6 +492,8 @@ export class MatrixActionRoll extends SkillRoll {
     targets;
     defenseRating;
     attackRating;
+    specialOption; // Can be set in the CONFIG.SR6.MATRIX_ACTIONS to pass things in chat messages
+
     constructor(actor, action, options={}) {
         super(actor.system, action.skill);
         console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
@@ -649,6 +651,7 @@ export class ConfiguredRoll extends CommonRollData {
         if (copy.matrixTargetType) this.matrixTargetType = copy.matrixTargetType;
         if (copy.matrixSoakUuid) this.matrixSoakUuid = copy.matrixSoakUuid;
         if (copy.matrixSoakName) this.matrixSoakName = copy.matrixSoakName;
+        if (copy.matrixActionOption) this.matrixActionOption = copy.matrixActionOption;
 
         if (copy.panName) this.panName = copy.panName;
         if (copy.panAdmin) this.panAdmin = copy.panAdmin;

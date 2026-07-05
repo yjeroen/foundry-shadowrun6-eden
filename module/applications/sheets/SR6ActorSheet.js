@@ -1027,7 +1027,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 
     }
     // Only used on Limited sheet - Initiator is someone else
-    _onMatrixRollByInitiator(event, html) {
+    async _onMatrixRollByInitiator(event, html) {
         const data = event.currentTarget.dataset;
         console.log("SR6E | onMatrixAction ", data);
         if (!data) return;
@@ -1036,11 +1036,17 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ data.matrixId ];
         let roll = new MatrixActionRoll(initiator, matrixAction, { target: this.actor, limitedViewOverride: this.options.limited });
+
+        // modify MatrixActionRoll if necessary
+        if (matrixAction.onMatrixActionRoll) {
+            await matrixAction.onMatrixActionRoll(roll);
+        }
+
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }
     // Used on own sheet for Reference Matrix Table
-    _onMatrixAction(event, html) {
+    async _onMatrixAction(event, html) {
         event.preventDefault();
         console.log("SR6E | onMatrixAction ", event.currentTarget.dataset);
         if (!event.currentTarget)
@@ -1050,7 +1056,14 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         const initiator = this.actor;
         const matrixId = event.currentTarget.dataset.matrixId;
         const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixId];
+
         let roll = new MatrixActionRoll(initiator, matrixAction, { fromReferenceSection: true });
+
+        // modify MatrixActionRoll if necessary
+        if (matrixAction.onMatrixActionRoll) {
+            await matrixAction.onMatrixActionRoll(roll);
+        }
+
         console.log("SR6E | _onMatrixAction before ", roll);
         this.actor.performMatrixAction(roll);
     }

@@ -2208,8 +2208,49 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             _onSuccess: { accessChoice: ["user", "admin"] },
-            targets: ["host", "device", "living_network"]
+            targets: ["host", "device", "living_network"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                const initiator = foundry.utils.fromUuidSync(matrixActionRoll.matrixInitiatorUuid);
+                const defender = foundry.utils.fromUuidSync(matrixActionRoll.matrixTargetUuid);
+                const accessLevel = defender.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: true });
+                if (accessLevel !== "outsider") return;
+
+                const immediateAdmin = await foundry.applications.api.DialogV2.confirm({
+                    window: { title: game.i18n.localize("shadowrun6.matrixaction.brute_force.name") },
+                    content: game.i18n.localize("shadowrun6.matrixaction.brute_force.onClick"),
+                    rejectClose: false,
+                    modal: true
+                });
+                if ( immediateAdmin ) {
+                    console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +4 Defense Rating");
+                    matrixActionRoll.defenseRating += 4;
+                    matrixActionRoll.matrixActionOption = "brute_force_admin";
+                } else {
+                    console.info("SR6E | brute_force | Initiator chose to Brute Force to USER access level");
+                }
+            },
+
+            async onDefenseRoll(defenseRoll) {
+                if (defenseRoll.matrixActionOption === "brute_force_admin") {
+                    console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +2 Firewall as a Bonus Dice Modifier", defenseRoll);
+                    defenseRoll.modifier = (defenseRoll.modifier || 0) + 2;
+                }
+            },
             
+            async onFailedDefense(resultData) {
+                console.log("SR6 | brute_force | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                const safeUuid = initiator.uuid.replaceAll(".", "_");
+                const accessLevel = defender.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: true });
+
+                if (resultData.matrixActionOption === "brute_force_admin" || accessLevel === "user") {
+                    return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
+                } else {
+                    return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "user")
+                }
+            },
+
         },
         change_icon: {
             id: "change_icon",
