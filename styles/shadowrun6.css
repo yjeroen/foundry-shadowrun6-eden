@@ -930,6 +930,9 @@ a.item-control.disabled-roll:hover {
   font-weight: 700;
   padding-top: 1px;
 }
+.chat-message .message-content .dice-result header {
+    cursor: pointer;
+}
 .chat-message .matrix-target {
   display: flex;
   align-items: center;
