@@ -592,7 +592,6 @@ Hooks.once("init", async function () {
                     break;
                 case RollType.Defense:
                     /* Avoid being hit/influenced */
-                    console.log("SR6E | TODO: call rollDefense with threshold " + threshold);
                     if (actor) {
                         const data = {
                             ...Object.fromEntries(Object.entries(dataset)),
