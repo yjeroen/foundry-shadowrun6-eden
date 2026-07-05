@@ -9,7 +9,9 @@ export var RollType;
     RollType["Ritual"] = "ritual";
     RollType["Vehicle"] = "vehicle";
     RollType["ComplexForm"] = "complexform";
+    RollType["Item"] = "item";
     RollType["MatrixAction"] = "matrix";
+    RollType["MatrixResult"] = "matrix_result";
     /** Defense is a way to reduce netto hits */
     RollType["Defense"] = "defense";
     /** Reduce netto damage */
@@ -381,7 +383,7 @@ export class PowerRoll extends SkillRoll {
 
 }
 export class SpritePowerRoll extends SkillRoll {
-    rollType = RollType.MatrixAction;
+    rollType = RollType.Item;
     
     constructor (item) {
         super(item.actor.system, item.system.skill);
@@ -496,6 +498,7 @@ export class MatrixActionRoll extends SkillRoll {
         const {target, fromReferenceSection, limitedViewOverride} = options;
         
         this.actor = actor; // TODO rework without actor - Needs to be set for RollDialog to process edge 
+        this.matrixInitiatorUuid = actor.uuid;
 
         if (target) {
             let targetSystem;
@@ -637,12 +640,15 @@ export class ConfiguredRoll extends CommonRollData {
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
 
+        if (copy.actorUuid) this.actorUuid = copy.actorUuid;
         if (copy.accessLevel) this.accessLevel = copy.accessLevel;
         if (copy.matrixActionId) this.matrixActionId = copy.matrixActionId;
+        if (copy.matrixInitiatorUuid) this.matrixInitiatorUuid = copy.matrixInitiatorUuid;
         if (copy.matrixTargetName) this.matrixTargetName = copy.matrixTargetName;
         if (copy.matrixTargetUuid) this.matrixTargetUuid = copy.matrixTargetUuid;
         if (copy.matrixTargetType) this.matrixTargetType = copy.matrixTargetType;
         if (copy.matrixSoakUuid) this.matrixSoakUuid = copy.matrixSoakUuid;
+        if (copy.matrixSoakName) this.matrixSoakName = copy.matrixSoakName;
 
         if (copy.panName) this.panName = copy.panName;
         if (copy.panAdmin) this.panAdmin = copy.panAdmin;

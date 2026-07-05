@@ -64,10 +64,10 @@
   <hr/>
   {{/if}}
 
-  {{#if publicRoll}}
+{{#if publicRoll}}
   <div>
-    <div class="dice-result" {{#unless (eq rollType "initiative")}}data-tooltip="shadowrun6.roll.click_chat"{{/unless}}>
-      <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}">
+    <div class="dice-result">
+      <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}" {{#unless (eq rollType "initiative")}}data-tooltip="shadowrun6.roll.click_chat"{{/unless}}>
         <div class="resulttext">{{#if (not configured.rollType)}}/r {{/if}}{{formula}}</div>
         <br/>
         {{#if system.extended}}
@@ -294,149 +294,150 @@
     </button>
    {{/if}}
 
-{{#if success}}
-   <!-- Success -->
-   {{#if (and defendWith (not cantDodgeBullets))}}
-   <!-- Defense possible - Show Roll Defense button -->
-   {{log "************************Defense" this}}
-   <hr/>
-    {{log "**Defense targets " targetIds}}
-    {{log "**Defense targets " targetIds.length}}
-   {{#iff targets.length ">" 0}}
-    <!-- TODO rework multiple targets so they have multiple rolls -->
-     {{#each targets as |token id|}}
-     <div>
-      {{log "Token" id " = " token }}
-     	<button class="rollable" data-roll-type="defense" 
-        data-damage="{{../configured.calcDamage}}"  
-        data-monitor="{{../monitor}}" 
-        data-defend-with="{{../defendWith}}" 
-        data-targetid="{{token.id}}" 
-        data-actorId="{{token.actorId}}" 
-        data-sceneId="{{token.sceneId}}" 
-        data-threshold="{{../threshold}}"
-        {{#if ../configured.itemUuid}} data-item-uuid="{{../configured.itemUuid}}" {{/if}}
-      >
-        {{localize 'shadowrun6.roll.button.defense'}} ({{../threshold}}): {{token.name}}
-      </button>
-     </div>
-     {{/each}}
-   {{else}}
+  {{#if success}}
+    <!-- Success -->
+      {{#if (and defendWith (not cantDodgeBullets))}}
+      <!-- Defense possible - Show Roll Defense button -->
+      {{log "************************Defense" this}}
+      <hr/>
+        {{log "**Defense targets " targetIds}}
+        {{log "**Defense targets " targetIds.length}}
+        {{#iff targets.length ">" 0}}
+          <!-- TODO rework multiple targets so they have multiple rolls -->
+          {{#each targets as |token id|}}
+          <div>
+            {{log "Token" id " = " token }}
+            <button class="rollable" data-roll-type="defense" 
+              data-damage="{{../configured.calcDamage}}"  
+              data-monitor="{{../monitor}}" 
+              data-defend-with="{{../defendWith}}" 
+              data-targetid="{{token.id}}" 
+              data-actorId="{{token.actorId}}" 
+              data-sceneId="{{token.sceneId}}" 
+              data-threshold="{{../threshold}}"
+              {{#if ../configured.itemUuid}} data-item-uuid="{{../configured.itemUuid}}" {{/if}}
+            >
+              {{localize 'shadowrun6.roll.button.defense'}} ({{../threshold}}): {{token.name}}
+            </button>
+          </div>
+          {{/each}}
+        {{else}}
 
-      {{#if (eq defendWith "matrix")}}
-      <!-- Matrix Action Defense -->
-      <div>
-          <button class="rollable" data-roll-type="defense" 
-            data-defend-with="{{defendWith}}"
-            {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
-            {{#if configured.monitor}} data-monitor="{{configured.monitor}}" {{/if}}
-            {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
-            {{#if configured.panAdminUuid}} data-actor-uuid="{{configured.panAdminUuid}}" {{/if}}
-            {{#if configured.matrixActionId}} data-matrix-action-id="{{configured.matrixActionId}}" {{/if}}
-            {{#if configured.matrixTargetUuid}} data-matrix-target-uuid="{{configured.matrixTargetUuid}}" {{/if}}
-          >
-            {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}}){{#if configured.panAdmin}}: {{configured.panAdmin}}{{/if}}
-          </button>
-      </div>
+            {{#if (eq defendWith "matrix")}}
+            <!-- Matrix Action Defense -->
+            <div>
+                <button class="rollable" data-roll-type="defense" 
+                  data-defend-with="{{defendWith}}"
+                  {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
+                  {{#if configured.monitor}} data-monitor="{{configured.monitor}}" {{/if}}
+                  {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
+                  {{#if configured.panAdminUuid}} data-actor-uuid="{{configured.panAdminUuid}}" {{/if}}
+                  {{#if configured.matrixActionId}} data-matrix-action-id="{{configured.matrixActionId}}" {{/if}}
+                  {{#if configured.matrixInitiatorUuid}} data-matrix-initiator-uuid="{{configured.matrixInitiatorUuid}}" {{/if}}
+                  {{#if configured.matrixTargetUuid}} data-matrix-target-uuid="{{configured.matrixTargetUuid}}" {{/if}}
+                >
+                  {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}}){{#if configured.panAdmin}}: {{configured.panAdmin}}{{/if}}
+                </button>
+            </div>
 
-      {{else}}
-      <!-- When no targets have been selected -->
-      <div>
-          <button class="rollable" data-roll-type="defense" 
-            data-defend-with="{{defendWith}}"
-            {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
-            {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
-            {{#if targetId}} data-targetid="{{targetId}}" {{/if}}
-            {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
-            {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
-          >
-            {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})
-          </button>
-      </div>
+            {{else}}
+            <!-- When no targets have been selected -->
+            <div>
+                <button class="rollable" data-roll-type="defense" 
+                  data-defend-with="{{defendWith}}"
+                  {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
+                  {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
+                  {{#if targetId}} data-targetid="{{targetId}}" {{/if}}
+                  {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
+                  {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
+                >
+                  {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})
+                </button>
+            </div>
+            {{/if}}
+
+        {{/iff}}
       {{/if}}
-
-   {{/iff}}
-   {{/if}}
-{{/if}}
+  {{/if}}
    
-{{#if (or (eq rollType "defense") cantDodgeBullets)}}
-<!-- Defense Result -->
-<hr>
-  {{#if actorTraits.hardenedArmor}}
-    <!-- Extra message about hardened armor -->
-    {{#if (not actorTraits.immunityNormalWeapons)}}
-    <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
-    {{else}}
-      {{#if (ne configured.defendedWith 'spells_indirect')}}
+  {{#if (or (eq rollType "defense") cantDodgeBullets)}}
+  <!-- Defense Result -->
+  <hr>
+    {{#if actorTraits.hardenedArmor}}
+      <!-- Extra message about hardened armor -->
+      {{#if (not actorTraits.immunityNormalWeapons)}}
       <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
+      {{else}}
+        {{#if (ne configured.defendedWith 'spells_indirect')}}
+        <div class="resulttext" style="flex:2; margin-bottom: 5px; font-style:italic;">{{ localize 'shadowrun6.roll.hardenedArmor'}}</div>
+        {{/if}}
       {{/if}}
+    {{/if}}
+
+    {{#if (and cantDodgeBullets (ne configured.defendedWith 'matrix'))}}
+
+        <!-- Extra message about cantDodgeBullets -->
+        {{#if success}}
+          {{#iff targets.length ">" 0}}
+          {{#each targets as |target|}}
+            <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+            <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+          {{/each}}
+          {{else}}
+            <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
+            <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" >{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
+          {{/iff}}
+        {{else}}
+          <div class="resulttext failure" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
+        {{/if}}
+
+    {{else}}
+    
+          {{#if success}}
+              <div class="resulttext success" style="flex:2;">
+                {{#switch configured.defendedWith}}
+
+                  {{#case "item_defined"}}{{localize "shadowrun6.roll.successfulDefenseGeneral"}}{{/case}}
+                  {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.success"}}{{/case}}
+                  {{#default}}{{localize "shadowrun6.roll.successfulDefense"}}{{/default}}
+
+                {{/switch}}
+              </div>
+          {{else}}
+              <div class="resulttext failure" style="flex:2;">
+                {{#switch configured.defendedWith}}
+
+                  {{#case "item_defined"}}{{localize "shadowrun6.roll.failedDefenseGeneral"}}{{/case}}
+                  {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.failed"}}{{/case}}
+                  {{#default}}{{localize "shadowrun6.roll.failedDefense"}} {{nettoDamage}}{{/default}}
+
+                {{/switch}}
+              </div>
+              {{#if monitor}}
+              <hr>
+              {{#switch configured.defendedWith}}
+
+                {{#case "matrix"}}
+                  <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-actor-uuid="{{configured.matrixSoakUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
+                    {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}): {{configured.matrixSoakName}}
+                  </button>
+                {{/case}}
+                {{#default}}
+                  <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                    {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}){{#if speaker.alias}}: {{speaker.alias}}{{/if}}
+                  </button>
+                {{/default}}
+
+              {{/switch}}
+              {{/if}}
+          {{/if}}
+
     {{/if}}
   {{/if}}
 
-  {{#if (and cantDodgeBullets (ne configured.defendedWith 'matrix'))}}
-
-      <!-- Extra message about cantDodgeBullets -->
-      {{#if success}}
-        {{#iff targets.length ">" 0}}
-        {{#each targets as |target|}}
-          <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
-          <button class="rollable" data-roll-type="soak" data-soak="{{../soakType}}" data-damage="{{../damage}}" data-monitor="{{../monitor}}" data-targetid="{{target.id}}" data-actorId="{{target.actorId}}" data-sceneId="{{target.sceneId}}">{{target.name}}: {{localize 'shadowrun6.roll.button.soak'}} ({{../damage}}{{#if (eq ../soakType "damage_stun")}}S{{else}}P{{/if}})</button>
-        {{/each}}
-        {{else}}
-          <div class="resulttext success" style="flex:2; margin-bottom: 5px;">{{ localize 'shadowrun6.roll.succesfulHit'}}</div>
-          <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" >{{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{#if (eq soakType "damage_stun")}}S{{else}}P{{/if}})</button>
-        {{/iff}}
-      {{else}}
-        <div class="resulttext failure" style="flex:2">{{ localize 'shadowrun6.roll.missedAttack'}}</div>
-      {{/if}}
-
-  {{else}}
-  
-        {{#if success}}
-            <div class="resulttext success" style="flex:2;">
-              {{#switch configured.defendedWith}}
-
-                {{#case "item_defined"}}{{localize "shadowrun6.roll.successfulDefenseGeneral"}}{{/case}}
-                {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.success"}}{{/case}}
-                {{#default}}{{localize "shadowrun6.roll.successfulDefense"}}{{/default}}
-
-              {{/switch}}
-            </div>
-        {{else}}
-            <div class="resulttext failure" style="flex:2;">
-              {{#switch configured.defendedWith}}
-
-                {{#case "item_defined"}}{{localize "shadowrun6.roll.failedDefenseGeneral"}}{{/case}}
-                {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.failed"}}{{/case}}
-                {{#default}}{{localize "shadowrun6.roll.failedDefense"}} {{nettoDamage}}{{/default}}
-
-              {{/switch}}
-            </div>
-            {{#if monitor}}
-            <hr>
-            {{#switch configured.defendedWith}}
-
-              {{#case "matrix"}}
-                <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-actor-uuid="{{configured.matrixSoakUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
-                  {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}): {{configured.matrixTargetName}}
-                </button>
-              {{/case}}
-              {{#default}}
-                <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-                  {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}){{#if speaker.alias}}: {{speaker.alias}}{{/if}}
-                </button>
-              {{/default}}
-
-            {{/switch}}
-            {{/if}}
-        {{/if}}
-
-  {{/if}}
-{{/if}}
-
-   <!-- After Soak / Apply Damage -->
-   {{#if (eq rollType "soak")}}
-   {{log "************************Soak" this}}
+  <!-- After Soak / Apply Damage -->
+  {{#if (eq rollType "soak")}}
+  {{log "************************Soak" this}}
     {{#if monitor}}
     <!-- Soak Damage -->
     <hr>
@@ -467,7 +468,7 @@
               </header>
               {{/case}}
               {{#case "matrix"}}
-              <div class="chat-edge matrix-target" style="display:block">    
+              <div class="matrix-target">    
                 <i class="fas {{#if (eq configured.matrixTargetType "actor")}}fa-user{{else}}fa-microchip{{/if}}"></i>
                 <span class="matrix-target-name">{{configured.matrixTargetName}}</span>
               </div>
@@ -525,7 +526,88 @@
     {{/if}}
   {{/if}}
 
+  {{!-- Matrix Action Special Results --}}
+  {{!-- TODO THINK ABOUT SELF ONLY ACTIONS --}}
+  {{#if configured.matrixTargetName}}
+  <div class="matrix-result">
+      {{#switch rollType}}
+        {{#case "matrix"}}
+        {{!-- Initial Matrix Test by Initiator --}}
+            {{#if success}}
+              {{#if (hasMatrixResult configured.matrixActionId "onSuccess")}}
+                <hr>
+                <h4 class="matrix-command-line">
+                  <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
+                  <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onSuccess.span')}}</div>
+                </h4>
+                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccess" 
+                        data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
+                        data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
+                >
+                  {{localize "SR6.label.gm_do_something"}} {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onSuccess.button')}}
+                </button>
+              {{/if}}
+            {{else}}
+            {{!-- Failed Test in case rolling against a threshold --}}
+              {{#if (hasMatrixResult configured.matrixActionId "onFailure")}}
+                <hr>
+                <h4 class="matrix-command-line">
+                  <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
+                  <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailure.span')}}</div>
+                </h4>
+                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailure" 
+                        data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
+                        data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
+                >
+                  {{localize "SR6.label.gm_do_something"}} {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailure.button')}}
+                </button>
+              {{/if}}
+            {{/if}}
+        {{/case}}
+        {{#case "defense"}}
+        {{!-- Defense Matrix Test by Defender --}}
+            {{#if success}}
+            {{!-- Succesfully defended against the action of Initiator --}}
+              {{#if (hasMatrixResult configured.matrixActionId "onSuccesfulDefense")}}
+                <hr>
+                <h4 class="matrix-command-line">
+                  <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
+                  <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onSuccesfulDefense.span')}}</div>
+                </h4>
+                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccesfulDefense" 
+                        data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
+                        data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
+                >
+                  {{localize "SR6.label.gm_do_something"}} {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onSuccesfulDefense.button')}}
+                </button>
+              {{/if}}
+            {{else}}
+            {{!-- Failed to defend against the action of Initiator - Success of Opposed Test! --}}
+              {{#if (hasMatrixResult configured.matrixActionId "onFailedDefense")}}
+                <hr>
+                <h4 class="matrix-command-line">
+                  <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
+                  <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailedDefense.span')}}</div>
+                </h4>
+                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailedDefense" 
+                        data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
+                        data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
+                        {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
+                >
+                  {{localize "SR6.label.gm_do_something"}} {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailedDefense.button')}}
+                </button>
+              {{/if}}
+            {{/if}}
+        {{/case}}
+      {{/switch}}
+  </div>
+  {{/if}}
 
+
+{{!-- END {{#if publicRoll}} --}}
 {{/if}}
 
 </div>

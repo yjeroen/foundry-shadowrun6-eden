@@ -72,6 +72,9 @@ Hooks.once("init", async function () {
     if ( !game.settings.get(SYSTEM_NAME, "bleeding") ) {
         CONFIG.statusEffects = CONFIG.statusEffects.filter(function(effect) { return effect.id != "bleeding"; });
     }
+    if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
+        CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
+    }
 
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.Token.objectClass = SR6Token;
@@ -482,7 +485,7 @@ Hooks.once("init", async function () {
             const rollType = dataset.rollType;
             let actorId = dataset["actorid"] ? dataset["actorid"] : dataset["targetActor"];
             let sceneId = dataset["sceneid"];
-            let tokenId = dataset["targetid"] ? dataset["targetid"] : dataset["targetToken"];
+            let tokenId = dataset["targetid"] || dataset["targetToken"] || dataset["tokenId"];
             let actor;
             let token;
             console.log("SR6E | dataset ", dataset);
@@ -647,6 +650,37 @@ Hooks.once("init", async function () {
                         result = await actor.applyDamage( damageData );
                         if (result) chatMessage.update({ 'rolls': [roll] });
                     }
+                    break;
+                case RollType.MatrixResult:
+                    // Not really a RollType, but a way to apply MatrixAction RollType results
+                    const { resultType, matrixActionId, matrixTargetUuid } = dataset;
+                    const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixActionId];
+                    const resultData = {
+                        initiator: actor,
+                        defender: foundry.utils.fromUuidSync(matrixTargetUuid),  // Can be Actor or Item
+                        hits: Number(dataset.hits),
+                        netHits: Math.max(0, Number(dataset.threshold) - 1 - Number(dataset.hits) ),
+                    };
+                    console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender.name} | Result: ${resultType}`);
+
+                    switch (resultType) {
+                        case "onSuccess":
+                            await matrixAction.onSuccess(resultData);
+                            break;
+                        case "onFailure":
+                            await matrixAction.onFailure(resultData);
+                            break;
+                        case "onSuccesfulDefense":
+                            await matrixAction.onFailure(resultData);
+                            break;
+                        case "onSuccesfulDefense":
+                            await matrixAction.onFailure(resultData);
+                            break;
+                        case "onFailedDefense":
+                            await matrixAction.onFailure(resultData);
+                            break;
+                    }
+
                     break;
             }
             /*

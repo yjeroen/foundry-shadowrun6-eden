@@ -567,6 +567,8 @@ export default class SR6Roll extends Roll {
                     });
                 }
             }
+
+            this.finished.isGM = game.user.isGM;
             
             return await renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
         }

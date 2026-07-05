@@ -820,7 +820,15 @@
     "matrixaction": {
         "backdoor_entry": {
           "name": "Backdoor Entry",
-          "hint": "Use a backdoor created by a successful Probe to gain Admin access to a host, device, or Matrix area. The Probe net hits add to this test; success does not count as illegal Admin access, while failure removes the backdoor but does not trigger an alarm, though your Overwatch Score still increases."
+          "hint": "Use a backdoor created by a successful Probe to gain Admin access to a host, device, or Matrix area. The Probe net hits add to this test; success does not count as illegal Admin access, while failure removes the backdoor but does not trigger an alarm, though your Overwatch Score still increases.",
+          "onSuccess.span": "You're slicing into the backdoor you found.",
+          "onSuccess.button": "Cheer on the decker",
+          "onFailure.span": "Slicing is too difficult for you",
+          "onFailure.button": "Tell the decker to be better",
+          "onSuccesfulDefense.span": "Antivirus initiated",
+          "onSuccesfulDefense.button": "Give the defender a pat",
+          "onFailedDefense.span": "Matrix Area Entered",
+          "onFailedDefense.button": "Apply the entry to ADMIN access Level"
         },
         "brute_force": {
           "name": "Brute Force",
@@ -2448,7 +2456,8 @@
       "matrixCM": "Matrix Condition Monitor",
       "matrixCmPenalty": "Matrix Damage Modifier",
       "system_message": "//SYSTEM MESSAGE//",
-      "programSlots": "Program Slots"
+      "programSlots": "Program Slots",
+      "gm_do_something": "GM: "
     },
     "title": {
       "editButton": "Edit Actor",
@@ -2476,7 +2485,8 @@
       "running_silent": "Toggle Running Silent",
       "pan": "A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.",
       "pan_admin": "The PAN Leader, it's Administrator, serves as the controlelr of the entire network. This persona’s Matrix stats and mental stats will form the defense pool for Matrix Actions against the entire team network",
-      "deviceLimit": "<p>A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit.</p><p>Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.</p><p>This device limit remains reserved for your own sub-PAN.</p>"
+      "deviceLimit": "<p>A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit.</p><p>Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.</p><p>This device limit remains reserved for your own sub-PAN.</p>",
+      "notGM": "Only the GM can use this."
     },
     "statblock": {
       "system.matrix.attributes.attack": "ATTACK",

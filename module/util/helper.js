@@ -118,6 +118,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("ritualFeat", getRitualFeatures);
     Handlebars.registerHelper("spellFeat", getSpellFeatures);
     Handlebars.registerHelper("matrixPool", getMatrixActionPool);
+    Handlebars.registerHelper("hasMatrixResult", hasMatrixResult);
     Handlebars.registerHelper("itemNotInList", itemNotInList);
     Handlebars.registerHelper("itemTypeInList", itemTypeInList);
     Handlebars.registerHelper("itemsOfType", itemsOfType);
@@ -527,6 +528,16 @@ export function getMatrixActionPool(actionName, actor) {
     //     }
     // }
     // return pool;
+}
+
+export function hasMatrixResult(actionId, resultType) {
+    const TYPES = new Set(["onSuccess", "onFailure", "onSuccesfulDefense", "onSuccesfulDefense", "onFailedDefense"]);
+    if (!TYPES.has(resultType)) console.error(`SR6 | Wrong resultType "${resultType}" entered in hasMatrixResult(actionId, resultType) | The following are possible: ["onSuccess", "onFailure", "onSuccesfulDefense", "onSuccesfulDefense", "onFailedDefense"]`)
+
+    const action = CONFIG.SR6.MATRIX_ACTIONS[actionId];
+    if (!action) console.error(`SR6 | Wrong actionId "${actionId}" entered in hasMatrixResult(actionId, resultType) | See CONFIG.SR6.MATRIX_ACTIONS`)
+
+    return Boolean(action[resultType]);
 }
 
 /**

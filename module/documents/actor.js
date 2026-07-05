@@ -2211,18 +2211,20 @@ export default class Shadowrun6Actor extends Actor {
                 // this Actor is panAdmin
                 const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ options.matrixActionId ];
                 rollData.matrixActionId = options.matrixActionId;
+                const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
+                rollData.matrixInitiatorUuid = options.matrixInitiatorUuid;
+                rollData.matrixTargetUuid = options.matrixTargetUuid;
+                rollData.matrixTargetName = target.name;
 
-                if (options.matrixTargetUuid) {
-                    rollData.matrixTargetUuid = options.matrixTargetUuid;
+                if (options.matrixTargetUuid && monitor === "matrix") {
                     const matrixSoakByPanLeader = game.settings.get(SYSTEM_NAME, "matrixSoakByPanLeader");
                     if (matrixSoakByPanLeader) {
-                        rollData.matrixTargetName = actor.name;
                         rollData.matrixSoakUuid = this.uuid;
+                        rollData.matrixSoakName = actor.name;
                     } else {
-                        const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
                         const targetActor = target?.actor ?? target;
-                        rollData.matrixTargetName = targetActor.name;
                         rollData.matrixSoakUuid = targetActor.uuid;
+                        rollData.matrixSoakName = targetActor.name;
                     }
                 }
 
