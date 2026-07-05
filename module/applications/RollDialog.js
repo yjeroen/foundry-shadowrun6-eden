@@ -116,7 +116,6 @@ export class RollDialog extends Dialog {
 
         const ar = parseInt(distanceElement.val(), 10) || 0;
         html.find("#baseAR").text(ar);
-        console.log("JEROEN distanceElement ar", distanceElement, ar);
         prepared.baseAR = ar;
         this._onCalcEdge(event);
     }
