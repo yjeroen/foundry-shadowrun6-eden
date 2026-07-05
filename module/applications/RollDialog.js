@@ -73,7 +73,7 @@ export class RollDialog extends Dialog {
         }
         */
         html.find(".calc-edge-edit").change(this._onCalcEdge.bind(this));
-        html.find(".calc-edge-edit").keyup(this._onCalcEdge.bind(this));
+        // html.find(".calc-edge-edit").keyup(this._onCalcEdge.bind(this));
         html.show(this._onCalcEdge.bind(this));
         // React to changed edge boosts and actions
         html.find(".edgeBoosts").change(this._onEdgeBoostActionChange.bind(this));
@@ -125,11 +125,11 @@ export class RollDialog extends Dialog {
      * HTML form
      */
     _onCalcEdge(event) {
-        console.log("SR6E | RollDialog._onCalcEdge");
         const form = this.html[0];
-
         let configured = this.dialogResult;
         let prepared = this.prepared;
+        console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        
         if (!configured.actor)
             return;
         try {
@@ -177,6 +177,16 @@ export class RollDialog extends Dialog {
                     }
                 }
             }
+
+            let maxEdge = 7;
+            if (configured.tempEdge) {
+                configured.edgePlayer++;
+                maxEdge = 8;
+            }
+            if (this.dialogResult.noEdgeGain) {
+                configured.edgePlayer = 0;
+            }
+
             // Set new edge value
             let actor = getSystemData(configured.actor);
             let capped = false;
@@ -193,11 +203,11 @@ export class RollDialog extends Dialog {
                 capped = true;
             }
             // Check if new Edge value would be >7
-            if ((actor.edge.value + configured.edgePlayer) > 7) {
-                configured.edgePlayer = Math.max(0, 7 - actor.edge.value);
+            if ((actor.edge.value + configured.edgePlayer) > maxEdge) {
+                configured.edgePlayer = Math.max(0, maxEdge - actor.edge.value);
                 capped = true;
             }
-            this.edge = Math.min(7, actor.edge.value + configured.edgePlayer);
+            this.edge = Math.min(maxEdge, actor.edge.value + configured.edgePlayer);
             // Update in dialog
             let edgeValue = this._element[0].getElementsByClassName("edge-value")[0];
             if (edgeValue) {
@@ -205,6 +215,7 @@ export class RollDialog extends Dialog {
             }
             // Update selection of edge boosts
             this._updateEdgeBoosts(this._element[0].getElementsByClassName("edgeBoosts")[0], this.edge);
+            this.edgeSpending = 0;
             let newEdgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= this.edge);
             // Prepare text for player
             let innerText = "";
@@ -227,7 +238,7 @@ export class RollDialog extends Dialog {
                 if (game.user.targets.size && game.users.activeGM) {
                     let targetNames = [];
                     game.user.targets.forEach(token => {
-                        if (token.actor.system.edge.value === 7 && configured.edgeTarget > 0) return;
+                        if (token.actor.system.edge.value === maxEdge && configured.edgeTarget > 0) return;
                         targetNames.push(token.name);
                     });
                     targetName = targetNames.join(', ');
@@ -249,9 +260,11 @@ export class RollDialog extends Dialog {
         catch (err) {
             console.log("SR6E | Exception: " + err.message , err);
         }
+        console.log("SR6E | RollDialog._onCalcEdge END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _updateEdgeBoosts(elem, available) {
+        if (this.dialogResult.noEdgeSpend) return;
         console.log("SR6E | RollDialog._updateEdgeBoosts");
         let newEdgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= available);
         // Node for inserting new data before
@@ -278,6 +291,7 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _updateEdgeActions(elem, available) {
+        if (this.dialogResult.noEdgeSpend) return;
         console.log("SR6E | RollDialog._updateEdgeActions");
         let newEdgeActions = CONFIG.SR6.EDGE_ACTIONS.filter((action) => action.cost <= available);
         // Remove previous data
@@ -333,12 +347,12 @@ export class RollDialog extends Dialog {
      * selection.
      */
     _onEdgeBoostActionChange(event) {
-        console.log("SR6E | _onEdgeBoostActionChange");
-        console.log("SR6E | _onEdgeBoostActionChange  this=", this);
-        console.log("SR6E | _onEdgeBoostActionChange  event=", event);
         let actor = this.options.actor;
         let prepared = this.options.prepared;
         let configured = this.dialogResult;
+        console.log("SR6E | _onEdgeBoostActionChange START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        console.log("SR6E | _onEdgeBoostActionChange  this=", this);
+        console.log("SR6E | _onEdgeBoostActionChange  event=", event);
         // Ignore this, if there is no actor
         if (!actor) {
             return;
@@ -374,6 +388,7 @@ export class RollDialog extends Dialog {
             configured.edge_use = game.i18n.format("shadowrun6.roll.edge.edge_action_spent", { actionTitle: game.i18n.localize("shadowrun6.edge_action." + actionId) });
             this._performEdgeBoostOrAction(configured, actionId);
         }
+        console.log("SR6E | _onEdgeBoostActionChange END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _useGruntGroup(event) {
@@ -432,6 +447,7 @@ export class RollDialog extends Dialog {
     _performEdgeBoostOrAction(data, boostOrActionId) {
         let prepared = this.options.prepared;
         let configured = this.dialogResult;
+        console.log("SR6E | _performEdgeBoostOrAction START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
         // Get the value of the user entered modifier ..
         let userModifier = parseInt(document.getElementById("modifier").value);
         this.modifier = userModifier ? userModifier : 0;
@@ -472,6 +488,7 @@ export class RollDialog extends Dialog {
         //($("input[name='explode' ]")[0] as HTMLInputElement).value = data.explode;
         $("input[name='explode' ]")[0].checked = data.explode;
         this._updateDicePool(data);
+        console.log("SR6E | _performEdgeBoostOrAction END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _onSpellConfigChange() {
