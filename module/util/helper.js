@@ -878,13 +878,13 @@ export async function resetAccessLevels() {
                         }
                     }
                     for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
-                        const { parent, embeddedDocName, flags } = embeddedDoc;
-                        if (!docTypesToUpdate.has(embeddedDocName)) continue;
+                        const { parent, documentName, flags } = embeddedDoc;
+                        if (!docTypesToUpdate.has(documentName)) continue;
                         if (!flags["shadowrun6-eden"]?.["matrix-access"]) continue;
 
                         operations.push({
                             action: "update",
-                            documentName: embeddedDocName,
+                            documentName,
                             parent,
                             updates: [{
                                 _id: embeddedDoc.id,
@@ -906,8 +906,8 @@ export async function resetAccessLevels() {
                         }
                     }
                     for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
-                        const { parent, embeddedDocName, flags } = embeddedDoc;
-                        if (!docTypesToUpdate.has(embeddedDocName)) continue;
+                        const { parent, documentName, flags } = embeddedDoc;
+                        if (!docTypesToUpdate.has(documentName)) continue;
                         if (!flags["shadowrun6-eden"]?.["matrix-access"]) continue;
 
                         await embeddedDoc.unsetFlag("shadowrun6-eden", "matrix-access");
