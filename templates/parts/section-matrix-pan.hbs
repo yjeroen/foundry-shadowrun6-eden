@@ -118,8 +118,13 @@
         </div>
         {{else}}
         <div class="pan-summary-row">
+            {{#if actor.isTechno}}
+            <i class="fas fa-hexagon-nodes pan-node-icon"></i>
+            <span class="pan-summary-label" data-tooltip="SR6.title.living_network">{{ localize 'shadowrun6.section.pan.living_network_name' }}</span>
+            {{else}}
             <i class="fas fa-network-wired pan-node-icon"></i>
             <span class="pan-summary-label" data-tooltip="SR6.title.pan">{{ localize 'shadowrun6.section.pan.name' }}</span>
+            {{/if}}
             <strong><input class="box" type="text" value="{{system.pan.name}}" data-field="system.pan._name" disabled/></strong>
             <span class="item-controls">
                 {{#if actor.isOwner}}

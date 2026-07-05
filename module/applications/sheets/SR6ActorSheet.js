@@ -1292,7 +1292,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             return {
                 uuid: slavedActor.uuid,
                 name: slavedPan.ownPanName,
-                icon: "fa-network-wired",
+                icon: slavedActor.isTechno ? "fa-hexagon-nodes" : "fa-network-wired",
                 type: "slaved-pan",
                 access: slavedActor.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }),
                 isOwner: slavedActor.isOwner && isActorsNode,
@@ -1325,7 +1325,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             {
                 // Master Node
                 name: pan.name,
-                icon: "fa-network-wired",
+                icon: panAdmin.isTechno ? "fa-hexagon-nodes" : "fa-network-wired",
                 type: pan.isSlaved ? "external-master-pan" : "master-pan",
                 access: panAdmin.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }),
                 isOwner: panAdmin.isOwner && !pan.isSlaved,
