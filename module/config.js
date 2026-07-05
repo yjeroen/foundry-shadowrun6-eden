@@ -2157,37 +2157,37 @@ export class SR6Config {
             linkedAttr: "s",
             threshold: 0,
             _onSuccess: { accessChange: "admin" },
-            targets: ["host", "device"],
+            targets: ["host", "device", "living_network"],
 
             // TODO THINK ABOUT SELF ONLY ACTIONS WITHOUT TARGET
 
             // // Initial Matrix Test by Initiator
             // async onSuccess(resultData) {
-            //     console.log("SR6 | backdoor_entry | onSuccess");
+            //     console.log("SR6 | backdoor_entry | onSuccess", resultData);
             //     const { initiator, defender, hits, netHits } = resultData;
 
             // },
 
             // // Failed Test in case rolling against a threshold
             // async onFailure(resultData) {
-            //     console.log("SR6 | backdoor_entry | onFailure");
+            //     console.log("SR6 | backdoor_entry | onFailure", resultData);
             //     const { initiator, defender, hits, netHits } = resultData;
 
             // },
 
             // // Succesfully defended against the action of Initiator
             // async onSuccesfulDefense(resultData) {
-            //     console.log("SR6 | backdoor_entry | onSuccesfulDefense");
+            //     console.log("SR6 | backdoor_entry | onSuccesfulDefense", resultData);
             //     const { initiator, defender, hits, netHits } = resultData;
 
             // },
 
             // Failed to defend against the action of Initiator - Success of Opposed Test!
             async onFailedDefense(resultData) {
-                console.log("SR6 | backdoor_entry | onFailedDefense");
+                console.log("SR6 | backdoor_entry | onFailedDefense", resultData);
                 const { initiator, defender, hits, netHits } = resultData;
-                // const safeUuid = initiator.uuid.replaceAll(".", "_");
-                // await target.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
+                const safeUuid = initiator.uuid.replaceAll(".", "_");
+                return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
             },
 
            
@@ -2208,7 +2208,8 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             _onSuccess: { accessChoice: ["user", "admin"] },
-            targets: ["host", "device"]
+            targets: ["host", "device", "living_network"]
+            
         },
         change_icon: {
             id: "change_icon",
@@ -2810,7 +2811,8 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "s",
             threshold: 0,
-            _onSuccess: { accessChange: "admin" }
+            _onSuccess: { accessChange: "admin" },
+            targets: ["host", "device", "living_network"],
         },
         masquerade: {
             id: "masquerade",

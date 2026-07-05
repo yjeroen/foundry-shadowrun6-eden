@@ -489,28 +489,28 @@
   border-radius: 0 0 18px 18px;
 }
 
-.chat-message .soak-result .damageApplied {
+.chat-message button.buttonApplied {
   color: gray;
   box-shadow: 0 0 0.05em, 0 0.06em 0.2em 0.01em inset, 0 0 0 0.07em transparent inset;
   filter: invert(15%) brightness(1.09);
 }
-.chat-message .soak-result .damageApplied > i, .chat-message .soak-result .revertDamageCheck > i {
+.chat-message button.buttonApplied > i, .chat-message button.revertDamageCheck > i {
   margin-right: 0px;
 }
-.chat-message .soak-result .revertDamageCheck {
+.chat-message button.revertDamageCheck {
   color: white;
   background: darkred;
 }
-.chat-message .soak-result .damageApplied .damage-apply-text {
+.chat-message button.buttonApplied .damage-apply-text {
   display: inline; 
 }
-.chat-message .soak-result .damageApplied .damage-revert-text {
+.chat-message button.buttonApplied .damage-revert-text {
   display: none; 
 }
-.chat-message .soak-result .revertDamageCheck .damage-apply-text {
+.chat-message button.revertDamageCheck .damage-apply-text {
   display: none; 
 }
-.chat-message .soak-result .revertDamageCheck .damage-revert-text {
+.chat-message button.revertDamageCheck .damage-revert-text {
   display: inline; 
 }
 

@@ -2674,7 +2674,7 @@ body.game .app a:hover .sr6-icon {
 
 .chat-message .matrix-result button {
     height: auto;
-    padding: 0.3em 0.5em;
+    padding: 0.5em;
     margin-top: 5px;
 }
 .chat-message .matrix-result button.not-gm {
@@ -2690,4 +2690,16 @@ body.game .app a:hover .sr6-icon {
 .chat-message .matrix-result button.not-gm:focus {
     outline: none;
     box-shadow: none;
+}
+.chat-message .matrix-result .buttonApplied {
+    cursor: default;
+    pointer-events: none;
+}
+.chat-message .matrix-result button i {
+    margin: 0 5px;
+    color: var(--color-underline-header);
+}
+.chat-message .matrix-result .buttonApplied i {
+    color: darkgreen;
+    opacity: 0.7;
 }

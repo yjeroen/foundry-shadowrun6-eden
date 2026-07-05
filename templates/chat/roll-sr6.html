@@ -486,8 +486,8 @@
             <hr>
 
             {{#if (eq monitor "matrix")}}
-                <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
-                  {{#if damageApplied}}
+                <button class="rollable{{#if buttonApplied}} buttonApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
+                  {{#if buttonApplied}}
                     <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
                   {{else}}
                     {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{configured.damageLabel}})
@@ -500,16 +500,16 @@
                     <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
                     <span style="font-style: italic;">{{localize 'shadowrun6.ui.notifications.apply_manually'}}</span>
                 {{else}}
-                    <button class="rollable{{#if damageApplied}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-                        {{#if damageApplied}}
+                    <button class="rollable{{#if buttonApplied}} buttonApplied{{/if}}" data-roll-type="damage" data-damage="{{damage}}" data-monitor="{{monitor}}" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                        {{#if buttonApplied}}
                           <span class="damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
                         {{else}}
                           {{localize 'shadowrun6.roll.apply_damage'}} ({{damage}}{{configured.damageLabel}})
                         {{/if}}
                     </button>
                     {{#if damageConvertedStun}}
-                    <button style="margin-top: 5px;" class="damageConvertedStun rollable{{#if damageApplied2}} damageApplied{{/if}}" data-roll-type="damage" data-damage="{{damageConvertedStun}}" data-monitor="stun" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
-                        {{#if damageApplied2}}
+                    <button style="margin-top: 5px;" class="damageConvertedStun rollable{{#if buttonApplied2}} buttonApplied{{/if}}" data-roll-type="damage" data-damage="{{damageConvertedStun}}" data-monitor="stun" data-targetid="{{speaker.token}}" data-actorId="{{speaker.actor}}" data-sceneId="{{speaker.scene}}">
+                        {{#if buttonApplied2}}
                           <span class="damageConvertedStun damage-apply-text">{{localize 'shadowrun6.roll.damage_applied'}}</span><span class="damage-revert-text">{{localize 'shadowrun6.roll.damage_revert'}}</span> ( <i class="fa-solid fa-rotate-left"></i> )
                         {{else}}
                           {{localize 'shadowrun6.roll.apply_damage'}} ({{damageConvertedStun}}{{localize 'shadowrun6.item.stun_damage'}})
@@ -540,7 +540,7 @@
                   <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
                   <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onSuccess.span')}}</div>
                 </h4>
-                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccess" 
+                <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccess" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
@@ -556,7 +556,7 @@
                   <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
                   <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailure.span')}}</div>
                 </h4>
-                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailure" 
+                <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailure" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
@@ -576,7 +576,7 @@
                   <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
                   <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onSuccesfulDefense.span')}}</div>
                 </h4>
-                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccesfulDefense" 
+                <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccesfulDefense" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
@@ -592,12 +592,13 @@
                   <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
                   <div># {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailedDefense.span')}}</div>
                 </h4>
-                <button class="rollable {{#if matrixApplied}}matrixApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailedDefense" 
+                <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailedDefense" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
                         {{#unless isGM}}data-tooltip="SR6.title.notGM"{{/unless}}
                 >
-                  {{localize "SR6.label.gm_do_something"}} {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailedDefense.button')}}
+                  {{#if buttonApplied}}<i class="fas fa-circle-check"></i>{{else}}{{sr6Icon "darkTerminal"}}{{/if}}
+                  <span>{{localize "SR6.label.gm_do_something"}} {{localize (concat 'shadowrun6.matrixaction.' configured.matrixActionId '.onFailedDefense.button')}}</span>
                 </button>
               {{/if}}
             {{/if}}

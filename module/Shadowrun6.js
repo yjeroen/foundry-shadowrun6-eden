@@ -546,7 +546,12 @@ Hooks.once("init", async function () {
             const threshold = parseInt(dataset.threshold);
             const damage = dataset.damage ? parseInt(dataset.damage) : 0;
             console.log("SR6E | Target actor ", actor.name);
-            let dialogConfig;
+            
+            const chatMessageId = event.target.closest(".chat-message").dataset.messageId;
+            const chatMessage = game.messages.get(chatMessageId);
+            const roll = chatMessage.rolls[0];
+            let dialogConfig, result;
+
             switch (rollType) {
                 case RollType.ContinueExtendedTest:
                     console.log("SR6E | Processing Rollable Chatbutton for Continueing an open ended Extended Test");
@@ -612,40 +617,36 @@ Hooks.once("init", async function () {
                 case RollType.Damage:
                     /* Do not roll - just apply damage */
                     const monitor = dataset.monitor;
-                    const chatMessageId = event.target.closest(".chat-message").dataset.messageId;
-                    const chatMessage = game.messages.get(chatMessageId);
-                    const roll = chatMessage.rolls[0];
                     const damageData = {
                         ...Object.fromEntries(Object.entries(dataset)),
                         damage: Number(dataset.damage)
                     };
-                    let result;
 
-                    if (button.classList.contains('damageApplied') || button.classList.contains('revertDamageCheck')) {
+                    if (button.classList.contains('buttonApplied') || button.classList.contains('revertDamageCheck')) {
                         // Damage was applied in the past, reverting back
                         button.blur();
                         if (button.classList.contains('revertDamageCheck')) {
                             button.classList.remove("revertDamageCheck");
                             if (button.classList.contains('damageConvertedStun')) {
-                                roll.finished.damageApplied2 = false;
+                                roll.finished.buttonApplied2 = false;
                             } else {
-                                roll.finished.damageApplied = false;
+                                roll.finished.buttonApplied = false;
                             }
-                            roll.finished.damageApplied = false;
+                            roll.finished.buttonApplied = false;
                             result = await actor.applyDamage( { ...damageData, damage: damageData.damage * -1 } );
                             if (result) chatMessage.update({ 'rolls': [roll] });
                         } else {
 
-                            button.classList.remove("damageApplied");
+                            button.classList.remove("buttonApplied");
                             button.classList.add("revertDamageCheck");
                         }
 
                     } else {
                         button.blur();
                         if (button.classList.contains('damageConvertedStun')) {
-                            roll.finished.damageApplied2 = true;
+                            roll.finished.buttonApplied2 = true;
                         } else {
-                            roll.finished.damageApplied = true;
+                            roll.finished.buttonApplied = true;
                         }
                         result = await actor.applyDamage( damageData );
                         if (result) chatMessage.update({ 'rolls': [roll] });
@@ -653,6 +654,7 @@ Hooks.once("init", async function () {
                     break;
                 case RollType.MatrixResult:
                     // Not really a RollType, but a way to apply MatrixAction RollType results
+                    if (!game.user.isGM) return;
                     const { resultType, matrixActionId, matrixTargetUuid } = dataset;
                     const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixActionId];
                     const resultData = {
@@ -665,20 +667,26 @@ Hooks.once("init", async function () {
 
                     switch (resultType) {
                         case "onSuccess":
-                            await matrixAction.onSuccess(resultData);
+                            result = await matrixAction.onSuccess(resultData);
                             break;
                         case "onFailure":
-                            await matrixAction.onFailure(resultData);
+                            result = await matrixAction.onFailure(resultData);
                             break;
                         case "onSuccesfulDefense":
-                            await matrixAction.onFailure(resultData);
+                            result = await matrixAction.onSuccesfulDefense(resultData);
                             break;
                         case "onSuccesfulDefense":
-                            await matrixAction.onFailure(resultData);
+                            result = await matrixAction.onSuccesfulDefense(resultData);
                             break;
                         case "onFailedDefense":
-                            await matrixAction.onFailure(resultData);
+                            result = await matrixAction.onFailedDefense(resultData);
                             break;
+                    }
+                    if (result) {
+                        button.blur();
+                        button.classList.add("buttonApplied");
+                        roll.finished.buttonApplied = true;
+                        await chatMessage.update({ 'rolls': [roll] });
                     }
 
                     break;
