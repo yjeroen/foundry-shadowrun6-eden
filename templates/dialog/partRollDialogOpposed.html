@@ -11,7 +11,7 @@
 				<tr>
 					<td colspan="2">{{localize "shadowrun6.roll.attackRating"}}</td>
 					<td colspan="1" style="width: 3em; text-align: right;"><label name="ar" id="baseAR">{{data.attackRating}}</label> + </td>
-					<td colspan="1"><input id="arMod" type="number" name="attackRatingMod" value="{{data.attackRatingMod}}" class="calc-edge-edit armod-value centered" style="width: 2em"/></td>
+					<td colspan="1"><input id="arMod" type="number" name="attackRatingMod" value="{{data.attackRatingMod}}" class="calc-edge-edit armod-value centered" style="width: 2em" {{#if data.noEdgeGain}}disabled{{/if}}/></td>
 					<td colspan="1" style="font-weight: bold;">vs</td>
 					<td colspan="2">{{localize "shadowrun6.roll.defRating"}}</td>
 					<td colspan="1"><input id="dr" type="number" name="defRating" value="{{data.defenseRating}}" class="calc-edge-edit dr-value centered" style="width: 2em"/></td>
@@ -19,10 +19,10 @@
 				<tr>
 					<td colspan="2">{{localize "shadowrun6.roll.edge.situational"}}</td>
 					<td colspan="1"> </td>
-					<td colspan="1"><input type="checkbox" class="calc-edge-edit" name="situationalEdgeA" value="{{data.situationalEdgeA}}" id="situationalEdgeA" /></td>
+					<td colspan="1"><input type="checkbox" class="calc-edge-edit" name="situationalEdgeA" id="situationalEdgeA" {{#if data.situationalEdgeA}}checked{{/if}} {{#if data.noEdgeGain}}disabled{{/if}}/></td>
 					<td colspan="1" style="font-weight: bold;">vs</td>
 					<td colspan="2">{{localize "shadowrun6.roll.edge.situational"}}</td>
-					<td colspan="1"><input type="checkbox" class="calc-edge-edit" name="situationalEdgeD" value="{{data.situationalEdgeD}}" id="situationalEdgeD" /></td>
+					<td colspan="1"><input type="checkbox" class="calc-edge-edit" name="situationalEdgeD" id="situationalEdgeD" {{#if data.situationalEdgeD}}checked{{/if}} /></td>
 				</tr>
 				<tr>
 					<td colspan="8" ><label id="edgeLabel" style="font-style:italic">&nbsp;</label></td>

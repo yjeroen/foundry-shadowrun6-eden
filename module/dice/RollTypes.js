@@ -652,6 +652,7 @@ export class ConfiguredRoll extends CommonRollData {
         if (copy.matrixSoakUuid) this.matrixSoakUuid = copy.matrixSoakUuid;
         if (copy.matrixSoakName) this.matrixSoakName = copy.matrixSoakName;
         if (copy.matrixActionOption) this.matrixActionOption = copy.matrixActionOption;
+        if (copy.matrixActionDescription) this.matrixActionDescription = copy.matrixActionDescription;
 
         if (copy.panName) this.panName = copy.panName;
         if (copy.panAdmin) this.panAdmin = copy.panAdmin;
@@ -660,6 +661,10 @@ export class ConfiguredRoll extends CommonRollData {
 
         if (copy.defendedWith) this.defendedWith = copy.defendedWith;
         if (copy.damageLabel) this.damageLabel = copy.damageLabel;
+        
+        if (copy.noEdgeGain) this.noEdgeGain = copy.noEdgeGain;
+        if (copy.noEdgeSpend) this.noEdgeSpend = copy.noEdgeSpend;
+        if (copy.tempEdge) this.tempEdge = copy.tempEdge;
 
         if (copy.skillId) {
             this.skillId = copy.skillId;

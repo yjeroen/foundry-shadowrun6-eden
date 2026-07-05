@@ -36,6 +36,28 @@
     <h2 class="highlight" id="rolldia-checkText">{{data.checkText}}</h2>
     {{/if}}
 
+    {{#if data.noEdgeGain}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize "shadowrun6.roll.edge.noEdgeGain"}}</span>
+    </div>
+    {{/if}}
+    {{#if data.noEdgeSpend}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize "shadowrun6.roll.edge.noEdgeSpend"}}</span>
+    </div>
+    {{/if}}
+    {{#if data.tempEdge}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize "shadowrun6.roll.edge.tempEdge"}}</span>
+    </div>
+    {{/if}}
+    {{#if (or (or data.noEdgeGain data.noEdgeSpend) data.tempEdge)}}
+    <hr>
+    {{/if}}
+
    <!-- Spell modification -->
    {{#if (and data.spell (ne data.skillSpec 'ritual_spellcasting') )}}
     {{> "systems/shadowrun6-eden/templates/dialog/partRollDialogSpell.html"}}
@@ -49,8 +71,10 @@
   {{#if data.defendWith}}
     {{> "systems/shadowrun6-eden/templates/dialog/partRollDialogOpposed.html"}}
   {{/if}}
-
+ 
+  {{#unless data.noEdgeSpend}}
 	{{> "systems/shadowrun6-eden/templates/dialog/partRollDialogEdge.html"}}
+  {{/unless}}
 
 	<!-- Final calculations -->
     <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.configure"}}</h4>

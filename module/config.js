@@ -2156,7 +2156,6 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "s",
             threshold: 0,
-            _onSuccess: { accessChange: "admin" },
             targets: ["host", "device", "living_network"],
 
             // TODO THINK ABOUT SELF ONLY ACTIONS WITHOUT TARGET
@@ -2207,7 +2206,6 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "a",
             threshold: 0,
-            _onSuccess: { accessChoice: ["user", "admin"] },
             targets: ["host", "device", "living_network"],
 
             async onMatrixActionRoll(matrixActionRoll) {
@@ -2224,6 +2222,7 @@ export class SR6Config {
                 });
                 if ( immediateAdmin ) {
                     console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +4 Defense Rating");
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.brute_force.to_admin";
                     matrixActionRoll.defenseRating += 4;
                     matrixActionRoll.matrixActionOption = "brute_force_admin";
                 } else {
@@ -2234,6 +2233,7 @@ export class SR6Config {
             async onDefenseRoll(defenseRoll) {
                 if (defenseRoll.matrixActionOption === "brute_force_admin") {
                     console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +2 Firewall as a Bonus Dice Modifier", defenseRoll);
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.brute_force.to_admin";
                     defenseRoll.modifier = (defenseRoll.modifier || 0) + 2;
                 }
             },
@@ -2852,8 +2852,27 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: "s",
             threshold: 0,
-            _onSuccess: { accessChange: "admin" },
             targets: ["host", "device", "living_network"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.matrixActionDescription = "shadowrun6.roll.edge.noEdgeUse";
+                matrixActionRoll.noEdgeGain = true;
+                matrixActionRoll.noEdgeSpend = true;
+                matrixActionRoll.matrixActionOption = "known_exploit";
+            },
+            
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixActionDescription = "shadowrun6.roll.edge.tempEdge";
+                defenseRoll.tempEdge = true;
+            },
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | known_exploit | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                const safeUuid = initiator.uuid.replaceAll(".", "_");
+                return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
+            },
+
         },
         masquerade: {
             id: "masquerade",

@@ -2656,7 +2656,7 @@ body.game .app a:hover .sr6-icon {
 
 
 /* ======================================================================== */
-/* ========================= MATRIX ACTIONS CAHT ========================== */
+/* =========================== MATRIX ACTIONS ============================= */
 /* ======================================================================== */
 
 .chat-message button {
@@ -2702,4 +2702,13 @@ body.game .app a:hover .sr6-icon {
 .chat-message .matrix-result .buttonApplied i {
     color: darkgreen;
     opacity: 0.7;
+}
+
+.dialog .roll-dialog-message {
+    display: flex;
+    align-items: center;
+}
+.dialog .roll-dialog-message i {
+    margin: 0 8px;
+    color: var(--color-underline-header);
 }

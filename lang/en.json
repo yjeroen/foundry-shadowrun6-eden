@@ -834,7 +834,7 @@
           "name": "Brute Force",
           "hint": "Attack a device directly to gain fast illicit access, but the target is always alerted and GOD score accumulates with each test. Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating.",
           "onClick": "<p>Do you want to gain ADMIN access without first gaining USER access?</p><p>Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating.</p>",
-          "matrixActionOption": "Initiator has chosen to Brute Force directly to the ADMIN access level.",
+          "to_admin": "Initiator has chosen to Brute Force directly to the ADMIN access level.",
           "onFailedDefense.span": "brute forcing",
           "onFailedDefense.button": "Apply access level"
         },
@@ -932,7 +932,10 @@
         },
         "known_exploit": {
           "name": "Known Exploit Backdoor Entry",
-          "hint": "Use known exploits to gain Admin access without a prior Probe; patched hosts or devices are harder. You cannot gain or spend Edge, the target gains 1 temporary Edge, success does not count as illegal Admin access, and failure does not alarm the target, though your Overwatch Score still increases."
+          "hint": "Use known exploits to gain Admin access without a prior Probe; patched hosts or devices are harder. You cannot gain or spend Edge, the target gains 1 temporary Edge, success does not count as illegal Admin access, and failure does not alarm the target, though your Overwatch Score still increases.",
+          "cannot_edge": "You cannot gain or spend any Edge on this roll.",
+          "onFailedDefense.span": "enter via exploit",
+          "onFailedDefense.button": "Apply ADMIN access level"
         },
         "masquerade": {
           "name": "Masquerade",
@@ -1290,7 +1293,12 @@
         "opponent_edge_boost": "Opponent Edge Boost",
         "spend": "Spend!",
         "original_test": "Original test by:",
-        "boost": "Boost"
+        "boost": "Boost",
+        "noEdgeGain": "You cannot gain any Edge on this roll.",
+        "noEdgeSpend": "You cannot spend any Edge on this roll.",
+        "noEdgeUse": "You cannot gain or spend any Edge on this roll.",
+        "situationalEdgeA": "You have gained one Edge that you must spend on this roll. (In this Dialog, or in the Chat by re-rolling a die.)",
+        "tempEdge": "You have gained one temporary Edge that you must spend on this roll."
       },
       "edge_perform": "Do it",
       "edgegain": "Edge-Gain (max): ",
