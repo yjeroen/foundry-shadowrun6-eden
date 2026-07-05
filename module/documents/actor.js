@@ -2963,10 +2963,9 @@ export default class Shadowrun6Actor extends Actor {
             return primaryAccessDevice.yourMatrixAccessLevel({ initiator: initiator ?? this });
         }
         
-        console.warn("SR6E | Actor.yourMatrixAccessLevel | Defaulting | retrieving flag");
-        const safeUuid = this.uuid.replaceAll(".", "_");
-        return  "outsider";
-        return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider"; // TODO JEROEN use an internal function to retrieve getFlag when ACL is manually changed
+        console.log(`SR6E | Actor.yourMatrixAccessLevel | Defaulting | retrieving flag of initiator ${initiator.name} to this actor ${this.name}`);
+        const initiatorSafeUuid = initiator.uuid.replaceAll(".", "_");
+        return this.getFlag("shadowrun6-eden", `matrix-access.${initiatorSafeUuid}`) ?? "outsider";
     }
 
 }

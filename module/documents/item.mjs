@@ -638,37 +638,49 @@ export default class SR6Item extends Item {
    * @returns {string} The matrix-access flag for the UUID of the Initiator
    */
   yourMatrixAccessLevel(config={}) {
+    console.log(`SR6E | Item.yourMatrixAccessLevel | ${this.name} | config:`, config);
     const {initiator} = config;
     const safeUuid = initiator.uuid.replaceAll(".", "_");
+    const myPanAdmin = this.actor.system.pan?.administrator;
 
     if (this.actor.system.pan?.isSlaved) {
-      // This Item belongs to an Actor that has a Slaved PAN
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item belongs to an Actor that has a Slaved PAN");
       if (this.actor.uuid === initiator.uuid) {
-        // This Item's Actor is the Initiator
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is the Initiator");
         return "admin"
       }
-      if (this.actor.system.pan?.administrator.uuid === initiator.uuid) {
-        // This Item's Actor has a PanAdmin (due to being slaved), and it is the Initiator
+      if (myPanAdmin?.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor has a PanAdmin (due to being slaved), and it is the Initiator");
         return "admin"
       }
-      if (this.actor.system.pan?.administrator.uuid === initiator.system.pan?.administrator.uuid) {
-        // This Item's Actor has a PanAdmin (due to being slaved), and it is the same PAN that the initiator joined
+      if (myPanAdmin?.uuid === initiator.system.pan?.administrator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor has a PanAdmin (due to being slaved), and it is the same PAN that the initiator joined");
         return "user"
       }
     } 
     else {
-      // This Item belongs to an Actor that is its own Pan Admin
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item belongs to an Actor that is its own Pan Admin");
       if (this.actor.uuid === initiator.uuid) {
-        // This Item's Actor is the Initiator's
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is the Initiator's");
         return "admin"
       }
       if (this.actor.uuid === initiator.system.pan?.administrator.uuid) {
-        // This Item's Actor is my (the ininitator's) Pan Admin
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is my (the ininitator's) Pan Admin");
         return "user"
       }
+    }
 
+    const panAdminsAccessDevice = myPanAdmin?.system.persona?.accessDevice;
+    if (panAdminsAccessDevice) {
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a PAN | retrieving flag to Pan Admin's Primary Access Device");
+      return panAdminsAccessDevice.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    }
+    if (myPanAdmin?.isTechno) {
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a Living Network | retrieving flag to the Admin Technomancer");
+      return myPanAdmin.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
     }
     
+    console.log("SR6E | Item.yourMatrixAccessLevel | Defaulting | retrieving flag");
     return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
   }
 
