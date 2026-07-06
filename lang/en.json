@@ -979,6 +979,10 @@
           "name": "Reconfigure Matrix Attribute",
           "hint": "Swap the base ratings of two non-zero Matrix Attributes on your Matrix Persona, even if they come from different devices."
         },
+        "relinquish_access": {
+          "name": "Relinquish Access",
+          "hint": "You relinquish your access to a specific host, PAN or device. If you had illegal access, you no longer generate OS for that target."
+        },
         "send_message": {
           "name": "Send Message",
           "hint": "Send a short text or audio message, image, file, or live feed through the Matrix. With DNI, you can send longer, more complex messages even in AR."

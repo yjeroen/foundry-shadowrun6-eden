@@ -2530,7 +2530,7 @@ export class SR6Config {
             attr2: "d",
             linkedAttr: null,
             threshold: 0,
-            targets: ["yourself"]
+            targets: ["persona"]
         },
         jack_out: {
             id: "jack_out",
@@ -2667,7 +2667,7 @@ export class SR6Config {
             linkedAttr: "s",
             threshold: 0,
             _onSuccess: { action: "backdoor_entry" },
-            targets: ["host", "device"]
+            targets: ["host", "device", "living_network"]
         },
         reboot_device: {
             id: "reboot_device",
@@ -2701,6 +2701,23 @@ export class SR6Config {
             linkedAttr: null,
             threshold: 0,
             targets: ["yourself", "persona"]
+        },
+        // Added by the Official FAQ
+        relinquish_access: {
+            id: "relinquish_access",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["host", "device", "living_network"]
         },
         send_message: {
             id: "send_message",
@@ -2957,7 +2974,7 @@ export class SR6Config {
             attr2: "d",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "host"]
+            targets: ["persona"]
         },
         metahuman_middle: {
             id: "metahuman_middle",
