@@ -25,6 +25,8 @@ export const MatrixSheetMixin = Base => class extends Base {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
                     if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;
                     if (action.linkedAttr === "s" && !this.initiator.getSystemProperty("persona.used.s")) return false;
+                     // TODO JEROEN evaluate if this should not be only OUTSIDER actions
+                    if (this.actor.isActorV2 && action.targets?.includes("physical")) return false;  // ActorV2 DataModel actors are currently only used for Matrix Icons
                     if (action.targets?.includes("persona") && action.outsider) return true;
                     return false;
                 }
