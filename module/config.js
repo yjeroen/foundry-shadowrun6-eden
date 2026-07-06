@@ -41,25 +41,6 @@ export class SR6Config {
             "resonance",
             "essence",
         ],
-        ATTRIBUTE_TO_V2: {
-            bod: "body",
-            agi: "agility",
-            rea: "reaction",
-            str: "strength",
-            wil: "willpower",
-            log: "logic",
-            int: "intuition",
-            cha: "charisma",
-            mag: "magic",
-            res: "resonance",
-            ess: "essence",
-            essence: "essence",
-            a: "attack",
-            s: "sleaze",
-            d: "dataProcessing",
-            f: "firewall",
-            rating: "rating",
-        },
         ACTOR_TYPES: {
             sprite: {
                 types: {
@@ -91,11 +72,49 @@ export class SR6Config {
         },
     };
 
+    ATTRIBUTE_TO_V2 = {
+        bod: "body",
+        agi: "agility",
+        rea: "reaction",
+        str: "strength",
+        wil: "willpower",
+        log: "logic",
+        int: "intuition",
+        cha: "charisma",
+        mag: "magic",
+        res: "resonance",
+        ess: "essence",
+        essence: "essence",
+        a: "attack",
+        s: "sleaze",
+        d: "dataProcessing",
+        f: "firewall",
+        rating: "rating",
+    };
+    SYSTEMPATH_TO_V2 = {
+        "attributes.bod.pool": "attributes.body.pool",
+        "attributes.agi.pool": "attributes.agility.pool",
+        "attributes.rea.pool": "attributes.reaction.pool",
+        "attributes.agi.pool": "attributes.agility.pool",
+        "attributes.str.pool": "attributes.strength.pool",
+        "attributes.wil.pool": "attributes.willpower.pool",
+        "attributes.log.pool": "attributes.logic.pool",
+        "attributes.int.pool": "attributes.intuition.pool",
+        "attributes.cha.pool": "attributes.charisma.pool",
+        "attributes.mag.pool": "attributes.magic.pool",
+        "attributes.res.pool": "attributes.resonance.pool",
+
+        "persona.used.a": "matrix.attributes.attack",
+        "persona.used.s": "matrix.attributes.sleaze",
+        "persona.used.d": "matrix.attributes.dataProcessing",
+        "persona.used.f": "matrix.attributes.firewall",
+        
+    };
     /**
      * Temporary mapping of v1 attribute abbreviations to v2 attribute names. This is used for converting old rolls and other references to attributes until all code is updated to use the new attribute names. The keys are the v1 abbreviations, and the values are the v2 attribute names.
      */
     attributeV2toV1(attribute) {
-        return Object.entries(this.NEW.ATTRIBUTE_TO_V2).find(
+        return Object.entries(this.ATTRIBUTE_TO_V2).find(
             ([key, value]) => value === attribute,
         )?.[0];
     }

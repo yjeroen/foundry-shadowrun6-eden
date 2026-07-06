@@ -1831,7 +1831,7 @@ export default class Shadowrun6Actor extends Actor {
     _getSkillPool(skillId, spec, attrib = undefined) {
         if (this.system instanceof foundry.abstract.DataModel) {
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
-            const attribute = game.sr6.config.NEW.ATTRIBUTE_TO_V2[attrib];
+            const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
             return this.system.skills[skillId]?.testPool(attribute);
         }
         const system = getSystemData(this);
@@ -2453,8 +2453,8 @@ export default class Shadowrun6Actor extends Actor {
      */
     getMatrixPool(matrixAttr, physAttr) {
         if (this.system instanceof foundry.abstract.DataModel) {
-            matrixAttr = game.sr6.config.NEW.ATTRIBUTE_TO_V2[matrixAttr];
-            physAttr = game.sr6.config.NEW.ATTRIBUTE_TO_V2[physAttr];
+            matrixAttr = game.sr6.config.ATTRIBUTE_TO_V2[matrixAttr];
+            physAttr = game.sr6.config.ATTRIBUTE_TO_V2[physAttr];
             return this.system.matrix.testPool(matrixAttr, physAttr);
         }
 
@@ -2914,6 +2914,19 @@ export default class Shadowrun6Actor extends Actor {
     }
 
     /**
+     * Safely returns a system property no matter if its an old Actor or an ActorV2 with a DataModel
+     * @param {*} path 
+     * @returns 
+     */
+    getSystemProperty(path) {
+        const convertedToV2 = game.sr6.config.SYSTEMPATH_TO_V2[path];
+        if (this.isActorV2 && convertedToV2) {
+            path = convertedToV2;
+        }
+        return foundry.utils.getProperty(this.system, path);
+    }
+
+    /**
      * 
      * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor
      * @param {SR6Actor} [config.initiator]              An Actor that wants to check what their ACL it towards this Actor
@@ -2936,7 +2949,7 @@ export default class Shadowrun6Actor extends Actor {
                 console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is the Initiator");
                 return "admin"
             }
-            
+
             if (this.system.pan && this.system.pan?.isSlaved) {
                 if (this.system.pan?.isSlaved === initiator?.uuid) {
                     console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor has joined the PAN of the Initiator's");

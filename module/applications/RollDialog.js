@@ -744,7 +744,7 @@ export class RollDialog extends Dialog {
             if (newAttrib) {
                 prepared.checkText += ' + ' + game.i18n.localize("attrib." + newAttrib);
                 if (this.actor.system instanceof foundry.abstract.DataModel) {
-                    newAttrib = game.sr6.config.NEW.ATTRIBUTE_TO_V2[newAttrib];
+                    newAttrib = game.sr6.config.ATTRIBUTE_TO_V2[newAttrib];
                 }
                 prepared.pool += this.actor.system.attributes[newAttrib]?.pool || 0;
             }
