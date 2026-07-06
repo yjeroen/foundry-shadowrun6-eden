@@ -1181,9 +1181,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name');
 
                 if (this.document.limited || this.options.limited) {
-                    if (action.skill === "cracking" && !this.initiator.system.skills.cracking.pool) return false
-                    if (action.linkedAttr === "a" && !this.initiator.system.persona?.used?.a) return false;
-                    if (action.linkedAttr === "s" && !this.initiator.system.persona?.used?.s) return false;
+                    if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
+                    if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;
+                    if (action.linkedAttr === "s" && !this.initiator.getSystemProperty("persona.used.s")) return false;
                     // TODO JEROEN evaluate if this should not be only OUTSIDER actions
                     if (this.actor.isTechno && action.targets?.includes("living_network") && action.outsider) return true;
                     if (action.targets?.includes("persona") && action.outsider) return true;
