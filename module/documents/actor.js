@@ -2936,8 +2936,9 @@ export default class Shadowrun6Actor extends Actor {
                 console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is the Initiator");
                 return "admin"
             }
+            
             if (this.system.pan && this.system.pan?.isSlaved) {
-                if (this.system.pan?.administrator.uuid === initiator?.uuid) {
+                if (this.system.pan?.isSlaved === initiator?.uuid) {
                     console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor has joined the PAN of the Initiator's");
                     return "admin"
                 }
@@ -2946,10 +2947,11 @@ export default class Shadowrun6Actor extends Actor {
                     console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is its own PAN admin and is the Initiator");
                     return "admin"
                 }
+                if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.system.pan?.administrator.uuid) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is the PAN admin and the Initiator has joined his PAN");
+                    return "user"
+                }
             }
-            console.warn("SR6E | Actor.yourMatrixAccessLevel | Defaulting | retrieving flag"); // Unclear if this usecase is possible
-            const safeUuid = this.uuid.replaceAll(".", "_");
-            return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "admin";
         }
 
         if (this.isTechno) {
