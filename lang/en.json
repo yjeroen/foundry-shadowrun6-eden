@@ -973,7 +973,12 @@
         },
         "reboot_device": {
           "name": "Reboot Device",
-          "hint": "Force a device, persona, or PAN offline until the end of the next combat round. This resets its Overwatch Score and access, causes no dumpshock, and cannot be done while link-locked."
+          "hint": "Force a device, persona, or PAN offline until the end of the next combat round. This resets its Overwatch Score and access, causes no dumpshock, and cannot be done while link-locked.",
+          "forced_to_reboot": "Roll Defense if you are being forced to Reboot Device",
+          "onSuccess.span": "rebooting..",
+          "onSuccess.button": "Apply ACL reset to this persona",
+          "onFailedDefense.span": "forced_reboot..",
+          "onFailedDefense.button": "Apply ACL reset to this persona"
         },
         "reconfigure": {
           "name": "Reconfigure Matrix Attribute",

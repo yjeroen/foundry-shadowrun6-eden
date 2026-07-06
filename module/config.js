@@ -2313,7 +2313,7 @@ export class SR6Config {
             linkedAttr: null,
             threshold: 4,
             _onSuccess: { showOs: true },
-            targets: ["persona"]
+            targets: ["yourself"]
         },
         control_device: {
             id: "control_device",
@@ -2684,7 +2684,37 @@ export class SR6Config {
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { rebootDevice: true },
-            targets: ["device"]
+            targets: ["device", "persona"],
+            
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.reboot_device.forced_to_reboot";
+                matrixActionRoll.matrixTargetName = matrixActionRoll.actor.name;    // Initiators name
+             },
+
+            // Only rolled optionally if the Initiator was link-locked
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixTargetName = defenseRoll.actor.name;    // Defenders name
+                if (!defenseRoll.matrixTargetUuid) defenseRoll.matrixTargetUuid = defenseRoll.actor.uuid;
+            },
+
+            // This button is used if you Reboot Device yourself
+            async onSuccess(resultData) {
+                console.log("SR6 | reboot_device | onSuccess", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                await game.sr6.utils.resetAccessLevels( initiator.uuid );
+                // TODO add reboot devices
+                return true;
+            },
+            
+            // This button is used if someone else forces you to Reboot Device
+            async onFailedDefense(resultData) {
+                console.log("SR6 | reboot_device | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                await game.sr6.utils.resetAccessLevels( defender.uuid );
+                // TODO add reboot devices
+                return true;
+            },
+
         },
         reconfigure: {
             id: "reconfigure",
@@ -2700,7 +2730,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["yourself", "persona"]
+            targets: ["yourself"]
         },
         // Added by the Official FAQ
         relinquish_access: {
@@ -2717,7 +2747,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["host", "device", "living_network"]
+            targets: ["host", "device", "yourself"]
         },
         send_message: {
             id: "send_message",
@@ -2836,7 +2866,7 @@ export class SR6Config {
             attr2: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device"]
+            targets: ["persona", "device", "physical"]
         }
     };
     // TODO add Matrix Edge Actions (HS p.31)
