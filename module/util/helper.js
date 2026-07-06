@@ -840,91 +840,77 @@ export async function resetEdge() {
     }
 }
 
-export async function resetAccessLevels() {
+export async function resetAccessLevels(onlyThisUuid) {
     if (!game.user.isGM) {
         console.warn("SR6E | Resetting Access Levels is only allowed by GM's");
         return;
     }
-    console.info("SR6E | Reset Access Levels dialogue");
 
+    console.info("SR6E | Reset Access Levels dialogue");
     const proceed = await foundry.applications.api.DialogV2.confirm({
         window: { title: game.i18n.localize("shadowrun6.resetAccessLevels") },
-        content: game.i18n.localize("shadowrun6.resetAccessLevelsDescription"),
+        content: game.i18n.localize( onlyThisUuid ? "shadowrun6.resetOneAccessLevelDescription" : "shadowrun6.resetAccessLevelsDescription" ),
         rejectClose: false,
         modal: true
     });
 
-    if ( proceed ) {
-        console.info("SR6E | Resetting Access Levels for all Actors and Tokens in the game");
+    if (!proceed) return;
 
-        const operations = [];
-        const docTypesToUpdate = new Set(["Actor", "Item", "ActorDelta"]);
-        const isV14 = game.release?.generation >= 14;
+    console.info("SR6E | Resetting Access Levels for all Actors and Tokens in the game");
+
+    const operations = [];
+    const docTypesToUpdate = new Set(["Actor", "Item", "ActorDelta"]);
+    const isV14 = game.release?.generation >= 14;
+    const safeUuid = onlyThisUuid?.replaceAll(".", "_");
+    const flagPath = safeUuid ? `matrix-access.${safeUuid}` : "matrix-access";
+    const updatePath = `flags.shadowrun6-eden.${flagPath}`;
+
+    const resetDocumentAccess = async (document, parent = undefined) => {
+        const matrixAccess = document.flags["shadowrun6-eden"]?.["matrix-access"];
+        if (!matrixAccess) return;
+
+        if (safeUuid && matrixAccess[safeUuid] === undefined) return;
 
         if (isV14) {
-            for (const collection of [game.actors, game.scenes]) {
-                for (const doc of collection) {
-                    const { documentName, flags } = doc;
-                    if (documentName === "Actor") {
-                        if (flags["shadowrun6-eden"]?.["matrix-access"]) {
-                            operations.push({
-                                action: "update",
-                                documentName,
-                                updates: [{
-                                    _id: doc.id,
-                                    "flags.shadowrun6-eden.matrix-access": _del
-                                }]
-                            });
-                        }
-                    }
-                    for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
-                        const { parent, documentName, flags } = embeddedDoc;
-                        if (!docTypesToUpdate.has(documentName)) continue;
-                        if (!flags["shadowrun6-eden"]?.["matrix-access"]) continue;
-
-                        operations.push({
-                            action: "update",
-                            documentName,
-                            parent,
-                            updates: [{
-                                _id: embeddedDoc.id,
-                                "flags.shadowrun6-eden.matrix-access": _del
-                            }]
-                        });
-                    }
-                }
-            }
-            await foundry.documents.modifyBatch(operations);
-        }
-        else {
-            for (const collection of [game.actors, game.scenes]) {
-                for (const doc of collection) {
-                    const { documentName, flags } = doc;
-                    if (documentName === "Actor") {
-                        if (flags["shadowrun6-eden"]?.["matrix-access"]) {
-                            await doc.unsetFlag("shadowrun6-eden", "matrix-access");
-                        }
-                    }
-                    for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
-                        const { parent, documentName, flags } = embeddedDoc;
-                        if (!docTypesToUpdate.has(documentName)) continue;
-                        if (!flags["shadowrun6-eden"]?.["matrix-access"]) continue;
-
-                        await embeddedDoc.unsetFlag("shadowrun6-eden", "matrix-access");
-                    }
-                }
-            }
+            operations.push({
+                action: "update",
+                documentName: document.documentName,
+                parent,
+                updates: [{
+                    _id: document.id,
+                    [updatePath]: _del
+                }]
+            });
+            return;
         }
 
-        const msg = game.i18n.localize("shadowrun6.ui.notifications.accessLevels_have_been_reset");
-        await ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
-            title: game.i18n.localize("shadowrun6.resetAccessLevels"),
-            flavor: game.i18n.localize("shadowrun6.resetAccessLevels"),
-            content: `<span style="font-style: italic;">${msg}</span>`
-        });
+        await document.unsetFlag("shadowrun6-eden", flagPath);
+    };
+
+    for (const collection of [game.actors, game.scenes]) {
+        for (const doc of collection) {
+            if (doc.documentName === "Actor") {
+                await resetDocumentAccess(doc);
+            }
+
+            for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
+                if (!docTypesToUpdate.has(embeddedDoc.documentName)) continue;
+                await resetDocumentAccess(embeddedDoc, embeddedDoc.parent);
+            }
+        }
     }
 
+    if (isV14 && operations.length) {
+        await foundry.documents.modifyBatch(operations);
+    }
+
+    const msg = game.i18n.localize( onlyThisUuid ? "shadowrun6.ui.notifications.one_accessLevel_has_been_reset" : "shadowrun6.ui.notifications.accessLevels_have_been_reset" );
+
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
+        flavor: game.i18n.localize("shadowrun6.resetAccessLevels"),
+        content: `<span style="font-style: italic;">${msg}</span>`
+    });
 }
     
 
