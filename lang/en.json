@@ -920,7 +920,13 @@
         },
         "jack_out": {
           "name": "Jack Out",
-          "hint": "Jack yourself out of the Matrix by rebooting your device. You suffer dumpshock if you were in VR, and if you are link-locked you must beat each locking Icon to escape."
+          "hint": "Jack yourself out of the Matrix by rebooting your device. You suffer dumpshock if you were in VR, and if you are link-locked you must beat each locking Icon to escape.",
+          "link_locked": "If you are Link Locked, then the icon(s) that locked you must roll Defense in the opposed test.",
+          "lock_link": "You have Link Locked a persona. The outcome of this roll determines if you succeed.",
+          "onSuccess.span": "exit >> jackout..",
+          "onSuccess.button": "Apply ACL reset and dumpshock if persona was in VR",
+          "onSuccesfulDefense.span": "link-locking.. SUCCESS. jackout stopped.",
+          "onFailedDefense.span": "link-locking.. FAILED. Proceeding to jackout."
         },
         "jam_signals": {
           "name": "Jam Signals",
@@ -1228,6 +1234,7 @@
         "using_target_multiple": "Using {name} on multiple targets",
         "skill": "Make a skill test",
         "thread": "Threading {name}",
+        "bio_feedback": "Biofeedback Damage",
         "defense": {
           "physical": "Defend against physical attack",
           "spells_direct": "Defend direct combat spells",
@@ -1239,7 +1246,8 @@
           "fading":"Resist {damage} Fading",
           "damage_matrix": "Resist {damage} Matrix Damage",
           "damage_phys": "Resist {damage} Physical Damage",
-          "damage_stun" :"Resist {damage} Stun Damage"
+          "damage_stun" :"Resist {damage} Stun Damage",
+          "bio_feedback" :"Resist {damage} {monitor} Damage"
         }
       },
       "apply_damage": "Apply damage",
@@ -1313,6 +1321,8 @@
       "failedDefense": "You got hit and now it is going to hurt",
       "failedDefenseGeneral": "You failed to defend",
       "failedSoak"   : "You get damage",
+      "gettingHurt": "Your body needs to resist",
+      "bio_feedback.description": "You’re also disoriented and so cannot gain or use Edge on actions for (10 – Willpower) minutes, even if you manage to soak all the damage.",
       "glitch": "Glitch",
       "hits_bought": "Hits bought",
       "hits": "hits",
@@ -1981,6 +1991,7 @@
         "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
         "edge_has_been_reset": "All Edge has been reset by the GM.",
         "accessLevels_have_been_reset": "All Access Levels have been reset by G.O.D.",
+        "one_accessLevel_has_been_reset": "Access Levels of one character have been reset by G.O.D.",
         "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
         "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>Inform all players they need to adjust their Gear and Cyberware if necessary.<p>",
         "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
@@ -2174,8 +2185,9 @@
     },
     "resetEdge": "Reset Edge",
     "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?",
-    "resetAccessLevels": "Reset All Access Levels",
-    "resetAccessLevelsDescription": "Do you want to reset Access Levels for all Actors and Tokens in the game?"
+    "resetAccessLevels": "Reset Access Levels",
+    "resetAccessLevelsDescription": "Do you want to reset Access Levels for all Actors and Tokens in the game?",
+    "resetOneAccessLevelDescription": "Do you want to reset Access Levels for this one Actor?"
   },
   "SR6": {
     "Common": {

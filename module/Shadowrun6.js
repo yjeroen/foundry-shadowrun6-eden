@@ -664,7 +664,7 @@ Hooks.once("init", async function () {
                         netHits: Math.max(0, Number(dataset.threshold) - 1 - Number(dataset.hits) ),
                         matrixActionOption: matrixActionOption
                     };
-                    console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender.name} | Result: ${resultType}`);
+                    console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender?.name} | Result: ${resultType}`);
 
                     switch (resultType) {
                         case "onSuccess":

@@ -1,5 +1,6 @@
 import { Defense, MonitorType } from "../config.js";
 import { SYSTEM_NAME } from "../constants.js";
+import SR6Roll from "../SR6Roll.js";
 export var RollType;
 (function (RollType) {
     RollType["Common"] = "common";
@@ -29,6 +30,7 @@ export var SoakType;
     SoakType["DAMAGE_MATRIX"] = "damage_matrix";
     SoakType["DRAIN"] = "drain";
     SoakType["FADING"] = "fading";
+    SoakType["BIO_FEEDBACK"] = "bio_feedback";
 })(SoakType || (SoakType = {}));
 export var InitiativeType;
 (function (InitiativeType) {
@@ -653,6 +655,7 @@ export class ConfiguredRoll extends CommonRollData {
         if (copy.matrixSoakName) this.matrixSoakName = copy.matrixSoakName;
         if (copy.matrixActionOption) this.matrixActionOption = copy.matrixActionOption;
         if (copy.matrixActionDescription) this.matrixActionDescription = copy.matrixActionDescription;
+        if (copy.noMatrixResultButton) this.noMatrixResultButton = copy.noMatrixResultButton;
 
         if (copy.panName) this.panName = copy.panName;
         if (copy.panAdmin) this.panAdmin = copy.panAdmin;
@@ -686,6 +689,52 @@ export class ConfiguredRoll extends CommonRollData {
         }
     }
 }
+
+export class DirectDamage extends ConfiguredRoll {
+    constructor(actor, damageData) {
+        super();
+        const {soakType, monitor, damage} = damageData;
+
+        this.rollType = RollType.Defense;
+        this.defendedWith = Defense.DIRECT_DAMAGE;
+
+        this.soakType = soakType;
+        this.monitor = monitor;
+        this.damage = damage;
+
+        this.speaker = ChatMessage.getSpeaker({ actor: actor });
+        this.pool = 1;
+        this.buttonType = ReallyRoll.AUTOHITS;
+
+        switch (soakType) {
+            case SoakType.BIO_FEEDBACK:
+                this.actionText = game.i18n.localize("shadowrun6.roll.actionText.bio_feedback");
+                this.chatDescription = game.i18n.localize("shadowrun6.roll.bio_feedback.description");
+                break;
+            default:
+                console.error("SR6E | DirectDamage | Unknown how to handle soakType:", soakType)
+                break;
+        }
+        switch (monitor) {
+            case MonitorType.STUN:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
+                break;
+            case MonitorType.PHYSICAL:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
+                break;
+            default:
+                console.error("SR6E | DirectDamage | Unknown how to handle monitor:", monitor)
+                break;
+        }
+    }
+    
+    async toChat() {
+        const roll = new SR6Roll("1d6", this);
+        await roll.toMessage(this);
+    }
+
+}
+
 /**
  * Data to show in a ChatMessage
  */

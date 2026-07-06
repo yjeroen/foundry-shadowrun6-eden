@@ -1,4 +1,5 @@
 import { EdgeAction, EdgeBoost, MagicOrResonanceDefinition, Program, SkillDefinition } from "./DefinitionTypes.js";
+import { RollType, ReallyRoll, SoakType, DirectDamage } from "./dice/RollTypes.js";
 import { ComplexForm } from "./ItemTypes.js";
 import { SYSTEM_NAME } from "./constants.js";
 export var Defense;
@@ -14,6 +15,7 @@ export var Defense;
     Defense["FADING"] = "fading";
     Defense["ITEM_DEFINED"] = "item_defined";
     Defense["MATRIX"] = "matrix";
+    Defense["DIRECT_DAMAGE"] = "direct_damage";
 })(Defense || (Defense = {}));
 export var MonitorType;
 (function (MonitorType) {
@@ -108,7 +110,7 @@ export class SR6Config {
         "persona.used.s": "matrix.attributes.sleaze",
         "persona.used.d": "matrix.attributes.dataProcessing",
         "persona.used.f": "matrix.attributes.firewall",
-        
+
     };
     /**
      * Temporary mapping of v1 attribute abbreviations to v2 attribute names. This is used for converting old rolls and other references to attributes until all code is updated to use the new attribute names. The keys are the v1 abbreviations, and the values are the v2 attribute names.
@@ -2180,6 +2182,10 @@ export class SR6Config {
 
             // TODO THINK ABOUT SELF ONLY ACTIONS WITHOUT TARGET
 
+            //  async onMatrixActionRoll(matrixActionRoll) {
+
+            //  },
+
             // // Initial Matrix Test by Initiator
             // async onSuccess(resultData) {
             //     console.log("SR6 | backdoor_entry | onSuccess", resultData);
@@ -2191,6 +2197,10 @@ export class SR6Config {
             // async onFailure(resultData) {
             //     console.log("SR6 | backdoor_entry | onFailure", resultData);
             //     const { initiator, defender, hits, netHits } = resultData;
+
+            // },
+
+            // async onDefenseRoll(defenseRoll) {
 
             // },
 
@@ -2537,7 +2547,46 @@ export class SR6Config {
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { jackOut: true },
-            targets: ["yourself"]
+            targets: ["yourself"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.jack_out.link_locked";
+                matrixActionRoll.matrixTargetName = matrixActionRoll.actor.name;    // Initiators name
+             },
+
+            // Only rolled optionally if the Initiator was link-locked
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixActionDescription = "shadowrun6.matrixaction.jack_out.lock_link";
+                defenseRoll.matrixTargetName = defenseRoll.actor.name;    // Defenders name
+                defenseRoll.noMatrixResultButton = true;
+            },
+
+            // Initial Matrix Test by Initiator
+            async onSuccess(resultData) {
+                console.log("SR6 | jack_out | onSuccess", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                await game.sr6.utils.resetAccessLevels( initiator.uuid );
+                const matrixIni = initiator.system.matrixIni;
+                if (matrixIni !== "ar") {
+                    // Dumpshock
+                    const damageData = {
+                        soakType: SoakType.BIO_FEEDBACK,
+                        monitor: matrixIni === "vrcold" ? MonitorType.STUN : MonitorType.PHYSICAL,
+                        damage: 3
+                    }
+                    const directDamage = new DirectDamage(initiator, damageData);
+                    await directDamage.toChat();
+                }
+                return true;
+            },
+            
+            async onSuccesfulDefense(resultData) {
+                // Only here to trigger the <span> message
+            },
+            async onFailedDefense(resultData) {
+                // Only here to trigger the <span> message
+            },
+
         },
         jam_signals: {
             id: "jam_signals",

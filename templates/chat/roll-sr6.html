@@ -70,6 +70,34 @@
   {{/if}}
 
 {{#if publicRoll}}
+
+  {{#if (eq configured.defendedWith "direct_damage")}}
+
+  <div class="soak-result">
+      {{#switch monitor}}
+
+        {{#case "physical"}}
+        <header class="part-header flexrow chat-edge-post">
+          <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.roll.failedSoak'}}</span></div>
+          <div class="resulttext" style="flex:2; display: flex; flex-direction: column;">
+            <span class="failure" style="line-height: 2em; font-size: 1.2em;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+          </div>
+        </header>
+        {{/case}}
+        {{#case "stun"}}
+        <header class="part-header flexrow chat-edge-post">
+          <div style="display: flex; align-items: center;"><span>{{ localize 'shadowrun6.roll.failedSoak'}}</span></div>
+          <div class="resulttext" style="flex:2;">
+            <span style="color: dodgerblue; line-height: 2em; font-size: 1.2em; font-weight: bold;">{{damage}} {{localize (concat 'shadowrun6.monitor.' monitor)}}</span>
+          </div>
+        </header>
+        {{/case}}
+
+      {{/switch}}
+  </div>
+
+  {{else}}
+
   <div>
     <div class="dice-result">
       <header class="part-header flexrow{{#unless (eq rollType "initiative")}} chat-edge-post{{/unless}}" {{#unless (eq rollType "initiative")}}data-tooltip="shadowrun6.roll.click_chat"{{/unless}}>
@@ -113,8 +141,8 @@
       </header>
         {{{tooltip}}}
     </div>
-   </div>
-
+  </div>
+  {{/if}}
    
   {{#if configured.extended}}
    <div class="chat-extended-test">
@@ -415,6 +443,7 @@
 
                   {{#case "item_defined"}}{{localize "shadowrun6.roll.failedDefenseGeneral"}}{{/case}}
                   {{#case "matrix"}}{{localize "shadowrun6.matrix.roll.defended.failed"}}{{/case}}
+                  {{#case "direct_damage"}}{{localize "shadowrun6.roll.gettingHurt"}}{{/case}}
                   {{#default}}{{localize "shadowrun6.roll.failedDefense"}} {{nettoDamage}}{{/default}}
 
                 {{/switch}}
@@ -584,6 +613,7 @@
                   <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
                   <div># {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onSuccesfulDefense.span")}}</div>
                 </h4>
+                {{#unless configured.noMatrixResultButton}}
                 <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onSuccesfulDefense" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
@@ -592,6 +622,7 @@
                 >
                   {{localize "SR6.label.gm_do_something"}} {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onSuccesfulDefense.button")}}
                 </button>
+                {{/unless}}
               {{/if}}
             {{else}}
             {{!-- Failed to defend against the action of Initiator - Success of Opposed Test! --}}
@@ -601,6 +632,7 @@
                   <span class="matrix-target-name">//:{{configured.matrixTargetName}}</span><wbr>
                   <div># {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onFailedDefense.span")}}</div>
                 </h4>
+                {{#unless configured.noMatrixResultButton}}
                 <button class="rollable {{#if buttonApplied}}buttonApplied{{/if}} {{#unless isGM}}not-gm{{/unless}}" data-roll-type="matrix_result" data-result-type="onFailedDefense" 
                         data-matrix-action-id="{{configured.matrixActionId}}" data-hits="{{total}}" data-threshold="{{configured.threshold}}"
                         data-actor-uuid="{{configured.matrixInitiatorUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}"
@@ -610,6 +642,7 @@
                   {{#if buttonApplied}}<i class="fas fa-circle-check"></i>{{else}}{{sr6Icon "darkTerminal"}}{{/if}}
                   <span>{{localize "SR6.label.gm_do_something"}} {{localize (concat "shadowrun6.matrixaction." configured.matrixActionId ".onFailedDefense.button")}}</span>
                 </button>
+                {{/unless}}
               {{/if}}
             {{/if}}
         {{/case}}

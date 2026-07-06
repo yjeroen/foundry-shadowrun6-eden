@@ -2214,7 +2214,7 @@ export default class Shadowrun6Actor extends Actor {
                 const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
                 rollData.matrixInitiatorUuid = options.matrixInitiatorUuid;
                 rollData.matrixTargetUuid = options.matrixTargetUuid;
-                rollData.matrixTargetName = target.name;
+                rollData.matrixTargetName = target?.name;
 
                 if (options.matrixActionOption) rollData.matrixActionOption = options.matrixActionOption;
 
@@ -2307,17 +2307,28 @@ export default class Shadowrun6Actor extends Actor {
                         game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
                 }
                 break;
-            case SoakType.DAMAGE_MATRIX:
-                    const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
-                    console.log("SR6E | rollSoak Matrix Damage | target:", target.name);
-                    defensePool = { pool: this.getMatrixPool("f") };
-                    rollData.monitor = MonitorType.MATRIX;
-                    rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                    rollData.checkText = game.i18n.localize("SR6.Actor.base.FIELDS.matrix.attributes.firewall.label") + " (" + damage + ")";
+            case SoakType.BIO_FEEDBACK:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle soak rolls via chatbutton for ${soak} are not possible.`);
+                defensePool =  { pool: this.getSystemProperty("attributes.wil.pool") };
+                rollData.monitor = options.monitor; 
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { 
+                        damage: damage, 
+                        monitor: game.i18n.localize("shadowrun6.monitor." + options.monitor )
+                });
+                rollData.checkText = game.i18n.localize("attrib.wil") + " (" + damage + ")";
 
-                    rollData.matrixTargetName = target.name;
-                    rollData.matrixTargetType = (target instanceof game.sr6.documents.Shadowrun6Actor) ? "actor" : "token";
-                    rollData.matrixTargetUuid = options.matrixTargetUuid;
+                break;
+            case SoakType.DAMAGE_MATRIX:
+                const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
+                console.log("SR6E | rollSoak Matrix Damage | target:", target.name);
+                defensePool = { pool: this.getMatrixPool("f") };
+                rollData.monitor = MonitorType.MATRIX;
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                rollData.checkText = game.i18n.localize("SR6.Actor.base.FIELDS.matrix.attributes.firewall.label") + " (" + damage + ")";
+
+                rollData.matrixTargetName = target.name;
+                rollData.matrixTargetType = (target instanceof game.sr6.documents.Shadowrun6Actor) ? "actor" : "token";
+                rollData.matrixTargetUuid = options.matrixTargetUuid;
 
                 break;
             default:
