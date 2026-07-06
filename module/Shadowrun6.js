@@ -49,6 +49,9 @@ Hooks.once("init", async function () {
         CONFIG.debug.tokens = true;
     }
 
+    registerSystemSettings();
+    defineHandlebarHelper();
+    
     game.sr6 = {};
     game.sr6.config = CONFIG.SR6 = new SR6Config();
     game.sr6.datamodels = datamodels;
@@ -60,8 +63,6 @@ Hooks.once("init", async function () {
     game.sr6.roll = SR6Roll;
     game.sr6.sockets = new SR6SocketHandler();
     game.sr6.releaseNotes = releaseNotes;
-    registerSystemSettings();
-    defineHandlebarHelper();
     
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;

@@ -76,6 +76,19 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "hackSlashMatrix", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "dosPopupMatrix", {
+        name: "shadowrun6.settings.dosPopupMatrix.name",
+        hint: "shadowrun6.settings.dosPopupMatrix.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting dosPopupMatrix changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "dosPopupMatrix", toggle);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "bleeding", {
         name: "shadowrun6.settings.bleeding.name",
         hint: "shadowrun6.settings.bleeding.hint",

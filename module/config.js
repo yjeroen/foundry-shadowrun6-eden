@@ -1,5 +1,6 @@
 import { EdgeAction, EdgeBoost, MagicOrResonanceDefinition, Program, SkillDefinition } from "./DefinitionTypes.js";
 import { ComplexForm } from "./ItemTypes.js";
+import { SYSTEM_NAME } from "./constants.js";
 export var Defense;
 (function (Defense) {
     Defense["PHYSICAL"] = "physical";
@@ -2796,8 +2797,8 @@ export class SR6Config {
             illegal: true,
             major: true,
             outsider: true,
-            user: false,
-            admin: false,
+            user: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            admin: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
             attr1: "wil",
             attr2: "f",
             linkedAttr: null,
@@ -2930,8 +2931,8 @@ export class SR6Config {
             illegal: true,
             major: true,
             outsider: true,
-            user: false,
-            admin: false,
+            user: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            admin: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
             attr1: "int",
             attr2: "d",
             linkedAttr: null,
