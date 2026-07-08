@@ -1042,6 +1042,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             await matrixAction.onMatrixActionRoll(roll);
         }
 
+        if (!matrixAction.skill) {
+            return await roll.toChat();
+        }
+        
         console.log("SR6E | _onMatrixAction before ", roll);
         initiator.performMatrixAction(roll);
     }
@@ -1062,6 +1066,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         // modify MatrixActionRoll if necessary
         if (matrixAction.onMatrixActionRoll) {
             await matrixAction.onMatrixActionRoll(roll);
+        }
+
+        if (!matrixAction.skill) {
+            return await roll.toChat();
         }
 
         console.log("SR6E | _onMatrixAction before ", roll);

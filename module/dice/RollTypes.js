@@ -248,7 +248,7 @@ export class SkillRoll extends PreparedRoll {
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
         this.skillValue = actorSystem.skills[skillId];
-        this.attrib = this.skillDef.attrib;
+        this.attrib = this.skillDef?.attrib;
         this.performer = actorSystem;
     }
     copyFrom(copy) {
@@ -501,7 +501,7 @@ export class MatrixActionRoll extends SkillRoll {
         console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
         const {target, fromReferenceSection, limitedViewOverride} = options;
         
-        this.actor = actor; // TODO rework without actor - Needs to be set for RollDialog to process edge 
+        this.actor = actor;
         this.matrixInitiatorUuid = actor.uuid;
 
         if (target) {
@@ -569,7 +569,50 @@ export class MatrixActionRoll extends SkillRoll {
             this.matrixCmPenalty = matrixCmModifier;
             this.pool = Math.max(0, this.pool - matrixCmModifier);
         }
+        
+        this.speaker = ChatMessage.getSpeaker({ actor: actor });
     }
+
+    async toChat() {
+        console.log("SR6E | Sending MatrixActionRoll to chat", this)
+        const panName = this.panAdmin 
+            ? `<span>//${this.panName}</span>` 
+            : ``;
+        const targetName = this.matrixTargetName 
+            ? `<span>//:${this.matrixTargetName}</span>`
+            : `<span>//:???</span>`;
+        const chatDescription = this.chatDescription
+            ? `<div class="chat-roll-description">
+                <span>${this.chatDescription}</span>
+            </div>
+            <hr/>`
+            : ``;
+        const matrixActionDescription = this.matrixActionDescription 
+            ? `<div class="matrix-action-option chat-roll-description">
+                <span>${game.i18n.localize(this.matrixActionDescription)}</span>
+            </div>
+            <hr>` 
+            : ``;
+
+        const msg = `
+        <h3>${this.actionText}</h3>
+        <h4 class="matrix-command-line">
+            <span>${game.i18n.localize("shadowrun6.matrix.accessLevel."+this.accessLevel)}@${this.speaker.alias}</span>
+            ${panName}
+            ${targetName}
+            <span># ${this.actionText}..</span>
+            <div># ${game.i18n.localize("shadowrun6.matrix.chat.initiating")}..</div>
+        </h4>
+        ${chatDescription}
+        ${matrixActionDescription}
+        `;
+
+        await ChatMessage.create({
+            speaker: this.speaker,
+            content: msg
+        });
+    }
+
 }
 export class VehicleRoll extends PreparedRoll {
     rollType = RollType.Vehicle;
@@ -798,6 +841,7 @@ export class SR6ChatMessageData {
     constructor(copy) {
         console.log("SR6E | ####SR6ChatMessageData####1###", copy);
         this.speaker = copy.speaker;
+        // TODO rework without actor
         this.actor = copy.actor;
         this.actionText = copy.actionText;
         this.rollType = copy.rollType;

@@ -58,9 +58,13 @@
                             <i class="fas fa-dice-six"></i>
                         </a>
                     {{else}}
-                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded">
+                        <a class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}"
+                            data-action="matrixRoll"
+                            data-matrix-id="{{action.id}}"
+                            data-tooltip="SR6.title.noRollNeeded"
+                        >
                             <i class="fas fa-square"></i>
-                        </span>
+                        </a>
                     {{/if}}
                     </div>
                 </div>
@@ -102,9 +106,13 @@
                             <i class="fas fa-dice-six"></i>
                         </a>
                     {{else}}
-                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded">
+                        <a class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}"
+                            data-action="matrixRoll"
+                            data-matrix-id="{{action.id}}"
+                            data-tooltip="SR6.title.noRollNeeded"
+                        >
                             <i class="fas fa-square"></i>
-                        </span>
+                        </a>
                     {{/if}}
                     </div>
                 </div>

@@ -1936,7 +1936,6 @@
 
 .item-control .fa-square {
     font-size: 20px;
-    cursor: default;
 }
 
 
@@ -2652,6 +2651,23 @@ body.game .app a:hover .sr6-icon {
 .matrix-operations-header h2 span,
 .matrix-command-line span {
     white-space: nowrap;
+}
+
+.matrix-command-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+}
+
+.matrix-command-line > span {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.matrix-command-line > div {
+  flex: 0 0 100%;
+  display: block;
 }
 
 

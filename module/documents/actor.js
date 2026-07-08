@@ -1804,7 +1804,7 @@ export default class Shadowrun6Actor extends Actor {
         }
         rollName += " + ";
         // Attribute
-        let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId).attrib;
+        let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
         let attrName = game.i18n.localize("attrib." + useAttrib);
         rollName += attrName;
         if (roll.threshold && roll.threshold > 0) {
@@ -1836,7 +1836,7 @@ export default class Shadowrun6Actor extends Actor {
         }
         const system = getSystemData(this);
         if (!skillId)
-            throw "Skill ID may not be undefined";
+            return undefined;
         const skl = system.skills[skillId];
         // console.log("SR6E | _getSkillPool", skl);
         if (!skillId) {
@@ -2369,14 +2369,8 @@ export default class Shadowrun6Actor extends Actor {
     /**
      */
     performMatrixAction(roll) {
-        console.log("SR6E | ToDo performMatrixAction:", roll);
+        console.log("SR6E | performMatrixAction:", roll);
         
-        // Prepare check text
-        if (!roll.action?.skill) {
-            //TODO matrix actions without a test
-            console.log("SR6E | ToDo: matrix actions without a test");
-            return;
-        }
 
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);

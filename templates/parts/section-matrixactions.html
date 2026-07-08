@@ -62,7 +62,7 @@
 			{{else}}
          	<div class="skill-pool" style="flex-grow:0.9; text-align:right">
          		<label class="item-pool"></label>
-         		<label class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded"><i class="fas fa-square"></i></label>
+         		<a class="item-control matrix-roll{{matrixAccessLevel @root.matrixAccess action}}" data-matrix-id="{{actionId}}" data-tooltip="SR6.title.noRollNeeded"><i class="fas fa-square"></i></a>
          	</div>
          	{{/if}}
 

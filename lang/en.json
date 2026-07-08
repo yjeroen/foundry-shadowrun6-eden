@@ -2519,7 +2519,7 @@
       "showDescription": "Show description",
       "sendToChat": "Send description to Chat",
       "useItem": "Use {name}",
-      "noRollNeeded": "No roll needed",
+      "noRollNeeded": "No roll needed. Click to send description to Chat.",
       "rollSomething": "Roll {typeOfRoll}",
       "matrixCmPenalty": "Your Electronic Matrix Device is damaged via the Matrix.",
       "createsPersona": "Your Persona is created by the main device you use to access the Matrix.",

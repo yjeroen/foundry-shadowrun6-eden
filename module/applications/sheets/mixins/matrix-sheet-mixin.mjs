@@ -171,6 +171,10 @@ export const MatrixSheetMixin = Base => class extends Base {
         if (matrixAction.onMatrixActionRoll) {
             await matrixAction.onMatrixActionRoll(roll);
         }
+
+        if (!matrixAction.skill) {
+            return await roll.toChat();
+        }
         
         console.log("SR6E | _onMatrixRoll before ", initiator.name, roll);
         initiator.performMatrixAction(roll);
