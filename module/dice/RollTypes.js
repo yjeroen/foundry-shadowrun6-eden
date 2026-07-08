@@ -522,6 +522,18 @@ export class MatrixActionRoll extends SkillRoll {
             this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection, limitedViewOverride: limitedViewOverride });
         }
 
+        if (action.linkedAttr) {
+            const attack = actor.getMatrixPool("a");
+            const sleaze = actor.getMatrixPool("s");
+            if (action.linkedAttr === "a" && sleaze > attack) {
+                this.modifier = attack - sleaze;
+                this.rollWarningMessage = "shadowrun6.matrix.linkedAttr.modifier.a";
+            }
+            if (action.linkedAttr === "s" && attack > sleaze) {
+                this.modifier = sleaze - attack;
+                this.rollWarningMessage = "shadowrun6.matrix.linkedAttr.modifier.s";
+            }
+        }
 
         if (action.attr1) { // Opposed Test
             this.defendWith = Defense.MATRIX;
@@ -643,6 +655,9 @@ export class ConfiguredRoll extends CommonRollData {
         this.formId = copy.formId;
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
+
+        if (copy.modifier) this.modifier = copy.modifier;
+        if (copy.rollWarningMessage) this.rollWarningMessage = copy.rollWarningMessage;
 
         if (copy.actorUuid) this.actorUuid = copy.actorUuid;
         if (copy.accessLevel) this.accessLevel = copy.accessLevel;

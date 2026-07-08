@@ -814,6 +814,8 @@
       "chat.defend": "defend",
       "roll.defended.success": "You succesfully defended against the Matrix event.",
       "roll.defended.failed": "You failed to defend against the Matrix event.",
+      "linkedAttr.modifier.a": "This Matrix Action is linked to Attack and it is lower than your Sleaze. You have a penalty on your dicepool.",
+      "linkedAttr.modifier.s": "This Matrix Action is linked to Sleaze and it is lower than your Attack. You have a penalty on your dicepool.",
       "matrix_damage.short": "M",
       "failedSoak": "Icon gets damage"
     },

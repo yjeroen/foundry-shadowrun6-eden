@@ -36,6 +36,12 @@
     <h2 class="highlight" id="rolldia-checkText">{{data.checkText}}</h2>
     {{/if}}
 
+    {{#if data.rollWarningMessage}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize data.rollWarningMessage}}</span>
+    </div>
+    {{/if}}
     {{#if data.noEdgeGain}}
     <div class="roll-dialog-message">
       <i class="fa-solid fa-triangle-exclamation"></i>
@@ -54,7 +60,7 @@
       <span>{{localize "shadowrun6.roll.edge.tempEdge"}}</span>
     </div>
     {{/if}}
-    {{#if (or (or data.noEdgeGain data.noEdgeSpend) data.tempEdge)}}
+    {{#if (or (or (or data.noEdgeGain data.noEdgeSpend) data.tempEdge) data.rollWarningMessage)}}
     <hr>
     {{/if}}
 
