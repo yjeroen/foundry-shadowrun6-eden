@@ -2319,7 +2319,7 @@ export default class Shadowrun6Actor extends Actor {
 
                 break;
             case SoakType.DAMAGE_MATRIX:
-                const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
+                const target = foundry.utils.fromUuidSync(options.matrixTargetUuid) ?? this;
                 console.log("SR6E | rollSoak Matrix Damage | target:", target.name);
                 defensePool = { pool: this.getMatrixPool("f") };
                 rollData.monitor = MonitorType.MATRIX;
@@ -2535,11 +2535,7 @@ export default class Shadowrun6Actor extends Actor {
     async applyMatrixDamage(damageData) {
         const { damage, matrixTargetUuid } = damageData;
         console.log("SR6E | applyMatrixDamage", matrixTargetUuid, damage);
-        const target = foundry.utils.fromUuidSync(matrixTargetUuid);
-        if (!target) {
-            console.error("SR6E | applyMatrixDamage | No target found for UUID: " + matrixTargetUuid);
-            return false;
-        }
+        const target = foundry.utils.fromUuidSync(matrixTargetUuid) ?? this;
 
         if (target.documentName === "Item") {
             console.log(`SR6E | applyMatrixDamage || ${target.name} is an Item, applying damage to Matrix monitor`);

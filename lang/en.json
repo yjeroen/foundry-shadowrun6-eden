@@ -817,7 +817,8 @@
       "linkedAttr.modifier.a": "This Matrix Action is linked to Attack and it is lower than your Sleaze. You have a penalty on your dicepool.",
       "linkedAttr.modifier.s": "This Matrix Action is linked to Sleaze and it is lower than your Attack. You have a penalty on your dicepool.",
       "matrix_damage.short": "M",
-      "failedSoak": "Icon gets damage"
+      "failedSoak": "Icon gets damage",
+      "no_target": "This Matrix Action has an automated test flow if you target a specific Matrix Icon instead of rolling it from your Reference Section."
     },
     "matrixaction": {
         "backdoor_entry": {

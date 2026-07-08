@@ -2182,9 +2182,15 @@ export class SR6Config {
 
             // TODO THINK ABOUT SELF ONLY ACTIONS WITHOUT TARGET
 
-            //  async onMatrixActionRoll(matrixActionRoll) {
+             async onMatrixActionRoll(matrixActionRoll) {
+                const initiator = foundry.utils.fromUuidSync(matrixActionRoll.matrixInitiatorUuid);
+                const defender = foundry.utils.fromUuidSync(matrixActionRoll.matrixTargetUuid);
+                if (!initiator || !defender) {
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrix.no_target";
+                    return;
+                }
 
-            //  },
+             },
 
             // // Initial Matrix Test by Initiator
             // async onSuccess(resultData) {
@@ -2241,6 +2247,10 @@ export class SR6Config {
             async onMatrixActionRoll(matrixActionRoll) {
                 const initiator = foundry.utils.fromUuidSync(matrixActionRoll.matrixInitiatorUuid);
                 const defender = foundry.utils.fromUuidSync(matrixActionRoll.matrixTargetUuid);
+                if (!initiator || !defender) {
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrix.no_target";
+                    return;
+                }
                 const accessLevel = defender.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: true });
                 if (accessLevel !== "outsider") return;
 
