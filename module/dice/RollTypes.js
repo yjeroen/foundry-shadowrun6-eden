@@ -392,11 +392,15 @@ export class SpritePowerRoll extends SkillRoll {
 
         this.item = item;
         this.itemUuid = item.uuid;
+        this.chatDescription = item.system.description;
         this.skillSpec = item.system.skillSpec;
         this.attrib = "res";
         this.defendWith = Defense.ITEM_DEFINED;
         // TODO Add Sprite Power Damage for e.g. Electron Storm - needs also Item system support
-        // if (???) this.monitor = MonitorType.MATRIX;
+        if (item.system.dmg) {
+            this.damage = Number(item.system.dmg) || 0;
+            this.monitor = MonitorType.MATRIX;
+        }
     }
 
 }
@@ -703,6 +707,7 @@ export class ConfiguredRoll extends CommonRollData {
         if (copy.rollWarningMessage) this.rollWarningMessage = copy.rollWarningMessage;
 
         if (copy.actorUuid) this.actorUuid = copy.actorUuid;
+        if (copy.actorName) this.actorName = copy.actorName;
         if (copy.accessLevel) this.accessLevel = copy.accessLevel;
         if (copy.matrixActionId) this.matrixActionId = copy.matrixActionId;
         if (copy.matrixInitiatorUuid) this.matrixInitiatorUuid = copy.matrixInitiatorUuid;

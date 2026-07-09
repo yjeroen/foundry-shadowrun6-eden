@@ -2199,6 +2199,8 @@ export default class Shadowrun6Actor extends Actor {
                 console.log(`SR6E | Defense with two item defined attributes: "${oppAttr1}", "${oppAttr2}"`);
                 
                 if (item.type === "spritepower" || item.type === "complexform") {
+                    rollData.matrixSoakUuid = this.uuid;
+                    rollData.matrixSoakName = this.name;
                     rollData.defendedWith = Defense.MATRIX;
                     defensePool = { pool: this.getMatrixPool(oppAttr1, oppAttr2) };
                     rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
@@ -2419,8 +2421,10 @@ export default class Shadowrun6Actor extends Actor {
                 roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_none`, { name: roll.itemName });
                 break;
             case 1:
-                let targetName = game.user.targets.values().next().value.name;
-                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_one`, { name: roll.itemName, target: targetName });
+                const target = game.user.targets.first().actor;
+                roll.actorUuid = target.uuid;
+                roll.actorName = target.name;
+                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_one`, { name: roll.itemName, target: roll.actorName });
                 break;
             default:
                 roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_multiple`, { name: roll.itemName });

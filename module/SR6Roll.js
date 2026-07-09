@@ -533,7 +533,10 @@ export default class SR6Roll extends Roll {
                         if (this.configured.spell.withEssence) {
                             this.finished.netHits = this.finished.total - this.configured.threshold;
                         }
-                    } else if (this.finished.rollType === RollType.MatrixAction) {
+                    } else if (
+                        this.finished.rollType === RollType.MatrixAction
+                        || this.finished.rollType === RollType.Item
+                    ) {
                         if (this.configured.threshold && this.finished.total) {
                             // Show Net Hits in the chat message
                             this.finished.netHits = this.finished.total - this.configured.threshold;

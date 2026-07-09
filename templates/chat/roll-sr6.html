@@ -37,7 +37,7 @@
 
   {{#if configured.chatDescription}}
   <div class="chat-roll-description">
-    {{ configured.chatDescription }}
+    {{{ configured.chatDescription }}}
   </div>
   <hr/>
   {{/if}}
@@ -375,17 +375,18 @@
             </div>
 
             {{else}}
-            <!-- When no targets have been selected -->
+            <!--  Default -->
             <div>
                 <button class="rollable" data-roll-type="defense" 
                   data-defend-with="{{defendWith}}"
                   {{#if configured.calcDamage}} data-damage="{{configured.calcDamage}}" {{/if}}
                   {{#if monitor}} data-monitor="{{monitor}}" {{/if}}
-                  {{#if targetId}} data-targetid="{{targetId}}" {{/if}}
                   {{#if threshold}} data-threshold="{{threshold}}" {{/if}}
+                  {{#if targetId}} data-targetid="{{targetId}}" {{/if}} {{!-- Unclear where this is used for --}}
                   {{#if configured.itemUuid}} data-item-uuid="{{configured.itemUuid}}" {{/if}}
+                  {{#if configured.actorUuid}} data-actor-uuid="{{configured.actorUuid}}" {{/if}}
                 >
-                  {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}})
+                  {{localize 'shadowrun6.roll.button.defense'}} ({{threshold}}){{#if configured.actorName}}: {{configured.actorName}}{{/if}}
                 </button>
             </div>
             {{/if}}
@@ -454,7 +455,7 @@
 
                 {{#case "matrix"}}
                   <button class="rollable" data-roll-type="soak" data-soak="{{soakType}}" data-damage="{{damage}}" data-monitor="{{monitor}}" data-actor-uuid="{{configured.matrixSoakUuid}}" data-matrix-target-uuid="{{configured.matrixTargetUuid}}">
-                    {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}): {{configured.matrixSoakName}}
+                    {{localize 'shadowrun6.roll.button.soak'}} ({{damage}}{{configured.damageLabel}}){{#if configured.matrixSoakName}}: {{configured.matrixSoakName}}{{/if}}
                   </button>
                 {{/case}}
                 {{#default}}
