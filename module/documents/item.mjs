@@ -131,6 +131,26 @@ export default class SR6Item extends Item {
     console.log("SR6E | SR6Item._checkPersonaChanges()");
     if (!this.isOwner || this.type!=="gear") return false;
 
+    // If this gear was turned OFF as usedForPool,
+    // or its Matrix CM reached 0,
+    // turn OFF all currently usedForPool gear items.
+    const shouldTurnOffPools =
+        changed.system?.usedForPool === false ||
+        changed.system?.matrix?.matrixCM?.value === 0;
+
+    if (shouldTurnOffPools) {
+        const updates = this.actor.items
+            .filter(item => item.system.usedForPool === true)
+            .map(item => ({
+                _id: item.id,
+                "system.usedForPool": false
+            }));
+
+        if (updates.length) {
+            await this.actor.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
     const GEAR = CONFIG.SR6.GEAR;
     if ( this.parent && GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
       await this.parent.updatePersona();
