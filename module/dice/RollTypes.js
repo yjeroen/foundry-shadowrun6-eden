@@ -289,6 +289,7 @@ export class SpellRoll extends SkillRoll {
         super(actor, "sorcery");
         this.item = item;
         this.itemId = itemId;
+        this.chatDescription = item.system.description;
         this.spell = spellItem;
         this.skillSpec = "spellcasting";
         this.canAmpUpSpell = spellItem.category === "combat";
@@ -344,6 +345,7 @@ export class RitualRoll extends SkillRoll {
         super(actor, "sorcery");
         this.item = item;
         this.itemId = itemId;
+        this.chatDescription = item.system.description;
         this.spell = ritualData;    // we keep calling it 'spell' due to legacy code
         this.skillSpec = "ritual_spellcasting";
         
@@ -370,6 +372,7 @@ export class ComplexFormRoll extends SkillRoll {
         this.item = item;
         this.itemId = itemId;
         this.itemUuid = item.uuid;
+        this.chatDescription = item.system.description;
         this.form = complexFormSystem;
         if(item.system.skill === 'electronics') {
             this.skillSpec = "complex_forms";
@@ -438,6 +441,7 @@ export class WeaponRoll extends SkillRoll {
         super(actor, getSystemData(item).skill);
         this.item = item;
         this.itemId = itemId;
+        this.chatDescription = item.system.description;
         this.gear = gear;
         this.skillSpec = this.gear.skillSpec;
         if (isWeapon(gear)) {
