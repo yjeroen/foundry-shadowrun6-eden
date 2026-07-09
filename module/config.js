@@ -2745,8 +2745,8 @@ export class SR6Config {
         // Added by the Official FAQ
         relinquish_access: {
             id: "relinquish_access",
-            skill: null,
-            specialization: null,
+            skill: "electronics",
+            specialization: "software",
             attrib: null,
             illegal: false,
             major: false,
@@ -2757,7 +2757,29 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["host", "device", "yourself"]
+            targets: ["host", "device", "living_network"],
+
+            async relinquishAccess(resultData) {
+                console.log("SR6 | relinquish_access", resultData);
+                const { initiator, defender } = resultData;
+                const initiatorSafeUuid = initiator.uuid.replaceAll(".", "_");
+                await defender.setFlag(
+                    "shadowrun6-eden",
+                    `matrix-access.${initiatorSafeUuid}`,
+                    "outsider"
+                );
+                return true;
+            },
+
+            // Initial Matrix Test by Initiator
+            async onSuccess(resultData) {
+                return this.relinquishAccess(resultData);
+            },
+            // Initial Matrix Test by Initiator > same result even if failed
+            async onFailure(resultData) {
+                return this.relinquishAccess(resultData);
+            },
+
         },
         send_message: {
             id: "send_message",

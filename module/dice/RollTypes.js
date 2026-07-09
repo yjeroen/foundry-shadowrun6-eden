@@ -595,16 +595,16 @@ export class MatrixActionRoll extends SkillRoll {
             : ``;
 
         const msg = `
-        <h3>${this.actionText}</h3>
-        <h4 class="matrix-command-line">
-            <span>${game.i18n.localize("shadowrun6.matrix.accessLevel."+this.accessLevel)}@${this.speaker.alias}</span>
-            ${panName}
-            ${targetName}
-            <span># ${this.actionText}..</span>
-            <div># ${game.i18n.localize("shadowrun6.matrix.chat.initiating")}..</div>
-        </h4>
-        ${chatDescription}
-        ${matrixActionDescription}
+            <h3>${this.actionText}</h3>
+            <h4 class="matrix-command-line">
+                <span>${game.i18n.localize("shadowrun6.matrix.accessLevel."+this.accessLevel)}@${this.speaker.alias}</span>
+                ${panName}
+                ${targetName}
+                <span># ${this.actionText}..</span>
+                <div># ${game.i18n.localize("shadowrun6.matrix.chat.initiating")}..</div>
+            </h4>
+            ${chatDescription}
+            ${matrixActionDescription}
         `;
 
         await ChatMessage.create({

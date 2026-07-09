@@ -989,7 +989,11 @@
         },
         "relinquish_access": {
           "name": "Relinquish Access",
-          "hint": "You relinquish your access to a specific host, PAN or device. If you had illegal access, you no longer generate OS for that target."
+          "hint": "You relinquish your access to a specific host, PAN or device. If you had illegal access, you no longer generate OS for that target.",
+          "onSuccess.span": "sudoK..",
+          "onSuccess.button": "Decrease access to this icon to OUTSIDER",
+          "onFailure.span": "sudoK..",
+          "onFailure.button": "Decrease access to this icon to OUTSIDER"
         },
         "send_message": {
           "name": "Send Message",
