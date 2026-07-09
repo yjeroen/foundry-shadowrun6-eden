@@ -652,7 +652,8 @@
 			"skill": "",
 			"skillSpec": "",
 			"oppAttr1": "",
-			"oppAttr2": ""
+			"oppAttr2": "",
+			"dmg": 0
 		},
 		"contact": {
 			"name": "Someone",
