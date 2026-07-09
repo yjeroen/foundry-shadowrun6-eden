@@ -1660,7 +1660,7 @@ export default class Shadowrun6Actor extends Actor {
                 system.persona.living.base = new MatrixDevice();
             if (!system.persona.living.mod)
                 system.persona.living.mod = new MatrixDevice();
-            system.persona.onlineOnMatrix = true;
+            system.persona.onlineOnMatrix = Boolean(this.system.stun.value);
             system.persona.accessDevice = false;
             system.persona.living.base.a = parseInt(system.attributes["cha"].pool);
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);
