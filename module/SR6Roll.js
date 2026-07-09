@@ -517,6 +517,15 @@ export default class SR6Roll extends Roll {
                         if (this.finished.allowSoak === false) {
                             this.finished.rollType = RollType.Soak;
                         }
+
+                        if (
+                            this.configured.threshold && this.finished.total 
+                            && this.configured.defendedWith === Defense.MATRIX
+                        ) {
+                            // Show Net Hits in the chat message
+                            this.finished.netHits = Math.max(0, this.configured.threshold - 1 - this.finished.total);
+                        }
+
                     } else if (this.finished.rollType === RollType.Spell) {
                         console.log("SR6E | rollType", RollType.Spell);
                         if (this.configured.spell.category === "combat") {

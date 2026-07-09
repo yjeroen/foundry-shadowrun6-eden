@@ -125,7 +125,7 @@
                     </div>
                   {{else}}
                     <div class="resulttext" style="flex:2">
-                      {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
+                      {{ localize 'shadowrun6.roll.failure'}}: </b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}{{#if netHits}}, <b>{{netHits}}</b> {{localize 'shadowrun6.roll.netHits'}}{{/if}}
                     </div>
                   {{/if}}
                 {{/if}}
