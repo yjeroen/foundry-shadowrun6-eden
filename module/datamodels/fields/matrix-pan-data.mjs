@@ -13,7 +13,8 @@ export default class SR6MatrixPAN extends SR6DataModel {
     }
 
     get administrator() {
-        return foundry.utils.fromUuidSync(this.administratorUuid);
+        const panAdmin = foundry.utils.fromUuidSync(this.administratorUuid);
+        return panAdmin?.system.persona.onlineOnMatrix ? panAdmin : this.actor;
     }
 
     get name() {
@@ -25,7 +26,7 @@ export default class SR6MatrixPAN extends SR6DataModel {
     }
 
     get isSlaved() {
-        return this.administratorUuid !== this.actor.uuid;
+        return this.administrator.uuid !== this.actor.uuid;
     }
 
     /**

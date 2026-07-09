@@ -264,6 +264,8 @@ export default class SR6Item extends Item {
             ||
             ( this.system.matrix.hasDataCableInterface )
            )
+           &&
+           this.system.matrix.matrixCM.value > 0
   }
 
   _addDefaultFireModePenalties() {

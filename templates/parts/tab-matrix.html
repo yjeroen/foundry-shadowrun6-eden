@@ -10,6 +10,8 @@
 	{{/if}}
 </section>
 
+{{#if system.persona.onlineOnMatrix}}
+
 <div class="sr6">
 	{{> "systems/shadowrun6-eden/templates/parts/section-matrix-pan.hbs"}}
 </div>
@@ -18,4 +20,6 @@
 <section>
 	{{> "systems/shadowrun6-eden/templates/parts/section-matrixactions.html"}}
 </section>
+{{/if}}
+
 {{/if}}
