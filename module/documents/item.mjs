@@ -669,19 +669,27 @@ export default class SR6Item extends Item {
         return "user"
       }
     }
-
-    const panAdminsAccessDevice = myPanAdmin?.system.persona?.accessDevice;
-    if (panAdminsAccessDevice) {
-      console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a PAN | retrieving flag to Pan Admin's Primary Access Device");
-      return panAdminsAccessDevice.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
-    }
-    if (myPanAdmin?.isTechno) {
-      console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a Living Network | retrieving flag to the Admin Technomancer");
-      return myPanAdmin.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
-    }
     
-    console.log("SR6E | Item.yourMatrixAccessLevel | Defaulting | retrieving flag");
-    return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    const aclRank = {
+        outsider: 0,
+        user: 1,
+        admin: 2
+    };
+
+    const itemAcl = this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    let panAdminAcl = "outsider";
+    const panAdminsAccessDevice = myPanAdmin?.system.persona?.accessDevice;
+
+    if (panAdminsAccessDevice) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a PAN | retrieving flag from Pan Admin's Primary Access Device");
+        panAdminAcl = panAdminsAccessDevice.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    } else if (myPanAdmin?.isTechno) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a Living Network | retrieving flag from the Admin Technomancer");
+        panAdminAcl = myPanAdmin.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    }
+
+    console.log(`SR6E | Item.yourMatrixAccessLevel | Returning best of Access Level to the Item (${itemAcl}) or towards the PAN Admin (${panAdminAcl})`);
+    return aclRank[itemAcl] >= aclRank[panAdminAcl] ? itemAcl : panAdminAcl;
   }
 
 }
