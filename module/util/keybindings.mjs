@@ -37,32 +37,19 @@ export default class SR6Keybindings {
         //     onDown: SR6Keybindings._onSelectTokenControlGroup
         // });
 
-        document.addEventListener('paste', (e) => {
-            // const selection = window.getSelection();
-            // const range = selection.getRangeAt(0);
-            // const container = range.startContainer;
-            // const parent = container.parentElement;
+    }
 
-            // console.log('TEST PASTING e.target:', e.target)
-            // console.log('TEST PASTING e.target.closest(div):', e.target.closest('div'))
-            // console.log('TEST PASTING e.target.parentElement:', e.target?.parentElement)
-            // console.log('TEST PASTING e.target.parentElement.parentElement:', e.target?.parentElement?.parentElement)
-            // console.log('TEST PASTING container:', container)
-            // console.log('TEST PASTING parent:', parent)
+    static importStatblocksOnPaste(html) {
+        html.addEventListener("paste", event => {
+            const pastedText = event.clipboardData.getData("text");
 
-            if ( e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA"
-                && !e.target.closest('div')?.classList?.contains('ProseMirror')
-                && !e.target.parentElement?.classList?.contains('ProseMirror')
-                && !e.target.parentElement?.classList?.contains('cm-content')
-                // && !parent.classList?.contains('cm-activeLine')
-                && !e.target.offsetParent?.classList?.contains('ProseMirror')
-                && !e.target.className?.includes('ProseMirror')    ) {
+            // Don't trigger importer if just pasting something into the actor name field thats 1 or 2 lines
+            if ((pastedText.match(/\r?\n/g) ?? []).length < 2) return;
 
-                console.log("SR6E | Pasting text | Triggering NPC Importer by event:", e);
-                Importer.pasteEventhandler(e);
-                
-            }
-        }, false);
+            console.log("SR6E | Pasting text | Triggering NPC Importer by event:", event);
+            event.preventDefault();
+            Importer.pasteEventhandler(event);
+        });
     }
 
     /**

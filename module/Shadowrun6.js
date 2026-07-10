@@ -337,6 +337,17 @@ Hooks.once("init", async function () {
         });
 
     });
+
+    Hooks.on("renderDialogV2", (dialog, html, data, options) => {
+        if (options.window?.title !== game.i18n.localize("SIDEBAR.ACTIONS.CREATE.Actor")) return;
+        console.log("SR6E | renderApplicationV2 hook called | Create Actor", options);
+        html.querySelector(".dialog-content").insertAdjacentHTML(
+            "beforebegin",
+            `<div class="import-statblock-info">${game.i18n.localize("shadowrun6.ui.notifications.importStatblock")}</div>`
+        );
+        SR6Keybindings.importStatblocksOnPaste(html);
+    });
+
     Hooks.on("renderShadowrun6ActorSheetPC", (doc, options, userId) => {
         console.log("SR6E | renderShadowrun6ActorSheetPC hook called", doc);
     });

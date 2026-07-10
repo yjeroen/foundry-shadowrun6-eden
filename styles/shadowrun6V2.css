@@ -2801,3 +2801,8 @@ body.game .app a:hover .sr6-icon {
     margin: 0 8px;
     color: var(--color-underline-header);
 }
+
+/* Import Statblock Message in the Create Actor Dialog*/
+.import-statblock-info {
+    font-style: italic;
+}
