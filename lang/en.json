@@ -1498,7 +1498,10 @@
         "title": "Persona",
         "accessDevice": "Matrix Access Device",
         "distribute": "Distribute",
-        "silent": "Running Silent"
+        "silent": "Running Silent",
+        "description": "Icon Description",
+        "description_toggle": "Toggle Description",
+        "image.tooltip": "Left click to show image, or Right click to edit the image"
       },
       "pan": {
         "title": "Personal Area Network",
@@ -2378,6 +2381,9 @@
           },
           "registered": {
             "label": "Registered"
+          },
+          "description": {
+            "label": "Icon Description"
           }
         },
         "TYPES": {

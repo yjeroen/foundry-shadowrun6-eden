@@ -57,6 +57,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         data.actor.enriched = {};
         data.actor.enriched.notes = await this.enrichedHTML(this.actor.system.notes);
         data.actor.enriched.description = await this.enrichedHTML(this.actor.system.description);
+        if (this.actor.system.persona?.description) {
+            data.actor.enriched.personaDescription = await this.enrichedHTML(this.actor.system.persona.description);
+        }
         for (const item of data.actor.items) {
             item.enriched = {};
             item.enriched.description = await this.enrichedHTML(item.system.description);
@@ -104,9 +107,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      */
     activateListeners(html) {
         // Always allow
-        html.find("[data-action='matrixOperations']").click(this._matrixOperations.bind(this));
         html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
         html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
+        html.find("[data-action='matrixOperations']").click(this._matrixOperations.bind(this));
+        html.find("[data-action='togglePersonaDescription']").click(this._togglePersonaDescription.bind(this));
+        html.find("[data-action='onClickImage']")
+            .on("click", this._onClickImage.bind(this))
+            .on("contextmenu", this._onClickImage.bind(this));
 
         if (this.document.limited || this.options.limited) {
             html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
@@ -1537,6 +1544,44 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             }
             await this.minimize();
             matrixActorSheet.render(true);
+        }
+    }
+
+    async _togglePersonaDescription(event) {
+        const toggleButton = event.currentTarget;
+        console.log("SR6E | Shadowrun6ActorSheet | _togglePersonaDescription");
+        const personaSection = toggleButton.closest(".pan-summary");
+        const personaDescription = personaSection.querySelector(".persona-description");
+
+        toggleButton.classList.toggle("active");
+        personaDescription.classList.toggle("inactive");
+    }
+
+    async _onClickImage(event) {
+        event.stopPropagation();
+        const image = event.currentTarget;
+        const isRightClick = event.button === 2 || event.which === 3;
+        console.log("SR6E | Shadowrun6ActorSheet | _onPersonaImage", isRightClick, image.dataset);
+        if (isRightClick && (this.document.limited || this.options.limited) ) return;
+
+        const attr = image.dataset.imagePath;
+        const current = foundry.utils.getProperty(this.document, attr) ?? this.document.img;
+
+        if (isRightClick) {
+            const { img } = this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ?? {};
+            const fp = new foundry.applications.apps.FilePicker.implementation({
+                current,
+                type: 'image',
+                redirectToRoot: img ? [img] : [],
+                callback: (path) => {
+                    this.document.update({ [attr]: path });
+                },
+                top: this.position.top + 40,
+                left: this.position.left + 10,
+            });
+            return fp.browse();
+        } else {
+            new foundry.applications.apps.ImagePopout({src: current, shareable: true }).render(true);
         }
     }
 

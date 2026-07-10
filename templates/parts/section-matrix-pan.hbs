@@ -6,39 +6,84 @@
         </h2>
     </header>
 
-    <div class="pan-summary">
-        <div class="pan-summary-row">
-            <i class="fas fa-user"></i>
-            <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.title' }}</span>
-            <strong>{{persona.name}}</strong>
-            <span class=""></span>
+    <div class="pan-summary-columns">
+        <div class="pan-summary">
+            <div class="pan-summary-row">
+                <i class="fas fa-user"></i>
+                <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.title' }}</span>
+                <strong>{{persona.name}}</strong>
+                <span class=""></span>
+            </div>
+            {{#if persona.accessDevice}}
+            <div class="pan-summary-row item" data-item-id="{{persona.accessDevice.id}}" data-document-class="Item">
+                <i class="fas fa-laptop-code"></i>
+                <span class="pan-summary-label" data-tooltip="SR6.title.createsPersona">{{ localize
+                    'shadowrun6.section.persona.accessDevice' }}</span>
+                <strong>{{persona.accessDevice.name}}</strong>
+                <span class="pan-muted">
+                    {{!-- {{#if actor.isOwner}}
+                    <a class="item-control item-edit"
+                        data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
+                        data-action="viewDoc">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}} --}}
+                </span>
+            </div>
+            {{/if}}
+            <div class="pan-summary-row">
+                <i class="fas fa-user-secret"></i>
+                <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.silent' }}</span>
+                <span>
+                    <a class="toggle-control" data-action='toggleRunningSilent' data-tooltip="SR6.title.running_silent">
+                        <i class='fas {{#if actor.system.persona.runningSilent}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+                    </a>
+                </span>
+                <span class="pan-muted"></span>
+            </div>
+            <div class="pan-summary-row">
+                <i class="fas fa-file-lines"></i>
+                <span class="pan-summary-label">{{localize "shadowrun6.section.persona.description"}}</span>
+                <span class="persona-toggle-description">
+                    <a class="item-control item-edit"
+                        data-tooltip="{{localize 'shadowrun6.section.persona.description_toggle'}}"
+                        data-action="togglePersonaDescription">
+                        <i class="fas fa-square-pen"></i>
+                    </a>
+                </span>
+                <span class="pan-muted"></span>
+            </div>
+            <div class="pan-summary-row persona-description inactive">
+                {{editor
+                    actor.enriched.personaDescription
+                    target="system.persona.description"
+                    fieldName=actor.system.persona.description
+                    button=false
+                    owner=owner
+                    editable=editable
+                    engine="prosemirror"
+                }}
+            </div>
         </div>
-        {{#if persona.accessDevice}}
-        <div class="pan-summary-row item" data-item-id="{{persona.accessDevice.id}}" data-document-class="Item">
-            <i class="fas fa-laptop-code"></i>
-            <span class="pan-summary-label" data-tooltip="SR6.title.createsPersona">{{ localize
-                'shadowrun6.section.persona.accessDevice' }}</span>
-            <strong>{{persona.accessDevice.name}}</strong>
-            <span class="pan-muted">
-                {{#if actor.isOwner}}
-                <a class="item-control item-edit"
-                    data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
-                    data-action="viewDoc">
-                    <i class="fas fa-edit"></i>
-                </a>
-                {{/if}}
-            </span>
-        </div>
-        {{/if}}
-        <div class="pan-summary-row">
-            <i class="fas fa-user-secret"></i>
-            <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.silent' }}</span>
-            <span>
-                <a class="toggle-control" data-action='toggleRunningSilent' data-tooltip="SR6.title.running_silent">
-                    <i class='fas {{#if actor.system.persona.runningSilent}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
-                </a>
-            </span>
-            <span class="pan-muted"></span>
+    
+        <div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
+            {{!-- <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div> --}}
+            <div class="portrait-wrap">
+                <div class="portrait">
+                    <div class="portrait-edit"><i class="fa-solid fa-image fa-fw"></i></div>
+                    <img
+                        class='profile-img'
+                        src='{{#if system.persona.img}}{{system.persona.img}}{{else}}{{actor.img}}{{/if}}'
+                        data-action='onClickImage'
+                        data-image-path='system.persona.img'
+                        {{#if limited}}
+                        data-tooltip='SR6.title.showImage'
+                        {{else}}
+                        data-tooltip='shadowrun6.section.persona.image.tooltip'
+                        {{/if}}
+                    />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -99,7 +144,7 @@
             {{ localize 'shadowrun6.section.pan.title' }}
         </h2>
     </header>
-
+ 
     <div class="pan-summary">
 
         <div class="pan-summary-row">
