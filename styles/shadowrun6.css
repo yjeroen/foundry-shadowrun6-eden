@@ -1399,3 +1399,10 @@ body.game .application.shadowrun6 .window-content {
   pointer-events: auto;
   cursor: pointer;
 }
+
+.app.actor .npc-firstline {
+    text-align: right;
+    position: absolute;
+    float: right;
+    right: 152px;
+}
