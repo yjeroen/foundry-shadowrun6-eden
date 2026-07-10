@@ -2,9 +2,29 @@
 	{{ log "Player sheet" this}}
 	{{!-- Sheet Header --}}
 	<header class="sheet-header">
-		<div style="padding-right: 6px;">
-		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" />
+		<div class="sr6">
+		  	{{!-- <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" /> --}}
+			<div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
+				{{!-- <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div> --}}
+				<div class="portrait-wrap">
+					<div class="portrait">
+						<div class="portrait-edit"><i class="fa-solid fa-image fa-fw"></i></div>
+						<img
+							class='profile-img'
+							src='{{actor.img}}'
+							data-action='onClickImage'
+							data-image-path='img'
+							{{#if limited}}
+							data-tooltip='SR6.title.showImage'
+							{{else}}
+							data-tooltip='shadowrun6.section.persona.image.tooltip'
+							{{/if}}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
+
 		<div class="header-fields">
 			<h1><input name="name" data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
 			{{!-- Character Summary --}}

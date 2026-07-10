@@ -524,6 +524,21 @@
     }
 }
 
+/* ApplicationV1 portrait re-using V2 */
+.app.actor .sheet-header .sr6 {
+    --portrait-size: 120px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 2px;
+}
+.app.actor .sr6 .portrait {
+    background-color: #00243ae6;
+}
+.app.npc .sheet-header .sr6 {
+    --portrait-size: 110px;
+    padding: 4px 10px 4px 2px;
+}
+
 .sr6 .portrait-panel {
     position: relative;
     display: flex;
@@ -2366,6 +2381,18 @@ body.game .app a:hover .sr6-icon {
     text-align: center;
 }
 
+.sr6 .pan .pan-summary-columns {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) auto;
+    gap: 8px;
+    --portrait-size: 76px;
+}
+
+.sr6 .pan .pan-summary-columns .portrait-panel {
+    margin-right: 5px;
+    transform: translateY(-4px);
+}
+
 .sr6 .pan .pan-summary {
     display: grid;
     gap: 0.15rem;
@@ -2401,6 +2428,52 @@ body.game .app a:hover .sr6-icon {
     text-align: center;
     color: var(--highlight-color);
     opacity: 0.9;
+}
+
+.sr6 .persona-toggle-description a {
+    padding-bottom: 1px;
+    color: black;
+}
+
+.sr6 .persona-toggle-description a.active {
+    color: var(--highlight-color);
+    text-shadow: 0 0 8px var(--color-shadow-primary);
+}
+
+.sr6 .pan .persona-description {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    min-height: 160px;
+    transition:
+        grid-template-rows 0.5s ease,
+        min-height 0.5s ease,
+        opacity 0.3s ease;
+}
+
+.sr6 .pan .persona-description .editor {
+    margin-bottom: 0;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+.sr6 .pan .persona-description .prosemirror menu,
+.sr6 .pan .persona-description prose-mirror menu {
+    border-radius: 0;
+}
+.sr6 .pan .persona-description .editor .editor-container {
+    margin: 0 1rem;
+}
+
+.sr6 .pan .persona-description.inactive {
+    grid-template-rows: 0fr;
+    min-height: 0;
+    opacity: 0;
+}
+
+.sr6 .pan .persona-description > * {
+    min-height: 0;
+    overflow: hidden;
 }
 
 .sr6 .pan .pan-summary-label,
