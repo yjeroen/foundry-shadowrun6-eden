@@ -615,7 +615,7 @@
 					"deviceRating": 2,
 					"hasWirelessInterface": false,
 					"hasDataCableInterface": false,
-					"wirelessActive": false,
+					"wirelessActive": true,
 					"matrixCM": {
 						"value": null
 					}

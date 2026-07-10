@@ -234,7 +234,10 @@ async function migrateItemsDevRating() {
     // Checking if there are items to Migrate
     game.items.forEach(item => {
         if ( 
-            docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
+            docIsVersionBelow(item, 4,0,0) && (   
+                item._source.system.devRating !== undefined
+                || !item._source.system.matrix?.wirelessActive
+            )
         ) {
             itemsToMigrate.push(item);
         }
@@ -244,7 +247,10 @@ async function migrateItemsDevRating() {
     game.actors.forEach(actor => {
         actor.items.forEach(item => {
             if ( 
-                docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
+                docIsVersionBelow(item, 4,0,0) && (
+                    item._source.system.devRating !== undefined
+                    || !item._source.system.matrix?.wirelessActive
+                )
             ) {
                 itemsToMigrate.push(item);
             }
@@ -272,10 +278,10 @@ async function migrateItemsDevRating() {
         const deviceRating = Number.parseInt(source.system.devRating, 10) || 2;
         const data = {
             ...baseData,
-            "system.matrix.deviceRating": deviceRating
+            "system.matrix.deviceRating": deviceRating,
+            "system.matrix.wirelessActive": true
         }
         await item.update(data);
-        // console.log('MIGRATION TEST update()', item.name, data, item._source.system)
         progressedItem++;
         progressNotification(progressedItem / itemsToMigrate.length, msg);
     };
