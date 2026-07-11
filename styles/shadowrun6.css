@@ -1400,6 +1400,9 @@ body.game .application.shadowrun6 .window-content {
   cursor: pointer;
 }
 
+.app.actor .editable {
+  position: relative;
+}
 .app.actor .npc-firstline {
     text-align: right;
     position: absolute;
