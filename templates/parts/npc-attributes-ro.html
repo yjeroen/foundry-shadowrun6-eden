@@ -2,28 +2,36 @@
     	<thead>
     		<tr>
 			{{#each attributes as |attribute id|}}
-			{{#ifIn id ../config.NPC_ATTRIBUTES}}
-				<th class="centered" id="{{id}}">
-					<a class="attributeonly-roll attribute-poolmod" data-pool="{{attribute.pool}}" data-roll-id="{{id}}" title="{{localize (concat "attrib." id )}}">
-						{{localize (concat "attrib." id "_short" )}}
-					</a>
-				</td>
-			{{/ifIn}}
-			{{#iff id '==' 'essence'}}
-				<th class="centered" id="{{id}}">{{localize "attrib.ess_short"}}</td>
-			{{/iff}}
+				{{#ifIn id ../config.NPC_ATTRIBUTES}}
+					{{#unless (and (eq id "mag") (or @root.actor.isTechno (eq @root.system.mortype "mundane")))}}
+					{{#unless (and (eq id "res") (not @root.actor.isTechno))}}
+					<th class="centered" id="{{id}}">
+						<a class="attributeonly-roll attribute-poolmod" data-pool="{{attribute.pool}}" data-roll-id="{{id}}" title="{{localize (concat "attrib." id )}}">
+							{{localize (concat "attrib." id "_short" )}}
+						</a>
+					</td>
+					{{/unless}}
+					{{/unless}}
+				{{/ifIn}}
+				{{#iff id '==' 'essence'}}
+					<th class="centered" id="{{id}}">{{localize "attrib.ess_short"}}</td>
+				{{/iff}}
 			{{/each}}
     		</tr>
     	</thead>
     	<tbody>
     		<tr>
 			{{#each attributes as |attribute id|}}
-			{{#ifIn id ../config.NPC_ATTRIBUTES}}
-				<td class="centered" id="{{id}}">{{attribute.pool}}</td>
-			{{/ifIn}}
-			{{#iff id '==' 'essence'}}
-				<td class="centered" id="{{id}}">{{../actor.system.essence}}</td>
-			{{/iff}}
+				{{#ifIn id ../config.NPC_ATTRIBUTES}}
+					{{#unless (and (eq id "mag") (or @root.actor.isTechno (eq @root.system.mortype "mundane")))}}
+					{{#unless (and (eq id "res") (not @root.actor.isTechno))}}
+					<td class="centered" id="{{id}}">{{attribute.pool}}</td>
+					{{/unless}}
+					{{/unless}}
+				{{/ifIn}}
+				{{#iff id '==' 'essence'}}
+					<td class="centered" id="{{id}}">{{../actor.system.essence}}</td>
+				{{/iff}}
 			{{/each}}
     		</tr>
     	</tbody>
