@@ -13,16 +13,6 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
     }
   }
 
-  async _preCreate(data, options, user) {
-    console.log(`SR6E | SR6ActiveEffectData | _preCreate`);
-    this.parent.updateSource({ img: "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg" });
-
-    const origin = await fromUuidSync(data.origin);
-    if (origin?.type === "mod") {
-      return this.parent.updateSource({ 'transfer': false });
-    }
-  }
-
   get hasLevels() {
     const [mainStatus] = this.parent.statuses;
     const statusEffect = CONFIG.statusEffects.find(e => e.id === mainStatus);
@@ -109,6 +99,14 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
    * @internal
    */
   async _preCreate(data, options, user) {
+    console.log(`SR6E | SR6ActiveEffectData | _preCreate`);
+    this.parent.updateSource({ img: "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg" });
+
+    const origin = fromUuidSync(data.origin);
+    if (origin?.type === "mod") {
+      return this.parent.updateSource({ 'transfer': false });
+    }
+
     const converted = this.#migrateV1keysToV2(data);
     if (converted) this.parent.updateSource(data);
   }

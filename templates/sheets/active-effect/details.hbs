@@ -7,9 +7,9 @@
     {{formGroup fields.origin value=source.origin rootId=rootId disabled=true}}
     {{/if}}
     {{#if isItemEffect}}
-    {{#iff document.parent.type '!=' "mod"}}
+    {{!-- {{#iff document.parent.type '!=' "mod"}} --}}
     {{formGroup fields.transfer value=source.transfer rootId=rootId label=legacyTransfer.label hint=legacyTransfer.hint}}
-    {{/iff}}
+    {{!-- {{/iff}} --}}
     {{/if}}
 
     {{formGroup fields.statuses value=source.statuses options=statuses rootId=rootId classes="statuses"}}
