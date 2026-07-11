@@ -2012,7 +2012,7 @@
         "accessLevels_have_been_reset": "All Access Levels have been reset by G.O.D.",
         "one_accessLevel_has_been_reset": "Access Levels of one character have been reset by G.O.D.",
         "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
-        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>All electronic gear have Wireless enabled.</p><p>Inform all players they need to adjust their Gear and Cyberware to the right rating.<p>",
+        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>All electronic gear have Wireless enabled.</p><p>Inform all players they need to adjust their Gear and Cyberware to the right rating.<p><p>Everyone also need to review if they have any Gear (e.g. certain armors) that need to be edited as 'Matrix Device' if they have ingame interactive features like Electrochromic Feature.",
         "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
         "notificationOnce": "This message will only show once during this browser session.",
         "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT."

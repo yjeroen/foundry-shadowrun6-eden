@@ -234,10 +234,7 @@ async function migrateItemsDevRating() {
     // Checking if there are items to Migrate
     game.items.forEach(item => {
         if ( 
-            docIsVersionBelow(item, 4,0,0) && (   
-                item._source.system.devRating !== undefined
-                || !item._source.system.matrix?.wirelessActive
-            )
+            docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
         ) {
             itemsToMigrate.push(item);
         }
@@ -247,10 +244,7 @@ async function migrateItemsDevRating() {
     game.actors.forEach(actor => {
         actor.items.forEach(item => {
             if ( 
-                docIsVersionBelow(item, 4,0,0) && (
-                    item._source.system.devRating !== undefined
-                    || !item._source.system.matrix?.wirelessActive
-                )
+                docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
             ) {
                 itemsToMigrate.push(item);
             }
