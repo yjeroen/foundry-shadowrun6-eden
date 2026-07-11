@@ -1815,6 +1815,14 @@ export class SR6Config {
         guardian: "shadowrun6.spirittype.guardian",
         guidance: "shadowrun6.spirittype.guidance",
         task: "shadowrun6.spirittype.task",
+        blood: "shadowrun6.spirittype.blood",
+        caretaker: "shadowrun6.spirittype.caretaker",
+        nymph: "shadowrun6.spirittype.nymph",
+        scout: "shadowrun6.spirittype.scout",
+        soldier: "shadowrun6.spirittype.soldier",
+        worker: "shadowrun6.spirittype.worker",
+        queen: "shadowrun6.spirittype.queen",
+        alpha: "shadowrun6.spirittype.alpha"
     };
     ATTRIB_BY_SKILL = new Map([
         ["astral", new SkillDefinition("int", false)],

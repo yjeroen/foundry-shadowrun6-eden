@@ -380,6 +380,7 @@ export default class Shadowrun6Actor extends Actor {
         );
 
         console.log(`SR6E | _applySpiritPreset(${force})`, foundry.utils.deepClone(system));
+        // TODO Fix Astral initiatives as they can differ from physical initiative
         switch (system.spiritType) {
             case 'air':
                 system.attributes.bod.mod = -2;
@@ -554,6 +555,153 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
+            case 'blood':
+                system.attributes.bod.mod = 4;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 1;
+                system.attributes.str.mod = 3;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = -1;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+1;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["outdoors"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'caretaker':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 1;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +3;
+                system.initiative.physical.base = (force * 2)+1;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'nymph':
+                system.attributes.bod.mod = -1;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 3;
+                system.attributes.str.mod = -1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +2;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'scout':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +3;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+            case 'soldier':
+                system.attributes.bod.mod = 2;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 1;
+                system.attributes.str.mod = 3;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +3;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+            case 'worker':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 0;
+                system.attributes.str.mod = 1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +1;
+                system.initiative.physical.base = (force * 2);
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+            case 'queen':
+                system.attributes.bod.mod = 5;
+                system.attributes.agi.mod = 3;
+                system.attributes.rea.mod = 4;
+                system.attributes.str.mod = 5;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = 1;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +5;
+                system.initiative.physical.base = (force * 2)+4;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["con"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'alpha':
+                system.attributes.bod.mod = 3;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 3;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = -2;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +4;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["con"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["outdoors"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+
         }
     }
     //---------------------------------------------------------

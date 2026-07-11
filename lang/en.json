@@ -2090,7 +2090,15 @@
       "plant": "Plant",
       "guardian": "Guardian",
       "guidance": "Guidance",
-      "task": "Task"
+      "task": "Task",
+      "blood": "Blood",
+      "caretaker": "Insect Caretaker",
+      "nymph": "Insect Nymph",
+      "scout": "Insect Scout",
+      "soldier": "Insect Soldier",
+      "worker": "Insect Worker",
+      "queen": "Insect Queen",
+      "alpha": "Insect Alpha"
     },
     "tradition": {
       "label": "Tradition",
