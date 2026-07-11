@@ -2170,6 +2170,163 @@ export class SR6Config {
         2: "shadowrun6.label.rating2",
         3: "shadowrun6.label.rating3",
     };
+
+    COMBAT_ACTIONS = {
+        activate_focus: {
+            major: false,
+            isAwakened: true    //actor.isAwakened
+        },
+        avoid_incoming: {
+            major: false,
+            anytime: true
+        },
+        block: {
+            major: false,
+            anytime: true
+        },
+        call_a_shot: {
+            major: false
+        },
+        change_device_mode: {
+            major: false,
+            anytime: true
+        },
+        command_drone: {
+            major: false
+        },
+        command_spirit: {
+            major: false,
+            hasSkill: "conjuring"   //actor.system.skills.conjuring
+        },
+        dismiss_spirit: {
+            major: false,
+            hasSkill: "conjuring"
+        },
+        dodge: {
+            major: false,
+            anytime: true
+        },
+        drop_object: {
+            major: false,
+            anytime: true
+        },
+        drop_prone: {
+            major: false
+        },
+        hit_the_dirt: {
+            major: false,
+            anytime: true
+        },
+        intercept: {
+            major: false,
+            anytime: true
+        },
+        move: {
+            major: false
+        },
+        multiple_attacks: {
+            major: false
+        },
+        quick_draw: {
+            major: false
+        },
+        reload_smartgun: {
+            major: false,
+            hasSkill: "firearms"
+        },
+        shift_perception: {
+            major: false,
+            isAwakened: true
+        },
+        stand_up: {
+            major: false
+        },
+        take_aim: {
+            major: false
+        },
+        take_cover: {
+            major: false
+        },
+        trip: {
+            major: false
+        },
+
+        assist: {
+            major: true,
+            anytime: true
+        },
+        astral_projection: {
+            major: true,
+            isAwakened: true
+        },
+        attack: {
+            major: true
+        },
+        banish_spirit: {
+            major: true,
+            hasSkill: "conjuring"
+        },
+        cast_spell: {
+            major: true,
+            hasSkill: "sorcery"
+        },
+        cleanse: {
+            major: true,
+            isAwakened: true
+        },
+        counterspell: {
+            major: true,
+            hasSkill: "sorcery",
+            anytime: true
+        },
+        full_defense: {
+            major: true,
+            anytime: true
+        },
+        manifest: {
+            major: true,
+            isAwakened: true
+        },
+        observe_in_detail: {
+            major: true
+        },
+        pick_up_put_down_object: {
+            major: true
+        },
+        ready_weapon: {
+            major: true
+        },
+        reload_weapon: {
+            major: true,
+            hasSkill: "firearms"
+        },
+        rigger_jump_in: {
+            major: true,
+            hasSkill: "piloting"
+        },
+        sprint: {
+            major: true
+        },
+        summon_spirit: {
+            major: true,
+            hasSkill: "conjuring"
+        },
+        use_simple_device: {
+            major: true
+        },
+        use_skill: {
+            major: true
+        },
+        thread_form: {
+            major: true,
+            isTechno: true
+        },
+        compile_sprite: {
+            major: true,
+            isTechno: true
+        },
+    };
+
     // MatrixAction
     MATRIX_ACTIONS = {
         backdoor_entry: {
@@ -2508,6 +2665,7 @@ export class SR6Config {
             attrib: null,
             illegal: false,
             major: true,
+            anytime: true,
             outsider: true,
             user: true,
             admin: true,

@@ -1,0 +1,97 @@
+<!-- Combat Actions -->
+<section class="section actions-section">
+    <header class="section-head">
+        <h2 class="section-title">
+            {{localize "shadowrun6.section.combat_actions.title"}}
+        </h2>
+		<div class="reference-label">
+			<i class="fas fa-circle-info" data-tooltip="shadowrun6.section.combat_actions.tooltip"></i>
+			<span data-tooltip="shadowrun6.section.combat_actions.tooltip">{{localize "shadowrun6.matrix.reference.title"}}</span>
+		</div>
+    </header>
+
+    <section class="combat-action-lists">
+        <!-- Major Actions -->
+        <div class="combat-action-column major-actions">
+            <header class="section-subhead">
+                <h3>
+                    {{localize "shadowrun6.section.combat_actions.major_many"}}
+                </h3>
+            </header>
+
+            <ol class="section-list combat-action-list">
+            {{#each combatActions.major as |action|}}
+                <li
+                    class="section-item combat-action"
+                    data-combat-action-id="{{action.id}}"
+                >
+                    <div class="section-row">
+                        <div
+                            class="section-column combat-action-icon {{#if action.anytime}}anytime-action{{/if}}"
+                            data-tooltip="shadowrun6.section.combat_actions.{{#if action.anytime}}anytime.{{/if}}major_one"
+                        >
+                            &#10687;
+                        </div>
+
+                        <div
+                            class="section-name"
+                            data-action="toggleCombatActionDesc"
+                            data-tooltip="SR6.title.clickItemName"
+                        >
+                            {{action.name}}
+                        </div>
+                    </div>
+
+                    <section class="collapsible-content closed">
+                        <div class="combat-action-description">
+                            {{localize (concat "shadowrun6.action." action.id ".hint")}}
+                        </div>
+                    </section>
+                </li>
+            {{/each}}
+            </ol>
+        </div>
+
+        <!-- Minor Actions -->
+        <div class="combat-action-column minor-actions">
+            <header class="section-subhead">
+                <h3>
+                    {{localize "shadowrun6.section.combat_actions.minor_many"}}
+                </h3>
+            </header>
+
+            <ol class="section-list combat-action-list">
+            {{#each combatActions.minor as |action|}}
+                <li
+                    class="section-item combat-action"
+                    data-combat-action-id="{{action.id}}"
+                >
+                    <div class="section-row">
+                        <div
+                            class="section-column combat-action-icon {{#if action.anytime}}anytime-action{{/if}}"
+                            data-tooltip="shadowrun6.section.combat_actions.{{#if action.anytime}}anytime.{{/if}}minor_one"
+                        >
+                            &#10686;
+                        </div>
+
+                        <div
+                            class="section-name"
+                            data-action="toggleCombatActionDesc"
+                            data-tooltip="SR6.title.clickItemName"
+                        >
+                            {{action.name}}
+                        </div>
+                    </div>
+
+                    <section class="collapsible-content closed">
+                        <div class="combat-action-description">
+                            {{localize (concat "shadowrun6.action." action.id ".hint")}}
+                        </div>
+                    </section>
+                </li>
+            {{/each}}
+            </ol>
+        </div>
+    </section>
+</section>
+<!-- /Combat Actions -->

@@ -42,6 +42,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             data.system = data.data.data.data;
         }
         data.actor.system.essence = parseFloat(data.actor.system.essence).toFixed(2);
+
+        data.combatActions = this._combatActions();
+
         data.matrixAccess = this._matrixAccess();
         data.matrixActionAvailable = this._matrixActionAvailable();
         data.matrixActionActor = (this.document.limited || this.options.limited) ? this.initiator : this.actor;
@@ -109,6 +112,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         // Always allow
         html.find(".health-phys").on("input", this._redrawBar(html, "Phy", getSystemData(this.actor).physical));
         html.find(".health-stun").on("input", this._redrawBar(html, "Stun", getSystemData(this.actor).stun));
+        html.find("[data-action='toggleCombatActionDesc']").on("click contextmenu", event =>
+            this._toggleCombatActionDesc(event, event.currentTarget)
+        );
         html.find("[data-action='matrixOperations']").click(this._matrixOperations.bind(this));
         html.find("[data-action='togglePersonaDescription']").click(this._togglePersonaDescription.bind(this));
         html.find("[data-action='onClickImage']")
@@ -1755,6 +1761,72 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             relativeTo: this.actor,
             }
         );
+    }
+
+    /**
+     * Prepares localized Combat Actions, grouped by action type.
+     *
+     * @returns {{major: Object[], minor: Object[]}}
+     * @private
+     */
+    _combatActions() {
+        const actor = this.actor;
+        const combatActions = Object.entries(CONFIG.SR6.COMBAT_ACTIONS)
+            .filter(([, action]) => {
+                if (action.isAwakened && !actor.isAwakened) return false;
+                if (action.isTechno && !actor.isTechno) return false;
+                if (action.hasSkill && !actor.system.skills[action.hasSkill].pool) return false;
+                return true;
+            })
+            .map(([actionId, action]) => ({
+                id: actionId,
+                ...action,
+                name: game.i18n.localize(`shadowrun6.action.${actionId}.name`)
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        return {
+            major: combatActions.filter(action => action.major),
+            minor: combatActions.filter(action => !action.major)
+        };
+    }
+
+    /**
+     * Toggles a Combat Action description or sends it to chat on right-click.
+     *
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The clicked action name
+     * @private
+     */
+    async _toggleCombatActionDesc(event, target) {
+        const row = target.closest("li.combat-action");
+        const actionId = row.dataset.combatActionId;
+        const action = CONFIG.SR6.COMBAT_ACTIONS[actionId];
+
+        const isRightClick = event.button === 2 || event.which === 3;
+        if (isRightClick) {
+            event.preventDefault();
+
+            const symbol = action.major ? "&#10687;" : "&#10686;";
+            const name = game.i18n.localize(`shadowrun6.action.${actionId}.name`);
+            const hint = game.i18n.localize(`shadowrun6.action.${actionId}.hint`);
+
+            return ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                rollMode: game.settings.get("core", "rollMode"),
+                flavor: `<span class="action-symbol">${symbol}</span><span>${name}</span>`,
+                content: hint
+            });
+        }
+
+        const content = row.querySelector(".collapsible-content");
+        const isOpen = !target.classList.contains("open");
+
+        target.classList.toggle("open", isOpen);
+        target.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight+2}px` : null;
+        content.classList.toggle("open", isOpen);
+        content.classList.toggle("closed", !isOpen);
     }
 
 }

@@ -691,7 +691,7 @@ export default class Shadowrun6Actor extends Actor {
             data.derived ?? {},
             { inplace: false }
         );
-        
+
         // Composure
         if (data.derived.composure) {
             data.derived.composure.base = data.attributes["wil"].pool + data.attributes["cha"].pool;
@@ -2930,6 +2930,10 @@ export default class Shadowrun6Actor extends Actor {
             }
         };
         await this.createEmbeddedDocuments("Item", [unarmedItemData]);  
+    }
+
+    get isAwakened() {
+        return Boolean( this.system.mortype !== "mundane" && this.system.mortype !== "technomancer" );
     }
 
     get isTechno() {

@@ -1955,6 +1955,93 @@
 
 
 /* ======================================================================== */
+/* ============== ApplicationV1/2 COMBAT ACTIONS SECTION ================== */
+/* ======================================================================== */
+
+.sr6 .combat-action-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+
+    background: radial-gradient(circle at center, #b6b6a4 100%, transparent 100%) no-repeat center;
+    background-size: 2px 100%;
+}
+
+.sr6 .combat-action-column {
+    min-width: 0;
+}
+
+.sr6 .combat-action-column > header {
+    text-align: center;
+    background-color: rgb(224 224 217);
+    --color-underline-header: rgb(200 200 192);
+}
+
+.sr6 .combat-action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .combat-action .section-row {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: center;
+    padding: 0 2px 0 0;
+}
+
+.sr6 .combat-action-icon {
+    color: var(--highlight-color);
+    justify-content: center;
+}
+
+.sr6 .combat-action .section-name {
+    cursor: pointer;
+    color: black;
+}
+
+.sr6 .combat-action-description {
+    padding: 4px 6px;
+    padding-right: 4px;
+}
+
+.sr6 .actions-section .section-head {
+    position: relative;
+}
+
+.sr6 .actions-section .reference-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+}
+
+.sr6 .actions-section .reference-label i,
+.sr6 .actions-section .reference-label span {
+    display: inline-flex;
+    transform: translateY(-2px);
+}
+.section .anytime-action,
+.section .anytime-action span {
+    color: dodgerblue;
+}
+
+@container (max-width: 505px) {
+    .sr6 .actions-section .reference-label {
+        opacity: 0;
+    }
+}
+
+.chat-message .message-header .flavor-text .action-symbol {
+    font-weight: normal;
+    padding-right: 4px;
+    display: inline-flex;
+    transform: translateY(-1px);
+}
+
+/* ======================================================================== */
 /* ======================== ApplicationV1 Item HUD ======================== */
 /* ======================================================================== */
 

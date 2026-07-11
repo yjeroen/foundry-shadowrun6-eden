@@ -781,6 +781,176 @@
       "high" : "High",
       "luxury" : "Luxury"
     },
+    "action": {
+      "activate_focus": {
+        "name": "Activate/Deactivate Focus",
+        "hint": "Activate or deactivate a bonded focus. See p.151, SR6."
+      },
+      "avoid_incoming": {
+        "name": "Avoid Incoming",
+        "hint": "Roll Reaction + Athletics – Dodge Penalty and move meters equal to your hits in a chosen direction. You become Prone. Only one of Avoid Incoming, Move, or Sprint may be used each turn."
+      },
+      "block": {
+        "name": "Block",
+        "hint": "Add your Close Combat skill to one defense test this turn."
+      },
+      "call_a_shot": {
+        "name": "Call a Shot",
+        "hint": "Your next Attack gains +2 DV but suffers a –4 dice pool penalty."
+      },
+      "change_device_mode": {
+        "name": "Change Device Mode",
+        "hint": "Switch the mode of a device connected via DNI."
+      },
+      "command_drone": {
+        "name": "Command Drone",
+        "hint": "Issue one command to a drone or drone group connected to your RCC."
+      },
+      "command_spirit": {
+        "name": "Command Spirit",
+        "hint": "Issue one service command to a spirit or group of spirits. See p.146, SR6."
+      },
+      "dismiss_spirit": {
+        "name": "Dismiss Spirit",
+        "hint": "Release a spirit from service."
+      },
+      "dodge": {
+        "name": "Dodge",
+        "hint": "Add your Athletics skill to one defense test this turn."
+      },
+      "drop_object": {
+        "name": "Drop Object",
+        "hint": "Drop an item you are holding."
+      },
+      "drop_prone": {
+        "name": "Drop Prone",
+        "hint": "Gain the Prone status. See p.53, SR6."
+      },
+      "hit_the_dirt": {
+        "name": "Hit the Dirt",
+        "hint": "Quickly gain the Prone status. See p.53, SR6."
+      },
+      "intercept": {
+        "name": "Intercept",
+        "hint": "If a target is within melee reach and you have an unused Major Action, make an Attack outside your turn."
+      },
+      "move": {
+        "name": "Move",
+        "hint": "Move up to 10 meters. Only one of Avoid Incoming, Move, or Sprint may be used each turn."
+      },
+      "multiple_attacks": {
+        "name": "Multiple Attacks",
+        "hint": "Split your next attack between multiple targets by dividing your dice pool."
+      },
+      "quick_draw": {
+        "name": "Quick Draw",
+        "hint": "Draw a weapon instantly if you have the required equipment, quality, or augmentation."
+      },
+      "reload_smartgun": {
+        "name": "Reload Smartgun",
+        "hint": "Reload a weapon equipped with a smartlink."
+      },
+      "shift_perception": {
+        "name": "Shift Perception",
+        "hint": "Switch between meatspace and astral perception."
+      },
+      "stand_up": {
+        "name": "Stand Up",
+        "hint": "Stand up and remove the Prone status."
+      },
+      "take_aim": {
+        "name": "Take Aim",
+        "hint": "Gain +1 die to a future Attack once per round, accumulating up to your Willpower. The bonus is lost if not followed by an Attack."
+      },
+      "take_cover": {
+        "name": "Take Cover",
+        "hint": "Gain Cover I through Cover IV. See p.52, SR6."
+      },
+      "trip": {
+        "name": "Trip",
+        "hint": "Force the target to make an Athletics + Agility test with threshold (DV – 2) or fall Prone."
+      },
+      "assist": {
+        "name": "Assist",
+        "hint": "Contribute to a teamwork test. Your hits become bonus dice for the leader. See p.36, SR6."
+      },
+      "astral_projection": {
+        "name": "Astral Projection",
+        "hint": "Project your soul into astral space. See p. 160, SR6."
+      },
+      "attack": {
+        "name": "Attack",
+        "hint": "Make an attack. See the Combat, Magic, or Matrix tabs for attack types."
+      },
+      "banish_spirit": {
+        "name": "Banish Spirit",
+        "hint": "Reduce a summoned spirit's services with a Conjuring + Magic test opposed by Force × 2. See p.147, SR6."
+      },
+      "cast_spell": {
+        "name": "Cast Spell",
+        "hint": "Cast a spell. See the Magic tab."
+      },
+      "cleanse": {
+        "name": "Cleanse",
+        "hint": "Remove one hour of natural astral signature fading from a magical effect. May be repeated. See p.160, SR6."
+      },
+      "counterspell": {
+        "name": "Counterspell",
+        "hint": "Reduce a sustained spell's hits or grant bonus dice to magical defense within 2 meters. See p.143, SR6."
+      },
+      "full_defense": {
+        "name": "Full Defense",
+        "hint": "Until the end of the combat round, add your Willpower to all defense tests."
+      },
+      "manifest": {
+        "name": "Manifest",
+        "hint": "Reveal your astral form as a ghostly presence in meatspace. See p.160, SR6."
+      },
+      "observe_in_detail": {
+        "name": "Observe in Detail",
+        "hint": "Make a Perception + Intuition or Assensing + Intuition test to closely examine something."
+      },
+      "pick_up_put_down_object": {
+        "name": "Pick Up / Put Down Object",
+        "hint": "Carefully pick up or set down an object. May also ready a weapon."
+      },
+      "ready_weapon": {
+        "name": "Ready Weapon",
+        "hint": "Ready a weapon for combat. You may ready small weapons up to your Agility rating."
+      },
+      "reload_weapon": {
+        "name": "Reload Weapon",
+        "hint": "Reload a weapon without a smartlink."
+      },
+      "rigger_jump_in": {
+        "name": "Rigger Jump In",
+        "hint": "Jump into and directly control a vehicle or drone connected to your RCC."
+      },
+      "sprint": {
+        "name": "Sprint",
+        "hint": "Move 15 meters plus hits on an Athletics + Agility test. Only one of Avoid Incoming, Move, or Sprint may be used each turn."
+      },
+      "summon_spirit": {
+        "name": "Summon Spirit",
+        "hint": "Summon a spirit with a Conjuring + Magic test opposed by Force × 2. See p.146, SR6."
+      },
+      "use_simple_device": {
+        "name": "Use Simple Device",
+        "hint": "Operate a simple device that is not connected via DNI."
+      },
+      "use_skill": {
+        "name": "Use Skill",
+        "hint": "Use a skill. See the Skills tab."
+      },
+      "thread_form": {
+        "name": "Thread Complex Form",
+        "hint": "Thread a complex form in the Matrix using Electronics. See the Matrix tab and p.189, SR6."
+      },
+      "compile_sprite": {
+        "name": "Compile Sprite",
+        "hint": "Compile a Sprite in the Matrix using Tasking. See p.191, SR6."
+      }
+    },
     "matrix": {
       "reference.title": "Reference Section",
       "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
@@ -1419,6 +1589,16 @@
         "title": "Augmentations"
       },
       "chemicals": "Chemicals",
+      "combat_actions": {
+        "title": "Combat Actions",
+        "tooltip": "<p>This section is mainly for referencing which Actions you can perform.</p><p>You still need to pay attention yourself the amount of actions and which you take each round.</p>",
+        "anytime.minor_one": "<p>Anytime Minor Action</p><p>This action can be taken anytime during the round as long as you have a Minor Action left, even outside your own turn.</p>",
+        "anytime.major_one": "<p>Anytime Major Action</p><p>This action can be taken anytime during the round as long as you have a Major Action left, even outside your own turn.</p>",
+        "minor_one": "Minor Action",
+        "minor_many": "Minor Actions",
+        "major_one": "Major Action",
+        "major_many": "Major Actions"
+      },
       "complexforms": {
         "add": "Add new complex form",
         "column.duration": "Dur",
