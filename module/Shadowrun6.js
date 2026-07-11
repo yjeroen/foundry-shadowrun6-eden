@@ -68,6 +68,8 @@ Hooks.once("init", async function () {
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
     CONFIG.Dice.rolls = [SR6Roll];
+    CONFIG.Combat.fallbackTurnMarker = 'systems/shadowrun6-eden/images/turn-marker-frame.webp'
+
     
     CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));
     if ( !game.settings.get(SYSTEM_NAME, "bleeding") ) {
