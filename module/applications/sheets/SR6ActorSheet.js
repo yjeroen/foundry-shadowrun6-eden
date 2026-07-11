@@ -358,7 +358,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                         //matrix actions collapsible
                         content = element.parentElement.nextElementSibling;
                     }
-                    content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
+                    content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight+2 + "px";
                     content.classList.toggle("closed");
                     content.classList.toggle("open");
                     if (element.parentElement.classList.contains("matrix-persona-attributes")) {
@@ -373,7 +373,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     content.style.maxHeight = null;
                 }
                 else {
-                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.maxHeight = content.scrollHeight+2 + "px";
                 }
                 content.classList.toggle("closed");
                 content.classList.toggle("open");
