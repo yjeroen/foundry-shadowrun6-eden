@@ -82,6 +82,7 @@ export default class Shadowrun6Actor extends Actor {
         if (source.type === 'Vehicle') {
             if (source.system?.vtype === "") source.system.vtype = "ground_craft";
         }
+        if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
 
         return super.migrateData(source);
     }
@@ -371,8 +372,14 @@ export default class Shadowrun6Actor extends Actor {
         // Only run on spirits
         if (!isSpiritOrSprite(system))
             return;
-        if (!system.defenserating)
-            system.defenserating = new Ratings();
+        
+        system.defenserating = foundry.utils.mergeObject(
+            new Ratings(),
+            system.defenserating ?? {},
+            { inplace: false }
+        );
+
+        console.log(`SR6E | _applySpiritPreset(${force})`, foundry.utils.deepClone(system));
         switch (system.spiritType) {
             case 'air':
                 system.attributes.bod.mod = -2;
@@ -557,6 +564,7 @@ export default class Shadowrun6Actor extends Actor {
         const system = getSystemData(this);
         // Only run on spirits
         if (isSpiritOrSprite(system)) {
+            console.log(`SR6E | _applyForce(${force})`, foundry.utils.deepClone(system));
             system.mortype = "mysticadept";
             CONFIG.SR6.PRIMARY_ATTRIBUTES.forEach((attr) => {
                 system.attributes[attr].base = force;
@@ -677,9 +685,13 @@ export default class Shadowrun6Actor extends Actor {
                 data.initiative.matrix.dicePool = Math.max(1, Math.min(5, data.initiative.matrix.dice + data.initiative.matrix.diceMod) );
             }
         }
-        if (!data.derived) {
-            data.derived = new Derived();
-        }
+
+        data.derived = foundry.utils.mergeObject(
+            new Derived(),
+            data.derived ?? {},
+            { inplace: false }
+        );
+        
         // Composure
         if (data.derived.composure) {
             data.derived.composure.base = data.attributes["wil"].pool + data.attributes["cha"].pool;
@@ -865,7 +877,7 @@ export default class Shadowrun6Actor extends Actor {
         // Matrix defense
         if (isMatrixUser(data)) {
             console.log("SR6E | prepareDefenseRatings:", data.persona.used);
-            data.defenserating.matrix.base = data.persona.used.d + data.persona.used.f;
+            data.defenserating.matrix.base = ( Number(data.persona?.used?.d) || 0 ) + ( Number(data.persona?.used?.f) || 0);
             data.defenserating.matrix.modString = ""; //(game as Game).i18n.localize("attrib.int_short") + " " + data.attributes["int"].pool;
             data.defenserating.matrix.pool = data.defenserating.matrix.base;
             if (data.defenserating.matrix.mod) {
