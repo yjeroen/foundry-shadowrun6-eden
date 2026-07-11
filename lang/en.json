@@ -1797,6 +1797,7 @@
       "outdoors": {
         "navigation": "Navigation",
         "survival": "Survival",
+        "tracking": "Tracking",
         "tracking_desert": "Environment Desert",
         "tracking_other": "Environment Other",
         "tracking_urban": "Environment Urban",

@@ -2111,6 +2111,7 @@ export class SR6Config {
         outdoors: {
             navigation: "shadowrun6.special.outdoors.navigation",
             survival: "shadowrun6.special.outdoors.survival",
+            tracking: "shadowrun6.special.outdoors.tracking",
             tracking_woods: "shadowrun6.special.outdoors.tracking_woods",
             tracking_desert: "shadowrun6.special.outdoors.tracking_desert",
             tracking_urban: "shadowrun6.special.outdoors.tracking_urban",
