@@ -2729,7 +2729,16 @@ export default class Shadowrun6Actor extends Actor {
         // GENESIS uses Actor.data in its export, while COMMLINK uses Actor.system as the actors sourceData
         const actorSystem = sourceData.data ?? sourceData.system;
         // Modify imported GENESIS/COMMLINK items
-        let GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
+        const GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
+
+        const specialTraits = sourceData.system?.["special-traits"];
+        if (specialTraits?.initiation) {
+            foundry.utils.setProperty(sourceData, "system.attributes.mag.initiation", specialTraits.initiation);
+        }
+        if (specialTraits?.submersion) {
+            foundry.utils.setProperty(sourceData, "system.attributes.res.submersion", specialTraits.submersion);
+        }
+
         // Both GENESIS and COMMLINK use Item.data as its sourceData
         for (const index in sourceData.items) {
             const item = sourceData.items[index];
@@ -2849,7 +2858,7 @@ export default class Shadowrun6Actor extends Actor {
 
         await super.importFromJSON(JSON.stringify(sourceData));
 
-        this.createEmbeddedDocuments("ActiveEffect", effects);
+        await this.createEmbeddedDocuments("ActiveEffect", effects);
 
         return this;
     }
