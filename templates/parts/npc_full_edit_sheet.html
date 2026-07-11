@@ -85,9 +85,10 @@
 				{{> "systems/shadowrun6-eden/templates/parts/pc-derived.html" attributes=system.attributes}}
 		   		{{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
 				{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
-				{{#if (or (eq actor.type 'Critter') (eq actor.type 'Spirit'))}}
+				{{#if (eq actor.type 'Spirit')}}
 					{{!-- {{> "systems/shadowrun6-eden/templates/parts/section-critterpower.html" }} --}}
 				{{else}}
+					{{!-- TODO Add critter powers --}}
 		   			{{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
 				{{/if}}
 			</div>
