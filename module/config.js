@@ -225,7 +225,14 @@ export class SR6Config {
         ]),
         TYPES_WITH_ALWAYS_WIFI: new Set([
             "WEAPON_FIREARMS",
-            "WEAPON_SPECIAL"
+            "WEAPON_SPECIAL",
+            "DRONES",
+            "DRONE_LARGE",
+            "DRONE_MEDIUM",
+            "DRONE_MICRO",
+            "DRONE_MINI",
+            "DRONE_SMALL",
+            "VEHICLES"
         ]),
         SUBTYPES_MATRIX_ACCESS: new Set([   // Also always have wifi
             "COMMLINK",
