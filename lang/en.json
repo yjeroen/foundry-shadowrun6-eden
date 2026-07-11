@@ -2093,6 +2093,8 @@
       "task": "Task"
     },
     "tradition": {
+      "label": "Tradition",
+      "placeholder": "Fill in your Tradition",
       "attribute": "Tradition Attribute"
     },
     "vehicle": {
