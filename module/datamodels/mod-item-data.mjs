@@ -24,6 +24,7 @@ export default class SR6ModItemData extends SR6BaseItemData {
             ...super.defineSchema(),
             embeddedInUuid: new fields.DocumentUUIDField({type: "Item"}),   // Only save the Item.ID, not the whole UUID
             type: new fields.StringField({required: false, choices: this.TYPES}),
+            rating: new fields.NumberField({required: true, nullable: false, initial: 0, min: 0}),
             // TODO: work out subtype fields
             // mount: new fields.StringField({required: false, nullable: true, choices: this.MOUNT_OPTIONS}),
         };

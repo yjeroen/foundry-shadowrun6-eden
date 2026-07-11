@@ -2353,7 +2353,8 @@
       "usage_tips": {
         "1": "In general, use a Modifier key to adjust an Attribute, Pool or Rating.",
         "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
-        "3": "As normal in Shadowrun 6E, Attribute and Skill Modifiers are automatically capped at +4."
+        "3": "As normal in Shadowrun 6E, Attribute and Skill Modifiers are automatically capped at +4.",
+        "4": "You can use '<strong>@actor</strong>' and `<strong>@item</strong>` in the Value field to refer to an attribute of the Actor or Item this effect is linked on. For example, you can add a <em>Reaction Modifier</em> key with the value `@item.system.rating`, with <em>Apply Effect to Actor</em> enabled in the <em>Details</em> tab, so the Reaction Modifier of the character is increased by the Rating of this Item."
       },
       "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item. Do <strong>NOT</strong> use Attribute Keys meant for Gear Mods on Actors, and visa versa.",
       "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in. Do <strong>NOT</strong> use Attribute Keys meant for Actors on Gear Mods, and visa versa.",
@@ -2657,6 +2658,10 @@
         "FIELDS": {
           "embeddedInUuid": {
             "label": "Item Modded"
+          },
+          "rating": {
+            "label": "Rating",
+            "tooltip": "<p>The Rating of a gear mods. (0 if no Rating)</p><p>In some cases this is also called it's Capacity cost.</p><p>This can be marked as [Rating] in the Gear chapter of the Core Rulebook.</p>"
           }
         },
         "TYPES": {
