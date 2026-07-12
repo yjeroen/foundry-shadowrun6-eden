@@ -2095,6 +2095,7 @@
       "guardian": "Guardian",
       "guidance": "Guidance",
       "task": "Task",
+
       "blood": "Blood",
       "caretaker": "Insect Caretaker",
       "nymph": "Insect Nymph",
@@ -2102,7 +2103,19 @@
       "soldier": "Insect Soldier",
       "worker": "Insect Worker",
       "queen": "Insect Queen",
-      "alpha": "Insect Alpha"
+      "alpha": "Insect Alpha",
+
+      "abomination": "Toxic Abomination",
+      "barren": "Toxic Barren",
+      "noxious": "Toxic Noxious",
+      "nuclear": "Toxic Nuclear",
+      "plague": "Toxic Plague",
+      "sludge": "Toxic Sludge",
+      
+      "shadow": "Shadow",
+      "shedim": "Shedim",
+      "masterShedim": "Master Shedim",
+      "zonbi": "Zonbi l'Astral"
     },
     "tradition": {
       "label": "Tradition",
