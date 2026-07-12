@@ -66,7 +66,7 @@ body.theme-light .application {
 	/* 8405c9 */
 }
 .sr6-dice-roll-v12 {
-	cursor: pointer;
+	cursor: var(--cursor-pointer);
 }
 
 .themed.theme-light .app.window-app.dialog .window-content, 

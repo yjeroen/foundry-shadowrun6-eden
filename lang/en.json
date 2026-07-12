@@ -1794,6 +1794,14 @@
       }
     },
     "settings": {
+      "shadowrunCursors": {
+        "hint": "If enabled, your cursor icons are changed to a neon glow style.",
+        "name": "Shadowrun Style Cursors"
+      },
+      "tokensLimitedOwnership": {
+        "hint": "If enabled, if you drop any Actor with 'Link Actor Data' disabled in its prototype onto the Canvas, the Token will have a Limited Ownership (so players can click on it to see the Read Only sheets with Matrix Persona/PAN information) if the Actor was configurd with No Ownership. This allows you to hide Actors in the Actor tab from view, while still allowing players to see their Read Only sheets.",
+        "name": "Tokens Read Only & Matrix Sheets"
+      },
       "maxEdgePerRound": {
         "hint": "Defines the maximum egde a player or NPC can gain per turn.",
         "name": "Maximum Edge earned per turn"
@@ -1801,10 +1809,6 @@
       "importToCompendium": {
         "hint": "Define if imported NPCs should be added as actors or as entries to the NPCs compendium",
         "name": "Import to compendium"
-      },
-      "tokensLimitedOwnership": {
-        "hint": "If enabled, if you drop any Actor with 'Link Actor Data' disabled in its prototype onto the Canvas, the Token will have a Limited Ownership (so players can click on it to see the Read Only sheets with Matrix Persona/PAN information) if the Actor was configurd with No Ownership. This allows you to hide Actors in the Actor tab from view, while still allowing players to see their Read Only sheets.",
-        "name": "Tokens Read Only & Matrix Sheets"
       },
       "defaultThreshold": {
         "hint": "Defines the default threshold used for any skill check",

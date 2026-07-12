@@ -388,7 +388,7 @@ dd::after {
   color: rgb(0 66 17);
 }
 button.collapsible.empty {
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 .shadowrun6 .collapsible-skill {
 	width: 1.5em;
@@ -456,7 +456,7 @@ button.collapsible.empty {
 /* The slider */
 .shadowrun6-slider {
   position: absolute;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   top: 0;
   left: 0;
   right: 0;
@@ -711,7 +711,7 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 }
 .shadowrun6 .effects .effect-control.disabled {
   color: #999;
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 .shadowrun6 .effects .effect-control.disabled:hover {
     text-shadow: none;
@@ -785,7 +785,7 @@ li.folder > .folder-header .folder-name {
   color: purple;
 }
 .item-desc {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 section.sr6-tab {

@@ -13,6 +13,19 @@ export const registerSystemSettings = () => {
     /**
      * Register resting variants
      */
+    game.settings.register(SYSTEM_NAME, "shadowrunCursors", {
+        name: "shadowrun6.settings.shadowrunCursors.name",
+        hint: "shadowrun6.settings.shadowrunCursors.hint",
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: true,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | shadowrunCursors changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "shadowrunCursors", toggle);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "tokensLimitedOwnership", {
         name: "shadowrun6.settings.tokensLimitedOwnership.name",
         hint: "shadowrun6.settings.tokensLimitedOwnership.hint",
@@ -25,6 +38,7 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "tokensLimitedOwnership", toggle);
         }
     });
+
     game.settings.register(SYSTEM_NAME, "maxEdgePerRound", {
         name: "shadowrun6.settings.maxEdgePerRound.name",
         hint: "shadowrun6.settings.maxEdgePerRound.hint",
@@ -180,6 +194,7 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "expandedSpecializations", toggle);
         }
     });
+    
     game.settings.register(SYSTEM_NAME, "importToCompendium", {
         name: "shadowrun6.settings.importToCompendium.name",
         hint: "shadowrun6.settings.importToCompendium.hint",

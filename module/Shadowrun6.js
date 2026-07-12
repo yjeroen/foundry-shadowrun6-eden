@@ -68,6 +68,8 @@ Hooks.once("init", async function () {
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
     CONFIG.Dice.rolls = [SR6Roll];
+    CONFIG.Token.hudClass = SR6TokenHUD;
+    CONFIG.Token.objectClass = SR6Token;
     CONFIG.Combat.fallbackTurnMarker = 'systems/shadowrun6-eden/images/turn-marker-frame.webp'
 
     
@@ -79,8 +81,17 @@ Hooks.once("init", async function () {
         CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
     }
 
-    CONFIG.Token.hudClass = SR6TokenHUD;
-    CONFIG.Token.objectClass = SR6Token;
+    if ( game.settings.get(SYSTEM_NAME, "shadowrunCursors") ) {
+        CONFIG.cursors.default = "systems/shadowrun6-eden/images/cursor-default.png"
+        CONFIG.cursors["default-down"] = "systems/shadowrun6-eden/images/cursor-default.png"
+        CONFIG.cursors.text = { url: "systems/shadowrun6-eden/images/cursor-text.png", x: 12, y: 12 }
+        CONFIG.cursors["text-down"] = { url: "systems/shadowrun6-eden/images/cursor-text.png", x: 12, y: 12 }
+        CONFIG.cursors.pointer = { url: "systems/shadowrun6-eden/images/cursor-pointer.png", x: 8, y: 0 }
+        CONFIG.cursors["pointer-down"] = { url: "systems/shadowrun6-eden/images/cursor-pointer-down.png", x: 8, y: 0 }
+        CONFIG.cursors.grab = { url: "systems/shadowrun6-eden/images/cursor-grab.png", x: 12, y: 12 }
+        CONFIG.cursors["grab-down"] = { url: "systems/shadowrun6-eden/images/cursor-grab-down.png", x: 12, y: 12 }
+    }
+
 
     // Initialize socket handler
     game.sr6.sockets.registerSocketListeners();

@@ -45,7 +45,7 @@
 }
 
 .sr6 div[data-action] {
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 .sr6 div[data-action]:not(.track):hover {
     color: black;
@@ -53,7 +53,7 @@
 }
 
 .sr6 .inactive:not(.prosemirror) {
-    cursor: default;
+    cursor: var(--cursor-default);
     pointer-events: none;
 }
 
@@ -352,7 +352,7 @@
 /* Persona Mode */
 .sr6 .meta-icon.persona-mode {
     margin: 0 -1px;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .meta-icon.persona-mode span {
@@ -616,7 +616,7 @@
     object-position: center;
     display: block;
     filter: saturate(1.05) contrast(1.04);
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .portrait-edit {
@@ -802,7 +802,7 @@
     width: var(--overwatch-eye-width);
     height: var(--overwatch-eye-height);
     color: var(--hud-color-bright);
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .overwatch-side {
@@ -817,7 +817,7 @@
     filter:
         drop-shadow(0 0 2px color-mix(in srgb, var(--color-shadow-primary) 22%, transparent));
     transition: color 0.2s ease, filter 0.2s ease;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .overwatch-side svg {
@@ -1165,7 +1165,7 @@
 
     display: grid;
     place-items: center;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .slot span {
@@ -1634,7 +1634,7 @@
     padding: 0;
     border: 0;
     background: transparent;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 
     transform-style: preserve-3d;
     transform: translateX(var(--edge-translate-x)) rotateY(var(--edge-rotate-y));
@@ -1653,7 +1653,7 @@
 }
 
 .sr6.sheet .edge-coin:not(.clickable) {
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 /* ======================================================================== */
@@ -1814,7 +1814,7 @@
     font-size: 0.8em;
 }
 .sr6 .item-name {
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 .sr6 .item-name:hover {
     text-shadow: 0 0 8px var(--color-shadow-primary);
@@ -1896,7 +1896,7 @@
 
 .sr6 .section .item-control {
     display: inline-flex;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .section .item-control a:hover {
@@ -1936,7 +1936,7 @@
 }
 
 .sr6 .item-control.disabled-roll {
-    cursor: default;
+    cursor: var(--cursor-default);
     pointer-events: none;
 }
 
@@ -1996,7 +1996,7 @@
 }
 
 .sr6 .combat-action .section-name {
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
     color: black;
 }
 
@@ -2136,7 +2136,7 @@
   min-width: 5.8rem;
   min-height: 1.35rem;
   padding: 0.18rem 0.45rem;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   user-select: none;
   color: #26f7a4;
   background: linear-gradient(
@@ -2270,7 +2270,7 @@
   line-height: 1;
   letter-spacing: 0.04em;
   text-decoration: none;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   user-select: none;
 }
 
@@ -2705,7 +2705,7 @@ body.game .app a:hover .sr6-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .pan .pan-node.pan-node-master-pan > .section-row,
@@ -2854,7 +2854,7 @@ body.game .app a:hover .sr6-icon {
     margin-top: 5px;
 }
 .chat-message .matrix-result button.not-gm {
-    cursor: default;
+    cursor: var(--cursor-default);
     opacity: 0.6;
     border-style: dashed;
 }
@@ -2868,7 +2868,7 @@ body.game .app a:hover .sr6-icon {
     box-shadow: none;
 }
 .chat-message .matrix-result .buttonApplied {
-    cursor: default;
+    cursor: var(--cursor-default);
     pointer-events: none;
 }
 .chat-message .matrix-result button i {
