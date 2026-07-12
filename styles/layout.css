@@ -854,21 +854,27 @@ body.game .shadowrun6.sheet .window-content {
 .sheet.journal-entry-page.read-only-pdf .window-content {
   padding: 0;
 }
-label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-fields + p.hint {
-  position: relative;
-  margin-bottom: 3rem;
+
+#settings-config section[data-tab="system"] .hint {
+  opacity: 0.8;
 }
+
+label[for="settings-config-shadowrun6-eden.tokensLimitedOwnership"] + div.form-fields + p.hint:after {
+    content: 'Shadowrun Optional Rules';
+    color: var(--color-form-label);
+    font-size: var(--font-size-18);
+    font-weight: bold;
+    display: block;
+    padding: 1.5rem 0 0 0;
+}
+
 label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-fields + p.hint:after {
     content: 'Shadowrun PDF Configuration';
     color: var(--color-form-label);
     font-size: var(--font-size-18);
     font-weight: bold;
-    position: absolute;
-    width: 100%;
-    height: 2rem;
-    bottom: -100%;
-    left: 0;
-    padding: 0.5rem 0;
+    display: block;
+    padding: 1.5rem 0 0 0;
 }
 
 .item.sheet table td {
