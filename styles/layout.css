@@ -21,6 +21,7 @@
 }
 .game .system-links a {
   margin-right: 10px;
+  color: var(--sr6-bright-pink);
 }
 
 line {
