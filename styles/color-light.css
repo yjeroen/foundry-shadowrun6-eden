@@ -28,6 +28,9 @@
 	--chat-input-height: 124px;
 	--contrast-color: #ffffff;
 }
+body.game input[type=checkbox]{
+	--checkbox-checkmark-color: #e0e0d9;
+}
 :root,
 .themed.theme-light {
 	--contrast-color: #000000;
