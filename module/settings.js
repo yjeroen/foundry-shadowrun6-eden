@@ -18,8 +18,16 @@ export const registerSystemSettings = () => {
         hint: "shadowrun6.settings.shadowrunCursors.hint",
         scope: "client",
         config: true,
-        type: Boolean,
-        default: true,
+        type: new foundry.data.fields.StringField({
+            choices: {
+                "disabled": "shadowrun6.settings.shadowrunCursors.disabled",
+                "black": "shadowrun6.settings.shadowrunCursors.black",
+                "transparent": "shadowrun6.settings.shadowrunCursors.transparent"
+            },
+            required: true,
+            initial: 'black'
+        }),
+        default: 'black',
         requiresReload: true,
         onChange: (toggle) => {
             console.log("SR6E | shadowrunCursors changed to " + toggle);

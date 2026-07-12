@@ -1796,7 +1796,10 @@
     "settings": {
       "shadowrunCursors": {
         "hint": "If enabled, your cursor icons are changed to a neon glow style.",
-        "name": "Shadowrun Style Cursors"
+        "name": "Shadowrun Style Cursors",
+        "disabled": "Disabled",
+        "black": "Black Neon",
+        "transparent": "Transparent Neon"
       },
       "tokensLimitedOwnership": {
         "hint": "If enabled, if you drop any Actor with 'Link Actor Data' disabled in its prototype onto the Canvas, the Token will have a Limited Ownership (so players can click on it to see the Read Only sheets with Matrix Persona/PAN information) if the Actor was configurd with No Ownership. This allows you to hide Actors in the Actor tab from view, while still allowing players to see their Read Only sheets.",
@@ -2111,7 +2114,7 @@
       "nuclear": "Toxic Nuclear",
       "plague": "Toxic Plague",
       "sludge": "Toxic Sludge",
-      
+
       "shadow": "Shadow",
       "shedim": "Shedim",
       "masterShedim": "Master Shedim",
