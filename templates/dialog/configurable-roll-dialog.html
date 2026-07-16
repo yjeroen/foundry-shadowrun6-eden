@@ -3,7 +3,9 @@
 
 <form class="sr6-roll-dialog">
 	 <div style="display:flex; align-content: space-between">
-      <h3 style="flex:4; display:inline; align-self: flex-start">{{data.actionText}}</h3>
+      <h3 style="flex:4; display:inline; align-self: flex-start">
+        <span>{{data.actionText}}</span>
+      </h3>
       {{#if (or data.attrib data.useAttributeMod)}}
       <span style="flex:2.2; display:inline">
          + {{localize "shadowrun6.label.attribute"}}
@@ -14,8 +16,52 @@
        </span>
         {{/if}}
     </div>
+
+    {{#if data.accessLevel}}
+    <h4 class="matrix-command-line">
+      <span>{{localize (concat "shadowrun6.matrix.accessLevel." data.accessLevel)}}@{{data.actor.name}}</span><wbr>
+      {{#if data.panAdmin}}
+      <span>//{{data.panName}}</span><wbr>
+      {{/if}}
+      {{#if data.itemName}}
+      <span>//:{{data.itemName}}</span><wbr>
+      {{else}}
+      <span>//:{{#if data.matrixTargetName}}{{data.matrixTargetName}}{{else}}???{{/if}}</span><wbr>
+      {{/if}}
+      <span># {{data.actionText}}</span>
+    </h4>
+    {{/if}}
+
     {{#if data.checkText}}
     <h2 class="highlight" id="rolldia-checkText">{{data.checkText}}</h2>
+    {{/if}}
+
+    {{#if data.rollWarningMessage}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize data.rollWarningMessage}}</span>
+    </div>
+    {{/if}}
+    {{#if data.noEdgeGain}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize "shadowrun6.roll.edge.noEdgeGain"}}</span>
+    </div>
+    {{/if}}
+    {{#if data.noEdgeSpend}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize "shadowrun6.roll.edge.noEdgeSpend"}}</span>
+    </div>
+    {{/if}}
+    {{#if data.tempEdge}}
+    <div class="roll-dialog-message">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{localize "shadowrun6.roll.edge.tempEdge"}}</span>
+    </div>
+    {{/if}}
+    {{#if (or (or (or data.noEdgeGain data.noEdgeSpend) data.tempEdge) data.rollWarningMessage)}}
+    <hr>
     {{/if}}
 
    <!-- Spell modification -->
@@ -31,8 +77,10 @@
   {{#if data.defendWith}}
     {{> "systems/shadowrun6-eden/templates/dialog/partRollDialogOpposed.html"}}
   {{/if}}
-
+ 
+  {{#unless data.noEdgeSpend}}
 	{{> "systems/shadowrun6-eden/templates/dialog/partRollDialogEdge.html"}}
+  {{/unless}}
 
 	<!-- Final calculations -->
     <h4 class="highlight" style="margin:0px">{{localize "shadowrun6.roll.configure"}}</h4>
@@ -53,12 +101,12 @@
           <td></td>
         {{/if}}
     	</tr>
-      {{#if data.item.system.matrix.matrixCM.penalty}}
+      {{#if data.matrixCmPenalty}}
       <tr>
         <td colspan="3"></span></td>
         <td></td>
         <td style="text-align:right; width: 190px;" data-tooltip="SR6.title.matrixCmPenalty">{{localize 'SR6.label.matrixCmPenalty'}}</td>
-        <td data-tooltip="SR6.title.matrixCmPenalty"><input type="number" value="-{{data.item.system.matrix.matrixCM.penalty}}" class="modifier" disabled/></td>
+        <td data-tooltip="SR6.title.matrixCmPenalty"><input type="number" value="-{{data.matrixCmPenalty}}" class="modifier" disabled/></td>
       </tr>
       {{/if}}
       <tr>

@@ -1,0 +1,425 @@
+{{!-- PERSONA SECTION --}}
+<section class="section persona pan sr6">
+    <header class="section-head">
+        <h2 class="section-title">
+            {{ localize 'shadowrun6.section.persona.title' }}
+        </h2>
+    </header>
+
+    <div class="pan-summary-columns">
+        <div class="pan-summary">
+            <div class="pan-summary-row">
+                <i class="fas fa-user"></i>
+                <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.title' }}</span>
+                <strong>{{persona.name}}</strong>
+                <span class=""></span>
+            </div>
+            {{#if persona.accessDevice}}
+            <div class="pan-summary-row item" data-item-id="{{persona.accessDevice.id}}" data-document-class="Item">
+                <i class="fas fa-laptop-code"></i>
+                <span class="pan-summary-label" data-tooltip="SR6.title.createsPersona">{{ localize
+                    'shadowrun6.section.persona.accessDevice' }}</span>
+                <strong>{{persona.accessDevice.name}}</strong>
+                <span class="pan-muted">
+                    {{!-- {{#if actor.isOwner}}
+                    <a class="item-control item-edit"
+                        data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
+                        data-action="viewDoc">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}} --}}
+                </span>
+            </div>
+            {{/if}}
+            <div class="pan-summary-row">
+                <i class="fas fa-user-secret"></i>
+                <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.silent' }}</span>
+                <span>
+                    <a class="toggle-control" data-action='toggleRunningSilent' data-tooltip="SR6.title.running_silent">
+                        <i class='fas {{#if actor.system.persona.runningSilent}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+                    </a>
+                </span>
+                <span class="pan-muted"></span>
+            </div>
+            <div class="pan-summary-row">
+                <i class="fas fa-file-lines"></i>
+                <span class="pan-summary-label">{{localize "shadowrun6.section.persona.description"}}</span>
+                <span class="persona-toggle-description">
+                    <a class="item-control item-edit"
+                        data-tooltip="{{localize 'shadowrun6.section.persona.description_toggle'}}"
+                        data-action="togglePersonaDescription">
+                        <i class="fas fa-square-pen"></i>
+                    </a>
+                </span>
+                <span class="pan-muted"></span>
+            </div>
+            <div class="pan-summary-row persona-description inactive">
+                {{editor
+                    actor.enriched.personaDescription
+                    target="system.persona.description"
+                    fieldName=actor.system.persona.description
+                    button=false
+                    owner=owner
+                    editable=editable
+                    engine="prosemirror"
+                }}
+            </div>
+        </div>
+    
+        <div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
+            {{!-- <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div> --}}
+            <div class="portrait-wrap">
+                <div class="portrait">
+                    <div class="portrait-edit"><i class="fa-solid fa-image fa-fw"></i></div>
+                    <img
+                        class='profile-img'
+                        src='{{#if system.persona.img}}{{system.persona.img}}{{else}}{{actor.img}}{{/if}}'
+                        data-action='onClickImage'
+                        data-image-path='system.persona.img'
+                        {{#if limited}}
+                        data-tooltip='SR6.title.showImage'
+                        {{else}}
+                        data-tooltip='shadowrun6.section.persona.image.tooltip'
+                        {{/if}}
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-block">
+        <div class="stat-row">
+            <div class="stat">
+                <div class="stat-label">
+                    <a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.a" data-roll-label="{{localize 'shadowrun6.label.attack.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.attack.long')}}">{{ localize 'SR6.statblock.system.matrix.attributes.attack' }}</a>
+                </div>
+                <div class="stat-value">{{persona.attributes.a}}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">
+                    <a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.s" data-roll-label="{{localize 'shadowrun6.label.sleaze.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.sleaze.long')}}">{{ localize 'SR6.statblock.system.matrix.attributes.sleaze' }}</a>
+                </div>
+                <div class="stat-value">{{persona.attributes.s}}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">
+                    <a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.d" data-roll-label="{{localize 'shadowrun6.label.dataproc.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.dataproc.long')}}">{{ localize 'SR6.statblock.system.matrix.attributes.dataProcessing' }}</a>
+                </div>
+                <div class="stat-value">{{persona.attributes.d}}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">
+                    <a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.f" data-roll-label="{{localize 'shadowrun6.label.firewall.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.firewall.long')}}">{{ localize 'SR6.statblock.system.matrix.attributes.firewall' }}</a>
+                </div>
+                <div class="stat-value">{{persona.attributes.f}}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">{{ localize 'shadowrun6.label.attack_rating_short' }}</div>
+                <div class="stat-value">{{persona.attackRating}}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">{{ localize 'attrib.dr_short' }}</div>
+                <div class="stat-value">{{persona.defenseRating}}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">{{ localize 'SR6.Actor.base.FIELDS.matrix.overwatchScore.label_short' }}</div>
+                <div class="stat-value">{{persona.overwatchScore}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <div>{{ localize 'SR6.label.matrixCM' }}</div>
+    </div>
+    <div class="matrixCM">
+        {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=persona.matrixCM item=persona.accessDevice}}
+    </div>
+
+</section>
+
+{{!-- PAN SECTION --}}
+<section class="section pan {{#if system.pan.isSlaved}}slaved{{else}}master{{/if}}">
+    <header class="section-head">
+        <h2 class="section-title">
+            {{ localize 'shadowrun6.section.pan.title' }}
+        </h2>
+    </header>
+ 
+    <div class="pan-summary">
+
+        <div class="pan-summary-row">
+            <i class="fas fa-user"></i>
+            <span class="pan-summary-label" data-tooltip="SR6.title.pan_admin">{{ localize 'shadowrun6.section.pan.administrator' }}</span>
+            <strong>{{system.pan.administrator.name}}</strong>
+            <span class="pan-access pan-access-admin">{{ localize 'shadowrun6.matrix.accessLevel.admin'}}</span>
+        </div>
+
+        {{#if system.pan.isSlaved}}
+        <div class="pan-summary-row">
+            <i class="fas fa-link"></i>
+            <span class="pan-summary-label">{{ localize 'shadowrun6.section.pan.slavedTo' }}</span>
+            <strong>{{system.pan.name}}</strong>
+            <span class="pan-muted"></span>
+        </div>
+        {{else}}
+        <div class="pan-summary-row">
+            {{#if actor.isTechno}}
+            <i class="fas fa-hexagon-nodes pan-node-icon"></i>
+            <span class="pan-summary-label" data-tooltip="SR6.title.living_network">{{ localize 'shadowrun6.section.pan.living_network_name' }}</span>
+            {{else}}
+            <i class="fas fa-network-wired pan-node-icon"></i>
+            <span class="pan-summary-label" data-tooltip="SR6.title.pan">{{ localize 'shadowrun6.section.pan.name' }}</span>
+            {{/if}}
+            <strong><input class="box" type="text" value="{{system.pan.name}}" data-field="system.pan._name" disabled/></strong>
+            <span class="item-controls">
+                {{#if actor.isOwner}}
+                <a class="item-control"
+                    data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'shadowrun6.section.pan.name')}}"
+                    data-action="editField">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="item-control"
+                    data-tooltip="shadowrun6.section.pan.share"
+                    data-action="sharePAN">
+                <i class="fa-solid fa-share"></i>
+                </a>
+                {{/if}}
+            </span>
+        </div>
+        {{/if}}
+
+        <div class="pan-summary-row">
+            <i class="fas fa-tower-broadcast"></i>
+            <span class="pan-summary-label" data-tooltip="SR6.title.deviceLimit">{{ localize 'shadowrun6.section.pan.deviceLimit' }}</span>
+            <strong>{{system.pan.deviceLimit}}</strong>
+            <span class="pan-muted"></span>
+        </div>
+
+    </div>
+
+    <div class="section-header">
+        <div>{{ localize 'shadowrun6.section.pan.column.nodes' }}</div>
+        <div>{{ localize 'shadowrun6.section.pan.column.access' }}</div>
+        <div>{{ localize 'shadowrun6.label.column.action' }}</div>
+    </div>
+
+    <ol class="section-list pan-tree">
+        {{#each pan.nodes as |node|}}
+        <li class="section-item pan-node master-node pan-node-{{node.type}} {{#if node.isActorsNode}}pan-node-own{{/if}}">
+            <div class="section-row">
+                <div class="section-name pan-tree-name">
+                    <i class="fas {{node.icon}} pan-node-icon"></i>
+                    <span class="pan-node-name">
+                        {{node.name}}
+                    </span>
+                    <span class="pan-role">
+                        {{ localize (concat 'shadowrun6.section.pan.role.' node.type) }}
+                    </span>
+                </div>
+
+                <div class="section-column">
+                    <span class="pan-access pan-access-{{node.access}}"
+                          data-tooltip="{{localize (concat "shadowrun6.matrix.accessLevel.tooltip_sheetOwner_" @root.actor.isOwner) name=@root.actor.name device=node.name}}"
+                    >
+                        {{ localize (concat 'shadowrun6.matrix.accessLevel.' node.access)}}
+                    </span>
+                </div>
+
+                <div class="section-column item-controls">
+                    {{!-- {{#if node.rollType}}
+                    <a class="item-control" data-tooltip="{{node.rollTooltip}}" data-action="roll"
+                        data-roll-type="{{node.rollType}}" {{#if node.item.id}}data-item-id="{{node.item.id}}" {{/if}}
+                        {{#if node.uuid}}data-uuid="{{node.uuid}}" {{/if}}>
+                        <i class="fas fa-shield-alt"></i>
+                    </a>
+                    {{/if}}
+
+                    {{#if node.item.id}}
+                    <a class="item-control item-edit"
+                        data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
+                        data-action="viewDoc">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                    {{#if node.canDelete}}
+                    {{#if @root.editMode}}
+                    <a class="item-control item-delete"
+                        data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.gear')}}"
+                        data-action="deleteDoc">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {{/if}}
+                    {{/if}}
+                    {{/if}} --}}
+                </div>
+            </div>
+
+            {{#if node.children}}
+            <ol class="pan-children">
+                {{#each node.children as |child|}}
+                <li 
+                    class="section-item pan-node pan-node-{{child.type}} {{#if child.isActorsNode}}pan-node-own{{/if}} {{#if child.item.id}}item{{/if}}"
+                    {{#if child.item.id}} data-item-id="{{child.item.id}}" data-document-class="Item" {{/if}}
+                >
+                    <div class="section-row">
+                        <div class="section-name pan-tree-name" {{#if child.item.id}}data-tooltip="shadowrun6.gear.subtype.{{child.subtype}}"{{/if}}>
+                            <i class="fas {{child.icon}} pan-node-icon"></i>
+                            <span class="pan-node-name">
+                                {{child.name}}
+                            </span>
+                            <span class="pan-role">
+                                {{ localize (concat 'shadowrun6.section.pan.role.' child.type) }}
+                            </span>
+                        </div>
+
+                        <div class="section-column">
+                            {{#if (and child.matrixCM (ne child.access "outsider"))}}
+                            <div class="matrixCM {{#unless child.isOwner}}inactive{{/unless}}">
+                                {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=child.matrixCM item=child.item }}
+                            </div>
+                            {{/if}}
+                        </div>
+
+                        <div class="section-column">
+                            {{#if child.access}}
+                            <span class="pan-access pan-access-{{child.access}}"
+                                  data-tooltip="{{localize (concat "shadowrun6.matrix.accessLevel.tooltip_sheetOwner_" @root.actor.isOwner) name=@root.actor.name device=child.name}}"
+                            >
+                                {{ localize (concat 'shadowrun6.matrix.accessLevel.' child.access)}}
+                            </span>
+                            {{/if}}
+                        </div>
+                        
+                        <div class="section-column item-controls">
+                            {{#if child.item.uuid}}
+                            <a class="item-control"
+                                data-action="matrixOperations"
+                                data-item-uuid="{{child.item.uuid}}"
+                                data-tooltip="{{localize "shadowrun6.matrix.open_operations" item=child.name}}"
+                            >
+                                {{sr6Icon "darkTerminal"}}
+                            </a>
+                            {{/if}}
+
+                            {{#if (and child.item.id child.isOwner)}}
+                            <a class="item-control item-edit"
+                                data-action="viewDoc"
+                                data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            
+                            {{!-- {{#if child.rollType}}
+                            <a class="item-control"
+                                data-action="roll"
+                                data-roll-type="{{child.rollType}}"
+                                {{#if child.item.id}}data-item-id="{{child.item.id}}"{{/if}} {{#if child.uuid}}data-uuid="{{child.uuid}}" {{/if}}
+                                data-tooltip="{{child.rollTooltip}}"
+                            >
+                                <i class="fas fa-shield-alt"></i>
+                            </a>
+                            {{/if}} --}}
+
+                            {{!-- TODO JEROEN Not used yet // Add things like remove from PAN --}}
+                            {{!-- {{#if (and @root.editMode child.canDelete)}}
+                            <a class="item-control item-delete"
+                                data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.gear')}}"
+                                data-action="deleteDoc">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            {{/if}} --}}
+
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    {{#if child.children}}
+                    <ol class="pan-children">
+                        {{#each child.children as |device|}}
+                        <li 
+                            class="section-item pan-node pan-node-{{device.type}} {{#if device.isActorsNode}}pan-node-own{{/if}} {{#if device.item.id}}item{{/if}}"
+                            {{#if device.item.id}} data-item-id="{{device.item.id}}" data-document-class="Item" {{/if}}
+                        >
+                            <div class="section-row">
+                                <div class="section-name pan-tree-name" data-tooltip="shadowrun6.gear.subtype.{{device.subtype}}">
+                                    <i class="fas {{device.icon}} pan-node-icon"></i>
+
+                                    <span class="pan-node-name">
+                                        {{device.name}}
+                                    </span>
+
+                                    <span class="pan-role">
+                                        {{ localize (concat 'shadowrun6.section.pan.role.' device.type) }}
+                                    </span>
+                                </div>
+
+                                <div class="section-column">
+                                    {{#if (and device.matrixCM (ne device.access "outsider"))}}
+                                    <div class="matrixCM {{#unless device.isOwner}}inactive{{/unless}}">
+                                        {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=device.matrixCM item=device.item }}
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                
+                                <div class="section-column">
+                                    {{#if device.access}}
+                                    <span class="pan-access pan-access-{{device.access}}"
+                                          data-tooltip="{{localize (concat "shadowrun6.matrix.accessLevel.tooltip_sheetOwner_" @root.actor.isOwner) name=@root.actor.name device=device.name}}"
+                                    >
+                                        {{ localize (concat 'shadowrun6.matrix.accessLevel.' device.access)}}
+                                    </span>
+                                    {{/if}}
+                                </div>
+
+                                <div class="section-column item-controls">
+                                    {{#if device.item.uuid}}
+                                    <a class="item-control"
+                                        data-action="matrixOperations"
+                                        data-item-uuid="{{device.item.uuid}}"
+                                        data-tooltip="{{localize "shadowrun6.matrix.open_operations" item=device.name}}"
+                                    >
+                                        {{sr6Icon "darkTerminal"}}
+                                    </a>
+                                    {{/if}}
+
+                                    {{#if (and device.item.id device.isOwner)}}
+                                    <a class="item-control item-edit"
+                                        data-action="viewDoc"
+                                        data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    {{!-- {{#if device.rollType}}
+                                    <a class="item-control" data-tooltip="{{device.rollTooltip}}" data-action="roll"
+                                        data-roll-type="{{device.rollType}}" {{#if
+                                        device.item.id}}data-item-id="{{device.item.id}}" {{/if}} {{#if
+                                        device.uuid}}data-uuid="{{device.uuid}}" {{/if}}>
+                                        <i class="fas fa-shield-alt"></i>
+                                    </a>
+                                    {{/if}} --}}
+
+                                    {{!-- {{#if (and @root.editMode device.canDelete)}}
+                                    <a class="item-control item-delete"
+                                        data-action="deleteDoc"
+                                        data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.gear')}}"
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    {{/if}} --}}
+
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ol>
+                    {{/if}}
+                </li>
+                {{/each}}
+            </ol>
+            {{/if}}
+        </li>
+        {{/each}}
+    </ol>
+</section>

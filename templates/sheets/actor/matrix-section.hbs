@@ -1,22 +1,49 @@
 <!-- Matrix Actions -->
 <section class="section matrix-section">
     <header class="section-head">
-        <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+
+		{{#if limited}}
+		<h2 class="section-title" data-tooltip="shadowrun6.matrix.target_persona.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+		<div class="reference-label" data-tooltip="shadowrun6.matrix.target_persona.tooltip">
+			<i class="fas fa-user"></i>
+			<span>{{sheet.initiator.name}} &middot; </span>
+			<span>{{localize "shadowrun6.matrix.target_persona.title"}}</span>
+		</div>
+		{{else}}
+		<h2 class="section-title" data-tooltip="shadowrun6.matrix.reference.tooltip">{{ localize 'shadowrun6.section.matrix_actions.title' }}</h2>
+		<div class="reference-label">
+			<i class="fas fa-circle-info" data-tooltip="shadowrun6.matrix.reference.tooltip"></i>
+			<span data-tooltip="shadowrun6.matrix.reference.tooltip">{{localize "shadowrun6.matrix.reference.title"}} &middot; </span>
+			<span data-tooltip="shadowrun6.matrix.targetActor.tooltip">{{localize "shadowrun6.matrix.targetActor.title"}}</span>
+			<a class="item-control draggable" data-tooltip="shadowrun6.matrix.targetActor.tooltip" data-action="openTargetsMatrixSheet" draggable="true">
+				<i class="fas fa-crosshairs"></i>
+			</a>
+		</div>
+		{{/if}}
     
-        <div class="matrix-access-container" data-tooltip="shadowrun6.matrix.accessLevel.switch_access_level">
-            <div class="matrix-access-switch">
-                <input type="radio" id="matrixAccess-{{actor.id}}-outsider" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="outsider" {{#if matrixAccess.outsider}}checked{{/if}} />
-                <label for="matrixAccess-{{actor.id}}-outsider">{{localize 'shadowrun6.matrix.accessLevel.outsider'}}</label>
-    
-                <input type="radio" id="matrixAccess-{{actor.id}}-user" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="user" {{#if matrixAccess.user}}checked{{/if}} />
-                <label for="matrixAccess-{{actor.id}}-user">{{localize 'shadowrun6.matrix.accessLevel.user'}}</label>
-    
-                <input type="radio" id="matrixAccess-{{actor.id}}-admin" name="matrixAccess-{{actor.id}}" data-action="switchMatrixAccess" value="admin" {{#if matrixAccess.admin}}checked{{/if}} />
-                <label for="matrixAccess-{{actor.id}}-admin">{{localize 'shadowrun6.matrix.accessLevel.admin'}}</label>
-    
-                <span id="active-label"></span>
-            </div>
-        </div>
+		<div class="matrix-access-container"
+			data-tooltip="shadowrun6.matrix.accessLevel.switch{{#if limited}}_persona{{/if}}"
+		>
+			<div class="matrix-access-switch {{#unless owner}}inactive{{/unless}}">
+				<span class="matrix-access-option {{#if matrixAccess.outsider}}active{{/if}}"
+					data-action="switchMatrixAccess" data-value="outsider"
+				>
+					{{localize 'shadowrun6.matrix.accessLevel.outsider'}}
+				</span>
+				<span class="matrix-access-option {{#if matrixAccess.user}}active{{/if}}"
+					data-action="switchMatrixAccess" data-value="user"
+				>
+					{{localize 'shadowrun6.matrix.accessLevel.user'}}
+				</span>
+				<span class="matrix-access-option {{#if matrixAccess.admin}}active{{/if}}"
+					data-action="switchMatrixAccess" data-value="admin"
+				>
+					{{localize 'shadowrun6.matrix.accessLevel.admin'}}
+				</span>
+
+				<span class="active-label"></span>
+			</div>
+		</div>
     </header>
 
     <section class="matrix-action-lists">
@@ -48,9 +75,13 @@
                             <i class="fas fa-dice-six"></i>
                         </a>
                     {{else}}
-                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded">
+                        <a class="item-control {{matrixAccessLevel @root.matrixAccess action}}"
+                            data-action="matrixRoll"
+                            data-matrix-id="{{action.id}}"
+                            data-tooltip="SR6.title.noRollNeeded"
+                        >
                             <i class="fas fa-square"></i>
-                        </span>
+                        </a>
                     {{/if}}
                     </div>
                 </div>
@@ -92,9 +123,13 @@
                             <i class="fas fa-dice-six"></i>
                         </a>
                     {{else}}
-                        <span class="item-control {{matrixAccessLevel @root.matrixAccess action}}" data-tooltip="SR6.title.noRollNeeded">
+                        <a class="item-control {{matrixAccessLevel @root.matrixAccess action}}"
+                            data-action="matrixRoll"
+                            data-matrix-id="{{action.id}}"
+                            data-tooltip="SR6.title.noRollNeeded"
+                        >
                             <i class="fas fa-square"></i>
-                        </span>
+                        </a>
                     {{/if}}
                     </div>
                 </div>

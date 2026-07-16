@@ -15,8 +15,9 @@ export default class SR6InitiativeData extends SR6DataModel {
         return `${this.rank} + ${this.dice}D6`;
     }
 
+    // Currently not used due to SR6Roll looking for "@initiative" in the whole formula. See Shadowrun6Combatant
     get formula() {
-        return `${this.rank} + ${this.dice}D6`;
+        return `${this.rank} + (${this.dice})D6`;
     }
 
     get actions() {

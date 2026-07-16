@@ -93,12 +93,26 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             scrollable: [""],
         },
     };
+    
+    /**
+     * Initiator used in case an action is performed that can be initiated by another actor
+     */
+    get initiator() {
+        if (this.options.initiator) return this.options.initiator;
+        if (this.actor.isOwner) return this.actor;
+        return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
+    }
 
     /** @override */
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
         // Not all parts always render
         options.parts = ["header", "tabs"];
+
+        if (this.document.limited || this.options.limited) {
+            // TODO add limited only view - maybe specific tabs?
+            return;
+        }
         
         // // Don't show the other tabs if only limited permissions view
         // if (this.document.limited) return;
@@ -124,10 +138,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             // Validates both permissions and compendium status
             editMode: this.document.isOwner && this.isEditable && this._editMode,
             editable: this.isEditable,
-            owner: this.document.isOwner,
-            limited: this.document.limited,
+            owner: !this.options.limited && this.document.isOwner,
+            limited: this.options.limited || this.document.limited,
             isGM: game.user.isGM,
             // Add the actor document.
+            sheet: this,
             actor: this.actor,
             // Boolean if the Actor is linked
             linkedToken: this.actor.prototypeToken.actorLink,
@@ -931,6 +946,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             case "initiative":
                 const initiative = foundry.utils.getProperty(this.actor, dataset.attributePath);
                 rollConfig = new game.sr6.rollTypes.ConfiguredRoll();
+                rollConfig.speaker = ChatMessage.getSpeaker({ actor: this.actor });
                 rollConfig.rollType = game.sr6.rollTypes.RollType.Initiative;
                 // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
                 fieldPath = dataset.attributePath.replace("system.", "");

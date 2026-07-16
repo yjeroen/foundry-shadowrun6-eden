@@ -272,10 +272,10 @@ async function migrateItemsDevRating() {
         const deviceRating = Number.parseInt(source.system.devRating, 10) || 2;
         const data = {
             ...baseData,
-            "system.matrix.deviceRating": deviceRating
+            "system.matrix.deviceRating": deviceRating,
+            "system.matrix.wirelessActive": true
         }
         await item.update(data);
-        // console.log('MIGRATION TEST update()', item.name, data, item._source.system)
         progressedItem++;
         progressNotification(progressedItem / itemsToMigrate.length, msg);
     };

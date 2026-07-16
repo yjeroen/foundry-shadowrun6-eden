@@ -1,3 +1,5 @@
+import { InitiativeType } from "../dice/RollTypes.js";
+
 /**
  * Base Actor DataModel for SR6e
  *
@@ -91,6 +93,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      */
     prepareBaseData() {
         this.#computeHealthOverflow();
+        this.prepareBaseInitiative();
     }
 
     /* -------------------------------------------- */
@@ -256,6 +259,11 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
             await this.parent.toggleStatusEffect('dead', {active:false});
             await this.parent.toggleStatusEffect('unconscious', {active:false});
         }
+    }
+
+    prepareBaseInitiative() {
+        this.initiative ??= {};
+        this.initiative.default = InitiativeType.PHYSICAL;
     }
 
 }

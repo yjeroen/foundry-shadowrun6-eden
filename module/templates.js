@@ -5,6 +5,11 @@
  */
 export const preloadHandlebarsTemplates = async function () {
     const templatePaths = [
+        "systems/shadowrun6-eden/templates/sheets/actor/combat-actions-section.hbs",
+        "systems/shadowrun6-eden/templates/actor/shadowrun6-NPC-sheet-ro.html",
+        "systems/shadowrun6-eden/templates/parts/section-description.hbs",
+        "systems/shadowrun6-eden/templates/parts/section-matrix-pan.hbs",
+        "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs",
         "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs",
         "systems/shadowrun6-eden/templates/parts/npc_grunt_group.hbs",
         "systems/shadowrun6-eden/templates/parts/tab-effects.hbs",

@@ -13,6 +13,40 @@ export const registerSystemSettings = () => {
     /**
      * Register resting variants
      */
+    game.settings.register(SYSTEM_NAME, "shadowrunCursors", {
+        name: "shadowrun6.settings.shadowrunCursors.name",
+        hint: "shadowrun6.settings.shadowrunCursors.hint",
+        scope: "client",
+        config: true,
+        type: new foundry.data.fields.StringField({
+            choices: {
+                "disabled": "shadowrun6.settings.shadowrunCursors.disabled",
+                "black": "shadowrun6.settings.shadowrunCursors.black",
+                "transparent": "shadowrun6.settings.shadowrunCursors.transparent"
+            },
+            required: true,
+            initial: 'black'
+        }),
+        default: 'black',
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | shadowrunCursors changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "shadowrunCursors", toggle);
+        }
+    });
+    game.settings.register(SYSTEM_NAME, "tokensLimitedOwnership", {
+        name: "shadowrun6.settings.tokensLimitedOwnership.name",
+        hint: "shadowrun6.settings.tokensLimitedOwnership.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+        onChange: (toggle) => {
+            console.log("SR6E | tokensLimitedOwnership changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "tokensLimitedOwnership", toggle);
+        }
+    });
+
     game.settings.register(SYSTEM_NAME, "maxEdgePerRound", {
         name: "shadowrun6.settings.maxEdgePerRound.name",
         hint: "shadowrun6.settings.maxEdgePerRound.hint",
@@ -23,18 +57,6 @@ export const registerSystemSettings = () => {
         onChange: (max) => {
             console.log("SR6E | maxEdgePerRound adjusted to " + max);
             game.settings.set(SYSTEM_NAME, "maxEdgePerRound", max);
-        }
-    });
-    game.settings.register(SYSTEM_NAME, "importToCompendium", {
-        name: "shadowrun6.settings.importToCompendium.name",
-        hint: "shadowrun6.settings.importToCompendium.hint",
-        scope: "world",
-        config: true,
-        type: Boolean,
-        default: false,
-        onChange: (toggle) => {
-            console.log("SR6E | importToCompendium changed to " + toggle);
-            game.settings.set(SYSTEM_NAME, "importToCompendium", toggle);
         }
     });
     game.settings.register(SYSTEM_NAME, "hardDiceCap", {
@@ -50,6 +72,19 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "hardDiceCap", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "matrixSoakByPanLeader", {
+        name: "shadowrun6.settings.matrixSoakByPanLeader.name",
+        hint: "shadowrun6.settings.matrixSoakByPanLeader.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting matrixSoakByPanLeader changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "matrixSoakByPanLeader", toggle);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "hackSlashMatrix", {
         name: "shadowrun6.settings.hackSlashMatrix.name",
         hint: "shadowrun6.settings.hackSlashMatrix.hint",
@@ -61,6 +96,19 @@ export const registerSystemSettings = () => {
         onChange: (toggle) => {
             console.log("SR6E | Setting hackSlashMatrix changed to " + toggle);
             game.settings.set(SYSTEM_NAME, "hackSlashMatrix", toggle);
+        }
+    });
+    game.settings.register(SYSTEM_NAME, "dosPopupMatrix", {
+        name: "shadowrun6.settings.dosPopupMatrix.name",
+        hint: "shadowrun6.settings.dosPopupMatrix.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting dosPopupMatrix changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "dosPopupMatrix", toggle);
         }
     });
     game.settings.register(SYSTEM_NAME, "bleeding", {
@@ -152,6 +200,19 @@ export const registerSystemSettings = () => {
         onChange: (toggle) => {
             console.log("SR6E | Setting expandedSpecializations changed to " + toggle);
             game.settings.set(SYSTEM_NAME, "expandedSpecializations", toggle);
+        }
+    });
+    
+    game.settings.register(SYSTEM_NAME, "importToCompendium", {
+        name: "shadowrun6.settings.importToCompendium.name",
+        hint: "shadowrun6.settings.importToCompendium.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: (toggle) => {
+            console.log("SR6E | importToCompendium changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "importToCompendium", toggle);
         }
     });
 };

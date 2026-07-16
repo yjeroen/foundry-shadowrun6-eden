@@ -1,5 +1,6 @@
 import SR6BaseActorData from './base-actor-data.mjs';
 import * as srFields from "./fields/fields.mjs";
+import { InitiativeType } from "../dice/RollTypes.js";
 
 export default class SR6SpriteActorData extends SR6BaseActorData {
     
@@ -44,6 +45,10 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
                 con: new srFields.SR6SkillField({primaryAttribute: "charisma", useUntrained: true}),
             }),
             edge: new srFields.SR6EdgeAttributeField(),
+            initiative: new fields.SchemaField({
+                matrix: new srFields.SR6InitiativeField(),
+            }),
+            
             // Example for other Actor Types:
             // health: new fields.SchemaField({
             //     physicalCM: new srFields.SR6ConditionMonitorField(),
@@ -187,8 +192,8 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
         foundry.utils.setProperty(changes, 'system.matrix.attributes.sleaze', sleaze);
         foundry.utils.setProperty(changes, 'system.matrix.attributes.dataProcessing', dataProcessing);
         foundry.utils.setProperty(changes, 'system.matrix.attributes.firewall', firewall);
-        foundry.utils.setProperty(changes, 'system.matrix.initiative.rank', iniRank);
-        foundry.utils.setProperty(changes, 'system.matrix.initiative.dice', iniDice);
+        foundry.utils.setProperty(changes, 'system.initiative.matrix.rank', iniRank);
+        foundry.utils.setProperty(changes, 'system.initiative.matrix.dice', iniDice);
         skills.forEach((skill) => 
             foundry.utils.setProperty(changes, `system.skills.${skill}.rank`, level)
         );
@@ -304,6 +309,10 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
             await actor.createEmbeddedDocuments("Item", itemData);
         }
         
+    }
+
+    prepareBaseInitiative() {
+        this.initiative.default = InitiativeType.MATRIX;
     }
 
 }

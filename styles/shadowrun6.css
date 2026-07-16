@@ -346,7 +346,7 @@
 }
 .edge .edge-coin.clickable,
 .overwatch.clickable {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 .edge-coin__face {
@@ -489,28 +489,28 @@
   border-radius: 0 0 18px 18px;
 }
 
-.chat-message .soak-result .damageApplied {
+.chat-message button.buttonApplied {
   color: gray;
   box-shadow: 0 0 0.05em, 0 0.06em 0.2em 0.01em inset, 0 0 0 0.07em transparent inset;
   filter: invert(15%) brightness(1.09);
 }
-.chat-message .soak-result .damageApplied > i, .chat-message .soak-result .revertDamageCheck > i {
+.chat-message button.buttonApplied > i, .chat-message button.revertDamageCheck > i {
   margin-right: 0px;
 }
-.chat-message .soak-result .revertDamageCheck {
+.chat-message button.revertDamageCheck {
   color: white;
   background: darkred;
 }
-.chat-message .soak-result .damageApplied .damage-apply-text {
+.chat-message button.buttonApplied .damage-apply-text {
   display: inline; 
 }
-.chat-message .soak-result .damageApplied .damage-revert-text {
+.chat-message button.buttonApplied .damage-revert-text {
   display: none; 
 }
-.chat-message .soak-result .revertDamageCheck .damage-apply-text {
+.chat-message button.revertDamageCheck .damage-apply-text {
   display: none; 
 }
-.chat-message .soak-result .revertDamageCheck .damage-revert-text {
+.chat-message button.revertDamageCheck .damage-revert-text {
   display: inline; 
 }
 
@@ -697,6 +697,11 @@
   text-align: right;
   min-width: 70px;
 }
+
+.matrix-offline {
+  color: darkred;
+}
+
 .matrix-section .illegal-true {
   color: darkred;
 }
@@ -711,10 +716,37 @@ a.item-control.disabled-roll:hover {
   cursor: unset;
 }
 
+.matrix-section .reference-label .fa-circle-info,
+.matrix-section .reference-label span {
+  font-size: 12px;
+  opacity: 0.4;
+  transition: font-size 0.5s ease;
+}
+.matrix-section .reference-label a {
+  font-size: 14px;
+  position: relative;
+  top: -1px;
+}
+@container (max-width: 650px) {
+    .matrix-section .reference-label .fa-circle-info,
+    .matrix-section .reference-label span {
+      font-size: 0px;
+    }
+}
+@container (max-width: 484px) {
+    .matrix-section .reference-label .fa-circle-info,
+    .matrix-section .reference-label span {
+      display: none;
+    }
+    .matrix-section .reference-label a {
+      padding: 0 0.5em;
+    }
+}
+
 .matrix-access-switch input[type="radio"],
 .matrix-access-switch input[type="checkbox"] {
-  display:none;
-  cursor: pointer;
+  display: none;
+  cursor: var(--cursor-pointer);
 }
 .matrix-access-switch {
   position: relative;
@@ -728,7 +760,7 @@ a.item-control.disabled-roll:hover {
 .matrix-access-switch label{
   padding: 0.2rem 0.5rem;
   z-index: 1;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   text-align: center;
   color: white;
   text-transform: uppercase;
@@ -755,6 +787,44 @@ a.item-control.disabled-roll:hover {
   left: 66%;
 }
 
+.matrix-access-option {
+    padding: 0.2rem 0.5rem;
+    z-index: 1;
+    cursor: var(--cursor-pointer);
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Play";
+    user-select: none;
+}
+.matrix-access-switch.inactive .matrix-access-option {
+    cursor: var(--cursor-default);
+    pointer-events: none;
+}
+.matrix-access-switch.matrix-access-isadmin .matrix-access-option {
+    opacity: 0.6;
+}
+.matrix-access-switch .active-label {
+    position: absolute;
+    left: 0;
+    width: 34%;
+    height: 100%;
+    background: #14142a;
+    border: 1px solid rgb(0 200 50);
+    border-radius: 12px;
+    opacity: 0.5;
+    transition: 0.5s left ease;
+}
+.matrix-access-option[data-value="outsider"].active ~ .active-label {
+    left: 0;
+}
+.matrix-access-option[data-value="user"].active ~ .active-label {
+    left: 33%;
+}
+.matrix-access-option[data-value="admin"].active ~ .active-label {
+    left: 66%;
+}
+
 .matrix-persona-header {
   display: flex;
   justify-content: space-evenly;
@@ -776,7 +846,7 @@ a.item-control.disabled-roll:hover {
 
 .matrix-persona-attributes input[disabled] {pointer-events:none}
 .matrix-persona-attributes .matrix-attribute {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   transition: .5s left ease;
 }
 .matrix-persona-attributes div, .matrix-persona-header div {
@@ -803,7 +873,7 @@ a.item-control.disabled-roll:hover {
 
 .chat-message .edgeable.edge-own-roll .die.miss,
 .chat-message .edgeable.edge-opponent-roll .die.hit {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .chat-message .chat-edge-post-collapsible .spend_edge {
   /* hidden by default */
@@ -841,6 +911,7 @@ a.item-control.disabled-roll:hover {
   color: var(--highlight-color);
   font-size: var(--font-size-14);
   font-weight: 600;
+  padding-bottom: 0.4em;
 }
 .edgeToken {
   background-image: url(../images/EdgeToken.webp);
@@ -857,9 +928,24 @@ a.item-control.disabled-roll:hover {
   color: var(--highlight-color);
   font-style: italic;
   font-weight: 700;
+  padding-top: 1px;
 }
-.chat-message .message-content .resulttext {
-  margin-top: 5px;
+.chat-message .message-content .dice-result header {
+    cursor: var(--cursor-pointer);
+}
+.chat-message .matrix-target {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 0.3em;
+}
+.chat-message .matrix-target .fas {
+  color: var(--highlight-color);
+}
+.chat-message .message-content .chat-roll-description {
+  font-size: 0.8em;
+  opacity: 0.8;
+  margin: 0.5em 0.5em 0 0.5em;
 }
 .chat-message .message-content .success {
   color: darkgreen;
@@ -957,7 +1043,7 @@ a.item-control.disabled-roll:hover {
   flex-direction: row;
 }
 .application.shadowrun6 .profile-img[data-edit="img"] {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .application.shadowrun6 .prototype-actor {
   position: absolute;
@@ -1116,28 +1202,39 @@ body.game .application.shadowrun6 .window-content {
 }
 
 .sr6-icon-roll {
-  color: #ff68c3;
-  transition: color 0.2s ease;
+  color: #e356b9;
+  transition: color 0.3s ease;
 }
 .sr6-icon-roll:hover {
-  color: revert;
+  color: white;
 }
+.sr6-icon-terminal,
 .sr6-icon-edge {
   position: relative;
 }
+.sr6-icon-terminal::before,
 .sr6-icon-edge::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url(../images/EdgeToken.webp);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px 20px;
-  filter: grayscale(0.7) brightness(3);
-  transition: filter 0.2s ease;
+  transition: filter 0.3s ease;
+}
+.sr6-icon-edge::before {
+  background-image: url(../images/EdgeToken.webp);
+  filter: grayscale(0.4) brightness(3);
 }
 .sr6-icon-edge:hover::before {
   filter: grayscale(0);
+}
+.sr6-icon-terminal::before {
+  background-image: url(../icons/terminal-box-pink.svg);
+  filter: grayscale(0.7) brightness(3) invert(0);
+}
+.sr6-icon-terminal:hover::before {
+  filter: grayscale(0) brightness(0.2) invert(1);
 }
 
 .application.shadowrun6 .window-content h1 {
@@ -1270,9 +1367,45 @@ body.game .application.shadowrun6 .window-content {
 }
 
 .chat-message .system-message {
-    font-weight: bolder;
-    border: 1px rgba(128, 0, 128, 1) dashed;
-    background-color: rgba(128, 0, 128, 0.17);
-    padding: 0 0.5rem;
-    margin-top: 0.5rem;
+  font-weight: bolder;
+  border: 1px rgba(128, 0, 128, 1) dashed;
+  background-color: rgba(128, 0, 128, 0.17);
+  padding: 0 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.chat-message .chat-tooltip {
+  font-style: italic;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  text-align: center;
+}
+
+.section table.section-table tr > :not(:first-child) {
+  text-align: center;
+}
+
+.npc-firstline .switch {
+  vertical-align: top;
+}
+
+/* Read Only Sheets */
+
+.sheet .read-only .track,
+.sheet .read-only a:not([data-action="matrixOperations"]) {
+  pointer-events: none;
+  cursor: var(--cursor-default);
+}
+.sheet .read-only .matrix-section.persona a {
+  pointer-events: auto;
+  cursor: var(--cursor-pointer);
+}
+
+.app.actor .editable {
+  position: relative;
+}
+.app.actor .npc-firstline {
+    text-align: right;
+    position: absolute;
+    float: right;
+    right: 152px;
 }

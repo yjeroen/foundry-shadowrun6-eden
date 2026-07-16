@@ -57,6 +57,11 @@ export const redefineHandlebarLog = async function () {
     });
 }
 export const defineHandlebarHelper = async function () {
+    Handlebars.registerHelper('debugger', function(value) {
+        console.log("debugger log", value);
+        debugger;
+    });
+
     Handlebars.registerHelper("attackrating", function (val) {
         if (!val)
             return "NULL";
@@ -113,6 +118,7 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("ritualFeat", getRitualFeatures);
     Handlebars.registerHelper("spellFeat", getSpellFeatures);
     Handlebars.registerHelper("matrixPool", getMatrixActionPool);
+    Handlebars.registerHelper("hasMatrixResult", hasMatrixResult);
     Handlebars.registerHelper("itemNotInList", itemNotInList);
     Handlebars.registerHelper("itemTypeInList", itemTypeInList);
     Handlebars.registerHelper("itemsOfType", itemsOfType);
@@ -232,15 +238,29 @@ export const defineHandlebarHelper = async function () {
             return opts.inverse(this);
         }
     });
-    Handlebars.registerHelper('switch', function (value, options) {
+    
+    Handlebars.registerHelper("switch", function (value, options) {
         this.switch_value = value;
+        this.switch_matched = false;
+
+        const result = options.fn(this);
+
+        delete this.switch_value;
+        delete this.switch_matched;
+
+        return result;
+    });
+
+    Handlebars.registerHelper("case", function (value, options) {
+        if (value !== this.switch_value) return "";
+        this.switch_matched = true;
         return options.fn(this);
     });
-    Handlebars.registerHelper('case', function (value, options) {
-        if (value == this.switch_value) {
-            return options.fn(this);
-        }
+
+    Handlebars.registerHelper("default", function (options) {
+        return this.switch_matched ? "" : options.fn(this);
     });
+
     Handlebars.registerHelper('isOwner', function (value, options) {
         if(value) {
             if(getActor(value.actor, value.scene, value.token)?.isOwner) {
@@ -338,6 +358,13 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("dotsToDashes", function (value) {
         return String(value).split(".").join("-");
     });
+    
+    Handlebars.registerHelper("sr6Icon", function (value) {
+        const sr6Icons = CONFIG.SR6.icon;
+        const iconHtml = sr6Icons[value]
+        return new Handlebars.SafeString( iconHtml );
+    });
+
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
@@ -481,24 +508,36 @@ function getSpellFeatures(spell) {
     }
     return ret.join(", ");
 }
-function getMatrixActionPool(key, actor) {
-    const action = CONFIG.SR6.MATRIX_ACTIONS[key];
-    const skill = getSystemData(actor).skills[action.skill];
-    let pool = 0;
-    if (skill && skill?.pool) {
-        pool = skill.points + skill.modifier;
-        if (skill.expertise == action.specialization) {
-            pool += 3;
-        }
-        else if (skill.specialization == action.specialization) {
-            pool += 2;
-        }
-        if (action.attrib) {
-            const attrib = getSystemData(actor).attributes[action.attrib];
-            pool += attrib?.pool || 0;
-        }
-    }
-    return pool;
+export function getMatrixActionPool(actionName, actor) {
+    const action = CONFIG.SR6.MATRIX_ACTIONS[actionName];
+    return action.skill ? actor._getSkillPool(action.skill) : 0;
+
+    // const skill = getSystemData(actor).skills[action.skill];
+    // let pool = 0;
+    // if (skill && skill?.pool) {
+    //     pool = skill.points + skill.modifier;
+    //     if (skill.expertise == action.specialization) {
+    //         pool += 3;
+    //     }
+    //     else if (skill.specialization == action.specialization) {
+    //         pool += 2;
+    //     }
+    //     if (action.attrib) {
+    //         const attrib = getSystemData(actor).attributes[action.attrib];
+    //         pool += attrib?.pool || 0;
+    //     }
+    // }
+    // return pool;
+}
+
+export function hasMatrixResult(actionId, resultType) {
+    const TYPES = new Set(["onSuccess", "onFailure", "onSuccesfulDefense", "onSuccesfulDefense", "onFailedDefense"]);
+    if (!TYPES.has(resultType)) console.error(`SR6 | Wrong resultType "${resultType}" entered in hasMatrixResult(actionId, resultType) | The following are possible: ["onSuccess", "onFailure", "onSuccesfulDefense", "onSuccesfulDefense", "onFailedDefense"]`)
+
+    const action = CONFIG.SR6.MATRIX_ACTIONS[actionId];
+    if (!action) console.error(`SR6 | Wrong actionId "${actionId}" entered in hasMatrixResult(actionId, resultType) | See CONFIG.SR6.MATRIX_ACTIONS`)
+
+    return Boolean(action[resultType]);
 }
 
 /**
@@ -799,6 +838,95 @@ export async function resetEdge() {
             content: `<span style="font-style: italic;">${msg}</span>`
         });
     }
+}
+
+export async function resetAccessLevels(onlyThisUuid) {
+    if (!game.user.isGM) {
+        console.warn("SR6E | Resetting Access Levels is only allowed by GM's");
+        return;
+    }
+
+    console.info("SR6E | Reset Access Levels dialogue");
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: game.i18n.localize("shadowrun6.resetAccessLevels") },
+        content: game.i18n.localize( onlyThisUuid ? "shadowrun6.resetOneAccessLevelDescription" : "shadowrun6.resetAccessLevelsDescription" ),
+        rejectClose: false,
+        modal: true
+    });
+
+    if (!proceed) return;
+
+    console.info("SR6E | Resetting Access Levels for all Actors and Tokens in the game");
+
+    const operations = [];
+    const docTypesToUpdate = new Set(["Actor", "Item", "ActorDelta"]);
+    const isV14 = game.release?.generation >= 14;
+    const safeUuid = onlyThisUuid?.replaceAll(".", "_");
+    const flagPath = safeUuid ? `matrix-access.${safeUuid}` : "matrix-access";
+    const updatePath = `flags.shadowrun6-eden.${flagPath}`;
+
+    const resetDocumentAccess = async (document, parent = undefined) => {
+        const matrixAccess = document.flags["shadowrun6-eden"]?.["matrix-access"];
+        if (!matrixAccess) return;
+
+        if (safeUuid && matrixAccess[safeUuid] === undefined) return;
+
+        if (isV14) {
+            operations.push({
+                action: "update",
+                documentName: document.documentName,
+                parent,
+                updates: [{
+                    _id: document.id,
+                    [updatePath]: _del
+                }]
+            });
+            return;
+        }
+
+        await document.unsetFlag("shadowrun6-eden", flagPath);
+    };
+
+    for (const collection of [game.actors, game.scenes]) {
+        for (const doc of collection) {
+            if (doc.documentName === "Actor") {
+                await resetDocumentAccess(doc);
+            }
+
+            for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
+                if (!docTypesToUpdate.has(embeddedDoc.documentName)) continue;
+                await resetDocumentAccess(embeddedDoc, embeddedDoc.parent);
+            }
+        }
+    }
+
+    if (isV14 && operations.length) {
+        await foundry.documents.modifyBatch(operations);
+    }
+
+    const msg = game.i18n.localize( onlyThisUuid ? "shadowrun6.ui.notifications.one_accessLevel_has_been_reset" : "shadowrun6.ui.notifications.accessLevels_have_been_reset" );
+
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
+        flavor: game.i18n.localize("shadowrun6.resetAccessLevels"),
+        content: `<span style="font-style: italic;">${msg}</span>`
+    });
+}
+    
+
+/**
+ * Begin a Drag+Drop workflow for a dynamic content link
+ * TODO evaluate if it should be moved to a different class like TextEditor.#onDragContentLink(event);
+ * @param {Event} event   The originating drag event
+ */
+export function onDragSR6Link(event) {
+    event.stopPropagation();
+    const a = event.target.closest("a[data-sr6-link]");
+    const { cursor, sr6Link, tooltip, ...dragData } = { ...a.dataset };
+    console.info("SR6E | onDragSR6Link", dragData);
+
+    // No validation at drag, validate on drop
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
 }
 
 // ##########################

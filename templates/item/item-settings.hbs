@@ -4,22 +4,7 @@
     <div class="flexcol">
 
         {{#if hud.matrixCM}}
-        <div class="matrix-track">
-            <div class="track green" data-condition-monitor="matrix" data-action="onTrackClick">
-                <div class="slots">
-                    {{#each hud.matrixCM}}
-                    <div class="slot{{#if active}} active{{/if}}" style="--slot-index: {{@index}};">
-                        {{#if penalty}}<span>{{penalty}}</span>{{/if}}
-                    </div>
-                    {{/each}}
-                </div>
-
-                <div class="track-value" data-tooltip="SR6.title.CM.matrix.dmg" data-action="selectInputText">
-                    {{localize 'SR6.label.CM.matrix.short'}}:
-                    <input type="text" name="system.matrix.matrixCM.dmg" data-field="system.matrix.matrixCM.dmg" value="{{item.system.matrix.matrixCM.dmg}}">
-                </div>
-            </div>
-        </div>
+        {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=hud.matrixCM item=item}}
         {{/if}}
 
         <div class="item-fields-grid">

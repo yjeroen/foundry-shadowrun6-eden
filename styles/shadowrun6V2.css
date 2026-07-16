@@ -12,6 +12,11 @@
     width: 620px;
 }
 
+/* Foundry User Interface Light/Dark Conflict Resolution */
+.sr6 {
+    --color-text-emphatic: var(--color-dark-1);
+}
+
 /* Preloading background images */
 #interface::before {
   content: url("../images/borderRight.webp") url("../images/background.webp");
@@ -29,18 +34,18 @@
   /* background: rgb(255 0 175 / 30%); */
   background: rgb(0 0 0 / 30%);
 }
-.application.sr6.actor .window-content {
+.application.sr6.sheet .window-content {
 	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: top right, top left;
 	background-repeat: no-repeat, repeat;
 }
-.application.sr6.actor .window-content {
+.application.sr6.sheet .window-content {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
 
 .sr6 div[data-action] {
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 .sr6 div[data-action]:not(.track):hover {
     color: black;
@@ -48,7 +53,7 @@
 }
 
 .sr6 .inactive:not(.prosemirror) {
-    cursor: default;
+    cursor: var(--cursor-default);
     pointer-events: none;
 }
 
@@ -347,7 +352,7 @@
 /* Persona Mode */
 .sr6 .meta-icon.persona-mode {
     margin: 0 -1px;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .meta-icon.persona-mode span {
@@ -519,6 +524,21 @@
     }
 }
 
+/* ApplicationV1 portrait re-using V2 */
+.app.actor .sheet-header .sr6 {
+    --portrait-size: 120px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 2px;
+}
+.app.actor .sr6 .portrait {
+    background-color: #00243ae6;
+}
+.app.npc .sheet-header .sr6 {
+    --portrait-size: 110px;
+    padding: 4px 10px 4px 2px;
+}
+
 .sr6 .portrait-panel {
     position: relative;
     display: flex;
@@ -596,7 +616,7 @@
     object-position: center;
     display: block;
     filter: saturate(1.05) contrast(1.04);
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .portrait-edit {
@@ -782,7 +802,7 @@
     width: var(--overwatch-eye-width);
     height: var(--overwatch-eye-height);
     color: var(--hud-color-bright);
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .overwatch-side {
@@ -797,7 +817,7 @@
     filter:
         drop-shadow(0 0 2px color-mix(in srgb, var(--color-shadow-primary) 22%, transparent));
     transition: color 0.2s ease, filter 0.2s ease;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .overwatch-side svg {
@@ -1145,7 +1165,7 @@
 
     display: grid;
     place-items: center;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .slot span {
@@ -1209,7 +1229,7 @@
     line-height: 1;
     text-align: left;
 
-    max-width: 8ch;
+    /* max-width: 8ch; */
     opacity: 1;
     transition:
         opacity 0.4s ease,
@@ -1564,7 +1584,7 @@
 /* Edge Column                                                              */
 /* ======================================================================== */
 
-.sr6.actor .edge {
+.sr6.sheet .edge {
     container-type: inline-size;
     flex: 0 0 auto;
     align-self: flex-end;
@@ -1580,14 +1600,14 @@
 }
 
 @container (max-width: 622px) {
-    .sr6.actor .edge {
+    .sr6.sheet .edge {
         inline-size: 50px;
         block-size: 50px;
     }
 }
 
 @container (max-width: 384px) {
-    .sr6.actor .edge {
+    .sr6.sheet .edge {
         inline-size: 0;
         block-size: 0;
         opacity: 0;
@@ -1595,7 +1615,7 @@
     }
 }
 
-.sr6.actor .no-edge {
+.sr6.sheet .no-edge {
     width: clamp(0px, calc(0px + (100cqw - 660px)), 45px);
 }
 
@@ -1603,7 +1623,7 @@
 /* Edge Coin                                                                */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin {
+.sr6.sheet .edge-coin {
     --edge-translate-x: 0%;
     --edge-rotate-y: 0deg;
 
@@ -1614,33 +1634,33 @@
     padding: 0;
     border: 0;
     background: transparent;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 
     transform-style: preserve-3d;
     transform: translateX(var(--edge-translate-x)) rotateY(var(--edge-rotate-y));
     transition: transform 0.6s ease;
 }
 
-.sr6.actor .edge-coin,
-.sr6.actor .edge-coin:focus,
-.sr6.actor .edge-coin:focus-visible {
+.sr6.sheet .edge-coin,
+.sr6.sheet .edge-coin:focus,
+.sr6.sheet .edge-coin:focus-visible {
     outline: none;
     box-shadow: none;
 }
 
-.sr6.actor .edge-coin.edge-coin--resetting {
+.sr6.sheet .edge-coin.edge-coin--resetting {
     transition: none;
 }
 
-.sr6.actor .edge-coin:not(.clickable) {
-    cursor: default;
+.sr6.sheet .edge-coin:not(.clickable) {
+    cursor: var(--cursor-default);
 }
 
 /* ======================================================================== */
 /* Coin Faces                                                               */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin__face {
+.sr6.sheet .edge-coin__face {
     position: absolute;
     inset: 0;
     display: grid;
@@ -1650,11 +1670,11 @@
     pointer-events: none;
 }
 
-.sr6.actor .edge-coin__face--front {
+.sr6.sheet .edge-coin__face--front {
     transform: rotateY(0deg);
 }
 
-.sr6.actor .edge-coin__face--back {
+.sr6.sheet .edge-coin__face--back {
     transform: rotateY(180deg);
 }
 
@@ -1662,7 +1682,7 @@
 /* Token Art                                                                */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin__art {
+.sr6.sheet .edge-coin__art {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1678,7 +1698,7 @@
 /* Edge Value                                                               */
 /* ======================================================================== */
 
-.sr6.actor .edge-value {
+.sr6.sheet .edge-value {
     position: relative;
     z-index: 1;
     display: grid;
@@ -1696,7 +1716,7 @@
     text-shadow: 1px 1px 3px black, 1px 1px 3px black, 1px 1px 3px black;
 }
 
-.sr6.actor .edge-coin__face--back .edge-value {
+.sr6.sheet .edge-coin__face--back .edge-value {
     margin-right: 1px;
 }
 
@@ -1704,7 +1724,7 @@
 /* Edge Coin Error Shake                                                    */
 /* ======================================================================== */
 
-.sr6.actor .edge-coin.edge-coin--error {
+.sr6.sheet .edge-coin.edge-coin--error {
     animation: edge-coin-shake 260ms ease;
 }
 
@@ -1730,7 +1750,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .sr6.actor .edge-coin.edge-coin--error {
+    .sr6.sheet .edge-coin.edge-coin--error {
         animation: none;
     }
 }
@@ -1794,7 +1814,7 @@
     font-size: 0.8em;
 }
 .sr6 .item-name {
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 .sr6 .item-name:hover {
     text-shadow: 0 0 8px var(--color-shadow-primary);
@@ -1805,6 +1825,7 @@
 /* ======================================================================== */
 
 .sr6 .section .item-controls a {
+    padding-top: 1px;
     margin: 0;
 }
 
@@ -1875,7 +1896,7 @@
 
 .sr6 .section .item-control {
     display: inline-flex;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .sr6 .section .item-control a:hover {
@@ -1915,7 +1936,11 @@
 }
 
 .sr6 .item-control.disabled-roll {
-    cursor: default;
+    cursor: var(--cursor-default);
+    pointer-events: none;
+}
+
+.sr6 .item-control.disabled-roll i {
     color: grey;
 }
 
@@ -1926,9 +1951,95 @@
 
 .item-control .fa-square {
     font-size: 20px;
-    cursor: default;
 }
 
+
+/* ======================================================================== */
+/* ============== ApplicationV1/2 COMBAT ACTIONS SECTION ================== */
+/* ======================================================================== */
+
+.sr6 .combat-action-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+
+    background: radial-gradient(circle at center, #b6b6a4 100%, transparent 100%) no-repeat center;
+    background-size: 2px 100%;
+}
+
+.sr6 .combat-action-column {
+    min-width: 0;
+}
+
+.sr6 .combat-action-column > header {
+    text-align: center;
+    background-color: rgb(224 224 217);
+    --color-underline-header: rgb(200 200 192);
+}
+
+.sr6 .combat-action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .combat-action .section-row {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: center;
+    padding: 0 2px 0 0;
+}
+
+.sr6 .combat-action-icon {
+    color: var(--highlight-color);
+    justify-content: center;
+}
+
+.sr6 .combat-action .section-name {
+    cursor: var(--cursor-pointer);
+    color: black;
+}
+
+.sr6 .combat-action-description {
+    padding: 4px 6px;
+    padding-right: 4px;
+}
+
+.sr6 .actions-section .section-head {
+    position: relative;
+}
+
+.sr6 .actions-section .reference-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+}
+
+.sr6 .actions-section .reference-label i,
+.sr6 .actions-section .reference-label span {
+    display: inline-flex;
+    transform: translateY(-2px);
+}
+.section .anytime-action,
+.section .anytime-action span {
+    color: dodgerblue;
+}
+
+@container (max-width: 505px) {
+    .sr6 .actions-section .reference-label {
+        opacity: 0;
+    }
+}
+
+.chat-message .message-header .flavor-text .action-symbol {
+    font-weight: normal;
+    padding-right: 4px;
+    display: inline-flex;
+    transform: translateY(-1px);
+}
 
 /* ======================================================================== */
 /* ======================== ApplicationV1 Item HUD ======================== */
@@ -1948,12 +2059,17 @@
     filter: grayscale(0.7);
     cursor: not-allowed;
 }
+
 .item .hud.item-settings {
     --input-color: var(--text-green);
-    grid-template-columns: auto minmax(max-content, 1rem);
+    grid-template-columns: auto;
     clip-path: none;
     margin: 5px 10px 5px 5px;
     padding: 5px;
+    filter: 
+        drop-shadow(0 0 2px rgba(124, 243, 255, 0.85)) 
+        drop-shadow(0 0 4px rgba(124, 243, 255, 0.55)) 
+        drop-shadow(0 0 5px rgba(124, 243, 255, 0.15));
 }
 
 .item .hud.item-settings::before {
@@ -2020,7 +2136,7 @@
   min-width: 5.8rem;
   min-height: 1.35rem;
   padding: 0.18rem 0.45rem;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   user-select: none;
   color: #26f7a4;
   background: linear-gradient(
@@ -2095,7 +2211,7 @@
   outline-offset: 2px;
 }
 
-.sr6 .matrix-input {
+.sr6 .hud .matrix-input {
   height: 1.6rem;
   padding: 0.15rem 0.45rem;
   color: #0b2b25;
@@ -2116,13 +2232,13 @@
   outline: none;
 }
 
-.sr6 .matrix-input:hover {
+.sr6 .hud .matrix-input:hover {
   box-shadow:
     inset 0 0 0.4rem rgb(255 255 255 / 0.45),
     0 0 0.65rem rgb(38 247 164 / 0.95);
 }
 
-.sr6 .matrix-input:focus {
+.sr6 .hud .matrix-input:focus {
   border-color: white;
   box-shadow:
     inset 0 0 0.4rem rgb(255 255 255 / 0.65),
@@ -2154,7 +2270,7 @@
   line-height: 1;
   letter-spacing: 0.04em;
   text-decoration: none;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   user-select: none;
 }
 
@@ -2214,4 +2330,566 @@
   box-shadow:
     inset 0 0 0.45rem rgb(230 200 255 / 0.35),
     0 0 0.75rem rgb(177 105 255 / 1);
+}
+
+
+/* ======================================================================== */
+/* ======= Custom SVG icons in config.icon.xxx that work like FA ========== */
+/* ======================================================================== */
+
+.sr6-icon {
+    --sr6-icon-primary-color: currentColor;
+    --sr6-icon-secondary-color: currentColor;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1em;
+    height: 1em;
+
+    color: currentColor;
+    font-size: inherit;
+    line-height: 1;
+    vertical-align: -0.125em;
+}
+
+.sr6-icon svg {
+    width: 1em;
+    height: 1em;
+    display: block;
+    pointer-events: none;
+}
+
+.sr6-icon .sr6-icon-primary {
+    fill: var(--sr6-icon-primary-color);
+}
+
+.sr6-icon .sr6-icon-secondary {
+    fill: var(--sr6-icon-secondary-color);
+}
+
+body.game .app a:hover .sr6-icon {
+    filter: drop-shadow(0 0 8px var(--color-shadow-primary));
+}
+
+/* ======================================================================== */
+/* ===================== MATRIX PERSONA & PAN SECTION ===================== */
+/* ======================================================================== */
+
+.shadowrun6 .sr6 {
+    padding: 0 5px;
+}
+
+.shadowrun6 .sr6 > .section {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.sr6 .persona .stat-block {
+    --bg: none;
+    --accent: var(--highlight-color);
+    padding: 0;
+}
+
+.sr6 .matrix-track {
+    --text-green: #00b939;
+    --slot-off: rgba(45, 52, 60, 0.78);
+}
+.sr6 .persona .matrixCM {
+    padding: 0.15rem 0 0.15rem 0.5rem;
+    min-height: 1.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.sr6 .pan .track {
+    grid-template-columns: minmax(200px, 1fr) max-content;
+    transition: grid-template-columns 0.5s ease;
+}
+.sr6 .pan .slot span {
+    font-size: 8px;
+    transition: font-size 0.5s ease;
+}
+@container (max-width: 650px) {
+    .sr6 .pan .track {
+        grid-template-columns: minmax(100px, 1fr) max-content;
+    }
+    .sr6 .pan .slot span {
+        font-size: 0px;
+    }
+}
+@container (max-width: 500px) {
+    .sr6 .pan-tree .matrixCM {
+        display: none;
+    }
+}
+
+.sr6 .persona .matrixCM .matrix-track {
+    flex: 1;
+}
+
+.sr6 .persona .stat-block,
+.sr6 .pan .section-header,
+.sr6 .persona .section-header {
+    border-top: 1px solid var(--pan-summary-border);
+}
+
+.sr6 .pan {
+    --pan-tree-line-color: rgba(0, 0, 0, 0.55);
+    --pan-tree-line-size: 1px;
+    --pan-tree-indent: 1.15rem;
+    --pan-tree-branch-width: 0.75rem;
+    --pan-tree-node-y: 0.85rem;
+    --pan-summary-bg: rgb(238 238 232);
+    --pan-summary-border: rgb(200 200 192);
+}
+
+.sr6 .pan .pan-summary .item-controls {
+    display: flex;
+    align-items: center;
+}
+
+.sr6 .pan .section-header,
+.sr6 .pan .section-row {
+    grid-template-columns: minmax(0, 1fr) 5.75em 5em;
+}
+.sr6 .pan .pan-children .section-row,
+.sr6 .pan li[data-document-class="Item"] .section-row {
+    grid-template-columns: minmax(0, 1fr) max-content 5.75em 5em;
+}
+
+.sr6 .pan .section-header > :nth-child(1) {
+    text-align: left;
+}
+
+.sr6 .pan .section-header > :nth-child(2),
+.sr6 .pan .section-header > :nth-child(3) {
+    text-align: center;
+}
+
+.sr6 .pan .pan-summary-columns {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) auto;
+    gap: 8px;
+    --portrait-size: 76px;
+}
+
+.sr6 .pan .pan-summary-columns .portrait-panel {
+    margin-right: 5px;
+    transform: translateY(-4px);
+}
+
+.sr6 .pan .pan-summary {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0 0.5rem 0.35rem 0.2rem;
+    background: var(--pan-summary-bg);
+}
+
+.sr6 .pan .pan-summary strong,
+.sr6 .pan .pan-summary input {
+    text-align: left;
+    width: 90%;
+    padding: 1px 2px;
+    font-weight: bold;
+}
+
+.sr6 .pan .pan-summary input:disabled {
+    pointer-events: none;
+    user-select: none;
+    border: none;
+    background: none;
+}
+
+.sr6 .pan .pan-summary-row {
+    display: grid;
+    grid-template-columns: 1.25rem max-content minmax(0, 1fr) max-content;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 1.4rem;
+}
+
+.sr6 .pan .pan-summary-row > i {
+    width: 1.25rem;
+    text-align: center;
+    color: var(--highlight-color);
+    opacity: 0.9;
+}
+
+.sr6 .persona-toggle-description a {
+    padding-bottom: 1px;
+    color: black;
+}
+
+.sr6 .persona-toggle-description a.active {
+    color: var(--highlight-color);
+    text-shadow: 0 0 8px var(--color-shadow-primary);
+}
+
+.sr6 .pan .persona-description {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    min-height: 160px;
+    transition:
+        grid-template-rows 0.5s ease,
+        min-height 0.5s ease,
+        opacity 0.3s ease;
+}
+
+.sr6 .pan .persona-description .editor {
+    margin-bottom: 0;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+.sr6 .pan .persona-description .prosemirror menu,
+.sr6 .pan .persona-description prose-mirror menu {
+    border-radius: 0;
+}
+.sr6 .pan .persona-description .editor .editor-container {
+    margin: 0 1rem;
+}
+
+.sr6 .pan .persona-description.inactive {
+    grid-template-rows: 0fr;
+    min-height: 0;
+    opacity: 0;
+}
+
+.sr6 .pan .persona-description > * {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.sr6 .pan .pan-summary-label,
+.sr6 .pan .pan-muted {
+    opacity: 0.75;
+}
+
+.sr6 .pan .pan-summary strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sr6 .pan .pan-tree,
+.sr6 .pan .pan-children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .pan .pan-tree {
+    padding: 0.15rem 0;
+}
+
+.sr6 .pan .pan-node {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.sr6 .pan .pan-node > .section-row {
+    position: relative;
+    z-index: 1;
+}
+
+.sr6 .pan .pan-children {
+    padding-left: calc(var(--pan-tree-indent) + var(--pan-tree-branch-width));
+}
+
+.sr6 .pan .pan-children > .pan-node::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--pan-tree-branch-width));
+    top: 0;
+    bottom: 0;
+    width: var(--pan-tree-line-size);
+    background: var(--pan-tree-line-color);
+    pointer-events: none;
+}
+
+.sr6 .pan .pan-children > .pan-node:last-child::before {
+    bottom: auto;
+    height: var(--pan-tree-node-y);
+}
+
+.sr6 .pan .pan-children > .pan-node::after {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--pan-tree-branch-width));
+    top: var(--pan-tree-node-y);
+    width: var(--pan-tree-branch-width);
+    height: var(--pan-tree-line-size);
+    background: var(--pan-tree-line-color);
+    pointer-events: none;
+}
+
+.sr6 .pan .pan-tree-name {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.sr6 .pan .pan-node-icon {
+    flex: 0 0 auto;
+    width: 1.1rem;
+    text-align: center;
+    opacity: 0.85;
+}
+
+.sr6 .pan .pan-node-own > .section-row .pan-node-icon {
+    color: var(--highlight-color);
+}
+
+.sr6 .pan .pan-node-slaved-device .pan-node-icon {
+    font-size: 0.9em;
+}
+
+.sr6 .pan .pan-node-name {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sr6 .pan .pan-role {
+    flex: 0 0 auto;
+    opacity: 0.65;
+    font-size: 0.85em;
+    padding-top: 0.15em;
+    white-space: nowrap;
+    transition: font-size 0.5s ease;
+}
+
+@container (max-width: 695px) {
+    .sr6 .pan .pan-role {
+        font-size: 0px;
+    }
+}
+
+.sr6 .pan .pan-access {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 4.75em;
+    padding: 0.1rem 0.3rem;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.sr6 .pan .pan-access-admin {
+    color: var(--highlight-color);
+}
+
+.sr6 .pan .pan-access-user {
+    color: black;
+}
+
+.sr6 .pan .pan-access-outsider {
+    opacity: 0.6;
+}
+
+.sr6 .pan .item-controls {
+    gap: 5px;
+}
+
+.sr6 .pan .item-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: var(--cursor-pointer);
+}
+
+.sr6 .pan .pan-node.pan-node-master-pan > .section-row,
+.sr6 .pan .pan-node.pan-node-external-master-pan > .section-row,
+.sr6 .pan .pan-node.pan-node-slaved-pan > .section-row {
+    font-weight: bold;
+}
+
+
+/* ======================================================================== */
+/* ======================= MATRIX OPERATIONS SHEET ======================== */
+/* ======================================================================== */
+
+/* css resets */
+.sr6 .matrix-operations .hud.item-settings {
+    margin-right: 5px;
+}
+.sr6 .matrix-operations-body .section {
+    margin: 5px 0 0 0;
+}
+.sr6 .matrix-operations-body .matrix-section .section-head {
+    margin-top: 0;
+}
+
+.sr6 .matrix-operations-header {
+    margin-bottom: 3px;
+}
+
+.sr6 .matrix-operations i {
+    color: var(--highlight-color);
+}
+
+.sr6 .matrix-operations .matrix-operations-subtitle span {
+    opacity: 0.75;
+}
+
+.sr6 .matrix-operations-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem 2rem;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.sr6 .matrix-operations-initiator,
+.sr6 .matrix-operations-defender {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.sr6 .matrix-section {
+    display: inline-block;
+    min-width: 384px;
+}
+
+.sr6 .matrix-operations-subtitle strong {
+    text-shadow: 0 0 3px white, 0 0 3px white, 0 0 2px white;
+}
+
+/* Fix .scrollable */
+.sr6 .matrix-operations {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.matrix-command-line {
+    font-size: 1em;
+    font-family: var(--font-primary);
+    font-weight: bold;
+    font-style: normal;
+    margin: 0;
+    padding: 0.2em 0.5em;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.35);
+    border-top: 2px solid rgba(0, 0, 0, 0.45);
+    border-left: 2px solid rgba(0, 0, 0, 0.45);
+    border-right: 2px solid rgba(255, 255, 255, 0.65);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.65);
+    /* background: #c8f6f9; */
+    /* color: #477274; */
+    color: var(--color-underline-header)
+}
+.sr6-roll-dialog .matrix-command-line {
+    font-size: 0.8em;
+}
+.matrix-command-line span:last-child::after {
+    content: "";
+    width: 4px;
+    height: 1em;
+    background: var(--color-underline-header);
+    display: inline-block;
+    vertical-align: text-top;
+    margin: 1px 0 0 1px;
+    animation: cursor-blink 1.5s steps(2) infinite;
+}
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
+.matrix-operations-header h2 span,
+.matrix-command-line span {
+    white-space: nowrap;
+}
+
+.matrix-command-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+}
+
+.matrix-command-line > span {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.matrix-command-line > div {
+  flex: 0 0 100%;
+  display: block;
+}
+
+
+/* ======================================================================== */
+/* =========================== MATRIX ACTIONS ============================= */
+/* ======================================================================== */
+
+.chat-message button {
+    user-select: none;
+}
+
+.chat-message .matrix-result {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message .matrix-result .matrix-command-line {
+    margin-top: 5px;
+}
+
+.chat-message .matrix-result button {
+    height: auto;
+    padding: 0.5em;
+    margin-top: 5px;
+}
+.chat-message .matrix-result button.not-gm {
+    cursor: var(--cursor-default);
+    opacity: 0.6;
+    border-style: dashed;
+}
+.chat-message .matrix-result button.not-gm:hover {
+    background: var(--button-background-color);
+    color: var(--button-text-color);
+    border-color: var(--button-border-color);
+}
+.chat-message .matrix-result button.not-gm:focus {
+    outline: none;
+    box-shadow: none;
+}
+.chat-message .matrix-result .buttonApplied {
+    cursor: var(--cursor-default);
+    pointer-events: none;
+}
+.chat-message .matrix-result button i {
+    margin: 0 5px;
+    color: var(--color-underline-header);
+}
+.chat-message .matrix-result .buttonApplied i {
+    color: darkgreen;
+    opacity: 0.7;
+}
+
+.dialog .roll-dialog-message {
+    display: flex;
+    align-items: center;
+}
+.dialog .roll-dialog-message i {
+    margin: 0 8px;
+    color: var(--color-underline-header);
+}
+
+/* Import Statblock Message in the Create Actor Dialog*/
+.import-statblock-info {
+    font-style: italic;
 }

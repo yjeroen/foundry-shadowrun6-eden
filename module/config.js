@@ -1,5 +1,7 @@
-import { EdgeAction, EdgeBoost, MagicOrResonanceDefinition, MatrixAction, Program, SkillDefinition } from "./DefinitionTypes.js";
+import { EdgeAction, EdgeBoost, MagicOrResonanceDefinition, Program, SkillDefinition } from "./DefinitionTypes.js";
+import { RollType, ReallyRoll, SoakType, DirectDamage } from "./dice/RollTypes.js";
 import { ComplexForm } from "./ItemTypes.js";
+import { SYSTEM_NAME } from "./constants.js";
 export var Defense;
 (function (Defense) {
     Defense["PHYSICAL"] = "physical";
@@ -12,6 +14,8 @@ export var Defense;
     Defense["DRAIN"] = "drain";
     Defense["FADING"] = "fading";
     Defense["ITEM_DEFINED"] = "item_defined";
+    Defense["MATRIX"] = "matrix";
+    Defense["DIRECT_DAMAGE"] = "direct_damage";
 })(Defense || (Defense = {}));
 export var MonitorType;
 (function (MonitorType) {
@@ -22,6 +26,7 @@ export var MonitorType;
 })(MonitorType || (MonitorType = {}));
 export class SR6Config {
     DATA_ENTRY = false;
+    informedGm = {};
 
     NEW = {
         ATTRIBUTES: [
@@ -38,25 +43,6 @@ export class SR6Config {
             "resonance",
             "essence",
         ],
-        ATTRIBUTE_TO_V2: {
-            bod: "body",
-            agi: "agility",
-            rea: "reaction",
-            str: "strength",
-            wil: "willpower",
-            log: "logic",
-            int: "intuition",
-            cha: "charisma",
-            mag: "magic",
-            res: "resonance",
-            ess: "essence",
-            essence: "essence",
-            a: "attack",
-            s: "sleaze",
-            d: "dataProcessing",
-            f: "firewall",
-            rating: "rating",
-        },
         ACTOR_TYPES: {
             sprite: {
                 types: {
@@ -88,11 +74,49 @@ export class SR6Config {
         },
     };
 
+    ATTRIBUTE_TO_V2 = {
+        bod: "body",
+        agi: "agility",
+        rea: "reaction",
+        str: "strength",
+        wil: "willpower",
+        log: "logic",
+        int: "intuition",
+        cha: "charisma",
+        mag: "magic",
+        res: "resonance",
+        ess: "essence",
+        essence: "essence",
+        a: "attack",
+        s: "sleaze",
+        d: "dataProcessing",
+        f: "firewall",
+        rating: "rating",
+    };
+    SYSTEMPATH_TO_V2 = {
+        "attributes.bod.pool": "attributes.body.pool",
+        "attributes.agi.pool": "attributes.agility.pool",
+        "attributes.rea.pool": "attributes.reaction.pool",
+        "attributes.agi.pool": "attributes.agility.pool",
+        "attributes.str.pool": "attributes.strength.pool",
+        "attributes.wil.pool": "attributes.willpower.pool",
+        "attributes.log.pool": "attributes.logic.pool",
+        "attributes.int.pool": "attributes.intuition.pool",
+        "attributes.cha.pool": "attributes.charisma.pool",
+        "attributes.mag.pool": "attributes.magic.pool",
+        "attributes.res.pool": "attributes.resonance.pool",
+
+        "persona.used.a": "matrix.attributes.attack",
+        "persona.used.s": "matrix.attributes.sleaze",
+        "persona.used.d": "matrix.attributes.dataProcessing",
+        "persona.used.f": "matrix.attributes.firewall",
+
+    };
     /**
      * Temporary mapping of v1 attribute abbreviations to v2 attribute names. This is used for converting old rolls and other references to attributes until all code is updated to use the new attribute names. The keys are the v1 abbreviations, and the values are the v2 attribute names.
      */
     attributeV2toV1(attribute) {
-        return Object.entries(this.NEW.ATTRIBUTE_TO_V2).find(
+        return Object.entries(this.ATTRIBUTE_TO_V2).find(
             ([key, value]) => value === attribute,
         )?.[0];
     }
@@ -176,7 +200,7 @@ export class SR6Config {
         4: "4",
         5: "5",
         6: "6",
-        7: "7"
+        7: "7",
     };
     QUALITY_CATEGORIES = {
         ADVANTAGE: "QUALITY_CATEGORIES.ADVANTAGE",
@@ -191,11 +215,33 @@ export class SR6Config {
         NEVER: 0,
         OPTIONAL: 1,
         ALWAYS: 2,
-    }
+    };
 
-    GEAR =  {
-        TYPES_WITH_AMMO: new Set(["WEAPON_FIREARMS", "WEAPON_RANGED", "WEAPON_SPECIAL"]),
-        TYPES_WITH_ALWAYS_WIFI: new Set(["WEAPON_FIREARMS", "WEAPON_SPECIAL"]),
+    GEAR = {
+        TYPES_WITH_AMMO: new Set([
+            "WEAPON_FIREARMS",
+            "WEAPON_RANGED",
+            "WEAPON_SPECIAL",
+        ]),
+        TYPES_WITH_ALWAYS_WIFI: new Set([
+            "WEAPON_FIREARMS",
+            "WEAPON_SPECIAL",
+            "DRONES",
+            "DRONE_LARGE",
+            "DRONE_MEDIUM",
+            "DRONE_MICRO",
+            "DRONE_MINI",
+            "DRONE_SMALL",
+            "VEHICLES"
+        ]),
+        SUBTYPES_MATRIX_ACCESS: new Set([   // Also always have wifi
+            "COMMLINK",
+            "CYBERJACK",
+            "RIGGER_CONSOLE",
+            "DATATERM",
+            "CYBERDECK",
+            "CYBERTERM",
+        ]),
 
         ACCESSORY: {
             label: "shadowrun6.itemtype.ACCESSORY",
@@ -545,7 +591,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.LARGE_DRONES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONALWAYSAL,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
             },
         },
@@ -1769,6 +1815,27 @@ export class SR6Config {
         guardian: "shadowrun6.spirittype.guardian",
         guidance: "shadowrun6.spirittype.guidance",
         task: "shadowrun6.spirittype.task",
+
+        blood: "shadowrun6.spirittype.blood",
+        caretaker: "shadowrun6.spirittype.caretaker",
+        nymph: "shadowrun6.spirittype.nymph",
+        scout: "shadowrun6.spirittype.scout",
+        soldier: "shadowrun6.spirittype.soldier",
+        worker: "shadowrun6.spirittype.worker",
+        queen: "shadowrun6.spirittype.queen",
+        alpha: "shadowrun6.spirittype.alpha",
+
+        abomination: "shadowrun6.spirittype.abomination",
+        barren: "shadowrun6.spirittype.barren",
+        noxious: "shadowrun6.spirittype.noxious",
+        nuclear: "shadowrun6.spirittype.nuclear",
+        plague: "shadowrun6.spirittype.plague",
+        sludge: "shadowrun6.spirittype.sludge",
+
+        shadow: "shadowrun6.spirittype.shadow",
+        shedim: "shadowrun6.spirittype.shedim",
+        masterShedim: "shadowrun6.spirittype.masterShedim",
+        zonbi: "shadowrun6.spirittype.zonbi"
     };
     ATTRIB_BY_SKILL = new Map([
         ["astral", new SkillDefinition("int", false)],
@@ -2065,6 +2132,7 @@ export class SR6Config {
         outdoors: {
             navigation: "shadowrun6.special.outdoors.navigation",
             survival: "shadowrun6.special.outdoors.survival",
+            tracking: "shadowrun6.special.outdoors.tracking",
             tracking_woods: "shadowrun6.special.outdoors.tracking_woods",
             tracking_desert: "shadowrun6.special.outdoors.tracking_desert",
             tracking_urban: "shadowrun6.special.outdoors.tracking_urban",
@@ -2123,629 +2191,1170 @@ export class SR6Config {
         2: "shadowrun6.label.rating2",
         3: "shadowrun6.label.rating3",
     };
-    MATRIX_ACTIONS = {
-        // MatrixAction(id, skill, specialization, attrib, illegal, major, outsider, user, admin, attr1, attr2, linkedAttr, threshold = 0)
-        backdoor_entry: new MatrixAction(
-            "backdoor_entry",
-            "cracking",
-            "hacking",
-            "log",
-            true,
-            true,
-            true,
-            false,
-            false,
-            "wil",
-            "f",
-            "s",
-        ),
-        brute_force: new MatrixAction(
-            "brute_force",
-            "cracking",
-            "cybercombat",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "wil",
-            "f",
-            "a",
-        ),
-        change_icon: new MatrixAction(
-            "change_icon",
-            null,
-            null,
-            null,
-            false,
-            false,
-            false,
-            true,
-            true,
-        ),
-        check_os: new MatrixAction(
-            "check_os",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            null,
-            null,
-            null,
-            4,
-        ),
-        control_device: new MatrixAction(
-            "control_device",
-            "electronics",
-            "software",
-            "log",
-            false,
-            true,
-            false,
-            true,
-            true,
-            "wil",
-            "f",
-        ),
-        crack_file: new MatrixAction(
-            "crack_file",
-            "cracking",
-            "hacking",
-            "log",
-            true,
-            true,
-            false,
-            true,
-            true,
-            undefined,
-            null,
-        ),
-        crash_program: new MatrixAction(
-            "crash_program",
-            "cracking",
-            "cybercombat",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            "d",
-            "dr",
-        ),
-        data_spike: new MatrixAction(
-            "data_spike",
-            "cracking",
-            "cybercombat",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "d",
-            "f",
-            "a",
-        ),
-        disarm_data_bomb: new MatrixAction(
-            "disarm_data_bomb",
-            "cracking",
-            "cybercombat",
-            "log",
-            false,
-            true,
-            false,
-            true,
-            true,
-            "dr",
-            "dr",
-        ),
-        edit_file: new MatrixAction(
-            "edit_file",
-            "electronics",
-            "computer",
-            "log",
-            false,
-            true,
-            false,
-            true,
-            true,
-            "int",
-            "f",
-        ),
-        encrypt_file: new MatrixAction(
-            "encrypt_file",
-            "electronics",
-            "computer",
-            "log",
-            false,
-            true,
-            false,
-            true,
-            true,
-            null,
-            null,
-        ),
-        enter_host: new MatrixAction(
-            "enter_host",
-            null,
-            null,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            null,
-            null,
-        ),
-        erase_matrix_signature: new MatrixAction(
-            "erase_matrix_signature",
-            "electronics",
-            "computer",
-            "log",
-            true,
-            true,
-            false,
-            true,
-            true,
-            "wil",
-            "f",
-        ),
-        format_device: new MatrixAction(
-            "format_device",
-            "electronics",
-            "software",
-            "log",
-            false,
-            true,
-            false,
-            false,
-            true,
-            "wil",
-            "f",
-        ),
-        full_matrix_defense: new MatrixAction(
-            "full_matrix_defense",
-            null,
-            null,
-            null,
-            false,
-            true,
-            true,
-            true,
-            true,
-            null,
-            null,
-        ),
-        hash_check: new MatrixAction(
-            "hash_check",
-            "electronics",
-            "computer",
-            "log",
-            true,
-            true,
-            false,
-            true,
-            true,
-            null,
-            null,
-        ),
-        hide: new MatrixAction(
-            "hide",
-            "cracking",
-            "electronic_warfare",
-            "int",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "int",
-            "d",
-        ),
-        jack_out: new MatrixAction(
-            "jack_out",
-            "electronics",
-            "software",
-            "wil",
-            false,
-            true,
-            true,
-            true,
-            true,
-            "cha",
-            "d",
-        ),
-        jam_signals: new MatrixAction(
-            "jam_signals",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            null,
-            null,
-        ),
-        jump_rigged: new MatrixAction(
-            "jump_rigged",
-            "electronics",
-            "software",
-            "log",
-            false,
-            true,
-            false,
-            true,
-            true,
-            "wil",
-            "f",
-        ),
-        matrix_perception: new MatrixAction(
-            "matrix_perception",
-            "electronics",
-            "computer",
-            "int",
-            false,
-            true,
-            true,
-            true,
-            true,
-            "wil",
-            "s",
-        ),
-        matrix_search: new MatrixAction(
-            "matrix_search",
-            "electronics",
-            "computer",
-            "int",
-            false,
-            true,
-            true,
-            true,
-            true,
-            null,
-            null,
-        ),
-        probe: new MatrixAction(
-            "probe",
-            "cracking",
-            "hacking",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "wil",
-            "f",
-            "s",
-        ),
-        reboot_device: new MatrixAction(
-            "reboot_device",
-            "electronics",
-            "software",
-            "log",
-            false,
-            true,
-            false,
-            false,
-            true,
-            "log",
-            "wil",
-        ),
-        reconfigure: new MatrixAction(
-            "reconfigure",
-            null,
-            null,
-            null,
-            false,
-            false,
-            false,
-            false,
-            true,
-            null,
-            null,
-        ),
-        send_message: new MatrixAction(
-            "send_message",
-            null,
-            null,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            null,
-            null,
-        ),
-        set_data_bomb: new MatrixAction(
-            "set_data_bomb",
-            "electronics",
-            "software",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            "dr",
-            "dr",
-        ),
-        snoop: new MatrixAction(
-            "snoop",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            "d",
-            "f",
-        ),
-        spoof_command: new MatrixAction(
-            "spoof_command",
-            "cracking",
-            "hacking",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "d",
-            "f",
-        ),
-        switch_ifmode: new MatrixAction(
-            "switch_ifmode",
-            null,
-            null,
-            null,
-            false,
-            false,
-            false,
-            false,
-            true,
-            null,
-            null,
-        ),
-        tarpit: new MatrixAction(
-            "tarpit",
-            "cracking",
-            "cybercombat",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "d",
-            "f",
-            "a",
-        ),
-        trace_icon: new MatrixAction(
-            "trace_icon",
-            "electronics",
-            "software",
-            "int",
-            true,
-            true,
-            false,
-            false,
-            true,
-            "wil",
-            "s",
-        ),
+
+    COMBAT_ACTIONS = {
+        activate_focus: {
+            major: false,
+            isAwakened: true    //actor.isAwakened
+        },
+        avoid_incoming: {
+            major: false,
+            anytime: true
+        },
+        block: {
+            major: false,
+            anytime: true
+        },
+        call_a_shot: {
+            major: false
+        },
+        change_device_mode: {
+            major: false,
+            anytime: true
+        },
+        command_drone: {
+            major: false
+        },
+        command_spirit: {
+            major: false,
+            hasSkill: "conjuring"   //actor.system.skills.conjuring
+        },
+        dismiss_spirit: {
+            major: false,
+            hasSkill: "conjuring"
+        },
+        dodge: {
+            major: false,
+            anytime: true
+        },
+        drop_object: {
+            major: false,
+            anytime: true
+        },
+        drop_prone: {
+            major: false
+        },
+        hit_the_dirt: {
+            major: false,
+            anytime: true
+        },
+        intercept: {
+            major: false,
+            anytime: true
+        },
+        move: {
+            major: false
+        },
+        multiple_attacks: {
+            major: false
+        },
+        quick_draw: {
+            major: false
+        },
+        reload_smartgun: {
+            major: false,
+            hasSkill: "firearms"
+        },
+        shift_perception: {
+            major: false,
+            isAwakened: true
+        },
+        stand_up: {
+            major: false
+        },
+        take_aim: {
+            major: false
+        },
+        take_cover: {
+            major: false
+        },
+        trip: {
+            major: false
+        },
+
+        assist: {
+            major: true,
+            anytime: true
+        },
+        astral_projection: {
+            major: true,
+            isAwakened: true
+        },
+        attack: {
+            major: true
+        },
+        banish_spirit: {
+            major: true,
+            hasSkill: "conjuring"
+        },
+        cast_spell: {
+            major: true,
+            hasSkill: "sorcery"
+        },
+        cleanse: {
+            major: true,
+            isAwakened: true
+        },
+        counterspell: {
+            major: true,
+            hasSkill: "sorcery",
+            anytime: true
+        },
+        full_defense: {
+            major: true,
+            anytime: true
+        },
+        manifest: {
+            major: true,
+            isAwakened: true
+        },
+        observe_in_detail: {
+            major: true
+        },
+        pick_up_put_down_object: {
+            major: true
+        },
+        ready_weapon: {
+            major: true
+        },
+        reload_weapon: {
+            major: true,
+            hasSkill: "firearms"
+        },
+        rigger_jump_in: {
+            major: true,
+            hasSkill: "piloting"
+        },
+        sprint: {
+            major: true
+        },
+        summon_spirit: {
+            major: true,
+            hasSkill: "conjuring"
+        },
+        use_simple_device: {
+            major: true
+        },
+        use_skill: {
+            major: true
+        },
+        thread_form: {
+            major: true,
+            isTechno: true
+        },
+        compile_sprite: {
+            major: true,
+            isTechno: true
+        },
     };
+
+    // MatrixAction
+    MATRIX_ACTIONS = {
+        backdoor_entry: {
+            id: "backdoor_entry",
+            skill: "cracking",
+            specialization: "hacking",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: false,
+            admin: false,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: "s",
+            threshold: 0,
+            targets: ["host", "device", "living_network"],
+
+            // TODO THINK ABOUT SELF ONLY ACTIONS WITHOUT TARGET
+
+             async onMatrixActionRoll(matrixActionRoll) {
+                const initiator = foundry.utils.fromUuidSync(matrixActionRoll.matrixInitiatorUuid);
+                const defender = foundry.utils.fromUuidSync(matrixActionRoll.matrixTargetUuid);
+                if (!initiator || !defender) {
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrix.no_target";
+                    return;
+                }
+
+             },
+
+            // // Initial Matrix Test by Initiator
+            // async onSuccess(resultData) {
+            //     console.log("SR6 | backdoor_entry | onSuccess", resultData);
+            //     const { initiator, defender, hits, netHits } = resultData;
+
+            // },
+
+            // // Failed Test in case rolling against a threshold
+            // async onFailure(resultData) {
+            //     console.log("SR6 | backdoor_entry | onFailure", resultData);
+            //     const { initiator, defender, hits, netHits } = resultData;
+
+            // },
+
+            // async onDefenseRoll(defenseRoll) {
+
+            // },
+
+            // // Succesfully defended against the action of Initiator
+            // async onSuccesfulDefense(resultData) {
+            //     console.log("SR6 | backdoor_entry | onSuccesfulDefense", resultData);
+            //     const { initiator, defender, hits, netHits } = resultData;
+
+            // },
+
+            // Failed to defend against the action of Initiator - Success of Opposed Test!
+            async onFailedDefense(resultData) {
+                console.log("SR6 | backdoor_entry | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                const safeUuid = initiator.uuid.replaceAll(".", "_");
+                return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
+            },
+
+           
+
+        },
+        brute_force: {
+            id: "brute_force",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: "a",
+            threshold: 0,
+            targets: ["host", "device", "living_network"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                const initiator = foundry.utils.fromUuidSync(matrixActionRoll.matrixInitiatorUuid);
+                const defender = foundry.utils.fromUuidSync(matrixActionRoll.matrixTargetUuid);
+                if (!initiator || !defender) {
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrix.no_target";
+                    return;
+                }
+                const accessLevel = defender.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: true });
+                if (accessLevel !== "outsider") return;
+
+                const immediateAdmin = await foundry.applications.api.DialogV2.confirm({
+                    window: { title: game.i18n.localize("shadowrun6.matrixaction.brute_force.name") },
+                    content: game.i18n.localize("shadowrun6.matrixaction.brute_force.onClick"),
+                    rejectClose: false,
+                    modal: true
+                });
+                if ( immediateAdmin ) {
+                    console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +4 Defense Rating");
+                    matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.brute_force.to_admin";
+                    matrixActionRoll.defenseRating += 4;
+                    matrixActionRoll.matrixActionOption = "brute_force_admin";
+                } else {
+                    console.info("SR6E | brute_force | Initiator chose to Brute Force to USER access level");
+                }
+            },
+
+            async onDefenseRoll(defenseRoll) {
+                if (defenseRoll.matrixActionOption === "brute_force_admin") {
+                    console.info("SR6E | brute_force | Initiator chose to Brute Force to ADMIN access level | Defender gets +2 Firewall as a Bonus Dice Modifier", defenseRoll);
+                    defenseRoll.matrixActionDescription = "shadowrun6.matrixaction.brute_force.to_admin";
+                    defenseRoll.modifier = (defenseRoll.modifier || 0) + 2;
+                }
+            },
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | brute_force | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                const safeUuid = initiator.uuid.replaceAll(".", "_");
+                const accessLevel = defender.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: true });
+
+                if (resultData.matrixActionOption === "brute_force_admin" || accessLevel === "user") {
+                    return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
+                } else {
+                    return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "user")
+                }
+            },
+
+        },
+        change_icon: {
+            id: "change_icon",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["persona", "device"]
+        },
+        check_os: {
+            id: "check_os",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 4,
+            _onSuccess: { showOs: true },
+            targets: ["yourself"]
+        },
+        control_device: {
+            id: "control_device",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        crack_file: {
+            id: "crack_file",
+            skill: "cracking",
+            specialization: "hacking",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "file"]
+        },
+        crash_program: {
+            id: "crash_program",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "d",
+            attr2: "dr",
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { crashProgram: true },
+            targets: ["device"]
+        },
+        data_spike: {
+            id: "data_spike",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "d",
+            attr2: "f",
+            linkedAttr: "a",
+            threshold: 0,
+            _onSuccess: { damage: "Math.ceil({a}/2)" },
+            targets: ["persona", "device"],
+
+            getDamage: function (actor) {
+                const damage = Math.ceil(actor.getMatrixPool("a") / 2);
+                return damage;
+            }
+
+        },
+        disarm_data_bomb: {
+            id: "disarm_data_bomb",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "dr",
+            attr2: "dr",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "file"]
+        },
+        edit_file: {
+            id: "edit_file",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "int",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "file"]
+        },
+        encrypt_file: {
+            id: "encrypt_file",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "file"]
+        },
+        enter_host: {
+            id: "enter_host",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["host"]
+        },
+        erase_matrix_signature: {
+            id: "erase_matrix_signature",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["techno", "sprite"]
+        },
+        format_device: {
+            id: "format_device",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        full_matrix_defense: {
+            id: "full_matrix_defense",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: true,
+            anytime: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { fullMatrixDefense: true },
+            targets: ["yourself"]
+        },
+        hash_check: {
+            id: "hash_check",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "file"]
+        },
+        hide: {
+            id: "hide",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "int",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "int",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["persona"]
+        },
+        jack_out: {
+            id: "jack_out",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "wil",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "cha",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { jackOut: true },
+            targets: ["yourself"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.jack_out.link_locked";
+                matrixActionRoll.matrixTargetName = matrixActionRoll.actor.name;    // Initiators name
+             },
+
+            // Only rolled optionally if the Initiator was link-locked
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixActionDescription = "shadowrun6.matrixaction.jack_out.lock_link";
+                defenseRoll.matrixTargetName = defenseRoll.actor.name;    // Defenders name
+                defenseRoll.noMatrixResultButton = true;
+            },
+
+            // Initial Matrix Test by Initiator
+            async onSuccess(resultData) {
+                console.log("SR6 | jack_out | onSuccess", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                await game.sr6.utils.resetAccessLevels( initiator.uuid );
+                const matrixIni = initiator.system.matrixIni;
+                if (matrixIni !== "ar") {
+                    // Dumpshock
+                    const damageData = {
+                        soakType: SoakType.BIO_FEEDBACK,
+                        monitor: matrixIni === "vrcold" ? MonitorType.STUN : MonitorType.PHYSICAL,
+                        damage: 3
+                    }
+                    const directDamage = new DirectDamage(initiator, damageData);
+                    await directDamage.toChat();
+                }
+                return true;
+            },
+            
+            async onSuccesfulDefense(resultData) {
+                // Only here to trigger the <span> message
+            },
+            async onFailedDefense(resultData) {
+                // Only here to trigger the <span> message
+            },
+
+        },
+        jam_signals: {
+            id: "jam_signals",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        jump_rigged: {
+            id: "jump_rigged",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        matrix_perception: {
+            id: "matrix_perception",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "int",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "s",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["persona", "device", "host", "file", "sprite"]
+        },
+        matrix_search: {
+            id: "matrix_search",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "int",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["yourself"]
+        },
+        probe: {
+            id: "probe",
+            skill: "cracking",
+            specialization: "hacking",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: "s",
+            threshold: 0,
+            _onSuccess: { action: "backdoor_entry" },
+            targets: ["host", "device", "living_network"]
+        },
+        reboot_device: {
+            id: "reboot_device",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "log",
+            attr2: "wil",
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { rebootDevice: true },
+            targets: ["device", "persona"],
+            
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.matrixActionDescription = "shadowrun6.matrixaction.reboot_device.forced_to_reboot";
+                matrixActionRoll.matrixTargetName = matrixActionRoll.actor.name;    // Initiators name
+             },
+
+            // Only rolled optionally if the Initiator was link-locked
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixTargetName = defenseRoll.actor.name;    // Defenders name
+                if (!defenseRoll.matrixTargetUuid) defenseRoll.matrixTargetUuid = defenseRoll.actor.uuid;
+            },
+
+            // This button is used if you Reboot Device yourself
+            async onSuccess(resultData) {
+                console.log("SR6 | reboot_device | onSuccess", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                await game.sr6.utils.resetAccessLevels( initiator.uuid );
+                // TODO add reboot devices
+                return true;
+            },
+            
+            // This button is used if someone else forces you to Reboot Device
+            async onFailedDefense(resultData) {
+                console.log("SR6 | reboot_device | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                await game.sr6.utils.resetAccessLevels( defender.uuid );
+                // TODO add reboot devices
+                return true;
+            },
+
+        },
+        reconfigure: {
+            id: "reconfigure",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["yourself"]
+        },
+        // Added by the Official FAQ
+        relinquish_access: {
+            id: "relinquish_access",
+            skill: "electronics",
+            specialization: "software",
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["host", "device", "living_network"],
+
+            async relinquishAccess(resultData) {
+                console.log("SR6 | relinquish_access", resultData);
+                const { initiator, defender } = resultData;
+                const initiatorSafeUuid = initiator.uuid.replaceAll(".", "_");
+                await defender.setFlag(
+                    "shadowrun6-eden",
+                    `matrix-access.${initiatorSafeUuid}`,
+                    "outsider"
+                );
+                return true;
+            },
+
+            // Initial Matrix Test by Initiator
+            async onSuccess(resultData) {
+                return this.relinquishAccess(resultData);
+            },
+            // Initial Matrix Test by Initiator > same result even if failed
+            async onFailure(resultData) {
+                return this.relinquishAccess(resultData);
+            },
+
+        },
+        send_message: {
+            id: "send_message",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["yourself"]
+        },
+        set_data_bomb: {
+            id: "set_data_bomb",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "dr",
+            attr2: "dr",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["file"]
+        },
+        snoop: {
+            id: "snoop",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "d",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "persona"]
+        },
+        spoof_command: {
+            id: "spoof_command",
+            skill: "cracking",
+            specialization: "hacking",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "d",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        switch_ifmode: {
+            id: "switch_ifmode",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["yourself"]
+        },
+        tarpit: {
+            id: "tarpit",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "d",
+            attr2: "f",
+            linkedAttr: "a",
+            threshold: 0,
+            _onSuccess: { tarpit: true, damage: 1 },
+            targets: ["persona", "device", "ic", "sprite"],
+            
+            getDamage: function (actor) {
+                const damage = 1;
+                return damage;
+            }
+
+        },
+        trace_icon: {
+            id: "trace_icon",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "int",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "wil",
+            attr2: "s",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["persona", "device", "physical"]
+        }
+    };
+    // TODO add Matrix Edge Actions (HS p.31)
     MATRIX_ACTIONS_HS = {
-        // MatrixAction(id, skill, specialization, attrib, illegal, major, outsider, user, admin, attr1, attr2, linkedAttr, threshold = 0)
-        // TODO add Matrix Edge Actions (HS p.31)
-        calibration: new MatrixAction(
-            "calibration",
-            "electronics",
-            "computer",
-            "log",
-            false,
-            true,
-            false,
-            true,
-            true,
-            null,
-            null,
-        ),
-        delayed_command: new MatrixAction(
-            "delayed_command",
-            "cracking",
-            "hacking",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "d",
-            "f",
-        ),
-        denial_of_service: new MatrixAction(
-            "denial_of_service",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            true,
-            false,
-            false,
-            "wil",
-            "f",
-        ),
-        device_lock: new MatrixAction(
-            "device_lock",
-            "cracking",
-            "cybercombat",
-            "log",
-            true,
-            true,
-            true,
-            true,
-            true,
-            "wil",
-            "f",
-        ),
-        garbage_in_out: new MatrixAction(
-            "garbage_in_out",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            false,
-            true,
-            true,
-            "wil",
-            "f",
-        ),
-        known_exploit: new MatrixAction(
-            "known_exploit",
-            "cracking",
-            "hacking",
-            "log",
-            true,
-            true,
-            true,
-            false,
-            false,
-            "wil",
-            "f",
-            "s",
-        ),
-        masquerade: new MatrixAction(
-            "masquerade",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            true,
-            false,
-            false,
-            "int",
-            "d",
-        ),
-        metahuman_middle: new MatrixAction(
-            "metahuman_middle",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            true,
-            true,
-            false,
-            false,
-            "int",
-            "d",
-        ),
-        modify_icon: new MatrixAction(
-            "modify_icon",
-            "electronics",
-            "software",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            "int",
-            "d",
-        ),
-        pop_up: new MatrixAction(
-            "pop_up",
-            "cracking",
-            "cybercombat",
-            "log",
-            true,
-            true,
-            true,
-            false,
-            false,
-            "int",
-            "d",
-        ),
-        squelch: new MatrixAction(
-            "squelch",
-            "electronics",
-            "software",
-            "log",
-            true,
-            false,
-            true,
-            false,
-            false,
-            "int",
-            "s",
-        ),
-        subvert_infrastructure: new MatrixAction(
-            "subvert_infrastructure",
-            "electronics",
-            "software",
-            "log",
-            true,
-            true,
-            false,
-            false,
-            true,
-            "wil",
-            "f",
-        ),
-        threat_analysis: new MatrixAction(
-            "threat_analysis",
-            "electronics",
-            "computer",
-            "log",
-            false,
-            true,
-            true,
-            true,
-            true,
-            null,
-            null,
-        ),
-        virtual_aim: new MatrixAction(
-            "virtual_aim",
-            null,
-            null,
-            null,
-            false,
-            false,
-            true,
-            false,
-            false,
-            null,
-            null,
-        ),
-        watchdog: new MatrixAction(
-            "watchdog",
-            "cracking",
-            "electronic_warfare",
-            "log",
-            true,
-            false,
-            false,
-            true,
-            true,
-            "wil",
-            "f",
-        ),
+        calibration: {
+            id: "calibration",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { calibration: true },
+            targets: ["yourself"]
+        },
+        delayed_command: {
+            id: "delayed_command",
+            skill: "cracking",
+            specialization: "hacking",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "d",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        denial_of_service: {
+            id: "denial_of_service",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            admin: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { denialOfService: true },
+            targets: ["persona", "device"]
+        },
+        device_lock: {
+            id: "device_lock",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { deviceLock: true },
+            targets: ["device"]
+        },
+        garbage_in_out: {
+            id: "garbage_in_out",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        known_exploit: {
+            id: "known_exploit",
+            skill: "cracking",
+            specialization: "hacking",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: false,
+            admin: false,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: "s",
+            threshold: 0,
+            targets: ["host", "device", "living_network"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.matrixActionDescription = "shadowrun6.roll.edge.noEdgeUse";
+                matrixActionRoll.noEdgeGain = true;
+                matrixActionRoll.noEdgeSpend = true;
+                matrixActionRoll.matrixActionOption = "known_exploit";
+            },
+            
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixActionDescription = "shadowrun6.roll.edge.tempEdge";
+                defenseRoll.tempEdge = true;
+            },
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | known_exploit | onFailedDefense", resultData);
+                const { initiator, defender, hits, netHits } = resultData;
+                const safeUuid = initiator.uuid.replaceAll(".", "_");
+                return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
+            },
+
+        },
+        masquerade: {
+            id: "masquerade",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: false,
+            admin: false,
+            attr1: "int",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["persona"]
+        },
+        metahuman_middle: {
+            id: "metahuman_middle",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: false,
+            admin: false,
+            attr1: "int",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["yourself"]
+        },
+        modify_icon: {
+            id: "modify_icon",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "int",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        pop_up: {
+            id: "pop_up",
+            skill: "cracking",
+            specialization: "cybercombat",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: true,
+            user: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            admin: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            attr1: "int",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { popUp: true },
+            targets: ["device", "persona"]
+        },
+        squelch: {
+            id: "squelch",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: true,
+            major: false,
+            outsider: true,
+            user: false,
+            admin: false,
+            attr1: "int",
+            attr2: "s",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        subvert_infrastructure: {
+            id: "subvert_infrastructure",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "log",
+            illegal: true,
+            major: true,
+            outsider: false,
+            user: false,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device"]
+        },
+        threat_analysis: {
+            id: "threat_analysis",
+            skill: "electronics",
+            specialization: "computer",
+            attrib: "log",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            _onSuccess: { threatAnalysis: true },
+            targets: ["yourself"]
+        },
+        virtual_aim: {
+            id: "virtual_aim",
+            skill: null,
+            specialization: null,
+            attrib: null,
+            illegal: false,
+            major: false,
+            outsider: true,
+            user: false,
+            admin: false,
+            attr1: null,
+            attr2: null,
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["yourself"]
+        },
+        watchdog: {
+            id: "watchdog",
+            skill: "cracking",
+            specialization: "electronic_warfare",
+            attrib: "log",
+            illegal: true,
+            major: false,
+            outsider: false,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            targets: ["device", "persona"]
+        },
     };
     COMPLEX_FORMS = {
         list: {
@@ -3759,5 +4368,27 @@ export class SR6Config {
             street_wyrd: "PDF.code.street_wyrd",
             tarnished_star: "PDF.code.tarnished_star",
         },
+    };
+
+    icon = {
+        // AUTHOR: Richard9394 | LICENSE: Apache License | https://www.svgrepo.com/svg/431315/terminal-box
+        terminal: `<i class="sr6-icon sr6-icon-terminal" aria-hidden="true">
+                        <svg viewBox="3 3 18 18" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                            <path
+                            class="sr6-icon-primary"
+                            d="m 19,3 c 1.1046,0 2,0.89543 2,2 v 14 c 0,1.1046 -0.8954,2 -2,2 H 5 C 3.89543,21 3,20.1046 3,19 V 5 C 3,3.89543 3.89543,3 5,3 Z m 0,2 H 5 v 14 h 14 z m -2.9999,9.0001 c 0.5523,0 1,0.4477 1,1 0,0.51285 -0.386027,0.935509 -0.883376,0.993273 L 16.0001,16.0001 h -2 c -0.5523,0 -1,-0.4477 -1,-1 0,-0.51285 0.386027,-0.935509 0.883376,-0.993272 L 14.0001,14.0001 Z M 9.05037,8.46459 11.8788,11.293 c 0.3905,0.3905 0.3905,1.0237 0,1.4142 l -2.82843,2.8285 c -0.39052,0.3905 -1.02369,0.3905 -1.41421,0 -0.39053,-0.3906 -0.39053,-1.0237 0,-1.4143 L 9.75748,12.0001 7.63616,9.8788 c -0.39053,-0.39052 -0.39053,-1.02369 0,-1.41421 0.39052,-0.39053 1.02369,-0.39053 1.41421,0 z"
+                            />
+                        </svg>
+                    </i>`,
+        // Edited by yeroon | AUTHOR: boxicons | LICENSE: CC Attribution License | https://www.svgrepo.com/svg/334935/terminal
+        darkTerminal: `<i class="sr6-icon sr6-icon-darkTerminal" aria-hidden="true">
+                            <svg viewBox="0 0 16.05 16.05" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                                <path
+                                class="sr6-icon-primary"
+                                d="M 14.048753,0 H 2.0012469 C 0.89598875,0 0,0.89822872 0,2.00625 v 12.0375 C 0,15.151771 0.89598875,16.05 2.0012469,16.05 H 14.048753 C 15.154011,16.05 16.05,15.151771 16.05,14.04375 V 2.00625 C 16.05,0.89822872 15.154011,0 14.048753,0 Z M 3.2155175,12.163584 1.5606359,10.565166 3.8550655,8.025 1.5606359,5.4848344 3.2155175,3.8864156 6.8648286,8.025 Z M 14.369364,12.0975 H 7.785 V 9.91125 h 6.584364 z"
+                                />
+                            </svg>
+                        </i>`,
+        
     };
 }

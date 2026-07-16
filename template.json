@@ -448,7 +448,10 @@
 						"s": 0,
 						"d": 0,
 						"f": 0
-					}
+					},
+					"runningSilent": false,
+					"description": "",
+					"img": ""
 				}
 			}
 		},
@@ -474,6 +477,7 @@
 			"gender": "",
 			"nuyen": 0,
 			"overwatch": 0,
+			"description": "",
 			"notes": "",
 			"karma": 0,
 			"karma_total": 0,
@@ -501,6 +505,8 @@
 			"matrixIni": "vrcold",
 			"rating" : 1,
 			"gruntmeta": "",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Critter": {
@@ -513,6 +519,8 @@
 				"knowledge-template"
 			],
 			"metatype": "Critter",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Spirit": {
@@ -527,6 +535,8 @@
 			"metatype": "Spirit",
 			"rating" : 1,
 			"spiritType": "air",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Vehicle": {
@@ -553,6 +563,7 @@
 				"offRoad": false,
 				"speed": 0
 			},
+			"description": "",
 			"notes": ""
 		}
 	},
@@ -604,7 +615,7 @@
 					"deviceRating": 2,
 					"hasWirelessInterface": false,
 					"hasDataCableInterface": false,
-					"wirelessActive": false,
+					"wirelessActive": true,
 					"matrixCM": {
 						"value": null
 					}
@@ -643,7 +654,8 @@
 			"skill": "",
 			"skillSpec": "",
 			"oppAttr1": "",
-			"oppAttr2": ""
+			"oppAttr2": "",
+			"dmg": 0
 		},
 		"contact": {
 			"name": "Someone",

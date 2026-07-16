@@ -8,6 +8,7 @@
                 <tr>
                     <th>{{localize 'shadowrun6.item.type'}}</th>
                     <th>{{localize systemFields.embeddedInUuid.label}}</th>
+                    <th data-tooltip="SR6.Item.mod.FIELDS.rating.tooltip">{{localize 'SR6.Item.mod.FIELDS.rating.label'}}</th>
                     <th>{{localize 'shadowrun6.item.availability'}}</th>
                     <th>{{localize 'shadowrun6.item.price'}}</th>
                 </tr>
@@ -30,6 +31,7 @@
                         <div>{{localize 'SR6.Item.mod.label.not_installed'}}</div>
                         {{/if}}
                     </td>
+                    <td style="text-align: center"><input type="text" value="{{item.system.rating}}" data-field="system.rating" class="box centered" style="width: 2.4em" data-tooltip="SR6.Item.mod.FIELDS.rating.tooltip"/></td>
                     <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2.4em" /></td>
                     <td style="text-align: center"><span class="input-symbol-nuyen"><input type="number" value="{{item.system.price}}" data-field="system.price" min="0" class="box centered" style="width: 5em" /></span></td>
                 </tr>

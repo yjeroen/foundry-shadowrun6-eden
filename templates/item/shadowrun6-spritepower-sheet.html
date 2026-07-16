@@ -10,6 +10,7 @@
                     <th>{{localize 'shadowrun6.complexform.oppAttr1'}}</th>
                     <th>{{localize 'shadowrun6.complexform.oppAttr2'}}</th>
                     <th>{{localize 'shadowrun6.complexform.duration'}}</th>
+                    <th>{{localize 'shadowrun6.item.damage'}}</th>
                 </tr>
                 <tr>
                     <!--// select leer, electronics, cracking -->
@@ -32,6 +33,9 @@
                         <select name="system.duration" data-field="system.duration">
                             {{selectOptions config.spell_duration selected=item.system.duration localize=true}}
                         </select>
+                    </td>
+                    <td class="box centered">
+                        <input data-field="system.dmg" type="number" value="{{item.system.dmg}}" class="box">
                     </td>
                 </tr>
 

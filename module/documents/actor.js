@@ -6,6 +6,9 @@ import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "../ItemType
 import { doRoll } from "../Rolls.js";
 import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType } from "../dice/RollTypes.js";
 import { getActor } from "../util/helper.js";
+import { SR6MatrixPanField } from "../datamodels/fields/fields.mjs";
+const { DOCUMENT_OWNERSHIP_LEVELS } = foundry.CONST;
+
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -79,6 +82,7 @@ export default class Shadowrun6Actor extends Actor {
         if (source.type === 'Vehicle') {
             if (source.system?.vtype === "") source.system.vtype = "ground_craft";
         }
+        if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
 
         return super.migrateData(source);
     }
@@ -106,14 +110,18 @@ export default class Shadowrun6Actor extends Actor {
         //     this.prepareDerivedData();
         // }
         // prepareEmbeddedDocuments() calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
+
+        
+        this._preparePAN();
+
         // TODO rework vehicles completely to not be dependent on Actor.prepareData()
         if (callSuper) super.prepareData();
 
         // Modern DataModel Actors skip legacy data load flow
         if (this.system instanceof foundry.abstract.DataModel) return;
         
-        console.log("SR6E | Shadowrun6Actor.prepareData() LEGACY START");
-        const actorData = getActorData(this);
+        console.log("SR6E | Shadowrun6Actor.prepareData() LEGACY START", this.name);
+        const actorData = getActorData(this); 
         const system = getSystemData(this);
         if (isPlayer(system)) {
             if (!system.karma)
@@ -222,8 +230,8 @@ export default class Shadowrun6Actor extends Actor {
      */
     prepareDerivedData() {
         console.log('SR6E | Shadowrun6Actor.prepareDerivedData()', this.name, this.uuid);
-        const actorData = this;
-        const flags = actorData.flags['shadowrun6-eden'] || {};
+        const flags = this.flags['shadowrun6-eden'] || {};
+
     }
     /**
      * @Override
@@ -364,8 +372,15 @@ export default class Shadowrun6Actor extends Actor {
         // Only run on spirits
         if (!isSpiritOrSprite(system))
             return;
-        if (!system.defenserating)
-            system.defenserating = new Ratings();
+        
+        system.defenserating = foundry.utils.mergeObject(
+            new Ratings(),
+            system.defenserating ?? {},
+            { inplace: false }
+        );
+
+        console.log(`SR6E | _applySpiritPreset(${force})`, foundry.utils.deepClone(system));
+        // TODO Fix Astral initiatives as they can differ from physical initiative
         switch (system.spiritType) {
             case 'air':
                 system.attributes.bod.mod = -2;
@@ -540,6 +555,333 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
+
+            case 'blood':
+                system.attributes.bod.mod = 4;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 1;
+                system.attributes.str.mod = 3;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = -1;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+1;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["outdoors"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'caretaker':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 1;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +3;
+                system.initiative.physical.base = (force * 2)+1;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'nymph':
+                system.attributes.bod.mod = -1;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 3;
+                system.attributes.str.mod = -1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +2;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'scout':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +3;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+            case 'soldier':
+                system.attributes.bod.mod = 2;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 1;
+                system.attributes.str.mod = 3;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +3;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+            case 'worker':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 0;
+                system.attributes.str.mod = 1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +1;
+                system.initiative.physical.base = (force * 2);
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+            case 'queen':
+                system.attributes.bod.mod = 5;
+                system.attributes.agi.mod = 3;
+                system.attributes.rea.mod = 4;
+                system.attributes.str.mod = 5;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = 1;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +5;
+                system.initiative.physical.base = (force * 2)+4;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["con"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'alpha':
+                system.attributes.bod.mod = 3;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 3;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = -2;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +4;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["con"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["outdoors"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["stealth"].points = 1;
+                break;
+
+            case 'abomination':
+                system.attributes.bod.mod = 2;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 0;
+                system.attributes.str.mod = 2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force +2;
+                system.initiative.physical.base = (force * 2);
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'barren':
+                system.attributes.bod.mod = 4;
+                system.attributes.agi.mod = -2;
+                system.attributes.rea.mod = -1;
+                system.attributes.str.mod = 4;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+4;
+                system.initiative.physical.base = (force * 2)-1;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'noxious':
+                system.attributes.bod.mod = -2;
+                system.attributes.agi.mod = 3;
+                system.attributes.rea.mod = 4;
+                system.attributes.str.mod = -3;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+2;
+                system.initiative.physical.base = (force * 2)+4;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'nuclear':
+                system.attributes.bod.mod = 1;
+                system.attributes.agi.mod = 2;
+                system.attributes.rea.mod = 3;
+                system.attributes.str.mod = -2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+1;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'plague':
+                system.attributes.bod.mod = 1;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = -2;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force+1;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'sludge':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 1;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["athletics"].specialization = "swimming";
+                system.skills["close_combat"].points = 1;
+                system.skills["exotic_weapons"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+
+            case 'shadow':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 3;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'shedim':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 1;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+2;
+                system.skills["astral"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                break;
+            case 'masterShedim':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 0;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 1;
+                system.attributes.wil.mod = 1;
+                system.attributes.log.mod = 1;
+                system.attributes.int.mod = 1;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+            case 'zonbi':
+                system.attributes.bod.mod = 0;
+                system.attributes.agi.mod = 3;
+                system.attributes.rea.mod = 2;
+                system.attributes.str.mod = 0;
+                system.attributes.wil.mod = 0;
+                system.attributes.log.mod = 0;
+                system.attributes.int.mod = 0;
+                system.attributes.cha.mod = 0;
+                system.attributes.mag.mod = 0;
+                system.defenserating.physical.base = force;
+                system.initiative.physical.base = (force * 2)+3;
+                system.skills["astral"].points = 1;
+                system.skills["athletics"].points = 1;
+                system.skills["close_combat"].points = 1;
+                system.skills["influence"].points = 1;
+                system.skills["perception"].points = 1;
+                system.skills["sorcery"].points = 1;
+                break;
+
         }
     }
     //---------------------------------------------------------
@@ -550,6 +892,7 @@ export default class Shadowrun6Actor extends Actor {
         const system = getSystemData(this);
         // Only run on spirits
         if (isSpiritOrSprite(system)) {
+            console.log(`SR6E | _applyForce(${force})`, foundry.utils.deepClone(system));
             system.mortype = "mysticadept";
             CONFIG.SR6.PRIMARY_ATTRIBUTES.forEach((attr) => {
                 system.attributes[attr].base = force;
@@ -572,15 +915,14 @@ export default class Shadowrun6Actor extends Actor {
             //Set initiative dice to 2d6 for phy and 3d6 for astral
             system.initiative.physical.dice = 2;
             system.initiative.astral.dice = 3;
-            
             system.defenserating.astral.base = force;
             system.initiative.physical.base = force * 2;
             system.initiative.physical.pool = system.initiative.physical.base + system.initiative.physical.mod;
-            system.initiative.physical.dicePool = Math.min(5, system.initiative.physical.dice + system.initiative.physical.diceMod);
+            system.initiative.physical.dicePool = Math.max(1, Math.min(5, system.initiative.physical.dice + system.initiative.physical.diceMod) );
             system.initiative.actions = system.initiative.physical.dicePool + 1;
             system.initiative.astral.base = force * 2;
             system.initiative.astral.pool = system.initiative.astral.base + system.initiative.astral.mod;
-            system.initiative.astral.dicePool = system.initiative.astral.dice + system.initiative.astral.diceMod;
+            system.initiative.astral.dicePool = Math.max(1, Math.min(5, system.initiative.astral.dice + system.initiative.astral.diceMod ) );
 
             system.physical.max = 8 + Math.round(force / 2) + system.physical.mod;
             system.physical.value = system.physical.max - system.physical.dmg;
@@ -659,21 +1001,25 @@ export default class Shadowrun6Actor extends Actor {
             if (data.initiative) {
                 data.initiative.physical.base = data.attributes["rea"].pool + data.attributes["int"].pool;
                 data.initiative.physical.pool = data.initiative.physical.base + data.initiative.physical.mod;
-                data.initiative.physical.dicePool = Math.min(5, data.initiative.physical.dice + data.initiative.physical.diceMod);
+                data.initiative.physical.dicePool = Math.max(1, Math.min(5, data.initiative.physical.dice + data.initiative.physical.diceMod) );
                 data.initiative.actions = data.initiative.physical.dicePool + 1;
                 data.initiative.astral.base = data.attributes["log"].pool + data.attributes["int"].pool;
                 data.initiative.astral.pool = data.initiative.astral.base + data.initiative.astral.mod;
-                data.initiative.astral.dicePool = data.initiative.astral.dice + data.initiative.astral.diceMod;
+                data.initiative.astral.dicePool = Math.max(1, Math.min(5, data.initiative.astral.dice + data.initiative.astral.diceMod) );
                 if (!data.initiative.matrix)
                     data.initiative.matrix = new Initiative;
                 data.initiative.matrix.base = data.attributes["rea"].pool + data.attributes["int"].pool;
                 data.initiative.matrix.pool = data.initiative.matrix.base + data.initiative.matrix.mod;
-                data.initiative.matrix.dicePool = data.initiative.matrix.dice + data.initiative.matrix.diceMod;
+                data.initiative.matrix.dicePool = Math.max(1, Math.min(5, data.initiative.matrix.dice + data.initiative.matrix.diceMod) );
             }
         }
-        if (!data.derived) {
-            data.derived = new Derived();
-        }
+
+        data.derived = foundry.utils.mergeObject(
+            new Derived(),
+            data.derived ?? {},
+            { inplace: false }
+        );
+
         // Composure
         if (data.derived.composure) {
             data.derived.composure.base = data.attributes["wil"].pool + data.attributes["cha"].pool;
@@ -859,7 +1205,7 @@ export default class Shadowrun6Actor extends Actor {
         // Matrix defense
         if (isMatrixUser(data)) {
             console.log("SR6E | prepareDefenseRatings:", data.persona.used);
-            data.defenserating.matrix.base = data.persona.used.d + data.persona.used.f;
+            data.defenserating.matrix.base = ( Number(data.persona?.used?.d) || 0 ) + ( Number(data.persona?.used?.f) || 0);
             data.defenserating.matrix.modString = ""; //(game as Game).i18n.localize("attrib.int_short") + " " + data.attributes["int"].pool;
             data.defenserating.matrix.pool = data.defenserating.matrix.base;
             if (data.defenserating.matrix.mod) {
@@ -1136,9 +1482,6 @@ export default class Shadowrun6Actor extends Actor {
                     gear.pool = this._getSkillPool(gear.skill, gear.skillSpec, strWeapon);
                     gear.pool = gear.pool + gear.modifier;
                     // TODO rework move this whole item pools thing to to Item model
-                    if (gear.isElectronicMatrixDevice) {
-                        gear.pool -= gear.matrix.matrixCM.penalty;
-                    }
                 }
             }
             if (tmpItem.type == "gear" && isWeapon(system)) {
@@ -1579,9 +1922,9 @@ export default class Shadowrun6Actor extends Actor {
         await this.update(updatedPersona);
     }
     _preparePersona() {
-        //TODO figure out what matrix.deviceRating is still used for
-        const actorData = getActorData(this);
-        const system = getSystemData(this);
+        console.log("SR6E | _preparePersona", this.name);
+        const system = this.system;
+
         if (!system.persona)
             system.persona = new Persona();
         if (!system.persona.used)
@@ -1604,38 +1947,51 @@ export default class Shadowrun6Actor extends Actor {
         system.persona.device.base.s = 0;
         system.persona.device.base.d = 0;
         system.persona.device.base.f = 0;
-        actorData.items.forEach((tmpItem) => {
-            const systemItem = getSystemData(tmpItem);
-            if (tmpItem.type == "gear" && isMatrixDevice(systemItem)) {
-                let item = getSystemData(tmpItem);
-                if (item.subtype == "COMMLINK" || item.subtype == "CYBERJACK" || item.subtype == "RIGGER_CONSOLE" || item.subtype == "DATATERM" ) {
-                    if (item.usedForPool) {
-                        system.persona.device.base.d = parseInt(item.d);
-                        system.persona.device.base.f = parseInt(item.f);
+        system.persona.onlineOnMatrix = false;
+
+        this.items.forEach((tmpItem) => {
+            const item = tmpItem;
+            const itemSystem = item.system;
+            const GEAR = CONFIG.SR6.GEAR;
+            if (item.type == "gear" && GEAR.SUBTYPES_MATRIX_ACCESS.has(itemSystem.subtype) ) {
+                
+                if (!item.onlineOnMatrix) return;
+
+                if (itemSystem.subtype == "COMMLINK" || itemSystem.subtype == "CYBERJACK" || itemSystem.subtype == "RIGGER_CONSOLE" || itemSystem.subtype == "DATATERM" ) {
+                    if (itemSystem.usedForPool) {
+                        system.persona.onlineOnMatrix = true;
+                        system.persona.accessDevice = item;
+                        system.persona.device.base.d = parseInt(itemSystem.d);
+                        system.persona.device.base.f = parseInt(itemSystem.f);
                         if (!system.persona.monitor.max) {
-                            system.persona.monitor.max = parseInt(item.subtype == "COMMLINK" ? item.matrix.deviceRating : item.matrix.deviceRating) / 2 + 8;
+                            system.persona.monitor.max = parseInt(itemSystem.subtype == "COMMLINK" ? itemSystem.matrix.deviceRating : itemSystem.matrix.deviceRating) / 2 + 8;
                         }
                     }
                 }
-                if (item.subtype == "CYBERDECK") {
-                    if (item.usedForPool) {
-                        system.persona.device.base.a = parseInt(item.a);
-                        system.persona.device.base.s = parseInt(item.s);
-                        system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
+                if (itemSystem.subtype == "CYBERDECK") {
+                    if (itemSystem.usedForPool) {
+                        system.persona.onlineOnMatrix = true;
+                        system.persona.accessDevice = item;
+                        system.persona.device.base.a = parseInt(itemSystem.a);
+                        system.persona.device.base.s = parseInt(itemSystem.s);
+                        system.persona.monitor.max = parseInt(itemSystem.matrix.deviceRating) / 2 + 8;
                     }
                 }
-                if (item.subtype == "CYBERTERM") {
-                    if (item.usedForPool) {
-                        system.persona.device.base.a = parseInt(item.a);
-                        system.persona.device.base.s = parseInt(item.s);
-                        system.persona.device.base.d = parseInt(item.d);
-                        system.persona.device.base.f = parseInt(item.f);
-                        system.persona.monitor.max = parseInt(item.matrix.deviceRating) / 2 + 8;
+                if (itemSystem.subtype == "CYBERTERM") {
+                    if (itemSystem.usedForPool) {
+                        system.persona.onlineOnMatrix = true;
+                        system.persona.accessDevice = item;
+                        system.persona.device.base.a = parseInt(itemSystem.a);
+                        system.persona.device.base.s = parseInt(itemSystem.s);
+                        system.persona.device.base.d = parseInt(itemSystem.d);
+                        system.persona.device.base.f = parseInt(itemSystem.f);
+                        system.persona.monitor.max = parseInt(itemSystem.matrix.deviceRating) / 2 + 8;
                     }
                 }
             }
         });
         console.log("SR6E | preparePersona: device=", system.persona.device);
+
         // Living persona
         if (system.mortype == "technomancer") {
             if (!system.persona.living)
@@ -1644,6 +2000,8 @@ export default class Shadowrun6Actor extends Actor {
                 system.persona.living.base = new MatrixDevice();
             if (!system.persona.living.mod)
                 system.persona.living.mod = new MatrixDevice();
+            system.persona.onlineOnMatrix = Boolean(this.system.stun.value);
+            system.persona.accessDevice = false;
             system.persona.living.base.a = parseInt(system.attributes["cha"].pool);
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);
             system.persona.living.base.d = parseInt(system.attributes["log"].pool);
@@ -1653,19 +2011,26 @@ export default class Shadowrun6Actor extends Actor {
             system.persona.initiative = new Initiative();
             system.persona.initiative.base = system.persona.living.base.d + parseInt(system.attributes["int"].pool);
         }
-        /*
-        if (actorData.skills) {
-            // Attack pool
-            actorData.persona.attackPool = actorData.skills["cracking"].points + actorData.skills["cracking"].modifier;
-            if (actorData.skills.expertise=="cybercombat") { actorData.persona.attackPool+=3} else
-            if (actorData.skills.specialization=="cybercombat") { actorData.persona.attackPool+=2}
-            actorData.persona.attackPool += actorData.attributes["log"].pool;
-        }
-
-        // Damage
-        actorData.persona.damage = Math.ceil(actorData.persona.used.a/2);
-        */
+        
     }
+
+    _preparePAN() {
+        if (!isMatrixUser(this.system)) return;
+
+        const panData = foundry.utils.deepClone(this._source.system.pan ?? {});
+        panData.administratorUuid = this.uuid;
+        panData.name ||= `${this.name}'s PAN`;
+
+        this.system.pan = new SR6MatrixPanField().initialize(panData);
+        // Hack to make SR6DataModel.actor() work in legacy actors for things like the PAN
+        Object.defineProperty(this.system.pan, "actor", {
+            value: this,
+            enumerable: false,
+            configurable: false
+        });
+        console.log("SR6E | preparing PAN", this.name, panData);
+    }
+
     //---------------------------------------------------------
     /*
      * Calculate the attributes like Initiative
@@ -1706,7 +2071,7 @@ export default class Shadowrun6Actor extends Actor {
             if (this.system.health?.stunCM) {
                 stunCM     = this.system.health?.stunCM?.penalty ?? 0;
             } 
-            else { // Vehicle or Matrix actor without stun monitor
+            else { // Matrix actor without stun monitor like Sprites
                 stunCM     = this.system.matrix?.matrixCM?.penalty ?? 0;
             }
         } 
@@ -1733,6 +2098,18 @@ export default class Shadowrun6Actor extends Actor {
         /* Return the combined penalties from physical and stun damage */
         console.log("SR6E | Current Wound Penalties: " + woundModifier);
         return woundModifier;
+    }
+
+    getMatrixCmModifier() {
+        if (this.isTechno) return 0; // Stun modifier is already used in roll dialog
+
+        // TODO possible rework for DataModel actors
+        // Not needed for Sprites as their Matrix CM modifier is counted as stunCM in getWoundModifier()
+        const isDataModel = this.system instanceof foundry.abstract.DataModel;
+        if (isDataModel) return 0 //this.system.matrix?.matrixCM?.penalty ?? 0;
+
+        const primaryAccessDevice = this.system.persona?.accessDevice;
+        return primaryAccessDevice.system.matrix?.matrixCM?.penalty ?? 0;
     }
     //---------------------------------------------------------
     getSustainedModifier() {
@@ -1772,7 +2149,7 @@ export default class Shadowrun6Actor extends Actor {
         }
         rollName += " + ";
         // Attribute
-        let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId).attrib;
+        let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
         let attrName = game.i18n.localize("attrib." + useAttrib);
         rollName += attrName;
         if (roll.threshold && roll.threshold > 0) {
@@ -1799,12 +2176,12 @@ export default class Shadowrun6Actor extends Actor {
     _getSkillPool(skillId, spec, attrib = undefined) {
         if (this.system instanceof foundry.abstract.DataModel) {
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
-            const attribute = game.sr6.config.NEW.ATTRIBUTE_TO_V2[attrib];
+            const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
             return this.system.skills[skillId]?.testPool(attribute);
         }
         const system = getSystemData(this);
         if (!skillId)
-            throw "Skill ID may not be undefined";
+            return undefined;
         const skl = system.skills[skillId];
         // console.log("SR6E | _getSkillPool", skl);
         if (!skillId) {
@@ -1959,7 +2336,7 @@ export default class Shadowrun6Actor extends Actor {
     /*
      *
      */
-    rollItem(roll) {
+    async rollItem(roll) {
         console.log("SR6E | rollItem(", roll, ")");
         roll.actor = this;
         // Prepare check text
@@ -2008,7 +2385,7 @@ export default class Shadowrun6Actor extends Actor {
         if (highestDefenseRating > 0)
             roll.defenseRating = highestDefenseRating;
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
-        return doRoll(roll);
+        return await doRoll(roll);
     }
     //-------------------------------------------------------------
     /**
@@ -2116,12 +2493,18 @@ export default class Shadowrun6Actor extends Actor {
     //-------------------------------------------------------------
     /**
      */
-    async rollDefense(defendWith, threshold, damage, monitor, itemUuid) {
+    // async rollDefense(defendWith, threshold, damage, monitor, itemUuid, matrixActionId) {
+    async rollDefense(dataset) {
+        const { defendWith, threshold, damage, monitor, itemUuid, ...options } = dataset;
         const data = getSystemData(this);
-        console.log("SR6E | rollDefense: ", defendWith, threshold, damage, monitor, itemUuid);
+        console.log("SR6E | rollDefense: ", dataset);
 
         let defensePool = undefined;
         let rollData = new DefenseRoll(threshold, monitor);
+        rollData.actor = this;
+        rollData.performer = data;
+        rollData.defendedWith = defendWith;
+
         switch (defendWith) {
             case Defense.PHYSICAL:
                 // In combat defense, the defender must have MORE hits than the attacker to completely defend
@@ -2161,12 +2544,44 @@ export default class Shadowrun6Actor extends Actor {
                 console.log(`SR6E | Defense with two item defined attributes: "${oppAttr1}", "${oppAttr2}"`);
                 
                 if (item.type === "spritepower" || item.type === "complexform") {
+                    rollData.matrixSoakUuid = this.uuid;
+                    rollData.matrixSoakName = this.name;
+                    rollData.defendedWith = Defense.MATRIX;
                     defensePool = { pool: this.getMatrixPool(oppAttr1, oppAttr2) };
                     rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
                 } else {
                     // TODO Add other ITEM_DEFINED versus rolls like with Critter Powers
                 }
                 rollData.checkText = game.i18n.localize(`attrib.${oppAttr1}`) + " + " + game.i18n.localize(`attrib.${oppAttr2}`) + " (" + threshold + ")";
+                break;
+            case Defense.MATRIX:
+                // this Actor is panAdmin
+                const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ options.matrixActionId ];
+                rollData.matrixActionId = options.matrixActionId;
+                const target = foundry.utils.fromUuidSync(options.matrixTargetUuid);
+                rollData.matrixInitiatorUuid = options.matrixInitiatorUuid;
+                rollData.matrixTargetUuid = options.matrixTargetUuid;
+                rollData.matrixTargetName = target?.name;
+
+                if (options.matrixActionOption) rollData.matrixActionOption = options.matrixActionOption;
+
+                if (options.matrixTargetUuid && monitor === "matrix") {
+                    const matrixSoakByPanLeader = game.settings.get(SYSTEM_NAME, "matrixSoakByPanLeader");
+                    if (matrixSoakByPanLeader) {
+                        rollData.matrixSoakUuid = this.uuid;
+                        rollData.matrixSoakName = actor.name;
+                    } else {
+                        const targetActor = target?.actor ?? target;
+                        rollData.matrixSoakUuid = targetActor.uuid;
+                        rollData.matrixSoakName = targetActor.name;
+                    }
+                }
+
+                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
+                defensePool = { pool: this.getMatrixPool(matrixAction.attr1, matrixAction.attr2) };
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
+
+                rollData.checkText = game.i18n.localize(`attrib.${matrixAction.attr1}`) + " + " + game.i18n.localize(`attrib.${matrixAction.attr2}`) + " (" + threshold + ")";
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle defense rolls for " + defendWith);
@@ -2177,22 +2592,29 @@ export default class Shadowrun6Actor extends Actor {
         // Prepare action text
         console.log("SR6E | DefenseRoll ", rollData);
         rollData.damage = damage;
-        rollData.actor = this;
         rollData.allowBuyHits = false;
         rollData.pool = defensePool.pool;
         rollData.rollType = RollType.Defense;
-        rollData.defendedWith = defendWith;
-        rollData.performer = data;
-        rollData.speaker = ChatMessage.getSpeaker({ actor: this });
-        console.log("SR6E | Defend roll config ", rollData);
+        rollData.speaker = ChatMessage.getSpeaker({ actor: rollData.actor });
+
+        if (defendWith === Defense.MATRIX) {
+            const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[ options.matrixActionId ];
+            if (matrixAction.onDefenseRoll) {
+                await matrixAction.onDefenseRoll(rollData);
+            }
+        }
+
+        console.log("SR6E | Defend roll config", rollData);
         return doRoll(rollData);
     }
     //-------------------------------------------------------------
     /**
      */
-    rollSoak(soak, damage) {
+    rollSoak(soakData) {
+        const { soak, damage, ...options } = soakData;
+
         const data = this.system;
-        console.log("SR6E | rollSoak: " + damage + " " + soak, data);
+        console.log("SR6E | rollSoak: " + damage + " " + soak, options);
 
         let defensePool = undefined;
         let rollData = new SoakRoll(damage, soak);
@@ -2215,7 +2637,7 @@ export default class Shadowrun6Actor extends Actor {
                 defensePool = data.defensepool.drain;
                 rollData.monitor = MonitorType.STUN; 
                 rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = game.i18n.localize("attrib.wil") + " + ? (" + damage + ")";
+                rollData.checkText = game.i18n.localize("attrib.wil") + " (" + damage + ")";
                 if (data.tradition != null) {
                     rollData.checkText =
                         game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
@@ -2226,11 +2648,35 @@ export default class Shadowrun6Actor extends Actor {
                 defensePool = data.defensepool.fading;
                 rollData.monitor = MonitorType.STUN;
                 rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
-                rollData.checkText = game.i18n.localize("attrib.wil") + " + ? (" + damage + ")";
+                rollData.checkText = game.i18n.localize("attrib.wil") + " (" + damage + ")";
                 if (data.tradition != null) {
                     rollData.checkText =
                         game.i18n.localize("attrib.wil") + " + " + game.i18n.localize("attrib." + data.tradition.attribute) + " (" + damage + ")";
                 }
+                break;
+            case SoakType.BIO_FEEDBACK:
+                if (!isLifeform(data)) throw ui.notifications.error(`SR6E | Vehicle soak rolls via chatbutton for ${soak} are not possible.`);
+                defensePool =  { pool: this.getSystemProperty("attributes.wil.pool") };
+                rollData.monitor = options.monitor; 
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { 
+                        damage: damage, 
+                        monitor: game.i18n.localize("shadowrun6.monitor." + options.monitor )
+                });
+                rollData.checkText = game.i18n.localize("attrib.wil") + " (" + damage + ")";
+
+                break;
+            case SoakType.DAMAGE_MATRIX:
+                const target = foundry.utils.fromUuidSync(options.matrixTargetUuid) ?? this;
+                console.log("SR6E | rollSoak Matrix Damage | target:", target.name);
+                defensePool = { pool: this.getMatrixPool("f") };
+                rollData.monitor = MonitorType.MATRIX;
+                rollData.actionText = game.i18n.format("shadowrun6.roll.actionText.soak." + soak, { damage: damage });
+                rollData.checkText = game.i18n.localize("SR6.Actor.base.FIELDS.matrix.attributes.firewall.label") + " (" + damage + ")";
+
+                rollData.matrixTargetName = target.name;
+                rollData.matrixTargetType = (target instanceof game.sr6.documents.Shadowrun6Actor) ? "actor" : "token";
+                rollData.matrixTargetUuid = options.matrixTargetUuid;
+
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle soak pool for " + soak);
@@ -2270,45 +2716,9 @@ export default class Shadowrun6Actor extends Actor {
     /**
      */
     performMatrixAction(roll) {
-        console.log("SR6E | ToDo performMatrixAction:", roll);
-        if (!isLifeform(this.system)) {
-            throw new Error("Must be executed by an Actor with Lifeform data");
-        }
-        let action = roll.action;
-        roll.attrib = action.attrib;
-        roll.skillId = action.skill;
-        roll.skillSpec = action.specialization;
-        roll.threshold = action.threshold;
-        // Prepare action text
-        roll.actionText = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".name");
-        // Prepare check text
-        if (!action.skill) {
-            //TODO matrix actions without a test
-            console.log("SR6E | ToDo: matrix actions without a test");
-            return;
-        }
-        roll.checkText = this._getSkillCheckText(roll);
-        // Calculate pool
-        roll.pool = this._getSkillPool(action.skill, action.specialization, action.attrib);
-        /*
-        // Roll and return
-        let data = foundry.utils.mergeObject(options, {
-            pool: value,
-            actionText: actionText,
-            checkText  : checkText,
-            attackRating : this.data.data.attackrating.matrix.pool,
-            matrixAction: action,
-            skill: action.skill,
-            spec: action.spec,
-            threshold: action.threshold,
-            isOpposed: action.opposedAttr1!=null,
-            rollType: "matrixaction",
-            isAllowDefense: action.opposedAttr1!=null,
-            useThreshold: action.threshold!=0,
-            buyHits: true
-        });
-        */
-        roll.actor = this;
+        console.log("SR6E | performMatrixAction:", roll);
+        
+
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
     }
@@ -2338,7 +2748,7 @@ export default class Shadowrun6Actor extends Actor {
         
         // Calculate pool
         roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec, roll.attrib);
-        roll.attackRating = this._getMatrixAttackRating();
+        roll.attackRating = this.matrixAttackRating;
         // Taking DataModel matrix attributes into account
         let highestDefenseRating = this._getHighestDefenseRating((a) => a.system.defenserating?.matrix?.pool || a.system.matrix?.defenseRating);
 
@@ -2356,8 +2766,10 @@ export default class Shadowrun6Actor extends Actor {
                 roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_none`, { name: roll.itemName });
                 break;
             case 1:
-                let targetName = game.user.targets.values().next().value.name;
-                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_one`, { name: roll.itemName, target: targetName });
+                const target = game.user.targets.first().actor;
+                roll.actorUuid = target.uuid;
+                roll.actorName = target.name;
+                roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_one`, { name: roll.itemName, target: roll.actorName });
                 break;
             default:
                 roll.actionText = game.i18n.format(`shadowrun6.roll.actionText.${actionTextType}_target_multiple`, { name: roll.itemName });
@@ -2372,17 +2784,19 @@ export default class Shadowrun6Actor extends Actor {
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
     }
-    _getMatrixAttackRating() {
+
+    get matrixAttackRating() {
         if (this.system instanceof foundry.abstract.DataModel) {
             return this.system.matrix.attackRating;
         }
-        return this.system.persona.used.a + this.system.persona.used.s;
+        return this.system.attackrating.matrix.pool;
     }
-    _getMatrixDefenseRating() {
+
+    get matrixDefenseRating() {
         if (this.system instanceof foundry.abstract.DataModel) {
             return this.system.matrix.defenseRating;
         }
-        return this.system.persona.used.d + this.system.persona.used.f;
+        return this.system.defenserating.matrix.pool;
     }
     
     /**
@@ -2393,8 +2807,8 @@ export default class Shadowrun6Actor extends Actor {
      */
     getMatrixPool(matrixAttr, physAttr) {
         if (this.system instanceof foundry.abstract.DataModel) {
-            matrixAttr = game.sr6.config.NEW.ATTRIBUTE_TO_V2[matrixAttr];
-            physAttr = game.sr6.config.NEW.ATTRIBUTE_TO_V2[physAttr];
+            matrixAttr = game.sr6.config.ATTRIBUTE_TO_V2[matrixAttr];
+            physAttr = game.sr6.config.ATTRIBUTE_TO_V2[physAttr];
             return this.system.matrix.testPool(matrixAttr, physAttr);
         }
 
@@ -2409,17 +2823,23 @@ export default class Shadowrun6Actor extends Actor {
         return oppAttr1 + oppAttr2;
     }
     //-------------------------------------------------------------
-    async applyDamage(monitor, damage, newDmg) {
-        console.log("SR6E | applyDamage", monitor, damage, newDmg);
+    // TODO doesnt support health/stun damage on ActorV2 yet but not necessary for Matrix Icon Actors
+    async applyDamage(damageData) { 
+        const { monitor, damage, newDmg, matrixTargetUuid, ...options } = damageData;
+        console.log("SR6E | applyDamage", damageData);
+
+        if (monitor === "matrix") return await this.applyMatrixDamage(damageData);
+
+        let result, newDamage;
         const data = this.system;
         const damageObj = data[monitor];
         console.log("SR6E | applyDamage | damageObj =", damageObj);
         let overflow = (data.overflow?.dmg) ? data.overflow.dmg : 0;
         let physicalOverflow = 0;
 
-        newDmg = (typeof newDmg !== 'undefined') ? newDmg : overflow + damageObj.dmg + damage;
+        newDamage = (typeof newDmg !== 'undefined') ? newDmg : overflow + damageObj.dmg + damage;
         // Did damage overflow the monitor?
-        let newOverflow = Math.max(0, newDmg - damageObj.max);
+        let newOverflow = Math.max(0, newDamage - damageObj.max);
 
         if (newOverflow > 0 && monitor === 'stun') {
             //need to overflow into physical instead
@@ -2427,24 +2847,75 @@ export default class Shadowrun6Actor extends Actor {
             newOverflow = 0;
         }
 
-        console.log("SR6E | applyDamage newDmg=", newDmg, "   overflow=", overflow);
+        console.log("SR6E | applyDamage newDamage=", newDamage, "   overflow=", overflow);
         // Ensure actual damage is not higher than pool
-        newDmg = Math.min(Math.max(0, newDmg), damageObj.max);
+        newDamage = Math.min(Math.max(0, newDamage), damageObj.max);
 
-        await this.update({
-            [`system.` + monitor + `.dmg`]: newDmg,
+        result = await this.update({
+            [`system.` + monitor + `.dmg`]: newDamage,
             [`system.overflow.dmg`]: newOverflow
         });
+        if (!result) return false;
         console.log("SR6E | applyDamage | Added " + damage + " to monitor " + monitor + " of " + this.name + " which results in overflow " + newOverflow + " on " + this.name);
         this._prepareDerivedAttributes();
 
         if (physicalOverflow > 0) {
             //Overflowing into physical instead
             console.log("SR6E | applyDamage | Overflowing stun into physical of " + physicalOverflow + " on " + this.name);
-            await this.applyDamage('physical', physicalOverflow);
+            await this.applyDamage({ 
+                monitor: 'physical', 
+                damage: physicalOverflow 
+            });
             ui.notifications.warn("shadowrun6.ui.notifications.do_not_revert_damage", { localize: true });
         }
+
         await this.checkUnconscious();
+
+        console.log("SR6E | Applied "+monitor+" "+damage+" damage to", this.name);
+        return true;
+    }
+
+    async applyMatrixDamage(damageData) {
+        const { damage, matrixTargetUuid } = damageData;
+        console.log("SR6E | applyMatrixDamage", matrixTargetUuid, damage);
+        const target = foundry.utils.fromUuidSync(matrixTargetUuid) ?? this;
+
+        if (target.documentName === "Item") {
+            console.log(`SR6E | applyMatrixDamage || ${target.name} is an Item, applying damage to Matrix monitor`);
+            await target.update({
+                "system.matrix.matrixCM.value": Math.max(0, target.system.matrix.matrixCM.value - damage)
+            });
+        }
+        else if (target.documentName === "Actor" && target.uuid === this.uuid) {
+            // Apply damage to this Actor
+            if (this.isTechno || this.isVehicle) {
+                console.log(`SR6E | applyMatrixDamage || ${this.name} is a Techno or Vehicle, applying damage to Stun monitor instead of Matrix monitor`);
+                damageData.monitor = MonitorType.STUN;
+                return await this.applyDamage( damageData );
+            }
+            else if (this.isActorV2) {
+                console.log(`SR6E | applyMatrixDamage || ${this.name} is a DataModel ActorV2, applying damage to Matrix monitor`);
+                await this.update({
+                    "system.matrix.matrixCM.value": Math.max(0, this.system.matrix.matrixCM.value - damage)
+                });
+            }
+            else if (this.system.persona.accessDevice) {
+                const accessDevice = this.system.persona.accessDevice;
+                console.log(`SR6E | applyMatrixDamage || ${this.name} is an ActorV2 with an accessDevice Item, applying damage to Matrix monitor of ${accessDevice.name}`);
+                damageData.matrixTargetUuid = accessDevice.uuid;
+                return await this.applyMatrixDamage( damageData );
+            }
+            else {
+                console.error("SR6E | applyMatrixDamage | Unknown how to apply damage to this Actor type: ", target);
+                return false;
+            }
+        } 
+        else {
+            console.error("SR6E | applyMatrixDamage | Target is not an Item or this Actor: ", target);
+            return false;
+        }
+
+        return true;
     }
 
     async checkUnconscious() {
@@ -2598,7 +3069,16 @@ export default class Shadowrun6Actor extends Actor {
         // GENESIS uses Actor.data in its export, while COMMLINK uses Actor.system as the actors sourceData
         const actorSystem = sourceData.data ?? sourceData.system;
         // Modify imported GENESIS/COMMLINK items
-        let GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
+        const GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
+
+        const specialTraits = sourceData.system?.["special-traits"];
+        if (specialTraits?.initiation) {
+            foundry.utils.setProperty(sourceData, "system.attributes.mag.initiation", specialTraits.initiation);
+        }
+        if (specialTraits?.submersion) {
+            foundry.utils.setProperty(sourceData, "system.attributes.res.submersion", specialTraits.submersion);
+        }
+
         // Both GENESIS and COMMLINK use Item.data as its sourceData
         for (const index in sourceData.items) {
             const item = sourceData.items[index];
@@ -2718,7 +3198,7 @@ export default class Shadowrun6Actor extends Actor {
 
         await super.importFromJSON(JSON.stringify(sourceData));
 
-        this.createEmbeddedDocuments("ActiveEffect", effects);
+        await this.createEmbeddedDocuments("ActiveEffect", effects);
 
         return this;
     }
@@ -2779,4 +3259,101 @@ export default class Shadowrun6Actor extends Actor {
         };
         await this.createEmbeddedDocuments("Item", [unarmedItemData]);  
     }
+
+    get isAwakened() {
+        return Boolean( this.system.mortype !== "mundane" && this.system.mortype !== "technomancer" );
+    }
+
+    get isTechno() {
+        return Boolean( this.system.mortype === "technomancer" );
+    }
+
+    get isVehicle() {
+        return Boolean( this.type === "Vehicle" );
+    }
+
+    get isActorV2() {
+        return Boolean( this.system instanceof foundry.abstract.DataModel );
+    }
+
+    /**
+     * Safely returns a system property no matter if its an old Actor or an ActorV2 with a DataModel
+     * @param {*} path 
+     * @returns 
+     */
+    getSystemProperty(path) {
+        const convertedToV2 = game.sr6.config.SYSTEMPATH_TO_V2[path];
+        if (this.isActorV2 && convertedToV2) {
+            path = convertedToV2;
+        }
+        return foundry.utils.getProperty(this.system, path);
+    }
+
+    /**
+     * 
+     * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor
+     * @param {SR6Actor} [config.initiator]              An Actor that wants to check what their ACL it towards this Actor
+     * @param {boolean}  [config.fromReferenceSection]   True if this is being called from the Matrix Action Reference Section
+     * @returns {string} The matrix-access flag for the UUID of the Initiator
+     */
+    yourMatrixAccessLevel(config={}) {
+        const {initiator, fromReferenceSection, limitedViewOverride} = config;
+        console.log(`SR6E | Actor.yourMatrixAccessLevel | ${this.name} | config:`, config);
+        const primaryAccessDevice = this.system.persona?.accessDevice;
+
+        if (this.isOwner && !limitedViewOverride) {
+            console.log("SR6E | Actor.yourMatrixAccessLevel | this.isOwner | view ACL from perspective of this actor");
+            if (this.uuid === initiator?.uuid) {
+                if (fromReferenceSection) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | fromReferenceSection | retrieving flag");
+                    const safeUuid = this.uuid.replaceAll(".", "_");
+                    return this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "admin";
+                }
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is the Initiator");
+                return "admin"
+            }
+
+            if (this.system.pan && this.system.pan?.isSlaved) {
+                if (this.system.pan?.isSlaved === initiator?.uuid) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor has joined the PAN of the Initiator's");
+                    return "admin"
+                }
+            } else {
+                if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.uuid) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is its own PAN admin and is the Initiator");
+                    return "admin"
+                }
+                if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.system.pan?.administrator.uuid) {
+                    console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is the PAN admin and the Initiator has joined his PAN");
+                    return "user"
+                }
+            }
+        }
+
+        if (this.isTechno) {
+            console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor is a Technomancer");
+            if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.uuid) {
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Techno Actor has joined the PAN of the Initiator's");
+                return "admin"
+            }
+            if (this.system.pan && this.uuid === initiator?.system.pan?.administrator.uuid) {
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Initiators PAN admin is this Techno Actor");
+                return "user"
+            }
+            if (this.system.pan && this.system.pan?.administrator.uuid === initiator?.system.pan?.administrator.uuid) {
+                console.log("SR6E | Actor.yourMatrixAccessLevel | This Initiators PAN admin is also this Techno Actor's their PAN admin");
+                return "user"
+            }
+        }
+
+        if (primaryAccessDevice) {
+            console.log("SR6E | Actor.yourMatrixAccessLevel | This Actor has a primaryAccessDevice | retrieving flag");
+            return primaryAccessDevice.yourMatrixAccessLevel({ initiator: initiator ?? this });
+        }
+        
+        console.log(`SR6E | Actor.yourMatrixAccessLevel | Defaulting | retrieving flag of initiator ${initiator.name} to this actor ${this.name}`);
+        const initiatorSafeUuid = initiator.uuid.replaceAll(".", "_");
+        return this.getFlag("shadowrun6-eden", `matrix-access.${initiatorSafeUuid}`) ?? "outsider";
+    }
+
 }

@@ -1,25 +1,44 @@
-{{!-- Sheet Header --}}
-<header class="sheet-header" style="flex: none;">
-    <div style="padding-right: 6px;">
-        <img class="profile-img" src="{{actor.img}}" title="{{actor.name}}" height="120" width="120" />
-    </div>
-    <div class="header-fields" style="flex:3">
-        <h1><input type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
-    </div>
-</header>
+<form class="pc read-only {{cssClass}}" autocomplete="off">
+	{{ log "Player Read Only sheet" this}}
+	{{!-- Sheet Header --}}
+	<header class="sheet-header">
+		<div style="padding-right: 6px;">
+		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" />
+		</div>
+		<div class="header-fields">
+			<h1>{{actor.name}}</h1>
+			{{!-- Character Summary --}}
+			<div class="description" style="width: 450px;">
+				<span>{{system.metatype}}</span>
+				&nbsp;&middot;&nbsp;
+				<span>{{system.gender}}</span>
+			</div>
+			<div style="display:flex; flex-direction:row; align-items:center; gap: 10px">
+			{{> "systems/shadowrun6-eden/templates/parts/monitors.html" readonly=true}}
+			</div>
+		</div>
+	</header>
 
-<form class="{{cssClass}}" autocomplete="off" style="padding-right: 100px">
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+	{{!-- Sheet Tab Navigation --}}
+	<nav class="sheet-tabs tabs" data-group="primary">
+		<a class="item" data-tab="main">{{ localize 'shadowrun6.actor.nav.main' }}</a>
+	</nav>
 
-        {{!-- Basics Tab --}}
-                
-                {{#if actor.enriched.notes}}
-                <div class="section" style="margin: 5px">
-                    {{{actor.enriched.notes}}}                        
-                </div>
-                {{/if}}
+	{{!-- Sheet Body --}}
+	<section class="sheet-body">
 
-    </section>
+		{{!-- Main Tab --}}
+		<div class="tab main flexcol sr6" data-group="primary" data-tab="main">
+            {{#if system.description}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-description.hbs"}}
+            {{/if}}
+            {{#if (or system.persona.accessDevice actor.isTechno)}}
+            {{> "systems/shadowrun6-eden/templates/parts/section-matrix-pan.hbs"}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-matrixactions.html"}}
+            {{/if}}
+		</div>
+
+	</section>
+
 
 </form>

@@ -23,9 +23,15 @@
 	<div class="section" style="margin-right: 0px;">
 		<table style="margin-top: 0; margin-bottom:0;">
 			<tr>
-				<td colspan="2"><div style="font-weight: bold; margin-bottom: 4px;">{{localize "shadowrun6.tradition.attribute"}}</div></td>
-				<td colspan="3">
-					<select name="traditionAttribute" data-field="system.tradition.attribute" style="margin-bottom: 4px;">
+				<td colspan="1"><div style="font-weight: bold; margin-bottom: 4px;">{{localize "shadowrun6.tradition.label"}}</div></td>
+				<td colspan="4">
+					<input name="system.tradition.name" type="text" value="{{system.tradition.name}}" data-field="system.tradition.name" placeholder="{{localize "shadowrun6.tradition.placeholder"}}" style="width: 100%; padding-left: 4px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1"><div style="font-weight: bold; margin-bottom: 4px;">{{localize "shadowrun6.tradition.attribute"}}</div></td>
+				<td colspan="4">
+					<select name="traditionAttribute" data-field="system.tradition.attribute" style="width: 100%; margin-bottom: 4px; border: none; background: none; padding: 0px;">
 						{{selectOptions config.tradition_attributes localize="true" selected=system.tradition.attribute}}
       				</select>
 				</td>

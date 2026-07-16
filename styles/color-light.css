@@ -27,6 +27,13 @@
 	--font-h4-size: var(--font-size-14);
 	--chat-input-height: 124px;
 	--contrast-color: #ffffff;
+	
+    --sr6-pink: #b00078;
+    --sr6-darker-pink: #960570;
+    --sr6-bright-pink: #d92ba2;
+}
+body.game input[type=checkbox]{
+	--checkbox-checkmark-color: #e0e0d9;
 }
 :root,
 .themed.theme-light {
@@ -66,7 +73,7 @@ body.theme-light .application {
 	/* 8405c9 */
 }
 .sr6-dice-roll-v12 {
-	cursor: pointer;
+	cursor: var(--cursor-pointer);
 }
 
 .themed.theme-light .app.window-app.dialog .window-content, 

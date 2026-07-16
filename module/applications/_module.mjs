@@ -1,5 +1,7 @@
 // Actor Applications
 export {default as Shadowrun6ActorSheet} from "./sheets/SR6ActorSheet.js"
+export { SR6MatrixOperationSheet } from "./sheets/matrix-operation-sheet.mjs"
+export { SR6MatrixTargetSheet } from "./sheets/matrix-target-sheet.mjs"
 export {default as Shadowrun6ActorSheetCritter} from "./sheets/ActorSheetCritter.js"
 export {default as Shadowrun6ActorSheetNPC} from "./sheets/ActorSheetNPC.js"
 export {default as Shadowrun6ActorSheetPC} from "./sheets/ActorSheetPC.js"
@@ -17,3 +19,7 @@ export {default as SR6ActiveEffectConfig} from "./config/SR6ActiveEffectConfig.j
 
 import * as mixins from "./sheets/mixins/_module.mjs";
 export { mixins };
+
+
+// Other Applications
+export * as RollDialog from "./RollDialog.js"

@@ -32,8 +32,13 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
     /** @override */
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
+        
         // Don't show the other tabs if only limited view
-        if (this.document.limited) return;
+        if (this.document.limited || this.options.limited) {
+            options.parts.push("features", "description");
+            this._defaultTab = "features";
+            return;
+        }
 
         // Control which parts show based on document subtype
         options.parts.push("summary", "features", "description", "effects");
@@ -124,8 +129,8 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
                 rollType: "attribute"
             },
             {
-                field: schema.getField('matrix.initiative'),
-                value: system.matrix.initiative[edit ? "rank" : "text"],
+                field: schema.getField('initiative.matrix'),
+                value: system.initiative.matrix[edit ? "rank" : "text"],
                 rollType: "initiative"
             },
             {

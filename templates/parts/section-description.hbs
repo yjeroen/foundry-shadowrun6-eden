@@ -1,0 +1,14 @@
+<div class="section" style="display: inline-block; width:100%">
+  <div class="section-head">
+    <h2 class="section-title">{{ localize 'shadowrun6.section.description.title' }}</h2>
+  </div>
+  {{editor
+  		actor.enriched.description
+  		target="system.description"
+		fieldName=actor.system.description
+  		button=true
+		owner=owner
+  		editable=editable
+		engine="prosemirror"
+  	}}
+</div>

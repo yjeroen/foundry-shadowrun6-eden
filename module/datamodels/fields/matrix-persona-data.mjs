@@ -17,7 +17,6 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
             }),
             // TODO TBA: conditionMonitor can be overwritten with a pointer to e.g. a Character's Deck
             matrixCM: new srFields.SR6ConditionMonitorField(),
-            initiative: new srFields.SR6InitiativeField(),
             overwatchScore: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
         };
     }
@@ -33,6 +32,7 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
 
     /**
      * Returns your Matrix Cybercombat Attack Rating
+     * TODO JEROEN These getters arent compatible with Active Effects
      * @type {number}
      */
     get attackRating() {

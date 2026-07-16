@@ -129,11 +129,31 @@ export default class SR6Item extends Item {
 
   async _checkPersonaChanges(changed) {
     console.log("SR6E | SR6Item._checkPersonaChanges()");
-    if (!this.isOwner) return false;
-    if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
-      if (changed.delete === true || changed.system?.usedForPool !== undefined) {
-        await this.parent.updatePersona();
-      }
+    if (!this.isOwner || this.type!=="gear") return false;
+
+    // If this gear was turned OFF as usedForPool,
+    // or its Matrix CM reached 0,
+    // turn OFF all currently usedForPool gear items.
+    const shouldTurnOffPools =
+        changed.system?.usedForPool === false ||
+        changed.system?.matrix?.matrixCM?.value === 0;
+
+    if (shouldTurnOffPools) {
+        const updates = this.actor.items
+            .filter(item => item.system.usedForPool === true)
+            .map(item => ({
+                _id: item.id,
+                "system.usedForPool": false
+            }));
+
+        if (updates.length) {
+            await this.actor.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
+    const GEAR = CONFIG.SR6.GEAR;
+    if ( this.parent && GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
+      await this.parent.updatePersona();
     }
   }
 
@@ -172,6 +192,7 @@ export default class SR6Item extends Item {
     if (typeof source.system?.capacity === 'string') source.system.capacity = parseInt(source.system.capacity) || 0;
     if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social) || 0;
     if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
+    if (typeof source.system?.matrix?.deviceRating === 'string') source.system.matrix.deviceRating = parseInt(source.system.matrix.deviceRating) || 0;
 
     // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
     if (source.type === "gear" && source.system?.devRating !== undefined) {
@@ -231,7 +252,10 @@ export default class SR6Item extends Item {
     if (!this.system.isElectronicMatrixDevice) return;
     console.log("SR6E | SR6Item | preparing Gear item as an Electronic Matrix Device");
     
-    if (GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.system.type)) {
+    if (
+      GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.system.type)
+      || GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype)
+    ) {
       this.system.matrix.hasWirelessInterface =  true;
     }
 
@@ -250,6 +274,18 @@ export default class SR6Item extends Item {
 
     this.system.matrix.matrixCM = new SR6ConditionMonitorField().initialize(matrixCM);
 
+  }
+
+  get onlineOnMatrix() {
+    return this.system.isElectronicMatrixDevice 
+            && 
+           (
+            ( this.system.matrix.hasWirelessInterface && this.system.matrix.wirelessActive )
+            ||
+            ( this.system.matrix.hasDataCableInterface )
+           )
+           &&
+           this.system.matrix.matrixCM.value > 0
   }
 
   _addDefaultFireModePenalties() {
@@ -393,7 +429,7 @@ export default class SR6Item extends Item {
     }
     // If there's no roll data, send a chat message.
     else if (!this.system.formula) {
-      this.toChat();
+      await this.toChat();
     }
     // Otherwise, create a roll and send a chat message from it.
     else {
@@ -404,7 +440,7 @@ export default class SR6Item extends Item {
       const roll = new Roll(rollData.formula, rollData.actor);
       // If you need to store the value first, uncomment the next line.
       // const result = await roll.evaluate();
-      roll.toMessage({
+      await roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
         flavor: label,
@@ -426,14 +462,14 @@ export default class SR6Item extends Item {
    * Sends the Name and Description of the Item to Chat
    * @returns {boolean}  Success of chat message 
    */
-  toChat() {
+  async toChat() {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     const type = game.i18n.localize(`TYPES.Item.${this.type}`);
     const label = `[${type}] ${this.name}`;
 
-    return ChatMessage.create({
+    return await ChatMessage.create({
       speaker: speaker,
       rollMode: rollMode,
       flavor: label,
@@ -605,6 +641,77 @@ export default class SR6Item extends Item {
   get collapsedStateOnSheet() {
     const state = this.getFlag("shadowrun6-eden","collapse-state");
     return state ?? "closed";
+  }
+
+  get isPrimaryAccessDevice() {
+    if (this.type !== "gear") return false;
+    return this.id === this.actor?.system?.persona?.accessDevice?.id;
+  }
+
+  get isAccessDevice() {
+    if (this.type !== "gear") return false;
+    return CONFIG.SR6.GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype);
+  }
+
+  /**
+   * 
+   * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor
+   * @param {SR6Actor} [config.initiator]              An Actor that wants to check what their ACL it towards this Actor
+   * @returns {string} The matrix-access flag for the UUID of the Initiator
+   */
+  yourMatrixAccessLevel(config={}) {
+    console.log(`SR6E | Item.yourMatrixAccessLevel | ${this.name} | config:`, config);
+    const {initiator} = config;
+    const safeUuid = initiator.uuid.replaceAll(".", "_");
+    const myPanAdmin = this.actor.system.pan?.administrator;
+
+    if (this.actor.system.pan?.isSlaved) {
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item belongs to an Actor that has a Slaved PAN");
+      if (this.actor.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is the Initiator");
+        return "admin"
+      }
+      if (myPanAdmin?.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor has a PanAdmin (due to being slaved), and it is the Initiator");
+        return "admin"
+      }
+      if (myPanAdmin?.uuid === initiator.system.pan?.administrator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor has a PanAdmin (due to being slaved), and it is the same PAN that the initiator joined");
+        return "user"
+      }
+    } 
+    else {
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item belongs to an Actor that is its own Pan Admin");
+      if (this.actor.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is the Initiator's");
+        return "admin"
+      }
+      if (this.actor.uuid === initiator.system.pan?.administrator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is my (the ininitator's) Pan Admin");
+        return "user"
+      }
+    }
+    
+    const aclRank = {
+        outsider: 0,
+        user: 1,
+        admin: 2
+    };
+
+    const itemAcl = this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    let panAdminAcl = "outsider";
+    const panAdminsAccessDevice = myPanAdmin?.system.persona?.accessDevice;
+
+    if (panAdminsAccessDevice) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a PAN | retrieving flag from Pan Admin's Primary Access Device");
+        panAdminAcl = panAdminsAccessDevice.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    } else if (myPanAdmin?.isTechno) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a Living Network | retrieving flag from the Admin Technomancer");
+        panAdminAcl = myPanAdmin.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    }
+
+    console.log(`SR6E | Item.yourMatrixAccessLevel | Returning best of Access Level to the Item (${itemAcl}) or towards the PAN Admin (${panAdminAcl})`);
+    return aclRank[itemAcl] >= aclRank[panAdminAcl] ? itemAcl : panAdminAcl;
   }
 
 }
