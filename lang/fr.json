@@ -12,8 +12,8 @@
   "SYSTEM": {
     "Sidebar": {
       "readme": "Patreon",
-      "bugs": "Report de bug",
-      "release_notes": "Notes de mise à jour"
+      "bugs": "Rapport de bug",
+      "release_notes": "Changelog"
     }
   },
   "PDF": {
@@ -134,6 +134,7 @@
     		"adeptpower": "Pouvoir d'adepte",
     		"critterpower": "Pouvoir de créature",
     		"complexform": "Forme complexe",
+    		"spritepower": "Pouvoir d'esprit",
     		"contact" : "Contact",
     		"echo": "Écho",
         "focus": "Focus",
@@ -164,13 +165,14 @@
     "edg": "Atout",
     "edg_short": "ATO",
     "ess": "Essence",
+    "essence": "Essence",
     "ess_short": "ESS",
     "ini": "Initiative",
-    "ini_short": "INI",
+    "ini_short": "INI.",
     "inia": "Initiative Astrale",
-    "inia_short": "INI AS.",
+    "inia_short": "INI. AS.",
     "inim": "Initiative Matricielle",
-    "inim_short": "INI MA.",
+    "inim_short": "INI. MA.",
     "int": "Intuition",
     "int_short": "INT",
     "log": "Logique",
@@ -185,7 +187,13 @@
     "str_short": "FOR",
     "wil": "Volonté",
     "wil_short": "VOL",
-    "max_augment": "Votre modificateur d'augmentation est supérieur à 4. Un maximum de 4 est appliqué à votre attribut."
+    "max_augment": "Votre modificateur d'augmentation est supérieur à 4. Un maximum de 4 est appliqué à votre attribut.",
+    "initiation": "Initiation",
+    "submersion": "Submersion",
+    "a": "Attaque",
+    "s": "Corruption",
+    "d": "Traitement de données",
+    "f": "Firewall"
   },
   "skill": {
     "astral": "Astral",
@@ -326,8 +334,8 @@
       "memory": "Mémoire",
       "matrix_perception": "Percéption matricielle",
       "heal": {
-          "physical": "Soin dégâts physique",
-          "stun": "Soin dégâts étourdissant"
+          "physical": "Soin dommages physique",
+          "stun": "Soin dommages étourdissant"
       }
     },
     "edge_action": {
@@ -448,6 +456,7 @@
         "MACHINE_PISTOLS": "Pistolets automatiques",
         "MAGICAL_FORMULA": "Formule magique",
         "MAGIC_SUPPLIES": "Articles magiques",
+        "MAGIC_LODGE": "Loge Magique",
         "MICRODONES": "Microdrones",
         "MINIDRONES": "Minidrones",
         "MEDIUM_DRONES": "Drones de taille moyenne",
@@ -593,16 +602,16 @@
       "availability": "Disp.",
       "capacity": "Capacité",
       "category": "Catégorie",
-      "damage": "Dégâts",
+      "damage": "dommages",
       "defencerating": "Score Déf.",
       "description": "Description",
       "essence": "Essence",
       "feature": "Fonctionalités",
       "firemode": {
-        "BF": "Tir en Rafale",
-        "FA": "Tir Automatique",
+        "SS": "Coup par Coup",
         "SA": "Semi-Automatique",
-        "SS": "Coup par Coup"
+        "BF": "Tir en Rafale",
+        "FA": "Tir Automatique"
       },
       "mastyle": {
         "category": {
@@ -614,10 +623,10 @@
         }
       },
       "mode": "Modes",
+      "mode_ss": "CC",
+      "mode_sa": "SA",
       "mode_bf": "TR",
       "mode_fa": "TA",
-      "mode_sa": "SA",
-      "mode_ss": "CC",
       "mode_fa_1m": "Rayon de 1m",
       "mode_fa_2m": "Rayon de 2m",
       "mode_fa_3m": "Rayon de 3m",
@@ -702,7 +711,7 @@
       "devicerating.short": "I",
       "devicerating.long": "Indice d'Appareil",
       "d6": "D6",
-      "damage": "Dégâts",
+      "damage": "dommages",
       "damage_short": "Dég.",
       "defense": "Défense",
       "defense_against": "Défense contre",
@@ -728,6 +737,7 @@
       "legality.legal.long": "Légal",
       "level": "Niveau",
       "mages": "Magiciens",
+      "MagicalGoods": "Biens magiques",
       "matrixMonitor": "Moniteur matriciel",
       "max": "Maximum",
       "mode_of_operation": "Mode de fonctionnement",
@@ -774,7 +784,8 @@
       "accessLevel": {
         "outsider": "INVITÉ",
         "user": "UTILISATEUR",
-        "admin": "ADMINISTRATEUR"
+        "admin": "ADMINISTRATEUR",
+        "switch_access_level": "Cliquez pour modifier le niveau d'accès pour voir quels actions matricielles sont disponibles."
       },
       "device": {
         "enable": "Activer le périphérique matriciel",
@@ -816,7 +827,7 @@
       },
       "data_spike": {
         "name": "Pic de données",
-        "hint": "Il s'agit de l'attaque standard pour infliger des dégâts de matrice à un appareil ou à un personnage."
+        "hint": "Il s'agit de l'attaque standard pour infliger des dommages de matrice à un appareil ou à un personnage."
       },
       "disarm_data_bomb": {
         "name": "Désamorcer une bombe matricielle",
@@ -872,7 +883,7 @@
       },
       "jack_out": {
         "name": "Se débrancher",
-        "hint": "Déconnectez-vous de la matrice en redémarrant votre appareil. Si vous êtes bloqué par le lien, l'adversaire effectuera un jet contre vous. Si vous n'êtes pas passé à l'AR en premier, vous subirez des dégâts dus à l'électrochoc."
+        "hint": "Déconnectez-vous de la matrice en redémarrant votre appareil. Si vous êtes bloqué par le lien, l'adversaire effectuera un jet contre vous. Si vous n'êtes pas passé à l'AR en premier, vous subirez des dommages dus à l'électrochoc."
       },
       "jam_signals": {
         "name": "Brouiller des signaux",
@@ -952,7 +963,7 @@
       },
       "tarpit": {
         "name": "Empêtrer",
-        "hint": "Ralentissez votre cible en lui infligeant des dégâts et en réduisant sa valeur de traitement des données."
+        "hint": "Ralentissez votre cible en lui infligeant des dommages et en réduisant sa valeur de traitement des données."
       },
       "threat_analysis": {
         "name": "Analyse des menaces",
@@ -985,6 +996,7 @@
       "stun": "Étourdissant",
       "stun_monitor": "Moniteur étourdissant",
       "overflow": "Surplus",
+      "overflow_monitor": "Moniteur de surplus",
       "dead": "MORT",
       "broken": "CASSÉ"
     },
@@ -1060,64 +1072,64 @@
     },
     "programtype": {
       "basic": "Programmes courants",
-      "hacking": "Programmes de piratage"
+      "hacking": "Programmes de hacking"
     },
     "program": {
       "baby_monitor": {
         "name": "Surveillance",
-        "desc": "Indique le Score de Surveillance sans utiliser d'action."
+        "desc": "Vous indique votre Score de Surveillance actuel sans avoir besoin d’utiliser une action."
       },
       "browse": {
         "name": "Navigateur",
-        "desc": "Remise d'Atout de 1 pour les recherches matricielles."
+        "desc": "Bénéficiez d’une remise d’Atout de 1 pour effectuer des recherches matricielles."
       },
       "configurator": {
         "name": "Configurateur",
-        "desc": "Garde une configuration complète en mémoire."
+        "desc": "Garde en mémoire une autre configuration complète de votre persona matriciel que vous pouvez charger au lieu d’échanger deux attributs."
       },
       "edit": {
         "name": "Éditeur",
-        "desc": "Remise d'Atout de 1 pour éditer un fichier."
+        "desc": "Bénéficiez d’une remise d’Atout de 1 quand vous effectuez l’action Éditer un fichier."
       },
       "encryption": {
         "name": "Cryptage",
-        "desc": "Ajoute 2 dés pour crypter un fichier."
+        "desc": "+2 dés quand vous effectuez une action de Crypter un fichier."
       },
       "signal_scrubber": {
         "name": "Nettoyeur de signal",
-        "desc": "Réduit de 2 le niveau de Bruit."
+        "desc": "Réduit le niveau de Bruit de 2 points."
       },
       "toolbox": {
         "name": "Toolbox",
-        "desc": "Donne 1 au Traitement de données"
+        "desc": "+1 en Traitement de données."
       },
       "virtual_machine": {
         "name": "Machine virtuelle",
-        "desc": "Ajoute 2 emplacements de programmes. Subit 1 case de dégâts en cas d'attaque."
+        "desc": "Ajoute 2 emplacements de programmes. Subit 1 case de dommages en cas d'attaque."
       },
       "armor": {
         "name": "Armure",
-        "desc": "Ajoute 2 au Score Défensif."
+        "desc": "+2 au Score Défensif."
       },
       "biofeedback": {
         "name": "Biofeedback",
-        "desc": "Inflige des dégâts à la cible dont le type dépend de son mode d'accès."
+        "desc": "Inflige des dommages étourdissants (si la cible est en cold-sim) ou des dommages physiques (si la cible est en hot-sim) avec des attaques matricielles. Ce programme est lié à l’attribut Attaque."
       },
       "biofeedback_filter": {
         "name": "Filtre de biofeedback",
-        "desc": "Ajoute l'Indice d'Appareil ou la Constitution à la résistance aux dégâts de biofeedback."
+        "desc": "Permet d’utiliser l’Indice d’Appareil ou la Constitution pour encaisser les dommages de biofeedback."
       },
       "blackout": {
         "name": "Blackout",
-        "desc": "Inflige des dégâts étourdissants à la cible."
+        "desc": "Comme Biofeedback, mais uniquement des dommages étourdissants. Ce programme est lié à l’attribut Attaque."
       },
       "decryption": {
         "name": "Décryptage",
-        "desc": "ajoute 2 dés pour décrypter un fichier."
+        "desc": "+2 dés pour l’action Décrypter un fichier"
       },
       "defuse": {
         "name": "Désamorçage",
-        "desc": "Ajoute l'Indice d'Appareil ou la Constitution à la résistance aux dégâts d'une bombe matricielle."
+        "desc": "Permet d’utiliser l’Indice d’Appareil ou la Constitution pour encaisser les dommages d’une bombe matricielle."
       },
       "exploit": {
         "name": "Exploitation",
@@ -1125,23 +1137,23 @@
       },
       "fork": {
         "name": "Fork",
-        "desc": "Atteint 2 cibles en une seule action matricielle sans répartir les dés."
+        "desc": "Touche deux cibles avec une seule action matricielle sans avoir à répartir les réserves de dés."
       },
       "lockdown": {
         "name": "Verrouillage",
-        "desc": "Verrouille la connection de la cible en lui infligeant des dégâts matriciels."
+        "desc": "Provoque un verrouillage de connexion quand vous infligez des dommages matriciels."
       },
       "overclock": {
         "name": "Overclock",
-        "desc": "Ajoute 2 dés, dont un dé libre, à une action matricielle."
+        "desc": "Ajoute deux dés à une action matricielle. Un de ces dés doit être le dé libre."
       },
       "stealth": {
         "name": "Furtivité",
-        "desc": "Remise d'Atout de 1 pour l'action Se cacher."
+        "desc": "Bénéficiez d’une remise d’Atout de 1 quand vous effectuez une action Se cacher. Ce programme est lié à l’attribut Corruption."
       },
       "trace": {
-        "name": "Trace",
-        "desc": "Remise d'Atout de 1 pour traquer une icône."
+        "name": "Traceur",
+        "desc": "Bénéficiez d’une remise d’Atout de 1 quand vous effectuez une action Traquer une icône. Ce programme est lié à l’attribut Corruption."
       }
     },
     "qualityedit": {
@@ -1167,12 +1179,19 @@
         "cast_target_multiple": "Lance {name} sur des cibles multiples",
         "cast_target_none": "Lance {name}",
         "cast_target_one": "Lance {name} sur {target}",
+        "thread_target_none": "Tissage de {name}",
+        "thread_target_one": "Tissage de {name} sur {target}",
+        "thread_target_multiple": "Tissage de {name} sur des cibles multiples",
+        "using_target_none": "Utilise {name}",
+        "using_target_one": "Utilise {name} sur {target}",
+        "using_target_multiple": "Utilise {name} sur des cibles multiples",
         "skill": "Fait un test de compétence",
-        "thread": "Exécute {name}",
+        "thread": "Tissage de {name}",
         "defense": {
           "physical": "Se défend contre une attaque physique",
           "spells_direct": "Défense contre un sort de combat direct",
-          "spells_indirect": "Défense contre un sort de combat indirect"
+          "spells_indirect": "Défense contre un sort de combat indirect",
+          "matrix": "Défense contre un évènement matriciel"
         },
         "soak": {
           "drain": "Résiste à {damage} de Drain",
@@ -1213,8 +1232,8 @@
       "criticalglitch": "Échec Critique",
       "hardenedArmor": "Armure renforcée appliqué",
       "heal_apply": "Soin",
-      "damage": "Dégâts : ",
-	    "damage_apply": "Appliquer dommages",
+      "damage": "dommages : ",
+	    "damage_apply": "Appliquer les dommages",
       "defRating": "Score défensif",
       "edge": {
         "add_manually_to_target": "(Ajouter manuellement) Cible",
@@ -1244,6 +1263,7 @@
       "firemode": "Mode de tir",
       "failure": "Échec",
       "failedDefense": "Vous avez été frappé et vous allez avoir mal.",
+      "failedDefenseGeneral": "Vous avez échoué à vous défendre",
       "failedSoak": "Vous subissez des dommages",
       "glitch": "Complication",
       "hits_bought": "Succès achetés",
@@ -1278,8 +1298,10 @@
       "subject": "Message dans le Chat",
       "success": "Succès",
       "successes": "Succès",
+      "manualResult": "Résultat",
       "netHits": "Succès nets",
       "successfulDefense": "Vous avez réussi à éviter d'être touché",
+      "successfulDefenseGeneral": "Vous vous êtes défendus avec succès",
       "successfulSoak"   : "Vous avez réussi à ignorer les dommages",
       "missedAttack"   : "Vous avez raté Chummer !",
       "succesfulHit"   : "Vous avez touché, chummer !",
@@ -1328,6 +1350,9 @@
         "column.duration": "Dur",
         "column.fade": "Drain",
         "title": "Formes complexes"
+      },
+      "spritepowers": {
+        "title": "Pouvoirs d'esprit"
       },
       "contacts": {
         "add": "Ajouter un contact",
@@ -1504,7 +1529,7 @@
         "name": "Actions matricielles Hack & Slash"
       },
       "armorLessensDmg": {
-        "hint": "Cette règle permet de réduire les dommages physiques subis. Après avoir résisté aux dégâts (autres que les toxines ou les statuts), convertissez une case de dégâts physiques en étourdissement pour chaque 8 points complets de SD que vous avez. (SWC p.143)",
+        "hint": "Cette règle permet de réduire les dommages physiques subis. Après avoir résisté aux dommages (autres que les toxines ou les statuts), convertissez une case de dommages physiques en étourdissement pour chaque 8 points complets de SD que vous avez. (SWC p.143)",
         "name": "Réduction des dommages physiques par l'armure"
       },
       "rollStrengthCombat": {
@@ -1696,7 +1721,7 @@
       "category_health": "Santé",
       "category_illusion": "Illusion",
       "category_manipulation": "Manipulation",
-      "damage": "Dégâts",
+      "damage": "dommages",
       "damage_physical": "Physique",
       "damage_physical_short": "P",
       "damage_physical_special": "Physique, spécial",
@@ -1767,7 +1792,7 @@
       "attribute": "Attribut de tradition"
     },
     "vehicle": {
-      "action_label": "Pilotage / Attaque ou défense de véhicule",
+      "action_label": "Manoeuvré / Attaque ou défense de véhicule",
       "has_no_owner": "Le véhicule / Drone n'a pas de propriétaire assigné",
       "initiative": "Initiative du véhicule",
       "mode_label": "Mode",
@@ -1810,11 +1835,12 @@
         "Target_or_select_a_token_before_rolling": "Ciblez ou sélectionnez un jeton avant de lancer.",
         "Select_a_token_first": "Sélectionnez d'abord un jeton, ou configurez votre acteur Personnage Joueur dans votre Configuration Utilisateur.",
         "Target_a_token_before_rolling": "Ciblez un jeton avant de lancer.",
+        "defaulting_spell_to_self": "Aucun token ciblé, le sort vous ciblera par défaut.",
         "Dice_roll_evaluation_failed": "Évaluation du lancer de dés échouée",
         "two_targets_but_wrong_fire_mode": "Vous avez deux cibles, donc vous ne pouvez tirer qu'en utilisant le mode Tir en Rafale : Rafale large, ou en utilisant le mode Tir Automatique.",
         "many_targets_but_not_autofire_fire_mode": "Vous avez plus de deux cibles, donc vous ne pouvez tirer qu'en utilisant le mode Tir Automatique.",
         "attack_with_no_AR": "Vous essayez d'attaquer alors que votre Score Off. est de 0, par exemple en raison de la distance.",
-        "apply_manually": "Appliquez les dégâts manuellement.",
+        "apply_manually": "Appliquez les dommages manuellement.",
         "Target_is_not_a_life_form": "La cible n'est pas une forme de vie.",
         "do_not_revert_damage": "Débordement du le moniteur Physique. N'annulez pas ce dégât via le bouton de chat, car cela ne sera pas calculé correctement.",
         "No_actor_or_tokens_selected": "Attribuez-vous un Personnage Joueur, ou sélectionnez des jetons avant de lancer.",
@@ -1856,7 +1882,10 @@
         "form_grunt_group": "Vous avez formé un groupe Figurant avec les tokens sélectionnés.",
         "dismantle_grunt_group": "Vous avez démantelé le groupe Figurant des tokens sélectionnés.",
         "form_grunt_group_failed": "Les tokens sélectionnés n'étaient pas valides pour un groupe de Figurant. L'option « Lier les données d'acteur » ne doit pas être activée dans leur configuration de token.",
-        "grunt_group_takes_two": "Vous devez sélectionner plusieurs tokens pour former un groupe de Figurant."
+        "grunt_group_takes_two": "Vous devez sélectionner plusieurs tokens pour former un groupe de Figurant.",
+        "edge_has_been_reset": "Tout l'Atout a été remis à zéro par le MJ.",
+        "effect_migration_to_v2": "Migration des clés d'effets actifs afin d'être utilisable par Acteur V2.",
+        "deviceRatingMigration": "<p>Migration de tous les équipements à l'Indice 2 par défaut, et le Cyberware au niveau standard.</p><p>Informe tous les joueur qu'ils vont devoir ajuster leur équipement et Cyberware si nécessaire.<p>"
       }
     },
     "EFFECT": {
@@ -2036,27 +2065,180 @@
       "movementSprintBase": "Vitesse de sprint de base",
       "movementSprintMultiplier": "Multiplicateur de vitesse de Sprint",
       "hardenedArmor": "Armure renforcée",
-      "immunityNormalWeapons": "Immunité aux armes normales (Surcharge true)"
+      "immunityNormalWeapons": "Immunité aux armes normales (Surcharge true)",
+      "importedModifier": "Modificateur importé."
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Lier les tokens sélectionnés au groupe de contrôle",
       "selectTokenControlGroup": "Sélectionner les tokens du groupe de contrôle",
       "formGruntGroup": "Créer un groupe de Figurant avec les tokens sélectionnés"
-    }
+    },
+    "resetEdge": "Remise à zéro de l'Atout",
+    "resetEdgeDescription": "Voulez-vous remettre à zéro l'Atout pour tous les Acteurs et TOkens sélectionnés ?"
   },
   "SR6": {
+    "Common": {
+      "FIELDS": {
+        "name": {
+          "label": "Nom"
+        },
+        "effects": {
+          "label": "Effets"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "rating": {
+          "label": "Indice"
+        },
+        "type": {
+          "label": "Type"
+        }
+      }
+    },
     "Actor": {
       "base": {
         "FIELDS": {
           "notes": {
             "label": "Notes"
+        },
+          "attributes": {
+            "body": {
+              "label": "Constitution"
+            },
+            "agility": {
+              "label": "Agilité"
+            },
+            "reaction": {
+              "label": "Réaction"
+            },
+            "strength": {
+              "label": "Force"
+            },
+            "willpower": {
+              "label": "Volonté"
+            },
+            "logic": {
+              "label": "Logique"
+            },
+            "intuition": {
+              "label": "Intuition"
+            },
+            "charisma": {
+              "label": "Charisme"
+            },
+            "edge": {
+              "label": "Atout"
+            },
+            "magic": {
+              "label": "Magie"
+            },
+            "resonance": {
+              "label": "Résonnance"
+            },
+            "essence": {
+              "label": "Essence"
+            }
+          },
+          "matrix": {
+            "attributes": {
+              "attack": {
+                "label": "Attaque"
+              },
+              "sleaze": {
+                "label": "Corruption"
+              },
+              "dataProcessing": {
+                "label": "Traitement de données"
+              },
+              "firewall": {
+                "label": "Firewall"
+              }
+            },
+            "initiative": {
+              "label": "Initiative"
+            }
+          },
+          "initiative": {
+            "label": "Initiative"
+          },
+          "skills": {
+            "astral": {
+              "label": "Astral"
+            },
+            "athletics": {
+              "label": "Athlétisme"
+            },
+            "biotech": {
+              "label": "Biotech"
+            },
+            "close_combat": {
+              "label": "Combat rapproché"
+            },
+            "con": {
+              "label": "Escroquerie"
+            },
+            "conjuring": {
+              "label": "Conjuration"
+            },
+            "cracking": {
+              "label": "Piratage"
+            },
+            "electronics": {
+              "label": "Électronique"
+            },
+            "engineering": {
+              "label": "Ingénierie"
+            },
+            "exotic_weapons": {
+              "label": "Armes exotiques"
+            },
+            "firearms": {
+              "label": "Armes à feu"
+            },
+            "influence": {
+              "label": "Influence"
+            },
+            "outdoors": {
+              "label": "Plein air"
+            },
+            "perception": {
+              "label": "Perception"
+            },
+            "piloting": {
+              "label": "Pilotage"
+            },
+            "sorcery": {
+              "label": "Sorcellerie"
+            },
+            "stealth": {
+              "label": "Furtivité"
+            },
+            "tasking": {
+              "label": "Technomancie"
+            }
           }
         }
       },
+      "Tabs": {
+        "Summary": "Résumé",
+        "Features": "Caractéristiques",
+        "Description": "Description",
+        "Effects": "Effets"
+      },
       "sprite": {
         "FIELDS": {
-          "xxx": {
-            "label": "xxx"
+          "level": {
+            "label": "Niveau"
+          },
+          "tasksOwned": {
+            "label": "Tâches dues"
+          },
+          "compiledBy": {
+            "label": "Compilé par"
+          },
+          "registered": {
+            "label": "Inscrit"
           }
         },
         "TYPES": {
@@ -2070,6 +2252,16 @@
           "modular": "//POLYVALENT//",
           "music": "//MUSICAL//",
           "primal": "//PRIMAL//"
+        },
+        "notes": {
+          "music": "Compétence Escroquerie : Représentation uniquement"
+        }
+      },
+      "host": {
+        "FIELDS": {
+          "rating": {
+            "label": "Indice du serveur"
+          }
         }
       }
     },
@@ -2084,6 +2276,43 @@
           },
           "price": {
             "label": "Prix"
+          },
+          "isElectronicMatrixDevice": {
+            "label": "Appareil matriciel",
+            "hint": "Si activé, cet équipement est considéré comme un appareil matriciel électronique, possède un indice d'appareil et peut être utilisé via une IND, la RA ou la RV."
+          },
+          "hasWirelessInterface": {
+            "label": "Interface sans fil",
+            "hint": "Si activé, cet équipement est un appareil matriciel électronique doté d'une interface sans fil. Quand le sans-fil est actif, il peut être utilisé en RA ou en RV. Il possède généralement un bonus sans fil."
+          },
+          "hasDataCableInterface": {
+            "label": "Interface par câble de données",
+            "hint": "Si activé, cet équipement possède une interface par câble de données et peut être utilisé via une IND. Le cyberware possède toujours une interface par câble de données."
+          },
+          "deviceRating": {
+            "label": "Indice d'appareil",
+            "tooltip": [
+              "Le niveau de l'appareil matriciel électronique. L'indice d'appareil détermine son moniteur de condition matriciel.",
+              "La plupart des appareils importants reçoivent un indice d'appareil dans leur livre de règles, mais s'il n'est pas fourni, utilisez les directives suivantes :",
+              "<strong>1 : Appareils simples</strong>, comme les applications générales, les terminaux publics, les dispositifs de divertissement.",
+              "<strong>2 : Appareils moyens</strong>, comme les dispositifs électroniques individuels, le cyberware basique, les armes, les dispositifs de sécurité résidentiels, les véhicules basiques.",
+              "<strong>3 : Appareils intelligents</strong>, comme les véhicules de sécurité, l'alphaware, les dispositifs de sécurité corporatistes.",
+              "<strong>4 : Appareils avancés</strong>, comme les appareils haut de gamme, le betaware, les véhicules et dispositifs de sécurité militaires.",
+              "<strong>5 : Appareils d'avant-garde</strong>, comme les créditubes, les véhicules et dispositifs de sécurité d'agents spéciaux.",
+              "<strong>6+ : Appareils extraordinaires</strong>, comme le deltaware, le gammaware, les dispositifs expérimentaux à plusieurs milliards de nuyens, les navettes spatiales."
+            ]
+          },
+          "wirelessActive": {
+            "label": "Sans fil",
+            "hint": "Si activé, cet équipement est actuellement utilisé via une interface sans fil. Certains objets, comme les créditubes, ne peuvent être utilisés que si leur interface sans fil est active. Le bonus sans fil de l'équipement peut être utilisé s'il est actif."
+          },
+          "cyberwareGrade": {
+            "label": "Gamme de cyberware",
+            "hint": "<p>La gamme de votre cyberware ne détermine pas seulement son coût en essence et en nuyens, mais aussi son indice d'appareil.<p>L'indice d'appareil détermine son moniteur de condition matriciel.</p>"
+          },
+          "ammoLoaded": {
+            "label": "Munitions chargées",
+            "hint": "Sélectionnez le type de munitions actuellement chargé dans votre arme à distance."
           }
         }
       },
@@ -2108,27 +2337,65 @@
         }
       }
     },
-    "Common": {
-      "FIELDS": {
-        "name": {
-          "label": "Nom"
-        },
-        "effects": {
-          "label": "Effets"
-        },
-        "description": {
-          "label": "Description"
-        },
-        "rating": {
-          "label": "Indice"
-        },
-        "type": {
-          "label": "Type"
-        }
-      }
-    },
     "label": {
-      "name": "Nom"
+      "name": "Nom",
+      "template": "MODÈLE",
+      "unique": "UNIQUE",
+      "token": "JETON",
+      "CM.phys.short": "PHYS",
+      "CM.stun.short": "ÉTOUR",
+      "CM.matrix.short": "MATR",
+      "RIP": "R.I.P.",
+      "viewTemplateActor": "Voir le modèle de personnage",
+      "activeSkills": "Compétences actives",
+      "knowledgeSkills": "Connaissances",
+      "languages": "Langues",
+      "qualities": "Traits",
+      "powers": "Pouvoirs",
+      "untrained": "Inexpérimenté",
+      "deviceRating": "Indice d'appareil",
+      "lifespan": "Espérance de vie",
+      "lifespan_hours": "{number} {hourScale}",
+      "yes": "Oui",
+      "no": "Non",
+      "unknown": "<inconnu>",
+      "matrixCmPenalty": "Malus de dommages matriciels",
+      "system_message": "//MESSAGE SYSTÈME//"
+    },
+    "title": {
+      "editButton": "Modifier le personnage",
+      "editImage": "Cliquer pour changer l'image",
+      "showImage": "Cliquer pour afficher l'image",
+      "increaseOS": "Cliquer pour augmenter le Score de Surveillance",
+      "decreaseOS": "Cliquer pour diminuer le Score de Surveillance",
+      "showOS": "Cliquer pour afficher le Score de Surveillance",
+      "CM.phys.dmg": "Dommages sur le moniteur de condition physique",
+      "CM.stun.dmg": "Dommages sur le moniteur de condition étourdissante",
+      "CM.matrix.dmg": "Dommages sur le moniteur de condition matricielle",
+      "personaModeToggle": "Basculer le mode de persona (Public/Silencieux)",
+      "changeEdge": "Cliquer pour augmenter (gauche) ou diminuer (droite) l'Atout",
+      "onlyGmCanRevive": "Seul votre MJ peut réanimer un personnage mort.",
+      "attributeHint": "Base {rank} + Mod {mod} = Réserve {pool}",
+      "skillHint": "Base {rank} + Mod {mod} + {attr} {attrPool}{untrained} = Réserve {pool}",
+      "clickItemName": "Afficher la description (clic gauche) ou l'envoyer dans le chat (clic droit)",
+      "showDescription": "Afficher la description",
+      "sendToChat": "Envoyer la description dans le Chat",
+      "useItem": "Utiliser {name}",
+      "noRollNeeded": "Aucun jet requis",
+      "rollSomething": "Lancer {typeOfRoll}",
+      "matrixCmPenalty": "Votre appareil matriciel électronique est endommagé via la Matrice."
+    },
+    "statblock": {
+      "system.matrix.attributes.attack": "ATTAQUE",
+      "system.matrix.attributes.sleaze": "CORRUPTION",
+      "system.matrix.attributes.dataProcessing": "TRAITEMENT",
+      "system.matrix.attributes.firewall": "FIREWALL",
+      "system.matrix.initiative": "INIT",
+      "system.attributes.willpower": "V",
+      "system.attributes.logic": "L",
+      "system.attributes.intuition": "I",
+      "system.attributes.charisma": "C",
+      "system.attributes.resonance": "RÉS"
     }
   }
 }
