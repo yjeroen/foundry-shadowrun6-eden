@@ -85,8 +85,8 @@ Hooks.once("init", async function () {
     if (cursorSetting !== 'disabled') {
         const cursorType = cursorSetting === 'black' ? 'cursor-black' : 'cursor';
 
-        CONFIG.cursors.default = `systems/shadowrun6-eden/images/${cursorType}-default.png`;
-        CONFIG.cursors["default-down"] = `systems/shadowrun6-eden/images/${cursorType}-default.png`
+        CONFIG.cursors.default = { url: `systems/shadowrun6-eden/images/${cursorType}-default.png`, x: 4, y: 0 };
+        CONFIG.cursors["default-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-default.png`, x: 4, y: 0 };
         CONFIG.cursors.text = { url: `systems/shadowrun6-eden/images/${cursorType}-text.png`, x: 12, y: 12 };
         CONFIG.cursors["text-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-text.png`, x: 12, y: 12 };
         CONFIG.cursors.pointer = { url: `systems/shadowrun6-eden/images/${cursorType}-pointer.png`, x: 8, y: 0 };
