@@ -153,4 +153,27 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
         return sprite;
     }
 
+    /**
+     * Handle a dropped document on the ActorSheet
+     * TODO Move this validation to Item's datamodel's _preCreate once migrated from template to datamodel
+     * @template {Document} TDocument
+     * @param {DragEvent} event         The initiating drop event
+     * @param {TDocument} document       The resolved Document class
+     * @returns {Promise<TDocument|null>} A Document of the same type as the dropped one in case of a successful result,
+     *                                    or null in case of failure or no action being taken
+     * @protected
+     */
+    async _onDropDocument(event, document) {
+
+        if (document.documentName === "Item") {
+            console.log("SR6E | _onDropDocument() | Validating if this item is allowed to be dropped:", document.type);
+            if (document.type !== "spritepower") {
+                ui.notifications.error("shadowrun6.ui.notifications.item_not_allowed_to_be_dropped", { localize: true });
+                return null;
+            }
+        }
+        
+        return super._onDropDocument(event, document);
+    }
+
 }
