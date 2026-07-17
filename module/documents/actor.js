@@ -83,6 +83,7 @@ export default class Shadowrun6Actor extends Actor {
             if (source.system?.vtype === "") source.system.vtype = "ground_craft";
         }
         if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
+        if (typeof source.system?.controlRig === 'string') source.system.controlRig = parseInt(source.system.controlRig) || 0;
 
         return super.migrateData(source);
     }
@@ -2806,6 +2807,7 @@ export default class Shadowrun6Actor extends Actor {
      * @return {number}             Number of dice
      */
     getMatrixPool(matrixAttr, physAttr) {
+        // TODO JEROEN HOSTS/IC Add way to convert attribute to rating
         if (this.system instanceof foundry.abstract.DataModel) {
             matrixAttr = game.sr6.config.ATTRIBUTE_TO_V2[matrixAttr];
             physAttr = game.sr6.config.ATTRIBUTE_TO_V2[physAttr];
