@@ -36,7 +36,7 @@
 		 <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
        	 <td>
 			<label class="switch">
-				{{#if item.onlineOnMatrix}}
+				{{#if (not item.isBricked)}}
 
 					{{#unless (and (not item.system.usedForPool) (or 
 							(and item.system.d @root.system.persona.used.d)
@@ -86,7 +86,7 @@
          <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
        	 <td>
 			<label class="switch">
-				{{#if item.onlineOnMatrix}}
+				{{#if (not item.isBricked)}}
 
 					{{#unless (and (not item.system.usedForPool) (or 
 							(and item.system.a @root.system.persona.used.a)
@@ -134,7 +134,7 @@
          <td><label class="middle-column" >{{item.system.progSlots}}</label></td>
        	 <td>
 			<label class="switch">
-				{{#if item.onlineOnMatrix}}
+				{{#if (not item.isBricked)}}
 
 					{{#unless (and (not item.system.usedForPool) (or 
 							(and item.system.a @root.system.persona.used.a)
@@ -153,7 +153,7 @@
 					{{/unless}}
 
 				{{else}}
-				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.offline">
+				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.isOffline">
 					<i class="fa-solid fa-triangle-exclamation"></i>
 				</span>
 				{{/if}}

@@ -67,6 +67,8 @@ export default class SR6Item extends Item {
     console.log("SR6E | SR6Item._preUpdate()", changes);
     if ( allowed === false ) return false;
 
+    this._checkAccessDeviceEnabledStatus(changes);
+
     // Forward to type data model
     if ( this.system instanceof foundry.abstract.TypeDataModel ) {
       return this.system._preUpdate(changes, options, user);
@@ -154,6 +156,17 @@ export default class SR6Item extends Item {
     const GEAR = CONFIG.SR6.GEAR;
     if ( this.parent && GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
       await this.parent.updatePersona();
+    }
+  }
+
+  _checkAccessDeviceEnabledStatus(changes) {
+    if (!this.isOwner || this.type!=="gear") return false;
+
+    if (changes.system?.usedForPool === true || changes.system?.usedForPool === false) {
+      setProperty(changes, "system.matrix.wirelessActive", changes.system.usedForPool);
+    }
+    if (changes.system?.matrix?.wirelessActive === true || changes.system?.matrix?.wirelessActive === false) {
+      setProperty(changes, "system.usedForPool", changes.system.matrix.wirelessActive);
     }
   }
 
@@ -286,6 +299,12 @@ export default class SR6Item extends Item {
            )
            &&
            this.system.matrix.matrixCM.value > 0
+  }
+
+  get isBricked() {
+    if (this.type !== 'gear' || !this.system.isElectronicMatrixDevice) return;
+
+    return Boolean(this.system.matrix.matrixCM.value === 0);
   }
 
   _addDefaultFireModePenalties() {

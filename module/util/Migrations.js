@@ -270,10 +270,11 @@ async function migrateItemsDevRating() {
     for (const item of itemsToMigrate) {
         const source = item._source;
         const deviceRating = Number.parseInt(source.system.devRating, 10) || 2;
+        const wirelessActive = (item.isAccessDevice && !item.system.usedForPool) ? false : true;
         const data = {
             ...baseData,
             "system.matrix.deviceRating": deviceRating,
-            "system.matrix.wirelessActive": true
+            "system.matrix.wirelessActive": wirelessActive
         }
         await item.update(data);
         progressedItem++;

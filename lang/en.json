@@ -973,8 +973,11 @@
       "device": {
         "enable": "Click to use this device to access the Matrix.",
         "disable": "Click to not use this device to access the Matrix.",
-        "offline": "Device is not online on the Matrix due to being bricked or wrong configuration.",
-        "unable": "<p>Cannot enable this device because:</p><ul><li>Another device is already generating these Matrix Attributes.</li><li>This is a Cyberdeck and you already have a RCC enabled.</li><li>This is a RCC and you already have a Cyberdeck enabled.</li></ul>"
+        "isOffline": "Device is not online on the Matrix due to being bricked or disabled.",
+        "unable": "<p>Cannot enable this device because:</p><ul><li>Another device is already generating these Matrix Attributes.</li><li>This is a Cyberdeck and you already have a RCC enabled.</li><li>This is a RCC and you already have a Cyberdeck enabled.</li></ul>",
+        "online": "ONLINE",
+        "offline": "OFFLINE",
+        "isAccessDevice": "<p>This is an Matrix Access Device.</p><p>Enable or Disable this on your Character sheet (Matrix tab).</p>"
       },
       "open_operations": "Start Matrix Operations on {item}.",
       "icon": "Icon",
