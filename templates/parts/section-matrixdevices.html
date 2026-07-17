@@ -37,11 +37,22 @@
        	 <td>
 			<label class="switch">
 				{{#if item.onlineOnMatrix}}
-       			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-            	<span 
-					class="shadowrun6-slider round" 
-					data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
-				></span>
+
+					{{#unless (and (not item.system.usedForPool) (or 
+							(and item.system.d @root.system.persona.used.d)
+							(and item.system.f @root.system.persona.used.f)
+							(and (eq item.system.subtype "RIGGER_CONSOLE") (eq @root.system.persona.accessDevice.system.subtype "CYBERDECK") )
+						)
+					)}}
+						<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-check="system.usedForPool" data-item-id="{{this.id}}" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean" />
+						<span 
+							class="shadowrun6-slider round" 
+							data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
+						></span>
+					{{else}}
+						<span class="shadowrun6-slider round inactive" data-tooltip="shadowrun6.matrix.device.unable"></span>
+					{{/unless}}
+
 				{{else}}
 				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.offline">
 					<i class="fa-solid fa-triangle-exclamation"></i>
@@ -76,11 +87,22 @@
        	 <td>
 			<label class="switch">
 				{{#if item.onlineOnMatrix}}
-       			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-            	<span 
-					class="shadowrun6-slider round" 
-					data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
-				></span>
+
+					{{#unless (and (not item.system.usedForPool) (or 
+							(and item.system.a @root.system.persona.used.a)
+							(and item.system.s @root.system.persona.used.s)
+							(eq  @root.system.persona.accessDevice.system.subtype "RIGGER_CONSOLE")
+						)
+					)}}
+						<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
+						<span 
+							class="shadowrun6-slider round" 
+							data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
+						></span>
+					{{else}}
+						<span class="shadowrun6-slider round inactive" data-tooltip="shadowrun6.matrix.device.unable"></span>
+					{{/unless}}
+
 				{{else}}
 				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.offline">
 					<i class="fa-solid fa-triangle-exclamation"></i>
@@ -113,11 +135,23 @@
        	 <td>
 			<label class="switch">
 				{{#if item.onlineOnMatrix}}
-       			<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
-            	<span 
-					class="shadowrun6-slider round" 
-					data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
-				></span>
+
+					{{#unless (and (not item.system.usedForPool) (or 
+							(and item.system.a @root.system.persona.used.a)
+							(and item.system.s @root.system.persona.used.s)
+							(and item.system.d @root.system.persona.used.d)
+							(and item.system.f @root.system.persona.used.f)
+						)
+					)}}
+						<input name="matrixDeviceUsedFoPool{{id}}" type="checkbox" data-item-id="{{this.id}}" data-check="system.usedForPool" {{checked item.system.usedForPool}} type="checkbox" data-dtype="Boolean"/>
+						<span 
+							class="shadowrun6-slider round" 
+							data-tooltip="{{#if item.system.usedForPool}}shadowrun6.matrix.device.disable{{else}}shadowrun6.matrix.device.enable{{/if}}"	  
+						></span>
+					{{else}}
+						<span class="shadowrun6-slider round inactive" data-tooltip="shadowrun6.matrix.device.unable"></span>
+					{{/unless}}
+
 				{{else}}
 				<span class="matrix-offline" data-tooltip="shadowrun6.matrix.device.offline">
 					<i class="fa-solid fa-triangle-exclamation"></i>

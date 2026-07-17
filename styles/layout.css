@@ -462,7 +462,7 @@ button.collapsible.empty {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #a5a5a5;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -500,6 +500,11 @@ button.collapsible.empty {
 
 .shadowrun6-slider.round:before {
   border-radius: 50%;
+}
+
+.shadowrun6-slider.inactive {
+  opacity: 0.2;
+  cursor: var(--cursor-default);
 }
 
 h3.highlight, h4.highlight {

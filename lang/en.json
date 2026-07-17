@@ -973,7 +973,8 @@
       "device": {
         "enable": "Click to use this device to access the Matrix.",
         "disable": "Click to not use this device to access the Matrix.",
-        "offline": "Device is not online on the Matrix due to being bricked or wrong configuration."
+        "offline": "Device is not online on the Matrix due to being bricked or wrong configuration.",
+        "unable": "<p>Cannot enable this device because:</p><ul><li>Another device is already generating these Matrix Attributes.</li><li>This is a Cyberdeck and you already have a RCC enabled.</li><li>This is a RCC and you already have a Cyberdeck enabled.</li></ul>"
       },
       "open_operations": "Start Matrix Operations on {item}.",
       "icon": "Icon",
@@ -2226,7 +2227,8 @@
         "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>All electronic gear have Wireless enabled.</p><p>Inform all players they need to adjust their Gear and Cyberware to the right rating.<p><p>Everyone also need to review if they have any Gear (e.g. certain armors) that need to be edited as 'Matrix Device' if they have ingame interactive features like Electrochromic Feature.",
         "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
         "notificationOnce": "This message will only show once during this browser session.",
-        "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT."
+        "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT.",
+        "item_not_allowed_to_be_dropped": "This Item could not be added to this Actor as they aren't compatible."
       }
     },
     "EFFECT": {
