@@ -1,11 +1,11 @@
-{{! Biography Tab }}
+{{! Description Tab }}
 <section
   class='tab description scrollable {{tab.cssClass}}'
   data-group='primary'
   data-tab='description'
 >
 
-  <div class="section wide">
+  <div class="section">
     <div class="section-head">
       <h2 class="section-title">{{systemFields.description.label}}</h2>
     </div>
@@ -22,8 +22,8 @@
   </div>
   
 {{#unless limited}}
-  <div class="section wide">
-    <div class="section-head">
+  <div class="section">
+    <div class="section-head" data-tooltip="SR6.Actor.base.FIELDS.notes.tooltip">
       <h2 class="section-title">{{systemFields.notes.label}}</h2>
     </div>
     <div class="section-content">
