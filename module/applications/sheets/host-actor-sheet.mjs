@@ -46,6 +46,8 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
 
     async _preparePartContext(partId, context) {
         context = await super._preparePartContext(partId, context);
+        this._prepareHeader(context);
+
         switch (partId) {
             case "summary":
                 context.statblock = this._statBlock();
@@ -61,10 +63,31 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
         return context;
     }
 
-    
+    /**
+     * Prepare traits below the name on the header of the sheet
+     * @param {object} context The context object to mutate
+     */
+    _prepareHeader(context) {
+        const systemFields = context.systemFields;
+        const system = context.system;
+        const limited = context.limited;
+
+        context.traits = [
+            {
+                dontShowOnLimited: limited,
+                field: systemFields.rating,
+                value: system.rating
+            },
+            {
+                field: systemFields.type,
+                value: system.type
+            },
+        ];
+
+    }
+
     /**
      * Organize and classify Items for Sprite sheets.
-     *
      * @param {object} context The context object to mutate
      */
     _prepareHostItems(context) {

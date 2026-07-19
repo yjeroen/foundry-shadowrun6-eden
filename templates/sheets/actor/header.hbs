@@ -64,30 +64,27 @@
               {{/if}}
             </div>
   
+            {{#if traits}}
             <div class="traits">
-              {{#unless limited}}
-              <div>
-                <label for="system.level">{{localize systemFields.level.label}}:</label>
-                {{#if editMode}}
-                {{formInput systemFields.level value=source.level}}
-                {{else}}
-                {{span system.level systemFields.level}}
-                {{/if}}
-              </div>
-              {{/unless}}
-              <div>
-                <label for="system.type">{{localize systemFields.type.label}}:</label>
-                {{#if editMode}}
-                {{formInput systemFields.type value=source.type localize=true}}
-                {{else}}
-                {{span system.type systemFields.type}}
-                {{/if}}
-              </div>
+              {{#each traits}}
+                {{#unless dontShowOnLimited}}
+                  <div>
+                    <label for="{{field.fieldPath}}">{{field.label}}:</label>
+                    {{#if @root.editMode}}
+                    {{formInput field value=value}}
+                    {{else}}
+                    {{span value field}}
+                    {{/if}}
+                  </div>
+                {{/unless}}
+              {{/each}}
             </div>
+            {{/if}}
+
           </div>
   
           <div class="status-panel-header-right">
-            {{#if tracks.matrix}}
+            {{#if systemFields.matrix.fields.overwatchScore}}
             <div class="hud-overwatch" style="--overwatch-color: var(--hud-color-bright); --os-color: var(--accent);" data-action="onClickOS">
               <span class="overwatch-side overwatch-side-left disabled" data-tooltip="SR6.title.decreaseOS" data-os-control="decrease">
                 <svg viewBox="0 0 12 24">
