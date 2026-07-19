@@ -131,7 +131,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
     /** @override */
     async _prepareContext(options) {
-        const overwatchScore = this.document.system.matrix.overwatchScore;
 
         // Output initialization
         const context = {

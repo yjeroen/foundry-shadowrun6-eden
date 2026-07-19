@@ -33,6 +33,7 @@ export default class Shadowrun6Combatant extends Combatant {
             case InitiativeType.PHYSICAL: return "@initiative.physical.rank + (@initiative.physical.dice)D6";
             case InitiativeType.ASTRAL: return "@initiative.astral.rank + (@initiative.astral.dice)D6";
             case InitiativeType.MATRIX: return "@initiative.matrix.rank + (@initiative.matrix.dice)D6";
+            case InitiativeType.MATRIX_HOST: return "@initiative.matrix.rank";
             default:
                 return super._getInitiativeFormula();
         }

@@ -31,7 +31,7 @@ export const MatrixSheetMixin = Base => class extends Base {
                     return false;
                 }
                 
-                if (action.skill === "cracking" && !system.skills.cracking.defaultTestPool) return false;
+                if (action.skill === "cracking" && !system.skills?.cracking.defaultTestPool) return false;
                 if (action.linkedAttr == null) return true;
                 if (action.linkedAttr === "a" && system.matrix.attributes.attack > 0) return true;
                 if (action.linkedAttr === "s" && system.matrix.attributes.sleaze > 0) return true;
@@ -43,7 +43,7 @@ export const MatrixSheetMixin = Base => class extends Base {
                     ...action,
                     name: game.i18n.localize(`shadowrun6.matrixaction.${actionId}.name`),
                     //TODO JEROEN: Add specialization support
-                    testPool: action.skill ? system.skills[action.skill].defaultTestPool : null,
+                    testPool: action.skill ? system.skills?.[action.skill].defaultTestPool : null,
                     skillName: action.skill ? game.i18n.localize(`skill.${action.skill}`) + ` (${game.i18n.localize(`shadowrun6.special.${action.skill}.${action.specialization}`)})` : null,
                 };
             })

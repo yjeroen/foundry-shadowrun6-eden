@@ -43,6 +43,7 @@ export class SR6Config {
             "resonance",
             "essence",
         ],
+
         ACTOR_TYPES: {
             sprite: {
                 types: {
@@ -56,6 +57,12 @@ export class SR6Config {
                     modular: "SR6.Actor.sprite.TYPES.modular",
                     music: "SR6.Actor.sprite.TYPES.music",
                     primal: "SR6.Actor.sprite.TYPES.primal",
+                },
+            },
+            host: {
+                types: {
+                    foundation: "SR6.Actor.host.TYPES.foundation",
+                    framework: "SR6.Actor.host.TYPES.framework",
                 },
             },
         },
@@ -72,6 +79,25 @@ export class SR6Config {
                 },
             },
         },
+    };
+
+    HOSTS = {
+        resolutionGrades: {
+            1: "SR6.Actor.host.FIELDS.resolutionGrade.choices.1",
+            2: "SR6.Actor.host.FIELDS.resolutionGrade.choices.2",
+            3: "SR6.Actor.host.FIELDS.resolutionGrade.choices.3",
+            4: "SR6.Actor.host.FIELDS.resolutionGrade.choices.4",
+            5: "SR6.Actor.host.FIELDS.resolutionGrade.choices.5",
+            6: "SR6.Actor.host.FIELDS.resolutionGrade.choices.6"
+        },
+        scales: {
+            1: "SR6.Actor.host.FIELDS.scale.choices.1",
+            2: "SR6.Actor.host.FIELDS.scale.choices.2",
+            3: "SR6.Actor.host.FIELDS.scale.choices.3",
+            4: "SR6.Actor.host.FIELDS.scale.choices.4",
+            5: "SR6.Actor.host.FIELDS.scale.choices.5",
+            6: "SR6.Actor.host.FIELDS.scale.choices.6"
+        }
     };
 
     ATTRIBUTE_TO_V2 = {

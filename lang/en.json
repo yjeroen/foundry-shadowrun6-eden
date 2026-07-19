@@ -128,7 +128,8 @@
     		"Player": "Player Character",
     		"Spirit": "Spirit",
     		"Vehicle": "Vehicle/Drone",
-        "sprite": "Sprite"
+        "sprite": "Sprite",
+        "host": "Host"
   		},
   		"Item": {
     		"adeptpower": "Adept Power",
@@ -2447,6 +2448,12 @@
       }
     },
     "Actor": {
+      "Tabs": {
+        "Summary": "Summary",
+        "Features": "Features",
+        "Description": "Description",
+        "Effects": "Effects"
+      },
       "base": {
         "FIELDS": {
           "notes": {
@@ -2580,11 +2587,12 @@
           }
         }
       },
-      "Tabs": {
-        "Summary": "Summary",
-        "Features": "Features",
-        "Description": "Description",
-        "Effects": "Effects"
+      "matrixBase": {
+        "FIELDS": {
+          "description": {
+            "label": "Icon Description"
+          }
+        }
       },
       "sprite": {
         "FIELDS": {
@@ -2624,7 +2632,42 @@
         "FIELDS": {
           "rating": {
             "label": "Host Rating"
+          },
+          "resolutionGrade": {
+            "label": "Resolution Grade",
+            "choices": {
+              "1": "Grade 1 Minimal",
+              "2": "Grade 2 Default",
+              "3": "Grade 3 Standard",
+              "4": "Grade 4 Custom",
+              "6": "Grade 5 Sculpted",
+              "7": "Grade 6 Ultra-Violet"
+            }
+          },
+          "scale": {
+            "label": "Scale",
+            "choices": {
+              "1": "Scale 1 Micro (Personal)",
+              "2": "Scale 2 Base (Facility)",
+              "3": "Scale 3 Net (Local)",
+              "4": "Scale 4 Macro (Sprawl)",
+              "6": "Scale 5 Mega (National)",
+              "7": "Scale 6 Exa (Global)"
+            }
+          },
+          "convergenceThreshold": {
+            "label": "Convergence Threshold"
+          },
+          "sculpting": {
+            "label": "Sculpting"
+          },
+          "securityResponse": {
+            "label": "Security Response"
           }
+        },
+        "TYPES": {
+          "foundation": "Foundation",
+          "framework": "Framework"
         }
       }
     },

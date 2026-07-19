@@ -111,7 +111,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
             attribute.mod = Math.min(4, attribute.mod);
         }
         // Augmented Edge Attribute can never be higher than +4
-        this.edge.mod = Math.min(4, this.edge.mod);
+        if (this.edge) {
+            this.edge.mod = Math.min(4, this.edge.mod);
+        }
         // Augmented Skill can never be higher than +4
         for (const key in this.skills) {
             const skill = this.skills[key];

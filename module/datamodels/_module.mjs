@@ -1,6 +1,7 @@
 // Export Actors
 export { default as SR6BaseActorData } from './base-actor-data.mjs';
 export { default as SR6SpriteActorData } from './sprite-actor-data.mjs';
+export { default as SR6HostActorData } from './host-actor-data.mjs';
 
 // Export Items
 export { default as SR6BaseItemData } from './base-item-data.mjs';

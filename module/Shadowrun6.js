@@ -118,10 +118,14 @@ Hooks.once("init", async function () {
      * @see sheets.Shadowrun6ActorSheetPC
      * @see sheets.Shadowrun6ActorSheetNPC
      * @see sheets.Shadowrun6ActorSheetVehicle
+     * @see sheets.SR6SpriteActorSheet
+     * @see sheets.SR6HostActorSheet
      */
     Object.assign(CONFIG.Actor.dataModels, {
-        sprite: datamodels.SR6SpriteActorData
+        sprite: datamodels.SR6SpriteActorData,
+        host: datamodels.SR6HostActorData
     });
+
     CONFIG.Actor.defaultType = "Player";
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
@@ -129,6 +133,7 @@ Hooks.once("init", async function () {
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.SR6SpriteActorSheet, { types: ["sprite"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.SR6HostActorSheet, { types: ["host"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
@@ -829,7 +834,7 @@ Hooks.once("init", async function () {
         actor.prototypeToken.updateSource({ 
             'sight.enabled': true,
             displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-            displayBars: CONST.TOKEN_DISPLAY_MODES.NONE
+            displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         });
         if (actor.type === "Player") {
             actor.prototypeToken.updateSource({
@@ -846,6 +851,10 @@ Hooks.once("init", async function () {
                 disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
                 width: 2,
                 height: 2
+            });
+        } else if (actor.type === "host") {
+            actor.prototypeToken.updateSource({
+                actorLink: true,
             });
         }
 

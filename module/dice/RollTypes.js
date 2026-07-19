@@ -37,6 +37,7 @@ export var InitiativeType;
     InitiativeType["PHYSICAL"] = "physical";
     InitiativeType["ASTRAL"] = "astral";
     InitiativeType["MATRIX"] = "matrix";
+    InitiativeType["MATRIX_HOST"] = "matrix_host";
 })(InitiativeType || (InitiativeType = {}));
 export var ReallyRoll;
 (function (ReallyRoll) {

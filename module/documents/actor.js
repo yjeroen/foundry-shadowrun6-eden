@@ -63,6 +63,7 @@ export default class Shadowrun6Actor extends Actor {
 
     /** 
      * Set default artwork for newly created Actors
+     * TODO Rework move to DataModel after all actors are migrated
      */
     static getDefaultArtwork(actorData) {
         const src = {
@@ -72,6 +73,7 @@ export default class Shadowrun6Actor extends Actor {
             Spirit: "systems/shadowrun6-eden/icons/compendium/all-about-drones/savannah-panther.svg",
             Vehicle: "systems/shadowrun6-eden/icons/compendium/black-chrome/badger-corporate-bus.svg",
             sprite: "systems/shadowrun6-eden/icons/compendium/programs/imp.svg",
+            host: "systems/shadowrun6-eden/icons/compendium/black-chrome/ziggurat-city-database.svg",
         }[actorData.type] ?? this.DEFAULT_ICON;
 
         return { img: src, texture: { src } };
