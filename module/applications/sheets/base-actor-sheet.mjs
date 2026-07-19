@@ -359,13 +359,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // Unselect any CM fields after a rerender
         this.element.querySelectorAll(".tracks input").forEach(input => input.blur());
 
-        // Add onClick events to the Stat Block
+        // Select Stat Block input text on focus
         if (context.editable) {
-            this.element.querySelectorAll(".stat-block input").forEach(input => {
-                input.addEventListener("click", event =>
-                    this.constructor._selectInputText(event, input)
-                );
-            });
+            this.element.querySelector(".stat-block").addEventListener("focusin", event =>
+                this.constructor._selectInputText(event, event.target)
+            );
         }
         
         // Tabs
