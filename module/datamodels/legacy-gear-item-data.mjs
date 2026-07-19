@@ -42,7 +42,6 @@ export default class SR6LegacyGearItemData extends SR6BaseItemData {
 			// "essence": 0,
 			// "capacity": 0,
 			// "natural" : false,
-			// "devRating": 0,
 			// "a": 0,
 			// "s": 0,
 			// "d": 0,
@@ -115,19 +114,19 @@ export default class SR6LegacyGearItemData extends SR6BaseItemData {
             // tasksOwned: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 1}),
             // compiledBy: new fields.DocumentUUIDField({type: "Actor"}),
             // registered: new fields.BooleanField(),
-            // matrix: new srFields.SR6MatrixFields(),
+            // matrix: new srFields.SR6MatrixField(),
             // attributes: new fields.SchemaField({
-            //     willpower: new srFields.SR6AttributeFields(),
-            //     logic: new srFields.SR6AttributeFields(),
-            //     intuition: new srFields.SR6AttributeFields(),
-            //     charisma: new srFields.SR6AttributeFields(),
-            //     resonance: new srFields.SR6AttributeFields(),
+            //     willpower: new srFields.SR6AttributeField(),
+            //     logic: new srFields.SR6AttributeField(),
+            //     intuition: new srFields.SR6AttributeField(),
+            //     charisma: new srFields.SR6AttributeField(),
+            //     resonance: new srFields.SR6AttributeField(),
             // }),
             // skills: new fields.SchemaField({
-            //     electronics: new srFields.SR6SkillFields(),
-            //     engineering: new srFields.SR6SkillFields(),
-            //     cracking: new srFields.SR6SkillFields(),
-            //     con: new srFields.SR6SkillFields()
+            //     electronics: new srFields.SR6SkillField(),
+            //     engineering: new srFields.SR6SkillField(),
+            //     cracking: new srFields.SR6SkillField(),
+            //     con: new srFields.SR6SkillField()
             // })
         };
     }

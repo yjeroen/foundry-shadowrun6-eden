@@ -1,4 +1,4 @@
-<div class="section" style="display: inline-block; width:100%; min-width: 362px;">
+<div class="section" style="display: inline-block; width: 48%; margin: 5px; min-width: 384px;">
  <div class="section-head">
 	<h2 class="section-title">{{ localize 'shadowrun6.section.echo.title' }}</h2>
 	<a class="item-control echo-create" title="{{localize 'shadowrun6.section.echo.add' }}">
@@ -6,8 +6,7 @@
 	</a>
 </div>
 <table>
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'echo'}}
+		{{#each (sort actor.itemTypes.echo) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
       		<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
 			<td>{{item.name}}</td>
@@ -20,11 +19,10 @@
 			<td colspan="5">
 				<div class="collapsible-content closed" style="font-size: 0.8em;">
 					<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-					<div>{{{item.enriched.description}}} &nbsp;</div>
+					<div>{{{item.enriched.description}}}</div>
 				</div>
 			</td>
 		</tr>
-		{{/iff}}
 		{{/each}}
 </table>
 </div>

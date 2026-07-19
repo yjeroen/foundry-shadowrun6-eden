@@ -1,8 +1,28 @@
+	{{log "npc_full_edit_sheet.html"}}
 	{{!-- Sheet Header --}}
 	<header class="sheet-header">
-		<div style="padding-right: 6px;">
-		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" />
+		<div class="sr6">
+			<div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
+				{{!-- <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div> --}}
+				<div class="portrait-wrap">
+					<div class="portrait">
+						<div class="portrait-edit"><i class="fa-solid fa-image fa-fw"></i></div>
+						<img
+							class='profile-img'
+							src='{{actor.img}}'
+							data-action='onClickImage'
+							data-image-path='img'
+							{{#if limited}}
+							data-tooltip='SR6.title.showImage'
+							{{else}}
+							data-tooltip='shadowrun6.section.persona.image.tooltip'
+							{{/if}}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
+		
 		<div class="header-fields" style="flex:3">
 
 			<h1><input name="name" data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
@@ -65,9 +85,10 @@
 				{{> "systems/shadowrun6-eden/templates/parts/pc-derived.html" attributes=system.attributes}}
 		   		{{> "systems/shadowrun6-eden/templates/parts/section-qualities.html"}}
 				{{> "systems/shadowrun6-eden/templates/parts/initiatives.html" initiative=system.initiative}}
-				{{#if (or (eq actor.type 'Critter') (eq actor.type 'Spirit'))}}
+				{{#if (eq actor.type 'Spirit')}}
 					{{!-- {{> "systems/shadowrun6-eden/templates/parts/section-critterpower.html" }} --}}
 				{{else}}
+					{{!-- TODO Add critter powers --}}
 		   			{{> "systems/shadowrun6-eden/templates/parts/section-bodyware.html"}}
 				{{/if}}
 			</div>
@@ -90,7 +111,10 @@
 			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="TOOLS" title=(localize 'shadowrun6.gear.subtype.TOOLS')}}
 			
 			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ACCESSORY" title=(localize 'shadowrun6.gear.subtype.ACCESSORY')}}
-			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}}
+			{{!-- {{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}} --}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="MAGICAL" title=(localize 'shadowrun6.label.MagicalGoods')}}
+
+			{{> "systems/shadowrun6-eden/templates/parts/section-item-mods.html" }}
 		</div>
 
 		{{!-- Combat Tab --}}

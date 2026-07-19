@@ -55,7 +55,7 @@ export async function pdfJournalInit() {
             await game.settings.set(SYSTEM_NAME, `pdf-${key}-journalUuid`, pdfJournalEntry.uuid);
         }
 
-        console.log("SR6E | Initializing PDF Journals | Initialized:", pdfJournalEntry);
+        console.log("SR6E | Initializing PDF Journals | Initialized:", pdfJournalEntry.name);
 
     }
 }

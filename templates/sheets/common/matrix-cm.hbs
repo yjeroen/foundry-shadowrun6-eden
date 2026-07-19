@@ -1,0 +1,19 @@
+<div class="matrix-track">
+    <div class="track green" data-condition-monitor="matrix" data-action="onTrackClick" data-item-id="{{item.id}}">
+        <div class="slots">
+            {{#each matrixCM}}
+            <div class="slot{{#if active}} active{{/if}}" style="--slot-index: {{@index}};">
+                {{#if penalty}}<span>{{penalty}}</span>{{/if}}
+            </div>
+            {{/each}}
+        </div>
+
+        {{!-- {{#if item.system.matrix}}
+        <div class="track-value" data-tooltip="SR6.title.CM.matrix.dmg" data-action="selectInputText" data-item-uuid="{{item.uuid}}">
+            {{localize 'SR6.label.CM.matrix.short'}}:
+            <input type="text" name="system.matrix.matrixCM.dmg" data-field="system.matrix.matrixCM.dmg"
+                value="{{item.system.matrix.matrixCM.dmg}}">
+        </div>
+        {{/if}} --}}
+    </div>
+</div>

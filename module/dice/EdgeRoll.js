@@ -324,7 +324,7 @@ export default class EdgeRoll {
         // Prepare + evaluate reroll
         const rerollFormula = SR6Roll.createFormula(rerollPool);
 
-        let rerollData = JSON.parse(JSON.stringify(roll.data));
+        let rerollData = foundry.utils.duplicate(roll.data);
         if (spendEdgeSelf === true) rerollData.edge_use = boostTitle;
         if (spendEdgeSelf === false) rerollData.edge_use_opponent = boostTitle;
         rerollData.pool = rerollPool;
@@ -332,7 +332,7 @@ export default class EdgeRoll {
         rerollData.explode = false;
 
         let reroll = new SR6Roll(rerollFormula, rerollData);
-        reroll.configured = JSON.parse(JSON.stringify(roll.configured));
+        reroll.configured = foundry.utils.duplicate(roll.configured);
         if (rerollData.edge_use) reroll.configured.edge_use = rerollData.edge_use;
         if (rerollData.edge_use_opponent) reroll.configured.edge_use_opponent = rerollData.edge_use_opponent;
         reroll.configured.pool = rerollPool;

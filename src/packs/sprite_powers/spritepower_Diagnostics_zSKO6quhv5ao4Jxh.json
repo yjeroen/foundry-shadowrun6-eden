@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Diagnostics",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>You can evalute the inner workings of an electronic device. You can assist someone using or repairing the device. Make an <strong>Electronics + Level</strong> test; </p><p>They get a +1 die per hit on their dicepool to use (Electronics, Engineering or Piloting only) or repair the item. You cannot do anything else while running Diagnostics.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "electronics",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250840177,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "zSKO6quhv5ao4Jxh",
+  "sort": 1300000,
+  "_key": "!items!zSKO6quhv5ao4Jxh"
+}

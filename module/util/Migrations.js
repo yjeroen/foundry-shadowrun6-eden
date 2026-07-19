@@ -35,9 +35,11 @@ export async function migrateWorld() {
         migrateChatMessage(element);
     });
 
-    await migrateCombatSpells();    // 3.2.1
-    await addUnarmedItems();        // 3.3.5
-    await migrateMetatypeNPCs();    // 3.4.0
+    await migrateCombatSpells();        // 3.2.1
+    await addUnarmedItems();            // 3.3.5
+    await migrateMetatypeNPCs();        // 4.0.0
+    await migrateAstralInitiative();    // 4.0.0
+    await migrateItemsDevRating();      // 4.0.0
 }
 
 function migrateChatMessage(chatMessage) {
@@ -159,7 +161,7 @@ async function migrateMetatypeNPCs() {
     // Checking if there are actors to Migrate
     game.actors.forEach(actor => {
         if ( 
-            docIsVersionBelow(actor, 3,4,0) && actor.system.metatype === "human"
+            docIsVersionBelow(actor, 4,0,0) && actor.system.metatype === "human"
             && ( actor.type === "NPC" || actor.type === "Critter" || actor.type === "Spirit")
            ) {
             migrating = true;
@@ -171,11 +173,11 @@ async function migrateMetatypeNPCs() {
     if (!migrating) return;
          
     // Prepare migration
-    console.log("SR6E | Migration | migrating Actors due to changes in 3.4.0 so NPC/Critter/Spirits also have a Metatype field", actorsToMigrate)
+    console.log("SR6E | Migration | migrating Actors due to changes in 4.0.0 so NPC/Critter/Spirits also have a Metatype field", actorsToMigrate)
     const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
     let progressedItem = 0;
     const msg = progressNotification(0); //v13 only
-    const flag = { [SYSTEM_NAME]: { versionMigrated: '3.4.0' } };
+    const flag = { [SYSTEM_NAME]: { versionMigrated: '4.0.0' } };
 
     // Migrate actors
     for (const actor of actorsToMigrate) {
@@ -187,4 +189,105 @@ async function migrateMetatypeNPCs() {
     ui.notifications.remove(migrationMsg);
     ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
     console.log("SR6E | Migration | Completed")
+}
+
+async function migrateAstralInitiative() {
+    let migrating = false;
+    const actorsToMigrate = [];
+
+    // Checking if there are actors to Migrate
+    game.actors.forEach(actor => {
+        if ( 
+            docIsVersionBelow(actor, 4,0,0) && actor.system.initiative?.astral?.dice === 1
+        ) {
+            migrating = true;
+            actorsToMigrate.push(actor);
+        }
+    });
+    
+    // Don't migrate if there's nothing to do
+    if (!migrating) return;
+         
+    // Prepare migration
+    console.log("SR6E | Migration | migrating Actors due to changes in 4.0.0 so default Astral Initiative Dicepool is 2", actorsToMigrate)
+    const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
+    let progressedItem = 0;
+    const msg = progressNotification(0); //v13 only
+    const flag = { [SYSTEM_NAME]: { versionMigrated: '4.0.0' } };
+
+    // Migrate actors
+    for (const actor of actorsToMigrate) {
+        await actor.update({ flags: flag, 'system.initiative.astral.dice': 2 });
+        progressedItem++;
+        progressNotification(progressedItem / actorsToMigrate.length, msg);
+    };
+
+    ui.notifications.remove(migrationMsg);
+    ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
+    console.log("SR6E | Migration | Completed")
+}
+
+
+async function migrateItemsDevRating() {
+    const itemsToMigrate = [];
+
+    // Checking if there are items to Migrate
+    game.items.forEach(item => {
+        if ( 
+            docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
+        ) {
+            itemsToMigrate.push(item);
+        }
+    });
+
+    // Checking if there are items within actors to Migrate
+    game.actors.forEach(actor => {
+        actor.items.forEach(item => {
+            if ( 
+                docIsVersionBelow(item, 4,0,0) && item._source.system.devRating !== undefined
+            ) {
+                itemsToMigrate.push(item);
+            }
+        });
+    });
+    
+    // Don't migrate if there's nothing to do
+    if (!itemsToMigrate.length) return;
+         
+    // Prepare migration
+    console.log("SR6E | Migration | migrating Items due to changes in 4.0.0 so default Device Rating is 2", itemsToMigrate)
+    const migrationMsg = ui.notifications.error("shadowrun6.ui.notifications.migration.start", {permanent: true, console: false, localize: true});
+    let progressedItem = 0;
+    const msg = progressNotification(0);
+    const isV14 = game.release?.generation >= 14;
+
+    const baseData = {
+        [`flags.${SYSTEM_NAME}.versionMigrated`]: "4.4.0",
+        [isV14 ? "system.devRating" : "system.-=devRating"]: isV14 ? _del : null
+    };
+
+    // Migrate items
+    for (const item of itemsToMigrate) {
+        const source = item._source;
+        const deviceRating = Number.parseInt(source.system.devRating, 10) || 2;
+        const wirelessActive = (item.isAccessDevice && !item.system.usedForPool) ? false : true;
+        const data = {
+            ...baseData,
+            "system.matrix.deviceRating": deviceRating,
+            "system.matrix.wirelessActive": wirelessActive
+        }
+        await item.update(data);
+        progressedItem++;
+        progressNotification(progressedItem / itemsToMigrate.length, msg);
+    };
+
+    ui.notifications.remove(migrationMsg);
+    ui.notifications.info("shadowrun6.ui.notifications.migration.completed", { console: false, localize: true });
+    console.log("SR6E | Migration | Completed")
+    
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ alias: game.system.title }),
+        flavor: game.i18n.localize("SR6.label.system_message"),
+        content: `<div class="system-message">${game.i18n.localize("shadowrun6.ui.notifications.deviceRatingMigration")}</div>`
+    });
 }

@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Digital Scream",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Send out a wide burst of complex noise that is perceived by everything connected to the Matrix within 100 meters. Make an <strong>Electronics + RES</strong> test, and the area becomes affected by noise equal to the number of hits rolled. </p><p>This fades at the beginning of the next combat round, and once it ends, everything that perceived the scream receives a single file. This file must be provided by the technomancer that commands the sprite as part of the Minor Action required to command it, and it may include encryption and/or a data bomb if desired. </p><p>This power cannot be used while running silently on the Matrix.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "instantaneous",
+    "isSustained": false,
+    "skill": "electronics",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250841625,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "Ikqpa9QcVhhiQvoM",
+  "sort": 1200000,
+  "_key": "!items!Ikqpa9QcVhhiQvoM"
+}

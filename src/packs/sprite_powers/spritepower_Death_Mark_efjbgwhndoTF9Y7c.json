@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Death Mark",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Signal am intention to murder somebody. Targets a persona that is using VR mode and makes a <strong>Cracking + RES vs. INT + FW</strong> Opposed test. </p><p>If you succeeds, the target gains a disconcerting and mysterious bulge, sore, or wound on their persona. They become link-locked, unable to use the Switch Interface Mode or Hide Matrix Actions, and they require an Opposed test to Jack Out. </p><p>It gets worse. If the target takes Matrix damage from any source, they also suffer an equal number of boxes of biofeedback damage—Physical damage if using hot-sim VR, Stun damage if using cold-sim. </p><p>If you directly damage the target, deal a number of extra boxes equal to the net hits scored on the initial Cracking test. The Death Mark disappears when you stop sustaining it or the target jacks out or reboots.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "cracking",
+    "skillSpec": "",
+    "oppAttr1": "int",
+    "oppAttr2": "f"
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250838728,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "efjbgwhndoTF9Y7c",
+  "sort": 1100000,
+  "_key": "!items!efjbgwhndoTF9Y7c"
+}

@@ -6,8 +6,7 @@
 	</a>
 </div>
 <table class="item-list">
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'quality'}}
+		{{#each (sort actor.itemTypes.quality) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
 			<td style="margin-right: 1rem; width: 0.7em;">
 				{{#if item.system.description }}
@@ -28,11 +27,10 @@
 					<div style="font-weight: bold;">{{ localize 'shadowrun6.qualityedit.explain' }}</div>
 					<div>{{{item.system.explain}}} &nbsp;</div>
 					<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-					<div>{{{item.enriched.description}}} &nbsp;</div>
+					<div>{{{item.enriched.description}}}</div>
 				</div>
 			</td>
        	</tr>
-		{{/iff}}
 		{{/each}}
 </table>
 </div>

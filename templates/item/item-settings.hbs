@@ -1,0 +1,92 @@
+<!-- Gear Controls Section -->
+{{#if hud.show}}
+<div class="hud-shell hud item-settings{{#if hud.bricked}} matrix-bricked{{/if}}">
+    <div class="flexcol">
+
+        {{#if hud.matrixCM}}
+        {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=hud.matrixCM item=item}}
+        {{/if}}
+
+        <div class="item-fields-grid">
+            {{#if hud.showWifi}}
+            <div class="item-field wireless-active">
+                <label class="item-field-label" for="wireless-active">
+                    {{localize 'SR6.Item.base.FIELDS.wirelessActive.label'}}
+                </label>
+
+                <div class="item-field-control matrix-checkbox" data-tooltip={{#if item.isAccessDevice}}"shadowrun6.matrix.device.isAccessDevice"{{else}}"SR6.Item.base.FIELDS.wirelessActive.hint"{{/if}}>
+                    <input
+                        id="wireless-active"
+                        class="matrix-checkbox-input"
+                        name="system.matrix.wirelessActive"
+                        data-field="system.matrix.wirelessActive"
+                        type="checkbox"
+                        {{checked item.system.matrix.wirelessActive}}
+                        {{#if (or item.isAccessDevice hud.bricked)}}disabled{{/if}}
+                    />
+
+                    <label class="matrix-checkbox-label" for="wireless-active">
+                        <span class="matrix-checkbox-light"></span>
+                        <span class="matrix-checkbox-text">
+                            {{#if item.system.matrix.wirelessActive}}{{localize "shadowrun6.matrix.device.online"}}{{else}}{{localize "shadowrun6.matrix.device.offline"}}{{/if}}
+                        </span>
+                    </label>
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if hud.showAmmo}}
+            <div class="item-field">
+                <label class="item-field-label" for="ammo-capacity">
+                    {{localize 'shadowrun6.item.ammunition'}}
+                </label>
+                <div class="item-field-control">
+                    <a
+                        class="matrix-button{{#unless item.system.ammocount}} matrix-button-empty{{/unless}}"
+                        data-action="weaponReload{{#if hud.bricked}}-disabled{{/if}}"
+                        data-tooltip="shadowrun6.weapon.reload_ammo"
+                    >
+                        <span class="matrix-button-text">
+                            {{item.system.ammocount}}/{{item.system.ammocap}}
+                        </span>
+                        <i class="fas fa-rotate-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {{!-- <div class="item-field">
+                <label class="item-field-label" for="ammo-capacity">
+                    {{localize 'shadowrun6.weapon.ammo_cap_short'}}
+                </label>
+                <div class="item-field-control">
+                    <input
+                        class="matrix-input"
+                        name="system.ammocap"
+                        data-field="system.ammocap"
+                        type="number"
+                        value="{{item._source.system.ammocap}}"
+                    />
+                </div>
+            </div> --}}
+
+            <div class="item-field">
+                <label class="item-field-label" for="ammo-loaded">
+                    {{localize 'SR6.Item.base.FIELDS.ammoLoaded.label'}}
+                </label>
+                <div class="item-field-control">
+                    <select
+                        class="matrix-input"
+                        name="system.ammoLoaded"
+                        data-field="system.ammoLoaded"
+                        data-tooltip="SR6.Item.base.FIELDS.ammoLoaded.hint"
+                        {{#if hud.bricked}}disabled{{/if}}
+                    >
+                        {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true sort=true}}
+                    </select>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+{{/if}}

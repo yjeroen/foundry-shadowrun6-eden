@@ -1,5 +1,7 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
+import { SpritePowerRoll } from "../dice/RollTypes.js";
+import { SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -17,11 +19,16 @@ export default class SR6Item extends Item {
     // system addittions must be done before super.prepareData()
     this._addDefaultFireModePenalties();
 
+    this._prepareElectronicMatrixDevice();
+
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
     this._migrateCleanUp();
     // console.log("SR6E | SR6Item.prepareData() DEBUG", this);
+
+    // Modern DataModel Actors skip legacy data load flow
+    if (this.actor?.system instanceof foundry.abstract.DataModel) return;
 
     // Ugly hack; Need to call _prepareAttributes() or else actors attributes wont be recalculated. This is necessary until a full Document rework
     if (this.actor?.type === "Spirit") {
@@ -30,9 +37,19 @@ export default class SR6Item extends Item {
     }
     this.actor?._prepareAttributes();
 
-    this.calcAttackRating();
-    this.calcDamage();
-    this.calcAmmo();
+  }
+
+  prepareDerivedData() {
+    if (this.type === 'spritepower') {
+      switch (this.system.skill) {
+        case "electronics":
+            this.system.skillSpec = "complex_forms";
+            break;
+        case "cracking":
+            this.system.skillSpec = "cybercombat";
+            break;
+      }
+    }
   }
 
   /**
@@ -49,6 +66,8 @@ export default class SR6Item extends Item {
     const allowed = await super._preUpdate(changes, options, user);
     console.log("SR6E | SR6Item._preUpdate()", changes);
     if ( allowed === false ) return false;
+
+    this._checkAccessDeviceEnabledStatus(changes);
 
     // Forward to type data model
     if ( this.system instanceof foundry.abstract.TypeDataModel ) {
@@ -112,11 +131,42 @@ export default class SR6Item extends Item {
 
   async _checkPersonaChanges(changed) {
     console.log("SR6E | SR6Item._checkPersonaChanges()");
-    if (!this.isOwner) return false;
-    if (this.type == "gear" && (this.system.type == "ELECTRONICS" || this.system.type == "CYBERWARE")) {
-      if (changed.delete === true || changed.system?.usedForPool !== undefined) {
-        await this.parent.updatePersona();
-      }
+    if (!this.isOwner || this.type!=="gear") return false;
+
+    // If this gear was turned OFF as usedForPool,
+    // or its Matrix CM reached 0,
+    // turn OFF all currently usedForPool gear items.
+    const shouldTurnOffPools =
+        changed.system?.usedForPool === false ||
+        changed.system?.matrix?.matrixCM?.value === 0;
+
+    if (shouldTurnOffPools) {
+        const updates = this.actor.items
+            .filter(item => item.system.usedForPool === true)
+            .map(item => ({
+                _id: item.id,
+                "system.usedForPool": false
+            }));
+
+        if (updates.length) {
+            await this.actor.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
+    const GEAR = CONFIG.SR6.GEAR;
+    if ( this.parent && GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
+      await this.parent.updatePersona();
+    }
+  }
+
+  _checkAccessDeviceEnabledStatus(changes) {
+    if (!this.isOwner || this.type!=="gear") return false;
+
+    if (changes.system?.usedForPool === true || changes.system?.usedForPool === false) {
+      setProperty(changes, "system.matrix.wirelessActive", changes.system.usedForPool);
+    }
+    if (changes.system?.matrix?.wirelessActive === true || changes.system?.matrix?.wirelessActive === false) {
+      setProperty(changes, "system.usedForPool", changes.system.matrix.wirelessActive);
     }
   }
 
@@ -144,17 +194,34 @@ export default class SR6Item extends Item {
   /** @inheritDoc */
   static migrateData(source) {
     if (typeof source.system?.stun === 'string') source.system.stun = (source.system.stun === "true");
-    if (typeof source.system?.ammocap === 'string') source.system.ammocap = parseInt(source.system.ammocap);
-    if (typeof source.system?.fading === 'string') source.system.fading = parseInt(source.system.fading);
-    if (typeof source.system?.threshold === 'string') source.system.threshold = parseInt(source.system.threshold);
-    if (typeof source.system?.ammocount === 'string') source.system.ammocount = parseInt(source.system.ammocount);
+    if (typeof source.system?.ammocap === 'string') source.system.ammocap = parseInt(source.system.ammocap) || 0;
+    if (typeof source.system?.fading === 'string') source.system.fading = parseInt(source.system.fading) || 0;
+    if (typeof source.system?.threshold === 'string') source.system.threshold = parseInt(source.system.threshold) || 0;
+    if (typeof source.system?.ammocount === 'string') source.system.ammocount = parseInt(source.system.ammocount) || 0;
     if (typeof source.system?.priceDef === 'string') source.system.priceDef = ( isNaN(parseInt(source.system.priceDef)) ? parseInt(source.system.price) : parseInt(source.system.priceDef) );
-    if (typeof source.system?.dmg === 'string') source.system.dmg = parseInt(source.system.dmg);
+    if (typeof source.system?.dmg === 'string') source.system.dmg = parseInt(source.system.dmg) || 0;
     if (source.system?.attackRating && typeof source.system?.attackRating[0] === 'string') source.system.attackRating = source.system?.attackRating.map(ar => parseInt(ar));
-    if (typeof source.system?.defense === 'string') source.system.defense = parseInt(source.system.defense);
-    if (typeof source.system?.capacity === 'string') source.system.capacity = parseInt(source.system.capacity);
-    if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social);
-    if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating);
+    if (typeof source.system?.defense === 'string') source.system.defense = parseInt(source.system.defense) || 0;
+    if (typeof source.system?.capacity === 'string') source.system.capacity = parseInt(source.system.capacity) || 0;
+    if (typeof source.system?.social === 'string') source.system.social = parseInt(source.system.social) || 0;
+    if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
+    if (typeof source.system?.matrix?.deviceRating === 'string') source.system.matrix.deviceRating = parseInt(source.system.matrix.deviceRating) || 0;
+
+    // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
+    if (source.type === "gear" && source.system?.devRating !== undefined) {
+      source.system.matrix ??= {};
+      source.system.matrix.deviceRating = parseInt(source.system.devRating) || 2;
+      source.system.devRating = null;
+    }
+
+    if (source.type === "gear" && source.system?.isElectronicMatrixDevice) {
+      const matrixCmValue = source.system?.matrix?.matrixCM?.value;
+      if (matrixCmValue === null || matrixCmValue === undefined) {
+        source.system.matrix ??= {};
+        source.system.matrix.matrixCM ??= {};
+        source.system.matrix.matrixCM.value  = Math.ceil(source.system.matrix.deviceRating / 2) + 8;
+      }
+    }
 
     return super.migrateData(source);
   }
@@ -162,6 +229,82 @@ export default class SR6Item extends Item {
   _migrateCleanUp() {
     if (this.calculated === undefined) this.calculated = {};
     if (this.system?.ammoLoaded === undefined && this.system?.ammocap) this.system.ammoLoaded = 'regular';
+    if (this.system?.ammocap === null || this.system?.ammocap === "") this.system.ammocap = 0;
+  }
+
+  /**
+   * Preparing the Gear System to be an Electronic Matrix Device
+   * Related template data attributes:
+   *    this.system.isElectronicMatrixDevice
+   *    this.system.matrix.hasWirelessInterface
+   *    this.system.matrix.hasDataCableInterface
+   *    this.system.matrix.wirelessActive
+   *    this.system.matrix.matrixCM.value
+   *    this.system.matrix.deviceRating
+   * TODO: Should no longer be necessary once Item is properly migrated to DataModel
+   */
+  _prepareElectronicMatrixDevice() {
+    if (this.type !== 'gear') return;
+    const GEAR = CONFIG.SR6.GEAR;
+    const typeConfig = GEAR[this.system.type];
+    if (!typeConfig) return;
+    const subtypeConfig = typeConfig.subtypes[this.system.subtype];
+    if (!subtypeConfig) return;
+
+    if (this.system.type === "CYBERWARE") {
+      this.system.matrix.hasDataCableInterface = true;
+    }
+    if (
+      subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS
+      || this.system.matrix.hasWirelessInterface ===  true
+      || this.system.matrix.hasDataCableInterface ===  true
+    ) {
+      this.system.isElectronicMatrixDevice = true;
+    }
+
+    if (!this.system.isElectronicMatrixDevice) return;
+    console.log("SR6E | SR6Item | preparing Gear item as an Electronic Matrix Device");
+    
+    if (
+      GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.system.type)
+      || GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype)
+    ) {
+      this.system.matrix.hasWirelessInterface =  true;
+    }
+
+    const deviceRating = Number(this.system.matrix.deviceRating) || 0;
+    const sensor = Number(this.system.sen) || 0;
+    if (this.system.matrix?.matrixCM?.value === null) {
+      this.system.matrix.matrixCM.value = Math.ceil(deviceRating / 2) + 8;
+    }
+    const matrixCM = foundry.utils.deepClone(this.system.matrix?.matrixCM ?? {});
+
+    if (this.system.type === "VEHICLES" || this.system.type === "DRONES") {
+      matrixCM.max = Math.ceil(sensor / 2) + 8;
+    } else {
+      matrixCM.max = Math.ceil(deviceRating / 2) + 8;
+    }
+
+    this.system.matrix.matrixCM = new SR6ConditionMonitorField().initialize(matrixCM);
+
+  }
+
+  get onlineOnMatrix() {
+    return this.system.isElectronicMatrixDevice 
+            && 
+           (
+            ( this.system.matrix.hasWirelessInterface && this.system.matrix.wirelessActive )
+            ||
+            ( this.system.matrix.hasDataCableInterface )
+           )
+           &&
+           this.system.matrix.matrixCM.value > 0
+  }
+
+  get isBricked() {
+    if (this.type !== 'gear' || !this.system.isElectronicMatrixDevice) return;
+
+    return Boolean(this.system.matrix.matrixCM.value === 0);
   }
 
   _addDefaultFireModePenalties() {
@@ -179,10 +322,11 @@ export default class SR6Item extends Item {
     this.system.modes.dicePoolMod = 0
   }
 
-  calcAttackRating() {
-    if (this.system.attackRating === undefined || !this.actor) return;
+  get calculatedAttackRating() {
+    if (this.system.attackRating === undefined || !this.actor) return null;
 
-    this.calculated.attackRating = foundry.utils.deepClone(this.system.attackRating);
+    const attackRating = foundry.utils.deepClone(this.system.attackRating);
+
     if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling" || this.system.skillSpec === "whips") {
       let closeCombatAttackRatingAttribute = this.actor.system.attributes.str.pool;
       if (this.system.skillSpec === "whips") {
@@ -191,51 +335,39 @@ export default class SR6Item extends Item {
       if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && this.system.strWeapon === true) {
         closeCombatAttackRatingAttribute = this.actor.system.attributes.agi.pool;
       }
-      if (this.system.genesisID === "unarmed" && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
+      if (parseInt(this.system.attackRating[0]) === 0 && this.system.skill === "close_combat" && this.system.skillSpec === "unarmed") {
         closeCombatAttackRatingAttribute += this.actor.system.attributes.rea.pool;
       }
-      this.calculated.attackRating[0] = parseInt(this.system.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);
+      attackRating[0] = parseInt(this.system.attackRating[0]) + parseInt(closeCombatAttackRatingAttribute);
     }
 
-    this.calculated.attackRating.forEach((rating, index) => {
+    attackRating.forEach((rating, index) => {
         if (rating === 0) {
           // Setting to -1 to transform to "-" in helper
-          this.calculated.attackRating[index] = -1;
+          attackRating[index] = -1;
+        }
+        else if (rating > 0) {
+            attackRating[index] = Math.max(0, parseInt(rating) + this.ammoLoaded.arMod );
         }
     });
+
+    return attackRating;
   }
 
-  calcDamage() {
-    if (this.system?.dmg === undefined || !this.actor) return;
-
-    this.calculated.dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
-    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
-      if (game.settings.get(SYSTEM_NAME, "highStrengthAddsDamage")) {
-        this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 7 ) ? 1 : 0;
-        this.calculated.dmg += ( this.actor.system.attributes.str.pool >= 10 ) ? 1 : 0;
-      }
-    }
-  }
-
-  calcAmmo() {
-    if (this.calculated?.attackRating === undefined || this.system.ammocap === undefined) return;
-
-    let arMod=0, dmgMod=0, stun=this.system.stun, ammoLoaded = this.system.ammoLoaded;
+  get ammoLoaded() {
+    let arMod=0, dmgMod=0, stun=false, ammoLoaded = this.system.ammoLoaded;
 
     switch (ammoLoaded) {
         case "regular":
             break;
         case "apds":
-            stun = false;
             arMod = 2;
             dmgMod = -1;
             break;
         case "explosive":
-            stun = false;
             dmgMod = 1;
             break;
         case "flechette":
-            stun = false;
             arMod = 1;
             dmgMod = -1;
             break;
@@ -248,16 +380,34 @@ export default class SR6Item extends Item {
             dmgMod = -1;
             break;
     }
+    return {
+      name: ammoLoaded,
+      arMod: arMod,
+      dmgMod: dmgMod,
+      stun: stun
+    }
+  }
 
-    // Calculate item attack rating
-    this.calculated.attackRating.forEach((rating, index) => {
-        if (rating > 0) {
-            this.calculated.attackRating[index] = Math.max(0, parseInt(rating) + parseInt(arMod) );
-        }
-    });
+  get calculatedDamage() {
+    if (this.system?.dmg === undefined || !this.actor) return null;
+    
+    let dmg = parseInt(foundry.utils.deepClone(this.system.dmg));
 
-    this.calculated.dmg = Math.max(0, this.calculated.dmg + dmgMod );
-    this.calculated.stun = stun;
+    if (this.system.skill === "close_combat" || this.system.skillSpec === "brawling") {
+      if (game.settings.get(SYSTEM_NAME, "highStrengthAddsDamage")) {
+        dmg += ( this.actor.system.attributes.str.pool >= 7 ) ? 1 : 0;
+        dmg += ( this.actor.system.attributes.str.pool >= 10 ) ? 1 : 0;
+      }
+    }
+
+    dmg = Math.max(0, dmg + this.ammoLoaded.dmgMod );
+
+    return dmg;
+  }
+
+  get calculatedStun() {
+    const stun = this.ammoLoaded.stun || this.system.stun;
+    return stun;
   }
 
   /**
@@ -288,16 +438,17 @@ export default class SR6Item extends Item {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
+    const type = game.i18n.localize(`TYPES.Item.${this.type}`);
+    const label = `[${type}] ${this.name}`;
 
+    // If it's a rollable power
+    if (this.type === "spritepower" && this.system.skill) {
+      const rollConfig = new SpritePowerRoll(item);
+      return this.actor.rollResonanceAbility(rollConfig);
+    }
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
-      ChatMessage.create({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-        content: item.system.description ?? '',
-      });
+    else if (!this.system.formula) {
+      await this.toChat();
     }
     // Otherwise, create a roll and send a chat message from it.
     else {
@@ -308,13 +459,41 @@ export default class SR6Item extends Item {
       const roll = new Roll(rollData.formula, rollData.actor);
       // If you need to store the value first, uncomment the next line.
       // const result = await roll.evaluate();
-      roll.toMessage({
+      await roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
         flavor: label,
       });
       return roll;
     }
+  }
+
+  get defaultTestPool() {
+    if (!this.system.skill) return undefined;
+
+    if (this.type === "spritepower" || this.type === "complexform") {
+      const rollConfig = new SpritePowerRoll(this);
+      return this.actor._getSkillPool(rollConfig.skillId, rollConfig.skillSpec, rollConfig.attrib);
+    }
+  }
+
+  /**
+   * Sends the Name and Description of the Item to Chat
+   * @returns {boolean}  Success of chat message 
+   */
+  async toChat() {
+    // Initialize chat data.
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    const type = game.i18n.localize(`TYPES.Item.${this.type}`);
+    const label = `[${type}] ${this.name}`;
+
+    return await ChatMessage.create({
+      speaker: speaker,
+      rollMode: rollMode,
+      flavor: label,
+      content: this.system.description ?? '',
+    });
   }
 
   /**
@@ -481,6 +660,77 @@ export default class SR6Item extends Item {
   get collapsedStateOnSheet() {
     const state = this.getFlag("shadowrun6-eden","collapse-state");
     return state ?? "closed";
+  }
+
+  get isPrimaryAccessDevice() {
+    if (this.type !== "gear") return false;
+    return this.id === this.actor?.system?.persona?.accessDevice?.id;
+  }
+
+  get isAccessDevice() {
+    if (this.type !== "gear") return false;
+    return CONFIG.SR6.GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype);
+  }
+
+  /**
+   * 
+   * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor
+   * @param {SR6Actor} [config.initiator]              An Actor that wants to check what their ACL it towards this Actor
+   * @returns {string} The matrix-access flag for the UUID of the Initiator
+   */
+  yourMatrixAccessLevel(config={}) {
+    console.log(`SR6E | Item.yourMatrixAccessLevel | ${this.name} | config:`, config);
+    const {initiator} = config;
+    const safeUuid = initiator.uuid.replaceAll(".", "_");
+    const myPanAdmin = this.actor.system.pan?.administrator;
+
+    if (this.actor.system.pan?.isSlaved) {
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item belongs to an Actor that has a Slaved PAN");
+      if (this.actor.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is the Initiator");
+        return "admin"
+      }
+      if (myPanAdmin?.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor has a PanAdmin (due to being slaved), and it is the Initiator");
+        return "admin"
+      }
+      if (myPanAdmin?.uuid === initiator.system.pan?.administrator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor has a PanAdmin (due to being slaved), and it is the same PAN that the initiator joined");
+        return "user"
+      }
+    } 
+    else {
+      console.log("SR6E | Item.yourMatrixAccessLevel | This Item belongs to an Actor that is its own Pan Admin");
+      if (this.actor.uuid === initiator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is the Initiator's");
+        return "admin"
+      }
+      if (this.actor.uuid === initiator.system.pan?.administrator.uuid) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item's Actor is my (the ininitator's) Pan Admin");
+        return "user"
+      }
+    }
+    
+    const aclRank = {
+        outsider: 0,
+        user: 1,
+        admin: 2
+    };
+
+    const itemAcl = this.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    let panAdminAcl = "outsider";
+    const panAdminsAccessDevice = myPanAdmin?.system.persona?.accessDevice;
+
+    if (panAdminsAccessDevice) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a PAN | retrieving flag from Pan Admin's Primary Access Device");
+        panAdminAcl = panAdminsAccessDevice.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    } else if (myPanAdmin?.isTechno) {
+        console.log("SR6E | Item.yourMatrixAccessLevel | This Item is in a Living Network | retrieving flag from the Admin Technomancer");
+        panAdminAcl = myPanAdmin.getFlag("shadowrun6-eden", `matrix-access.${safeUuid}`) ?? "outsider";
+    }
+
+    console.log(`SR6E | Item.yourMatrixAccessLevel | Returning best of Access Level to the Item (${itemAcl}) or towards the PAN Admin (${panAdminAcl})`);
+    return aclRank[itemAcl] >= aclRank[panAdminAcl] ? itemAcl : panAdminAcl;
   }
 
 }

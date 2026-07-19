@@ -6,9 +6,8 @@
 		</a>
 	</div>
 	<table>
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'metamagic'}}
-		<tr class="item list-item" data-item-id="{{item.id}}">
+		{{#each (sort actor.itemTypes.metamagic) as |item id|}}
+		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
 			<td style="margin-right: 1rem; width: 0.7em;">
 				{{#if item.system.description }}
 				<button type="button" name="collapseGear{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
@@ -26,11 +25,10 @@
 			<td colspan="3">
 				<div class="collapsible-content closed" style="font-size: 0.8em;">
 					<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-					<div>{{{item.enriched.description}}} &nbsp;</div>
+					<div>{{{item.enriched.description}}}</div>
 				</div>
 			</td>
        	</tr>
-		{{/iff}}
 		{{/each}}
 	</table>
 </div>

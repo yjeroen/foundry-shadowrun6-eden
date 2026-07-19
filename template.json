@@ -70,12 +70,14 @@
 						"base": 0,
 						"mod": 0,
 						"pool": 0,
-						"min": 0
+						"min": 0,
+						"initiation": 0
 					},
 					"res": {
 						"base": 0,
 						"mod": 0,
-						"pool": 0
+						"pool": 0,
+						"submersion": 0
 					},
 					"edg": {
 						"current": 0,
@@ -446,7 +448,10 @@
 						"s": 0,
 						"d": 0,
 						"f": 0
-					}
+					},
+					"runningSilent": false,
+					"description": "",
+					"img": ""
 				}
 			}
 		},
@@ -472,6 +477,7 @@
 			"gender": "",
 			"nuyen": 0,
 			"overwatch": 0,
+			"description": "",
 			"notes": "",
 			"karma": 0,
 			"karma_total": 0,
@@ -499,6 +505,8 @@
 			"matrixIni": "vrcold",
 			"rating" : 1,
 			"gruntmeta": "",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Critter": {
@@ -511,6 +519,8 @@
 				"knowledge-template"
 			],
 			"metatype": "Critter",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Spirit": {
@@ -525,6 +535,8 @@
 			"metatype": "Spirit",
 			"rating" : 1,
 			"spiritType": "air",
+			"description": "",
+			"notes": "",
 			"editmode": false
 		},
 		"Vehicle": {
@@ -551,6 +563,7 @@
 				"offRoad": false,
 				"speed": 0
 			},
+			"description": "",
 			"notes": ""
 		}
 	},
@@ -559,6 +572,7 @@
 			"complexform",
 			"contact",
 			"critterpower",
+			"spritepower",
 			"echo",
 			"gear",
 			"lifestyle",
@@ -594,6 +608,18 @@
 				"value": 0,
 				"explain": "",
 				"modifier": []
+			},
+			"matrix-device": {
+				"isElectronicMatrixDevice": false,
+				"matrix": {
+					"deviceRating": 2,
+					"hasWirelessInterface": false,
+					"hasDataCableInterface": false,
+					"wirelessActive": true,
+					"matrixCM": {
+						"value": null
+					}
+				}
 			}
 		},
 		"adeptpower": {
@@ -618,6 +644,18 @@
 			"threshold": 0,
 			"oppAttr1": "",
 			"oppAttr2": ""
+		},
+		"spritepower": {
+			"templates": [
+				"genesis"
+			],
+			"duration": "sustained",
+			"isSustained": false,
+			"skill": "",
+			"skillSpec": "",
+			"oppAttr1": "",
+			"oppAttr2": "",
+			"dmg": 0
 		},
 		"contact": {
 			"name": "Someone",
@@ -683,7 +721,6 @@
 			"essence": 0,
 			"capacity": 0,
 			"natural" : false,
-			"devRating": 0,
 			"a": 0,
 			"s": 0,
 			"d": 0,
@@ -709,7 +746,8 @@
 			"dualHand": false,
 			"templates": [
 				"genesis",
-				"dice-pool"
+				"dice-pool",
+				"matrix-device"
 			]
 		},
 		"lifestyle": {

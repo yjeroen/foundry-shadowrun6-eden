@@ -8,15 +8,15 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
         return {
             ...super.defineSchema(),
             // attributes should be set in the Actor DataModel.prepareBaseData()
+            // TODO JEROEN check if these need to be AttributeData objects
             attributes: new fields.SchemaField({
                 attack: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
                 sleaze: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
                 dataProcessing: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
                 firewall: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
             }),
-            // conditionMonitor can be overwritten with a pointer to e.g. a Character's Deck
-            conditionMonitor: new srFields.SR6ConditionMonitorFields(),
-            initiative: new srFields.SR6InitiativeFields(),
+            // TODO TBA: conditionMonitor can be overwritten with a pointer to e.g. a Character's Deck
+            matrixCM: new srFields.SR6ConditionMonitorField(),
             overwatchScore: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
         };
     }
@@ -28,6 +28,42 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
      */
     get convergence() {
         return (this.overwatchScore >= 40);
+    }
+
+    /**
+     * Returns your Matrix Cybercombat Attack Rating
+     * TODO JEROEN These getters arent compatible with Active Effects
+     * @type {number}
+     */
+    get attackRating() {
+        return this.attributes.attack + this.attributes.sleaze;
+    }
+
+    /**
+     * Returns your Matrix Cybercombat Defense Rating
+     * @type {number}
+     */
+    get defenseRating() {
+        return this.attributes.dataProcessing + this.attributes.firewall;
+    }
+
+    /**
+     * Returns a Matrix Test Pool 
+     * (compensates in case attributes are swapped)
+     * @param {number} matrixAttr   Matrix Attribute
+     * @param {number} physAttr     Physical Attribute
+     * @return {number}             Number of dice
+     */
+    testPool(matrixAttr, physAttr) {
+        const getPool = (attr) => {
+            return this.attributes[attr] ??
+            foundry.utils.getProperty(this.actor, `system.attributes.${attr}.pool`) ??
+            0;
+        };
+
+        const attr1 = getPool(matrixAttr);
+        const attr2 = getPool(physAttr);
+        return attr1 + attr2;
     }
 
     /**

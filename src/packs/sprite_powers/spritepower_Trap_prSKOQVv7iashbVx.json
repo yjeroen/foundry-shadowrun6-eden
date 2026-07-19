@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Trap",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Lock down a target, preventing it from taking an action. Make a <strong>Cracking + Level vs. WP + FW </strong>test, where success means the target cannot take an action as long as the power is sustained. </p><p>This power takes your entire attention; once you do do something else, the target can act again.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "cracking",
+    "skillSpec": "",
+    "oppAttr1": "wil",
+    "oppAttr2": "f"
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250862585,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "prSKOQVv7iashbVx",
+  "sort": 300000,
+  "_key": "!items!prSKOQVv7iashbVx"
+}

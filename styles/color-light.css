@@ -1,6 +1,8 @@
 :root,
 .themed.theme-light,
-.themed.theme-dark {
+.themed.theme-dark,
+.game.theme-light,
+.game.theme-dark {
 	--highlight-color: #960570;
 	--accent-color: #00a8ff;
 	--section-background: #efefeb;
@@ -25,6 +27,13 @@
 	--font-h4-size: var(--font-size-14);
 	--chat-input-height: 124px;
 	--contrast-color: #ffffff;
+	
+    --sr6-pink: #b00078;
+    --sr6-darker-pink: #960570;
+    --sr6-bright-pink: #d92ba2;
+}
+body.game input[type=checkbox]{
+	--checkbox-checkmark-color: #e0e0d9;
 }
 :root,
 .themed.theme-light {
@@ -64,7 +73,7 @@ body.theme-light .application {
 	/* 8405c9 */
 }
 .sr6-dice-roll-v12 {
-	cursor: pointer;
+	cursor: var(--cursor-pointer);
 }
 
 .themed.theme-light .app.window-app.dialog .window-content, 
@@ -77,11 +86,12 @@ body.game .app.window-app .window-content,
 	background-position: left top;
 }
 
-body.game .shadowrun6.actor .window-content {
+body.game .app.shadowrun6.actor .window-content {
 	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: right top, left top;
 	background-repeat: no-repeat, repeat;
 }
+
 body.game .shadowrun6.sheet .window-content {
 	scrollbar-gutter: stable;
 }
@@ -120,6 +130,7 @@ table thead, table tfoot {
 body.game .app table tr th:first-child {
 	padding-left: 3px;
 }
+
 .foundry-modern .settings-sidebar .info .title {
 	font-size: var(--font-size-24);
 	font-weight: 400;

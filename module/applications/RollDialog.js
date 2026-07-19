@@ -1,6 +1,6 @@
-import { SYSTEM_NAME } from "./constants.js";
-import { SR6ChatMessageData, RollType } from "./dice/RollTypes.js";
-import { MonitorType } from "./config.js";
+import { SYSTEM_NAME } from "../constants.js";
+import { SR6ChatMessageData, RollType } from "../dice/RollTypes.js";
+import { MonitorType } from "../config.js";
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
@@ -50,7 +50,7 @@ export class RollDialog extends Dialog {
         this.actor = rOptions.actor;
         this.prepared = rOptions.prepared;
         this.dialogResult = rOptions.dialogResult;
-        this.edge = this.actor ? getSystemData(this.actor).edge.value : 0;
+        this.edge = this.actor ? (getSystemData(this.actor).edge?.value ?? 0) : 0;
     }
     /********************************************
      * React to changes on the dialog
@@ -58,6 +58,8 @@ export class RollDialog extends Dialog {
     activateListeners(html) {
         super.activateListeners(html);
         this.html = html;
+        this._recalculateBaseAR();
+
         // React to attack/defense rating changes
         //    	html.find('.calc-edge').show(this._onCalcEdge.bind(this));
         html.find("select[name='distance']").change(this._recalculateBaseAR.bind(this));
@@ -71,7 +73,7 @@ export class RollDialog extends Dialog {
         }
         */
         html.find(".calc-edge-edit").change(this._onCalcEdge.bind(this));
-        html.find(".calc-edge-edit").keyup(this._onCalcEdge.bind(this));
+        // html.find(".calc-edge-edit").keyup(this._onCalcEdge.bind(this));
         html.show(this._onCalcEdge.bind(this));
         // React to changed edge boosts and actions
         html.find(".edgeBoosts").change(this._onEdgeBoostActionChange.bind(this));
@@ -83,7 +85,6 @@ export class RollDialog extends Dialog {
         html.find("#ampUp").change(this._onSpellConfigChange.bind(this));
         // React to changed amp up
         html.find("#incArea").change(this._onSpellConfigChange.bind(this));
-        this._recalculateBaseAR();
         // React to attribute change
         html.find(".rollAttributeSelector").change(this._onAttribChange.bind(this));
         // React to Modifier checkboxes
@@ -96,20 +97,25 @@ export class RollDialog extends Dialog {
         html.find(".extended-test").change(this._onExtendedTestCheckbox.bind(this));
     }
     //-------------------------------------------------------------
-    _recalculateBaseAR() {
-        let prepared = this.options ? this.options.prepared : this.prepared;
-        const distanceElement = document.getElementById("distance");
-        if ( game.settings.get(SYSTEM_NAME, "cantDodgeBullets") && distanceElement) {
-            const optionSelected = distanceElement.options[distanceElement.selectedIndex];
-            this.dialogResult.threshold = this.prepared.cantDodgeBulletsBaseThreshold + parseInt(optionSelected.dataset.distance);
-            prepared.threshold = this.dialogResult.threshold;
-            document.getElementById("threshold").value = this.dialogResult.threshold;
+
+    /**
+     * This is initially fired on the RolLDialog by the activateListeners()
+     * Dialog.element is a jQuery object
+     */
+    _recalculateBaseAR(event) {
+        const prepared = this.options?.prepared ?? this.prepared;
+        const html = this.html;
+        const distanceElement = html.find("#distance");
+        if (!prepared || !distanceElement.length) return;
+
+        if (game.settings.get(SYSTEM_NAME, "cantDodgeBullets")) {
+            const distance = parseInt(distanceElement.find(":selected").data("distance"), 10) || 0;
+            this.dialogResult.threshold = prepared.threshold = prepared.cantDodgeBulletsBaseThreshold + distance;
+            html.find("#threshold").val(this.dialogResult.threshold);
         }
-        if (!distanceElement)
-            return;
-        let ar = parseInt(distanceElement.value);
-        const arElement = document.getElementById("baseAR");
-        arElement.textContent = ar.toString();
+
+        const ar = parseInt(distanceElement.val(), 10) || 0;
+        html.find("#baseAR").text(ar);
         prepared.baseAR = ar;
         this._onCalcEdge(event);
     }
@@ -119,31 +125,33 @@ export class RollDialog extends Dialog {
      * HTML form
      */
     _onCalcEdge(event) {
-        console.log("SR6E | RollDialog._onCalcEdge");
+        const form = this.html[0];
         let configured = this.dialogResult;
         let prepared = this.prepared;
+        if (configured.actor.system.edge === undefined) return;
+        console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
+        
         if (!configured.actor)
             return;
         try {
             configured.edgePlayer = 0;
             configured.edgeTarget = 0;
             // Check situational edge
-            const situationA = document.getElementById("situationalEdgeA");
+            const situationA = form.querySelector("#situationalEdgeA");
             if (situationA && situationA.checked) {
                 configured.edgePlayer++;
             }
-            const situationD = document.getElementById("situationalEdgeD");
+            const situationD = form.querySelector("#situationalEdgeD");
             if (situationD && situationD.checked) {
                 configured.edgeTarget++;
             }
-            const drElement = document.getElementById("dr");
+           const drElement = form.querySelector("#dr");
             if ( drElement && !isNaN(parseInt(drElement.value)) ) {
                 const dr = drElement.value ? parseInt(drElement.value) : 0;
-                const arModElem = document.getElementById("arMod");
+                const arModElem = form.querySelector("#arMod");
                 if (isItemRoll(prepared)) {
-                    const arElement = document.getElementById("baseAR");
+                    const arElement = form.querySelector("#baseAR");
                     let ar = arElement.textContent ? parseInt(arElement.textContent) : 0;
-                    //					let ar = parseInt( (arElement.children[arElement.selectedIndex] as HTMLOptionElement).value );
                     if (arModElem.value && parseInt(arModElem.value) != 0) {
                         ar += parseInt(arModElem.value);
                     }
@@ -170,6 +178,16 @@ export class RollDialog extends Dialog {
                     }
                 }
             }
+
+            let maxEdge = 7;
+            if (configured.tempEdge) {
+                configured.edgePlayer++;
+                maxEdge = 8;
+            }
+            if (this.dialogResult.noEdgeGain) {
+                configured.edgePlayer = 0;
+            }
+
             // Set new edge value
             let actor = getSystemData(configured.actor);
             let capped = false;
@@ -186,11 +204,11 @@ export class RollDialog extends Dialog {
                 capped = true;
             }
             // Check if new Edge value would be >7
-            if ((actor.edge.value + configured.edgePlayer) > 7) {
-                configured.edgePlayer = Math.max(0, 7 - actor.edge.value);
+            if ((actor.edge?.value + configured.edgePlayer) > maxEdge) {
+                configured.edgePlayer = Math.max(0, maxEdge - actor.edge.value);
                 capped = true;
             }
-            this.edge = Math.min(7, actor.edge.value + configured.edgePlayer);
+            this.edge = Math.min(maxEdge, actor.edge?.value + configured.edgePlayer) ?? 0;
             // Update in dialog
             let edgeValue = this._element[0].getElementsByClassName("edge-value")[0];
             if (edgeValue) {
@@ -198,6 +216,7 @@ export class RollDialog extends Dialog {
             }
             // Update selection of edge boosts
             this._updateEdgeBoosts(this._element[0].getElementsByClassName("edgeBoosts")[0], this.edge);
+            this.edgeSpending = 0;
             let newEdgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= this.edge);
             // Prepare text for player
             let innerText = "";
@@ -220,13 +239,13 @@ export class RollDialog extends Dialog {
                 if (game.user.targets.size && game.users.activeGM) {
                     let targetNames = [];
                     game.user.targets.forEach(token => {
-                        if (token.actor.system.edge.value === 7 && configured.edgeTarget > 0) return;
+                        if (token.actor.system.edge.value === maxEdge && configured.edgeTarget > 0) return;
                         targetNames.push(token.name);
                     });
                     targetName = targetNames.join(', ');
                 }
                 if(innerText != "") {
-                    innerText += "\r\n";
+                    innerText += " - ";
                 }
                 innerText += game.i18n.format("shadowrun6.roll.edge.gain_player", { name: targetName, value: configured.edgeTarget });
             }
@@ -234,7 +253,7 @@ export class RollDialog extends Dialog {
                 innerText += "  " + game.i18n.localize("shadowrun6.roll.edge.no_gain");
             }
             configured.edge_message = innerText;
-            let edgeLabel = document.getElementById("edgeLabel");
+            const edgeLabel = form.querySelector("#edgeLabel");
             if (edgeLabel) {
                 edgeLabel.innerText = innerText;
             }
@@ -242,9 +261,11 @@ export class RollDialog extends Dialog {
         catch (err) {
             console.log("SR6E | Exception: " + err.message , err);
         }
+        console.log("SR6E | RollDialog._onCalcEdge END", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _updateEdgeBoosts(elem, available) {
+        if (this.dialogResult.noEdgeSpend) return;
         console.log("SR6E | RollDialog._updateEdgeBoosts");
         let newEdgeBoosts = CONFIG.SR6.EDGE_BOOSTS.filter((boost) => boost.when == "PRE" && boost.cost <= available);
         // Node for inserting new data before
@@ -271,6 +292,7 @@ export class RollDialog extends Dialog {
     }
     //-------------------------------------------------------------
     _updateEdgeActions(elem, available) {
+        if (this.dialogResult.noEdgeSpend) return;
         console.log("SR6E | RollDialog._updateEdgeActions");
         let newEdgeActions = CONFIG.SR6.EDGE_ACTIONS.filter((action) => action.cost <= available);
         // Remove previous data
@@ -326,12 +348,12 @@ export class RollDialog extends Dialog {
      * selection.
      */
     _onEdgeBoostActionChange(event) {
-        console.log("SR6E | _onEdgeBoostActionChange");
-        console.log("SR6E | _onEdgeBoostActionChange  this=", this);
-        console.log("SR6E | _onEdgeBoostActionChange  event=", event);
         let actor = this.options.actor;
         let prepared = this.options.prepared;
         let configured = this.dialogResult;
+        console.log("SR6E | _onEdgeBoostActionChange START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        console.log("SR6E | _onEdgeBoostActionChange  this=", this);
+        console.log("SR6E | _onEdgeBoostActionChange  event=", event);
         // Ignore this, if there is no actor
         if (!actor) {
             return;
@@ -367,9 +389,11 @@ export class RollDialog extends Dialog {
             configured.edge_use = game.i18n.format("shadowrun6.roll.edge.edge_action_spent", { actionTitle: game.i18n.localize("shadowrun6.edge_action." + actionId) });
             this._performEdgeBoostOrAction(configured, actionId);
         }
+        console.log("SR6E | _onEdgeBoostActionChange END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _useGruntGroup(event) {
+        // TODO rework all document.getElement
         const gruntGroup = this.actor?.gruntGroup;
         const useGruntGroup = (gruntGroup?.id && document.getElementById("useGruntGroup")?.checked)
         this._updateDicePool(event);
@@ -424,6 +448,7 @@ export class RollDialog extends Dialog {
     _performEdgeBoostOrAction(data, boostOrActionId) {
         let prepared = this.options.prepared;
         let configured = this.dialogResult;
+        console.log("SR6E | _performEdgeBoostOrAction START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
         // Get the value of the user entered modifier ..
         let userModifier = parseInt(document.getElementById("modifier").value);
         this.modifier = userModifier ? userModifier : 0;
@@ -464,6 +489,7 @@ export class RollDialog extends Dialog {
         //($("input[name='explode' ]")[0] as HTMLInputElement).value = data.explode;
         $("input[name='explode' ]")[0].checked = data.explode;
         this._updateDicePool(data);
+        console.log("SR6E | _performEdgeBoostOrAction END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _onSpellConfigChange() {
@@ -548,7 +574,7 @@ export class RollDialog extends Dialog {
 
         switch (fireModeElement.value) {
             case "wide_burst":
-                // TODO implement anticipation; i.e. two rolls to the two targets
+                // TODO: Note - Edge is calculated based on the Highest DR of all targets in Actor.rollItem()
                 arMod = prepared.item.system.modes.SA_ar_mod; // -2 default
                 dmgMod = 1;
                 if (game.user.targets.size !== 2) {
@@ -585,10 +611,14 @@ export class RollDialog extends Dialog {
         }
 
         // Calculate changed attack rating
-        prepared.calcAttackRating = [...prepared.item.calculated.attackRating];
+        prepared.calcAttackRating = [...prepared.item.calculatedAttackRating];
+        let fireMode = document.getElementById("fireMode").value;
         prepared.calcAttackRating.forEach((element, index) => {
-            if (parseInt(element) >= 0)
-                prepared.calcAttackRating[index] = Math.max(0, parseInt(element) + parseInt(arMod) );
+            if (parseInt(element) >= 0) {
+                let calcAR = Math.max(0, parseInt(element) + parseInt(arMod) );
+                if (fireMode === "FA" && calcAR === 0) calcAR = -1;
+                prepared.calcAttackRating[index] = calcAR;
+            }
         });
         this.html.find("td[name='calcAR']").text(game.sr6.utils.attackRatingToString(prepared.calcAttackRating));
         // Update the range selector for attack rating
@@ -604,7 +634,7 @@ export class RollDialog extends Dialog {
         });
         this.html.find("select[name='distance']").change();
         // Calculate modified damage
-        prepared.calcDamage = parseInt(prepared.item.calculated.dmg) + dmgMod;
+        prepared.calcDamage = parseInt(prepared.item.calculatedDamage) + dmgMod;
         this.html.find("span[name='calcDamage']").text(prepared.calcDamage.toString());
         // Calculate modified pool
         prepared.calcPool = prepared.pool + poolMod;
@@ -662,9 +692,9 @@ export class RollDialog extends Dialog {
         }
 
         // Updating DV type
-        const suffix = prepared.item.calculated.stun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
+        const suffix = prepared.item.calculatedStun ? game.i18n.localize("shadowrun6.item.stun_damage") : game.i18n.localize("shadowrun6.item.physical_damage");
         this.html.find("span[name='calcDamagedMonitor']").text( suffix );
-        prepared.monitor = prepared.item.calculated.stun ? MonitorType.STUN : MonitorType.PHYSICAL ;
+        prepared.monitor = prepared.item.calculatedStun ? MonitorType.STUN : MonitorType.PHYSICAL ;
 
     }
     //-------------------------------------------------------------
@@ -693,11 +723,31 @@ export class RollDialog extends Dialog {
             const attribSelect = event.currentTarget;
             let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
             console.log("SR6E |  use attribute = " + newAttrib);
-            prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
-            prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested)
+            if (this.actor.system instanceof foundry.abstract.DataModel) {
+                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
+                
+                prepared.pool = attr?.pool ?? attr ?? 0;
+                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
+                const fieldPath = prepared.attributeTested.replace("system.", "");
+                prepared.checkText =  this.actor.system.schema.getField(fieldPath)?.label;
+            } else if (prepared.attributeTested.startsWith("system.")) {
+                // ActorSheet V1 with dataset.attributePath
+                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
+                
+                prepared.pool = attr?.pool ?? attr ?? 0;
+                const fieldPath = prepared.attributeTested.replace("system.", "");
+                prepared.checkText =  prepared.rollLabel;
+
+            } else {
+                prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
+                prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested);
+            }
             if (newAttrib) {
                 prepared.checkText += ' + ' + game.i18n.localize("attrib." + newAttrib);
-                prepared.pool += this.actor.system.attributes[newAttrib].pool;
+                if (this.actor.system instanceof foundry.abstract.DataModel) {
+                    newAttrib = game.sr6.config.ATTRIBUTE_TO_V2[newAttrib];
+                }
+                prepared.pool += this.actor.system.attributes[newAttrib]?.pool || 0;
             }
             prepared.calcPool = prepared.pool;
             prepared.actionText = prepared.checkText;

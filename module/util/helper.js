@@ -57,6 +57,11 @@ export const redefineHandlebarLog = async function () {
     });
 }
 export const defineHandlebarHelper = async function () {
+    Handlebars.registerHelper('debugger', function(value) {
+        console.log("debugger log", value);
+        debugger;
+    });
+
     Handlebars.registerHelper("attackrating", function (val) {
         if (!val)
             return "NULL";
@@ -113,10 +118,14 @@ export const defineHandlebarHelper = async function () {
     Handlebars.registerHelper("ritualFeat", getRitualFeatures);
     Handlebars.registerHelper("spellFeat", getSpellFeatures);
     Handlebars.registerHelper("matrixPool", getMatrixActionPool);
+    Handlebars.registerHelper("hasMatrixResult", hasMatrixResult);
     Handlebars.registerHelper("itemNotInList", itemNotInList);
     Handlebars.registerHelper("itemTypeInList", itemTypeInList);
     Handlebars.registerHelper("itemsOfType", itemsOfType);
-    Handlebars.registerHelper("itemsOfGeartype", itemsOfGeartype);
+    Handlebars.registerHelper("itemHasGearMods", itemHasGearMods);
+    Handlebars.registerHelper("gearModsOfItem", gearModsOfItem);
+    Handlebars.registerHelper("noDescOrMods", noDescOrMods);
+    Handlebars.registerHelper("itemsOfSystemType", itemsOfSystemType);
     Handlebars.registerHelper("itemsOfAugSubtype", itemsOfAugSubtype);
     Handlebars.registerHelper("itemsOfGeartypeNoWeaponsOrAugs", itemsOfGeartypeNoWeaponsOrAugs);
     Handlebars.registerHelper("itemsOfWeapontype", itemsOfWeapontype);
@@ -160,6 +169,21 @@ export const defineHandlebarHelper = async function () {
         }
     });
 
+    Handlebars.registerHelper("dynamicFieldWidth", function(field, options) {
+        const content = options.fn(this);
+
+        if (!field.choices) return content;
+
+        const width = Math.max(
+            ...Object.values(field.choices)
+                .map(choice => game.i18n.localize(choice).length)
+        );
+
+        return new Handlebars.SafeString(
+            `<div class="dynamic-field-width" style="--width: ${width + 4}ch;">${content}</div>`
+        );
+    });
+
     Handlebars.registerHelper('matrixAction', function (matrixAction) {
         const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
         const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');
@@ -169,7 +193,7 @@ export const defineHandlebarHelper = async function () {
         if (matrixAction.user) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.user') );
         if (matrixAction.admin) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.admin') );
 
-        const actionIcon = `<span title="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
+        const actionIcon = `<span data-tooltip="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
         return new Handlebars.SafeString(actionIcon);
     });
     Handlebars.registerHelper("matrixAccessLevel", function (currentAccess, matrixAction) {
@@ -229,15 +253,29 @@ export const defineHandlebarHelper = async function () {
             return opts.inverse(this);
         }
     });
-    Handlebars.registerHelper('switch', function (value, options) {
+    
+    Handlebars.registerHelper("switch", function (value, options) {
         this.switch_value = value;
+        this.switch_matched = false;
+
+        const result = options.fn(this);
+
+        delete this.switch_value;
+        delete this.switch_matched;
+
+        return result;
+    });
+
+    Handlebars.registerHelper("case", function (value, options) {
+        if (value !== this.switch_value) return "";
+        this.switch_matched = true;
         return options.fn(this);
     });
-    Handlebars.registerHelper('case', function (value, options) {
-        if (value == this.switch_value) {
-            return options.fn(this);
-        }
+
+    Handlebars.registerHelper("default", function (options) {
+        return this.switch_matched ? "" : options.fn(this);
     });
+
     Handlebars.registerHelper('isOwner', function (value, options) {
         if(value) {
             if(getActor(value.actor, value.scene, value.token)?.isOwner) {
@@ -247,15 +285,101 @@ export const defineHandlebarHelper = async function () {
         return false
     });
     Handlebars.registerHelper('sort', function (items) {
-        if (Array.isArray(items.contents)) {
-            return items.contents.slice().sort((a, b) => {
-                if (a.sort < b.sort) return -1;
-                if (a.sort > b.sort) return 1;
-                return 0;
-            });
-        }
-        return items;
+        const arrayToSort = Array.isArray(items?.contents)
+                            ? items.contents
+                            : Array.isArray(items)
+                                ? items
+                                : Array.from(items ?? []);
+
+        return arrayToSort.toSorted((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
     });
+    Handlebars.registerHelper('sortAb', function (items) {
+        const arrayToSort = Array.isArray(items?.contents)
+                            ? items.contents
+                            : Array.isArray(items)
+                                ? items
+                                : Array.from(items ?? []);
+
+        return arrayToSort.toSorted((a, b) => a.name.localeCompare(b.name));
+    });
+    // intervalScale example: month
+    Handlebars.registerHelper('localizePlural', function(intervalScale, number) {
+        const pluralRules = new Intl.PluralRules(game.i18n.lang);
+        const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${intervalScale}_long_${pluralRules.select(number)}`);
+        return localizedIntervalScale;
+    });
+    Handlebars.registerHelper("add", function (a, b) {
+        return a + b;
+    });
+
+    Handlebars.registerHelper("span", function (content, systemField) {
+        let name = "";
+        if (systemField instanceof foundry.data.fields.DataField) {
+            name = ` data-field="${systemField.fieldPath}"`;
+            if (systemField.choices) content = game.i18n.localize(systemField.choices[content]);
+        }
+        return new Handlebars.SafeString(`<span${name}>${Handlebars.escapeExpression(content)}</span>`);
+    });
+
+    Handlebars.registerHelper("attrHint", function (actor, systemField) {
+        const srcAttr = foundry.utils.getProperty(actor, `_source.${systemField.fieldPath}`);
+        const attr = foundry.utils.getProperty(actor, systemField.fieldPath);
+        let changedBaseRank;
+
+        if (systemField instanceof game.sr6.datamodels.fields.SR6AttributeField) {
+            changedBaseRank = srcAttr.rank !== attr.rank ? `(${attr.rank}) ` : ``;
+            return  game.i18n.format("SR6.title.attributeHint", { 
+                        rank: `${srcAttr.rank}${changedBaseRank}`, 
+                        mod: attr.mod,
+                        pool: attr.pool
+                    });
+        } else if (systemField instanceof game.sr6.datamodels.fields.SR6InitiativeField) {
+            changedBaseRank = srcAttr.rank !== attr.rank ? `(${attr.rank}) ` : ``;
+            const changedBaseDice = srcAttr.dice !== attr.dice ? `(${attr.dice}) ` : ``;
+            return `${srcAttr.rank}${changedBaseRank} + ${srcAttr.dice}${changedBaseDice}D6`;
+        } else {
+            changedBaseRank = srcAttr !== attr ? `(${attr}) ` : ``;
+            return `${srcAttr}${changedBaseRank}`;
+        }
+    });
+
+    Handlebars.registerHelper("skillHint", function (actor, skillField, attribute=null) {
+        if (typeof skillField === "string") skillField = actor?.system?.schema?.getField(`skills.${skillField}`);
+        if (!(skillField instanceof game.sr6.datamodels.fields.SR6SkillField)) return game.i18n.format("SR6.title.sendToChat");
+
+        const srcSkill = foundry.utils.getProperty(actor, `_source.${skillField.fieldPath}`);
+        const skill = foundry.utils.getProperty(actor, skillField.fieldPath);
+        let skillAttribute;
+        if (CONFIG.SR6.NEW.ATTRIBUTES.includes(attribute)) {
+            skillAttribute = attribute;
+        }
+        else {
+            skillAttribute = skillField.primaryAttribute;
+        }
+        const primaryAttribute = foundry.utils.getProperty(actor, `system.attributes.${skillAttribute}`);
+        let changedBaseRank;
+
+        changedBaseRank = srcSkill.rank !== skill.rank ? `(${skill.rank}) ` : ``;
+        return  game.i18n.format("SR6.title.skillHint", { 
+                    rank: `${srcSkill.rank}${changedBaseRank}`, 
+                    mod: skill.mod,
+                    attr: primaryAttribute.schema.label,
+                    attrPool: primaryAttribute.pool,
+                    untrained: skill.rank === 0 && skill.schema.useUntrained ? ` - 1 ${game.i18n.localize("SR6.label.untrained")}` : "",
+                    pool: skill.defaultTestPool
+                });
+    });
+
+    Handlebars.registerHelper("dotsToDashes", function (value) {
+        return String(value).split(".").join("-");
+    });
+    
+    Handlebars.registerHelper("sr6Icon", function (value) {
+        const sr6Icons = CONFIG.SR6.icon;
+        const iconHtml = sr6Icons[value]
+        return new Handlebars.SafeString( iconHtml );
+    });
+
 };
 function getSystemData(obj) {
     if (game.release.generation >= 10)
@@ -267,16 +391,30 @@ function getActorData(obj) {
         return obj;
     return obj.data;
 }
-function itemsOfType(items, type, sortOnSubtype = true) {
-    const filtered = items.filter((elem) => getActorData(elem).type == type)
-         .sort((a, b) => a.name.localeCompare(b.name));
-    if (filtered[0]?.system.type && sortOnSubtype) filtered.sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
-    return filtered;
+function itemHasGearMods(item, actor) {
+    return actor.items.some(gearMod => gearMod.type === "mod" && gearMod.system.installedIn?.id === item.id);
 }
-function itemsOfGeartype(items, geartype) {
-    return items.filter((elem) => getSystemData(elem).type == geartype)
+function gearModsOfItem(item, actor) {
+    return actor.items.filter((gearMod) => gearMod.type === "mod" && gearMod.system.installedIn?.id === item.id)
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+}
+function noDescOrMods(item, actor) {
+    return !item.system.description?.length && !itemHasGearMods(item, actor);
+}
+function itemsOfType(items, type, sortOnSubtype = true) {
+    const filtered = items.filter((elem) => getActorData(elem).type == type)
+    //      .sort((a, b) => a.name.localeCompare(b.name));
+    // if (filtered[0]?.system.type && sortOnSubtype) filtered.sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    
+    filtered.toSorted((a, b) => a.sort - b.sort);
+    return filtered;
+}
+function itemsOfSystemType(items, geartype) {
+    return items.filter((elem) => getSystemData(elem).type == geartype)
+                // .sort((a, b) => a.name.localeCompare(b.name))
+                // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                .toSorted((a, b) => a.sort - b.sort);
 }
 function itemsOfGeartypeNoWeaponsOrAugs(items) {
     return items.filter((elem) => {
@@ -285,21 +423,28 @@ function itemsOfGeartypeNoWeaponsOrAugs(items) {
         else if (getSystemData(elem).type === 'CYBERWARE') return false;
         else if (elem.type === 'gear') return true;
         else return false;
-    }).sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    })
+        // .sort((a, b) => a.name.localeCompare(b.name))
+        // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+        .toSorted((a, b) => a.sort - b.sort);
 }
 function itemsOfAugSubtype(items) {
     return items.filter((elem) => {
         if (getSystemData(elem).type === 'BIOWARE') return true;
         else if (getSystemData(elem).type === 'CYBERWARE') return true;
+        else if (getSystemData(elem).type === 'NANOWARE') return true;
+        else if (getSystemData(elem).type === 'GENETICS') return true;
         else return false;
-    }).sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+    })
+        // .sort((a, b) => a.name.localeCompare(b.name))
+        // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+        .toSorted((a, b) => a.sort - b.sort);
 }
 function itemsOfWeapontype(items) {
     return items.filter((elem) => getSystemData(elem).type?.startsWith('WEAPON_'))
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                // .sort((a, b) => a.name.localeCompare(b.name))
+                // .sort((a, b) => a.system?.type?.localeCompare(b.system?.type));
+                .toSorted((a, b) => a.sort - b.sort);
 }
 function skillPointsNotZero(skills) {
     return Object.keys(skills)
@@ -378,24 +523,36 @@ function getSpellFeatures(spell) {
     }
     return ret.join(", ");
 }
-function getMatrixActionPool(key, actor) {
-    const action = CONFIG.SR6.MATRIX_ACTIONS[key];
-    const skill = getSystemData(actor).skills[action.skill];
-    let pool = 0;
-    if (skill && skill.pool) {
-        pool = skill.points + skill.modifier;
-        if (skill.expertise == action.specialization) {
-            pool += 3;
-        }
-        else if (skill.specialization == action.specialization) {
-            pool += 2;
-        }
-        if (action.attrib) {
-            const attrib = getSystemData(actor).attributes[action.attrib];
-            pool += attrib.pool;
-        }
-    }
-    return pool;
+export function getMatrixActionPool(actionName, actor) {
+    const action = CONFIG.SR6.MATRIX_ACTIONS[actionName];
+    return action.skill ? actor._getSkillPool(action.skill) : 0;
+
+    // const skill = getSystemData(actor).skills[action.skill];
+    // let pool = 0;
+    // if (skill && skill?.pool) {
+    //     pool = skill.points + skill.modifier;
+    //     if (skill.expertise == action.specialization) {
+    //         pool += 3;
+    //     }
+    //     else if (skill.specialization == action.specialization) {
+    //         pool += 2;
+    //     }
+    //     if (action.attrib) {
+    //         const attrib = getSystemData(actor).attributes[action.attrib];
+    //         pool += attrib?.pool || 0;
+    //     }
+    // }
+    // return pool;
+}
+
+export function hasMatrixResult(actionId, resultType) {
+    const TYPES = new Set(["onSuccess", "onFailure", "onSuccesfulDefense", "onSuccesfulDefense", "onFailedDefense"]);
+    if (!TYPES.has(resultType)) console.error(`SR6 | Wrong resultType "${resultType}" entered in hasMatrixResult(actionId, resultType) | The following are possible: ["onSuccess", "onFailure", "onSuccesfulDefense", "onSuccesfulDefense", "onFailedDefense"]`)
+
+    const action = CONFIG.SR6.MATRIX_ACTIONS[actionId];
+    if (!action) console.error(`SR6 | Wrong actionId "${actionId}" entered in hasMatrixResult(actionId, resultType) | See CONFIG.SR6.MATRIX_ACTIONS`)
+
+    return Boolean(action[resultType]);
 }
 
 /**
@@ -410,6 +567,7 @@ export function staticId(status) {
 
 /**
  * Create a localized actionTest for a roll
+ * Possible classes that modify the Macro's Name are: defense-roll, attributeonly-roll, attribute-poolmod, legwork-roll, skill-roll, matrix-roll
  * @param {DOMStringMap|string} classList  The html classList of the link/button that initiated the roll.
  * @param {string} rollId     The rollId, which defines the roll type.
  * @param {string} skillSpec  Optional, in case this is a skill roll with specialization
@@ -684,6 +842,7 @@ export async function resetEdge() {
         game.actors.forEach(async (actor) => {
             await actor.update({'system.edge.value': actor.system.edge.max});
         });
+        // or all tokens on scene? canvas.tokens.ownedTokens
         canvas.tokens.controlled.forEach(async (token) => {
             await token.actor.update({'system.edge.value': token.actor.system.edge.max});
         });
@@ -694,4 +853,152 @@ export async function resetEdge() {
             content: `<span style="font-style: italic;">${msg}</span>`
         });
     }
+}
+
+export async function resetAccessLevels(onlyThisUuid) {
+    if (!game.user.isGM) {
+        console.warn("SR6E | Resetting Access Levels is only allowed by GM's");
+        return;
+    }
+
+    console.info("SR6E | Reset Access Levels dialogue");
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: game.i18n.localize("shadowrun6.resetAccessLevels") },
+        content: game.i18n.localize( onlyThisUuid ? "shadowrun6.resetOneAccessLevelDescription" : "shadowrun6.resetAccessLevelsDescription" ),
+        rejectClose: false,
+        modal: true
+    });
+
+    if (!proceed) return;
+
+    console.info("SR6E | Resetting Access Levels for all Actors and Tokens in the game");
+
+    const operations = [];
+    const docTypesToUpdate = new Set(["Actor", "Item", "ActorDelta"]);
+    const isV14 = game.release?.generation >= 14;
+    const safeUuid = onlyThisUuid?.replaceAll(".", "_");
+    const flagPath = safeUuid ? `matrix-access.${safeUuid}` : "matrix-access";
+    const updatePath = `flags.shadowrun6-eden.${flagPath}`;
+
+    const resetDocumentAccess = async (document, parent = undefined) => {
+        const matrixAccess = document.flags["shadowrun6-eden"]?.["matrix-access"];
+        if (!matrixAccess) return;
+
+        if (safeUuid && matrixAccess[safeUuid] === undefined) return;
+
+        if (isV14) {
+            operations.push({
+                action: "update",
+                documentName: document.documentName,
+                parent,
+                updates: [{
+                    _id: document.id,
+                    [updatePath]: _del
+                }]
+            });
+            return;
+        }
+
+        await document.unsetFlag("shadowrun6-eden", flagPath);
+    };
+
+    for (const collection of [game.actors, game.scenes]) {
+        for (const doc of collection) {
+            if (doc.documentName === "Actor") {
+                await resetDocumentAccess(doc);
+            }
+
+            for (const [_, embeddedDoc] of doc.traverseEmbeddedDocuments()) {
+                if (!docTypesToUpdate.has(embeddedDoc.documentName)) continue;
+                await resetDocumentAccess(embeddedDoc, embeddedDoc.parent);
+            }
+        }
+    }
+
+    if (isV14 && operations.length) {
+        await foundry.documents.modifyBatch(operations);
+    }
+
+    const msg = game.i18n.localize( onlyThisUuid ? "shadowrun6.ui.notifications.one_accessLevel_has_been_reset" : "shadowrun6.ui.notifications.accessLevels_have_been_reset" );
+
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ alias: game.user.name }),
+        flavor: game.i18n.localize("shadowrun6.resetAccessLevels"),
+        content: `<span style="font-style: italic;">${msg}</span>`
+    });
+}
+    
+
+/**
+ * Begin a Drag+Drop workflow for a dynamic content link
+ * TODO evaluate if it should be moved to a different class like TextEditor.#onDragContentLink(event);
+ * @param {Event} event   The originating drag event
+ */
+export function onDragSR6Link(event) {
+    event.stopPropagation();
+    const a = event.target.closest("a[data-sr6-link]");
+    const { cursor, sr6Link, tooltip, ...dragData } = { ...a.dataset };
+    console.info("SR6E | onDragSR6Link", dragData);
+
+    // No validation at drag, validate on drop
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+}
+
+// ##########################
+// Boilerplate Effect Helper
+// TODO: Unclear if this is needed
+// ##########################
+
+/**
+ * Manage Active Effect instances through an Actor or Item Sheet via effect control buttons.
+ * @param {MouseEvent} event      The left-click event on the effect control
+ * @param {Actor|Item} owner      The owning document which manages this effect
+ */
+export function onManageActiveEffect(event, owner) {
+  event.preventDefault();
+  const a = event.currentTarget;
+  const li = a.closest('li');
+  const effect = li.dataset.effectId
+    ? owner.effects.get(li.dataset.effectId)
+    : null;
+  switch (a.dataset.action) {
+    case 'create':
+      return owner.createEmbeddedDocuments('ActiveEffect', [
+        {
+          name: game.i18n.format('DOCUMENT.New', {
+            type: game.i18n.localize('DOCUMENT.ActiveEffect'),
+          }),
+          icon: 'icons/svg/aura.svg',
+          origin: owner.uuid,
+          'duration.rounds':
+            li.dataset.effectType === 'temporary' ? 1 : undefined,
+          disabled: li.dataset.effectType === 'inactive',
+        },
+      ]);
+    case 'edit':
+      return effect.sheet.render(true);
+    case 'delete':
+      return effect.delete();
+    case 'toggle':
+      return effect.update({ disabled: !effect.disabled });
+  }
+}
+
+/**
+ * Limit a Dice Pool to a specific cap set by 'hardDiceCap' setting
+ * This need to be used for any dice roll
+ * @param {*} pool 
+ * @param {*} edgePoolIgnoringCap 
+ * @returns 
+ */
+export function checkDicePoolCap(pool, edgePoolIgnoringCap=0) {
+    // Limiting the dice pool if game settings tells us
+    const hardDiceCap = game.settings.get(SYSTEM_NAME, "hardDiceCap");
+    let newPool;
+    if (hardDiceCap) {
+        newPool = (pool > 20) ? 20 : pool;
+        console.log("SR6E | limiting calcPool to 20 due to game setting", pool, newPool, edgePoolIgnoringCap);
+    }
+    newPool += edgePoolIgnoringCap;
+    return newPool;
 }

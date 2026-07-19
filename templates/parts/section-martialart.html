@@ -6,8 +6,7 @@
 	</a>
 </div>
 <table>
-  {{#each actor.items as |item id|}}
-    {{#iff item.type '==' 'martialartstyle'}}
+  {{#each (sortAb actor.itemTypes.martialartstyle) as |item id|}}
 		{{log "genesisID" item.system.genesisID}}
 		<tr class="item list-item" data-item-id="{{item.id}}" data-style-id="{{item.system.genesisID}}">
 			<td style="width: 85%" colspan="2">
@@ -34,7 +33,6 @@
 		{{/iff}}
 		{{/each}}
 
-    {{/iff}}
   {{/each}}
 </table>
 </div>

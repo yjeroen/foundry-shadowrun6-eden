@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Override",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Everride control of a device operating on autopilot. Target a device, and make an <strong>Electronics + Level vs. Device Rating + FW </strong>test. </p><p>If you succeed, you gain total control of the device and you can substitute your Level for the Pilot rating of the device.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "instantaneous",
+    "isSustained": false,
+    "skill": "electronics",
+    "skillSpec": "",
+    "oppAttr1": "rating",
+    "oppAttr2": "f"
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250848311,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "1HtRoqWOOIhamzYa",
+  "sort": 200000,
+  "_key": "!items!1HtRoqWOOIhamzYa"
+}

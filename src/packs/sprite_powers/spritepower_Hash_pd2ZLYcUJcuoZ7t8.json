@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Hash",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Temporarily protect a file with a unique Resonance algorithm only you can unprotect it. </p><p>If you stops carrying the hashed file, it reverts to normal. If you are destroyed, the hashed file you were carrying is permanently corrupted and cannot be used any more. </p><p>The maximum time you can use this power is (Level x 10) combat rounds.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250846327,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "pd2ZLYcUJcuoZ7t8",
+  "sort": 100000,
+  "_key": "!items!pd2ZLYcUJcuoZ7t8"
+}

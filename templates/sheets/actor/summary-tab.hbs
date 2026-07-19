@@ -1,0 +1,236 @@
+{{! Summary Tab for statblock }}
+<section
+  class='tab statblock scrollable {{tab.cssClass}}'
+  data-group='primary'
+  data-tab='summary'
+>
+
+<div class="stat-block">
+  <div class="stat-row">
+    {{#each statblock as |attr|}}
+    <div class="stat" data-for="{{attr.field.fieldPath}}">
+      <div class="stat-label" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=attr.field.label}}" data-action="roll" data-roll-type="{{attr.rollType}}" data-attribute-path="{{attr.field.fieldPath}}">
+        {{localize (concat "SR6.statblock." attr.field.fieldPath)}}
+      </div>
+      <div class="stat-value" data-tooltip="{{attrHint @root.actor attr.field}}">
+        {{#if @root.editMode}}{{formInput attr.field value=attr.value localize=true actor=@root.actor disabled=@root.statblockDisabled}}
+        {{else}}{{span attr.value attr.field}}{{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="content">
+    {{#if skills}}
+    <div class="row skills">
+      <span class="label">{{localize "SR6.label.activeSkills"}}:</span>
+      <p>
+        {{#each skills as |skill|}}
+          <a data-action="roll" data-roll-type="skill" data-skill="{{skill.schema.name}}" data-tooltip="{{skillHint @root.actor skill.schema}}">{{skill.schema.label}}</a> <strong>{{span skill.defaultTestPool skill.schema}}</strong>
+          {{!-- TODO - specialization and expertise display --}}
+          {{!-- {{#if (or skill.specializations.length skill.expertise)}}<a>({{localize (concat "SR6.skillSpec." skill.skillField.specialization)}} +{{skill.skillField.specializationBonus}})</a>{{/if}} --}}
+          {{#unless @last}}, {{/unless}}
+        {{/each}}
+      </p>
+    </div>
+    {{/if}}
+
+    {{#if host.attributeError}}
+    <div class="error">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{host.attributeError}}</span>
+    </div>
+    {{/if}}
+
+    {{!-- {{#if (itemTypeInList actor.items 'spritepower')}}
+    <dt>{{ localize 'shadowrun6.section.spritepowers.title' }}</dt>
+    <dd>
+      <!-- Sprite Powers -->
+      {{#each (itemsOfType actor.items 'spritepower') as |item id|}} 
+          <span class="item-span">
+            <label class="item-desc" data-skill="{{id}}" data-item-id="{{item.id}}">{{item.name}}</label>
+            <a class="item-control" data-tooltip="Roll" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+            {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
+          </span>
+      {{/each}}
+    </dd> --}}
+    
+    {{!-- <div class="row">
+      <span class="label">{{localize "SR6.label.knowledgeSkills"}}:</span>
+      <p>Criminology, HTR Protocols, Psy-ops, Psychology, Theology</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">{{localize "SR6.label.languages"}}:</span>
+      <p>English (Native)</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">Qualities:</span>
+      <p>Attribute Mastery (Charisma), Injury Prone, Low-Light Vision, Sinner</p>
+    </div> --}}
+
+    {{#if powers}}
+      <div class="row powers">
+        <span class="label">{{localize "shadowrun6.section.critterpowers.title"}}:</span>
+        <p>
+          {{#each powers as |item|}}
+            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            {{#if (eq item.system.duration 'sustained')}}
+            <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
+              <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+            </a>
+            {{/if}}
+            {{#if item.system.skill}}<a class="item-control" data-tooltip="{{skillHint actor item.system.skill 'resonance'}}" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
+            {{#unless @last}}, {{/unless}}
+          {{/each}}
+        </p>
+        {{#each powers as |item|}}
+        <div class="collapsible-content closed" data-item-id="{{item.id}}">
+          <div><strong>{{item.name}} {{ localize 'shadowrun6.item.description' }}</strong></div>
+          <div>{{{item.system.description}}}</div>
+        </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{#if (eq actor.type "sprite")}}
+      <div class="row">
+        <span class="label">{{localize "SR6.label.deviceRating"}}:</span>
+        {{span system.deviceRating systemFields.deviceRating}}
+      </div>
+
+      {{!-- TODO JEROEN add summoning --}}
+      {{!-- <div class="row">
+        <span class="label">{{systemFields.compiledBy.label}}:</span>
+        <p>{{#if system.compiledBy}}{{formInput systemFields.compiledBy value=system.compiledBy}}{{else}}<em>{{localize "SR6.label.unknown"}}</em>{{/if}}</p>
+      </div> --}}
+
+      <div class="row">
+        <span class="label">{{systemFields.registered.label}}:</span>
+        {{#if editMode}}
+          <p>{{formInput systemFields.registered value=system.registered localize=true actor=actor}}</p>
+        {{else}}
+          <p>{{#if system.registered}}{{localize "SR6.label.yes"}}{{else}}{{localize "SR6.label.no"}}{{/if}}</p>
+        {{/if}}
+      </div>
+
+      <div class="row">
+        <span class="label">{{systemFields.tasksOwned.label}}:</span>
+        {{#if @root.editMode}}{{formInput systemFields.tasksOwned value=system.tasksOwned localize=true actor=actor}}
+        {{else}}{{span system.tasksOwned systemFields.tasksOwned}}{{/if}}
+      </div>
+
+      {{#if (ne system.registered)}}
+      <div class="row">
+        <span class="label">{{localize "SR6.label.lifespan"}}:</span>
+        {{span sprite.lifespan systemFields.lifespan}}
+      </div>
+      {{/if}}
+      
+      {{#if (eq system.type "music")}}
+      <div class="row">
+        <em>{{localize "SR6.Actor.sprite.notes.music"}}</em>
+      </div>
+      {{/if}}
+    {{/if}}
+
+    {{!-- <div class="row">
+      <span class="label">Contacts:</span>
+      <p>City Official (C6/L4), Company Suit (C4/L4), Gang Boss (C3/L4), Police Chief (C6/L4), Wiz Kid Mage (C3/L4),
+        Yakuza Wakagashira (C3/L3)</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">Lifestyle:</span>
+      <p>Low (1 month prepaid)</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">Augmentations:</span>
+      <p>Bone lacing (plastic, alpha), cyber forearm (obvious right, agility 6, strength 2; Harden 1, implanted Colt
+        Secret Agent, retractable spur)</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">Gear:</span>
+      <p>Armanté suit, contacts (rating 3, image link, smartlink), Erika Elite commlink, fake SIN (rating 1; w/ driver's
+        license), fake SIN (rating 6; w/ concealed carry license, cyberware license, driver’s license)</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">Vehicles:</span>
+      <p>BMW Tsarina II (spoof kit)</p>
+    </div> --}}
+
+    {{!-- <div class="row">
+      <span class="label">Nuyen:</span>
+      <p>2.530¥</p>
+    </div> --}}
+
+    {{!-- <div class="row row-weapons">
+      <div class="label">Weapons:</div>
+      <div class="weapon-list">
+        <div>AK-97 [Assault Rifle, DV 5P, SA/BF/FA, 5/12/9/7/1, 38c, w/ regular sling, smartlink system, personalized
+          grip, 90 rounds caseless regular ammo]</div>
+        <div>Colt Arms M-24 [Machine Pistol, DV 3P, SA/BF/FA, 8/9/8/—/—, 30c, w/ concealable quick draw holster, 90
+          rounds caseless regular ammo]</div>
+        <div>Colt Secret Agent [Light Pistol, DV 2P, SS, 9/7/—/—/—, 6c, w/ 30 rounds caseless regular ammo]</div>
+      </div>
+    </div> --}}
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class='grid grid-3col'>
+    <aside class='sidebar'>
+      {{! The grid classes are defined in scss/global/_grid.scss. To use,
+          use both the "grid" and "grid-Ncol" class where "N" can be any number
+          from 1 to 12 and will create that number of columns.  }}
+      <div class='abilities flexcol'>
+        {{#each system.abilities as |ability key|}}
+          <div class='ability flexrow flex-group-center'>
+            <label
+              class='resource-label rollable flexlarge align-left'
+              data-action='roll'
+              data-roll='d20+@abilities.{{key}}.mod'
+              data-label='{{localize (lookup @root.config.abilities key)}}'
+            >{{localize (lookup @root.config.abilities key)}}</label>
+            <input
+              type='text'
+              name='system.abilities.{{key}}.value'
+              value='{{ability.value}}'
+              class='ability-score'
+              data-dtype='Number'
+            />
+            <span
+              class='ability-mod rollable'
+              data-action='roll'
+              data-roll='d20+@abilities.{{key}}.mod'
+              data-label='{{localize (lookup @root.config.abilities key)}}'
+            >{{numberFormat ability.mod decimals=0 sign=true}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </aside>
+
+    {{! For the main features list, span the right two columns }}
+    <section class='main grid-span-2'>
+
+    </section>
+  </section>
+</section>

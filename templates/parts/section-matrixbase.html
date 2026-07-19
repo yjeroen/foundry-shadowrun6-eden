@@ -1,39 +1,43 @@
-<div id="section-matrixbase" style="display: inline-flex; width:100%;">
+<div id="section-matrixbase" style="display: inline-flex; margin-left: 5px; min-width: 384px;">
 	<div style="display: flex; flex-direction: column; align-items: center;">
 	{{#if showResonance}}
 	{{#if system.morDef.resonance}}
-		<div class="attributes" style="margin-bottom: 10px; margin-top:0.4rem">
+	<div class="attributes vertical" style="margin: 0.3rem 0;">
 		<div class="attribute" augmented-ui="b-clip-x exe">
 			<p>{{localize "attrib.res" }}</p>
 			<span>{{system.attributes.res.pool}}</span>
 			<input name="matrixAttResPool" type="hidden" data-dtype="Number" data-field="system.attributes.res.pool" value="8" />
 			<div class="field {{id}}Changed">
 				<label>{{localize 'shadowrun6.numerical.base'}}</label>
-				<input name="matrixAttResBase" type="number" data-dtype="Number" data-field="system.attributes.res.base" value="{{system.attributes.res.base}}" placeholder="base" title="{{localize 'shadowrun6.numerical.baseString'}}" min="1" max="6" />
+				<input name="matrixAttResBase" type="number" data-dtype="Number" data-field="system.attributes.res.base" value="{{system.attributes.res.base}}" placeholder="base" data-tooltip="shadowrun6.numerical.baseString" min="1" max="6" />
 			</div>
 			<div class="field {{id}}Changed">
 				<label>{{localize 'shadowrun6.numerical.mod'}}</label>
-				<input name="matrixAttResMod" type="number" data-dtype="Number" data-field="system.attributes.res.mod" value="{{system.attributes.res.mod}}" placeholder="±adj" title="{{attribute.modString}}" />
+				<input name="matrixAttResMod" type="number" data-dtype="Number" data-field="system.attributes.res.mod" value="{{system.attributes.res.mod}}" placeholder="±adj" data-tooltip="{{attribute.modString}}" />
 			</div>
-			</div>
+		</div>
+		<div class="attribute special">
+			<p>{{localize "attrib.submersion" }}</p>
+			<input class="span" name="matrixSubmersion" data-dtype="Number" data-field="system.attributes.res.submersion" value="{{system.attributes.res.submersion}}"/>
+		</div>
 	</div>
 	{{/if}}
 	{{/if}}
-		<div class="centered rubik-glitch-regular" style="padding: 0.5rem 0 0.2rem 0;">
+		<div class="centered rubik-glitch-regular" style="padding: 0.3rem 5px 0.2rem 5px;">
 			{{ localize 'shadowrun6.section.matrix_base.overwatch' }}
 		</div>     
-		<div class="edge overwatch clickable" style="width: 80px; height:80px">
+		<div class="edge overwatch clickable" style="width: 80px; height:80px; margin: 0 5px 0.5rem 5px;">
 			<img src="systems/shadowrun6-eden/images/all-seeing-eye.webp" />
 			<input name="matrixOverwatch" class="edge-value" style="z-index: 2;" type="text" data-dtype="Number" data-field="system.overwatch" value="{{system.overwatch}}" disabled/>
 		</div>
 	</div>
-	<div class="section" style="width:inherit; margin-right: -5px; min-width: 275px;">
+	<div class="section" style="width:inherit; min-width: 290px; margin-right: 0;">
 		<div class="matrix-persona-header" >
 			<div style="flex-grow: 3; width: 6em;">{{ localize 'shadowrun6.section.persona.title' }}</div>
-			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.attack.short' }}</div>
-			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.sleaze.short' }}</div>
-			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.dataproc.short' }}</div>
-			<div style="flex-grow: 1; width: 2em;">{{ localize 'shadowrun6.label.firewall.short' }}</div>
+			<div style="flex-grow: 1; width: 2em;"><a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.a" data-roll-label="{{localize 'shadowrun6.label.attack.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.attack.long')}}">{{ localize 'shadowrun6.label.attack.short' }}</a></div>
+			<div style="flex-grow: 1; width: 2em;"><a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.s" data-roll-label="{{localize 'shadowrun6.label.sleaze.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.sleaze.long')}}">{{ localize 'shadowrun6.label.sleaze.short' }}</a></div>
+			<div style="flex-grow: 1; width: 2em;"><a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.d" data-roll-label="{{localize 'shadowrun6.label.dataproc.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.dataproc.long')}}">{{ localize 'shadowrun6.label.dataproc.short' }}</a></div>
+			<div style="flex-grow: 1; width: 2em;"><a class="attributeonly-roll attribute-poolmod" data-attribute-path="system.persona.used.f" data-roll-label="{{localize 'shadowrun6.label.firewall.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.firewall.long')}}">{{ localize 'shadowrun6.label.firewall.short' }}</a></div>
 		</div>
 		<div class="matrix-persona-attributes" >
 			<div style="order: 1; flex-grow: 3; width: 6em; text-align: left">
@@ -92,7 +96,6 @@
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.base' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.modifier' }}</th>
 				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.value' }}</th>
-				<th style="padding: 0 5px 0 5px;"> </th>
 			</tr>
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.attack_rating.matrix' }}</b></td>
@@ -100,7 +103,7 @@
 				<td class="centered">
 					<input name="matrixArMatrixMod" class="centered" data-field="system.attackrating.matrix.mod" type="text" value="{{system.attackrating.matrix.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
-				<td class="centered" title="{{system.attackrating.matrix.modString}}">{{system.attackrating.matrix.pool}}</td>
+				<td class="centered" data-tooltip="{{system.attackrating.matrix.modString}}">{{system.attackrating.matrix.pool}}</td>
 			</tr>
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.defense_rating.matrix' }}</b></td>
@@ -108,7 +111,7 @@
 				<td class="centered">
 					<input name="matrixDrMatrixMod" class="centered" data-field="system.defenserating.matrix.mod" type="text" value="{{system.defenserating.matrix.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
-				<td class="centered" title="{{system.defenserating.matrix.modString}}">{{system.defenserating.matrix.pool}}</td>
+				<td class="centered" data-tooltip="{{system.defenserating.matrix.modString}}">{{system.defenserating.matrix.pool}}</td>
 			</tr>
 			<tr>
 				<td ><b>{{ localize 'shadowrun6.derived.matrix_perception' }}</b></td>
@@ -116,7 +119,7 @@
 				<td class="centered">
 					<input name="matrixDerivedPerceptionMod" class="centered" data-field="system.derived.matrix_perception.mod" type="text" value="{{system.derived.matrix_perception.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
-				<td class="centered" title="{{system.derived.matrix_perception.modString}}">{{system.derived.matrix_perception.pool}}</td>
+				<td class="centered" data-tooltip="{{system.derived.matrix_perception.modString}}">{{system.derived.matrix_perception.pool}}</td>
 			</tr>
 			<tr>
 			<th style="border: 1px solid var(--tablehead-background);">{{localize 'shadowrun6.label.device_mode' }}</th>
@@ -128,13 +131,12 @@
 			</tr>
 			{{#if system.morDef.resonance}}
 			<tr>
-				<td ><b>{{ localize 'shadowrun6.defense.fading' }}</b></td>
+				<td ><b>{{ localize 'shadowrun6.defense.fading' }}</b> <a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.fading.pool}}" data-roll-id="fading"><i class="fas fa-dice-six"></i></a></td>
 				<td class="centered">{{system.defensepool.fading.base}}</td>
 				<td class="centered">
 					<input name="matrixDpFadingMod" class="centered" data-field="system.defensepool.fading.mod" type="text" value="{{system.defensepool.fading.mod}}" data-dtype="Number" style="width: 2em;">
 				</td>
-				<td class="centered" title="{{system.defensepool.fading.modString}}">{{system.defensepool.fading.pool}}</td>
-				<td><a class="item-control defense-roll skill-pool" data-pool="{{system.defensepool.fading.pool}}" data-roll-id="fading"><i class="fas fa-dice-six"></i></a></td>
+				<td class="centered" data-tooltip="{{system.defensepool.fading.modString}}">{{system.defensepool.fading.pool}}</td>
 			</tr>
 			{{/if}}
 		</table>

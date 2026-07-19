@@ -20,13 +20,13 @@
 </div>
 
 <div class="col middle">
-    <div class="attribute bar2">
+    <div class="attribute bar2 {{dotsToDashes bar2.attribute}}">
         {{#if displayBar2}}
         <input type="text" name="bar2" value="{{bar2Data.value}}" {{#unless bar2Data.editable}}disabled{{/unless}}>
         {{/if}}
     </div>
 
-    <div class="attribute bar1">
+    <div class="attribute bar1 {{dotsToDashes bar1.attribute}}">
         {{#if displayBar1}}
         <input type="text" name="bar1" value="{{bar1Data.value}}" {{#unless bar1Data.editable}}disabled{{/unless}}>
         {{/if}}

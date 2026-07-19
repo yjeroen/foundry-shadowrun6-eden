@@ -1,5 +1,6 @@
 import { Defense, MonitorType } from "../config.js";
 import { SYSTEM_NAME } from "../constants.js";
+import SR6Roll from "../SR6Roll.js";
 export var RollType;
 (function (RollType) {
     RollType["Common"] = "common";
@@ -9,7 +10,9 @@ export var RollType;
     RollType["Ritual"] = "ritual";
     RollType["Vehicle"] = "vehicle";
     RollType["ComplexForm"] = "complexform";
+    RollType["Item"] = "item";
     RollType["MatrixAction"] = "matrix";
+    RollType["MatrixResult"] = "matrix_result";
     /** Defense is a way to reduce netto hits */
     RollType["Defense"] = "defense";
     /** Reduce netto damage */
@@ -24,8 +27,10 @@ export var SoakType;
 (function (SoakType) {
     SoakType["DAMAGE_STUN"] = "damage_stun";
     SoakType["DAMAGE_PHYSICAL"] = "damage_phys";
+    SoakType["DAMAGE_MATRIX"] = "damage_matrix";
     SoakType["DRAIN"] = "drain";
     SoakType["FADING"] = "fading";
+    SoakType["BIO_FEEDBACK"] = "bio_feedback";
 })(SoakType || (SoakType = {}));
 export var InitiativeType;
 (function (InitiativeType) {
@@ -147,16 +152,57 @@ export class PreparedRoll extends CommonRollData {
         this.performer = copy.performer;
     }
 }
+export class ActorAttributeRoll extends PreparedRoll {
+    constructor(actor, attributePath) {
+        super();
+        
+        const attr = foundry.utils.getProperty(actor, attributePath);
+        
+        this.rollType = RollType.Common;
+        this.pool = attr?.pool ?? attr ?? 0;
+        this.attributeTested = attributePath;
+        this.allowBuyHits = true;
+        this.useAttributeMod = true;
+
+        const matrixCmModifier = actor.getMatrixCmModifier();
+        if (matrixCmModifier) {
+            this.matrixCmPenalty = matrixCmModifier;
+            this.pool = Math.max(0, this.pool - matrixCmModifier);
+        }
+    }
+}
 export class DefenseRoll extends PreparedRoll {
     damage;
     soakType;
     allowSoak;
-    constructor(threshold, soakType) {
+    constructor(threshold, monitor) {
+        console.log("SR6E | Constructing DefenseRoll", threshold, monitor)
         super();
         this.allowSoak = true;
         this.rollType = RollType.Defense;
         this.threshold = threshold;
-        this.soakType = (soakType === MonitorType.STUN) ? SoakType.DAMAGE_STUN : SoakType.DAMAGE_PHYSICAL;
+        if (monitor) this.monitor = monitor;
+
+        switch (monitor) {
+            case MonitorType.STUN:
+                this.soakType = SoakType.DAMAGE_STUN;
+                this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
+                break;
+
+            case MonitorType.PHYSICAL:
+                this.soakType = SoakType.DAMAGE_PHYSICAL;
+                this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
+                break;
+
+            case MonitorType.MATRIX:
+                this.soakType = SoakType.DAMAGE_MATRIX;
+                this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
+                break;
+
+            default:
+                console.log("SR6E | DefenseRoll | No monitor set - no soakType applied")
+                break;
+        }
     }
 }
 export class SoakRoll extends PreparedRoll {
@@ -168,6 +214,23 @@ export class SoakRoll extends PreparedRoll {
         this.rollType = RollType.Soak;
         this.soakType = soakType;
         this.threshold = threshold;
+        switch (soakType) {
+            case SoakType.DAMAGE_STUN:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
+                break;
+
+            case SoakType.DAMAGE_PHYSICAL:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
+                break;
+
+            case SoakType.DAMAGE_MATRIX:
+                this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
+                break;
+
+            default:
+                console.log("SR6E | SoakRoll | No soakType set - no damageLabel applied")
+                break;
+        }
     }
 }
 export class SkillRoll extends PreparedRoll {
@@ -180,13 +243,13 @@ export class SkillRoll extends PreparedRoll {
     /**
      * @param skillVal {Skill}   The actors instance of that skill
      */
-    constructor(actor, skillId) {
+    constructor(actorSystem, skillId) {
         super();
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        this.skillValue = actor.skills[skillId];
-        this.attrib = this.skillDef.attrib;
-        this.performer = actor;
+        this.skillValue = actorSystem.skills[skillId];
+        this.attrib = this.skillDef?.attrib;
+        this.performer = actorSystem;
     }
     copyFrom(copy) {
         super.copyFrom(copy);
@@ -226,6 +289,7 @@ export class SpellRoll extends SkillRoll {
         super(actor, "sorcery");
         this.item = item;
         this.itemId = itemId;
+        this.chatDescription = item.system.description;
         this.spell = spellItem;
         this.skillSpec = "spellcasting";
         this.canAmpUpSpell = spellItem.category === "combat";
@@ -281,6 +345,7 @@ export class RitualRoll extends SkillRoll {
         super(actor, "sorcery");
         this.item = item;
         this.itemId = itemId;
+        this.chatDescription = item.system.description;
         this.spell = ritualData;    // we keep calling it 'spell' due to legacy code
         this.skillSpec = "ritual_spellcasting";
         
@@ -306,6 +371,8 @@ export class ComplexFormRoll extends SkillRoll {
         super(actorSystem, item.system.skill);
         this.item = item;
         this.itemId = itemId;
+        this.itemUuid = item.uuid;
+        this.chatDescription = item.system.description;
         this.form = complexFormSystem;
         if(item.system.skill === 'electronics') {
             this.skillSpec = "complex_forms";
@@ -313,8 +380,32 @@ export class ComplexFormRoll extends SkillRoll {
             this.skillSpec = "cybercombat";
         }
         this.attrib = "res";
+        this.defendWith = Defense.ITEM_DEFINED;
         this.calcFade = complexFormSystem.fading;
     }
+}
+export class PowerRoll extends SkillRoll {
+
+}
+export class SpritePowerRoll extends SkillRoll {
+    rollType = RollType.Item;
+    
+    constructor (item) {
+        super(item.actor.system, item.system.skill);
+
+        this.item = item;
+        this.itemUuid = item.uuid;
+        this.chatDescription = item.system.description;
+        this.skillSpec = item.system.skillSpec;
+        this.attrib = "res";
+        this.defendWith = Defense.ITEM_DEFINED;
+        // TODO Add Sprite Power Damage for e.g. Electron Storm - needs also Item system support
+        if (item.system.dmg) {
+            this.damage = Number(item.system.dmg) || 0;
+            this.monitor = MonitorType.MATRIX;
+        }
+    }
+
 }
 function isWeapon(obj) {
     return obj.attackRating != undefined;
@@ -350,16 +441,22 @@ export class WeaponRoll extends SkillRoll {
         super(actor, getSystemData(item).skill);
         this.item = item;
         this.itemId = itemId;
+        this.chatDescription = item.system.description;
         this.gear = gear;
         this.skillSpec = this.gear.skillSpec;
         if (isWeapon(gear)) {
             this.weapon = gear;
             this.rollType = RollType.Weapon;
             this.defendWith = Defense.PHYSICAL;
-            this.monitor = (item.calculated.stun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
+            this.monitor = (item.calculatedStun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
             // this.fireMode = 'SS';
         }
         this.pool = gear.pool;
+        if (item.system.isElectronicMatrixDevice) {
+            const matrixCmModifier = item.system.matrix.matrixCM.penalty;
+            this.matrixCmPenalty = matrixCmModifier;            
+            this.pool = Math.max(0, this.pool - matrixCmModifier);
+        }
     }
     get getModes() {
         let modes = {};
@@ -388,6 +485,14 @@ export class WeaponRoll extends SkillRoll {
         }
     }
 }
+/**
+ * Matrix Action Roll configuration object thats being passed to the RollDialog and later into chat
+ * @param {SR6Actor} [actor]                        The Actor that is rolling
+ * @param {object}   [action]                       The Matrix Action that is being used
+ * @param {object}   [options]                      Options provided
+ * @param {SR6Actor} [options.target]               A target Actor or Item that wants you to check what their ACL it towards this Actor
+ * @param {boolean}  [options.fromReferenceSection] True if this is being called from the Matrix Action Reference Section
+ */
 export class MatrixActionRoll extends SkillRoll {
     rollType = RollType.MatrixAction;
     itemName;
@@ -397,11 +502,125 @@ export class MatrixActionRoll extends SkillRoll {
     targets;
     defenseRating;
     attackRating;
-    constructor(actor, action) {
-        super(actor, action.skill);
+    specialOption; // Can be set in the CONFIG.SR6.MATRIX_ACTIONS to pass things in chat messages
+
+    constructor(actor, action, options={}) {
+        super(actor.system, action.skill);
+        console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
+        const {target, fromReferenceSection, limitedViewOverride} = options;
+        
+        this.actor = actor;
+        this.matrixInitiatorUuid = actor.uuid;
+
+        if (target) {
+            let targetSystem;
+            if (target instanceof game.sr6.documents.SR6Item) {
+                targetSystem = target.actor.system;
+            }
+            else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
+                targetSystem = target.system;
+            }
+            this.accessLevel = target.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection, limitedViewOverride: limitedViewOverride });
+            this.matrixTargetName = target.name;
+            this.matrixTargetUuid = target.uuid;
+            this.panName = targetSystem.pan?.name ?? target.name;
+            this.panAdmin = targetSystem.pan?.administrator?.name ?? target.name;
+            this.panAdminUuid = targetSystem.pan?.administrator?.uuid ?? target.uuid;
+        } else {
+            this.accessLevel = actor.yourMatrixAccessLevel({ initiator: actor, fromReferenceSection: fromReferenceSection, limitedViewOverride: limitedViewOverride });
+        }
+
+        if (action.linkedAttr) {
+            const attack = actor.getMatrixPool("a");
+            const sleaze = actor.getMatrixPool("s");
+            if (action.linkedAttr === "a" && sleaze > attack) {
+                this.modifier = attack - sleaze;
+                this.rollWarningMessage = "shadowrun6.matrix.linkedAttr.modifier.a";
+            }
+            if (action.linkedAttr === "s" && attack > sleaze) {
+                this.modifier = sleaze - attack;
+                this.rollWarningMessage = "shadowrun6.matrix.linkedAttr.modifier.s";
+            }
+        }
+
+        if (action.attr1) { // Opposed Test
+            this.defendWith = Defense.MATRIX;
+            this.attackRating = actor.matrixAttackRating; 
+            if (target instanceof game.sr6.documents.SR6Item) {
+                this.defenseRating = target.actor.system.pan.administrator.matrixDefenseRating; 
+            }
+            else if (target instanceof game.sr6.documents.Shadowrun6Actor) {
+                this.defenseRating = target.system.pan?.administrator?.matrixDefenseRating ?? target.system.matrix?.defenseRating; 
+            }
+        }
+
+        if (action.getDamage) {
+            this.damage = action.getDamage(actor);
+            this.monitor = MonitorType.MATRIX;
+        }
+
+        this.matrixActionId = action.id;
         this.action = action;
-        this.skillSpec = this.action.spec;
+        this.attrib = action.attrib;
+        this.skillId = action.skill;
+        this.skillSpec = action.specialization;
+        this.threshold = action.threshold;
+
+        this.actionText = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".name");
+        this.checkText = actor._getSkillCheckText(this);
+        this.chatDescription = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
+
+        this.pool = actor._getSkillPool(action.skill, action.specialization, action.attrib);
+        
+        const matrixCmModifier = actor.getMatrixCmModifier();
+        if (matrixCmModifier) {
+            this.matrixCmPenalty = matrixCmModifier;
+            this.pool = Math.max(0, this.pool - matrixCmModifier);
+        }
+        
+        this.speaker = ChatMessage.getSpeaker({ actor: actor });
     }
+
+    async toChat() {
+        console.log("SR6E | Sending MatrixActionRoll to chat", this)
+        const panName = this.panAdmin 
+            ? `<span>//${this.panName}</span>` 
+            : ``;
+        const targetName = this.matrixTargetName 
+            ? `<span>//:${this.matrixTargetName}</span>`
+            : `<span>//:???</span>`;
+        const chatDescription = this.chatDescription
+            ? `<div class="chat-roll-description">
+                <span>${this.chatDescription}</span>
+            </div>
+            <hr/>`
+            : ``;
+        const matrixActionDescription = this.matrixActionDescription 
+            ? `<div class="matrix-action-option chat-roll-description">
+                <span>${game.i18n.localize(this.matrixActionDescription)}</span>
+            </div>
+            <hr>` 
+            : ``;
+
+        const msg = `
+            <h3>${this.actionText}</h3>
+            <h4 class="matrix-command-line">
+                <span>${game.i18n.localize("shadowrun6.matrix.accessLevel."+this.accessLevel)}@${this.speaker.alias}</span>
+                ${panName}
+                ${targetName}
+                <span># ${this.actionText}..</span>
+                <div># ${game.i18n.localize("shadowrun6.matrix.chat.initiating")}..</div>
+            </h4>
+            ${chatDescription}
+            ${matrixActionDescription}
+        `;
+
+        await ChatMessage.create({
+            speaker: this.speaker,
+            content: msg
+        });
+    }
+
 }
 export class VehicleRoll extends PreparedRoll {
     rollType = RollType.Vehicle;
@@ -445,11 +664,17 @@ export class ConfiguredRoll extends CommonRollData {
     targetIds;
     threshold;
     legwork;
-    /* This methods is a horrible crime - there must be a better solution */
+    /**
+     * This methods is a horrible crime - there must be a better solution 
+     * JEROEN THIS COPIES FROM THE ORIGINAL XxxRoll.contructor() TO THE configured IN THE CHAT MESSAGE!
+     * */
     updateSpecifics(copy) {
+        this.itemName = copy.itemName;
         this.itemId = copy.itemId;
+        this.itemUuid = copy.itemUuid;
         this.targetIds = copy.targets;
         this.actionText = copy.actionText;
+        if (copy.chatDescription) this.chatDescription = copy.chatDescription;
         this.attrib = copy.attrib;
         // In case this was a WeaponRoll
         console.log("SR6E | Copy WeaponRoll data to ConfiguredRoll", copy.calcDamage, copy.damage);
@@ -482,15 +707,42 @@ export class ConfiguredRoll extends CommonRollData {
         this.formName = copy.formName;
         this.formSrc = copy.formSrc;
 
-        if (copy.defendedWith) {
-            this.defendedWith = copy.defendedWith;
-        }
+        if (copy.modifier) this.modifier = copy.modifier;
+        if (copy.rollWarningMessage) this.rollWarningMessage = copy.rollWarningMessage;
+
+        if (copy.actorUuid) this.actorUuid = copy.actorUuid;
+        if (copy.actorName) this.actorName = copy.actorName;
+        if (copy.accessLevel) this.accessLevel = copy.accessLevel;
+        if (copy.matrixActionId) this.matrixActionId = copy.matrixActionId;
+        if (copy.matrixInitiatorUuid) this.matrixInitiatorUuid = copy.matrixInitiatorUuid;
+        if (copy.matrixTargetName) this.matrixTargetName = copy.matrixTargetName;
+        if (copy.matrixTargetUuid) this.matrixTargetUuid = copy.matrixTargetUuid;
+        if (copy.matrixTargetType) this.matrixTargetType = copy.matrixTargetType;
+        if (copy.matrixSoakUuid) this.matrixSoakUuid = copy.matrixSoakUuid;
+        if (copy.matrixSoakName) this.matrixSoakName = copy.matrixSoakName;
+        if (copy.matrixActionOption) this.matrixActionOption = copy.matrixActionOption;
+        if (copy.matrixActionDescription) this.matrixActionDescription = copy.matrixActionDescription;
+        if (copy.noMatrixResultButton) this.noMatrixResultButton = copy.noMatrixResultButton;
+
+        if (copy.panName) this.panName = copy.panName;
+        if (copy.panAdmin) this.panAdmin = copy.panAdmin;
+        if (copy.panAdminUuid) this.panAdminUuid = copy.panAdminUuid;
+        if (copy.matrixCmPenalty) this.matrixCmPenalty = copy.matrixCmPenalty;
+
+        if (copy.defendedWith) this.defendedWith = copy.defendedWith;
+        if (copy.damageLabel) this.damageLabel = copy.damageLabel;
+        
+        if (copy.noEdgeGain) this.noEdgeGain = copy.noEdgeGain;
+        if (copy.noEdgeSpend) this.noEdgeSpend = copy.noEdgeSpend;
+        if (copy.tempEdge) this.tempEdge = copy.tempEdge;
 
         if (copy.skillId) {
             this.skillId = copy.skillId;
             this.skillSpec = copy.skillSpec;
         }
 
+        if (copy.actorTraits) this.actorTraits = copy.actorTraits;
+        
         this.threshold = copy.threshold;
         this.soakType = copy.soakType;
         this.monitor = copy.monitor;
@@ -504,6 +756,52 @@ export class ConfiguredRoll extends CommonRollData {
         }
     }
 }
+
+export class DirectDamage extends ConfiguredRoll {
+    constructor(actor, damageData) {
+        super();
+        const {soakType, monitor, damage} = damageData;
+
+        this.rollType = RollType.Defense;
+        this.defendedWith = Defense.DIRECT_DAMAGE;
+
+        this.soakType = soakType;
+        this.monitor = monitor;
+        this.damage = damage;
+
+        this.speaker = ChatMessage.getSpeaker({ actor: actor });
+        this.pool = 1;
+        this.buttonType = ReallyRoll.AUTOHITS;
+
+        switch (soakType) {
+            case SoakType.BIO_FEEDBACK:
+                this.actionText = game.i18n.localize("shadowrun6.roll.actionText.bio_feedback");
+                this.chatDescription = game.i18n.localize("shadowrun6.roll.bio_feedback.description");
+                break;
+            default:
+                console.error("SR6E | DirectDamage | Unknown how to handle soakType:", soakType)
+                break;
+        }
+        switch (monitor) {
+            case MonitorType.STUN:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
+                break;
+            case MonitorType.PHYSICAL:
+                this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
+                break;
+            default:
+                console.error("SR6E | DirectDamage | Unknown how to handle monitor:", monitor)
+                break;
+        }
+    }
+    
+    async toChat() {
+        const roll = new SR6Roll("1d6", this);
+        await roll.toMessage(this);
+    }
+
+}
+
 /**
  * Data to show in a ChatMessage
  */
@@ -548,9 +846,11 @@ export class SR6ChatMessageData {
     damageAfterSoakAlreadyApplied;
     nettoHits;
     legwork;
+    itemUuid;
     constructor(copy) {
         console.log("SR6E | ####SR6ChatMessageData####1###", copy);
         this.speaker = copy.speaker;
+        // TODO rework without actor
         this.actor = copy.actor;
         this.actionText = copy.actionText;
         this.rollType = copy.rollType;
@@ -566,7 +866,12 @@ export class SR6ChatMessageData {
         this.edgeAction = copy.edgeAction;
         this.targets = copy.targetIds;
         this.soakType = copy.soakType;
-        this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
+        // this.monitor = copy.monitor ?? (copy.soakType === SoakType.DAMAGE_STUN ? MonitorType.STUN : MonitorType.PHYSICAL);
+        if (copy.monitor) this.monitor = copy.monitor;
+        if (copy.damageLabel) this.damageLabel = copy.damageLabel;
+
+        if (copy.actorTraits) this.actorTraits = copy.actorTraits;
+
         if (copy.legwork) this.legwork = copy.legwork;
         console.log("SR6E | ####SR6ChatMessageData####2###", this);
     }

@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Electron Storm",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Engulf a target persona in a corrupting datastreams. If the sprite beats the target in a <strong>Cracking + RES vs. INT + FW</strong> test, the target is enveloped in a hail of pulses. </p><p>With the first successful attack and on each subsequent action you perform while sustaining this power, it inflicts <strong>(Resonance) DV Matrix damage</strong>, resisted as normal. </p><p>The storm also causes 2 levels of noise for the target. If you take any Matrix damage, all of your electron storms end immediately.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "cracking",
+    "skillSpec": "",
+    "oppAttr1": "int",
+    "oppAttr2": "f"
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250842575,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "NVCrfwsAg3Wzv511",
+  "sort": 800000,
+  "_key": "!items!NVCrfwsAg3Wzv511"
+}

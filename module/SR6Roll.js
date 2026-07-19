@@ -188,7 +188,8 @@ export default class SR6Roll extends Roll {
             }
         }
 
-        this.finished.monitor = this.finished.monitor ? this.finished.monitor : MonitorType.PHYSICAL;
+        // UNCLEAR WHY THIS FALLBACK IS HERE > REMOVING
+        //this.finished.monitor = this.finished.monitor ? this.finished.monitor : MonitorType.PHYSICAL;
         if (this.finished.rollType === RollType.Soak) {
             this.finished.damage = Math.max(0, this.finished.threshold - this.finished.total);
 
@@ -336,7 +337,7 @@ export default class SR6Roll extends Roll {
      */
     static createFormula(count, limit = -1, explode = false) {
         console.log("SR6E | createFormula-------------------------------");
-        if (!count) {
+        if (count!==0 &&!count) {
             throw new Error("createFormula: Number of dice not set");
         }
         let formula = `${count}d6`;
@@ -378,7 +379,7 @@ export default class SR6Roll extends Roll {
         return this.isGlitch(true) && this._total === 0;
     }
     isSuccess() {
-        console.log("SR6E | SR6Roll.isSuccess for ", this);
+        console.log("SR6E | SR6Roll.isSuccess for ", this._total, this.finished.threshold, this);
         if (this.finished.threshold > 0) {
             return this._total >= this.finished.threshold;
         }
@@ -418,10 +419,10 @@ export default class SR6Roll extends Roll {
     /*****************************************
      * @override
      ****************************************/
-    getTooltip() {
+    async getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
+        return await renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
             {
                 parts,
                 finished: this.finished,
@@ -442,7 +443,6 @@ export default class SR6Roll extends Roll {
         console.log("SR6E | this = ", this);
         console.log("SR6E | this.data = ", this.data);
         console.log("SR6E | this.finished = ", this.finished);
-        // console.log("SR6E | this.results = ", this.results);
         try {
             if (!this._evaluated) {
                 await this.evaluate({ async: true });
@@ -453,112 +453,136 @@ export default class SR6Roll extends Roll {
                 this.finished = new SR6ChatMessageData(this.configured);
             }
 
-            // Threshold modifications that impact the succes of the current roll, must be done above (in _prepareChatMessage)
-            this.finished.success = this.isSuccess();
-            // Threshold modifications that impact the succes of the future rolls, must be done below
+            // TODO All success/finished configuration should be moved out of render(); Has no place here; Workaround implemented via _rendered flag
+            if (!this.finished._rendered) {
+                console.log("SR6E | SR6Roll.finished._rendered");
+                this.finished._rendered = true;
 
-            if (this.configured) {
-                this.finished.actionText = isPrivate ? "" : this.configured.actionText;
-                this.finished.allowSoak = this.configured.allowSoak;
-                if (this.configured.extended) {
-                    const pluralRules = new Intl.PluralRules(game.i18n.lang);
-                    const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${this.configured.intervalScale}_long_${pluralRules.select(this.configured.timePassed)}`);
-                    if (this.configured.threshold === 0) {
-                        this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended.desc", { 
-                            timePassed: this.configured.timePassed, 
-                            intervalScale: localizedIntervalScale,
-                            hits: this.configured.extendedTotal
-                        });
-                    } 
-                    else if (this.finished.success) {
-                        this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_success", { 
-                            timePassed: this.configured.timePassed, 
-                            intervalScale: localizedIntervalScale
-                        });
-                    }
-                    else {
-                        this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_failure", { 
-                            timePassed: this.configured.timePassed, 
-                            intervalScale: localizedIntervalScale
-                        });
-                    }
-                }
-                //TODO possible move some of these things to _prepareChatMessage() // rollType Soak already moved but kept here to keep old chatMessages working
-                if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
-                    console.log("SR6E | rollType", RollType.Soak);
-                    this.finished.damage = this.finished.threshold - this.finished.total;
+                // Threshold modifications that impact the succes of the current roll, must be done above (in _prepareChatMessage)
+                this.finished.success = this.isSuccess();
+                // Threshold modifications that impact the succes of the future rolls, must be done below
 
-                } else if (this.finished.rollType === RollType.Weapon) {
-                    console.log("SR6E | rollType", RollType.Weapon);
-                    // this.finished.total = Attacker hits in this roll
-                    // Defender must have more hits than the attacker for success, not the same
-                    this.finished.threshold = this.finished.total + 1;
-
-                } else if (this.finished.rollType === RollType.Defense) {
-                    console.log("SR6E | rollType", RollType.Defense);
-                    // this.finished.thresholds = Attacker hits +1 
-                    // this.finished.total = Defender hits in this roll
-                    if (this.finished.total <= this.finished.threshold) {
-                        this.finished.damage = this.data.calcDamage + (this.finished.threshold - 1) - this.finished.total;
-
-                        // Hardened Armor
-                        if (this.finished.rollType === RollType.Defense && this.finished.soakType === SoakType.DAMAGE_PHYSICAL ) {
-                            if (!(this.finished.actorTraits.immunityNormalWeapons && this.configured.defendedWith === Defense.SPELL_INDIRECT)) {
-                                console.log("SR6E | Applying Hardened Armor", this.finished.actorTraits.hardenedArmor);
-                                this.finished.damage = Math.max(0, this.finished.damage- this.finished.actorTraits.hardenedArmor);
-                            }
+                if (this.configured) {
+                    this.finished.actionText = isPrivate ? "" : this.configured.actionText;
+                    this.finished.allowSoak = this.configured.allowSoak;
+                    if (this.configured.extended) {
+                        const pluralRules = new Intl.PluralRules(game.i18n.lang);
+                        const localizedIntervalScale = game.i18n.localize( `shadowrun6.dice.extended.intervalScale.${this.configured.intervalScale}_long_${pluralRules.select(this.configured.timePassed)}`);
+                        if (this.configured.threshold === 0) {
+                            this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended.desc", { 
+                                timePassed: this.configured.timePassed, 
+                                intervalScale: localizedIntervalScale,
+                                hits: this.configured.extendedTotal
+                            });
+                        } 
+                        else if (this.finished.success) {
+                            this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_success", { 
+                                timePassed: this.configured.timePassed, 
+                                intervalScale: localizedIntervalScale
+                            });
+                        }
+                        else {
+                            this.finished.extendedResultMsg = game.i18n.format("shadowrun6.dice.extended_failure", { 
+                                timePassed: this.configured.timePassed, 
+                                intervalScale: localizedIntervalScale
+                            });
                         }
                     }
-                    if (this.finished.allowSoak === false) {
-                        this.finished.rollType = RollType.Soak;
-                    }
-                } else if (this.finished.rollType === RollType.Spell) {
-                    console.log("SR6E | rollType", RollType.Spell);
-                    if (this.configured.spell.category === "combat") {
-                        console.log("SR6E | Spell Category combat");
-                        if (this.finished.defendWith === Defense.SPELL_DIRECT) {
-                            console.log("SR6E | This is a Direct Combat Spell");
-                            this.finished.threshold = this.finished.total + 1;
-                        } else if (this.finished.defendWith === Defense.SPELL_INDIRECT) {
-                            console.log("SR6E | This is a Indirect Combat Spell");
+                    //TODO possible move some of these things to _prepareChatMessage() // rollType Soak already moved but kept here to keep old chatMessages working
+                    if (this.finished.rollType == RollType.Soak && this.finished.damage === undefined) {
+                        console.log("SR6E | rollType", RollType.Soak);
+                        this.finished.damage = this.finished.threshold - this.finished.total;
+
+                    } else if (this.finished.rollType === RollType.Weapon) {
+                        console.log("SR6E | rollType", RollType.Weapon);
+                        // this.finished.total = Attacker hits in this roll
+                        // Defender must have more hits than the attacker for success, not the same
+                        this.finished.threshold = this.finished.total + 1;
+
+                    } else if (this.finished.rollType === RollType.Defense) {
+                        console.log("SR6E | rollType", RollType.Defense);
+                        // this.finished.thresholds = Attacker hits +1 
+                        // this.finished.total = Defender hits in this roll
+                        if (this.finished.total <= this.finished.threshold) {
+                            this.finished.damage = this.data.calcDamage + (this.finished.threshold - 1) - this.finished.total;
+
+                            // Hardened Armor
+                            if (this.finished.rollType === RollType.Defense && this.finished.soakType === SoakType.DAMAGE_PHYSICAL ) {
+                                if (!(this.finished.actorTraits.immunityNormalWeapons && this.configured.defendedWith === Defense.SPELL_INDIRECT)) {
+                                    console.log("SR6E | Applying Hardened Armor", this.finished.actorTraits.hardenedArmor);
+                                    this.finished.damage = Math.max(0, this.finished.damage- this.finished.actorTraits.hardenedArmor);
+                                }
+                            }
+                        }
+                        if (this.finished.allowSoak === false) {
+                            this.finished.rollType = RollType.Soak;
+                        }
+
+                        if (
+                            this.configured.threshold && this.finished.total 
+                            && this.configured.defendedWith === Defense.MATRIX
+                        ) {
+                            // Show Net Hits in the chat message
+                            this.finished.netHits = Math.max(0, this.configured.threshold - 1 - this.finished.total);
+                        }
+
+                    } else if (this.finished.rollType === RollType.Spell) {
+                        console.log("SR6E | rollType", RollType.Spell);
+                        if (this.configured.spell.category === "combat") {
+                            console.log("SR6E | Spell Category combat");
+                            if (this.finished.defendWith === Defense.SPELL_DIRECT) {
+                                console.log("SR6E | This is a Direct Combat Spell");
+                                this.finished.threshold = this.finished.total + 1;
+                            } else if (this.finished.defendWith === Defense.SPELL_INDIRECT) {
+                                console.log("SR6E | This is a Indirect Combat Spell");
+                                // Defender must have more hits than the attacker for success, not the same
+                                this.finished.threshold = this.finished.total + 1;
+                            }
+                        }
+                        if (this.configured.spell.withEssence) {
+                            this.finished.netHits = this.finished.total - this.configured.threshold;
+                        }
+                    } else if (
+                        this.finished.rollType === RollType.MatrixAction
+                        || this.finished.rollType === RollType.Item
+                    ) {
+                        if (this.configured.threshold && this.finished.total) {
+                            // Show Net Hits in the chat message
+                            this.finished.netHits = this.finished.total - this.configured.threshold;
+                        }
+                        else if (this.finished.isOpposed) {
                             // Defender must have more hits than the attacker for success, not the same
                             this.finished.threshold = this.finished.total + 1;
                         }
                     }
-                    if (this.configured.spell.withEssence) {
-                        this.finished.netHits = this.finished.total - this.configured.threshold;
-                    }
-                } else if (this.finished.rollType === RollType.ComplexForm) {
-                    if (this.configured.threshold && this.finished.total) {
-                        // Show Net Hits in the chat message
-                        this.finished.netHits = this.finished.total - this.configured.threshold;
-                    }
+                }
+
+                //finished.user    = (game as Game).user!.id,
+                this.finished.glitch = this.isGlitch();
+                this.finished.criticalglitch = this.isCriticalGlitch();
+                this.finished.total = this._total;
+                this.finished.configured = this.configured;
+                (this.finished.results = isPrivate ? "???" : this.results),
+                    (this.finished.formula = isPrivate ? "???" : this._formula),
+                    (this.finished.publicRoll = !isPrivate);
+                this.finished.tooltip = isPrivate ? "" : await this.getTooltip();
+                this.finished.publicRoll = !isPrivate;
+
+                // Fixing rollMode
+                this.finished.rollMode = this.data.rollMode;
+
+                // Setting Sprint text
+                if (this.finished.configured.skillSpec === "sprinting") {
+                    this.finished.configured.sprintingResult = game.i18n.format("shadowrun6.derived.movement.sprint_result", { 
+                        name: this.finished.actor.name,
+                        metersSprinted: this.finished.actorTraits.movementSprintBase + ( this.finished.actorTraits.movementSprintMultiplier * this.finished.total )
+                    });
                 }
             }
 
-            //finished.user    = (game as Game).user!.id,
-            this.finished.glitch = this.isGlitch();
-            this.finished.criticalglitch = this.isCriticalGlitch();
-            this.finished.total = this._total;
-            this.finished.configured = this.configured;
-            (this.finished.results = isPrivate ? "???" : this.results),
-                (this.finished.formula = isPrivate ? "???" : this._formula),
-                (this.finished.publicRoll = !isPrivate);
-            this.finished.tooltip = isPrivate ? "" : await this.getTooltip();
-            this.finished.publicRoll = !isPrivate;
-
-            // Fixing rollMode
-            this.finished.rollMode = this.data.rollMode;
-
-            // Setting Sprint text
-            if (this.finished.configured.skillSpec === "sprinting") {
-                this.finished.configured.sprintingResult = game.i18n.format("shadowrun6.derived.movement.sprint_result", { 
-                    name: this.finished.actor.name,
-                    metersSprinted: this.finished.actorTraits.movementSprintBase + ( this.finished.actorTraits.movementSprintMultiplier * this.finished.total )
-                });
-            }
-
-            return renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
+            this.finished.isGM = game.user.isGM;
+            
+            return await renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
         }
         finally {
             console.log("SR6E | LEAVE render");

@@ -36,7 +36,7 @@
           "key": "system.attackRating.1",
           "mode": 5,
           "value": "0",
-          "priority": null
+          "priority": 10
         }
       ],
       "disabled": true,
@@ -59,10 +59,11 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.348",
+        "coreVersion": "13.351",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.5",
-        "lastModifiedBy": null
+        "lastModifiedBy": "S4L5UokAp998askq",
+        "modifiedTime": 1773587839724
       },
       "_key": "!items.effects!TIZv61d4mkkiT6ST.jHZFdGrzhCh1QLIF"
     },
@@ -93,7 +94,7 @@
           "key": "system.attackRating.2",
           "mode": 5,
           "value": "1",
-          "priority": null
+          "priority": 10
         }
       ],
       "disabled": true,
@@ -116,10 +117,11 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.348",
+        "coreVersion": "13.351",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.5",
-        "lastModifiedBy": null
+        "lastModifiedBy": "S4L5UokAp998askq",
+        "modifiedTime": 1773587850617
       },
       "_key": "!items.effects!TIZv61d4mkkiT6ST.LBk0wa0bM5iIUfC4"
     },
@@ -156,7 +158,7 @@
           "key": "system.attackRating.3",
           "mode": 5,
           "value": "2",
-          "priority": null
+          "priority": 10
         }
       ],
       "disabled": true,
@@ -179,10 +181,11 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.348",
+        "coreVersion": "13.351",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.5",
-        "lastModifiedBy": null
+        "lastModifiedBy": "S4L5UokAp998askq",
+        "modifiedTime": 1773587811401
       },
       "_key": "!items.effects!TIZv61d4mkkiT6ST.XHwu65iWoqD2nwID"
     },
@@ -225,7 +228,7 @@
           "key": "system.attackRating.4",
           "mode": 5,
           "value": "2",
-          "priority": null
+          "priority": 10
         }
       ],
       "disabled": true,
@@ -248,10 +251,11 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.348",
+        "coreVersion": "13.351",
         "systemId": "shadowrun6-eden",
         "systemVersion": "3.3.5",
-        "lastModifiedBy": null
+        "lastModifiedBy": "S4L5UokAp998askq",
+        "modifiedTime": 1773587829786
       },
       "_key": "!items.effects!TIZv61d4mkkiT6ST.jXYFSnTLZtnVG48g"
     }

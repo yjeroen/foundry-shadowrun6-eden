@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Camouflage",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>You can conceal a file within another file to make it invisible to Matrix searches. Concealed files can only be found with a <strong>Matrix Perception</strong> test that is specifically looking it; </p><p>Even you must make this test in order to find and extract it (again).</p>",
+    "product": "",
+    "page": 0,
+    "duration": "instantaneous",
+    "isSustained": false,
+    "skill": "",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250833339,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "X2zj2g8Zm2lgcZd8",
+  "sort": 1400000,
+  "_key": "!items!X2zj2g8Zm2lgcZd8"
+}

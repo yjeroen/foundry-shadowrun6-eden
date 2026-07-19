@@ -1,54 +1,83 @@
-// import { prepareActiveEffectCategories } from "../helpers/effects.mjs";
-
 const { api, sheets } = foundry.applications;
 
 /**
- * Extend the basic ActorSheet with some very simple modifications
+ * Extend the basic ActorSheet
  * @extends {ActorSheetV2}
  */
 export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     sheets.ActorSheetV2
 ) {
+    #tabScrollCleanup = null;
+    #heartRateTimeout = null;
+    _editMode = false;
+    _defaultTab = "";
+
     /** @override */
     static DEFAULT_OPTIONS = {
-        classes: ["shadowrun6", "actor"],
+        classes: ["shadowrun6", "sr6", "actor"],
         position: {
-            width: 600,
+            width: null,
             height: 600,
         },
         window: {
             resizable: true,
+            controls: [
+                {
+                    action: "openTemplateActor",
+                    icon: "fa-solid fa-fw fa-circle-user",
+                    label: "SR6.label.viewTemplateActor",
+                    visible: function() { return (!this.actor?.prototypeToken?.actorLink && this.actor?.token) ; },
+                    ownership: "OWNER",
+                }
+            ]
         },
         actions: {
+            openTemplateActor: this.#onOpenTemplateActor,
+            onShowImage: this._onShowImage,
             onEditImage: this._onEditImage,
+            togglePersonaMode: this._togglePersonaMode,
+            onTrackClick: this._onTrackClick,
+            onClickOS: this._onClickOS,
+            onClickEdgeToken: {handler: this._onClickEdgeToken, buttons: [0, 2]},
+            selectInputText: this._selectInputText,
             viewDoc: this._viewDoc,
             createDoc: this._createDoc,
             deleteDoc: this._deleteDoc,
             toggleEffect: this._toggleEffect,
             roll: this._onRoll,
+            itemSustainToggle: this._itemSustainToggle,
+            itemDescToggle: {handler: this._itemDescToggle, buttons: [0, 2]},
         },
-        // Custom property that's merged into `this.options`
+        // Custom property that's merged into `this.options`. The .draggable class is already default
         // dragDrop: [{ dragSelector: '.draggable', dropSelector: null }],
         form: {
             submitOnChange: true,
         },
     };
 
-    /** @override */
+    /** @inheritdoc */
     static PARTS = {
         header: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/header.hbs",
+            templates: [
+                "systems/shadowrun6-eden/templates/sheets/actor/edge-token.hbs"
+            ]
         },
         tabs: {
             // Foundry-provided generic template
             template: "templates/generic/tab-navigation.hbs",
+            scrollable: [""],
+        },
+        summary: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/summary-tab.hbs",
+            scrollable: [""],
         },
         features: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",
             scrollable: [""],
         },
-        biography: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/biography-tab.hbs",
+        description: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/description-tab.hbs",
             scrollable: [""],
         },
         gear: {
@@ -64,55 +93,61 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             scrollable: [""],
         },
     };
-
-    /** @override */
-    _prepareSubmitData(event, form, formData) {
-        try {
-            const submitData = super._prepareSubmitData(event, form, formData);
-            return submitData;
-        } catch (error) {
-            // TODO: error very hard to localize
-            ui.notifications.error(`${error.name}: ${error.message}`);
-            // this.render();
-        } finally {
-            // TODO This might cause a duplicate render, but else sometimes (if e.g. the number was already on min, 
-            // but you then go to an invalid number) on a bad validation the sheet doesn't get rerendered
-            this.render();
-        }
+    
+    /**
+     * Initiator used in case an action is performed that can be initiated by another actor
+     */
+    get initiator() {
+        if (this.options.initiator) return this.options.initiator;
+        if (this.actor.isOwner) return this.actor;
+        return canvas.tokens.controlled[0]?.actor ?? game.user.character ?? this.actor;
     }
 
     /** @override */
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
         // Not all parts always render
-        options.parts = ["header", "tabs", "biography"];
-        // Don't show the other tabs if only limited view
-        if (this.document.limited) return;
-        // Control which parts show based on document subtype
-        switch (this.document.type) {
-            case "character":
-                options.parts.push("features", "gear", "magic", "effects");
-                break;
-            case "npc":
-                options.parts.push("gear", "effects");
-                break;
+        options.parts = ["header", "tabs"];
+
+        if (this.document.limited || this.options.limited) {
+            // TODO add limited only view - maybe specific tabs?
+            return;
         }
+        
+        // // Don't show the other tabs if only limited permissions view
+        // if (this.document.limited) return;
+        // // Control which parts show based on document subtype
+        // switch (this.document.type) {
+        //     case "character":
+        //         options.parts.push("features", "gear", "magic", "effects");
+        //         break;
+        //     case "npc":
+        //         options.parts.push("gear", "effects");
+        //         break;
+        // }
     }
 
     /* -------------------------------------------- */
 
     /** @override */
     async _prepareContext(options) {
+
         // Output initialization
         const context = {
             // Validates both permissions and compendium status
+            editMode: this.document.isOwner && this.isEditable && this._editMode,
             editable: this.isEditable,
-            owner: this.document.isOwner,
-            limited: this.document.limited,
+            owner: !this.options.limited && this.document.isOwner,
+            limited: this.options.limited || this.document.limited,
+            isGM: game.user.isGM,
             // Add the actor document.
+            sheet: this,
             actor: this.actor,
+            // Boolean if the Actor is linked
+            linkedToken: this.actor.prototypeToken.actorLink,
             // Add the actor's data to context.data for easier access, as well as flags.
             system: this.actor.system,
+            source: this.actor._source.system,
             flags: this.actor.flags,
             // Adding a pointer to CONFIG.SR6
             config: CONFIG.SR6,
@@ -120,7 +155,25 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             // Necessary for formInput and formFields helpers
             fields: this.document.schema.fields,
             systemFields: this.document.system.schema.fields,
+            tracks: {},
         };
+
+        if (this.actor.system.skills) {
+            context.skills = Object.values(this.actor.system.skills)
+                                   .sort((a, b) => a.schema?.label.localeCompare(b.schema?.label));
+        }
+        if (this.actor.system.health?.physicalCM) {
+            context.tracks.physical = this._prepareConditionMonitors(this.actor.system.health.physicalCM);
+        }
+        if (this.actor.system.health?.stunCM) {
+            context.tracks.stun = this._prepareConditionMonitors(this.actor.system.health.stunCM);
+        }
+        if (this.actor.system.health?.overflow?.dmg) {
+            context.tracks.overflow = this._prepareConditionMonitors(this.actor.system.health.overflow);
+        }
+        if (this.actor.system.matrix?.matrixCM) {
+            context.tracks.matrix = this._prepareConditionMonitors(this.actor.system.matrix.matrixCM);
+        }
 
         // Offloading context prep to a helper function
         this._prepareItems(context);
@@ -131,17 +184,18 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     /** @override */
     async _preparePartContext(partId, context) {
         switch (partId) {
+            case "summary":
             case "features":
             case "magic":
             case "gear":
                 context.tab = context.tabs[partId];
                 break;
-            case "biography":
+            case "description":
                 context.tab = context.tabs[partId];
-                // Enrich biography info for display
+                // Enrich description info for display
                 // Enrichment turns text like `[[/r 1d20]]` into buttons
-                context.enrichedBiography = await TextEditor.enrichHTML(
-                    this.actor.system.biography,
+                context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    this.actor.system.description,
                     {
                         // Whether to show secret blocks in the finished html
                         secrets: this.document.isOwner,
@@ -151,11 +205,19 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                         relativeTo: this.actor,
                     }
                 );
+                context.enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    this.actor.system.notes,
+                    {
+                        secrets: this.document.isOwner,
+                        rollData: this.actor.getRollData(),
+                        relativeTo: this.actor,
+                    }
+                );
                 break;
             case "effects":
                 context.tab = context.tabs[partId];
                 // Prepare active effects
-                context.effects = prepareActiveEffectCategories(
+                context.effects = game.sr6.utils.prepareActiveEffectCategories(
                     // A generator that returns all effects stored on the actor
                     // as well as any items
                     this.actor.allApplicableEffects()
@@ -175,7 +237,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // If you have sub-tabs this is necessary to change
         const tabGroup = "primary";
         // Default tab for first time it's rendered this session
-        if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = "biography";
+        if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = this._defaultTab;
         return parts.reduce((tabs, partId) => {
             const tab = {
                 cssClass: "",
@@ -191,9 +253,13 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 case "header":
                 case "tabs":
                     return tabs;
-                case "biography":
-                    tab.id = "biography";
-                    tab.label += "Biography";
+                case "summary":
+                    tab.id = "summary";
+                    tab.label += "Summary";
+                    break;
+                case "description":
+                    tab.id = "description";
+                    tab.label += "Description";
                     break;
                 case "features":
                     tab.id = "features";
@@ -229,19 +295,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // if you don't need to subdivide a given type like
         // this sheet does with spells
         const gear = [];
-        const features = [];
-        const spells = {
-            0: [],
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-            5: [],
-            6: [],
-            7: [],
-            8: [],
-            9: [],
-        };
+        // const features = [];
 
         // Iterate through items, allocating to containers
         for (let i of this.document.items) {
@@ -250,27 +304,39 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 gear.push(i);
             }
             // Append to features.
-            else if (i.type === "feature") {
-                features.push(i);
-            }
-            // Append to spells.
-            else if (i.type === "spell") {
-                if (i.system.spellLevel != undefined) {
-                    spells[i.system.spellLevel].push(i);
-                }
-            }
-        }
-
-        for (const s of Object.values(spells)) {
-            s.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+            // else if (i.type === "feature") {
+            //     features.push(i);
+            // }
         }
 
         // Sort then assign
         context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-        context.features = features.sort(
-            (a, b) => (a.sort || 0) - (b.sort || 0)
-        );
-        context.spells = spells;
+        // context.features = features.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    }
+
+    _prepareConditionMonitors(conditionMonitor) {
+        const boxes = conditionMonitor.max;
+        const dmg = conditionMonitor.dmg;
+        const slots = [];
+
+        let i = 0;
+        while (i < boxes) {
+            i++;
+            const slot = { active: true, penalty: null };
+            if (i === boxes && (i % 3) === (boxes % 3) ) {
+                slot.penalty = -1 * Math.ceil(i / 3);
+            } else if (i % 3 == 0) {
+                slot.penalty = -1 * (i / 3);
+            }
+            if (i <= dmg) {
+                slot.active = false;
+            }
+            if (i === boxes) slot.first = true;
+            if (i === 1) slot.last = true;
+            slots.unshift(slot);
+        }
+
+        return slots;
     }
 
     /**
@@ -283,10 +349,144 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      */
     async _onRender(context, options) {
         await super._onRender(context, options);
-        this.#disableOverrides();
-        // You may want to add other special handling here
+        // --- System Special handling: ---
+        this.startHudClock();
+        this.#startHeartRate()
+
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
+
+        // Unselect any CM fields after a rerender
+        this.element.querySelectorAll(".tracks input").forEach(input => input.blur());
+
+        // Add onClick events to the Stat Block
+        if (context.editable) {
+            this.element.querySelectorAll(".stat-block input").forEach(input => {
+                input.addEventListener("click", event =>
+                    this.constructor._selectInputText(event, input)
+                );
+            });
+        }
+        
+        // Tabs
+        const nav = this.element.querySelector(".sheet-tabs.tabs");
+        if (!nav) return;
+        this.#tabScrollCleanup?.();
+        this.#tabScrollCleanup = this._setupHoverScrollTabs(nav);
+    }
+
+    /**
+     * Actions performed after a first render of the Application.
+     * @param {ApplicationRenderContext} context      Prepared context data
+     * @param {RenderOptions} options                 Provided render options
+     * @returns {Promise<void>}
+     * @protected
+     */
+    async _onFirstRender(context, options) {
+        await super._onFirstRender(context, options);
+        // --- System Special handling: ---
+        await this._renderEditButton(options);
+
+        const nav = this.element.querySelector(".sheet-tabs.tabs");
+        if (!nav) return;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                this._scrollActiveTabIntoView(nav, false);
+            });
+        });
+    }
+
+  /**
+   * Render the Actor Edit button in the application header
+   */
+    async _renderEditButton(options) {
+        if (!this.document.isOwner || !this.isEditable) return;
+
+        const label = game.i18n.localize("SR6.title.editButton");
+        const windowTitle = this.element.querySelector(".window-header .window-title");
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "header-control icon toggleEditActor";
+        editButton.dataset.tooltip = label;
+        editButton.setAttribute("aria-label", label);
+        editButton.dataset.action = "toggleEditActor";
+        const faToggle = this._editMode ? "fa-toggle-on" : "fa-toggle-off";
+        editButton.innerHTML = `<i class="fa-solid ${faToggle}"></i>`;
+                
+        windowTitle.after(editButton);
+    }
+
+    /**
+     * Starts the clock in the HUD if it's not disabled
+     * Default shown time (if not set in World) is the users browser client
+     */
+    startHudClock() {
+        const clockEl = this.element.querySelector(".meta-time:not(.disabled)");
+        if (!clockEl) return;
+
+        const startTimestamp = Number(clockEl.dataset.worldTime || Date.now());
+        const startPerf = Date.now();
+
+        function renderHudClock() {
+            const elapsedMs = Date.now() - startPerf;
+            const current = new Date(startTimestamp + elapsedMs);
+
+            clockEl.textContent = [
+                String(current.getHours()).padStart(2, "0"),
+                String(current.getMinutes()).padStart(2, "0"),
+                String(current.getSeconds()).padStart(2, "0")
+            ].join(":");
+        }
+
+        renderHudClock();
+        setInterval(renderHudClock, 1000);
+    }
+
+    _prepareSubmitData(event, form, formData, updateData) {
+        this.#changeCmDamageToValues(formData.object);
+        
+        return super._prepareSubmitData(event, form, formData, updateData);
+    }
+
+    /**
+     * Convert Condition Monitor Damage to its Value
+     * @param {object} changes formData.object
+     */
+    #changeCmDamageToValues(changes) {
+        try {
+            if ( "system.health.physicalCM.dmg" in changes) {
+                changes["system.health.physicalCM.value"] = this.actor.system.health.physicalCM.parseDmgToValue(changes["system.health.physicalCM.dmg"]);
+            }
+            if ( "system.health.stunCM.dmg" in changes) {
+                changes["system.health.stunCM.value"] = this.actor.system.health.stunCM.parseDmgToValue(changes["system.health.stunCM.dmg"]);
+            }
+            if ( "system.matrix.matrixCM.dmg" in changes) {
+                changes["system.matrix.matrixCM.value"] = this.actor.system.matrix.matrixCM.parseDmgToValue(changes["system.matrix.matrixCM.dmg"]);
+            }
+        } catch (error) {
+            console.warn(`${error.name}: ${error.message}`);
+            this.render();
+        }
+    }
+
+    #startHeartRate() {
+        const overflow = this.actor.system.health?.overflow;
+        const overflowEl = this.element?.querySelector(".track.overflow");
+        clearTimeout(this.#heartRateTimeout);
+
+        if (!overflow?.dmg || !overflowEl) return;
+
+        const fullCycleMs = 2500 * 0.7 * overflow.value;
+
+        for (const hr of overflowEl.querySelectorAll(".slot.active .heart-rate")) {
+            hr.classList.remove("heart-rate-active");
+            void hr.offsetWidth;
+            hr.classList.add("heart-rate-active");
+        }
+
+        this.#heartRateTimeout = setTimeout(() => {
+            this.#startHeartRate();
+        }, fullCycleMs);
     }
 
     /**************
@@ -294,6 +494,70 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      *   ACTIONS
      *
      **************/
+
+    /**
+     * A generic event handler for action clicks which can be extended by subclasses.
+     * Action handlers defined in DEFAULT_OPTIONS are called first. This method is only called for actions which have
+     * no defined handler.
+     * @param {PointerEvent} event      The originating click event
+     * @param {HTMLElement} target      The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    _onClickAction(event, target) {
+        const action = target.dataset.action;
+        switch ( action ) {
+            case "toggleEditActor":
+                this.toggleControls(false);
+                this._onToggleEditActor(event);
+                break;
+        }
+    }
+
+    /**
+     * Handle header control button clicks to render the Template / Prototype Actor sheet.
+     * @this {SR6BaseActorSheet}
+     * @param {PointerEvent} event
+     */
+    static #onOpenTemplateActor(event) {
+        this.actor.token.baseActor.sheet.render({
+            force: true,
+            position: {
+                left: this.position.left + 40,
+                top: this.position.top + 40
+            }
+        });
+    }
+
+    /**
+     * Handle click event on the toggleEditActor button
+     * @param {PointerEvent} event
+     * @protected
+     */
+    _onToggleEditActor(event) {
+        const button = event.target;
+        const icon = button.querySelector("i");
+
+        this._editMode = !this._editMode;
+        const isEnabled = this._editMode;
+        button.setAttribute("aria-pressed", String(isEnabled));
+        icon.classList.toggle("fa-toggle-off", !isEnabled);
+        icon.classList.toggle("fa-toggle-on", isEnabled);
+        this.render();
+    }
+
+    /**
+     * Handle showing a Document's image.
+     *
+     * @this SR6BaseActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @returns {Promise}
+     * @protected
+     */
+    static async _onShowImage(event, target) {
+        const src = this.document.img;
+        new foundry.applications.apps.ImagePopout({src: src, shareable: true }).render(true);
+    }
 
     /**
      * Handle changing a Document's image.
@@ -308,12 +572,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const attr = target.dataset.edit;
         const current = foundry.utils.getProperty(this.document, attr);
         const { img } =
-            this.document.constructor.getDefaultArtwork?.(
-                this.document.toObject()
-            ) ?? {};
-        const fp = new FilePicker({
+            this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
+            {};
+        const fp = new foundry.applications.apps.FilePicker.implementation({
             current,
-            type: "image",
+            type: 'image',
             redirectToRoot: img ? [img] : [],
             callback: (path) => {
                 this.document.update({ [attr]: path });
@@ -324,10 +587,218 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         return fp.browse();
     }
 
+    static async _togglePersonaMode(event, target) {
+        // TODO JEROEN actually toggle the persona mode
+        target.classList.toggle('public');
+		target.classList.toggle('silent');
+    }
+
+    static async _onTrackClick(event, target) {
+        const conditionMonitor = target.dataset.conditionMonitor;
+        const slotClicked = event.target.closest(".slot");
+        const track = event.target.closest(".track");
+        const tracks = event.target.closest(".tracks");
+        if (!slotClicked || !track || track.classList.contains('inactive')) return; // clicked outside a slot or track is inactive
+
+        const allSlots = [...track.querySelector(".slots").children];
+        const index = allSlots.indexOf(slotClicked);
+        console.log(`SR6E | _onTrackClick | Condition Monitor: ${conditionMonitor} | Slot clicked: ${index}`);
+
+        // Toggling slots up to where clicked
+        const clickedWasActive = slotClicked.classList.contains("active");
+        const maxActiveIndex = clickedWasActive ? index - 1 : index;
+        allSlots.forEach((slot, i) => {
+            slot.classList.toggle("active", i <= maxActiveIndex);
+        });
+
+        // Pulsating track
+		track.classList.add('is-pulsing'); // animation
+		tracks.classList.add('inactive');
+		
+        // Track Config
+        let trackColor, attr, deltaTrack;
+        let newValue = maxActiveIndex + 1;
+        if (conditionMonitor === "physical") {
+            trackColor = "red";
+            attr = "system.health.physicalCM.value";
+            deltaTrack = newValue - this.document.system.health.physicalCM.value;
+        }
+        else if (conditionMonitor === "stun") {
+            trackColor = "blue"
+            attr = "system.health.stunCM.value";
+            deltaTrack = newValue - this.document.system.health.stunCM.value;
+        }
+        else if (conditionMonitor === "matrix") {
+            trackColor = "green"
+            attr = "system.matrix.matrixCM.value";
+            deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
+        }
+        else if (conditionMonitor === "overflow") {
+            trackColor = "red";
+            attr = "system.health.physicalCM.value";
+            deltaTrack = newValue - this.document.system.health.overflow.value;
+            newValue = 0 - (this.document.system.health.overflow.max - newValue );
+        }
+
+        // Showing delta within portrait
+        const combatText = event.currentTarget.querySelector('.track-delta');
+        combatText.textContent = `${deltaTrack > 0 ? "+" : ""}${deltaTrack}`;
+        combatText.classList.remove('disabled', 'is-pulsing', 'red', 'blue', 'green');
+        combatText.classList.add('is-pulsing', trackColor); // animation
+
+        combatText.onanimationend = () => {
+            setTimeout(() => {
+                combatText.classList.add('disabled'); // animation
+                setTimeout(() => {
+                    // Update actor and re-render sheet
+                    console.log(`SR6E | _onTrackClick | Updating`, this.document.documentName, attr, newValue);
+                    this.document.update({ [attr]: newValue });
+                }, 200);
+            }, 200);
+
+
+        };
+        
+    }
+
+    /**
+     * Handle displaying and modifying Overwatch Score
+     * @param {*} event 
+     * @param {*} target 
+     * @returns 
+     */
+    static async _onClickOS(event, target) {
+        const clickedEl = event.target.closest(
+            ".overwatch-side-left, .overwatch-side-right, .overwatch-eye, .overwatch-score"
+        );
+        if (!clickedEl) return;
+
+        const clickedOn =  clickedEl.dataset.osControl;
+        const leftChevronEl = target.querySelector(".overwatch-side-left");
+        const rightChevronEl = target.querySelector(".overwatch-side-right");
+        const osEyeEl = target.querySelector(".overwatch-eye");
+        const osScoreEl = target.querySelector(".overwatch-score");
+        console.log(`SR6E | _onCheckOS | clicked on:`, clickedOn);
+        
+        if (clickedOn === "show") {
+            osEyeEl.classList.add('inactive');
+            leftChevronEl.classList.remove('disabled');
+            rightChevronEl.classList.remove('disabled');
+            osScoreEl.classList.remove('disabled');
+            return;
+        }
+
+    }
+
+    static async _onClickOS(event, target) {
+        const osHUD = target;
+        const clickedEl = event.target.closest(
+            ".overwatch-side-left, .overwatch-side-right, .overwatch-eye, .overwatch-score"
+        );
+        if (!clickedEl) return;
+
+        const clickedOn = clickedEl.dataset.osControl;
+        const leftChevronEl = osHUD.querySelector(".overwatch-side-left");
+        const rightChevronEl = osHUD.querySelector(".overwatch-side-right");
+        const osEyeEl = osHUD.querySelector(".overwatch-eye");
+        const osScoreEl = osHUD.querySelector(".overwatch-score");
+        console.log(`SR6E | _onClickOS | clicked on:`, clickedOn);
+
+        if (clickedOn === "show") {
+            osScoreEl._pendingOS = this.document.system.matrix.overwatchScore;
+            osEyeEl.classList.add("inactive");
+            leftChevronEl.classList.remove("disabled");
+            rightChevronEl.classList.remove("disabled");
+            osScoreEl.classList.remove("disabled");
+        } else if (clickedOn === "decrease") {
+            osScoreEl._pendingOS = Math.max(0, osScoreEl._pendingOS - 1);
+            osScoreEl.textContent = osScoreEl._pendingOS;
+        } else if (clickedOn === "increase") {
+            osScoreEl._pendingOS += 1;
+            osScoreEl.textContent = osScoreEl._pendingOS;
+        }
+
+        osHUD.classList.remove("os-red", "os-yellow", "os-normal");
+        osHUD.classList.add( osScoreEl._pendingOS >= 40 ? "os-red" : osScoreEl._pendingOS >= 30 ? "os-yellow" : "os-normal" );
+
+        clearTimeout(osScoreEl._hideTimer);
+        osScoreEl._hideTimer = setTimeout(() => {
+            osEyeEl.classList.remove("inactive");
+            osHUD.classList.remove("os-red", "os-yellow", "os-normal");
+            leftChevronEl.classList.add("disabled");
+            rightChevronEl.classList.add("disabled");
+            osScoreEl.classList.add("disabled");
+
+            console.log(`SR6E | _onClickOS | Updating actor overwatchScore`, osScoreEl._pendingOS);
+            this.document.update({ "system.matrix.overwatchScore": osScoreEl._pendingOS });
+
+            osScoreEl._pendingOS = null;
+            osScoreEl._hideTimer = null;
+        }, 10000);
+    }
+
+    /**
+     * Handle clicking on the Edge token.
+     * Left click = +1
+     * Right click = -1
+     */
+    static async _onClickEdgeToken(event, target) {
+        const coin = target;
+        // Check if coin isn't already being flipped
+        if (!coin.classList.contains("clickable")) return;
+        
+        const isRightClick = event.button === 2 || event.which === 3;
+        const oldEdge = this.actor.system.attributes.edge.current;
+
+        if ((isRightClick && oldEdge <= 0) || (!isRightClick && oldEdge >= 7)) {
+            coin.classList.add("edge-coin--error");
+            coin.addEventListener("animationend", () => {
+                coin.classList.remove("edge-coin--error");
+            }, { once: true });
+            return;
+        }
+
+        coin.classList.remove("clickable");
+
+        const newEdge = isRightClick ? oldEdge - 1 : oldEdge + 1;
+        const rotateY = isRightClick ? "180deg" : "-180deg";
+        const backValue = coin.querySelector(".edge-coin__face--back .edge-value");
+        backValue.textContent = newEdge;
+
+        coin.style.setProperty("--edge-translate-x", "-100%");
+        coin.style.setProperty("--edge-rotate-y", rotateY);
+
+        setTimeout(async () => {
+            requestAnimationFrame(async () => {
+                await this.actor.update({ "system.attributes.edge.current": newEdge });
+            });
+        }, 600);
+
+        if (game.combats.active) {
+            const msg = game.i18n.format("shadowrun6.ui.notifications.character_has_changed_edge", { character: this.actor.name, oldEdge, edge: newEdge });
+            await ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: game.i18n.localize("shadowrun6.label.edge_changes_combat"),
+                content: `<span class="sr6-edge-chat-msg">${msg}</span>`
+            });
+        }
+        console.log("SR6E | Edge coin flipped", newEdge, rotateY);
+    }
+
+    static _selectInputText(event, target) {
+        const input = target.matches("input")
+            ? target
+            : target.querySelector("input");
+
+        if (!input || input.readOnly || input.disabled) return;
+        input.select();
+    }
+
+
     /**
      * Renders an embedded document's sheet
      *
-     * @this SR6BaseActorSheet
+     * @this BaseActorSheet
      * @param {PointerEvent} event   The originating click event
      * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
      * @protected
@@ -348,6 +819,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _deleteDoc(event, target) {
         const doc = this._getEmbeddedDocument(target);
         await doc.delete();
+        this.render();
     }
 
     /**
@@ -369,6 +841,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 parent: this.actor,
             }),
         };
+        switch (target.dataset.documentClass) {
+                case "ActiveEffect":
+                    docData.img = 'systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg';
+                    break;
+        }
         // Loop through the dataset and add it to our docData
         for (const [dataKey, value] of Object.entries(target.dataset)) {
             // These data attributes are reserved for the action handling
@@ -381,6 +858,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Finally, create the embedded document!
         await docCls.create(docData, { parent: this.actor });
+        this.render();
     }
 
     /**
@@ -394,6 +872,44 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _toggleEffect(event, target) {
         const effect = this._getEmbeddedDocument(target);
         await effect.update({ disabled: !effect.disabled });
+        this.render();
+    }
+
+    /**
+     * Toggles the Sustaining of an Item
+     * @this SR6BaseActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    static async _itemSustainToggle(event, target) {
+        const item = this._getEmbeddedDocument(target);
+        await item.update({ 'system.isSustained': !item.system.isSustained });
+    }
+    
+    /**
+     * Toggles the description of an Item, either by showing the description or sending it to chat if right-clicked
+     *
+     * @this SR6BaseActorSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @private
+     */
+    static async _itemDescToggle(event, target) {
+        const itemId = target.dataset.itemId;
+        const isRightClick = event.button === 2 || event.which === 3;
+        if (isRightClick) return this.actor.items.get(itemId)?.toChat();
+
+        const row = target.closest("li.section-item") || target.closest("div.row");
+        const content = row?.querySelector(`.collapsible-content[data-item-id="${itemId}"]`);
+        if (!content) return;
+
+        const isOpen = !target.classList.contains("open");
+        target.classList.toggle("open", isOpen);
+        target.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
+        content.classList.toggle("open", isOpen);
+        content.classList.toggle("closed", !isOpen);
     }
 
     /**
@@ -407,12 +923,47 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     static async _onRoll(event, target) {
         event.preventDefault();
         const dataset = target.dataset;
+        console.log(`SR6E | SR6BaseActorSheet._onRoll | rollType`, dataset.rollType);
+        let rollConfig;
+        let fieldPath;
 
-        // Handle item rolls.
+        // Handle rolls.
+        // TODO Cleanup after complete rework of Dice Rolls (low priority)
         switch (dataset.rollType) {
             case "item":
-                const item = this._getEmbeddedDocument(target);
+                const item = this.actor.items.get(dataset.itemId);
                 if (item) return item.roll();
+            case "skill":
+                rollConfig = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
+                if (dataset.skillSpec) rollConfig.skillSpec = dataset.skillspec;
+                if (dataset.threshold) rollConfig.threshold = dataset.threshold;
+                if (dataset.attrib) rollConfig.attrib = dataset.attrib;
+                console.log("SR6E | onRollSkillCheck before ", rollConfig);
+                return this.actor.rollSkill(rollConfig);
+            case "attribute":
+                const attr = foundry.utils.getProperty(this.actor, dataset.attributePath);
+                rollConfig = new game.sr6.rollTypes.PreparedRoll();
+                rollConfig.rollType = game.sr6.rollTypes.RollType.Common;
+                
+                rollConfig.pool = attr?.pool ?? attr ?? 0;
+                rollConfig.attributeTested = dataset.attributePath;
+                rollConfig.allowBuyHits = true;
+                rollConfig.useAttributeMod = true;
+                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
+                fieldPath = dataset.attributePath.replace("system.", "");
+                rollConfig.checkText = rollConfig.actionText =  this.actor.system.schema.getField(fieldPath)?.label;
+                console.log("SR6E | onRollAttributeCheck before ", rollConfig, attr);
+                return this.actor.rollCommonCheck(rollConfig);
+            case "initiative":
+                const initiative = foundry.utils.getProperty(this.actor, dataset.attributePath);
+                rollConfig = new game.sr6.rollTypes.ConfiguredRoll();
+                rollConfig.speaker = ChatMessage.getSpeaker({ actor: this.actor });
+                rollConfig.rollType = game.sr6.rollTypes.RollType.Initiative;
+                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
+                fieldPath = dataset.attributePath.replace("system.", "");
+                rollConfig.actionText =  this.actor.system.schema.getField(fieldPath)?.label;
+                const roll = new game.sr6.roll(initiative.text, rollConfig);
+                return await roll.toMessage(rollConfig);
         }
 
         // Handle rolls that supply the formula directly.
@@ -437,8 +988,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @returns {Item | ActiveEffect} The embedded Item or ActiveEffect
      */
     _getEmbeddedDocument(target) {
-        const docRow = target.closest("li[data-document-class]");
-        if (docRow.dataset.documentClass === "Item") {
+        const docRow = target.dataset.itemId ? target : target.closest("li[data-document-class]");
+        if (docRow.dataset.documentClass === "Item" || ( !docRow.dataset.documentClass && docRow.dataset.itemId )) {
             return this.actor.items.get(docRow.dataset.itemId);
         } else if (docRow.dataset.documentClass === "ActiveEffect") {
             const parent =
@@ -454,6 +1005,25 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * Drag and Drop
      *
      ***************/
+
+    /**
+     * An event that occurs when a drag workflow begins for a draggable item on the sheet.
+     * If the DOM element with .draggable has the data-action="roll" attribute, it will modify the dragData which will be used by the hotbarDrop Hook.
+     * Possible classes that modify the Macro's Name are: defense-roll, attributeonly-roll, attribute-poolmod, legwork-roll, skill-roll, matrix-roll
+     * @param {DragEvent} event       The initiating drag start event
+     * @returns {Promise<void>}
+     * @protected
+     */
+    async _onDragStart(event) {
+        const target = event.currentTarget;
+        const dragData = target.dataset;
+        console.log("SR6E | DRAG Link Start", dragData);
+        if ( dragData.action === "roll" ) {
+            dragData.type = 'Roll'
+            return event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+        }
+        return await super._onDragStart(event);
+    }
 
     /**
      * Handle the dropping of ActiveEffect data onto an Actor Sheet
@@ -585,35 +1155,103 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
     /********************
      *
-     * Actor Override Handling
+     * Tab Scrolling Behavior
      *
      ********************/
 
-    /**
-     * Submit a document update based on the processed form data.
-     * @param {SubmitEvent} event                   The originating form submission event
-     * @param {HTMLFormElement} form                The form element that was submitted
-     * @param {object} submitData                   Processed and validated form data to be used for a document update
-     * @returns {Promise<void>}
-     * @protected
-     * @override
-     */
-    async _processSubmitData(event, form, submitData) {
-        const overrides = foundry.utils.flattenObject(this.actor.overrides);
-        for (let k of Object.keys(overrides)) delete submitData[k];
-        await this.document.update(submitData);
+    async close(options = {}) {
+        this.#tabScrollCleanup?.();
+        this.#tabScrollCleanup = null;
+        return super.close(options);
     }
 
-    /**
-     * Disables inputs subject to active effects
-     */
-    #disableOverrides() {
-        const flatOverrides = foundry.utils.flattenObject(this.actor.overrides);
-        for (const override of Object.keys(flatOverrides)) {
-            const input = this.element.querySelector(`[name="${override}"]`);
-            if (input) {
-                input.disabled = true;
+    _setupHoverScrollTabs(nav) {
+        let raf = null;
+        let scrollSpeed = 0;
+
+        const edgeSize = 80;
+        const maxSpeed = 5;
+
+        const step = () => {
+            if (scrollSpeed !== 0) {
+                nav.scrollLeft += scrollSpeed;
+                this._updateTabScrollIndicators(nav);
+                raf = requestAnimationFrame(step);
+            } else {
+                raf = null;
             }
-        }
+        };
+
+        const startScrolling = () => {
+            if (!raf) raf = requestAnimationFrame(step);
+        };
+
+        const stopScrolling = () => {
+            scrollSpeed = 0;
+        };
+
+        const onMouseMove = (event) => {
+            const rect = nav.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+
+            if (x < edgeSize) {
+                const factor = 1 - (x / edgeSize);
+                scrollSpeed = -maxSpeed * factor;
+                startScrolling();
+            } else if (x > rect.width - edgeSize) {
+                const factor = (x - (rect.width - edgeSize)) / edgeSize;
+                scrollSpeed = maxSpeed * factor;
+                startScrolling();
+            } else {
+                stopScrolling();
+            }
+        };
+
+        const onMouseLeave = () => stopScrolling();
+        const onScroll = () => this._updateTabScrollIndicators(nav);
+
+        const onClick = () => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => this._scrollActiveTabIntoView(nav, true));
+            });
+        };
+
+        const ro = new ResizeObserver(() => this._updateTabScrollIndicators(nav));
+        ro.observe(nav);
+
+        nav.addEventListener("mousemove", onMouseMove);
+        nav.addEventListener("mouseleave", onMouseLeave);
+        nav.addEventListener("scroll", onScroll);
+        nav.addEventListener("click", onClick);
+
+        this._updateTabScrollIndicators(nav);
+
+        return () => {
+            if (raf) cancelAnimationFrame(raf);
+            nav.removeEventListener("mousemove", onMouseMove);
+            nav.removeEventListener("mouseleave", onMouseLeave);
+            nav.removeEventListener("scroll", onScroll);
+            nav.removeEventListener("click", onClick);
+        };
+    }
+
+    _scrollActiveTabIntoView(nav, smooth = true) {
+        const activeTab = nav.querySelector(".active");
+        if (!activeTab) return;
+
+        activeTab.scrollIntoView({
+            behavior: smooth ? "smooth" : "instant",
+            inline: "center",
+            block: "nearest"
+        });
+    }
+
+    _updateTabScrollIndicators(nav) {
+        const maxScrollLeft = nav.scrollWidth - nav.clientWidth;
+        const threshold = 4;
+
+        nav.classList.toggle("can-scroll-left", nav.scrollLeft > threshold);
+        nav.classList.toggle("can-scroll-right", nav.scrollLeft < maxScrollLeft - threshold);
+        this._scrollActiveTabIntoView(nav)
     }
 }

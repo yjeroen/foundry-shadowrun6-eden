@@ -1,3 +1,5 @@
+import { InitiativeType } from "../dice/RollTypes.js";
+
 /**
  * Base Actor DataModel for SR6e
  *
@@ -62,24 +64,37 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
         return super.migrateData(source);
     }
 
-    // >> Example getter
+    /**
+     * Tells you if this Actor is physically alive
+     * @returns {boolean}               Actor is physically alive or not
+     */
+    get isLiveForm() {
+        return (this.health && this.health?.physicalCM && this.attributes?.body);
+    }
+
     /**
      * Determine whether the character is dead.
-     * Can be called via actor.system.dead
+     * Can be called via actor.system.isDead
      * @type {boolean}
      */
-    // get dead() {
-    //   const invulnerable = CONFIG.specialStatusEffects.INVULNERABLE;
-    //   if ( this.parent.statuses.has("invulnerable") ) return false;
-    //   return this.health.value <= this.health.min;
-    // }
+    get isDead() {
+        if (!this.isLiveForm) return null;
+
+        // Example, not applicable in SR6
+        if ( this.parent.statuses.has("invulnerable") ) return false;
+
+        return this.health.overflow.dmg >= this.health.overflow.max;
+    }
 
     /**
      * Prepare data related to this DataModel itself, before any derived data is computed.
      *
      * Called before {@link ClientDocument#prepareBaseData} in {@link ClientDocument#prepareData}.
      */
-    prepareBaseData() {}
+    prepareBaseData() {
+        this.#computeHealthOverflow();
+        this.prepareBaseInitiative();
+    }
 
     /* -------------------------------------------- */
 
@@ -89,7 +104,22 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      *
      * Called before {@link ClientDocument#prepareDerivedData} in {@link ClientDocument#prepareData}.
      */
-    prepareDerivedData() {}
+    prepareDerivedData() {
+        // Augmented Attribute can never be higher than +4
+        for (const key in this.attributes) {
+            const attribute = this.attributes[key];
+            attribute.mod = Math.min(4, attribute.mod);
+        }
+        // Augmented Edge Attribute can never be higher than +4
+        if (this.edge) {
+            this.edge.mod = Math.min(4, this.edge.mod);
+        }
+        // Augmented Skill can never be higher than +4
+        for (const key in this.skills) {
+            const skill = this.skills[key];
+            skill.mod = Math.min(4, skill.mod);
+        }
+    }
 
     /* -------------------------------------------- */
 
@@ -101,7 +131,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @returns {Promise<HTMLElement|HTMLCollection|null>}
      */
     async toEmbed(config, options={}) {
-    return null;
+        return null;
     }
 
     /* -------------------------------------------- */
@@ -110,6 +140,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
 
     /**
      * Called by {@link ClientDocument#_preCreate}.
+     * Modifications to the pending Document instance must be performed using Actor's {@link updateSource}.
      *
      * @param {object} data                         The initial data object provided to the document creation request
      * @param {object} options                      Additional options which modify the creation request
@@ -144,7 +175,10 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @protected
      * @internal
      */
-    async _preUpdate(changes, options, user) {}
+    async _preUpdate(changes, options, user) {
+        console.log("SR6E | SR6BaseActorData._preUpdate", foundry.utils.duplicate(changes));
+        this.#overflowConditionMonitors(changes)
+    }
 
     /* -------------------------------------------- */
 
@@ -157,7 +191,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @protected
      * @internal
      */
-    _onUpdate(changed, options, userId) {}
+    async _onUpdate(changed, options, userId) {        
+        await this.#evaluateHealth();
+    }
 
     /* -------------------------------------------- */
 
@@ -184,5 +220,52 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @internal
      */
     _onDelete(options, userId) {}
+
+    /**
+     * 
+     * @param {object} changes 
+     */
+    #overflowConditionMonitors(changes) {
+        if (!this.health) return;
+
+        let stunCM = foundry.utils.getProperty(changes, "system.health.stunCM.value") ?? foundry.utils.getProperty(this, "health.stunCM.value");
+        let physicalCM = foundry.utils.getProperty(changes, "system.health.physicalCM.value") ?? foundry.utils.getProperty(this, "health.physicalCM.value");
+        if (stunCM < 0) {
+            physicalCM += stunCM; // stunCM is negative, so this reduces physical
+            stunCM = 0;
+        }
+        foundry.utils.setProperty(changes, "system.health.stunCM.value", stunCM);
+        foundry.utils.setProperty(changes, "system.health.physicalCM.value", physicalCM);
+    }
+
+    #computeHealthOverflow() {
+        if (!this.isLiveForm) return;
+
+        this.health.overflow = {
+            max: this.attributes.body.pool * 2,
+            dmg: Math.max(0, this.health.physicalCM.value * -1)
+        };
+        this.health.overflow.value = this.health.overflow.max - this.health.overflow.dmg;
+    }
+
+    async #evaluateHealth() {
+        if (!this.isLiveForm) return;
+
+        if (this.isDead) {
+            await this.parent.toggleStatusEffect('dead', {active:true, overlay:true});
+            await this.parent.toggleStatusEffect('unconscious', {active:false});
+        } else if (this.health.physicalCM.dmg >= this.health.physicalCM.max || this.health.stunCM.dmg === this.health.stunCM.max) {
+            await this.parent.toggleStatusEffect('dead', {active:false});
+            await this.parent.toggleStatusEffect('unconscious', {active:true});
+        } else {
+            await this.parent.toggleStatusEffect('dead', {active:false});
+            await this.parent.toggleStatusEffect('unconscious', {active:false});
+        }
+    }
+
+    prepareBaseInitiative() {
+        this.initiative ??= {};
+        this.initiative.default = InitiativeType.PHYSICAL;
+    }
 
 }

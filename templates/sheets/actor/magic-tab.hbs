@@ -1,6 +1,6 @@
 {{! Magic Tab }}
 <section
-  class='tab magic {{tab.cssClass}}'
+  class='tab magic scrollable {{tab.cssClass}}'
   data-group='primary'
   data-tab='magic'
 >
@@ -14,7 +14,7 @@
           {{#if @root.editable}}
             <a
               class='item-control item-create'
-              title='{{localize "DOCUMENT.Create" type='Spell'}}'
+              data-tooltip='{{localize "DOCUMENT.Create" type='Spell'}}'
               data-action='createDoc'
               data-document-class='Item'
               data-type='spell'
@@ -38,7 +38,7 @@
               <a class='rollable' data-roll-type='item' data-action='roll'>
                 <img
                   src='{{item.img}}'
-                  title='{{item.name}}'
+                  data-tooltip='{{item.name}}'
                   width='24'
                   height='24'
                 />
@@ -49,7 +49,7 @@
           <div class='item-controls'>
             <a
               class='item-control item-edit'
-              title='{{localize "DOCUMENT.Update" type='spell'}}'
+              data-tooltip='{{localize "DOCUMENT.Update" type='spell'}}'
               data-action='viewDoc'
             >
               <i class='fas fa-edit'></i>
@@ -57,7 +57,7 @@
             {{#if @root.editable}}
               <a
                 class='item-control item-delete'
-                title='{{localize "DOCUMENT.Delete" type='spell'}}'
+                data-tooltip='{{localize "DOCUMENT.Delete" type='spell'}}'
                 data-action='deleteDoc'
               >
                 <i class='fas fa-trash'></i>

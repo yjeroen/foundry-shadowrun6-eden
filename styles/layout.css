@@ -21,6 +21,7 @@
 }
 .game .system-links a {
   margin-right: 10px;
+  color: var(--sr6-bright-pink);
 }
 
 line {
@@ -181,8 +182,8 @@ dt {
 }
 body.game .shadowrun6.sheet .toggle-control {
   margin-right: 2px;
-  padding-top: 1.7px;
   color: #333;
+  vertical-align: middle;
 }
 body.game .shadowrun6.sheet .toggle-control.end {
   margin-right: 0;
@@ -335,15 +336,60 @@ dd::after {
   visibility: hidden;
 }
 .collapsible-content {
-  padding: 0 8px;
+  background-color: var(--tablehead-background);
+  border-radius: 10px;
+  padding: 0px 8px 0 14px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
   visibility: hidden;
 }
+.skills .collapsible-content {
+  margin: 0;
+}
 .collapsible-content.open {
+  border: 1px inset #fcfcfc;
   max-height: 500px;
   visibility: visible;
+}
+.collapsible-content > * {
+  padding-top: 4px
+}
+.collapsible-content > *:last-child {
+  padding-bottom: 6px
+}
+
+.collapsible-content {
+  display: flex;
+  flex-direction: column;
+}
+.collapsible-content .collapsible-content-trait span,
+.collapsible-content .mods-label {
+  font-weight: bold;
+}
+.collapsible-content .mods-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.collapsible-content .mods-list .content-link {
+  display: block;
+}
+.collapsible-content .collapsible-content-trait {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+}
+.collapsible-content .collapsible-content-trait input {
+  padding: 3px 5px;
+}
+.matrix-section .matrix-action-description {
+  font-size: var(--font-size-11);
+  text-align: left;
+  color: rgb(0 66 17);
+}
+button.collapsible.empty {
+  cursor: var(--cursor-default);
 }
 .shadowrun6 .collapsible-skill {
 	width: 1.5em;
@@ -395,8 +441,10 @@ dd::after {
  .switch {
   position: relative;
   display: inline-block;
+  vertical-align: middle;
   width: 36px;
-  height:14px;
+  height: 14px;
+  text-align: center;
 }
 
 /* Hide default HTML checkbox */
@@ -409,12 +457,12 @@ dd::after {
 /* The slider */
 .shadowrun6-slider {
   position: absolute;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #a5a5a5;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -454,6 +502,11 @@ dd::after {
   border-radius: 50%;
 }
 
+.shadowrun6-slider.inactive {
+  opacity: 0.2;
+  cursor: var(--cursor-default);
+}
+
 h3.highlight, h4.highlight {
 	color: var(--highlight-color)
 }
@@ -467,8 +520,11 @@ table.spell-table td {
     justify-self: stretch;
     align-self: stretch;
     height: 100%;
-    min-height: 200px;
+    min-height: 160px;
     margin-bottom: 5px;
+}
+.locked .editor {
+  min-height: max-content;
 }
 .shadowrun6.item .editor {
   min-height: 50px;
@@ -661,7 +717,7 @@ body.game .app.shadowrun6 .tabs.sheet-tabs [data-tab] {
 }
 .shadowrun6 .effects .effect-control.disabled {
   color: #999;
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 .shadowrun6 .effects .effect-control.disabled:hover {
     text-shadow: none;
@@ -735,7 +791,7 @@ li.folder > .folder-header .folder-name {
   color: purple;
 }
 .item-desc {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 section.sr6-tab {
@@ -804,19 +860,34 @@ body.game .shadowrun6.sheet .window-content {
 .sheet.journal-entry-page.read-only-pdf .window-content {
   padding: 0;
 }
-label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-fields + p.hint {
-  position: relative;
-  margin-bottom: 3rem;
+
+#settings-config section[data-tab="system"] .hint {
+  opacity: 0.8;
 }
+
+label[for="settings-config-shadowrun6-eden.tokensLimitedOwnership"] + div.form-fields + p.hint:after {
+    content: 'Shadowrun Optional Rules';
+    color: var(--color-form-label);
+    font-size: var(--font-size-18);
+    font-weight: bold;
+    display: block;
+    padding: 1.5rem 0 0 0;
+}
+
 label[for="settings-config-shadowrun6-eden.expandedSpecializations"] + div.form-fields + p.hint:after {
     content: 'Shadowrun PDF Configuration';
     color: var(--color-form-label);
     font-size: var(--font-size-18);
     font-weight: bold;
-    position: absolute;
-    width: 100%;
-    height: 2rem;
-    bottom: -100%;
-    left: 0;
-    padding: 0.5rem 0;
+    display: block;
+    padding: 1.5rem 0 0 0;
+}
+
+.item.sheet table td {
+  text-align: center;
+}
+
+.item.sheet table input[type="number"],
+.item.sheet table input[type="text"] {
+  width: 2em;
 }

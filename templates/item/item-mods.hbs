@@ -22,8 +22,7 @@
 	    </thead>
 
 		{{#if item.actor}}
-		{{#each (sort item.actor.items) as |item id|}}
-		{{#iff item.type '==' 'mod'}}
+		{{#each (sortAb item.actor.itemTypes.mod) as |item id|}}
 		{{#iff item.system.installedIn.id '==' ../item.id }}
 
 		<tr class="item list-item" data-item-id="{{item.id}}">
@@ -48,12 +47,11 @@
          <td colspan="5">
          	<div class="collapsible-content closed" style="font-size: 0.8em;">
         	   <div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
-			   <div>{{{item.enriched.description}}} &nbsp;</div>
+			   <div>{{{item.enriched.description}}}</div>
          	</div>
          </td>
        </tr>
 	   
-		{{/iff}}
 		{{/iff}}
 		{{/each}}
 		{{/if}}

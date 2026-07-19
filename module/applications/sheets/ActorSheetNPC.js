@@ -9,6 +9,7 @@ export default class Shadowrun6ActorSheetNPC extends Shadowrun6ActorSheet {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["shadowrun6", "sheet", "actor", "npc"],
             template: "systems/shadowrun6-eden/templates/actor/shadowrun6-NPC-sheet.html",
+            readOnlyTemplate: "systems/shadowrun6-eden/templates/actor/shadowrun6-NPC-sheet-ro.html",
             width: null,
             height: 600,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],

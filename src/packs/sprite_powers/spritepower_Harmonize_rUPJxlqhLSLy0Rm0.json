@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Harmonize",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Harmonize the Matrix and entities present. Make a <strong>Con (Performance) + RES</strong> test. Matrix noise within 100 meters of you is reduced by hits. Even if the source of noise has a rule that it can’t be reduced or negated by any means, this power overcomes that limitation. </p><p>Anyone within 100 meters who can experience the sprite’s performance, whether through AR or VR, or even on speakers and trid projectors, is positively affected. </p><p>Any test made to heal an affected character gains bonus dice equal to the sprite’s hits on the performance test. This includes natural healing, first aid, medkits, healing magic, and even complex forms. </p><p>Any character making repairs gains the same number of bonus dice on their Engineering or Electronics tests to fix Matrix or Physical damage. Sprites, AI, and other Matrix fauna are even more strongly affected, automatically healing one box of damage at the end of every combat round.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "con",
+    "skillSpec": "performance",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250845124,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "rUPJxlqhLSLy0Rm0",
+  "sort": 900000,
+  "_key": "!items!rUPJxlqhLSLy0Rm0"
+}

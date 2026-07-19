@@ -31,6 +31,7 @@ import SR6Keybindings from './util/keybindings.mjs';
 import * as datamodels from "./datamodels/_module.mjs";
 import * as documents from "./documents/_module.mjs";
 import * as applications from "./applications/_module.mjs";
+import * as rollTypes from "./dice/RollTypes.js";
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -39,40 +40,61 @@ Hooks.once("init", async function () {
     /**
      * Change to true for developer mode
      */
-    game.debug = true;
+    game.debug = false;
 
     console.log(`SR6E | Initializing Shadowrun 6 System`);
     if (game.debug) {
-        CONFIG.debug.hooks = false;
-        CONFIG.debug.dice = false;
-        CONFIG.debug.tokens = false;
+        CONFIG.debug.hooks = true;
+        CONFIG.debug.dice = true;
+        CONFIG.debug.tokens = true;
     }
 
+    registerSystemSettings();
+    defineHandlebarHelper();
+    
     game.sr6 = {};
     game.sr6.config = CONFIG.SR6 = new SR6Config();
     game.sr6.datamodels = datamodels;
     game.sr6.documents = documents;
     game.sr6.applications = applications;
     game.sr6.utils = utils;
+    game.sr6.rollTypes = rollTypes;
     game.sr6.macros = macros;
-    game.sr6.sr6roll = SR6Roll;
+    game.sr6.roll = SR6Roll;
     game.sr6.sockets = new SR6SocketHandler();
     game.sr6.releaseNotes = releaseNotes;
-    registerSystemSettings();
-    defineHandlebarHelper();
     
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
     CONFIG.Dice.rolls = [SR6Roll];
+    CONFIG.Token.hudClass = SR6TokenHUD;
+    CONFIG.Token.objectClass = SR6Token;
+    CONFIG.Combat.fallbackTurnMarker = 'systems/shadowrun6-eden/images/turn-marker-frame.webp'
+
     
     CONFIG.statusEffects = statusEffects.map(status => ({...status, _id: utils.staticId(status.id) }));
     if ( !game.settings.get(SYSTEM_NAME, "bleeding") ) {
         CONFIG.statusEffects = CONFIG.statusEffects.filter(function(effect) { return effect.id != "bleeding"; });
     }
+    if ( game.settings.get(SYSTEM_NAME, "hackSlashMatrix") ) {
+        CONFIG.SR6.MATRIX_ACTIONS = {...CONFIG.SR6.MATRIX_ACTIONS, ...CONFIG.SR6.MATRIX_ACTIONS_HS};
+    }
 
-    CONFIG.Token.hudClass = SR6TokenHUD;
-    CONFIG.Token.objectClass = SR6Token;
+    const cursorSetting = game.settings.get(SYSTEM_NAME, "shadowrunCursors");
+    if (cursorSetting !== 'disabled') {
+        const cursorType = cursorSetting === 'black' ? 'cursor-black' : 'cursor';
+
+        CONFIG.cursors.default = { url: `systems/shadowrun6-eden/images/${cursorType}-default.png`, x: 3, y: 0 };
+        CONFIG.cursors["default-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-default.png`, x: 3, y: 0 };
+        CONFIG.cursors.text = { url: `systems/shadowrun6-eden/images/${cursorType}-text.png`, x: 12, y: 12 };
+        CONFIG.cursors["text-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-text.png`, x: 12, y: 12 };
+        CONFIG.cursors.pointer = { url: `systems/shadowrun6-eden/images/${cursorType}-pointer.png`, x: 8, y: 0 };
+        CONFIG.cursors["pointer-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-pointer-down.png`, x: 8, y: 0 };
+        CONFIG.cursors.grab = { url: `systems/shadowrun6-eden/images/${cursorType}-grab.png`, x: 12, y: 12 };
+        CONFIG.cursors["grab-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-grab-down.png`, x: 12, y: 12 };
+    }
+
 
     // Initialize socket handler
     game.sr6.sockets.registerSocketListeners();
@@ -96,17 +118,22 @@ Hooks.once("init", async function () {
      * @see sheets.Shadowrun6ActorSheetPC
      * @see sheets.Shadowrun6ActorSheetNPC
      * @see sheets.Shadowrun6ActorSheetVehicle
+     * @see sheets.SR6SpriteActorSheet
+     * @see sheets.SR6HostActorSheet
      */
-    // Object.assign(CONFIG.Actor.dataModels, {
-    //     sprite: datamodels.SR6SpriteActorData
-    // });
+    Object.assign(CONFIG.Actor.dataModels, {
+        sprite: datamodels.SR6SpriteActorData,
+        host: datamodels.SR6HostActorData
+    });
+
     CONFIG.Actor.defaultType = "Player";
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
-    // Actors.registerSheet("shadowrun6-eden", applications.SR6BaseActorSheet, { types: ["sprite"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.SR6SpriteActorSheet, { types: ["sprite"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.SR6HostActorSheet, { types: ["host"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
@@ -133,6 +160,7 @@ Hooks.once("init", async function () {
             "focus",
             "echo",
             "complexform",
+            "spritepower",
             "sin",
             "contact",
             "lifestyle",
@@ -282,6 +310,16 @@ Hooks.once("init", async function () {
                     button: true
                 };
                 controls.tokens.tools.shadowrunResetEdge = shadowrunResetEdge;
+
+                const shadowrunResetAccessLevels = {
+                    name: "shadowrunResetAccessLevels",
+                    order: 99,
+                    title: "shadowrun6.resetAccessLevels",
+                    icon: "sr6-icon-terminal",
+                    onClick: () => game.sr6.utils.resetAccessLevels(),
+                    button: true
+                };
+                controls.tokens.tools.shadowrunResetAccessLevels = shadowrunResetAccessLevels;
             }
         }
     });
@@ -314,8 +352,23 @@ Hooks.once("init", async function () {
         releaseNoteLink.addEventListener("click", (e) => {
             game.sr6.releaseNotes({force: true});
         });
+        
+        document.body.addEventListener("dragstart", event => {
+            if ( event.target?.closest?.("a[data-sr6-link]") ) utils.onDragSR6Link(event);
+        });
 
     });
+
+    Hooks.on("renderDialogV2", (dialog, html, data, options) => {
+        if (options.window?.title !== game.i18n.localize("SIDEBAR.ACTIONS.CREATE.Actor")) return;
+        console.log("SR6E | renderApplicationV2 hook called | Create Actor", options);
+        html.querySelector(".dialog-content").insertAdjacentHTML(
+            "beforebegin",
+            `<div class="import-statblock-info">${game.i18n.localize("shadowrun6.ui.notifications.importStatblock")}</div>`
+        );
+        SR6Keybindings.importStatblocksOnPaste(html);
+    });
+
     Hooks.on("renderShadowrun6ActorSheetPC", (doc, options, userId) => {
         console.log("SR6E | renderShadowrun6ActorSheetPC hook called", doc);
     });
@@ -332,7 +385,7 @@ Hooks.once("init", async function () {
      */
     Hooks.on("dropCanvasData", (canvas, data) => {
         console.log("SR6E | dropCanvasData hook called", canvas, data);
-        if (!(data.type === "Item" || data.type === "ActiveEffect")) {
+        if (!(data.type === "Item" || data.type === "ActiveEffect" || data.type === "PAN")) {
             return true;
         }
 
@@ -353,6 +406,25 @@ Hooks.once("init", async function () {
 
         return true;
     });
+
+    /**
+     * Create hooks on ActiveEffect to update an ActorSheet when a PAN is modified on it
+     * Rerenders the Administrator's ActorSheet if someone in the game has it open
+     */
+    for (const hook of ["createActiveEffect", "updateActiveEffect", "deleteActiveEffect"]) {
+        Hooks.on(hook, async (effect) => {
+            const panAdminChange = effect.changes?.find(change =>
+                change.key === "system.pan.administratorUuid"
+            );
+
+            const actorUuid = panAdminChange?.value;
+            if (!actorUuid) return;
+
+            const actor = foundry.utils.fromUuidSync(actorUuid);
+            actor?.render(false);
+        });
+    }
+
     /*
      * Something has been dropped on the HotBar
      */
@@ -366,12 +438,23 @@ Hooks.once("init", async function () {
         };
         const { type, ...data } = droppedData;
 
-        if (type === 'Item') {
+        if (type === "Item") {
             // Do nothing, FoundryVTT Native
             return;
-        } if (type === 'Roll') {
-            if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll')) {
-                const item = await fromUuidSync(data.uuid);
+        }
+        if (data.action === "openTargetsMatrixSheet") {
+            macroData.name = game.i18n.format("shadowrun6.matrix.targetActor.macro");
+            macroData.command = "game.sr6.macros.openTargetsLimitedSheet()";
+            macroData.img = "systems/shadowrun6-eden/icons/compendium/default/Default_Target.svg";
+        }
+        if (type === "Roll") {
+            if (data.action === "roll") {   // SheetV2
+                const item = foundry.utils.fromUuidSync(data.uuid);
+                macroData.name = game.i18n.format("SR6.title.useItem", { name: item.name });
+                macroData.img = item.img;
+            } 
+            else if (data.classList.includes('weapon-roll') || data.classList.includes('spell-roll') || data.classList.includes('ritual-roll') || data.classList.includes('complexform-roll') || data.classList.includes('spritepower-roll')) {
+                const item = foundry.utils.fromUuidSync(data.uuid);
                 macroData.name = item.name;
                 if (data.skill==="firearms") {
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg";
@@ -383,12 +466,15 @@ Hooks.once("init", async function () {
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
                 } else if (data.classList.includes('complexform-roll')) {
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg"
+                } else if (data.classList.includes('spritepower-roll')) {
+                    macroData.img = "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg"
                 }
                 else {
                     // special weapons
                     macroData.img = "systems/shadowrun6-eden/icons/compendium/cyberweapons/wolvers.svg";
                 }
-            } else {
+            } 
+            else {
                 macroData.name = game.sr6.utils.rollText(data.classList, data.rollId??data.skill??data.matrixId, data.skillspec);
             }
             macroData.command = `game.sr6.macros.simpletest(${JSON.stringify(data)})`;
@@ -422,20 +508,29 @@ Hooks.once("init", async function () {
                 tip.slideUp(200);
             }
         });
-        html.find(".rollable").click((event) => {
+        html.find(".rollable").click(async (event) => {
             //TODO allow multiple targets
             console.log("SR6E | ENTER renderChatMessage.rollable.click -> event.currentTarget = ", event.currentTarget);
             const button = event.currentTarget;
             const dataset = button.dataset;
             const actorUuid = dataset.actorUuid;
+            const matrixTargetUuid = dataset.matrixTargetUuid;
+            const rollType = dataset.rollType;
             let actorId = dataset["actorid"] ? dataset["actorid"] : dataset["targetActor"];
             let sceneId = dataset["sceneid"];
-            let tokenId = dataset["targetid"] ? dataset["targetid"] : dataset["targetToken"];
+            let tokenId = dataset["targetid"] || dataset["targetToken"] || dataset["tokenId"];
             let actor;
             let token;
+            console.log("SR6E | dataset ", dataset);
 
             if (actorUuid) {
-                actor = game.actors.get(actorUuid);
+                console.log("SR6E | Target is full Actor UUID");
+                actor = foundry.utils.fromUuidSync(actorUuid);
+            } else if (rollType === RollType.Damage && matrixTargetUuid) {
+                const target = foundry.utils.fromUuidSync(matrixTargetUuid);
+                console.log("SR6E | Target is a matrix target that needs to soak damage", target?.name);
+                actor = target?.actor || target;
+
             } else if (actorId && sceneId && tokenId) {
                 console.log("SR6E | Target is a token");
                 // If scene and token ID is given, resolve token
@@ -480,14 +575,16 @@ Hooks.once("init", async function () {
                 ui.notifications.warn("shadowrun6.ui.notifications.Target_or_select_a_token_before_rolling", { localize: true });
                 return;
             }
-            const rollType = dataset.rollType;
             console.log("SR6E | Clicked on rollable : " + rollType);
-            console.log("SR6E | dataset : ", dataset);
             const threshold = parseInt(dataset.threshold);
             const damage = dataset.damage ? parseInt(dataset.damage) : 0;
-            console.log("SR6E | Target actor ", actor);
             console.log("SR6E | Target actor ", actor.name);
-            let dialogConfig;
+            
+            const chatMessageId = event.target.closest(".chat-message").dataset.messageId;
+            const chatMessage = game.messages.get(chatMessageId);
+            const roll = chatMessage.rolls[0];
+            let dialogConfig, result;
+
             switch (rollType) {
                 case RollType.ContinueExtendedTest:
                     console.log("SR6E | Processing Rollable Chatbutton for Continueing an open ended Extended Test");
@@ -528,11 +625,13 @@ Hooks.once("init", async function () {
                     break;
                 case RollType.Defense:
                     /* Avoid being hit/influenced */
-                    console.log("SR6E | TODO: call rollDefense with threshold " + threshold);
                     if (actor) {
-                        const defendWith = dataset.defendWith;
-                        const monitor = dataset.monitor;
-                        actor.rollDefense(defendWith, threshold, damage, monitor);
+                        const data = {
+                            ...Object.fromEntries(Object.entries(dataset)),
+                            damage: Number(dataset.damage),
+                            threshold: Number(dataset.threshold)
+                        };
+                        actor.rollDefense(data);
                     }
                     break;
                 case RollType.Soak:
@@ -540,46 +639,89 @@ Hooks.once("init", async function () {
                     //TODO call rollSoak with threshold ?
                     // console.log("SR6E | TODO: call rollSoak with threshold " + threshold + " on monitor " + dataset.soakWith);
                     if (actor) {
-                        let soak = dataset.soak;
-                        actor.rollSoak(soak, damage);
+                        const soakData = {
+                            ...Object.fromEntries(Object.entries(dataset)),
+                            damage: Number(dataset.damage)
+                        };
+                        actor.rollSoak(soakData);
                     }
                     break;
                 case RollType.Damage:
                     /* Do not roll - just apply damage */
                     const monitor = dataset.monitor;
-                    const chatMessageId = event.target.closest(".chat-message").dataset.messageId;
-                    const chatMessage = game.messages.get(chatMessageId);
-                    const roll = chatMessage.rolls[0];
+                    const damageData = {
+                        ...Object.fromEntries(Object.entries(dataset)),
+                        damage: Number(dataset.damage)
+                    };
 
-                    if (button.classList.contains('damageApplied') || button.classList.contains('revertDamageCheck')) {
+                    if (button.classList.contains('buttonApplied') || button.classList.contains('revertDamageCheck')) {
                         // Damage was applied in the past, reverting back
                         button.blur();
                         if (button.classList.contains('revertDamageCheck')) {
                             button.classList.remove("revertDamageCheck");
                             if (button.classList.contains('damageConvertedStun')) {
-                                roll.finished.damageApplied2 = false;
+                                roll.finished.buttonApplied2 = false;
                             } else {
-                                roll.finished.damageApplied = false;
+                                roll.finished.buttonApplied = false;
                             }
-                            roll.finished.damageApplied = false;
-                            chatMessage.update({ 'rolls': [roll] });
-                            actor.applyDamage( monitor, damage*-1 );
+                            roll.finished.buttonApplied = false;
+                            result = await actor.applyDamage( { ...damageData, damage: damageData.damage * -1 } );
+                            if (result) chatMessage.update({ 'rolls': [roll] });
                         } else {
-                            button.classList.remove("damageApplied");
+
+                            button.classList.remove("buttonApplied");
                             button.classList.add("revertDamageCheck");
                         }
 
                     } else {
                         button.blur();
                         if (button.classList.contains('damageConvertedStun')) {
-                            roll.finished.damageApplied2 = true;
+                            roll.finished.buttonApplied2 = true;
                         } else {
-                            roll.finished.damageApplied = true;
+                            roll.finished.buttonApplied = true;
                         }
-                        chatMessage.update({ 'rolls': [roll] });
-                        actor.applyDamage( monitor, damage );
+                        result = await actor.applyDamage( damageData );
+                        if (result) chatMessage.update({ 'rolls': [roll] });
                     }
-                    console.log("SR6E | Applied "+monitor+" "+damage+" damage to", actor);
+                    break;
+                case RollType.MatrixResult:
+                    // Not really a RollType, but a way to apply MatrixAction RollType results
+                    if (!game.user.isGM) return;
+                    const { resultType, matrixActionId, matrixTargetUuid, matrixActionOption } = dataset;
+                    const matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixActionId];
+                    const resultData = {
+                        initiator: actor,
+                        defender: foundry.utils.fromUuidSync(matrixTargetUuid),  // Can be Actor or Item
+                        hits: Number(dataset.hits),
+                        netHits: Math.max(0, Number(dataset.threshold) - 1 - Number(dataset.hits) ),
+                        matrixActionOption: matrixActionOption
+                    };
+                    console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender?.name} | Result: ${resultType}`);
+
+                    switch (resultType) {
+                        case "onSuccess":
+                            result = await matrixAction.onSuccess(resultData);
+                            break;
+                        case "onFailure":
+                            result = await matrixAction.onFailure(resultData);
+                            break;
+                        case "onSuccesfulDefense":
+                            result = await matrixAction.onSuccesfulDefense(resultData);
+                            break;
+                        case "onSuccesfulDefense":
+                            result = await matrixAction.onSuccesfulDefense(resultData);
+                            break;
+                        case "onFailedDefense":
+                            result = await matrixAction.onFailedDefense(resultData);
+                            break;
+                    }
+                    if (result) {
+                        button.blur();
+                        button.classList.add("buttonApplied");
+                        roll.finished.buttonApplied = true;
+                        await chatMessage.update({ 'rolls': [roll] });
+                    }
+
                     break;
             }
             /*
@@ -692,7 +834,7 @@ Hooks.once("init", async function () {
         actor.prototypeToken.updateSource({ 
             'sight.enabled': true,
             displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-            displayBars: CONST.TOKEN_DISPLAY_MODES.NONE
+            displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         });
         if (actor.type === "Player") {
             actor.prototypeToken.updateSource({
@@ -708,7 +850,11 @@ Hooks.once("init", async function () {
             actor.prototypeToken.updateSource({
                 disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
                 width: 2,
-                height: 3
+                height: 2
+            });
+        } else if (actor.type === "host") {
+            actor.prototypeToken.updateSource({
+                actorLink: true,
             });
         }
 
@@ -720,6 +866,29 @@ Hooks.once("init", async function () {
         token.updateSource({ 
             shape: CONST.TOKEN_SHAPES.ELLIPSE_1
         });
+    });
+    /**
+     * After a token is created, check if we need to change Ownership rights
+     */
+    Hooks.on("createToken", (token, options, userId) => {
+        const tokensLimitedOwnership = game.settings.get(SYSTEM_NAME, "tokensLimitedOwnership");
+        if (!tokensLimitedOwnership) return;
+
+        if (
+            !token.actorLink 
+            && token.actor.ownership.default === CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE
+        ) {
+            token.actor.update({ 
+                "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED
+            });
+            if (!game.sr6.config.informedGm.tokensLimitedOwnership) {
+                foundry.ui.notifications.constructor.LIFETIME_MS = 10000;
+                ui.notifications.info("shadowrun6.ui.notifications.tokensLimitedOwnership", { localize: true });
+                ui.notifications.info("shadowrun6.ui.notifications.notificationOnce", { localize: true });
+                foundry.ui.notifications.constructor.LIFETIME_MS = 5000;
+                game.sr6.config.informedGm.tokensLimitedOwnership = true; // Only do this the first time during a browser session
+            }
+        }
     });
     Hooks.once("dragRuler.ready", (SpeedProvider) => {
         class FictionalGameSystemSpeedProvider extends SpeedProvider {

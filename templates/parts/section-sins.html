@@ -13,8 +13,7 @@
 		  <th style="width: 2em" colspan="2">{{ localize 'shadowrun6.label.column.action' }}</th>
 		</tr>
 	  </thead>
-		{{#each actor.items as |item id|}}
-		{{#iff item.type '==' 'sin'}}
+		{{#each (sortAb actor.itemTypes.sin) as |item id|}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
 			<td>{{item.name}}</td>
 			<td class="centered">
@@ -26,7 +25,6 @@
 					class="fas fa-edit"></i></a> <a class="item-control item-delete"
 				title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a></td>
 	   </tr>
-		{{/iff}}
 		{{/each}}
 </table>
 </div>

@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Shield",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Focus all of your attention and effort toward locating and intercepting Matrix hazards. For one task, this power protects a number of icons, personas, or devices up to your Resonance attribute.</p><p>A sprite can only maintain one instance of the shield power. Anything under the shield’s protection gains the sprite’s Resonance attribute in bonus dice to all Matrix defense tests, as well as Opposed tests against complex forms and sprite powers.</p><p>If a target takes Matrix damage while under the effects of the Shield power, that Matrix damage is suffered by the sprite instead. If you take damage due to sustaining Shield, the Sprite Rep of the Technomancer that compiled you goes down by 1 unless you are a Defender sprite.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "sustained",
+    "isSustained": false,
+    "skill": "",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250853686,
+    "modifiedTime": 1780250862602,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "j07BYRPDS55pvyng",
+  "sort": 500000,
+  "_key": "!items!j07BYRPDS55pvyng"
+}

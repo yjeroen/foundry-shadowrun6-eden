@@ -2,9 +2,29 @@
 	{{ log "Player sheet" this}}
 	{{!-- Sheet Header --}}
 	<header class="sheet-header">
-		<div style="padding-right: 6px;">
-		  <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" /><br/><br/>
+		<div class="sr6">
+		  	{{!-- <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120" /> --}}
+			<div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
+				{{!-- <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div> --}}
+				<div class="portrait-wrap">
+					<div class="portrait">
+						<div class="portrait-edit"><i class="fa-solid fa-image fa-fw"></i></div>
+						<img
+							class='profile-img'
+							src='{{actor.img}}'
+							data-action='onClickImage'
+							data-image-path='img'
+							{{#if limited}}
+							data-tooltip='SR6.title.showImage'
+							{{else}}
+							data-tooltip='shadowrun6.section.persona.image.tooltip'
+							{{/if}}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
+
 		<div class="header-fields">
 			<h1><input name="name" data-field="name" type="text" value="{{actor.name}}" placeholder="{{localize 'shadowrun6.name' }}" /></h1>
 			{{!-- Character Summary --}}
@@ -19,7 +39,7 @@
 				{{selectOptions config.MOR_TYPES selected=system.mortype localize=true}}
 			</select>
 			</div>
-			<div style="display:flex; flex-direction:row; align-items:center;">
+			<div style="display:flex; flex-direction:row; align-items:center; gap: 10px">
 			{{> "systems/shadowrun6-eden/templates/parts/monitors.html" attributes=system.attributes}}
 			{{> "systems/shadowrun6-eden/templates/parts/edge-token.html"}}
 			{{> "systems/shadowrun6-eden/templates/parts/nuyen-token.html"}}
@@ -80,7 +100,7 @@
 			{{!-- TODO: migrate these mods? --}}
 			{{!-- {{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="ARMOR_ADDITION" title=(localize 'shadowrun6.section.armor_adds')}} --}}
 			
-			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="MAGICAL" title=(localize 'shadowrun6.gear.subtype.MAGIC_SUPPLIES')}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-gear.html" geartype="MAGICAL" title=(localize 'shadowrun6.label.MagicalGoods')}}
 
 			{{> "systems/shadowrun6-eden/templates/parts/section-item-mods.html" }}
 

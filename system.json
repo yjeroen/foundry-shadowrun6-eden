@@ -16,7 +16,7 @@
     }
   ],
   "compatibility": {
-    "minimum": "12",
+    "minimum": "13",
     "verified": "13.351",
     "maximum": "13"
   },
@@ -25,7 +25,7 @@
     "module/Shadowrun6.js"
   ],
   "styles": [
-    "styles/shadowrun6.css"
+    "styles/system.css"
   ],
   "relationships": [],
   "languages": [
@@ -150,13 +150,18 @@
       "name": "qualities",
       "label": "Qualities",
       "type": "Item"
+    },
+    {
+      "name": "sprite_powers",
+      "label": "Sprite Powers",
+      "type": "Item"
     }
   ],
   "packFolders": [
     {
       "name": "SR6 System",
       "color": "#b8207f",
-      "packs": ["gear_mods", "qualities"]
+      "packs": ["gear_mods", "qualities", "sprite_powers"]
     }
   ],
   "background": "systems/shadowrun6-eden/images/sr6-background.webp",
@@ -173,6 +178,10 @@
     }
   },
   "documentTypes": {
+    "Actor": {
+      "sprite": {},
+      "host": {}
+    },
     "Item": {
       "mod": {}
     }

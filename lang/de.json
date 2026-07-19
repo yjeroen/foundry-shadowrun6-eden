@@ -622,7 +622,7 @@
       "trait_pool": "Eigenschaft / Pool",
       "type": "Art",
       "value": "Wert",
-      "wilddie": "Schicksalswürfel"
+      "wilddie": "Ein d6 als Schicksalswürfel"
     },
     "lifestyle": {
       "cost": "Kosten",

@@ -1,0 +1,16 @@
+<div class="collapsible-content gear-mods closed" style="vertical-align: top">
+    {{#if (itemHasGearMods item actor)}}
+    <div class="mods-label">{{ localize 'SR6.Item.mod.label.section' }}:</div>
+    <div class="mods-list">
+    {{#each (gearModsOfItem item actor) as |mod id|}}
+        <div class="mod-item">
+            <a class="content-link" draggable="false" data-link="" data-uuid="{{mod.uuid}}" data-id="{{mod.uuid}}" data-type="Item">{{mod.name}}</a>
+        </div>
+    {{/each}}
+    </div>
+    {{/if}}
+    {{#if item.system.description}}
+    <div class="mods-label">{{ localize 'shadowrun6.item.description' }}:</div>
+    <div>{{{item.enriched.description}}}</div>
+    {{/if}}
+</div>

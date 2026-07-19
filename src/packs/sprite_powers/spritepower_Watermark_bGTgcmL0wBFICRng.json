@@ -1,0 +1,38 @@
+{
+  "folder": null,
+  "name": "Watermark",
+  "type": "spritepower",
+  "img": "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+  "system": {
+    "genesisID": "",
+    "description": "<p>Tag an icon with an invisible marking that only Resonance-driven entities can see, similar to a Matrix signature. This allows you to secretly leave messages on Matrix objects. </p><p>You can overwrite a watermark with a new one. A watermark can be erased with the Erase Matrix Signature action by a Resonant being; otherwise it lasts as long as the icon does.</p>",
+    "product": "",
+    "page": 0,
+    "duration": "permanent",
+    "isSustained": false,
+    "skill": "",
+    "skillSpec": "",
+    "oppAttr1": "",
+    "oppAttr2": ""
+  },
+  "effects": [],
+  "ownership": {
+    "default": 0,
+    "S4L5UokAp998askq": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "shadowrun6-eden",
+    "systemVersion": "3.3.9",
+    "createdTime": 1780250864301,
+    "modifiedTime": 1780250864301,
+    "lastModifiedBy": "S4L5UokAp998askq"
+  },
+  "_id": "bGTgcmL0wBFICRng",
+  "sort": 0,
+  "_key": "!items!bGTgcmL0wBFICRng"
+}

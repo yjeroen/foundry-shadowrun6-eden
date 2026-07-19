@@ -1,41 +1,115 @@
 <form class="flexcol {{cssClass}}" autocomplete="off" style="min-width: 605px; min-width: fit-content;">
     {{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
     
-    {{!-- Sheet Body --}}
+    <!-- Sheet Body -->
     <section class="sheet-body">
         <div class="section">
+            <!-- Main Gear Stats -->
             <table>
                 <tr>
-                    <!--Typ, Subtyp, Verfügbarkeit, Preis-->
                     <th>{{localize 'shadowrun6.item.type'}}</th>
                     <th>{{localize 'shadowrun6.item.subtype'}}</th>
+                    {{#if gearConfig.showRating}}
                     <th>{{localize 'shadowrun6.label.column.rating'}}</th>
+                    {{/if}}
+                    {{#if gearConfig.showCountable}}
                     <th>{{localize 'shadowrun6.label.column.count'}}</th>
+                    {{/if}}
                     <th>{{localize 'shadowrun6.item.availability'}}</th>
                     <th>{{localize 'shadowrun6.item.price'}}</th>
                 </tr>
                 <tr>
-                    <td style="text-align: center">
-                        <select name="system.type" data-field="system.type" data-field="system.type" class="typeselect">
-                            {{selectOptions config.GEAR_TYPES selected=item.system.type localize=true}}
+                    <td>
+                        <select name="system.type" data-field="system.type" class="typeselect">
+                            {{selectOptions config.GEAR_TYPES selected=item.system.type localize=true sort=true}}
                         </select>
                     </td>
-                    <td style="text-align: center">
-                        <select name="system.subtype" data-field="system.subtype" data-field="system.subtype" class="subtypeselect">
-                            {{selectOptions config.subtypeList selected=item.system.subtype localize=true blank=(localize "shadowrun6.label.none") }}
-                        </select></td>
-
-                    <td style="text-align: center"><input name="system.needsRating" style="vertical-align: middle;" type="checkbox" {{checked item.system.needsRating}}
-                            data-field="system.needsRating" /></td>
-                    <td style="text-align: center"><input name="system.countable" style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}}
-                            data-field="system.countable" /></td>
-
-                    <td style="text-align: center"><input name="system.availDef" type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered"
-                            style="width: 2em" /></td>
-                    <td style="text-align: center"><span class="input-symbol-nuyen"><input name="system.priceDef" type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered"
-                            style="width: 5em" /></span></td>
+                    <td>
+                        <select name="system.subtype" data-field="system.subtype"class="subtypeselect">
+                            {{selectOptions config.subtypeList selected=item.system.subtype localize=true sort=true blank=(localize "shadowrun6.label.none") }}
+                        </select>
+                    </td>
+                    {{#if gearConfig.showRating}}
+                    <td>
+                        <input name="system.needsRating" style="vertical-align: middle;" type="checkbox" {{checked item.system.needsRating}} data-field="system.needsRating" />
+                        {{#if item.system.needsRating}}
+                        <input name="system.rating" type="number" value="{{item.system.rating}}" data-field="system.rating" class="centered box" />
+                        {{/if}}
+                    </td>
+                    {{/if}}
+                    {{#if gearConfig.showCountable}}
+                    <td>
+                        <input name="system.countable" style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}} data-field="system.countable" />
+                    </td>
+                    {{/if}}
+                    <td>
+                        <input name="system.availDef" type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" />
+                    </td>
+                    <td>
+                        <span class="input-symbol-nuyen"><input name="system.priceDef" type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered" style="width: 5em" /></span>
+                    </td>
                 </tr>
             </table>
+            <!-- Matrix Gear Config -->
+            {{#if gearConfig.showMatrixDeviceConfig}}
+            <table>
+                <tr>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.isElectronicMatrixDevice.hint">{{localize 'SR6.Item.base.FIELDS.isElectronicMatrixDevice.label'}}</span></th>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.hasWirelessInterface.hint">{{localize 'SR6.Item.base.FIELDS.hasWirelessInterface.label'}}</span></th>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.hasDataCableInterface.hint">{{localize 'SR6.Item.base.FIELDS.hasDataCableInterface.label'}}</span></th>
+                    {{#if gearConfig.isElectronicMatrixDevice}}
+                    {{#if (eq item.system.type "CYBERWARE")}}
+                    <th><span data-tooltip-html="{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.hint'}}">{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.label'}}</span></th>
+                    {{else}}
+                    <th><span data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}">{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</span></th>
+                    {{/if}}
+                    {{/if}}
+                </tr>
+                <tr>
+                    <td>
+                        <input
+                            name="system.isElectronicMatrixDevice"
+                            type="checkbox" {{checked gearConfig.isElectronicMatrixDevice}}
+                            data-field="system.isElectronicMatrixDevice"
+                            data-tooltip="SR6.Item.base.FIELDS.isElectronicMatrixDevice.hint"
+                            {{#if gearConfig.disableElectronicMatrixDevice}}disabled{{/if}}
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="system.matrix.hasWirelessInterface"
+                            type="checkbox" {{checked item.system.matrix.hasWirelessInterface}}
+                            data-field="system.matrix.hasWirelessInterface"
+                            data-tooltip="SR6.Item.base.FIELDS.hasWirelessInterface.hint"
+                            {{#if gearConfig.disableWirelessInterface}}disabled{{/if}}
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="system.matrix.hasDataCableInterface"
+                            type="checkbox" {{checked item.system.matrix.hasDataCableInterface}}
+                            data-field="system.matrix.hasDataCableInterface"
+                            data-tooltip="SR6.Item.base.FIELDS.hasDataCableInterface.hint"
+                            {{#if gearConfig.disableDataCableInterface}}disabled{{/if}}
+                        />
+                    </td>
+                    {{#if gearConfig.isElectronicMatrixDevice}}
+                    <td>
+                        <select 
+                            name="system.matrix.deviceRating" data-field="system.matrix.deviceRating"
+                            data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}"
+                        >
+                        {{#if (eq item.system.type "CYBERWARE")}}
+                            {{selectOptions config.GEAR.CYBERWARE.GRADES selected=item.system.matrix.deviceRating localize=true}}
+                        {{else}}
+                            {{selectOptions config.DEVICE_RATING selected=item.system.matrix.deviceRating localize=true}}
+                        {{/if}}
+                        </select>
+                    </td>
+                    {{/if}}
+                </tr>
+            </table>
+            {{/if}}
             <!-- ********** WAFFEN ********** -->
             {{#if (or
             (eq item.system.type "WEAPON_FIREARMS")
@@ -59,7 +133,7 @@
                     </td>
                     <td style="text-align: left">
                         <select name="system.stun" data-field="system.stun">
-                            {{selectOptions config.WEAPON_STUN_OPTION selected=item._source.system.stun localize=true}}
+                            {{selectOptions config.WEAPON_STUN_OPTION selected=item._source.system.stun localize=true sort=true}}
                         </select>
                     </td>
                     {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
@@ -103,11 +177,6 @@
                             {{localize 'shadowrun6.weapon.ammo_cap_short'}}
                         {{/if}}
                     </th>
-                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                    <th>
-                        {{localize 'shadowrun6.weapon.ammo_loaded'}}
-                    </th>
-                    {{/if}}
                     {{#if highStrengthReducesRecoil}}
                     <th>
                         {{localize 'shadowrun6.label.dual_hand'}}
@@ -117,13 +186,13 @@
                 <tr>
                     <td style="text-align: center">
                         <select name="system.skill" data-field="system.skill">
-                            {{selectOptions config.SKILLS_WEAPON selected=item.system.skill localize=true blank=(localize "shadowrun6.label.none")}}
+                            {{selectOptions config.SKILLS_WEAPON selected=item.system.skill localize=true sort=true blank=(localize "shadowrun6.label.none")}}
                         </select>
                     </td>
                     <td style="text-align: center">
                         {{#if item.system.skill}}
         	   			<select name="system.skillSpec" data-field="system.skillSpec">
-                            {{selectOptions (lookup config.skill_special item.system.skill) selected=item.system.skillSpec localize=true}}
+                            {{selectOptions (lookup config.skill_special item.system.skill) selected=item.system.skillSpec localize=true sort=true}}
          				</select>
                          {{/if}}
                     </td>
@@ -137,13 +206,6 @@
                             <input name="system.ammocap" type="number" value="{{item._source.system.ammocap}}" data-field="system.ammocap" class="box centered" style="width: 3.4em" />
                         {{/if}}
                     </td>
-                    {{#if (or (or (eq item.system.type "WEAPON_FIREARMS")(eq item.system.type "WEAPON_RANGED"))(eq item.system.type "WEAPON_SPECIAL"))}}
-                    <td style="text-align: center">
-                        <select name="system.ammoLoaded" data-field="system.ammoLoaded">
-                            {{selectOptions config.AMMO_TYPES selected=item.system.ammoLoaded localize=true}}
-                        </select>
-                    </td>
-                    {{/if}}
                     {{#if highStrengthReducesRecoil}}
                     <td style="text-align: center">
                         <input name="system.dualHand" style="vertical-align: middle;" type="checkbox" {{checked item.system.dualHand}} data-field="system.dualHand" />
@@ -189,7 +251,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input name="system.essence" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence" class="box centered" />
+                        <input name="system.essence" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence" class="box centered" style="width: 3em;" />
                     </td>
                 </tr>
             </table>
@@ -202,10 +264,8 @@
                     <th>{{localize 'shadowrun6.item.capacity'}}</th>
                 </tr>
                 <tr>
-                    <td> <input name="system.essence" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence"
-                            class="box centered" /></td>
-                    <td> <input name="system.capacity" type="number" value="{{item.system.capacity}}" data-field="system.capacity" id="ware_cap"
-                            class="box centered" /></td>
+                    <td> <input name="system.essence" type="number" value="{{item.system.essence}}" data-field="system.essence" id="ware_essence" class="box centered" style="width: 3em;" /></td>
+                    <td> <input name="system.capacity" type="number" value="{{item.system.capacity}}" data-field="system.capacity" id="ware_cap" class="box centered" /></td>
                 </tr>
             </table>
             {{/if}}
@@ -214,24 +274,15 @@
                 (eq item.system.subtype "COMMLINK")
                 (eq item.system.subtype "RIGGER_CONSOLE")
                 (eq item.system.subtype "CYBERJACK")
+                (eq item.system.subtype "DATATERM")
             )}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
-                    <th>{{localize 'shadowrun6.label.devRating'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.dataproc.short'}}</th>
                     <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
-                    <td class="box centered">
-                        <input name="system.devRating" type="number" value="{{item.system.devRating}}" data-field="system.devRating" class="box centered" style="width:2em" />
-                    </td>
                     <td class="box centered">
                         <input name="system.progSlots" type="number" value="{{item.system.progSlots}}" data-field="system.progSlots" class="box centered" style="width:2em" />
                     </td>
@@ -248,26 +299,43 @@
             {{#if (eq item.system.subtype "CYBERDECK")}}
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
-                    <th>{{localize 'shadowrun6.label.devRating'}}</th>
                     <th>{{localize 'shadowrun6.label.progSlots'}}</th>
                     <th>{{localize 'shadowrun6.label.attack.short'}}</th>
                     <th>{{localize 'shadowrun6.label.sleaze.short'}}</th>
                 </tr>
                 <tr>
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
-                    <td class="box centered"> <input name="system.devRating" type="number" value="{{item.system.devRating}}"
-                            data-field="system.devRating" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.progSlots" type="number" value="{{item.system.progSlots}}"
                             data-field="system.progSlots" class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.a" type="number" value="{{item.system.a}}" data-field="system.a"
                             class="box centered" style="width:2em" /></td>
                     <td class="box centered"> <input name="system.s" type="number" value="{{item.system.s}}" data-field="system.s"
                             class="box centered" style="width:2em" /></td>
+                </tr>
+            </table>
+            {{/if}}
+            <!-- ********** CYBERTERM ********** -->
+            {{#if (eq item.system.subtype "CYBERTERM")}}
+            <table>
+                <tr>
+                    <th>{{localize 'shadowrun6.label.progSlots'}}</th>
+                    <th>{{localize 'shadowrun6.label.attack.short'}}</th>
+                    <th>{{localize 'shadowrun6.label.sleaze.short'}}</th>
+                    <th>{{localize 'shadowrun6.label.dataproc.short'}}</th>
+                    <th>{{localize 'shadowrun6.label.firewall.short'}}</th>
+                </tr>
+                <tr>
+                    <td class="box centered"> <input name="system.progSlots" type="number" value="{{item.system.progSlots}}"
+                            data-field="system.progSlots" class="box centered" style="width:2em" /></td>
+                    <td class="box centered"> <input name="system.a" type="number" value="{{item.system.a}}" data-field="system.a"
+                            class="box centered" style="width:2em" /></td>
+                    <td class="box centered"> <input name="system.s" type="number" value="{{item.system.s}}" data-field="system.s"
+                            class="box centered" style="width:2em" /></td>
+                    <td class="box centered">
+                        <input name="system.d" type="number" value="{{item.system.d}}" data-field="system.d" class="box centered" style="width:2em" />
+                    </td>
+                    <td class="box centered">
+                        <input name="system.f" type="number" value="{{item.system.f}}" data-field="system.f" class="box centered" style="width:2em" />
+                    </td>
                 </tr>
             </table>
             {{/if}}
@@ -298,7 +366,7 @@
                     <td class="box centered"> <input name="system.tspd" type="number" value="{{item.system.tspd}}" data-field="system.tspd"
                             class="box centered" style="width:3em" /></td>
                     <td colspan="2" class="centered"> <select name="system.vtype" data-field="system.vtype" data-field="system.vtype" class="typeselect">
-                            {{selectOptions config.VEHICLE_TYPE selected=item.system.vtype localize=true}}
+                            {{selectOptions config.VEHICLE_TYPE selected=item.system.vtype localize=true sort=true}}
                         </select>
                     </td>
                 </tr>
@@ -312,7 +380,6 @@
                     {{else}}
                     <th></th>
                     {{/if}}
-                    <th>{{localize 'shadowrun6.label.matrixMonitor'}}</th>
                 </tr>
                 <tr>
                     <td class="box centered"> <input name="system.bod" type="number" value="{{item.system.bod}}" data-field="system.bod"
@@ -329,22 +396,20 @@
                     {{else}}
                     <td></td>
                     {{/if}}
-                    <td class="box centered">
-                        <input name="system.dmg" type="number" value="{{item.system.dmg}}" data-field="system.dmg" class="box centered" style="width:2em" title="{{localize "shadowrun6.item.damage"}}"/>
-                         /
-                        <input type="number" value="{{item.maxtrixMonitor}}" class="box centered" style="width:2em" title="{{localize "shadowrun6.numerical.max"}}" disabled>
-                    </td>
 
                 </tr>
             </table>
             {{/if}}
+            {{#if (ne item.system.type "MAGICAL")}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
             {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
-            <!-- ********** Beschreibung ********** -->
+            {{/if}}
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
     </section>
 </form>
 
+{{#if (ne item.system.type "MAGICAL")}}
 {{> "systems/shadowrun6-eden/templates/item/item-mods.hbs" }}
+{{/if}}
 {{> "systems/shadowrun6-eden/templates/item/item-effects.hbs" }}

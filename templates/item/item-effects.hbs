@@ -33,7 +33,7 @@
           </div>
         </li>
         <ol class='effect-list'>
-          {{#each section.effects as |effect|}}
+          {{#each (sortAb section.effects) as |effect|}}
             <li
               class='item effect flexrow'
               data-effect-id='{{effect.id}}'

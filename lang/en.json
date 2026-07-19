@@ -128,12 +128,14 @@
     		"Player": "Player Character",
     		"Spirit": "Spirit",
     		"Vehicle": "Vehicle/Drone",
-        "sprite": "Sprite"
+        "sprite": "Sprite",
+        "host": "Host"
   		},
   		"Item": {
     		"adeptpower": "Adept Power",
     		"critterpower": "Critter Power",
     		"complexform": "Complex Form",
+    		"spritepower": "Sprite Power",
     		"contact" : "Contact",
     		"echo": "Echo",
         "focus": "Focus",
@@ -164,6 +166,7 @@
     "edg": "Edge",
     "edg_short": "EDG",
     "ess": "Essence",
+    "essence": "Essence",
     "ess_short": "ESS",
     "ini": "Initiative",
     "ini_short": "INI",
@@ -185,7 +188,13 @@
     "str_short": "STR",
     "wil": "Willpower",
     "wil_short": "WIL",
-    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute."
+    "max_augment": "Your augmentation modifier is higher than 4. A maximum of 4 is applied to your Attribute.",
+    "initiation": "Initiation",
+    "submersion": "Submersion",
+    "a": "Attack",
+    "s": "Sleaze",
+    "d": "Dataprocessing",
+    "f": "Firewall"
   },
   "skill": {
     "astral": "Astral",
@@ -231,7 +240,8 @@
         "matrix": "Matrix",
         "overview": "Overview",
         "skills": "Skills",
-        "vehicles": "Vehicles"
+        "vehicles": "Vehicles",
+        "main": "Main"
       },
       "skills": "Skills",
       "spells": "Spells"
@@ -358,48 +368,48 @@
     },
     "gear": {
       "subtype": {
-        "ACCESSORY": "Accessories",
+        "ACCESSORY": "Accessory",
         "AMMUNITION": "Ammunition",
         "ARMOR_BODY": "Armor",
         "ARMOR_SOCIAL": "Armored clothing",
         "ARMOR_CLOTHES": "Normal clothing",
-        "ARMOR_HELMET": "Helmets",
-        "ARMOR_SHIELD": "Shields",
+        "ARMOR_HELMET": "Helmet",
+        "ARMOR_SHIELD": "Shield",
         "ASSAULT_CANNON": "Assault Cannon",
-        "ATVS": "ATVs",
-        "AUDIO": "Auditory Devices",
-        "AUDIO_ENHANCEMENT": "Audio Enhancements",
-        "BIKES": "Bikes",
+        "ATVS": "ATV",
+        "AUDIO": "Auditory Device",
+        "AUDIO_ENHANCEMENT": "Audio Enhancement",
+        "BIKES": "Bike",
         "BIOTECH": "Biotech",
         "BIOWARE_COSMETICS": "Cosmetic Bioware",
         "BIOWARE_CULTURED": "Cultured Bioware",
         "BIOWARE_STANDARD": "Normal Bioware",
-        "BIOWARE_IMPLANT_WEAPON": "Bioweapons",
+        "BIOWARE_IMPLANT_WEAPON": "Bioweapon",
         "BIOWARE_DERMAL": "Derman Bioware",
         "BIOSENSE": "Biosense",
         "SYMBIONT": "Symbiont",
-        "BLADES": "Blades",
-        "BOATS": "Boats",
-        "BOWS": "Bows",
-        "BALLISTAS": "Ballistas",
+        "BLADES": "Blade",
+        "BOATS": "Boat",
+        "BOWS": "Bow",
+        "BALLISTAS": "Ballista",
         "BREAKING": "Breaking",
         "BTL": "BTLs",
-        "CANNONS_LAUNCHERS": "Cannons & Launchers",
-        "CARS": "Cars",
+        "CANNONS_LAUNCHERS": "Cannons & Launcher",
+        "CARS": "Car",
         "CLOSE_COMBAT": "Close Combat",
-        "CLUBS": "Clubs",
+        "CLUBS": "Club",
         "COMMLINK": "Commlink",
         "COMMUNICATION": "Communication and Jamming",
-        "CROSSBOWS": "Crossbows",
+        "CROSSBOWS": "Crossbow",
         "CYBER_BODYWARE": "Cyber Bodyware",
         "CYBER_COSMETICS": "Cosmetic Cyberware",
         "CYBER_EARWARE": "Earware",
         "CYBER_EYEWARE": "Eyeware",
         "CYBER_HEADWARE": "Headware",
         "CYBER_IMPLANT_WEAPON": "Cyber Implant Weapon",
-        "CYBER_LIMB_ACCESSORY": "Cyberlimb Accessories",
-        "CYBER_LIMB_ENHANCEMENT": "Cyberlimb Enhancements",
-        "CYBER_LIMBS": "Cyberlimbs",
+        "CYBER_LIMB_ACCESSORY": "Cyberlimb Accessory",
+        "CYBER_LIMB_ENHANCEMENT": "Cyberlimb Enhancement",
+        "CYBER_LIMBS": "Cyberlimb",
         "CYBERNETIC_RESTRAINT": "Cybernetic Restraint",
         "COSMETIC": "Cosmetic Cyberware",
         "CYBERDECK": "Cyberdeck",
@@ -409,77 +419,78 @@
         "PROCESSOR": "Processor",
         "IO": "IO",
         "DIGITAL_WEAPON": "Digital Weapon",        
-        "DRUGS": "Drugs",     
+        "DRUGS": "Drug",     
         "PERFUME": "Perfume",     
         "ESPIONAGE": "Espionage",
-        "ELECTRONIC_ACCESSORIES": "Electronic Accessories",
-        "EXPLOSIVES": "Explosives",
-        "FIREARMS": "Firearms",
-        "FIREARMS_ACCESSORY": "Weapon Accessories",
-        "FIXED_WING": "Fixed Wings",
-        "FOCI_ENCHANTING": "Enchanting Foci",
-        "FOCI_METAMAGIC": "Metamagic Foci",
-        "FOCI_POWER": "Power-Foci",
-        "FOCI_QI": "Qi-Foci",
-        "FOCI_SPELL": "Spell Foci",
-        "FOCI_SPIRIT": "Spirit Foci",
-        "FOCI_WEAPON": "Weapon Foci",
-        "GENOM_CHANGES": "Genom Changes",
+        "ELECTRONIC_ACCESSORIES": "Electronic Accessory",
+        "EXPLOSIVES": "Explosive",
+        "FIREARMS": "Firearm",
+        "FIREARMS_ACCESSORY": "Weapon Accessory",
+        "FIXED_WING": "Fixed Wing",
+        "FOCI_ENCHANTING": "Enchanting Focus",
+        "FOCI_METAMAGIC": "Metamagic Focus",
+        "FOCI_POWER": "Power Focus",
+        "FOCI_QI": "Qi Focus",
+        "FOCI_SPELL": "Spell Focus",
+        "FOCI_SPIRIT": "Spirit Focus",
+        "FOCI_WEAPON": "Weapon Focus",
+        "GENOM_CHANGES": "Genom Change",
         "EXOTIC_METAGENETICS": "Exotic Metagenetics",
         "MICRO_ENVIRONADAPT": "Micro-Environmental Adaption",
         "COMPLEMENTAL_GENETICS": "Complemental Genetics",
         "GRAPPLE_GUN": "Grapple Gun",
-        "GRAV": "Gravitational Drive Vehicles",
-        "GRENADES": "Grenades",
-        "GRENADES_MINI": "Mini-Grenades",
-        "HOLDOUTS": "Holdouts",
+        "GRAV": "Gravitational Drive Vehicle",
+        "GRENADES": "Grenade",
+        "GRENADES_MINI": "Mini-Grenade",
+        "HOLDOUTS": "Holdout",
         "HOVERCRAFT": "Hovercraft",
-        "ID_CREDIT": "ID and Credsticks",
+        "ID_CREDIT": "ID or Credstick",
         "IMAGING": "Imaging",
-        "INDUSTRIAL_CHEMICALS": "Industrial Chemicals",
+        "INDUSTRIAL_CHEMICALS": "Industrial Chemical",
         "INSTRUMENT": "Mustical Instrument",
-        "INSTRUMENT_ACCESSORY": "Instrument Accessories",
-		  "LARGE_DRONES": "Large Drones",
-        "LAUNCHERS": "Launchers",
-        "LAV": "Low Altitude Vehicles",
-        "LTAV": "Lighter Than Air Vehicles",
+        "INSTRUMENT_ACCESSORY": "Instrument Accessory",
+		    "LARGE_DRONES": "Large Drone",
+        "LAUNCHERS": "Launcher",
+        "LAV": "Low Altitude Vehicle",
+        "LTAV": "Lighter Than Air Vehicle",
         "LIVING_PERSONA": "Living Persona",
-        "MACHINE_GUNS": "Machine Guns",
-        "MACHINE_PISTOLS": "Machine Pistols",
+        "MACHINE_GUNS": "Machine Gun",
+        "MACHINE_PISTOLS": "Machine Pistol",
         "MAGICAL_FORMULA": "Magical Formula",
-        "MAGIC_SUPPLIES": "Magical Supplies",
-			"MICRODRONES": "Microdrones",
-			"MINIDRONES": "Minidrones",
-			"MEDIUM_DRONES": "Medium Drones",
-        "PREPARATION": "Preparations",
-        "PREPARATION_EXTENDED": "Preparations (extended potency)",
-        "MISSILES": "Missiles",
-        "MODIFICATION": "Modifications",
-        "MOD_LAYOUT": "Layout Mods",
-        "MOD_CORE": "Core Mods",
-        "MOD_TIRES": "Tires",
-        "MOD_HANDLING": "Handling Mods",
-        "MOD_TRAILER": "Trailers and Sidecars",
-        "MOD_INTERIOR": "Seating and Cargo Mods",
-        "MOD_CARGO": "CF Mods",
-        "MOD_FORM": "Forms",
-        "MOD_ARMOR": "Foundations",
-        "MOD_ELEMENTS": "Elements",
-        "MOD_ACC": "Acceleration Mods",
-        "MOD_EFFICIENCY": "Efficiency Mods",
-        "MOD_SPEED": "Speed Mods",
-        "MOD_COAT": "Electronic Skin Coatings",
-        "MOD_MISC": "Miscellaneous Electronic Mods",
-        "MOD_PILOT": "Pilot Mods",
-        "MOD_MOUNT": "Weapon Mounts",
-        "MOD_RACK": "Drone Racks",
-        "MOD_OTHERS": "Other Hardpoint Mods",
-        "MOD_PROPULSION": "Secondary Propulsion Systems",
-        "NANITES_COSMETIC": "Cosmetic Nanites",
-        "NANITES_THERAPEUTIC": "Therapeutic Nanites",
-        "NANITES_BIOAMP": "Bioamplifier Nanites",
-        "NANITES_UTILITIES": "Utility Nanites",
-        "NANITES_TRANSIENT": "Transient-only Nanites",
+        "MAGIC_SUPPLIES": "Magical Supply",
+        "MAGIC_LODGE": "Magical Lodge",
+        "MICRODRONES": "Microdrone",
+        "MINIDRONES": "Minidrone",
+        "MEDIUM_DRONES": "Medium Drone",
+        "PREPARATION": "Preparation",
+        "PREPARATION_EXTENDED": "Preparation (extended potency)",
+        "MISSILES": "Missile",
+        "MODIFICATION": "Modification",
+        "MOD_LAYOUT": "Layout Mod",
+        "MOD_CORE": "Core Mod",
+        "MOD_TIRES": "Tire",
+        "MOD_HANDLING": "Handling Mod",
+        "MOD_TRAILER": "Trailers and Sidecar",
+        "MOD_INTERIOR": "Seating and Cargo Mod",
+        "MOD_CARGO": "CF Mod",
+        "MOD_FORM": "Form",
+        "MOD_ARMOR": "Foundation",
+        "MOD_ELEMENTS": "Element",
+        "MOD_ACC": "Acceleration Mod",
+        "MOD_EFFICIENCY": "Efficiency Mod",
+        "MOD_SPEED": "Speed Mod",
+        "MOD_COAT": "Electronic Skin Coating",
+        "MOD_MISC": "Miscellaneous Electronic Mod",
+        "MOD_PILOT": "Pilot Mod",
+        "MOD_MOUNT": "Weapon Mount",
+        "MOD_RACK": "Drone Rack",
+        "MOD_OTHERS": "Other Hardpoint Mod",
+        "MOD_PROPULSION": "Secondary Propulsion System",
+        "NANITES_COSMETIC": "Cosmetic Nanite",
+        "NANITES_THERAPEUTIC": "Therapeutic Nanite",
+        "NANITES_BIOAMP": "Bioamplifier Nanite",
+        "NANITES_UTILITIES": "Utility Nanite",
+        "NANITES_TRANSIENT": "Transient-only Nanite",
         "NANOTECH_KIT": "Nanotech Kit",
         "THERAPEUTIC": "Therapeutic",
         "AUGMENTICS": "Augmentics",
@@ -491,57 +502,57 @@
         "NANO_CYBERWARE": "Nano-Cyberware",
         "NANOTECH_EQUIPMENT": "Nanotech Equipment",
         "OPTICAL": "Optical",
-        "OTHER_PROGRAMS": "Other Programs",
-        "OTHER_CLOSE": "Other Melee Weapons",
-        "OTHER_SPECIAL": "Special Weapons",
-        "PISTOLS_HEAVY": "Heavy Pistols",
-        "PISTOLS_LIGHT": "Light Pistols",
-        "PROJECTILES": "Projectiles",
+        "OTHER_PROGRAMS": "Other Program",
+        "OTHER_CLOSE": "Other Melee Weapon",
+        "OTHER_SPECIAL": "Special Weapon",
+        "PISTOLS_HEAVY": "Heavy Pistol",
+        "PISTOLS_LIGHT": "Light Pistol",
+        "PROJECTILES": "Projectile",
         "RFID": "RFID",
-        "#RIFLES": "Rifles",
-        "RIFLE_ASSAULT": "Assault Rifles",
-        "RIFLE_HUNTING": "Hunting Rifles",
-        "RIFLE_SNIPER": "Sniper Rifles",
+        "#RIFLES": "Rifle",
+        "RIFLE_ASSAULT": "Assault Rifle",
+        "RIFLE_HUNTING": "Hunting Rifle",
+        "RIFLE_SNIPER": "Sniper Rifle",
         "RIGGER_CONSOLE": "Rigger Console",
-        "ROCKETS": "Rockets",
+        "ROCKETS": "Rocket",
         "ROTORCRAFT": "Rotorcraft",
         "SECURITY": "Security",
-        "SENSOR": "Sensors",
+        "SENSOR": "Sensor",
         "SENSOR_HOUSING": "Sensor Housing",
-        "SHOTGUNS": "Shotguns",
+        "SHOTGUNS": "Shotgun",
         "SKILLSOFT": "Skillsoft",
-        "SLAP_PATCHES": "Slap-Patches",
-			"SMALL_DRONES": "Small Drones",
-        "SNIPER_RIFLES": "Sniper Rifles",
+        "SLAP_PATCHES": "Slap-Patch",
+			"SMALL_DRONES": "Small Drone",
+        "SNIPER_RIFLES": "Sniper Rifle",
         "SOFTWARE": "Software",
-        "SPACECRAFT": "Spacecrafts",
-        "SPECIAL_WEAPONS": "Special Weapons",
-        "SUBMACHINE_GUNS": "Submachine Guns",
-        "SUBMARINES": "Submarines",
+        "SPACECRAFT": "Spacecraft",
+        "SPECIAL_WEAPONS": "Special Weapon",
+        "SUBMACHINE_GUNS": "Submachine Gun",
+        "SUBMARINES": "Submarine",
         "SURVIVAL_GEAR": "Survival Gear",
         "WINTER_GEAR": "Winter Gear",
-        "SYMBIONTS": "Symbionts",
+        "SYMBIONTS": "Symbiont",
         "TAC_NET": "Tactical Network",
         "DATATERM": "Data Terminal",
         "CYBERTERM": "Cyber Terminal",
-        "BTLS": "BTL's",
+        "BTLS": "BTL",
         "TASERS": "Taser",
-        "THROWERS": "Throwers",
-        "THROWING": "Throwing weapons",
-        "DMSO": "Air-propelled DMSO gel packs",
-        "DART": "Air-propelled Darts",
+        "THROWERS": "Thrower",
+        "THROWING": "Throwing weapon",
+        "DMSO": "Air-propelled DMSO gel pack",
+        "DART": "Air-propelled Dart",
         "TRANSGENETICS": "Transgenetics",
         "TACNET_PROGRAM": "TAC-NetProgram",
-        "TOOLS": "Tools",
-        "SPARE_PARTS": "Spare Parts",
-        "PLACEHOLDERS": "Standard Goods",
-        "TOXINS": "Toxins",
-        "TRUCKS": "Pickup Trucks",
-        "TRACKED": "Tracked Vehicles",
-        "SPECIAL_VEHICLES": "Special Vehicles",
+        "TOOLS": "Tool",
+        "SPARE_PARTS": "Spare Part",
+        "PLACEHOLDERS": "Standard Good",
+        "TOXINS": "Toxin",
+        "TRUCKS": "Pickup Truck",
+        "TRACKED": "Tracked Vehicle",
+        "SPECIAL_VEHICLES": "Special Vehicle",
         "UNARMED": "Unarmed",
-        "VANS": "Vans and Cargo Trucks",
-        "VEHICLE_ACCESSORY": "Vehicle Accessories",
+        "VANS": "Van or Cargo Truck",
+        "VEHICLE_ACCESSORY": "Vehicle Accessory",
         "VISION_ENHANCEMENT": "Vision Enhancement",
         "VTOL": "VTOL/VSTOL",
         "BUS": "Bus",
@@ -656,7 +667,7 @@
       "DRONES": "Drones",
       "ELECTRONICS": "Electronics",
       "GENETICS": "Geneware",
-      "MAGICAL": "Magical",
+      "MAGICAL": "Magical Goods",
       "NANOWARE": "Nanoware",
       "SOFTWARE": "Software",
       "SURVIVAL": "Survival gear",
@@ -728,6 +739,7 @@
       "legality.legal.long": "Legal",
       "level": "Has levels",
       "mages": "Mages",
+      "MagicalGoods": "Magical Goods",
       "matrixMonitor": "Matrix Monitor",
       "max": "Maximum",
       "mode_of_operation": "Mode of Operation",
@@ -770,206 +782,442 @@
       "high" : "High",
       "luxury" : "Luxury"
     },
+    "action": {
+      "activate_focus": {
+        "name": "Activate/Deactivate Focus",
+        "hint": "Activate or deactivate a bonded focus. See p.151, SR6."
+      },
+      "avoid_incoming": {
+        "name": "Avoid Incoming",
+        "hint": "Roll Reaction + Athletics – Dodge Penalty and move meters equal to your hits in a chosen direction. You become Prone. Only one of Avoid Incoming, Move, or Sprint may be used each turn."
+      },
+      "block": {
+        "name": "Block",
+        "hint": "Add your Close Combat skill to one defense test this turn."
+      },
+      "call_a_shot": {
+        "name": "Call a Shot",
+        "hint": "Your next Attack gains +2 DV but suffers a –4 dice pool penalty."
+      },
+      "change_device_mode": {
+        "name": "Change Device Mode",
+        "hint": "Switch the mode of a device connected via DNI."
+      },
+      "command_drone": {
+        "name": "Command Drone",
+        "hint": "Issue one command to a drone or drone group connected to your RCC."
+      },
+      "command_spirit": {
+        "name": "Command Spirit",
+        "hint": "Issue one service command to a spirit or group of spirits. See p.146, SR6."
+      },
+      "dismiss_spirit": {
+        "name": "Dismiss Spirit",
+        "hint": "Release a spirit from service."
+      },
+      "dodge": {
+        "name": "Dodge",
+        "hint": "Add your Athletics skill to one defense test this turn."
+      },
+      "drop_object": {
+        "name": "Drop Object",
+        "hint": "Drop an item you are holding."
+      },
+      "drop_prone": {
+        "name": "Drop Prone",
+        "hint": "Gain the Prone status. See p.53, SR6."
+      },
+      "hit_the_dirt": {
+        "name": "Hit the Dirt",
+        "hint": "Quickly gain the Prone status. See p.53, SR6."
+      },
+      "intercept": {
+        "name": "Intercept",
+        "hint": "If a target is within melee reach and you have an unused Major Action, make an Attack outside your turn."
+      },
+      "move": {
+        "name": "Move",
+        "hint": "Move up to 10 meters. Only one of Avoid Incoming, Move, or Sprint may be used each turn."
+      },
+      "multiple_attacks": {
+        "name": "Multiple Attacks",
+        "hint": "Split your next attack between multiple targets by dividing your dice pool."
+      },
+      "quick_draw": {
+        "name": "Quick Draw",
+        "hint": "Draw a weapon instantly if you have the required equipment, quality, or augmentation."
+      },
+      "reload_smartgun": {
+        "name": "Reload Smartgun",
+        "hint": "Reload a weapon equipped with a smartlink."
+      },
+      "shift_perception": {
+        "name": "Shift Perception",
+        "hint": "Switch between meatspace and astral perception."
+      },
+      "stand_up": {
+        "name": "Stand Up",
+        "hint": "Stand up and remove the Prone status."
+      },
+      "take_aim": {
+        "name": "Take Aim",
+        "hint": "Gain +1 die to a future Attack once per round, accumulating up to your Willpower. The bonus is lost if not followed by an Attack."
+      },
+      "take_cover": {
+        "name": "Take Cover",
+        "hint": "Gain Cover I through Cover IV. See p.52, SR6."
+      },
+      "trip": {
+        "name": "Trip",
+        "hint": "Force the target to make an Athletics + Agility test with threshold (DV – 2) or fall Prone."
+      },
+      "assist": {
+        "name": "Assist",
+        "hint": "Contribute to a teamwork test. Your hits become bonus dice for the leader. See p.36, SR6."
+      },
+      "astral_projection": {
+        "name": "Astral Projection",
+        "hint": "Project your soul into astral space. See p. 160, SR6."
+      },
+      "attack": {
+        "name": "Attack",
+        "hint": "Make an attack. See the Combat, Magic, or Matrix tabs for attack types."
+      },
+      "banish_spirit": {
+        "name": "Banish Spirit",
+        "hint": "Reduce a summoned spirit's services with a Conjuring + Magic test opposed by Force × 2. See p.147, SR6."
+      },
+      "cast_spell": {
+        "name": "Cast Spell",
+        "hint": "Cast a spell. See the Magic tab."
+      },
+      "cleanse": {
+        "name": "Cleanse",
+        "hint": "Remove one hour of natural astral signature fading from a magical effect. May be repeated. See p.160, SR6."
+      },
+      "counterspell": {
+        "name": "Counterspell",
+        "hint": "Reduce a sustained spell's hits or grant bonus dice to magical defense within 2 meters. See p.143, SR6."
+      },
+      "full_defense": {
+        "name": "Full Defense",
+        "hint": "Until the end of the combat round, add your Willpower to all defense tests."
+      },
+      "manifest": {
+        "name": "Manifest",
+        "hint": "Reveal your astral form as a ghostly presence in meatspace. See p.160, SR6."
+      },
+      "observe_in_detail": {
+        "name": "Observe in Detail",
+        "hint": "Make a Perception + Intuition or Assensing + Intuition test to closely examine something."
+      },
+      "pick_up_put_down_object": {
+        "name": "Pick Up / Put Down Object",
+        "hint": "Carefully pick up or set down an object. May also ready a weapon."
+      },
+      "ready_weapon": {
+        "name": "Ready Weapon",
+        "hint": "Ready a weapon for combat. You may ready small weapons up to your Agility rating."
+      },
+      "reload_weapon": {
+        "name": "Reload Weapon",
+        "hint": "Reload a weapon without a smartlink."
+      },
+      "rigger_jump_in": {
+        "name": "Rigger Jump In",
+        "hint": "Jump into and directly control a vehicle or drone connected to your RCC."
+      },
+      "sprint": {
+        "name": "Sprint",
+        "hint": "Move 15 meters plus hits on an Athletics + Agility test. Only one of Avoid Incoming, Move, or Sprint may be used each turn."
+      },
+      "summon_spirit": {
+        "name": "Summon Spirit",
+        "hint": "Summon a spirit with a Conjuring + Magic test opposed by Force × 2. See p.146, SR6."
+      },
+      "use_simple_device": {
+        "name": "Use Simple Device",
+        "hint": "Operate a simple device that is not connected via DNI."
+      },
+      "use_skill": {
+        "name": "Use Skill",
+        "hint": "Use a skill. See the Skills tab."
+      },
+      "thread_form": {
+        "name": "Thread Complex Form",
+        "hint": "Thread a complex form in the Matrix using Electronics. See the Matrix tab and p.189, SR6."
+      },
+      "compile_sprite": {
+        "name": "Compile Sprite",
+        "hint": "Compile a Sprite in the Matrix using Tasking. See p.191, SR6."
+      }
+    },
     "matrix": {
+      "reference.title": "Reference Section",
+      "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
+      "targetActor.title": "Initiate Target",
+      "targetActor.macro": "Open Targets Matrix Persona",
+      "targetActor.tooltip": "<p>Open your target's Limited View sheet. This shows their Matrix Persona if they are present in the Matrix via AR or VR.</p><p>You can (un)target a token by hovering your mouse over it and pressing T on your keyboard.",
+      "target_persona.title": "Targetting Persona",
+      "target_persona.tooltip": "<p>This section shows Matrix Actions that can target the Persona directly.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "accessLevel": {
         "outsider": "OUTSIDER",
         "user": "USER",
-        "admin": "ADMIN"
+        "admin": "ADMIN",
+        "tooltip_sheetOwner_true": "{name}'s Access Level to {device}",
+        "tooltip_sheetOwner_false": "Your Access Level to target {device}",
+        "switch": "Click to switch access level to see which Matrix Actions are available.",
+        "switch_persona": "<p>This is your current Access Level to this persona.</p>",
+        "access_level_device": "<p>This is your current Access Level to this device.</p><p>You can gain a different access level after you have used <em>Backdoor Entry</em>, <em>Brute Force</em> or <em>Known Exploit Backdoor Entry</em>.</p>",
+        "access_level_device_admin": "<p>This is your current Access Level to this device.</p><p>You are ADMIN due to this being your device or you being PAN Administrator.</p>"
       },
       "device": {
-        "enable": "Enable Matrix Device",
-        "disable": "Disable Matrix Device"
-      }
+        "enable": "Click to use this device to access the Matrix.",
+        "disable": "Click to not use this device to access the Matrix.",
+        "isOffline": "Device is not online on the Matrix due to being bricked or disabled.",
+        "unable": "<p>Cannot enable this device because:</p><ul><li>Another device is already generating these Matrix Attributes.</li><li>This is a Cyberdeck and you already have a RCC enabled.</li><li>This is a RCC and you already have a Cyberdeck enabled.</li></ul>",
+        "online": "ONLINE",
+        "offline": "OFFLINE",
+        "isAccessDevice": "<p>This is an Matrix Access Device.</p><p>Enable or Disable this on your Character sheet (Matrix tab).</p>"
+      },
+      "open_operations": "Start Matrix Operations on {item}.",
+      "icon": "Icon",
+      "persona.initiating": "Initiating Persona",
+      "persona.defending": "Defending Persona",
+      "chat.initiating": "initiating",
+      "chat.validating": "validating",
+      "chat.defend": "defend",
+      "roll.defended.success": "You succesfully defended against the Matrix event.",
+      "roll.defended.failed": "You failed to defend against the Matrix event.",
+      "linkedAttr.modifier.a": "This Matrix Action is linked to Attack and it is lower than your Sleaze. You have a penalty on your dicepool.",
+      "linkedAttr.modifier.s": "This Matrix Action is linked to Sleaze and it is lower than your Attack. You have a penalty on your dicepool.",
+      "matrix_damage.short": "M",
+      "failedSoak": "Icon gets damage",
+      "no_target": "This Matrix Action has an automated test flow if you target a specific Matrix Icon instead of rolling it from your Reference Section."
     },
     "matrixaction": {
-      "backdoor_entry": {
-        "name": "Backdoor Entry",
-        "hint": "Gain Admin access to a host or device the sneaky way. First, do a successful Probe action and add the net hits as a bonus to this dice pool."
-      },
-      "brute_force": {
-        "name": "Brute Force",
-        "hint": "Attempt to get quick access by spamming a target. When trying to switch from outsider to admin directly, the enemy gets two bonus dice and plus four Defense Rating - In any way the device will be alarmed."
-      },
-      "calibration": {
-        "name": "Calibration",
-        "hint": "Add one to the Matrix Initiative of you and your team mates (sharing an AR-feed with your PAN) for every two hits you get. The total increase of a Persona can't be higher than your Data Processing."
-      },
-      "change_icon": {
-        "name": "Change Icon",
-        "hint": "Select an Icon and replace it with another one. This won't prevent you to be tracked down, if someone attempts to."
-      },
-      "check_os": {
-        "name": "Check OS",
-        "hint": "Have a look at your Overwatch Score. Ironically this action also increases your OS."
-      },
-      "control_device": {
-        "name": "Control Device",
-        "hint": "Take control of a device as if you are the owner, until you leave the device willingly, shut it down or someone else pushes you out of control."
-      },
-      "crack_file": {
-        "name": "Crack File",
-        "hint": "Make an encrypted file readable with this action."
-      },
-      "crash_program": {
-        "name": "Crash Program",
-        "hint": "Check out what programs your opponent's device is running with a Matrix Perception, then take this action to shut it down."
-      },
-      "data_spike": {
-        "name": "Dataspike",
-        "hint": "This is the standard attack for dealing Matrix damage to a device or persona."
-      },
-      "disarm_data_bomb": {
-        "name": "Disarm Data Bomb",
-        "hint": "With this, you can disarm Data Bombs that you detected with Matrix Perception. If you fail to achieve net hits, the Data Bomb blows up."
-      },
-      "device_lock": {
-        "name": "Device Lock",
-        "hint": "Prevent the owner of a device to cut off the connection of a device to the Matrix for the duration of net hit combat rounds. Can be prolonged one time by spending a minor action."
-      },
-      "denial_of_service": {
-        "name": "Denial of Service",
-        "hint": "Create a dice penalty for all tests using this wifi device by net hits times two."
-      },
-      "delayed_command": {
-        "name": "Delayed Command",
-        "hint": "Send a command to a device with a time frame. On success, the device will acknowledge it as being sent from it's owner. After the time frame expired, the command will be executed, even when the device was cut off from the Matrix. A reboot before execution however, will delete the command."
-      },
-      "edit_file": {
-        "name": "Edit File",
-        "hint": "Add, edit, copy or delete a file with this action. During a combat, adding or changing a file needs an action for each detail. Encrypted files can't be copied."
-      },
-      "encrypt_file": {
-        "name": "Encrypt File",
-        "hint": "This makes a file unreadable without decrypting it first. The Encryption Rating is equal to the hits of this roll."
-      },
-      "enter_host": {
-        "name": "Enter/Exit Host",
-        "hint": "Get into or leave a host."
-      },
-      "erase_matrix_signature": {
-        "name": "Erase Matrix Sign",
-        "hint": "If you have a Resonance rating, remove a Matrix signature left by a technomancer or sprite with this action."
-      },
-      "format_device": {
-        "name": "Format Device",
-        "hint": "You replace the boot sector of this device with your own code, so it won't start anymore whenever it is told to reboot."
-      },
-      "full_matrix_defense": {
-        "name": "Full Matrix Defense",
-        "hint": "Add your Firewall to all defense tests that are related to the Matrix."
-      },
-      "garbage_in_out": {
-        "name": "Garbage In/Garbage Out",
-        "hint": "Mess around with the input and output signals of a device. For example, every time the owner wants to start a program, the last taken picture is deleted instead."
-      },
-      "hash_check": {
-        "name": "Hash Check",
-        "hint": "Search for encrypted files with a specific content in a host or device. Chances increase significantly by having a hash value."
-      },
-      "hide": {
-        "name": "Hide",
-        "hint": "Try to make a target lose sight to you in the Matrix. Does not work if the icon has User or Admin access to any device of your network."
-      },
-      "jack_out": {
-        "name": "Jack Out",
-        "hint": "Disconnect from the Matrix by rebooting your device. If you are link-locked, the opponent will roll against you. If you did not switch to AR first, you'll get damage by dump-shock."
-      },
-      "jam_signals": {
-        "name": "Jam Signals",
-        "hint": "While you are not using this device for other actions, this will increase the noise rating by any hits you have within a range of 100 meters."
-      },
-      "jump_rigged": {
-        "name": "Jump Into Rigged Device",
-        "hint": "The vehicle or drone you want to jump into needs a rigger adaption and you need a control rig. You can only jump in, if no one else is. Your ownership and access level also factor in if this will work or not and if you need to roll."
-      },
-      "known_exploit": {
-        "name": "Known Exploit Backdoor Entry",
-        "hint": "Try to use known exploits to get direct Admin access. Your chance of succeeding is decreased on well patched hosts or devices. This combines the Probe and Backdoor Entry actions into one. You can't get or use Edge for this action while the opponent gets one temporary Edge for free to oppose you."
-      },
-      "masquerade": {
-        "name": "Masquerade",
-        "hint": "You can pretend being someone else in the Matrix for net hit minutes. However it's hard to trick the Matrix and this won't work for things like taking ownership of devices or banking."
-      },
-      "matrix_perception": {
-        "name": "Matrix Perception",
-        "hint": "Find an icon that runs silent or collect information about a target, like it's icon and device rating, running devices, programs and other specific information."
-      },
-      "matrix_search": {
-        "name": "Matrix Search",
-        "hint": "Scan the public Matrix for information about a subject."
-      },
-      "metahuman_middle": {
-        "name": "Metahuman in the Middle",
-        "hint": "Make all Matrix communications and actions run through your device for net hit minutes."
-      },
-      "modify_icon": {
-        "name": "Modify Icon",
-        "hint": "Modify an Icon that you have Admin access for to something, that it does not represent, like making your gun look like flowers."
-      },
-      "probe": {
-        "name": "Probe",
-        "hint": "Try to find an exploit and use the Backdoor Entry action afterwards to get access. This takes some time, but in contrast to Brute Force, this won't alarm the target."
-      },
-      "pop_up": {
-        "name": "Popup",
-        "hint": "Spam your opponent with ARO windows, so they can't spend Edge for net hit rounds as they are distracted."
-      },
-      "reboot_device": {
-        "name": "Reboot Device",
-        "hint": "This will cut off a device from the Matrix by forcing it to reboot. It will be online again by the end of the following combat round."
-      },
-      "reconfigure": {
-        "name": "Reconfigure Matrix Attribute",
-        "hint": "Switch two base ratings from your Matrix Persona that are higher than 0, regardless of the source (commlink, cyberjack, etc.) they are coming from."
-      },
-      "send_message": {
-        "name": "Send Message",
-        "hint": "Deliver audio or text to somebody else, or create a live feed to them."
-      },
-      "set_data_bomb": {
-        "name": "Set Data Bomb",
-        "hint": "Attach a Data Bomb to blow up careless hackers. The rating can be up to the maximum net hits you got. Then choose, if the Data Bomb deletes the file or not."
-      },
-      "snoop": {
-        "name": "Snoop",
-        "hint": "Get your hands on data traffic that is exchanged between your target and the Matrix."
-      },
-      "spoof_command": {
-        "name": "Spoof Command",
-        "hint": "Send a command to a device pretending that you are the legitimate owner. As normal, the device then attempts to perform the action as its next available major action. "
-      },
-      "squelch": {
-        "name": "Squelch",
-        "hint": "Hinder the target from sending messages or calling someone for net hit rounds."
-      },
-      "subvert_infrastructure": {
-        "name": "Subvert Infrastructure",
-        "hint": "Make a group of similar, simple, devices of one host do what you want, like turning off street lights or rotate all security cameras to the left."
-      },
-      "switch_ifmode": {
-        "name": "Switch Interface Mode",
-        "hint": "Toggle between the AR and VR mode(s) of your interface."
-      },
-      "tarpit": {
-        "name": "Tarpit",
-        "hint": "Slow down your target by making some damage and reducing it's data processing value."
-      },
-      "threat_analysis": {
-        "name": "Threat Analysis",
-        "hint": "Mark harmfull entities and share them by AR Feed to your team mates, so they get your succcesses as bonus dice on their defense roll. Works for the physical world as well as for the Matrix."
-      },
-      "trace_icon": {
-        "name": "Trace Icon",
-        "hint": "Track down the physical location of a device or persona."
-      },
-      "virtual_aim": {
-        "name": "Virtual Aim",
-        "hint": "Gives you one bonus dice for your attack actions like Data Spike or Tarpit. Can be activated once per round, but sums up each round unless you don't do another Virtual Aim action or attack. Maximum is your Willpower."
-      },
-      "watchdog": {
-        "name": "Watchdog",
-        "hint": "Allows you to stalk and anticipate the actions of a Matrix persona or device during net hit rounds, so that you can intervene. Having the Watchdog active allows you to execute the Threat Analysis as a minor action."
-      }
+        "backdoor_entry": {
+          "name": "Backdoor Entry",
+          "hint": "Use a backdoor created by a successful Probe to gain Admin access to a host, device, or Matrix area. The Probe net hits add to this test; success does not count as illegal Admin access, while failure removes the backdoor but does not trigger an alarm, though your Overwatch Score still increases.",
+          "onSuccess.span": "you're slicing into the backdoor you found.",
+          "onSuccess.button": "Cheer on the decker",
+          "onFailure.span": "slicing is too difficult for you",
+          "onFailure.button": "Tell the decker to be better",
+          "onSuccesfulDefense.span": "antivirus initiated",
+          "onSuccesfulDefense.button": "Give the defender a pat",
+          "onFailedDefense.span": "entered via backdoor",
+          "onFailedDefense.button": "Apply ADMIN access level"
+        },
+        "brute_force": {
+          "name": "Brute Force",
+          "hint": "Attack a device directly to gain fast illicit access, but the target is always alerted and GOD score accumulates with each test. Going straight to Admin access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating.",
+          "onClick": "<p>Do you want to gain ADMIN access without first gaining USER access?</p><p>Going straight to ADMIN access uses Willpower + (Firewall + 2) as defense and gives the target +4 Defense Rating.</p>",
+          "to_admin": "Initiator has chosen to Brute Force directly to the ADMIN access level.",
+          "onFailedDefense.span": "brute forcing",
+          "onFailedDefense.button": "Apply access level"
+        },
+        "calibration": {
+          "name": "Calibration",
+          "hint": "Increase the Initiative Score of yourself and teammates sharing your AR Feed by 1 per 2 hits. The bonus cannot exceed your Data Processing, only one Calibration can be active, it drops by 1 each Combat Turn, and you can share with a number of users up to your Device Rating."
+        },
+        "change_icon": {
+          "name": "Change Icon",
+          "hint": "Replace a target's Icon with one you designed or copied. This can fool casual observers, but it does not change what Matrix Perception reveals."
+        },
+        "check_os": {
+          "name": "Check OS",
+          "hint": "Learn your current Overwatch Score on a successful test."
+        },
+        "control_device": {
+          "name": "Control Device",
+          "hint": "Take extended remote control of a device and use it as if you were its owner, within your current access level. Control lasts until you give it up or are forced out, and it fails automatically against a device currently jumped into by a rigger."
+        },
+        "crack_file": {
+          "name": "Crack File",
+          "hint": "Remove protection from a file, making it readable."
+        },
+        "crash_program": {
+          "name": "Crash Program",
+          "hint": "Crash one running program on the target device. You must know which program to target, usually through Matrix Perception or by seeing it in use; the program cannot restart until the device reboots."
+        },
+        "data_spike": {
+          "name": "Data Spike",
+          "hint": "Send harmful code to a persona or device, causing Matrix damage equal to your Attack Attribute divided by 2, rounded up, plus 1 box per net hit."
+        },
+        "disarm_data_bomb": {
+          "name": "Disarm Data Bomb",
+          "hint": "Disarm a Data Bomb you detected, usually with Matrix Perception. Any net hits remove and delete it; without net hits, the Data Bomb activates."
+        },
+        "device_lock": {
+          "name": "Device Lock",
+          "hint": "Prevent a device from going offline for a number of rounds equal to your net hits. After that, you may spend one Minor Action to extend the lock by 1 round, but only once."
+        },
+        "denial_of_service": {
+          "name": "Denial of Service",
+          "hint": "Pollute a wirelessly active device or persona with noise, applying a dice pool penalty equal to net hits x 2 to all tests made with that device until the end of the next combat round."
+        },
+        "delayed_command": {
+          "name": "Delayed Command",
+          "hint": "Send a command with a time delay that the device accepts as coming from its owner. If successful, it executes after the delay even if wireless is turned off, but a reboot before execution deletes it."
+        },
+        "edit_file": {
+          "name": "Edit File",
+          "hint": "Create, change, copy, delete, or protect a file. Each action changes one detail, continuous edits need one action per combat round, copied files become yours, protected files cannot be copied, and a Data Bomb triggers if not disarmed first."
+        },
+        "encrypt_file": {
+          "name": "Encrypt File",
+          "hint": "Protect a file with an Encryption Rating equal to the hits on this test, opposing future Crack File attempts."
+        },
+        "enter_host": {
+          "name": "Enter/Exit Host",
+          "hint": "Enter or leave a host. Entering requires the appropriate access level; leaving requires no special access."
+        },
+        "erase_matrix_signature": {
+          "name": "Erase Matrix Sign",
+          "hint": "Remove a Matrix signature left by a Resonance being, such as a technomancer or sprite. You must have a Resonance rating, and this illegal Matrix Action can still increase your Overwatch Score."
+        },
+        "format_device": {
+          "name": "Format Device",
+          "hint": "Rewrite a device's boot code so the next reboot shuts it down until repaired. It loses wireless modifiers and Matrix access, but may still work as a normal mechanism where possible."
+        },
+        "full_matrix_defense": {
+          "name": "Full Matrix Defense",
+          "hint": "Until the end of the combat round, add your Firewall to all Matrix-based defense tests. This is an Anytime action."
+        },
+        "garbage_in_out": {
+          "name": "Garbage In/Garbage Out",
+          "hint": "Reroute one input or output of a single device to trigger a different command. It cannot override basic safety features, and the gamemaster decides what is possible."
+        },
+        "hash_check": {
+          "name": "Hash Check",
+          "hint": "Search a host or device for encrypted files matching specific content. The threshold is 1 with a hash value or 4 when guessing, and net hits reduce the number of possible matches."
+        },
+        "hide": {
+          "name": "Hide",
+          "hint": "Make a target lose track of you in the Matrix, forcing it to spot you again with Matrix Perception. You cannot hide from an Icon with User or Admin access to anything in your network."
+        },
+        "jack_out": {
+          "name": "Jack Out",
+          "hint": "Jack yourself out of the Matrix by rebooting your device. You suffer dumpshock if you were in VR, and if you are link-locked you must beat each locking Icon to escape.",
+          "link_locked": "If you are Link Locked, then the icon(s) that locked you must roll Defense in the opposed test.",
+          "lock_link": "You have Link Locked a persona. The outcome of this roll determines if you succeed.",
+          "onSuccess.span": "exit >> jackout..",
+          "onSuccess.button": "Apply ACL reset and dumpshock if persona was in VR",
+          "onSuccesfulDefense.span": "link-locking.. SUCCESS. jackout stopped.",
+          "onFailedDefense.span": "link-locking.. FAILED. Proceeding to jackout."
+        },
+        "jam_signals": {
+          "name": "Jam Signals",
+          "hint": "Turn your wireless device into a local jammer. As long as you take no further Matrix actions with it, add your hits to the Noise Rating for Matrix actions within 100 meters."
+        },
+        "jump_rigged": {
+          "name": "Jump Into Rigged Device",
+          "hint": "Jump into a vehicle or drone with rigger adaptation while in VR and using a control rig. You need the proper access or permission, and you cannot jump in if someone else already is."
+        },
+        "known_exploit": {
+          "name": "Known Exploit Backdoor Entry",
+          "hint": "Use known exploits to gain Admin access without a prior Probe; patched hosts or devices are harder. You cannot gain or spend Edge, the target gains 1 temporary Edge, success does not count as illegal Admin access, and failure does not alarm the target, though your Overwatch Score still increases.",
+          "cannot_edge": "You cannot gain or spend any Edge on this roll.",
+          "onFailedDefense.span": "enter via exploit",
+          "onFailedDefense.button": "Apply ADMIN access level"
+        },
+        "masquerade": {
+          "name": "Masquerade",
+          "hint": "Impersonate a persona on the Matrix for 1 minute per net hit. It can fool casual systems and observers, but not device ownership, major financial actions, or anything tied to being the true owner."
+        },
+        "matrix_perception": {
+          "name": "Matrix Perception",
+          "hint": "Spot hidden Icons or learn information about a target. More net hits reveal more details, such as Device Rating, Matrix Attributes, running programs, and other information the gamemaster provides."
+        },
+        "matrix_search": {
+          "name": "Matrix Search",
+          "hint": "Search the public Matrix for information about a subject. More hits reveal more information, using the Legwork Results table as a guideline."
+        },
+        "metahuman_middle": {
+          "name": "Metahuman in the Middle",
+          "hint": "Insert yourself between a device and its Matrix traffic. On success, all calls, communications, and Matrix actions to or from the target route through your device for minutes equal to net hits."
+        },
+        "modify_icon": {
+          "name": "Modify Icon",
+          "hint": "Make a Matrix Icon appear to be a different Icon, such as making a weapon look harmless. Each scan can reveal the disguise with an opposed test."
+        },
+        "probe": {
+          "name": "Probe",
+          "hint": "Search for weaknesses without automatically alerting the target, unless you glitch. A successful Probe creates a backdoor for Backdoor Entry, adds net hits to that later test, and usually lasts for 10 minus Host or Device Rating hours or until you go offline."
+        },
+        "pop_up": {
+          "name": "Popup",
+          "hint": "Flood a target device or persona with popup AROs or windows. On success, the target cannot spend Edge for a number of combat rounds equal to your net hits."
+        },
+        "reboot_device": {
+          "name": "Reboot Device",
+          "hint": "Force a device, persona, or PAN offline until the end of the next combat round. This resets its Overwatch Score and access, causes no dumpshock, and cannot be done while link-locked.",
+          "forced_to_reboot": "Roll Defense if you are being forced to Reboot Device",
+          "onSuccess.span": "rebooting..",
+          "onSuccess.button": "Apply ACL reset to this persona",
+          "onFailedDefense.span": "forced_reboot..",
+          "onFailedDefense.button": "Apply ACL reset to this persona"
+        },
+        "reconfigure": {
+          "name": "Reconfigure Matrix Attribute",
+          "hint": "Swap the base ratings of two non-zero Matrix Attributes on your Matrix Persona, even if they come from different devices."
+        },
+        "relinquish_access": {
+          "name": "Relinquish Access",
+          "hint": "You relinquish your access to a specific host, PAN or device. If you had illegal access, you no longer generate OS for that target.",
+          "onSuccess.span": "sudoK..",
+          "onSuccess.button": "Decrease access to this icon to OUTSIDER",
+          "onFailure.span": "sudoK..",
+          "onFailure.button": "Decrease access to this icon to OUTSIDER"
+        },
+        "send_message": {
+          "name": "Send Message",
+          "hint": "Send a short text or audio message, image, file, or live feed through the Matrix. With DNI, you can send longer, more complex messages even in AR."
+        },
+        "set_data_bomb": {
+          "name": "Set Data Bomb",
+          "hint": "Attach one Data Bomb to a file with a rating up to your net hits, choose whether it deletes the file, and set a passcode. If triggered, it deals Rating x 2 Matrix damage, may delete the file, and then deletes itself."
+        },
+        "snoop": {
+          "name": "Snoop",
+          "hint": "Intercept Matrix traffic sent to and from your target for as long as you have access. You can monitor it live or save it for later if you have storage."
+        },
+        "spoof_command": {
+          "name": "Spoof Command",
+          "hint": "Send a command to a device that it accepts as coming from its owner. The device attempts to perform it as its next available Major Action."
+        },
+        "squelch": {
+          "name": "Squelch",
+          "hint": "Prevent the target device from calling or sending messages for minutes equal to your net hits."
+        },
+        "subvert_infrastructure": {
+          "name": "Subvert Infrastructure",
+          "hint": "Slightly alter groups of similar simple devices slaved to a host, such as traffic lights or cameras. You need at least Admin access, affect one group per net hit, cannot attack with it, and sustain control with a Major Action each combat round."
+        },
+        "switch_ifmode": {
+          "name": "Switch Interface Mode",
+          "hint": "Switch your interface between AR and VR."
+        },
+        "tarpit": { 
+          "name": "Tarpit",
+          "hint": "Deal 1 + net hits Matrix damage and reduce the target's Data Processing by the same amount. Data Processing recovers by 1 each combat round, and at 0 the target cannot take Matrix actions."
+        },
+        "threat_analysis": {
+          "name": "Threat Analysis",
+          "hint": "Highlight threats for allies sharing your AR Feed, granting bonus dice to Defense tests equal to your hits until your next turn. This works in the physical world and the Matrix, and you can share with a number of users up to your Data Processing."
+        },
+        "trace_icon": {
+          "name": "Trace Icon",
+          "hint": "Find the physical location of a device or persona while you can still detect it. This does not work on IC or hosts without a physical location."
+        },
+        "virtual_aim": {
+          "name": "Virtual Aim",
+          "hint": "Gain +1 dice pool bonus for a Matrix attack such as Data Spike, Tarpit, or Resonance Spike. You can use this once per combat round, the bonus stacks up to your Willpower, and it is lost if you attack or skip Virtual Aim in a round."
+        },
+        "watchdog": {
+          "name": "Watchdog",
+          "hint": "Watch a persona or device for combat rounds equal to your net hits. You see its Matrix Actions before it uses them, may try to intervene, and can use Threat Analysis as a Minor Action against attacks from that target."
+        }
     },
     "matrixini": {
 			"ar": "AR",
@@ -1007,6 +1255,7 @@
       "bodyware": "Some cool enhancement",
       "chemicals": "The good stuff",
       "complexform": "How complex do you like it?",
+      "spritepower": "Cookie",
       "contact": "Who you gonna call? Ghostbusters!",
       "critterpower": "What's so special about it?",
       "cyberware": "Some cool cyber enhancement",
@@ -1168,22 +1417,33 @@
         "cast_target_multiple": "Casting {name} on multiple targets",
         "cast_target_none": "Casting {name}",
         "cast_target_one": "Casting {name} on {target}",
+        "thread_target_none": "Threading {name}",
+        "thread_target_one": "Threading {name} on {target}",
+        "thread_target_multiple": "Threading {name} on multiple targets",
+        "using_target_none": "Using {name}",
+        "using_target_one": "Using {name} on {target}",
+        "using_target_multiple": "Using {name} on multiple targets",
         "skill": "Make a skill test",
         "thread": "Threading {name}",
+        "bio_feedback": "Biofeedback Damage",
         "defense": {
           "physical": "Defend against physical attack",
           "spells_direct": "Defend direct combat spells",
-          "spells_indirect": "Defend indirect combat spells"
+          "spells_indirect": "Defend indirect combat spells",
+          "matrix": "Defense against a matrix event"
         },
         "soak": {
           "drain": "Resist {damage} Drain",
           "fading":"Resist {damage} Fading",
-          "damage_phys":"Resist {damage} Physical Damage",
-          "damage_stun"    :"Resist {damage} Stun Damage"
+          "damage_matrix": "Resist {damage} Matrix Damage",
+          "damage_phys": "Resist {damage} Physical Damage",
+          "damage_stun" :"Resist {damage} Stun Damage",
+          "bio_feedback" :"Resist {damage} {monitor} Damage"
         }
       },
       "apply_damage": "Apply damage",
       "create": "Create your own Shadowrun Dice Pool",
+      "click_chat": "Click to show the dice rolled and to spend Edge",
       "damage_applied": "Damage applied",
       "damage_revert": "Revert damage back?",
       "ar_0": "Close",
@@ -1210,7 +1470,7 @@
       "cantDodgeBullets": "Increase threshold by circumstances after setting distance",
       "configure": "Configure your roll",
       "wound-modifier": "Use wound modifier",
-      "sustained-spell-modifier": "Use sustained spell modifier",
+      "sustained-spell-modifier": "Use sustained modifier",
       "criticalglitch": "Critical glitch",
       "hardenedArmor": "Hardened Armor applied",
       "heal_apply": "Heal",
@@ -1232,7 +1492,12 @@
         "opponent_edge_boost": "Opponent Edge Boost",
         "spend": "Spend!",
         "original_test": "Original test by:",
-        "boost": "Boost"
+        "boost": "Boost",
+        "noEdgeGain": "You cannot gain any Edge on this roll.",
+        "noEdgeSpend": "You cannot spend any Edge on this roll.",
+        "noEdgeUse": "You cannot gain or spend any Edge on this roll.",
+        "situationalEdgeA": "You have gained one Edge that you must spend on this roll. (In this Dialog, or in the Chat by re-rolling a die.)",
+        "tempEdge": "You have gained one temporary Edge that you must spend on this roll."
       },
       "edge_perform": "Do it",
       "edgegain": "Edge-Gain (max): ",
@@ -1241,11 +1506,14 @@
       "explode": "Explode",
       "extended": "Extended Test",
       "interval": "Interval",
-	   "fa_area": "Area",
-		"firemode": "Firemode",
+	    "fa_area": "Area",
+		  "firemode": "Firemode",
       "failure": "Failure",
       "failedDefense": "You got hit and now it is going to hurt",
+      "failedDefenseGeneral": "You failed to defend",
       "failedSoak"   : "You get damage",
+      "gettingHurt": "Your body needs to resist",
+      "bio_feedback.description": "You’re also disoriented and so cannot gain or use Edge on actions for (10 – Willpower) minutes, even if you manage to soak all the damage.",
       "glitch": "Glitch",
       "hits_bought": "Hits bought",
       "hits": "hits",
@@ -1279,15 +1547,17 @@
       "subject": "Chatmessage",
       "success": "Success",
       "successes": "hits",
+      "manualResult": "Result",
       "netHits": "net hits",
       "successfulDefense": "You successfully avoided being hit",
+      "successfulDefenseGeneral": "You successfully defended",
       "successfulSoak"   : "You managed to ignore the damage",
       "missedAttack"   : "You missed chummer!",
       "succesfulHit"   : "You hit 'em chummer!",
       "target": "Target",
       "threshold": "Threshold",
 		"weapon":  "Define your attack",
-      "wilddie": "Use wild die",
+      "wilddie": "Replace a die with a wild die",
       "with": "with"
     },
     "rollType": {
@@ -1324,11 +1594,24 @@
         "title": "Augmentations"
       },
       "chemicals": "Chemicals",
+      "combat_actions": {
+        "title": "Combat Actions",
+        "tooltip": "<p>This section is mainly for referencing which Actions you can perform.</p><p>You still need to pay attention yourself the amount of actions and which you take each round.</p>",
+        "anytime.minor_one": "<p>Anytime Minor Action</p><p>This action can be taken anytime during the round as long as you have a Minor Action left, even outside your own turn.</p>",
+        "anytime.major_one": "<p>Anytime Major Action</p><p>This action can be taken anytime during the round as long as you have a Major Action left, even outside your own turn.</p>",
+        "minor_one": "Minor Action",
+        "minor_many": "Minor Actions",
+        "major_one": "Major Action",
+        "major_many": "Major Actions"
+      },
       "complexforms": {
         "add": "Add new complex form",
         "column.duration": "Dur",
         "column.fade": "Fade",
         "title": "Complex Forms"
+      },
+      "spritepowers": {
+        "title": "Sprite Powers"
       },
       "contacts": {
         "add": "Add new contact",
@@ -1393,19 +1676,55 @@
           "devRating": "Device Rating",
           "name": "Name"
         },
-        "title": "Matrix Devices",
+        "title": "Matrix Access Devices",
         "title_rcc": "RCC"
+      },
+      "persona": {
+        "title": "Persona",
+        "accessDevice": "Matrix Access Device",
+        "distribute": "Distribute",
+        "silent": "Running Silent",
+        "description": "Icon Description",
+        "description_toggle": "Toggle Description",
+        "image.tooltip": "Left click to show image, or Right click to edit the image"
+      },
+      "pan": {
+        "title": "Personal Area Network",
+        "administrator": "Administrator's Persona",
+        "name": "PAN Name",
+        "living_network_name": "Living Network Name",
+        "share": "Share your PAN via chat message to your chummers.",
+        "share_flavor": "//ENCRYPTED MESSAGE//",
+        "share_message1": "{name} would like to share their Personal Area Network (PAN) with you.",
+        "share_message2": "Do you accept?",
+        "share_message3": "Drag this effect onto your character sheet or token.",
+        "share_tooltip": "Dragging this onto your character sheet or token creates an Effect to join a PAN.",
+        "share_join_pan": "Join {name}'s PAN",
+        "share_pan_joined": "{name}'s PAN Joined",
+        "deviceLimit": "Remote Device Limit",
+        "slavedTo": "Slaved to",
+        "column": {
+          "nodes": "PAN Nodes",
+          "access": "Access"
+        },
+        "role": {
+          "external-master-pan": "External Master PAN",
+          "master-pan": "Master PAN",
+          "slaved-pan": "Slaved PAN",
+          "primary-access-device": "Primary Access Device",
+          "secondary-access-device": "Secondary Access Device",
+          "slaved-device": "Slaved Device"
+        }
       },
       "metamagic": {
         "add": "Add new metamagic",
         "title": "Metamagics"
       },
-		"notes": {
-			"title": "Notes"
-		},
-      "persona": {
-        "distribute": "Distribute",
-        "title": "Persona"
+      "notes": {
+        "title": "Notes"
+      },
+      "description": {
+        "title": "Physical Description"
       },
       "qualities": "Qualities",
       "qualities_add": "Add",
@@ -1448,7 +1767,7 @@
       "sustained": {
         "add": "Add new spell",
         "title": "Sustained Spells",
-        "toggle": "Toggle Sustaining this"
+        "toggle": "Toggle Sustaining"
       },
 		"survival": "Survival",
       "vehicles": {
@@ -1480,6 +1799,17 @@
       }
     },
     "settings": {
+      "shadowrunCursors": {
+        "hint": "If enabled, your cursor icons are changed to a neon glow style.",
+        "name": "Shadowrun Style Cursors",
+        "disabled": "Disabled",
+        "black": "Black Neon",
+        "transparent": "Transparent Neon"
+      },
+      "tokensLimitedOwnership": {
+        "hint": "If enabled, if you drop any Actor with 'Link Actor Data' disabled in its prototype onto the Canvas, the Token will have a Limited Ownership (so players can click on it to see the Read Only sheets with Matrix Persona/PAN information) if the Actor was configurd with No Ownership. This allows you to hide Actors in the Actor tab from view, while still allowing players to see their Read Only sheets.",
+        "name": "Tokens Read Only & Matrix Sheets"
+      },
       "maxEdgePerRound": {
         "hint": "Defines the maximum egde a player or NPC can gain per turn.",
         "name": "Maximum Edge earned per turn"
@@ -1496,13 +1826,21 @@
         "hint": "In standard play, there is a maximum of 20 dice for any test. No combination of abilities, skills, effects, or augments can exceed this limit during a roll. Exception: Pre-edging a test allows you to exceed the 20-dice cap with the bonus dice granted by Edge.",
         "name": "Hard Dice Cap"
       },
-      "bleeding": {
-        "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
-        "name": "Bleeding"
+      "matrixSoakByPanLeader": {
+        "hint": "By default, Matrix damage is resisted by the target's Firewall. (CRB p.179) If this option is enabled, the PAN leader's Firewall will be used to soak Matrix damage for all PAN members instead.",
+        "name": "Matrix Damage Soak by PAN Leader"
       },
       "hackSlashMatrix": {
         "hint": "Enable to show Matrix Actions from the Hack & Slash rulebook on character sheets. (HS p.28)",
         "name": "Hack & Slash Matrix Actions"
+      },
+      "dosPopupMatrix": {
+        "hint": "Change Denial of Service and Popup to be OUTSIDER/USER/ADMIN instead of OUTSIDER only, just like Data Spike and Tarpit. This is likely an oversight in H&S. (Recommended to be enabled within FoundryVTT due to the PAN<>Persona implementation.)",
+        "name": "Denial of Service & Popup"
+      },
+      "bleeding": {
+        "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
+        "name": "Bleeding"
       },
       "armorLessensDmg": {
         "hint": "Use this rule to reduce the amount of physical damage suffered. After resisting damage (from other sources than toxins or statuses), convert one box of Physical damage to Stun for every 8 full points of DR you have. (SWC p.149)",
@@ -1651,6 +1989,7 @@
       "outdoors": {
         "navigation": "Navigation",
         "survival": "Survival",
+        "tracking": "Tracking",
         "tracking_desert": "Environment Desert",
         "tracking_other": "Environment Other",
         "tracking_urban": "Environment Urban",
@@ -1753,6 +2092,7 @@
       "sense_single": "Single-Sense"
     },
     "spirittype": {
+      "label": "Spirit Type",
       "air": "Air",
       "beasts": "Beast",
       "earth": "Earth",
@@ -1762,9 +2102,32 @@
       "plant": "Plant",
       "guardian": "Guardian",
       "guidance": "Guidance",
-      "task": "Task"
+      "task": "Task",
+
+      "blood": "Blood",
+      "caretaker": "Insect Caretaker",
+      "nymph": "Insect Nymph",
+      "scout": "Insect Scout",
+      "soldier": "Insect Soldier",
+      "worker": "Insect Worker",
+      "queen": "Insect Queen",
+      "alpha": "Insect Alpha",
+
+      "abomination": "Toxic Abomination",
+      "barren": "Toxic Barren",
+      "noxious": "Toxic Noxious",
+      "nuclear": "Toxic Nuclear",
+      "plague": "Toxic Plague",
+      "sludge": "Toxic Sludge",
+
+      "shadow": "Shadow",
+      "shedim": "Shedim",
+      "masterShedim": "Master Shedim",
+      "zonbi": "Zonbi l'Astral"
     },
     "tradition": {
+      "label": "Tradition",
+      "placeholder": "Fill in your Tradition",
       "attribute": "Tradition Attribute"
     },
     "vehicle": {
@@ -1805,12 +2168,15 @@
     },
     "ui": {
       "notifications": {
-        "You_are_not_owner_of_the_target": "You are not owner of the target.",
+        "You_are_not_owner_of_the_target": "You cannot use this, as you are not the owner of the target.",
         "You_are_not_owner_of_the_token": "You are not owner of the token.",
+        "Select_a_single_token": "You have multiple tokens selected. Only select a single token to perform this action.",
         "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "You can only choose Wide Burst when you target (T) two tokens.",
-        "Target_or_select_a_token_before_rolling": "Target or select a token before rolling.",
+        "Target_or_select_a_token_before_rolling": "Target or select a token before rolling. You can (un)target a token by hovering your mouse over it and pressing T on your keyboard",
         "Select_a_token_first": "Select a token first, or configure your Player Character actor in your User Configuration.",
-        "Target_a_token_before_rolling": "Target (T) a token before rolling.",
+        "Target_a_token_before_rolling": "Target (T) a token before rolling. You can (un)target a token by hovering your mouse over it and pressing T on your keyboard",
+        "Target_a_token_first": "Target (T) a token first before using this. You can (un)target a token by hovering your mouse over it and pressing T on your keyboard",
+        "defaulting_spell_to_self": "No token targeted, defaulting to casting on yourself.",
         "Dice_roll_evaluation_failed": "Dice roll evaluation failed",
         "two_targets_but_wrong_fire_mode": "You have two targets, so you can only fire using Burst Fire: Wide Burst, or using Full Auto mode.",
         "many_targets_but_not_autofire_fire_mode": "You have more than two targets, so you can only fire using Full Auto mode.",
@@ -1858,7 +2224,15 @@
         "dismantle_grunt_group": "You have dismantled the Grunt Group of the selected Tokens.",
         "form_grunt_group_failed": "The selected tokens were not valid for a Grunt Group. They must not have \"Link Actor Data\" enabled in their Token Configuration.",
         "grunt_group_takes_two": "You need more than one Token selected to form a Grunt Group.",
-        "edge_has_been_reset": "All Edge has been reset by the GM."
+        "edge_has_been_reset": "All Edge has been reset by the GM.",
+        "accessLevels_have_been_reset": "All Access Levels have been reset by G.O.D.",
+        "one_accessLevel_has_been_reset": "Access Levels of one character have been reset by G.O.D.",
+        "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
+        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>All electronic gear have Wireless enabled.</p><p>Inform all players they need to adjust their Gear and Cyberware to the right rating.<p><p>Everyone also need to review if they have any Gear (e.g. certain armors) that need to be edited as 'Matrix Device' if they have ingame interactive features like Electrochromic Feature.",
+        "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
+        "notificationOnce": "This message will only show once during this browser session.",
+        "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT.",
+        "item_not_allowed_to_be_dropped": "This Item could not be added to this Actor as they aren't compatible."
       }
     },
     "EFFECT": {
@@ -2005,10 +2379,11 @@
       "usage_tips": {
         "1": "In general, use a Modifier key to adjust an Attribute, Pool or Rating.",
         "2": "Only use a Pool key if you need to <em>Override</em> a complete attribute, like with Cyberlimbs or Skillwires.",
-        "3": "As normal in Shadowrun 6E, Attribute Modifiers are automatically capped at +4."
+        "3": "As normal in Shadowrun 6E, Attribute and Skill Modifiers are automatically capped at +4.",
+        "4": "You can use '<strong>@actor</strong>' and `<strong>@item</strong>` in the Value field to refer to an attribute of the Actor or Item this effect is linked on. For example, you can add a <em>Reaction Modifier</em> key with the value `@item.system.rating`, with <em>Apply Effect to Actor</em> enabled in the <em>Details</em> tab, so the Reaction Modifier of the character is increased by the Rating of this Item."
       },
-      "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item.",
-      "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in.",
+      "item_tip": "If you want to adjust an Item statistic itself, you <strong>must</strong> disable the <em>Apply Effect to Actor</em> checkbox in the Details tab. An Active Effect can only apply to <em>either</em> an Actor <em>or</em> an Item. Do <strong>NOT</strong> use Attribute Keys meant for Gear Mods on Actors, and visa versa.",
+      "gear_mod_tip": "This is an Active Effect of a <strong>Gear Mod</strong>. Any Effects are applied to the Item this is installed in. Do <strong>NOT</strong> use Attribute Keys meant for Actors on Gear Mods, and visa versa.",
       "more_info": "For more information, see the following link:",
       "advanced": "Advanced?",
       "advanced_hint": "If checked, you can enter custom System Attribute Keys instead of only the Shadowrun 6E system advised list.",
@@ -2017,7 +2392,7 @@
       "Pool": "{pool} Pool (Override only)",
       "defensepool.physical.mod": "Physical Defense Pool Modifier",
       "defensepool.astral.mod": "Magic Defense Pool Modifier",
-      "defensepool.matrix.mod": "Matrix Defense Pool Modifier",
+      "defensepool.fading.mod": "Fading Resist Pool Modifier",
       "defensepool.spells_direct.mod": "Direct Spells Defense Pool Modifier",
       "defensepool.spells_indirect.mod": "Indirect Spells Defense Pool Modifier",
       "defensepool.toxin.mod": "Toxin Resist Pool Modifier",
@@ -2038,7 +2413,8 @@
       "movementSprintBase": "Movement Sprint Base",
       "movementSprintMultiplier": "Movement Sprint Multiplier",
       "hardenedArmor": "Hardened Armor",
-      "immunityNormalWeapons": "Immunity to Normal Weapons (Override true)"
+      "immunityNormalWeapons": "Immunity to Normal Weapons (Override true)",
+      "importedModifier": "Imported Modifier"
     },
     "KEYBINDINGS": {
       "bindTokenControlGroup": "Bind selected Tokens to Control Group",
@@ -2046,72 +2422,12 @@
       "formGruntGroup": "Create Grunt Group with selected Tokens"
     },
     "resetEdge": "Reset Edge",
-    "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?"
+    "resetEdgeDescription": "Do you want to reset Edge for all Actors and selected Tokens?",
+    "resetAccessLevels": "Reset Access Levels",
+    "resetAccessLevelsDescription": "Do you want to reset Access Levels for all Actors and Tokens in the game?",
+    "resetOneAccessLevelDescription": "Do you want to reset Access Levels for this one Actor?"
   },
   "SR6": {
-    "Actor": {
-      "base": {
-        "FIELDS": {
-          "notes": {
-            "label": "Notes"
-          }
-        }
-      },
-      "sprite": {
-        "FIELDS": {
-          "xxx": {
-            "label": "xxx"
-          }
-        },
-        "TYPES": {
-          "courier": "//COURIER//",
-          "crack": "//CRACK//",
-          "data": "//DATA//",
-          "fault": "//FAULT//",
-          "machine": "//MACHINE//",
-          "assassin": "//ASSASSIN//",
-          "defender": "//DEFENDER//",
-          "modular": "//MODULAR//",
-          "music": "//MUSIC//",
-          "primal": "//PRIMAL//"
-        }
-      }
-    },
-    "Item": {
-      "base": {
-        "FIELDS": {
-          "genesisID": {
-            "label": "GenesisID"
-          },
-          "availDef": {
-            "label": "Avail."
-          },
-          "price": {
-            "label": "Price"
-          }
-        }
-      },
-      "mod": {
-        "FIELDS": {
-          "embeddedInUuid": {
-            "label": "Item Modded"
-          }
-        },
-        "TYPES": {
-          "accessory_weapon": "Weapon Accessory",
-          "weapon_mod": "Weapon Mod",
-          "armor_mod": "Armor Mod",
-          "accessory_electronics": "Electronics Accessory",
-          "visual_enhancement": "Visual Enhancement",
-          "audio_enhancement": "Audio Enhancement"
-        },
-        "label": {
-          "section": "Gear Mods",
-          "not_installed": "(not installed)",
-          "uninstall": "Uninstall this Gear Mod"
-        }
-      }
-    },
     "Common": {
       "FIELDS": {
         "name": {
@@ -2131,8 +2447,380 @@
         }
       }
     },
+    "Actor": {
+      "Tabs": {
+        "Summary": "Summary",
+        "Features": "Features",
+        "Description": "Description",
+        "Effects": "Effects"
+      },
+      "base": {
+        "FIELDS": {
+          "notes": {
+            "label": "Notes"
+          },
+          "attributes": {
+            "body": {
+              "label": "Body"
+            },
+            "agility": {
+              "label": "Agility"
+            },
+            "reaction": {
+              "label": "Reaction"
+            },
+            "strength": {
+              "label": "Strength"
+            },
+            "willpower": {
+              "label": "Willpower"
+            },
+            "logic": {
+              "label": "Logic"
+            },
+            "intuition": {
+              "label": "Intuition"
+            },
+            "charisma": {
+              "label": "Charisma"
+            },
+            "edge": {
+              "label": "Edge"
+            },
+            "magic": {
+              "label": "Magic"
+            },
+            "resonance": {
+              "label": "Resonance"
+            },
+            "essence": {
+              "label": "Essence"
+            }
+          },
+          "matrix": {
+            "attributes": {
+              "attack": {
+                "label": "Attack"
+              },
+              "sleaze": {
+                "label": "Sleaze"
+              },
+              "dataProcessing": {
+                "label": "Data Processing"
+              },
+              "firewall": {
+                "label": "Firewall"
+              }
+            },
+            "overwatchScore": {
+              "label": "Overwatch Score",
+              "label_short": "OS"
+            }
+          },
+          "initiative": {
+            "label": "Initiative",
+            "astral": {
+              "label": "Astral Initiative"
+            },
+            "physical": {
+              "label": "Physical Initiative"
+            },
+            "matrix": {
+              "label": "Matrix Initiative"
+            }
+          },
+          "skills": {
+            "astral": {
+              "label": "Astral"
+            },
+            "athletics": {
+              "label": "Athletics"
+            },
+            "biotech": {
+              "label": "Biotech"
+            },
+            "close_combat": {
+              "label": "Close Combat"
+            },
+            "con": {
+              "label": "Con"
+            },
+            "conjuring": {
+              "label": "Conjuring"
+            },
+            "cracking": {
+              "label": "Cracking"
+            },
+            "electronics": {
+              "label": "Electronics"
+            },
+            "engineering": {
+              "label": "Engineering"
+            },
+            "exotic_weapons": {
+              "label": "Exotic Weapons"
+            },
+            "firearms": {
+              "label": "Firearms"
+            },
+            "influence": {
+              "label": "Influence"
+            },
+            "outdoors": {
+              "label": "Outdoors"
+            },
+            "perception": {
+              "label": "Perception"
+            },
+            "piloting": {
+              "label": "Piloting"
+            },
+            "sorcery": {
+              "label": "Sorcery"
+            },
+            "stealth": {
+              "label": "Stealth"
+            },
+            "tasking": {
+              "label": "Tasking"
+            }
+          }
+        }
+      },
+      "matrixBase": {
+        "FIELDS": {
+          "description": {
+            "label": "Icon Description"
+          }
+        }
+      },
+      "sprite": {
+        "FIELDS": {
+          "level": {
+            "label": "Level"
+          },
+          "tasksOwned": {
+            "label": "Tasks Owned"
+          },
+          "compiledBy": {
+            "label": "Compiled By"
+          },
+          "registered": {
+            "label": "Registered"
+          },
+          "description": {
+            "label": "Icon Description"
+          }
+        },
+        "TYPES": {
+          "courier": "//COURIER//",
+          "crack": "//CRACK//",
+          "data": "//DATA//",
+          "fault": "//FAULT//",
+          "machine": "//MACHINE//",
+          "assassin": "//ASSASSIN//",
+          "defender": "//DEFENDER//",
+          "modular": "//MODULAR//",
+          "music": "//MUSIC//",
+          "primal": "//PRIMAL//"
+        },
+        "notes": {
+          "music": "Skill Con: Performance only"
+        }
+      },
+      "host": {
+        "FIELDS": {
+          "rating": {
+            "label": "Host Rating",
+            "error.foundation": "Foundation Host attributes must be between Rating −1 and Rating +4, with a total of 7 points distributed between them.",
+            "error.framework": "Framework Host attributes must use Rating, Rating +1, Rating +2, and Rating +3 exactly once each.",
+            "error.undefined": "Select a Host Type. Configure the Hosts Matrix Attributes afterwards."
+          },
+          "resolutionGrade": {
+            "label": "Resolution Grade",
+            "choices": {
+              "1": "Grade 1 Minimal",
+              "2": "Grade 2 Default",
+              "3": "Grade 3 Standard",
+              "4": "Grade 4 Custom",
+              "6": "Grade 5 Sculpted",
+              "7": "Grade 6 Ultra-Violet"
+            }
+          },
+          "scale": {
+            "label": "Scale",
+            "choices": {
+              "1": "Scale 1 Micro (Personal)",
+              "2": "Scale 2 Base (Facility)",
+              "3": "Scale 3 Net (Local)",
+              "4": "Scale 4 Macro (Sprawl)",
+              "6": "Scale 5 Mega (National)",
+              "7": "Scale 6 Exa (Global)"
+            }
+          },
+          "convergenceThreshold": {
+            "label": "Convergence Threshold"
+          },
+          "sculpting": {
+            "label": "Sculpting"
+          },
+          "securityResponse": {
+            "label": "Security Response"
+          }
+        },
+        "TYPES": {
+          "foundation": "Foundation",
+          "framework": "Framework"
+        }
+      }
+    },
+    "Item": {
+      "base": {
+        "FIELDS": {
+          "genesisID": {
+            "label": "GenesisID"
+          },
+          "availDef": {
+            "label": "Avail."
+          },
+          "price": {
+            "label": "Price"
+          },
+          "isElectronicMatrixDevice": {
+            "label": "Matrix Device",
+            "hint": "If enabled, this gear is considered an Electronic Matrix Device, has a Device Rating, and can be used through a DNI, AR or VR."
+          },
+          "hasWirelessInterface": {
+            "label": "Wireless Interface",
+            "hint": "If enabled, this gear is an Electronic Matrix Device with a Wireless Interface. When Wireless is active, it can be used through AR or VR. It usually has a Wireless bonus."
+          },
+          "hasDataCableInterface": {
+            "label": "Data Cable Interface",
+            "hint": "If enabled, this gear has a Data Cable Interface and can be used through a DNI via a Direct Connection. Cyberware always have a Data Cable Interface."
+          },
+          "deviceRating": {
+            "label": "Device Rating",
+            "tooltip": [
+              "The rating of the Electronic Matrix Device. Device Rating determines the devices Matrix Condition Monitor.",
+              "Most relevant devices are given a Device Rating in their rulebook, but if not provided use the following as a guideline:",
+              "<strong>1: Simple devices</strong>, like General appliances, public terminals, entertainment systems.",
+              "<strong>2: Average devices</strong>, like Personal electronics, basic cyberware, weapons, residential security devices, basic vehicles.",
+              "<strong>3: Smart devices</strong>, like Security vehicles, alphaware, corporate security devices.",
+              "<strong>4: Advanced devices</strong>, like High-end devices, betaware, military vehicles and security devices.",
+              "<strong>5: Cutting-edge devices</strong>, like credsticks, black-ops vehicles and security devices.",
+              "<strong>6+: Bleeding Edge devices</strong>, like Deltaware, Gammaware, Billion-nuyen experimental devices, space craft."
+            ]
+          },
+          "wirelessActive": {
+            "label": "Wireless",
+            "hint": "If on, this gear is currently being used through a wireless interface. Some items, like a credstick can only be used if their Wireless interface are active. The gear's Wireless Bonus can be used if this is active."
+          },
+          "cyberwareGrade": {
+            "label": "Cyberware Grade",
+            "hint": "<p>The grade of your cyberware does not just determine its essence and nuyen costs, but also it's Device Rating.<p>Device Rating determines its Matrix Condition Monitor.</p>"
+          },
+          "ammoLoaded": {
+            "label": "Ammo Loaded",
+            "hint": "Select which type of ammo is currently loaded in your ranged weapon."
+          }
+        }
+      },
+      "mod": {
+        "FIELDS": {
+          "embeddedInUuid": {
+            "label": "Item Modded"
+          },
+          "rating": {
+            "label": "Rating",
+            "tooltip": "<p>The Rating of a gear mods. (0 if no Rating)</p><p>In some cases this is also called it's Capacity cost.</p><p>This can be marked as [Rating] in the Gear chapter of the Core Rulebook.</p>"
+          }
+        },
+        "TYPES": {
+          "accessory_weapon": "Weapon Accessory",
+          "weapon_mod": "Weapon Mod",
+          "armor_mod": "Armor Mod",
+          "accessory_electronics": "Electronics Accessory",
+          "visual_enhancement": "Visual Enhancement",
+          "audio_enhancement": "Audio Enhancement"
+        },
+        "label": {
+          "section": "Gear Mods",
+          "not_installed": "(not installed)",
+          "uninstall": "Uninstall this Gear Mod"
+        }
+      }
+    },
     "label": {
-      "name": "Name"
+      "name": "Name",
+      "template": "TEMPLATE",
+      "unique": "UNIQUE",
+      "token": "TOKEN",
+      "CM.phys.short": "PHYS",
+      "CM.stun.short": "STUN",
+      "CM.matrix.short": "MTRX",
+      "RIP": "R.I.P.",
+      "viewTemplateActor": "View Template Actor",
+      "activeSkills": "Active Skills",
+      "knowledgeSkills": "Knowledge Skills",
+      "languages": "Languages",
+      "qualities": "Qualities",
+      "powers": "Powers",
+      "untrained": "Untrained",
+      "deviceRating": "Device Rating",
+      "lifespan": "Lifespan",
+      "lifespan_hours": "{number} {hourScale}",
+      "yes": "Yes",
+      "no": "No",
+      "unknown": "<unknown>",
+      "matrixCM": "Matrix Condition Monitor",
+      "matrixCmPenalty": "Matrix Damage Modifier",
+      "system_message": "//SYSTEM MESSAGE//",
+      "programSlots": "Program Slots",
+      "gm_do_something": "GM: "
+    },
+    "title": {
+      "editButton": "Edit Actor",
+      "editImage": "Click to change image",
+      "showImage": "Click to show image",
+      "increaseOS": "Click to increase Overwatch Score",
+      "decreaseOS": "Click to decrease Overwatch Score",
+      "showOS": "Click to show Overwatch Score",
+      "CM.phys.dmg": "Damage on Physical Condition Monitor",
+      "CM.stun.dmg": "Damage on Stun Condition Monitor",
+      "CM.matrix.dmg": "Damage on Matrix Condition Monitor",
+      "personaModeToggle": "Toggle Persona Mode (Public/Silent)",
+      "changeEdge": "Increase (left click) or decrease (right click) Edge",
+      "onlyGmCanRevive": "Only your GM can revive a dead character.",
+      "attributeHint": "Base {rank} + Mod {mod} = Pool {pool}",
+      "skillHint": "Base {rank} + Mod {mod} + {attr} {attrPool}{untrained} = Pool {pool}",
+      "clickItemName": "Show description (left click) or send it to chat (right click)",
+      "showDescription": "Show description",
+      "sendToChat": "Send description to Chat",
+      "useItem": "Use {name}",
+      "noRollNeeded": "No roll needed. Click to send description to Chat.",
+      "rollSomething": "Roll {typeOfRoll}",
+      "matrixCmPenalty": "Your Electronic Matrix Device is damaged via the Matrix.",
+      "createsPersona": "Your Persona is created by the main device you use to access the Matrix.",
+      "running_silent": "Toggle Running Silent",
+      "pan": "A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.",
+      "living_network": "<p>Your living persona can create and participate in a PAN.</p><p>A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.</p><p>In SR6e FoundryVTT, all Technomancers are assumed to already have taken the Living Network echo.</p>",
+      "pan_admin": "The PAN Leader, it's Administrator, serves as the controlelr of the entire network. This persona’s Matrix stats and mental stats will form the defense pool for Matrix Actions against the entire team network",
+      "deviceLimit": "<p>A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit.</p><p>Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.</p><p>This device limit remains reserved for your own sub-PAN.</p>",
+      "notGM": "Only the GM can use this."
+    },
+    "statblock": {
+      "system.matrix.attributes.attack": "ATTACK",
+      "system.matrix.attributes.sleaze": "SLEAZE",
+      "system.matrix.attributes.dataProcessing": "DATA PROC",
+      "system.matrix.attributes.firewall": "FIREWALL",
+      "system.initiative.astral": "INIT",
+      "system.initiative.physical": "INIT",
+      "system.initiative.matrix": "INIT",
+      "system.attributes.willpower": "W",
+      "system.attributes.logic": "L",
+      "system.attributes.intuition": "I",
+      "system.attributes.charisma": "C",
+      "system.attributes.resonance": "RES"
     }
   }
 }

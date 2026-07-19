@@ -6,7 +6,7 @@
   </div>
   
   <table class="item-list">
-    {{#each actor.items as |item id|}}
+    {{#each (sort actor.items) as |item id|}}
       {{#iff item.type '==' 'skill'}}
       {{#iff item.system.genesisID '==' 'language'}}
       <tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">

@@ -91,7 +91,8 @@ jobs:
           exit 1
         fi
 
-    # compile packs
+    # Compile packs via pullJSONtoLDB.mjs
+    # Don't forget to run `npm run unpack` with FoundryVTT closed in dev environment after updating compendium packs
     - name: compile packs
       run: npm ci
     - run: npm run pack

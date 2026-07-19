@@ -6,27 +6,44 @@ export default class SR6ConditionMonitor extends SR6DataModel {
         const fields = foundry.data.fields;
 
         return {
-            // Boxes should be set in the Actor DataModel.prepareBaseData()
-            boxes: new fields.NumberField({required: true, nullable: false, integer: true, initial: 9, min: 9}),
-            // Dmg is the number input field on the ActorSheet to determine how much damage the Actor has taken in total (incl Overflow)
-            dmg: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
+            // This is the #Boxes; Actual maximum of value must be managed in DataModel.prepareBaseData()
+            max: new fields.NumberField({required: true, nullable: false, integer: true, initial: 8, min: 8}),
+            // value is the "HP", min and max should be handled in Actor/DataModel prepareBaseData or prepareDerivedData
+            value: new fields.NumberField({required: true, nullable: false, integer: true, initial: 8}),
         };
     }
 
     /**
-     * The current value of boxes that aren't damaged
+     * The current value of damaged boxes
      */
-    get value() {
-        return this.boxes - this.dmg;
+    get dmg() {
+        return this.max - this.value;
     }
 
-    // TODO: Support conditional overflow, with overflow pointer to other monitor
-
-    /**
-     * Legacy support of monitor.max
-     */
-    get max() {
-        return this.boxes;
+    get penalty() {
+        /* Every 3 boxes = -1 penalty */
+        const remain = Math.max(0, this.value);
+        let penalty = Math.floor(this.dmg / 3);
+        // In the last row, if the last box is full the modifier is increased by one
+        if (this.max % 3 > 0 && remain === 0)
+            penalty++;
+        
+        return penalty;
+    }
+    
+    parseDmgToValue(damage) {
+        const s = String(damage);
+        const isDelta = s.startsWith("+") || s.startsWith("-");
+        const n = Number(damage);
+        if (!Number.isFinite(n)) {
+            throw new Error("SR6 | Invalid Dmg input");
+        }
+        if (this.dmg === 0 && s.startsWith("-")) {
+            throw new Error("SR6 | Dmg input causes no changes");
+        }
+        const v = Math.trunc(n);
+        const newDmg = Math.max(0,  isDelta ? this.dmg + v : v  );
+        return this.max - newDmg;
     }
 
 }
