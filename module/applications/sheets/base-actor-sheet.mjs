@@ -360,7 +360,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         this.element.querySelectorAll(".tracks input").forEach(input => input.blur());
 
         // Select Stat Block input text on focus
-        if (context.editable) {
+        if (context.editMode) {
             this.element.querySelector(".stat-block").addEventListener("focusin", event =>
                 this.constructor._selectInputText(event, event.target)
             );
