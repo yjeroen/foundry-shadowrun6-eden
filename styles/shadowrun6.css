@@ -276,6 +276,20 @@
     text-align: center;
     font-weight: 900;
 }
+
+.sr6-roll-dialog h3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content max-content;
+  gap: 0.5em;
+  align-items: end;
+}
+
+.sr6-roll-dialog .plus-attribute {
+  font-size: 0.8em;
+  font-weight: normal;
+  align-self: center;
+}
+
 .edge-roll .edge-value {
 		z-index: 1;
 		position:relative;
