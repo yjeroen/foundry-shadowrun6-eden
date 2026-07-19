@@ -179,7 +179,7 @@ export class SR6Config {
         "mag",
         "res",
     ];
-    ATTRIBUTES_SELECTOPTIONS = {
+    ATTRIBUTE_SELECT_OPTIONS = {
         bod: "attrib.bod",
         agi: "attrib.agi",
         rea: "attrib.rea",

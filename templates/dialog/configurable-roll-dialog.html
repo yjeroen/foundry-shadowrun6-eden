@@ -2,20 +2,15 @@
 {{log "configurable-roll-dialog.html  this=" this}}
 
 <form class="sr6-roll-dialog">
-	 <div style="display:flex; align-content: space-between">
-      <h3 style="flex:4; display:inline; align-self: flex-start">
-        <span>{{data.actionText}}</span>
-      </h3>
+    <h3>
+      <span>{{data.actionText}}</span>
       {{#if (or data.attrib data.useAttributeMod)}}
-      <span style="flex:2.2; display:inline">
-         + {{localize "shadowrun6.label.attribute"}}
-         <select name="attrib" class="rollAttributeSelector">
-            <!-- used to be selected=data.skillDef.attrib  -->
-            {{selectOptions CONFIG.SR6.ATTRIBUTES_SELECTOPTIONS selected=data.attrib localize=true blank=(localize "shadowrun6.label.none") }}
-         </select>
-       </span>
-        {{/if}}
-    </div>
+      <span class="plus-attribute">+ {{localize "shadowrun6.label.attribute"}}</span>
+      <select name="attrib" class="rollAttributeSelector plus-attribute">
+          {{selectOptions ATTRIBUTE_SELECT_OPTIONS selected=data.attrib localize=true blank=(localize "shadowrun6.label.none") }}
+      </select>
+      {{/if}}
+    </h3>
 
     {{#if data.accessLevel}}
     <h4 class="matrix-command-line">

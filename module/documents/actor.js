@@ -2833,6 +2833,32 @@ export default class Shadowrun6Actor extends Actor {
 
         return oppAttr1 + oppAttr2;
     }
+
+    /**
+     * Returns all possible Attribute Options to use in a Select
+     * @return {object} attribute: Attribute pairs
+     */
+    getAttributeOptions() {
+        if (!(this.system instanceof foundry.abstract.DataModel)) {
+            return CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS;
+        }
+
+        const options = {};
+        const { rating, attributes, matrix } = this.system.schema.fields;
+
+        const addFields = (fields) => {
+            for (const field of Object.values(fields)) {
+                options[field.fieldPath] = field.label;
+            }
+        };
+
+        if (rating) options[rating.fieldPath] = rating.label;
+        if (attributes) addFields(attributes.fields);
+        if (matrix) addFields(matrix.fields.attributes.fields);
+
+        return options;
+    }
+
     //-------------------------------------------------------------
     // TODO doesnt support health/stun damage on ActorV2 yet but not necessary for Matrix Icon Actors
     async applyDamage(damageData) { 
