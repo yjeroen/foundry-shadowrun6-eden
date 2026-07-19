@@ -2883,10 +2883,12 @@ body.game .app a:hover .sr6-icon {
     opacity: 0.7;
 }
 
+.sr6 .error,
 .dialog .roll-dialog-message {
     display: flex;
     align-items: center;
 }
+.sr6 .error i,
 .dialog .roll-dialog-message i {
     margin: 0 8px;
     color: var(--color-underline-header);
@@ -2902,9 +2904,16 @@ body.game .app a:hover .sr6-icon {
 /* ========================== HOST ACTOR SHEET ============================ */
 /* ======================================================================== */
 
-.sr6 .hud.host {
+.sr6.host .hud {
     background: linear-gradient(180deg, rgb(255 0 188 / 20%), rgb(46 0 182 / 58%)), 
                 radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--color-shadow-primary) 40%, transparent), var(--hud-glow-right-color) var(--hud-glow-right-size));
     border: 2px solid rgb(255 134 247 / 85%);
     filter: drop-shadow(0 0 4px rgba(251, 124, 255, 0.85)) drop-shadow(0 0 18px rgba(98, 114, 255, 0.55)) drop-shadow(0 0 55px rgba(124, 255, 227, 0.15));
+}
+
+.sr6 .error {
+  font-weight: bold;
+  border: 1px rgba(128, 0, 128, 1) dashed;
+  background-color: rgba(128, 0, 128, 0.17);
+  padding: 0.3rem;
 }

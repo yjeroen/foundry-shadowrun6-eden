@@ -51,7 +51,7 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
         switch (partId) {
             case "summary":
                 context.statblock = this._statBlock();
-                context.statblockDisabled = true; // Hosts don't have editable stats as they're based on Level
+                context.host = this._hostContext();
                 this._prepareHostItems(context);
                 break;
             case "features":
@@ -107,6 +107,40 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
             }
         }
         context.matrixItems = matrixItems.sort((a, b) => (b.sort || 0) - (a.sort || 0));
+    }
+
+    /** 
+     * Builds context for this host's sheet
+     * @returns {object} Host context
+     */
+    _hostContext() {
+        const host = {};
+
+        const hostType = this.actor.system.type;
+        const rating = this.actor.system.rating;
+        const attributes = this.actor._source.system.matrix.attributes;
+        const modifiers = Object.values(attributes).map(value => value - rating);
+        let isValid;
+
+        switch (hostType) {
+            case "foundation": {
+                const attributesInRange = modifiers.every(modifier => modifier >= -1 && modifier <= 4);
+                const totalModifier = modifiers.reduce((total, modifier) => total + modifier);
+
+                isValid = attributesInRange && totalModifier === 7;
+                break;
+            }
+
+            case "framework": {
+                const requiredModifiers = [0, 1, 2, 3];
+                isValid = requiredModifiers.every(modifier => modifiers.includes(modifier));
+                break;
+            }
+        }
+
+        if (!isValid) host.attributeError = game.i18n.localize(`SR6.Actor.host.FIELDS.rating.error.${hostType}`);
+
+        return host;
     }
 
     /** 

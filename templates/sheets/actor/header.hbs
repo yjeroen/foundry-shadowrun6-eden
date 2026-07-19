@@ -7,6 +7,8 @@
   <div class="hud-shell">
     <section class="hud">
   
+      {{#if system.attributes}}
+      {{! Actor has attributes - showing HUD top right icons }}
       <div class="hud-meta{{#if (not editable)}} inactive{{/if}}">
         <span class="meta-icon battery" style="--level: 72;"></span>
         <span class="meta-icon wifi" style="--signal-strength: 3;">
@@ -29,6 +31,7 @@
         <span class="meta-nuyen"><span class="value">125,840</span>¥</span>
         {{/if}}
       </div>
+      {{/if}}
   
       <div class="portrait-panel{{#if system.isDead}} dead{{/if}}">
         <div class="track-delta disabled">{{#if system.isDead}}{{localize 'SR6.label.RIP'}}{{/if}}</div>

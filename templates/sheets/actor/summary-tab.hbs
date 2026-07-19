@@ -18,7 +18,6 @@
       </div>
     </div>
     {{/each}}
-
   </div>
 
   <div class="content">
@@ -33,6 +32,13 @@
           {{#unless @last}}, {{/unless}}
         {{/each}}
       </p>
+    </div>
+    {{/if}}
+
+    {{#if host.attributeError}}
+    <div class="error">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{host.attributeError}}</span>
     </div>
     {{/if}}
 
