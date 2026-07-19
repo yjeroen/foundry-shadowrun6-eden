@@ -1,6 +1,6 @@
 <div class="row">
-<span class="label">{{localize "SR6.label.deviceRating"}}:</span>
-{{span system.deviceRating systemFields.deviceRating}}
+    <span class="label">{{localize "SR6.label.deviceRating"}}:</span>
+    {{span system.deviceRating systemFields.deviceRating}}
 </div>
 
 {{!-- TODO JEROEN add summoning --}}
@@ -10,29 +10,29 @@
 </div> --}}
 
 <div class="row">
-<span class="label">{{systemFields.registered.label}}:</span>
-{{#if editMode}}
-    <p>{{formInput systemFields.registered value=system.registered localize=true actor=actor}}</p>
-{{else}}
+    <span class="label">{{systemFields.registered.label}}:</span>
+    {{#if editMode}}
+    <p>{{formInput systemFields.registered value=source.registered localize=true actor=actor}}</p>
+    {{else}}
     <p>{{#if system.registered}}{{localize "SR6.label.yes"}}{{else}}{{localize "SR6.label.no"}}{{/if}}</p>
-{{/if}}
+    {{/if}}
 </div>
 
 <div class="row">
-<span class="label">{{systemFields.tasksOwned.label}}:</span>
-{{#if @root.editMode}}{{formInput systemFields.tasksOwned value=system.tasksOwned localize=true actor=actor}}
-{{else}}{{span system.tasksOwned systemFields.tasksOwned}}{{/if}}
+    <span class="label">{{systemFields.tasksOwned.label}}:</span>
+    {{#if @root.editMode}}{{formInput systemFields.tasksOwned value=source.tasksOwned localize=true actor=actor}}
+    {{else}}{{span system.tasksOwned systemFields.tasksOwned}}{{/if}}
 </div>
 
 {{#if (ne system.registered)}}
-    <div class="row">
+<div class="row">
     <span class="label">{{localize "SR6.label.lifespan"}}:</span>
     {{span sprite.lifespan systemFields.lifespan}}
-    </div>
+</div>
 {{/if}}
 
 {{#if (eq system.type "music")}}
-    <div class="row">
+<div class="row">
     <em>{{localize "SR6.Actor.sprite.notes.music"}}</em>
-    </div>
+</div>
 {{/if}}
