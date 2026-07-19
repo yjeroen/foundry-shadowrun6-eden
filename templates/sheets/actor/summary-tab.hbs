@@ -94,10 +94,11 @@
         {{span system.deviceRating systemFields.deviceRating}}
       </div>
 
-      <div class="row">
+      {{!-- TODO JEROEN add summoning --}}
+      {{!-- <div class="row">
         <span class="label">{{systemFields.compiledBy.label}}:</span>
         <p>{{#if system.compiledBy}}{{formInput systemFields.compiledBy value=system.compiledBy}}{{else}}<em>{{localize "SR6.label.unknown"}}</em>{{/if}}</p>
-      </div>
+      </div> --}}
 
       <div class="row">
         <span class="label">{{systemFields.registered.label}}:</span>
@@ -171,17 +172,6 @@
         <div>Colt Secret Agent [Light Pistol, DV 2P, SS, 9/7/—/—/—, 6c, w/ 30 rounds caseless regular ammo]</div>
       </div>
     </div> --}}
-
-    {{!-- TODO JEROEN --}}
-    <div class="row">TODO JEROEN:</div>
-    <div class="row">Limited ActorSheets</div>
-    <div class="row">Matrix Damage modifier to matrix actions & rolls // IF system.isElectronicMatrixDevice THEN system.matrix.matrixCM.penalty</div>
-    <div class="row">Matrix Damage & Resist</div>
-    <div class="row">Add GM Tools to set tokens to LIMITED access and reset all Access Levels</div>
-    <div class="row">Persona Description & avatar img</div>
-    <div class="row">Change NPC import only on Create Actor window</div>
-    <div class="row">Read only sheet for sprites</div>
-    <div class="row">Migration for matrix access devices data</div>
 
   </div>
 </div>
