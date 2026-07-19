@@ -3278,6 +3278,10 @@ export default class Shadowrun6Actor extends Actor {
         return Boolean( this.system instanceof foundry.abstract.DataModel );
     }
 
+    get matrixDeviceItems() {
+        return this.items.filter(i => i.system.isElectronicMatrixDevice);
+    }
+
     /**
      * Safely returns a system property no matter if its an old Actor or an ActorV2 with a DataModel
      * @param {*} path 
