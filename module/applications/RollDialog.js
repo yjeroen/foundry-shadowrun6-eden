@@ -128,7 +128,8 @@ export class RollDialog extends Dialog {
         const form = this.html[0];
         let configured = this.dialogResult;
         let prepared = this.prepared;
-        console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        if (configured.actor.system.edge === undefined) return;
+        console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
         
         if (!configured.actor)
             return;
@@ -203,11 +204,11 @@ export class RollDialog extends Dialog {
                 capped = true;
             }
             // Check if new Edge value would be >7
-            if ((actor.edge.value + configured.edgePlayer) > maxEdge) {
+            if ((actor.edge?.value + configured.edgePlayer) > maxEdge) {
                 configured.edgePlayer = Math.max(0, maxEdge - actor.edge.value);
                 capped = true;
             }
-            this.edge = Math.min(maxEdge, actor.edge.value + configured.edgePlayer);
+            this.edge = Math.min(maxEdge, actor.edge?.value + configured.edgePlayer) ?? 0;
             // Update in dialog
             let edgeValue = this._element[0].getElementsByClassName("edge-value")[0];
             if (edgeValue) {
@@ -260,7 +261,7 @@ export class RollDialog extends Dialog {
         catch (err) {
             console.log("SR6E | Exception: " + err.message , err);
         }
-        console.log("SR6E | RollDialog._onCalcEdge END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        console.log("SR6E | RollDialog._onCalcEdge END", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _updateEdgeBoosts(elem, available) {
