@@ -358,6 +358,15 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Unselect any CM fields after a rerender
         this.element.querySelectorAll(".tracks input").forEach(input => input.blur());
+
+        // Add onClick events to the Stat Block
+        if (context.editable) {
+            this.element.querySelectorAll(".stat-block input").forEach(input => {
+                input.addEventListener("click", event =>
+                    this.constructor._selectInputText(event, input)
+                );
+            });
+        }
         
         // Tabs
         const nav = this.element.querySelector(".sheet-tabs.tabs");
@@ -776,8 +785,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         console.log("SR6E | Edge coin flipped", newEdge, rotateY);
     }
 
-    static async _selectInputText(event, target) {
-        const input = target.querySelector("input");;
+    static _selectInputText(event, target) {
+        const input = target.matches("input")
+            ? target
+            : target.querySelector("input");
+
         if (!input || input.readOnly || input.disabled) return;
         input.select();
     }
