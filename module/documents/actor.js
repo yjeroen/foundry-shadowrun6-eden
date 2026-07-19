@@ -2580,10 +2580,17 @@ export default class Shadowrun6Actor extends Actor {
                     }
                 }
 
-                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
+                const deviceRatingCount = Number(matrixAction.attr1 === "deviceRating") + Number(matrixAction.attr2 === "deviceRating");
                 defensePool = { pool: this.getMatrixPool(matrixAction.attr1, matrixAction.attr2) };
-                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
 
+                if (deviceRatingCount) {
+                    if (target.documentName !== "Item") throw new Error("Matrix Actions using Device Rating can only target an Item");
+                    defensePool.pool += target.system.matrix.deviceRating * deviceRatingCount;
+                }
+
+                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
+
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
                 rollData.checkText = game.i18n.localize(`attrib.${matrixAction.attr1}`) + " + " + game.i18n.localize(`attrib.${matrixAction.attr2}`) + " (" + threshold + ")";
                 break;
             default:
