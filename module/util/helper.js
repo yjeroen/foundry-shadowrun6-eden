@@ -169,6 +169,21 @@ export const defineHandlebarHelper = async function () {
         }
     });
 
+    Handlebars.registerHelper("dynamicFieldWidth", function(field, options) {
+        const content = options.fn(this);
+
+        if (!field.choices) return content;
+
+        const width = Math.max(
+            ...Object.values(field.choices)
+                .map(choice => game.i18n.localize(choice).length)
+        );
+
+        return new Handlebars.SafeString(
+            `<div class="dynamic-field-width" style="--width: ${width + 4}ch;">${content}</div>`
+        );
+    });
+
     Handlebars.registerHelper('matrixAction', function (matrixAction) {
         const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
         const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');

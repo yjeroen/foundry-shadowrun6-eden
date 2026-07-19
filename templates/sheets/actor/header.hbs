@@ -70,11 +70,13 @@
                 {{#unless dontShowOnLimited}}
                   <div>
                     <label for="{{field.fieldPath}}">{{field.label}}:</label>
-                    {{#if @root.editMode}}
-                    {{formInput field value=value}}
-                    {{else}}
-                    {{span value field}}
-                    {{/if}}
+                    {{#dynamicFieldWidth field}}
+                      {{#if @root.editMode}}
+                      {{formInput field value=value localize=true}}
+                      {{else}}
+                      {{span value field}}
+                      {{/if}}
+                    {{/dynamicFieldWidth}}
                   </div>
                 {{/unless}}
               {{/each}}
