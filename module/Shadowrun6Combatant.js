@@ -28,12 +28,12 @@ export default class Shadowrun6Combatant extends Combatant {
 
     _getInitiativeFormulaV2() {
         console.log("SR6E | Shadowrun6Combatant._getInitiativeFormulaV2: ", this.initiativeType);
+        if (this.actor.system.initiative?.formula) return this.actor.system.initiative.formula;
         
         switch (this.initiativeType) {
             case InitiativeType.PHYSICAL: return "@initiative.physical.rank + (@initiative.physical.dice)D6";
             case InitiativeType.ASTRAL: return "@initiative.astral.rank + (@initiative.astral.dice)D6";
             case InitiativeType.MATRIX: return "@initiative.matrix.rank + (@initiative.matrix.dice)D6";
-            case InitiativeType.MATRIX_HOST: return "@initiative.matrix.rank";
             default:
                 return super._getInitiativeFormula();
         }

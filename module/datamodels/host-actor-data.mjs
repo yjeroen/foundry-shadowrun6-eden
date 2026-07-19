@@ -62,14 +62,14 @@ export default class SR6HostActorData extends SR6BaseActorData {
 
     _prepareMatrixInitiative() {
         const tokenType = this.tokenType;
+        this.initiative.default = InitiativeType.MATRIX;
         if (this.tokenType) {
-            this.initiative.default = InitiativeType.MATRIX;
             this.initiative.matrix.rank = Math.round(this.matrix.dataProcessing * 2);
             this.initiative.matrix.dice = 3;
 
         } else {
-            this.initiative.default = InitiativeType.MATRIX_HOST;
             this.initiative.matrix.rank = 99;
+            this.initiative.formula = "@initiative.matrix.rank";
         }
 
     }

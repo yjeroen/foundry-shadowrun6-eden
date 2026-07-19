@@ -137,11 +137,11 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
                 value: system.matrix.attributes.firewall,
                 rollType: "attribute"
             },
-            {
-                field: schema.getField('initiative.matrix'),
-                value: system.initiative.matrix[edit ? "rank" : "text"],
-                rollType: "initiative"
-            },
+            // {
+            //     field: schema.getField('initiative.matrix'),
+            //     value: system.initiative.matrix[edit ? "rank" : "text"],
+            //     rollType: "initiative"
+            // },
         ];
     }
 
