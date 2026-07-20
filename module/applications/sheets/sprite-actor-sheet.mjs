@@ -21,11 +21,10 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
     static PARTS = {
         ...super.PARTS,
         summary: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/summary-tab.hbs",
+             ...super.PARTS.summary,
             templates: [
                 "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/sprite.hbs"
-            ],
-            scrollable: [""],
+            ]
         },
         features: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",

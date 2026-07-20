@@ -1,6 +1,6 @@
 <div class="row">
     <span class="label">{{localize "SR6.label.deviceRating"}}:</span>
-    {{span system.deviceRating systemFields.deviceRating}}
+    {{span system.deviceRating}}
 </div>
 
 {{!-- TODO JEROEN add summoning --}}
@@ -27,7 +27,7 @@
 {{#if (ne system.registered)}}
 <div class="row">
     <span class="label">{{localize "SR6.label.lifespan"}}:</span>
-    {{span sprite.lifespan systemFields.lifespan}}
+    {{span sprite.lifespan}}
 </div>
 {{/if}}
 
