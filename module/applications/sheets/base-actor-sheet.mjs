@@ -80,14 +80,14 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             template: "systems/shadowrun6-eden/templates/sheets/actor/description-tab.hbs",
             scrollable: [""],
         },
-        gear: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/gear-tab.hbs",
-            scrollable: [""],
-        },
-        magic: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/magic-tab.hbs",
-            scrollable: [""],
-        },
+        // gear: {
+        //     template: "systems/shadowrun6-eden/templates/sheets/actor/gear-tab.hbs",
+        //     scrollable: [""],
+        // },
+        // magic: {
+        //     template: "systems/shadowrun6-eden/templates/sheets/actor/magic-tab.hbs",
+        //     scrollable: [""],
+        // },
         effects: {
             template: "systems/shadowrun6-eden/templates/sheets/common/effects-tab.hbs",
             scrollable: [""],
@@ -156,6 +156,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             fields: this.document.schema.fields,
             systemFields: this.document.system.schema.fields,
             tracks: {},
+            enriched: {},
         };
 
         if (this.actor.system.skills) {
@@ -186,7 +187,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         switch (partId) {
             case "summary":
             case "features":
-            case "magic":
+            // case "magic":
             case "gear":
                 context.tab = context.tabs[partId];
                 break;
@@ -194,7 +195,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 context.tab = context.tabs[partId];
                 // Enrich description info for display
                 // Enrichment turns text like `[[/r 1d20]]` into buttons
-                context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                context.enriched.description = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
                     this.actor.system.description,
                     {
                         // Whether to show secret blocks in the finished html
@@ -205,7 +206,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                         relativeTo: this.actor,
                     }
                 );
-                context.enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                context.enriched.notes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
                     this.actor.system.notes,
                     {
                         secrets: this.document.isOwner,
@@ -229,6 +230,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
     /**
      * Generates the data for the generic tab navigation template
+     * TODO JEROEN REWORK TABS
      * @param {string[]} parts An array of named template parts to render
      * @returns {Record<string, Partial<ApplicationTab>>}
      * @protected
@@ -255,29 +257,27 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                     return tabs;
                 case "summary":
                     tab.id = "summary";
-                    tab.label += "Summary";
                     break;
                 case "description":
                     tab.id = "description";
-                    tab.label += "Description";
                     break;
                 case "features":
                     tab.id = "features";
-                    tab.label += "Features";
                     break;
-                case "gear":
-                    tab.id = "gear";
-                    tab.label += "gear";
+                case "network":
+                    tab.id = "network";
                     break;
-                case "magic":
-                    tab.id = "magic";
-                    tab.label += "Magic";
-                    break;
+                // case "gear":
+                //     tab.id = "gear";
+                //     break;
+                // case "magic":
+                //     tab.id = "magic";
+                //     break;
                 case "effects":
                     tab.id = "effects";
-                    tab.label += "Effects";
                     break;
             }
+            if (tab.id) tab.label = game.i18n.localize( tab.label + tab.id );
             if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = "active";
             tabs[partId] = tab;
             return tabs;

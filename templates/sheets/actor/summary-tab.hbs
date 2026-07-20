@@ -98,6 +98,10 @@
     {{> "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/sprite.hbs"}}
     {{/if}}
 
+    {{#if (eq actor.type "host")}}
+    {{> "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host.hbs"}}
+    {{/if}}
+
     {{!-- <div class="row">
       <span class="label">Contacts:</span>
       <p>City Official (C6/L4), Company Suit (C4/L4), Gang Boss (C3/L4), Police Chief (C6/L4), Wiz Kid Mage (C3/L4),

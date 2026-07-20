@@ -1669,6 +1669,7 @@
         "title": "Matrixcombat"
       },
       "matrix_devices": {
+        "label": "Matrix Device",
         "add": "Add new matrix device",
         "add_rcc": "Add new Rigger Command Console",
         "column": {
@@ -2449,10 +2450,11 @@
     },
     "Actor": {
       "Tabs": {
-        "Summary": "Summary",
-        "Features": "Features",
-        "Description": "Description",
-        "Effects": "Effects"
+        "summary": "Summary",
+        "features": "Features",
+        "network": "Network",
+        "description": "Description",
+        "effects": "Effects"
       },
       "base": {
         "FIELDS": {
@@ -2595,6 +2597,18 @@
         }
       },
       "sprite": {
+        "TYPES": {
+          "courier": "//COURIER//",
+          "crack": "//CRACK//",
+          "data": "//DATA//",
+          "fault": "//FAULT//",
+          "machine": "//MACHINE//",
+          "assassin": "//ASSASSIN//",
+          "defender": "//DEFENDER//",
+          "modular": "//MODULAR//",
+          "music": "//MUSIC//",
+          "primal": "//PRIMAL//"
+        },
         "FIELDS": {
           "level": {
             "label": "Level"
@@ -2612,23 +2626,15 @@
             "label": "Icon Description"
           }
         },
-        "TYPES": {
-          "courier": "//COURIER//",
-          "crack": "//CRACK//",
-          "data": "//DATA//",
-          "fault": "//FAULT//",
-          "machine": "//MACHINE//",
-          "assassin": "//ASSASSIN//",
-          "defender": "//DEFENDER//",
-          "modular": "//MODULAR//",
-          "music": "//MUSIC//",
-          "primal": "//PRIMAL//"
-        },
         "notes": {
           "music": "Skill Con: Performance only"
         }
       },
       "host": {
+        "TYPES": {
+          "foundation": "Foundation",
+          "framework": "Framework"
+        },
         "FIELDS": {
           "rating": {
             "label": "Host Rating",
@@ -2643,8 +2649,8 @@
               "2": "Grade 2 Default",
               "3": "Grade 3 Standard",
               "4": "Grade 4 Custom",
-              "6": "Grade 5 Sculpted",
-              "7": "Grade 6 Ultra-Violet"
+              "5": "Grade 5 Sculpted",
+              "6": "Grade 6 Ultra-Violet"
             }
           },
           "scale": {
@@ -2654,8 +2660,8 @@
               "2": "Scale 2 Base (Facility)",
               "3": "Scale 3 Net (Local)",
               "4": "Scale 4 Macro (Sprawl)",
-              "6": "Scale 5 Mega (National)",
-              "7": "Scale 6 Exa (Global)"
+              "5": "Scale 5 Mega (National)",
+              "6": "Scale 6 Exa (Global)"
             }
           },
           "convergenceThreshold": {
@@ -2668,9 +2674,12 @@
             "label": "Security Response"
           }
         },
-        "TYPES": {
-          "foundation": "Foundation",
-          "framework": "Framework"
+        "ic": {
+          "label": "Installed IC",
+          "name": "IC"
+        },
+        "matrixItems": {
+          "label": "Networked Icons"
         }
       }
     },
@@ -2806,9 +2815,11 @@
       "living_network": "<p>Your living persona can create and participate in a PAN.</p><p>A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.</p><p>In SR6e FoundryVTT, all Technomancers are assumed to already have taken the Living Network echo.</p>",
       "pan_admin": "The PAN Leader, it's Administrator, serves as the controlelr of the entire network. This persona’s Matrix stats and mental stats will form the defense pool for Matrix Actions against the entire team network",
       "deviceLimit": "<p>A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit.</p><p>Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.</p><p>This device limit remains reserved for your own sub-PAN.</p>",
-      "notGM": "Only the GM can use this."
+      "notGM": "Only the GM can use this.",
+      "ownerOnlySection": "This section is only shown to the owner and GM of this character."
     },
     "statblock": {
+      "system.rating": "RATING",
       "system.matrix.attributes.attack": "ATTACK",
       "system.matrix.attributes.sleaze": "SLEAZE",
       "system.matrix.attributes.dataProcessing": "DATA PROC",

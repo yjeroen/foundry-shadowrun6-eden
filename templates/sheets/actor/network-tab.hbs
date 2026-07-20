@@ -1,0 +1,235 @@
+{{! Network Tab }}
+<section
+  class='tab network scrollable {{tab.cssClass}}'
+  data-group='primary'
+  data-tab='network'
+>
+
+{{#unless limited}}
+<!-- Installed IC: -->
+<section class="section powers">
+  <header class="section-head">
+    <h2 class="section-title">
+      {{ localize 'SR6.Actor.host.ic.label' }}
+    </h2>
+
+    {{#if @root.editMode}}
+      <div class="item-controls">
+        <a
+          class="item-control item-create"
+          data-tooltip="{{localize 'DOCUMENT.New' type=(localize 'SR6.Actor.host.ic.name')}}"
+          data-action="createDoc"
+          data-document-class="Item"
+          data-type="gear"
+          data-system-type="SOFTWARE"
+          data-system-subtype="IC"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    {{/if}}
+  </header>
+
+  <div class="section-header">
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.name' }}</div>
+    <div>{{ localize 'shadowrun6.section.spells.column.sustained' }}</div>
+    <div>{{ localize 'shadowrun6.label.column.action' }}</div>
+  </div>
+
+  <ol class="section-list">
+    {{#each ic as |item id|}}
+      <li
+        class="section-item"
+        data-item-id="{{item.id}}"
+        data-document-class="Item"
+      >
+        <div class="section-row">
+          <div class="section-column">
+            <button
+              type="button"
+              class="item-desc-toggle {{#if (not item.system.description)}}collapsible closed empty{{else}}collapsible closed{{/if}}"
+              {{#if item.system.description}}
+                data-action="itemDescToggle"
+                data-item-id="{{item.id}}"
+                data-tooltip="SR6.title.clickItemName"
+              {{/if}}
+            >
+              +
+            </button>
+          </div>
+
+          <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
+            {{item.name}}
+          </div>
+
+          <div class="section-column">
+            {{#if (eq item.system.duration 'sustained')}}
+              <a 
+                class="item-control item-toggle"
+                data-action='itemSustainToggle'
+                data-tooltip="shadowrun6.section.sustained.toggle"
+              >
+                <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+              </a>
+            {{/if}}
+          </div>
+
+          <div class="section-column item-controls"> 
+            <a
+              class="item-control draggable"
+              data-tooltip="{{skillHint actor item.system.skill 'resonance'}}"
+              data-action="roll"
+              data-roll-type="item"
+              data-item-id="{{item.id}}"
+              data-uuid="{{item.uuid}}"
+            >
+              <i class="fas fa-dice-six"></i>
+            </a>
+
+            <a
+              class="item-control item-edit"
+              data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'SR6.Actor.host.ic.name')}}"
+              data-action="viewDoc"
+            >
+              <i class="fas fa-edit"></i>
+            </a>
+
+            {{#if @root.editMode}}
+              <a
+                class="item-control item-delete"
+                data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'SR6.Actor.host.ic.name')}}"
+                data-action="deleteDoc"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+
+        <section class="collapsible-content closed" data-item-id="{{item.id}}">
+          <strong>{{ localize 'shadowrun6.item.description' }}</strong>
+          <div>{{{item.system.description}}}</div>
+        </section>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+<!-- /Installed IC -->
+{{/unless}}
+
+
+{{#unless limited}}
+<!-- Networked Icons: -->
+<section class="section powers">
+  <header class="section-head">
+    <h2 class="section-title">
+      {{ localize 'SR6.Actor.host.matrixItems.label' }}
+    </h2>
+
+    {{#if @root.editMode}}
+      <div class="item-controls">
+        <a
+          class="item-control item-create"
+          data-tooltip="{{localize 'DOCUMENT.New' type=(localize 'shadowrun6.section.matrix_devices.label')}}"
+          data-action="createDoc"
+          data-document-class="Item"
+          data-type="gear"
+          data-system-type="SOFTWARE"
+          data-system-subtype="IC"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    {{/if}}
+  </header>
+
+  <div class="section-header">
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.name' }}</div>
+    <div>{{ localize 'shadowrun6.section.spells.column.sustained' }}</div>
+    <div>{{ localize 'shadowrun6.label.column.action' }}</div>
+  </div>
+
+  <ol class="section-list">
+    {{#each ic as |item id|}}
+      <li
+        class="section-item"
+        data-item-id="{{item.id}}"
+        data-document-class="Item"
+      >
+        <div class="section-row">
+          <div class="section-column">
+            <button
+              type="button"
+              class="item-desc-toggle {{#if (not item.system.description)}}collapsible closed empty{{else}}collapsible closed{{/if}}"
+              {{#if item.system.description}}
+                data-action="itemDescToggle"
+                data-item-id="{{item.id}}"
+                data-tooltip="SR6.title.clickItemName"
+              {{/if}}
+            >
+              +
+            </button>
+          </div>
+
+          <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
+            {{item.name}}
+          </div>
+
+          <div class="section-column">
+            {{#if (eq item.system.duration 'sustained')}}
+              <a 
+                class="item-control item-toggle"
+                data-action='itemSustainToggle'
+                data-tooltip="shadowrun6.section.sustained.toggle"
+              >
+                <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+              </a>
+            {{/if}}
+          </div>
+
+          <div class="section-column item-controls"> 
+            <a
+              class="item-control draggable"
+              data-tooltip="{{skillHint actor item.system.skill 'resonance'}}"
+              data-action="roll"
+              data-roll-type="item"
+              data-item-id="{{item.id}}"
+              data-uuid="{{item.uuid}}"
+            >
+              <i class="fas fa-dice-six"></i>
+            </a>
+
+            <a
+              class="item-control item-edit"
+              data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'shadowrun6.section.matrix_devices.label')}}"
+              data-action="viewDoc"
+            >
+              <i class="fas fa-edit"></i>
+            </a>
+
+            {{#if @root.editMode}}
+              <a
+                class="item-control item-delete"
+                data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'shadowrun6.section.matrix_devices.label')}}"
+                data-action="deleteDoc"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+
+        <section class="collapsible-content closed" data-item-id="{{item.id}}">
+          <strong>{{ localize 'shadowrun6.item.description' }}</strong>
+          <div>{{{item.system.description}}}</div>
+        </section>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+<!-- /Networked Icons -->
+{{/unless}}
+
+</section>

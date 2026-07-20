@@ -740,7 +740,7 @@
 }
 .sr6 .traits span  {
     white-space: nowrap;
-    padding-left: 5px;
+    padding-left: 4px;
 }
 
 .sr6 .traits select,
@@ -753,6 +753,9 @@
     font-size: 12px;
 }
 
+.dynamic-field-width {
+    display: inline-block;
+}
 .dynamic-field-width > * {
     display: inline-block;
     width: var(--width);
@@ -1793,10 +1796,28 @@
 .sr6 .stat-block .stat[data-for="system.initiative.matrix"] input {
     width: 1.4rem;
 }
-.sr6 .stat-block select {
-    width: 1.8rem;
-    box-shadow: var(--input-box-shadow);
+.sr6 .stat-block .row {
+    line-height: 1.3;
+}
+.sr6 .stat-block .stat-row select {
     font-size: 12px;
+    width: 1.8rem;
+}
+.sr6 .stat-block .content {
+    font-size: 14.7px;
+}
+.sr6 .stat-block select {
+    box-shadow: var(--input-box-shadow);
+    width: auto;
+}
+.sr6 .stat-block .row span[data-field] {
+    padding-left: 0.25rem;
+}
+.sr6 .stat-block .row span[data-field="system.convergenceThreshold"] {
+    display: inline-block;
+    padding-left: 0;
+    width: 2em;
+    text-align: center;
 }
 .sr6 .stat-block input[type="checkbox"], 
 .sr6 .stat-block input[type="radio"] {
@@ -2916,4 +2937,9 @@ body.game .app a:hover .sr6-icon {
   border: 1px rgba(128, 0, 128, 1) dashed;
   background-color: rgba(128, 0, 128, 0.17);
   padding: 0.3rem;
+}
+
+.sr6.host .status-panel-header input, 
+.sr6.host .status-panel-header select {
+    color: white;
 }

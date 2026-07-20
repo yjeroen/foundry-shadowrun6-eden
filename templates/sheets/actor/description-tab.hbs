@@ -13,27 +13,31 @@
       {{! Editors must receive enriched text data from getData to properly handle rolls, UUID links, etc. }}
       {{#if editMode}} 
         <prose-mirror name="system.description" data-document-uuid="{{actor.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
-          {{{enrichedDescription}}}
+          {{{enriched.description}}}
         </prose-mirror>
       {{else}}
-        <p>{{{enrichedDescription}}}&nbsp;</p>
+        <p>{{{enriched.description}}}&nbsp;</p>
       {{/if}}
     </div>
   </div>
   
+{{#if (eq actor.type "host")}}
+  {{> "systems/shadowrun6-eden/templates/sheets/actor/description-tab/host.hbs"}}
+{{/if}}
+
 {{#unless limited}}
   <div class="section">
-    <div class="section-head" data-tooltip="SR6.Actor.base.FIELDS.notes.tooltip">
+    <div class="section-head" data-tooltip="SR6.title.ownerOnlySection">
       <h2 class="section-title">{{systemFields.notes.label}}</h2>
     </div>
     <div class="section-content">
       {{! Editors must receive enriched text data from getData to properly handle rolls, UUID links, etc. }}
       {{#if editMode}} 
         <prose-mirror name="system.notes" data-document-uuid="{{actor.uuid}}" value="{{system.notes}}" collaborate="true" toggled="true">
-          {{{enrichedNotes}}}
+          {{{enriched.notes}}}
         </prose-mirror>
       {{else}}
-        <p>{{{enrichedNotes}}}&nbsp;</p>
+        <p>{{{enriched.notes}}}&nbsp;</p>
       {{/if}}
     </div>
   </div>

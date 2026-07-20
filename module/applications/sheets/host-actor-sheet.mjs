@@ -20,12 +20,21 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
     /** @inheritdoc */
     static PARTS = {
         ...super.PARTS,
-        features: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",
+        summary: {
+             ...super.PARTS.summary,
             templates: [
-                "systems/shadowrun6-eden/templates/sheets/actor/matrix-section.hbs"
-            ],
+                "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host.hbs"
+            ]
+        },
+        network: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/network-tab.hbs",
             scrollable: [""],
+        },
+        description: {
+             ...super.PARTS.description,
+            templates: [
+                "systems/shadowrun6-eden/templates/sheets/actor/description-tab/host.hbs"
+            ]
         }
     };
 
@@ -35,13 +44,12 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
         
         // Don't show the other tabs if only limited view
         if (this.document.limited || this.options.limited) {
-            options.parts.push("features", "description");
-            this._defaultTab = "features";
+            options.parts.push("summary", "description");
             return;
         }
 
         // Control which parts show based on document subtype
-        options.parts.push("summary", "features", "description", "effects");
+        options.parts.push("summary", "network", "description", "effects");
     }
 
     async _preparePartContext(partId, context) {
@@ -54,10 +62,29 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
                 context.host = this._hostContext();
                 this._prepareHostItems(context);
                 break;
-            case "features":
+            case "network":
+                context.tab = context.tabs[partId];
                 context.matrixAccess = this._matrixAccess();
                 context.matrixActions = this._matrixActions();
                 this._prepareHostItems(context);
+                break;
+            case "description":
+                context.enriched.sculpting = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    this.actor.system.sculpting,
+                    {
+                        secrets: this.document.isOwner,
+                        rollData: this.actor.getRollData(),
+                        relativeTo: this.actor,
+                    }
+                );
+                context.enriched.securityResponse = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    this.actor.system.sculpting,
+                    {
+                        secrets: this.document.isOwner,
+                        rollData: this.actor.getRollData(),
+                        relativeTo: this.actor,
+                    }
+                );
                 break;
         }
         return context;
@@ -151,6 +178,11 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
         const schema = this.actor.system.schema;
         const system = edit ? this.actor._source.system : this.actor.system;
         return [
+            {
+                field: schema.getField('rating'),
+                value: system.rating,
+                rollType: "attribute"
+            },
             {
                 field: schema.getField('matrix.attributes.attack'),
                 value: system.matrix.attributes.attack,
