@@ -158,16 +158,21 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
 
         switch (hostType) {
             case "foundation": {
-                const attributesInRange = modifiers.every(modifier => modifier >= -1 && modifier <= 4);
-                const totalModifier = modifiers.reduce((total, modifier) => total + modifier);
-
-                isValid = attributesInRange && totalModifier === 7;
-                break;
-            }
-
-            case "framework": {
                 const requiredModifiers = [0, 1, 2, 3];
                 isValid = requiredModifiers.every(modifier => modifiers.includes(modifier));
+                break;
+            }
+            
+            case "framework": {
+                const loweredAttributeCount = modifiers.filter(modifier => modifier === -1).length;
+                const maximumAttributeCount = modifiers.filter(modifier => modifier === 4).length;
+                const allocatedPoints = modifiers.reduce((total, modifier) => total + Math.max(modifier, 0), 0);
+                const availablePoints = loweredAttributeCount ? 7 : 6;
+
+                isValid = modifiers.every(modifier => modifier >= -1 && modifier <= 4)
+                    && loweredAttributeCount <= 1
+                    && maximumAttributeCount <= 1
+                    && allocatedPoints === availablePoints;
                 break;
             }
         }

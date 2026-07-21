@@ -2639,8 +2639,8 @@
         "FIELDS": {
           "rating": {
             "label": "Host Rating",
-            "error.foundation": "Foundation Host attributes must be between Rating −1 and Rating +4, with a total of 7 points distributed between them.",
-            "error.framework": "Framework Host attributes must use Rating, Rating +1, Rating +2, and Rating +3 exactly once each.",
+            "error.foundation": "Foundation Host attributes must use Rating, Rating +1, Rating +2, and Rating +3 exactly once each.",
+            "error.framework": "A Framework host has 6 points in total to improve its attributes, with one attribute allowed to reach Rating +4 and all others up to Rating +3. Optionally, one attribute may be set to Rating −1, increasing the available points to 7.",
             "error.undefined": "Select a Host Type. Configure the Hosts Matrix Attributes afterwards."
           },
           "resolutionGrade": {
