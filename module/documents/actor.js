@@ -2150,10 +2150,20 @@ export default class Shadowrun6Actor extends Actor {
         if (roll.skillSpec) {
             rollName += "/" + game.i18n.localize("shadowrun6.special." + roll.skillId + "." + roll.skillSpec);
         }
+        if (this.system instanceof foundry.abstract.DataModel) {
+            if (!this.system.skills?.[roll.skillId]) {
+                rollName = this.system.schema.fields.rating?.label;
+            }
+        }
         rollName += " + ";
         // Attribute
         let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
         let attrName = game.i18n.localize("attrib." + useAttrib);
+        if (this.system instanceof foundry.abstract.DataModel) {
+            if (!this.system.attributes?.[ game.sr6.config.ATTRIBUTE_TO_V2[useAttrib] ]) {
+                attrName = this.system.schema.fields.rating?.label;
+            }
+        }
         rollName += attrName;
         if (roll.threshold && roll.threshold > 0) {
             rollName += " (" + roll.threshold + ")";
@@ -2180,7 +2190,8 @@ export default class Shadowrun6Actor extends Actor {
         if (this.system instanceof foundry.abstract.DataModel) {
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
             const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
-            return this.system.skills[skillId]?.testPool(attribute);
+            const fallBack = this.system.rating + (this.system.attributes?.[attribute] ?? this.system.rating);
+            return this.system.skills?.[skillId]?.testPool(attribute) || fallBack;
         }
         const system = getSystemData(this);
         if (!skillId)
@@ -2340,7 +2351,6 @@ export default class Shadowrun6Actor extends Actor {
      *
      */
     async rollItem(roll) {
-        console.log("SR6E | rollItem(", roll, ")");
         roll.actor = this;
         // Prepare check text
         roll.checkText = this._getSkillCheckText(roll);
@@ -2348,7 +2358,7 @@ export default class Shadowrun6Actor extends Actor {
         if (roll.pool == 0) {
             roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec);
         }
-        console.log("SR6E | rollItem(", roll, ")");
+        console.log("SR6E | rollItem()", roll);
         let item = roll.gear;
         roll.allowBuyHits = true;
         // If present, replace item name, description and source references from compendium

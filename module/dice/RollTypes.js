@@ -247,7 +247,7 @@ export class SkillRoll extends PreparedRoll {
         super();
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        this.skillValue = actorSystem.skills[skillId];
+        this.skillValue = actorSystem.skills?.[skillId] || actorSystem.rating;
         this.attrib = this.skillDef?.attrib;
         this.performer = actorSystem;
     }
@@ -437,8 +437,8 @@ export class WeaponRoll extends SkillRoll {
     burstMode;
     faArea;
     constructor(actor, item) {
-        if ( ! getSystemData(item).skill ) ui.notifications.error("shadowrun6.ui.notifications.no_weapon_skill_set", { localize: true });
-        super(actor, getSystemData(item).skill);
+        if ( ! item.system.skill ) ui.notifications.error("shadowrun6.ui.notifications.no_weapon_skill_set", { localize: true });
+        super(actor.system, item.system.skill);
         this.item = item;
         this.itemId = item.id;
         this.chatDescription = item.system.description;
