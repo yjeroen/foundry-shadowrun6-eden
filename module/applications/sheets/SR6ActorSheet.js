@@ -937,7 +937,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         roll.skillSpec = dataset.skillspec;
         if (dataset.threshold)
             roll.threshold = dataset.threshold;
-        roll.attrib = dataset.attrib;
         console.log("SR6E | onRollSkillCheck before ", roll);
         this.actor.rollSkill(roll);
     }
@@ -945,7 +944,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     _onRollWeaponCheck(event, html) {
         console.log("SR6E | _onRollWeaponCheck");
         event.preventDefault();
-        const attacker = getSystemData(this.actor);
+        const attacker = this.actor;
         const itemId = event.currentTarget.dataset.itemId;
         const item = this.actor.items.get(itemId);
         if (!item) {

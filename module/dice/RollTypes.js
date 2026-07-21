@@ -248,7 +248,7 @@ export class SkillRoll extends PreparedRoll {
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
         this.skillValue = actorSystem.skills?.[skillId] || actorSystem.rating;
-        this.attrib = this.skillDef?.attrib;
+        this.attrib = `system.attributes.${this.skillDef?.attrib}`;
         this.performer = actorSystem;
     }
     copyFrom(copy) {
@@ -397,7 +397,7 @@ export class SpritePowerRoll extends SkillRoll {
         this.itemUuid = item.uuid;
         this.chatDescription = item.system.description;
         this.skillSpec = item.system.skillSpec;
-        this.attrib = "res";
+        this.attrib = "system.attributes.resonance";
         this.defendWith = Defense.ITEM_DEFINED;
         // TODO Add Sprite Power Damage for e.g. Electron Storm - needs also Item system support
         if (item.system.dmg) {

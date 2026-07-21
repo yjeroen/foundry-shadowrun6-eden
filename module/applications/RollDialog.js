@@ -749,8 +749,8 @@ export class RollDialog extends Dialog {
                     prepared.checkText += ' + ' + this.actor.system.schema.getField(fieldPathAttrib)?.label;
                     prepared.pool += foundry.utils.getProperty(this.actor, newAttrib)?.pool || foundry.utils.getProperty(this.actor, newAttrib) || 0;
                 } else {
-                    prepared.checkText += ' + ' + game.i18n.localize("attrib." + newAttrib);
-                    prepared.pool += this.actor.system.attributes[newAttrib]?.pool || 0;
+                    prepared.checkText += ' + ' + game.i18n.localize(CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS[newAttrib]);
+                    prepared.pool += foundry.utils.getProperty(this.actor, newAttrib)?.pool || 0;
                 }
             }
             prepared.calcPool = prepared.pool;

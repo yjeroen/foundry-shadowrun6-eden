@@ -951,6 +951,10 @@ export default class Shadowrun6Actor extends Actor {
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
                 if (!(system.attributes[attr].base) || parseInt(system.attributes[attr].base) < 1)
                     system.attributes[attr].base = 1;
+                if (attr === "mag" && !this.isAwakened)
+                    system.attributes["mag"].base = 0;
+                if (attr === "res" && !this.isTechno)
+                    system.attributes["res"].base = 0;
                 if (!(system.attributes[attr].mod)) //Allow negative mods OLD: //  || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system))
                     system.attributes[attr].mod = 0;
 
@@ -2157,12 +2161,21 @@ export default class Shadowrun6Actor extends Actor {
         }
         rollName += " + ";
         // Attribute
-        let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
-        let attrName = game.i18n.localize("attrib." + useAttrib);
+        let attrName = "";
+        let useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
         if (this.system instanceof foundry.abstract.DataModel) {
-            if (!this.system.attributes?.[ game.sr6.config.ATTRIBUTE_TO_V2[useAttrib] ]) {
-                attrName = this.system.schema.fields.rating?.label;
+            const fieldPath = useAttrib.replace("system.", "");
+            attrName =  this.system.schema.getField(fieldPath)?.label;
+            if (!attrName) {
+                const attribute = game.sr6.config.ATTRIBUTE_TO_V2[useAttrib];
+                const { rating, attributes, matrix } = this.system.schema.fields;
+                if (attributes?.[attribute]) attrName = attributes[attribute].label;
+                else if (matrix?.[attribute]) attrName = matrix[attribute].label;
+                else if (rating) attrName = rating.label;
             }
+        } else {
+            useAttrib = useAttrib.replace("system.attributes.", "");
+            attrName = game.i18n.localize("attrib." + useAttrib);
         }
         rollName += attrName;
         if (roll.threshold && roll.threshold > 0) {
@@ -2187,12 +2200,17 @@ export default class Shadowrun6Actor extends Actor {
      * @return Roll name
      */
     _getSkillPool(skillId, spec, attrib = undefined) {
+        if (attrib) {
+            // TODO rework skill flow so this isnt needed
+            attrib = attrib.replace("system.attributes.", "");
+        }
         if (this.system instanceof foundry.abstract.DataModel) {
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
             const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
             const fallBack = this.system.rating + (this.system.attributes?.[attribute] ?? this.system.rating);
             return this.system.skills?.[skillId]?.testPool(attribute) || fallBack;
         }
+
         const system = getSystemData(this);
         if (!skillId)
             return undefined;
@@ -2849,13 +2867,18 @@ export default class Shadowrun6Actor extends Actor {
      * @return {object} attribute: Attribute pairs
      */
     getAttributeOptions() {
-        if (!(this.system instanceof foundry.abstract.DataModel)) {
-            return CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS;
+        const actor = this;
+        let options = {};
+
+        if (!(actor.system instanceof foundry.abstract.DataModel)) {
+            options = Object.fromEntries(
+                Object.entries(game.sr6.config.ATTRIBUTE_SELECT_OPTIONS)
+                    .filter(([attribute]) => foundry.utils.getProperty(actor, attribute)?.pool)
+            );
+            return options;
         }
 
-        const options = {};
-        const { rating, attributes, matrix } = this.system.schema.fields;
-
+        const { rating, attributes, matrix } = actor.system.schema.fields;
         const addFields = (fields) => {
             for (const field of Object.values(fields)) {
                 options[field.fieldPath] = field.label;
