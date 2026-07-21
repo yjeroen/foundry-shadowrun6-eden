@@ -445,6 +445,7 @@ export class WeaponRoll extends SkillRoll {
         this.gear = gear;
         this.skillSpec = this.gear.skillSpec;
         if (isWeapon(gear)) {
+            this.useWildDie = gear.wild ? 1 : 0;
             this.weapon = gear;
             this.rollType = RollType.Weapon;
             this.defendWith = Defense.PHYSICAL;

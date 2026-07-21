@@ -959,7 +959,6 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         }
         const gear = getSystemData(item);
         let roll = new WeaponRoll(attacker, item, itemId, gear);
-        roll.useWildDie = gear.wild ? 1 : 0;
         console.log("SR6E | _onRollWeaponCheck before ", roll);
         this.actor.rollItem(roll);
     }
