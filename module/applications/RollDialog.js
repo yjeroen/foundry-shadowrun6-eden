@@ -712,49 +712,34 @@ export class RollDialog extends Dialog {
         }
         if (isSkillRoll(prepared)) {
             console.log("SR6E | isSkillRoll ", prepared.skillId);
+
             const attribSelect = event.currentTarget;
             let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
             console.log("SR6E |  use attribute = " + newAttrib);
             prepared.attrib = newAttrib;
-            actor.updateSkillRoll(prepared, newAttrib);
-            prepared.actionText = prepared.checkText;
-        } else if (prepared.useAttributeMod) {
-            console.log("SR6E | is Attribute Roll ", prepared.actionText);
-            const attribSelect = event.currentTarget;
-            let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
-            console.log("SR6E |  use attribute = " + newAttrib);
-            if (this.actor.system instanceof foundry.abstract.DataModel) {
-                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
-                
-                prepared.pool = attr?.pool ?? attr ?? 0;
-                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
-                const fieldPath = prepared.attributeTested.replace("system.", "");
-                prepared.checkText =  this.actor.system.schema.getField(fieldPath)?.label;
-            } else if (prepared.attributeTested.startsWith("system.")) {
-                // ActorSheet V1 with dataset.attributePath
-                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
-                
-                prepared.pool = attr?.pool ?? attr ?? 0;
-                const fieldPath = prepared.attributeTested.replace("system.", "");
-                prepared.checkText =  prepared.rollLabel;
 
+            actor.updateSkillRoll(prepared, newAttrib);
+
+        } else if (prepared.useAttributeMod) {
+            console.log("SR6E | is Attribute Roll ", prepared.attributeTested);
+            if (prepared.attributeTested.startsWith("system.")) {
+                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
+                prepared.pool = attr ?? 0;
+                prepared.checkText =  game.i18n.localize(CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS[prepared.attributeTested])
             } else {
                 prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
-                prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested);
+                prepared.checkText =  game.i18n.localize(`attrib.${prepared.attributeTested}`)
             }
 
+            const attribSelect = event.currentTarget;
+            let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
+
             if (newAttrib) {
-                if (this.actor.system instanceof foundry.abstract.DataModel) {
-                    const fieldPathAttrib = newAttrib.replace("system.", "");
-                    prepared.checkText += ' + ' + this.actor.system.schema.getField(fieldPathAttrib)?.label;
-                    prepared.pool += foundry.utils.getProperty(this.actor, newAttrib)?.pool || foundry.utils.getProperty(this.actor, newAttrib) || 0;
-                } else {
-                    prepared.checkText += ' + ' + game.i18n.localize(CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS[newAttrib]);
-                    prepared.pool += foundry.utils.getProperty(this.actor, newAttrib)?.pool || 0;
-                }
+                console.log("SR6E |  + attribute", newAttrib);
+                prepared.checkText += ' + ' + game.i18n.localize(CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS[newAttrib]);
+                prepared.pool += foundry.utils.getProperty(this.actor, newAttrib) || 0;
             }
             prepared.calcPool = prepared.pool;
-            prepared.actionText = prepared.checkText;
         }
         console.log("SR6E | new check: " + prepared.checkText);
         console.log("SR6E | new pool: " + prepared.pool);

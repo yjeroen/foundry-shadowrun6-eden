@@ -2161,22 +2161,10 @@ export default class Shadowrun6Actor extends Actor {
         }
         rollName += " + ";
         // Attribute
-        let attrName = "";
-        let useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
-        if (this.system instanceof foundry.abstract.DataModel) {
-            const fieldPath = useAttrib.replace("system.", "");
-            attrName =  this.system.schema.getField(fieldPath)?.label;
-            if (!attrName) {
-                const attribute = game.sr6.config.ATTRIBUTE_TO_V2[useAttrib];
-                const { rating, attributes, matrix } = this.system.schema.fields;
-                if (attributes?.[attribute]) attrName = attributes[attribute].label;
-                else if (matrix?.[attribute]) attrName = matrix[attribute].label;
-                else if (rating) attrName = rating.label;
-            }
-        } else {
-            useAttrib = useAttrib.replace("system.attributes.", "");
-            attrName = game.i18n.localize("attrib." + useAttrib);
-        }
+        const useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
+        const attrName = game.i18n.localize( game.sr6.config.ATTRIBUTE_SELECT_OPTIONS[useAttrib] ) ?? "";
+        console.log(`SR6E | _getSkillCheckText | rollName '${rollName}' `, useAttrib, attrName);
+
         rollName += attrName;
         if (roll.threshold && roll.threshold > 0) {
             rollName += " (" + roll.threshold + ")";
@@ -2199,36 +2187,35 @@ export default class Shadowrun6Actor extends Actor {
      * @param {string} spec         Optional: The skill specialization
      * @return Roll name
      */
-    _getSkillPool(skillId, spec, attrib = undefined) {
-        if (attrib) {
-            // TODO rework skill flow so this isnt needed
-            attrib = attrib.replace("system.attributes.", "");
-            attrib = attrib.replace("system.matrix.attributes.", "");
+    _getSkillPool(skillId, spec, attributePath = undefined) {
+        if (!skillId) return undefined;
+        const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
+        
+        console.log(`SR6E | _getSkillPool | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}' `);
+        if (!attributePath) {
+            attributePath = `system.attributes.${skillDef.attrib}.pool`;
+            if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = `system.rating`;
+            console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}' `);
         }
+
         if (this.system instanceof foundry.abstract.DataModel) {
-            console.log("SR6E | _getSkillPool() DataModel ActorV2 |", skillId, attrib);
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
-            // TODO currently doesnt support Matrix Attributes (Matrix Attributes also fall back to system.rating)
-            // const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
-            const attribute = attrib;
-            const fallBack = this.system.rating + (this.system.attributes?.[attribute] ?? this.system.rating);
-            return this.system.skills?.[skillId]?.testPool(attribute) || fallBack;
+            // TODO currently doesnt use skill-data testPool, would need rework
+            const skillPool = this.system.skills?.[skillId]?.pool ?? (this.type === "host" ? this.system.rating : 0);
+            const attributePool = foundry.utils.getProperty(this, attributePath) ?? 0;
+            
+            console.log("SR6E | _getSkillPool() DataModel ActorV2 |", skillId, skillPool, attributePath, attributePool);
+            return skillPool + attributePool;
         }
 
         const system = getSystemData(this);
-        if (!skillId)
-            return undefined;
         const skl = system.skills[skillId];
-        // console.log("SR6E | _getSkillPool", skl);
-        if (!skillId) {
+        if (!skl) {
             throw "Unknown skill '" + skillId + "'";
         }
-        let skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        if (!attrib) {
-            attrib = skillDef.attrib;
-        }
+        
         // Calculate pool
-        let value = skl.points + skl.modifier;
+        let value = parseInt(skl.points) + parseInt(skl.modifier);
         if (skl.points == 0) {
             if (skillDef.useUntrained) {
                 value -= 1;
@@ -2245,10 +2232,7 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
         // Add attribute
-        // console.log("SR6E | _getSkillPool | value", value);
-        // console.log("SR6E | _getSkillPool | attrib", parseInt(system.attributes[attrib].pool));
-        value = parseInt("" + value);
-        value += parseInt(system.attributes[attrib].pool);
+        value += parseInt(foundry.utils.getProperty(this, attributePath));
         // console.log("SR6E | _getSkillPool | value", value);
         if (skillId === 'exotic_weapons') {
             if (
@@ -2360,7 +2344,6 @@ export default class Shadowrun6Actor extends Actor {
         let skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId);
         if (!roll.attrib)
             roll.attrib = skillDef.attrib;
-        roll.actionText = roll.checkText; // (game as Game).i18n.format("shadowrun6.roll.actionText.skill");
         // Calculate pool
         roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec);
         console.log("SR6E | rollSkill(", roll, ")");
@@ -2746,7 +2729,7 @@ export default class Shadowrun6Actor extends Actor {
         
         if(roll.skillValue) {
             roll.checkText = this._getVehicleCheckText(roll);
-            roll.pool = roll.skillValue.pool;
+            roll.pool = roll.skillValue;
         }
         roll.actionText = roll.checkText;
         roll.allowBuyHits = true;
@@ -2872,27 +2855,10 @@ export default class Shadowrun6Actor extends Actor {
      */
     getAttributeOptions() {
         const actor = this;
-        let options = {};
-
-        if (!(actor.system instanceof foundry.abstract.DataModel)) {
-            options = Object.fromEntries(
+        const options = Object.fromEntries(
                 Object.entries(game.sr6.config.ATTRIBUTE_SELECT_OPTIONS)
-                    .filter(([attribute]) => foundry.utils.getProperty(actor, attribute)?.pool)
+                    .filter(([attribute]) => foundry.utils.getProperty(actor, attribute))
             );
-            return options;
-        }
-
-        const { rating, attributes, matrix } = actor.system.schema.fields;
-        const addFields = (fields) => {
-            for (const field of Object.values(fields)) {
-                options[field.fieldPath] = field.label;
-            }
-        };
-
-        if (rating) options[rating.fieldPath] = rating.label;
-        if (attributes) addFields(attributes.fields);
-        if (matrix) addFields(matrix.fields.attributes.fields);
-
         return options;
     }
 

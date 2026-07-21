@@ -937,7 +937,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         roll.skillSpec = dataset.skillspec;
         if (dataset.threshold)
             roll.threshold = dataset.threshold;
-        console.log("SR6E | onRollSkillCheck before ", roll);
+        console.log("SR6E | onRollSkillCheck | Initial SkillRoll:", JSON.parse(JSON.stringify(roll)));
         this.actor.rollSkill(roll);
     }
     //-----------------------------------------------------

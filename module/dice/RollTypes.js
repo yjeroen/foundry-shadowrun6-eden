@@ -160,7 +160,7 @@ export class ActorAttributeRoll extends PreparedRoll {
         
         this.rollType = RollType.Common;
         this.pool = attr?.pool ?? attr ?? 0;
-        this.attributeTested = attributePath;
+        this.attributeTested = attr?.pool ? `${attributePath}.pool` : attributePath;
         this.allowBuyHits = true;
         this.useAttributeMod = true;
 
@@ -247,9 +247,10 @@ export class SkillRoll extends PreparedRoll {
         super();
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        this.skillValue = actorSystem.skills?.[skillId] || actorSystem.rating;
-        this.attrib = `system.attributes.${this.skillDef?.attrib}`;
+        this.skillValue = actorSystem.skills?.[skillId]?.pool ?? (this.type === "host" ? this.system.rating : 0);
+        this.attrib = actorSystem.skills?.[skillId] ? `system.attributes.${this.skillDef?.attrib}.pool` : `system.rating`;
         this.performer = actorSystem;
+        this.actionText = game.i18n.localize(`skill.${skillId}`);
     }
     copyFrom(copy) {
         super.copyFrom(copy);
@@ -397,7 +398,7 @@ export class SpritePowerRoll extends SkillRoll {
         this.itemUuid = item.uuid;
         this.chatDescription = item.system.description;
         this.skillSpec = item.system.skillSpec;
-        this.attrib = "system.attributes.resonance";
+        this.attrib = "system.attributes.resonance.pool";
         this.defendWith = Defense.ITEM_DEFINED;
         // TODO Add Sprite Power Damage for e.g. Electron Storm - needs also Item system support
         if (item.system.dmg) {
@@ -562,7 +563,10 @@ export class MatrixActionRoll extends SkillRoll {
 
         this.matrixActionId = action.id;
         this.action = action;
-        this.attrib = action.attrib;
+        if (actor.system instanceof foundry.abstract.DataModel) {
+            action.attrib = CONFIG.SR6.ATTRIBUTE_TO_V2[action.attrib];
+        }
+        this.attrib = `system.attributes.${action.attrib}.pool`;
         this.skillId = action.skill;
         this.skillSpec = action.specialization;
         this.threshold = action.threshold;
@@ -571,7 +575,7 @@ export class MatrixActionRoll extends SkillRoll {
         this.checkText = actor._getSkillCheckText(this);
         this.chatDescription = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
 
-        this.pool = actor._getSkillPool(action.skill, action.specialization, action.attrib);
+        this.pool = actor._getSkillPool(action.skill, action.specialization, this.attrib);
         
         const matrixCmModifier = actor.getMatrixCmModifier();
         if (matrixCmModifier) {
