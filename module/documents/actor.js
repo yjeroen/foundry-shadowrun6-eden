@@ -2203,10 +2203,14 @@ export default class Shadowrun6Actor extends Actor {
         if (attrib) {
             // TODO rework skill flow so this isnt needed
             attrib = attrib.replace("system.attributes.", "");
+            attrib = attrib.replace("system.matrix.attributes.", "");
         }
         if (this.system instanceof foundry.abstract.DataModel) {
+            console.log("SR6E | _getSkillPool() DataModel ActorV2 |", skillId, attrib);
             // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
-            const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
+            // TODO currently doesnt support Matrix Attributes (Matrix Attributes also fall back to system.rating)
+            // const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
+            const attribute = attrib;
             const fallBack = this.system.rating + (this.system.attributes?.[attribute] ?? this.system.rating);
             return this.system.skills?.[skillId]?.testPool(attribute) || fallBack;
         }
