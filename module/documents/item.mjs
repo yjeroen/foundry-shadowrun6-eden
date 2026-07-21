@@ -1,6 +1,6 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
-import { SpritePowerRoll } from "../dice/RollTypes.js";
+import { SpritePowerRoll, WeaponRoll } from "../dice/RollTypes.js";
 import { SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
 
 /**
@@ -446,6 +446,11 @@ export default class SR6Item extends Item {
       const rollConfig = new SpritePowerRoll(item);
       return this.actor.rollResonanceAbility(rollConfig);
     }
+    // If its a weapon roll
+    else if (this.isWeapon) {
+      let rollConfig = new WeaponRoll(this.actor, item);
+      return this.actor.rollItem(rollConfig);
+    }
     // If there's no roll data, send a chat message.
     else if (!this.system.formula) {
       await this.toChat();
@@ -670,6 +675,10 @@ export default class SR6Item extends Item {
   get isAccessDevice() {
     if (this.type !== "gear") return false;
     return CONFIG.SR6.GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype);
+  }
+
+  get isWeapon() {
+    return Boolean(this.system.attackRating !== undefined);
   }
 
   /**
