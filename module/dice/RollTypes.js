@@ -436,23 +436,23 @@ export class WeaponRoll extends SkillRoll {
     fireMode;
     burstMode;
     faArea;
-    constructor(actor, item, itemId, gear) {
+    constructor(actor, item) {
         if ( ! getSystemData(item).skill ) ui.notifications.error("shadowrun6.ui.notifications.no_weapon_skill_set", { localize: true });
         super(actor, getSystemData(item).skill);
         this.item = item;
-        this.itemId = itemId;
+        this.itemId = item.id;
         this.chatDescription = item.system.description;
-        this.gear = gear;
-        this.skillSpec = this.gear.skillSpec;
-        if (isWeapon(gear)) {
-            this.useWildDie = gear.wild ? 1 : 0;
-            this.weapon = gear;
+        this.gear = item.system;
+        this.skillSpec = item.system.skillSpec;
+        if (item.isWeapon) {
+            this.useWildDie = item.system.wild ? 1 : 0;
+            this.weapon = item.system;
             this.rollType = RollType.Weapon;
             this.defendWith = Defense.PHYSICAL;
             this.monitor = (item.calculatedStun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
             // this.fireMode = 'SS';
         }
-        this.pool = gear.pool;
+        this.pool = item.system.pool;
         if (item.system.isElectronicMatrixDevice) {
             const matrixCmModifier = item.system.matrix.matrixCM.penalty;
             this.matrixCmPenalty = matrixCmModifier;            

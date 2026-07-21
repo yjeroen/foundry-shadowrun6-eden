@@ -947,7 +947,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         event.preventDefault();
         const attacker = getSystemData(this.actor);
         const itemId = event.currentTarget.dataset.itemId;
-        let item = this.actor.items.get(itemId);
+        const item = this.actor.items.get(itemId);
         if (!item) {
             throw new Error("_onRollWeaponCheck for non-existing item");
         }
@@ -957,8 +957,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (isWeapon(getSystemData(item))) {
             console.log("SR6E | is weapon", item);
         }
-        const gear = getSystemData(item);
-        let roll = new WeaponRoll(attacker, item, itemId, gear);
+        let roll = new WeaponRoll(attacker, item);
         console.log("SR6E | _onRollWeaponCheck before ", roll);
         this.actor.rollItem(roll);
     }
