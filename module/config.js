@@ -180,16 +180,16 @@ export class SR6Config {
         "res",
     ];
     ATTRIBUTE_SELECT_OPTIONS = {
-        bod: "attrib.bod",
-        agi: "attrib.agi",
-        rea: "attrib.rea",
-        str: "attrib.str",
-        wil: "attrib.wil",
-        log: "attrib.log",
-        int: "attrib.int",
-        cha: "attrib.cha",
-        mag: "attrib.mag",
-        res: "attrib.res",
+        "system.attributes.bod": "attrib.bod",
+        "system.attributes.agi": "attrib.agi",
+        "system.attributes.rea": "attrib.rea",
+        "system.attributes.str": "attrib.str",
+        "system.attributes.wil": "attrib.wil",
+        "system.attributes.log": "attrib.log",
+        "system.attributes.int": "attrib.int",
+        "system.attributes.cha": "attrib.cha",
+        "system.attributes.mag": "attrib.mag",
+        "system.attributes.res": "attrib.res",
     };
     NPC_ATTRIBUTES = [
         "bod",
