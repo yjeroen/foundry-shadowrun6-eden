@@ -16,15 +16,15 @@
 {{#unless limited}}
 <div class="section">
     <div class="section-head" data-tooltip="SR6.title.ownerOnlySection">
-      <h2 class="section-title">{{systemFields.securityResponse.label}}</h2>
+      <h2 class="section-title">{{systemFields.outsiderAccess.label}}</h2>
     </div>
     <div class="section-content">
       {{#if editMode}} 
-        <prose-mirror name="system.securityResponse" data-document-uuid="{{actor.uuid}}" value="{{system.securityResponse}}" collaborate="true" toggled="true">
-          {{{enriched.securityResponse}}}
+        <prose-mirror name="system.outsiderAccess" data-document-uuid="{{actor.uuid}}" value="{{system.outsiderAccess}}" collaborate="true" toggled="true">
+          {{{enriched.outsiderAccess}}}
         </prose-mirror>
       {{else}}
-        <p>{{{enriched.securityResponse}}}&nbsp;</p>
+        <p>{{{enriched.outsiderAccess}}}&nbsp;</p>
       {{/if}}
     </div>
 </div>

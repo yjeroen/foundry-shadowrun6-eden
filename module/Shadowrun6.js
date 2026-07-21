@@ -70,6 +70,7 @@ Hooks.once("init", async function () {
     CONFIG.Dice.rolls = [SR6Roll];
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.Token.objectClass = SR6Token;
+    CONFIG.Token.documentClass = documents.SR6TokenDocument;
     CONFIG.Combat.fallbackTurnMarker = 'systems/shadowrun6-eden/images/turn-marker-frame.webp'
 
     
@@ -855,6 +856,7 @@ Hooks.once("init", async function () {
         } else if (actor.type === "host") {
             actor.prototypeToken.updateSource({
                 actorLink: true,
+                lockRotation: true,
             });
         }
 

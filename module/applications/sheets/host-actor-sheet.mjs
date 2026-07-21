@@ -1,4 +1,5 @@
 import SR6BaseActorSheet from "./base-actor-sheet.mjs";
+import { DeployTokensSheetMixin } from "./mixins/_module.mjs";
 import { MatrixSheetMixin } from "./mixins/_module.mjs";
 const { api, sheets } = foundry.applications;
 
@@ -6,7 +7,7 @@ const { api, sheets } = foundry.applications;
  * Extend the basic SR6 ActorSheet with some very simple modifications
  * @extends {SR6BaseActorSheet}
  */
-export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorSheet ) {
+export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSheetMixin( SR6BaseActorSheet ) ) {
     _defaultTab = "summary";
 
     /**
@@ -15,6 +16,10 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
      * */
     static DEFAULT_OPTIONS = {
         classes: ["host"],
+        actions: {
+            deployToken: this._onDeployToken,
+            retrieveToken: this._onRetrieveToken
+        },
     };
 
     /** @inheritdoc */
@@ -41,6 +46,7 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
     /** @override */
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
+        this.deployedItem = this.actor.system.deployedItem;
         
         // Don't show the other tabs if only limited view
         if (this.document.limited || this.options.limited) {
@@ -77,8 +83,8 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
                         relativeTo: this.actor,
                     }
                 );
-                context.enriched.securityResponse = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.sculpting,
+                context.enriched.outsiderAccess = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    this.actor.system.outsiderAccess,
                     {
                         secrets: this.document.isOwner,
                         rollData: this.actor.getRollData(),
@@ -130,6 +136,7 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
 
         for (let i of this.document.items) {
             if (i.system.isElectronicMatrixDevice) {
+                i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
                 matrixItems.push(i);
             }
         }
@@ -181,7 +188,8 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
             {
                 field: schema.getField('rating'),
                 value: system.rating,
-                rollType: "attribute"
+                rollType: "attribute",
+                readOnly: true
             },
             {
                 field: schema.getField('matrix.attributes.attack'),
@@ -232,6 +240,61 @@ export default class SR6HostActorSheet extends MatrixSheetMixin( SR6BaseActorShe
         }
         
         return super._onDropDocument(event, document);
+    }
+
+    /**
+     * Deploy an additional linked token for the sheet actor.
+     *
+     * @param {PointerEvent} event
+     * @param {HTMLElement} target
+     * @this {Shadowrun6ActorSheet}
+     */
+    static async _onDeployToken(event, target) {
+        const deployedItemUuid = target.dataset.itemUuid;
+        const item = foundry.utils.fromUuidSync(deployedItemUuid);
+        await item.setFlag("shadowrun6-eden", 'isDeployedItem', true);
+
+        const tokenDocument = await this.actor.getTokenDocument({
+            name: item.name,
+            "texture.src": item.img,
+            actorLink: false,
+            flags: {
+                "shadowrun6-eden": {
+                    deployedItemUuid
+                }
+            }
+        });
+
+        // Calls DeployTokensSheetMixin.deployTokens()
+        return this.deployTokens(tokenDocument);
+    }
+
+    /**
+     * Retrieve the token deployed for an Item.
+     *
+     * @param {PointerEvent} event
+     * @param {HTMLElement} target
+     * @this {Shadowrun6ActorSheet}
+     */
+    static async _onRetrieveToken(event, target) {
+        const deployedItemUuid = target.dataset.itemUuid;
+        const item = foundry.utils.fromUuidSync(deployedItemUuid);
+
+        const deployedToken = canvas.scene.tokens.find(token =>
+            token.getFlag("shadowrun6-eden", "deployedItemUuid") === deployedItemUuid
+        );
+
+        await this.retrieveTokens(deployedToken);
+        await item.unsetFlag("shadowrun6-eden", "isDeployedItem");
+    }
+
+    /**
+     * Don't render an Edit Button on the Sheet if this is a Deployed Item
+     */
+    async _renderEditButton(options) {
+        if (this.deployedItem) return;
+        
+        await super._renderEditButton(options)
     }
 
 }

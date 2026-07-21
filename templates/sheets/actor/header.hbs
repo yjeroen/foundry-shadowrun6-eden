@@ -61,7 +61,7 @@
           <div class="status-panel-header-left">
             <div class="designation-name">      
               {{#if editMode}}
-              {{formInput fields.name value=actor.name placeholder=fields.name.label}}
+              {{formInput fields.name value=actor._source.name placeholder=fields.name.label}}
               {{else}}
               {{span actor.name fields.name}}
               {{/if}}

@@ -13,8 +13,11 @@
         {{localize (concat "SR6.statblock." attr.field.fieldPath)}}
       </div>
       <div class="stat-value" data-tooltip="{{attrHint @root.actor attr.field}}">
-        {{#if @root.editMode}}{{formInput attr.field value=attr.value localize=true actor=@root.actor disabled=@root.statblockDisabled}}
-        {{else}}{{span attr.value attr.field}}{{/if}}
+        {{#if (and @root.editMode (not attr.readOnly))}}
+          {{formInput attr.field value=attr.value localize=true actor=@root.actor disabled=@root.statblockDisabled}}
+        {{else}}
+          {{span attr.value attr.field}}
+        {{/if}}
       </div>
     </div>
     {{/each}}

@@ -441,6 +441,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     _prepareSubmitData(event, form, formData, updateData) {
+        console.log("SR6E | _prepareSubmitData | form data:", formData.object);
         this.#changeCmDamageToValues(formData.object);
         
         return super._prepareSubmitData(event, form, formData, updateData);

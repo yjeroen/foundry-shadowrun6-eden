@@ -2233,7 +2233,8 @@
         "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
         "notificationOnce": "This message will only show once during this browser session.",
         "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT.",
-        "item_not_allowed_to_be_dropped": "This Item could not be added to this Actor as they aren't compatible."
+        "item_not_allowed_to_be_dropped": "This Item could not be added to this Actor as they aren't compatible.",
+        "needs_token_on_canvas": "This action requires a Token already on the canvas before it can be used."
       }
     },
     "EFFECT": {
@@ -2670,7 +2671,10 @@
           "sculpting": {
             "label": "Sculpting"
           },
-          "securityResponse": {
+          "outsiderAccess": {
+            "label": "Outsider Access"
+          },
+          "notes": {
             "label": "Security Response"
           }
         },
@@ -2679,7 +2683,10 @@
           "name": "IC"
         },
         "matrixItems": {
-          "label": "Networked Icons"
+          "label": "Networked Icons",
+          "deployTitle": "Deploy this Matrix Icon",
+          "retrieveTitle": "Retrieve this Matrix Icon",
+          "deployed": "Deployed"
         }
       }
     },

@@ -1914,6 +1914,15 @@
     white-space: nowrap;
 }
 
+.sr6 .section .item-traits {
+    flex: 0 0 auto;
+    opacity: 0.6;
+    font-size: 0.8em;
+    padding-top: 0.1em;
+    margin-left: 0.35rem;
+    white-space: nowrap;
+}
+
 .sr6 .section .item-controls {
     gap: 5px;
 }
@@ -2932,6 +2941,10 @@ body.game .app a:hover .sr6-icon {
     filter: drop-shadow(0 0 4px rgba(251, 124, 255, 0.85)) drop-shadow(0 0 18px rgba(98, 114, 255, 0.55)) drop-shadow(0 0 55px rgba(124, 255, 227, 0.15));
 }
 
+.sr6.host .track-value {
+    text-shadow: none;
+}
+
 .sr6 .error {
   font-weight: bold;
   border: 1px rgba(128, 0, 128, 1) dashed;
@@ -2942,4 +2955,18 @@ body.game .app a:hover .sr6-icon {
 .sr6.host .status-panel-header input, 
 .sr6.host .status-panel-header select {
     color: white;
+}
+
+.sr6.host select option, 
+.sr6.host select optgroup {
+    background: rgb(143 101 223);
+}
+
+.sr6.host .fa-right-to-bracket {
+    color: #333;
+}
+.sr6.host .deployed {
+    text-decoration: double;
+    text-decoration-line: line-through;
+    text-decoration-color: var(--bg);
 }
