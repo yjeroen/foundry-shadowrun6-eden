@@ -73,11 +73,14 @@ export default class SR6HostActorData extends SR6BaseActorData {
         this.matrix.matrixCM = undefined;
 
         if (!this.deployedItem || !this.parent.token) return;
-        // Override Actor
+        // Override Token Actor from Deployed Item
         this.parent.name += `//:${this.deployedItem.name}`;
         this.parent.img = this.deployedItem.img;
+        this.description = this.deployedItem.system.description;
         this.matrix.matrixCM = this.deployedItem.system.matrix.matrixCM;
+        // Override Token Actor from Host
         this.matrix.attributes = this.parent.token.baseActor.system.matrix.attributes;
+        this.notes = this.parent.token.baseActor.system.notes;
     }
 
     _prepareMatrixInitiative() {

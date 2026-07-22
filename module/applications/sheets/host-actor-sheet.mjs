@@ -55,6 +55,11 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
             return;
         }
 
+        if (this.deployedItem) {
+            options.parts.push("summary", "description", "effects");
+            return;
+        }
+
         // Control which parts show based on document subtype
         options.parts.push("summary", "network", "description", "effects");
     }
@@ -62,6 +67,8 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
     async _preparePartContext(partId, context) {
         context = await super._preparePartContext(partId, context);
         this._prepareHeader(context);
+        
+        if (this.deployedItem) context.deployedItem = this.deployedItem;
 
         switch (partId) {
             case "summary":

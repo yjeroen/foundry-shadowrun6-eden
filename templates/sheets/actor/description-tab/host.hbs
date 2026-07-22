@@ -1,3 +1,5 @@
+  {{#unless deployedItem}}
+
   <div class="section">
     <div class="section-head">
       <h2 class="section-title">{{systemFields.sculpting.label}}</h2>
@@ -28,4 +30,6 @@
       {{/if}}
     </div>
 </div>
-{{/unless}}
+{{/unless}} {{!-- /limited --}}
+
+{{/unless}} {{!-- /deployedItem --}}
