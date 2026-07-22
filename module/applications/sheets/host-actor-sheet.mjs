@@ -162,7 +162,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
                 isValid = requiredModifiers.every(modifier => modifiers.includes(modifier));
                 break;
             }
-            
+
             case "framework": {
                 const loweredAttributeCount = modifiers.filter(modifier => modifier === -1).length;
                 const maximumAttributeCount = modifiers.filter(modifier => modifier === 4).length;
@@ -261,8 +261,9 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
 
         const tokenDocument = await this.actor.getTokenDocument({
             name: item.name,
-            "texture.src": item.img,
             actorLink: false,
+            "texture.src": item.img,
+            "bar1.attribute": "matrix.matrixCM",
             flags: {
                 "shadowrun6-eden": {
                     deployedItemUuid
