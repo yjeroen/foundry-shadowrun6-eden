@@ -92,6 +92,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
                 this._prepareHostItems(context);
                 break;
             case "description":
+                if (this.deployedItem) break;
                 context.enriched.sculpting = await this._prepareEnrichedHTML(this.actor.system.sculpting);
                 context.enriched.outsiderAccess = await this._prepareEnrichedHTML(this.actor.system.outsiderAccess);
                 break;
@@ -107,6 +108,21 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         const systemFields = context.systemFields;
         const system = context.system;
         const limited = context.limited;
+
+        if (this.deployedItem) {
+            const itemSystem = this.deployedItem.system;
+            context.traits = [
+                {
+                    field: { label: game.i18n.localize("shadowrun6.item.type") },
+                    value: game.i18n.localize(`shadowrun6.itemtype.${itemSystem.type}`)
+                },
+                {
+                    field: { label: game.i18n.localize("shadowrun6.item.subtype") },
+                    value: game.i18n.localize(`shadowrun6.gear.subtype.${itemSystem.subtype}`)
+                },
+            ];
+            return;
+        }
 
         context.traits = [
             {

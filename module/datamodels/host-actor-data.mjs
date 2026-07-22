@@ -77,6 +77,7 @@ export default class SR6HostActorData extends SR6BaseActorData {
         this.parent.name += `//:${this.deployedItem.name}`;
         this.parent.img = this.deployedItem.img;
         this.description = this.deployedItem.system.description;
+        this.description = this.deployedItem.system.description;
         this.matrix.matrixCM = this.deployedItem.system.matrix.matrixCM;
         // Override Token Actor from Host
         this.matrix.attributes = this.parent.token.baseActor.system.matrix.attributes;
