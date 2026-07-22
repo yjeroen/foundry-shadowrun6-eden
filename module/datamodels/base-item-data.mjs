@@ -46,6 +46,7 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
 
     /**
      * The allowed sub types which may exist for SR6 ItemData.
+     * Only usable for datamodel validation, not for formInput/selectOptions
      * @type {string[]}
      */
     static get SUBTYPES() {
@@ -53,14 +54,6 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
             Object.values(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].subtypes)
                   .flatMap((subtypes) => Object.entries(subtypes))
         );
-    }
-
-    /**
-     * Actually allowed subTypes depending on the actors Type.
-     * This can be called by the selectOptions in the hbs
-     */
-    get subtypeSelectOptions() {
-        return CONFIG.SR6.NEW.ITEM_TYPES[this.constructor.metadata?.type].subtypes?.[this.type];
     }
 
     get actor() {

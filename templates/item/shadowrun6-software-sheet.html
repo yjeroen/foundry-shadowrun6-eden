@@ -23,10 +23,10 @@
                             {{selectOptions systemFields.type.choices selected=item.system.type localize=true blank="-"}}
                         </select>
                     </td>
-                    {{#if item.system.subtypeSelectOptions}}
+                    {{#if (lookup config.NEW.ITEM_TYPES.software.subtypes item.system.type)}}
                     <td style="text-align: center">
                         <select name="system.subtype" data-field="system.subtype" class="typeselect">
-                            {{selectOptions item.system.subtypeSelectOptions selected=item.system.subtype localize=true blank="-"}}
+                            {{selectOptions (lookup config.NEW.ITEM_TYPES.software.subtypes item.system.type) selected=item.system.subtype localize=true blank="-"}}
                         </select>
                     </td>
                     {{/if}}
