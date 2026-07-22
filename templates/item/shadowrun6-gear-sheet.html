@@ -400,12 +400,19 @@
                 </tr>
             </table>
             {{/if}}
+
             {{#if (ne item.system.type "MAGICAL")}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
             {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
             {{/if}}
+
+            {{#if installedInHost}}
+            <h3>{{localize 'SR6.Actor.sprite.FIELDS.description.label'}}</h3>
+            {{else}}
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            {{/if}}
             {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
+
     </section>
 </form>
 

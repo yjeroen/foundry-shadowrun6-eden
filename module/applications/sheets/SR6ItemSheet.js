@@ -118,6 +118,13 @@ export default class SR6ItemSheet extends ItemSheet {
 
             const hasHud = Object.keys(data.hud).length > 0;
             data.hud.show = hasHud;
+
+            if (this.item.actor?.type === "host") {
+                data.installedInHost = this.item.actor;
+            }
+            if (this.item.getFlag("shadowrun6-eden", "isDeployedItem")) {
+                data.isDeployedItem = true;
+            }
         }
 
         return data;
