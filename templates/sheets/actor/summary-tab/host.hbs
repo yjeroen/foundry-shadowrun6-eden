@@ -1,3 +1,10 @@
+{{#if host.attributeError}}
+<div class="error">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>{{{host.attributeError}}}</span>
+</div>
+{{/if}}
+
 <div class="row ic">
     <span class="label">{{localize "SR6.Actor.host.ic.label"}}:</span>
     <p>
