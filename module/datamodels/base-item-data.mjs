@@ -41,7 +41,7 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
      * @type {string[]}
      */
     static get TYPES() {
-        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].types ?? [];
+        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].types ?? {};
     }
 
     /**
@@ -49,7 +49,18 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
      * @type {string[]}
      */
     static get SUBTYPES() {
-        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].subtypes?.[this.type] ?? [];
+        return Object.fromEntries(
+            Object.values(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].subtypes)
+                  .flatMap((subtypes) => Object.entries(subtypes))
+        );
+    }
+
+    /**
+     * Actually allowed subTypes depending on the actors Type.
+     * This can be called by the selectOptions in the hbs
+     */
+    get subtypeSelectOptions() {
+        return CONFIG.SR6.NEW.ITEM_TYPES[this.constructor.metadata?.type].subtypes?.[this.type];
     }
 
     get actor() {

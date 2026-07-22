@@ -25,25 +25,31 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
         };
     }
 
-    get host() {
-        if (this.parent.actor?.type !== "host") return null;
+    /** @inheritDoc */
+    static migrateData(source) {
+        const typeOptions = this.TYPES;
+        if (!Object.hasOwn(typeOptions, source.type)) source.type = undefined;
+        
+        const subtypeOptions = this.SUBTYPES;
+        if (!Object.hasOwn(subtypeOptions, source.subtype)) source.subtype = undefined;
 
-        return this.parent.actor;
+        return super.migrateData(source);
     }
 
     get installedCost() {
-        if (!this.host) return;
+        const price = this.price ?? 0;
+        if (this.actor?.type !== "host") return price;
 
-        const hostSystem = this.host.system;
+        const hostSystem = this.actor.system;
 
-        return Math.round( this.price??0 * hostSystem.rating * hostSystem.scale );
+        return Math.round( price * hostSystem.rating * hostSystem.scale );
     }
 
     get installedIn() {
+        if (["host", "Vehicle"].includes(this.actor?.type) && !this.embeddedInUuid) return this.actor;
+
         if (!this.embeddedInUuid || !this.actor) return undefined;
 
-        if (this.host && !this.embeddedInUuid) return this.actor;
-        
         const parsed = foundry.utils.parseUuid(this.embeddedInUuid);
         return this.actor.items.get(parsed.id);
     }
