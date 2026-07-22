@@ -18,7 +18,8 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         classes: ["host"],
         actions: {
             deployToken: this._onDeployToken,
-            retrieveToken: this._onRetrieveToken
+            retrieveToken: this._onRetrieveToken,
+            viewAnyDoc: this._viewAnyDoc
         },
     };
 
@@ -298,9 +299,35 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
      * Don't render an Edit Button on the Sheet if this is a Deployed Item
      */
     async _renderEditButton(options) {
-        if (this.deployedItem) return;
-        
-        await super._renderEditButton(options)
+        if (!this.deployedItem) return await super._renderEditButton(options)
+
+        const label = game.i18n.localize("SR6.Actor.host.matrixItems.editTitle");
+        const windowTitle = this.element.querySelector(".window-header .window-title");
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "header-control icon editDeployedItem";
+        editButton.dataset.tooltip = label;
+        editButton.setAttribute("aria-label", label);
+        editButton.dataset.action = "viewAnyDoc";
+        editButton.dataset.docUuid = this.deployedItem.uuid;
+        editButton.innerHTML = `<i class="fas fa-edit"></i>`;
+                
+        windowTitle.after(editButton);
+    }
+
+    /**
+     * Renders a document sheet based on a docUuid
+     *
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    static async _viewAnyDoc(event, target) {
+        const docUuid = target.dataset.docUuid;
+        const doc = await foundry.utils.fromUuid(docUuid);
+        console.log('JEROEN', docUuid)
+        console.log('JEROEN', doc)
+        doc.sheet.render(true);
     }
 
 }

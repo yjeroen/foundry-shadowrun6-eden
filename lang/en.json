@@ -2684,6 +2684,7 @@
         },
         "matrixItems": {
           "label": "Networked Icons",
+          "editTitle": "Edit this Networked Icon",
           "deployTitle": "Deploy this Matrix Icon",
           "retrieveTitle": "Retrieve this Matrix Icon",
           "deployed": "Deployed"
