@@ -143,7 +143,8 @@ Hooks.once("init", async function () {
      * @see sheets.SR6ItemSheet
      */
     Object.assign(CONFIG.Item.dataModels, {
-        mod: datamodels.SR6ModItemData
+        mod: datamodels.SR6ModItemData,
+        software: datamodels.SR6SoftwareItemData
     });
     CONFIG.Item.defaultType = "gear";
     CONFIG.Item.documentClass = documents.SR6Item;

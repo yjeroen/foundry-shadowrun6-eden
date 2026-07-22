@@ -72,11 +72,48 @@ export class SR6Config {
                     accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
                     weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
                     armor_mod: "SR6.Item.mod.TYPES.armor_mod",
-                    accessory_electronics:
-                        "SR6.Item.mod.TYPES.accessory_electronics",
+                    accessory_electronics: "SR6.Item.mod.TYPES.accessory_electronics",
                     visual_enhancement: "SR6.Item.mod.TYPES.visual_enhancement",
                     audio_enhancement: "SR6.Item.mod.TYPES.audio_enhancement",
                 },
+            },
+            software: {
+                types: {
+                    AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
+                    DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
+                    HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
+                    MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
+                    SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
+                    STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
+                    TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
+                    TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
+                    IC: "SR6.Item.software.TYPES.IC",
+                },
+                subtypes: {
+                    AUTOSOFT: {
+                        CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
+                        ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
+                        EVASION: "shadowrun6.autosoft_types.evasion",
+                        MANEUVER: "shadowrun6.autosoft_types.maneuver",
+                        STEALTH: "shadowrun6.autosoft_types.stealth",
+                        TARGETING: "shadowrun6.autosoft_types.targeting",
+                    },
+                    IC: {
+                        acid: "SR6.Item.software.SUBTYPES.acid",
+                        binder: "SR6.Item.software.SUBTYPES.binder",
+                        black: "SR6.Item.software.SUBTYPES.black",
+                        blaster: "SR6.Item.software.SUBTYPES.blaster",
+                        crash: "SR6.Item.software.SUBTYPES.crash",
+                        jammer: "SR6.Item.software.SUBTYPES.jammer",
+                        killer: "SR6.Item.software.SUBTYPES.killer",
+                        marker: "SR6.Item.software.SUBTYPES.marker",
+                        patrol: "SR6.Item.software.SUBTYPES.patrol",
+                        scramble: "SR6.Item.software.SUBTYPES.scramble",
+                        sparky: "SR6.Item.software.SUBTYPES.sparky",
+                        tarbaby: "SR6.Item.software.SUBTYPES.tarbaby",
+                        track: "SR6.Item.software.SUBTYPES.track"
+                    }
+                }
             },
         },
     };
@@ -1807,24 +1844,6 @@ export class SR6Config {
         exotic_weapons: "skill.exotic_weapons",
         athletics: "skill.athletics",
         engineering: "skill.engineering",
-    };
-    SOFTWARE_TYPES = {
-        AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
-        DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
-        HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
-        MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
-        SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
-        STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
-        TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
-        TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
-    };
-    AUTOSOFT_TYPES = {
-        CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
-        ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
-        EVASION: "shadowrun6.autosoft_types.evasion",
-        MANEUVER: "shadowrun6.autosoft_types.maneuver",
-        STEALTH: "shadowrun6.autosoft_types.stealth",
-        TARGETING: "shadowrun6.autosoft_types.targeting",
     };
     MATRIX_INITIATIVE_TYPES = {
         ar: "shadowrun6.matrixini.ar",

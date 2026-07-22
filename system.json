@@ -183,7 +183,8 @@
       "host": {}
     },
     "Item": {
-      "mod": {}
+      "mod": {},
+      "software": {}
     }
   }
 }

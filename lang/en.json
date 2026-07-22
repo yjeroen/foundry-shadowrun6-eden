@@ -1,5 +1,69 @@
 {
-	"Shadowrun6ActorSheetNPC": "Grunty",
+  "TYPES":{
+  		"Actor": {
+    		"Critter": "Critter",
+    		"NPC": "Grunt/NPC",
+    		"Player": "Player Character",
+    		"Spirit": "Spirit",
+    		"Vehicle": "Vehicle/Drone",
+        "sprite": "Sprite",
+        "host": "Host"
+  		},
+  		"Item": {
+    		"adeptpower": "Adept Power",
+    		"critterpower": "Critter Power",
+    		"complexform": "Complex Form",
+    		"spritepower": "Sprite Power",
+    		"contact" : "Contact",
+    		"echo": "Echo",
+        "focus": "Focus",
+    		"gear": "Gear",
+    		"lifestyle" : "Lifestyle",
+    		"martialartstyle": "Martial Art Style",
+    		"martialarttech": "Martial Art Technique",
+    		"metamagic": "Metamagic",
+    		"quality": "Quality",
+    		"ritual": "Ritual",
+    		"sin" : "SIN",
+    		"skill": "Language/Knowledge Skill",
+        "software": "Software",
+    		"spell": "Spell",
+    		"weapon": "Weapon",
+    		"mod": "Gear Mod"
+  	}
+  },
+  "ACTOR": {
+    "TypeCritter": "Critter",
+    "TypeNpc": "Grunt/NPC",
+    "TypePlayer": "Player Character",
+    "TypeSpirit": "Spirit",
+    "TypeVehicle": "Vehicle/Drone"
+  },
+  "ITEM": {
+    "TypeAdeptpower": "Adept Power",
+    "TypeCritterpower": "Critter Power",
+    "TypeComplexform": "Complex Form",
+    "TypeContact" : "Contact",
+    "TypeEcho": "Echo",
+    "TypeGear": "Gear",
+    "TypeLifestyle" : "Lifestyle",
+    "TypeMartialartstyle": "Martial Art Style",
+    "TypeMartialarttech": "Martial Art Technique",
+    "TypeMetamagic": "Metamagic",
+    "TypeQuality": "Quality",
+    "TypeRitual": "Ritual",
+    "TypeSin" : "SIN",
+    "TypeSkill": "Language/Knowledge Skill",
+    "TypeSpell": "Spell",
+    "TypeWeapon": "Weapon"
+  },
+  "SYSTEM": {
+    "Sidebar": {
+      "readme": "Patreon",
+      "bugs": "Report Bug",
+      "release_notes": "Release Notes"
+    }
+  },
 	"shadowrun6-eden": {
     "Shadowrun6ActorSheetPC": "SR6 PC Sheet",
     "Shadowrun6ActorSheetNPC": "SR6 NPC Sheet",
@@ -9,13 +73,6 @@
     "PDFSheet": "Read Only PDF Sheet"
   },
   "PDFSheet.no_src": "First Change the Sheet configuration to the Default PDF Page Sheet, configure the PDF url, and then switch it back to the Read Only PDF Sheet configuration.",
-  "SYSTEM": {
-    "Sidebar": {
-      "readme": "Patreon",
-      "bugs": "Report Bug",
-      "release_notes": "Release Notes"
-    }
-  },
   "PDF": {
     "folder": "Shadowrun 6e Rules",
     "page_abbr": "p.",
@@ -92,67 +149,10 @@
       "tarnished_star": "TS"
     }
   },
-  "ACTOR": {
-    "TypeCritter": "Critter",
-    "TypeNpc": "Grunt/NPC",
-    "TypePlayer": "Player Character",
-    "TypeSpirit": "Spirit",
-    "TypeVehicle": "Vehicle/Drone"
-  },
-  "ITEM": {
-    "TypeAdeptpower": "Adept Power",
-    "TypeCritterpower": "Critter Power",
-    "TypeComplexform": "Complex Form",
-    "TypeContact" : "Contact",
-    "TypeEcho": "Echo",
-    "TypeGear": "Gear",
-    "TypeLifestyle" : "Lifestyle",
-    "TypeMartialartstyle": "Martial Art Style",
-    "TypeMartialarttech": "Martial Art Technique",
-    "TypeMetamagic": "Metamagic",
-    "TypeQuality": "Quality",
-    "TypeRitual": "Ritual",
-    "TypeSin" : "SIN",
-    "TypeSkill": "Language/Knowledge Skill",
-    "TypeSpell": "Spell",
-    "TypeWeapon": "Weapon"
-  },
+	"Shadowrun6ActorSheetNPC": "Grunty",
   "QUALITY_CATEGORIES": {
     "ADVANTAGE": "Positive Quality",
     "DISADVANTAGE": "Negative Quality"
-  },
-  "TYPES":{
-  		"Actor": {
-    		"Critter": "Critter",
-    		"NPC": "Grunt/NPC",
-    		"Player": "Player Character",
-    		"Spirit": "Spirit",
-    		"Vehicle": "Vehicle/Drone",
-        "sprite": "Sprite",
-        "host": "Host"
-  		},
-  		"Item": {
-    		"adeptpower": "Adept Power",
-    		"critterpower": "Critter Power",
-    		"complexform": "Complex Form",
-    		"spritepower": "Sprite Power",
-    		"contact" : "Contact",
-    		"echo": "Echo",
-        "focus": "Focus",
-    		"gear": "Gear",
-    		"lifestyle" : "Lifestyle",
-    		"martialartstyle": "Martial Art Style",
-    		"martialarttech": "Martial Art Technique",
-    		"metamagic": "Metamagic",
-    		"quality": "Quality",
-    		"ritual": "Ritual",
-    		"sin" : "SIN",
-    		"skill": "Language/Knowledge Skill",
-        "software": "Software",
-    		"spell": "Spell",
-    		"weapon": "Weapon",
-    		"mod": "Gear Mod"
-  	}
   },
   "attrib": {
     "agi": "Agility",
@@ -2446,6 +2446,9 @@
         },
         "type": {
           "label": "Type"
+        },
+        "subtype": {
+          "label": "Subtype"
         }
       }
     },
@@ -2680,8 +2683,7 @@
         },
         "ic": {
           "label": "Installed IC",
-          "name": "IC",
-          "icAction": "Instruction Countermeasure Cybercombat"
+          "icAction": "Intrusion Countermeasure"
         },
         "matrixItems": {
           "label": "Networked Icons",
@@ -2695,6 +2697,7 @@
         }
       }
     },
+
     "Item": {
       "base": {
         "FIELDS": {
@@ -2769,8 +2772,40 @@
           "not_installed": "(not installed)",
           "uninstall": "Uninstall this Gear Mod"
         }
+      },
+      "software": {
+        "FIELDS": {
+          "price": {
+            "label": "Base Price"
+          },
+          "installedCost": {
+            "label": "Installed Cost"
+          },
+          "embeddedInUuid": {
+            "label": "Installed In"
+          }
+        },
+        "TYPES": {
+          "IC": "IC"
+        },
+        "SUBTYPES": {
+          "acid": "Acid",
+          "binder": "Binder",
+          "black": "Black IC",
+          "blaster": "Blaster",
+          "crash": "Crash",
+          "jammer": "Jammer",
+          "killer": "Killer",
+          "marker": "Marker",
+          "patrol": "Patrol",
+          "scramble": "Scramble",
+          "sparky": "Sparky",
+          "tarbaby": "Tarbaby",
+          "track": "Track"
+        }
       }
     },
+
     "label": {
       "name": "Name",
       "template": "TEMPLATE",

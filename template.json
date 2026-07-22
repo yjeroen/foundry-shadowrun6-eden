@@ -585,8 +585,7 @@
 			"adeptpower",
 			"spell",
 			"ritual",
-			"focus",
-			"software"
+			"focus"
 		],
 		"templates": {
 			"genesis": {
@@ -817,15 +816,6 @@
 				"genesis",
 				"skill-value"
 			]
-		},
-		"software": {
-			"templates": [
-				"genesis"
-			],
-			"type": "SOFTWARE",
-			"subtype": "AUTOSOFT",
-			"category": "", 
-			"rating": 1
 		},
 		"spell": {
 			"templates": [
