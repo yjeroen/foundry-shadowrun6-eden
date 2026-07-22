@@ -42,7 +42,14 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
      */
     static get TYPES() {
         return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].types ?? [];
-        return Object.keys(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type]?.types ?? {});
+    }
+
+    /**
+     * The allowed sub types which may exist for SR6 ItemData.
+     * @type {string[]}
+     */
+    static get SUBTYPES() {
+        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].subtypes?.[this.type] ?? [];
     }
 
     get actor() {
