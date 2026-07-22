@@ -1772,7 +1772,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .filter(([, action]) => {
                 if (action.isAwakened && !actor.isAwakened) return false;
                 if (action.isTechno && !actor.isTechno) return false;
-                if (action.hasSkill && !actor.system.skills[action.hasSkill].pool) return false;
+                if (action.hasSkill && !actor.system.skills?.[action.hasSkill]?.pool) return false;
                 return true;
             })
             .map(([actionId, action]) => ({
