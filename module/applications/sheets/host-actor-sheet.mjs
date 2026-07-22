@@ -29,7 +29,9 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         summary: {
              ...super.PARTS.summary,
             templates: [
-                "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host.hbs"
+                "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host.hbs",
+                "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host-host.hbs",
+                "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host-device.hbs",
             ]
         },
         network: {
@@ -68,13 +70,20 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         context = await super._preparePartContext(partId, context);
         this._prepareHeader(context);
         
-        if (this.deployedItem) context.deployedItem = this.deployedItem;
+        if (this.deployedItem) {
+            context.deployedItem = this.deployedItem;
+            context.installedIn = this.actor.token.baseActor;
+        }
 
         switch (partId) {
             case "summary":
                 context.statblock = this._statBlock();
                 context.host = this._hostContext();
-                this._prepareHostItems(context);
+                if (this.deployedItem) {
+                    context.enriched.description = await this._prepareEnrichedHTML(this.actor.system.description);
+                } else {
+                    this._prepareHostItems(context);
+                }
                 break;
             case "network":
                 context.tab = context.tabs[partId];
@@ -83,22 +92,8 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
                 this._prepareHostItems(context);
                 break;
             case "description":
-                context.enriched.sculpting = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.sculpting,
-                    {
-                        secrets: this.document.isOwner,
-                        rollData: this.actor.getRollData(),
-                        relativeTo: this.actor,
-                    }
-                );
-                context.enriched.outsiderAccess = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.outsiderAccess,
-                    {
-                        secrets: this.document.isOwner,
-                        rollData: this.actor.getRollData(),
-                        relativeTo: this.actor,
-                    }
-                );
+                context.enriched.sculpting = await this._prepareEnrichedHTML(this.actor.system.sculpting);
+                context.enriched.outsiderAccess = await this._prepareEnrichedHTML(this.actor.system.outsiderAccess);
                 break;
         }
         return context;
@@ -190,46 +185,56 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         return host;
     }
 
-    /** 
+    /**
      * @returns {Array} This Actor's Stat Block in the correct order
      */
     _statBlock() {
         const edit = this._editMode;
         const schema = this.actor.system.schema;
         const system = edit ? this.actor._source.system : this.actor.system;
-        return [
-            {
-                field: schema.getField('rating'),
+        const statBlock = [];
+
+        if (!this.deployedItem) {
+            statBlock.push({
+                field: schema.getField("rating"),
                 value: system.rating,
                 rollType: "attribute",
                 readOnly: true
-            },
+            });
+        }
+
+        statBlock.push(
             {
-                field: schema.getField('matrix.attributes.attack'),
+                field: schema.getField("matrix.attributes.attack"),
                 value: system.matrix.attributes.attack,
                 rollType: "attribute"
             },
             {
-                field: schema.getField('matrix.attributes.sleaze'),
+                field: schema.getField("matrix.attributes.sleaze"),
                 value: system.matrix.attributes.sleaze,
                 rollType: "attribute"
             },
             {
-                field: schema.getField('matrix.attributes.dataProcessing'),
+                field: schema.getField("matrix.attributes.dataProcessing"),
                 value: system.matrix.attributes.dataProcessing,
                 rollType: "attribute"
             },
             {
-                field: schema.getField('matrix.attributes.firewall'),
+                field: schema.getField("matrix.attributes.firewall"),
                 value: system.matrix.attributes.firewall,
                 rollType: "attribute"
-            },
-            // {
-            //     field: schema.getField('initiative.matrix'),
-            //     value: system.initiative.matrix[edit ? "rank" : "text"],
-            //     rollType: "initiative"
-            // },
-        ];
+            }
+        );
+
+        if (this.deployedItem) {
+            statBlock.push({
+                field: schema.getField("initiative.matrix"),
+                value: system.initiative.matrix[edit ? "rank" : "text"],
+                rollType: "initiative"
+            });
+        }
+
+        return statBlock;
     }
 
     /**
@@ -332,8 +337,6 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
     static async _viewAnyDoc(event, target) {
         const docUuid = target.dataset.docUuid;
         const doc = await foundry.utils.fromUuid(docUuid);
-        console.log('JEROEN', docUuid)
-        console.log('JEROEN', doc)
         doc.sheet.render(true);
     }
 

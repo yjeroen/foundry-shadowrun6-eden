@@ -2680,14 +2680,18 @@
         },
         "ic": {
           "label": "Installed IC",
-          "name": "IC"
+          "name": "IC",
+          "icAction": "Instruction Countermeasure Cybercombat"
         },
         "matrixItems": {
           "label": "Networked Icons",
           "editTitle": "Edit this Networked Icon",
           "deployTitle": "Deploy this Matrix Icon",
           "retrieveTitle": "Retrieve this Matrix Icon",
-          "deployed": "Deployed"
+          "rollTitle": "Roll using Host Attributes",
+          "deployed": "Deployed",
+          "installedIn": "Installed In",
+          "deviceAction": "Control Device"
         }
       }
     },

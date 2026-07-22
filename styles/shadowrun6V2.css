@@ -2970,3 +2970,7 @@ body.game .app a:hover .sr6-icon {
     text-decoration-line: line-through;
     text-decoration-color: var(--bg);
 }
+
+.sr6.host .stat-block .hostName {
+    text-transform: uppercase;
+}

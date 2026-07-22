@@ -1,0 +1,27 @@
+<div class="row">
+    <span class="label">{{localize "SR6.Actor.host.matrixItems.installedIn"}}:</span>
+    <span class="hostName">{{installedIn.name}}</span>
+    {{#if owner}}
+    <a class="item-control item-edit" data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Actor.host')}}" data-action="viewAnyDoc" data-doc-uuid="{{installedIn.uuid}}">
+        <i class="fas fa-edit"></i>
+    </a>
+    {{/if}}
+</div>
+
+{{#if deployedItem.system.skill}}
+<div class="row">
+    <span class="label">{{localize "SR6.Actor.host.matrixItems.deviceAction"}}:</span>
+    <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{deployedItem.id}}" data-uuid="{{deployedItem.uuid}}">
+        <i class="fas fa-dice-six"></i>
+    </a>
+</div>
+{{/if}}
+
+{{#if enriched.description}}
+<div class="row rich-html">
+    <div class="label">{{localize "SR6.Actor.Tabs.description"}}:</div>
+    <div>
+        {{{enriched.description}}}
+    </div>
+</div>
+{{/if}}
