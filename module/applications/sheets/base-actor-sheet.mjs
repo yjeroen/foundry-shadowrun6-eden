@@ -193,27 +193,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 break;
             case "description":
                 context.tab = context.tabs[partId];
-                // Enrich description info for display
-                // Enrichment turns text like `[[/r 1d20]]` into buttons
-                context.enriched.description = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.description,
-                    {
-                        // Whether to show secret blocks in the finished html
-                        secrets: this.document.isOwner,
-                        // Data to fill in for inline rolls
-                        rollData: this.actor.getRollData(),
-                        // Relative UUID resolution
-                        relativeTo: this.actor,
-                    }
-                );
-                context.enriched.notes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.notes,
-                    {
-                        secrets: this.document.isOwner,
-                        rollData: this.actor.getRollData(),
-                        relativeTo: this.actor,
-                    }
-                );
+                context.enriched.description = await this._prepareEnrichedHTML(this.actor.system.description);
+                context.enriched.notes = await this._prepareEnrichedHTML(this.actor.system.notes);
                 break;
             case "effects":
                 context.tab = context.tabs[partId];
@@ -226,6 +207,27 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 break;
         }
         return context;
+    }
+
+    /**
+     * Prepare a richHTML attribute for enriched TextEditor output
+     * Enrich description info for display
+     * Enrichment turns text like `[[/r 1d20]]` into buttons
+     * @param {*} attribute 
+     * @returns TextEditor.implementation.enrichHTML
+     */
+    async _prepareEnrichedHTML(attribute) {
+        return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    attribute,
+                    {
+                        // Whether to show secret blocks in the finished html
+                        secrets: this.document.isOwner,
+                        // Data to fill in for inline rolls
+                        rollData: this.actor.getRollData(),
+                        // Relative UUID resolution
+                        relativeTo: this.actor,
+                    }
+                );
     }
 
     /**
