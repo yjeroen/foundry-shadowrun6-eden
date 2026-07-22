@@ -43,6 +43,7 @@ export default class SR6HostActorData extends SR6BaseActorData {
                     firewall: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
                 }),
                 // Adding matrixCM here in prepareDerivedData() in case the Token represents an Item ??
+                matrixCM: new srFields.SR6ConditionMonitorField(),
             }),
            
             initiative: new fields.SchemaField({
@@ -57,12 +58,20 @@ export default class SR6HostActorData extends SR6BaseActorData {
         return deployedItem;
     }
 
+    /**
+     * Apply transformations of derivations to the values of the source data object.
+     * Compute data fields whose values are not stored to the database.
+     *
+     * Called before {@link ClientDocument#prepareDerivedData} in {@link ClientDocument#prepareData}.
+     */
     prepareDerivedData() {
         super.prepareDerivedData();
 
         this._prepareMatrixInitiative();
 
         this.parent.name = `//${this.parent._source.name}`;
+        this.matrix.matrixCM = undefined;
+
         if (!this.deployedItem || !this.parent.token) return;
         // Override Actor
         this.parent.name += `//:${this.deployedItem.name}`;
@@ -82,6 +91,36 @@ export default class SR6HostActorData extends SR6BaseActorData {
             this.initiative.formula = "@initiative.matrix.rank";
         }
 
+    }
+
+    /**
+     * Called by {@link ClientDocument#_preUpdate}.
+     *
+     * @param {object} changes            The candidate changes to the Document
+     * @param {object} options            Additional options which modify the update request
+     * @param {documents.BaseUser} user   The User requesting the document update
+     * @returns {Promise<boolean|void>}   A return value of false indicates the update operation should be cancelled.
+     * @protected
+     * @internal
+     */
+    async _preUpdate(changes, options, user) {
+        await super._preUpdate(changes, options, user);
+        if (!this.deployedItem || !this.parent.token) return;
+
+        this._updateDeployedItem(changes, options, user);
+    }
+
+    /**
+     * Sending matrixCM changes to the Deployed Item
+     */
+    async _updateDeployedItem(changes, options, user) {
+        if (!changes.system?.matrix?.matrixCM) return;
+        console.log("SR6E | SR6HostActorData._updateDeployedItem");
+
+        const matrixCM = changes.system.matrix.matrixCM;
+        this.deployedItem.update({
+            "system.matrix.matrixCM": matrixCM
+        });
     }
 
 
