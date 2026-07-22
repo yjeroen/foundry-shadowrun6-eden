@@ -86,6 +86,10 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
         return this.health.overflow.dmg >= this.health.overflow.max;
     }
 
+    get actor() {
+        return this.parent;
+    }
+
     /**
      * Prepare data related to this DataModel itself, before any derived data is computed.
      *
