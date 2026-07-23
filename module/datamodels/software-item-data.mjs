@@ -22,6 +22,7 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
         return {
             ...super.defineSchema(),
             subtype: new fields.StringField({required: false, choices: this.SUBTYPES}),
+            multiTypes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: this.MULTITYPES})),
         };
     }
 
@@ -38,7 +39,7 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
 
     get installedCost() {
         const price = this.price ?? 0;
-        if (this.actor?.type !== "host") return price;
+        if (this.actor?.type !== "host" || this.type !== "IC") return price;
 
         const hostSystem = this.actor.system;
 

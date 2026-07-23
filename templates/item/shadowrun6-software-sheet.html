@@ -1,4 +1,4 @@
-<form class="flexcol {{cssClass}}" autocomplete="off">
+<form class="flexcol {{cssClass}} software" autocomplete="off">
 {{> "systems/shadowrun6-eden/templates/item/item-sheet-header.hbs" }}
 
     {{!-- Sheet Body --}}
@@ -6,14 +6,14 @@
         <div class="section" style="display: inline-block; margin: 5px; min-width: 580px;">
             <table>
                 <tr>
-                    <th>{{localize 'shadowrun6.item.type'}}</th>
+                    <th>{{systemFields.type.label}}</th>
                     {{#if (lookup config.NEW.ITEM_TYPES.software.subtypes item.system.type)}}
-                    <th>{{localize 'shadowrun6.item.subtype'}}</th>
+                    <th>{{systemFields.subtype.label}}</th>
                     {{/if}}
-                    <th>{{localize systemFields.embeddedInUuid.label}}</th>
-                    <th>{{localize 'SR6.Item.mod.FIELDS.rating.label'}}</th>
-                    <th>{{localize 'shadowrun6.item.availability'}}</th>
-                    <th>{{localize 'shadowrun6.item.price'}}</th>
+                    {{#if (eq item.system.type "IC")}}
+                    <th>{{systemFields.multiTypes.label}}</th>
+                    {{/if}}
+                    <th>{{systemFields.embeddedInUuid.label}}</th>
                 </tr>
                 <tr>
                     <td style="text-align: center">
@@ -30,6 +30,11 @@
                         </select>
                     </td>
                     {{/if}}
+                    {{#if (eq item.system.type "IC")}}
+                    <td>
+                        {{formInput systemFields.multiTypes value=item.system.multiTypes choices=config.NEW.ITEM_TYPES.software.MULTITYPES rootId=document.sheet.id classes="ic-types" localize=true}}
+                    </td>
+                    {{/if}}
                     <td class="item-modded">
                         {{#if item.system.installedIn}}
                         <div class="item" data-item-id="{{item.id}}">
@@ -43,9 +48,24 @@
                         <div>{{localize 'SR6.Item.mod.label.not_installed'}}</div>
                         {{/if}}
                     </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>{{systemFields.rating.label}}</th>
+                    <th>{{systemFields.availDef.label}}</th>
+                    <th>{{systemFields.price.label}}</th>
+                    {{#if (ne item.system.price item.system.installedCost)}}
+                    <th>{{localize 'SR6.Item.software.FIELDS.installedCost.label'}}</th>
+                    {{/if}}
+                </tr>
+                <tr>
                     <td style="text-align: center"><input type="text" value="{{item.system.rating}}" data-field="system.rating" class="box centered" style="width: 2.4em"/></td>
                     <td style="text-align: center"><input type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" style="width: 2.4em" /></td>
                     <td style="text-align: center"><span class="input-symbol-nuyen"><input type="number" value="{{item.system.price}}" data-field="system.price" min="0" class="box centered" style="width: 5em" /></span></td>
+                    {{#if (ne item.system.price item.system.installedCost)}}
+                    <td style="text-align: center">{{nuyen item.system.installedCost}}</td>
+                    {{/if}}
                 </tr>
             </table>
             {{#if (eq item.system.type "IC")}}

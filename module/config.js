@@ -68,7 +68,7 @@ export class SR6Config {
         },
         ITEM_TYPES: {
             mod: {
-                types: {
+                TYPES: {
                     accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
                     weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
                     armor_mod: "SR6.Item.mod.TYPES.armor_mod",
@@ -78,7 +78,7 @@ export class SR6Config {
                 },
             },
             software: {
-                types: {
+                TYPES: {
                     AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
                     DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
                     HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
@@ -89,7 +89,7 @@ export class SR6Config {
                     TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
                     IC: "SR6.Item.software.TYPES.IC",
                 },
-                subtypes: {
+                SUBTYPES: {
                     AUTOSOFT: {
                         CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
                         ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
@@ -97,22 +97,22 @@ export class SR6Config {
                         MANEUVER: "shadowrun6.autosoft_types.maneuver",
                         STEALTH: "shadowrun6.autosoft_types.stealth",
                         TARGETING: "shadowrun6.autosoft_types.targeting",
-                    },
-                    IC: {
-                        acid: "SR6.Item.software.SUBTYPES.acid",
-                        binder: "SR6.Item.software.SUBTYPES.binder",
-                        black: "SR6.Item.software.SUBTYPES.black",
-                        blaster: "SR6.Item.software.SUBTYPES.blaster",
-                        crash: "SR6.Item.software.SUBTYPES.crash",
-                        jammer: "SR6.Item.software.SUBTYPES.jammer",
-                        killer: "SR6.Item.software.SUBTYPES.killer",
-                        marker: "SR6.Item.software.SUBTYPES.marker",
-                        patrol: "SR6.Item.software.SUBTYPES.patrol",
-                        scramble: "SR6.Item.software.SUBTYPES.scramble",
-                        sparky: "SR6.Item.software.SUBTYPES.sparky",
-                        tarbaby: "SR6.Item.software.SUBTYPES.tarbaby",
-                        track: "SR6.Item.software.SUBTYPES.track"
                     }
+                },
+                MULTITYPES: {
+                    acid: "SR6.Item.software.MULTITYPES.acid",
+                    binder: "SR6.Item.software.MULTITYPES.binder",
+                    black: "SR6.Item.software.MULTITYPES.black",
+                    blaster: "SR6.Item.software.MULTITYPES.blaster",
+                    crash: "SR6.Item.software.MULTITYPES.crash",
+                    jammer: "SR6.Item.software.MULTITYPES.jammer",
+                    killer: "SR6.Item.software.MULTITYPES.killer",
+                    marker: "SR6.Item.software.MULTITYPES.marker",
+                    patrol: "SR6.Item.software.MULTITYPES.patrol",
+                    scramble: "SR6.Item.software.MULTITYPES.scramble",
+                    sparky: "SR6.Item.software.MULTITYPES.sparky",
+                    tarbaby: "SR6.Item.software.MULTITYPES.tarbaby",
+                    track: "SR6.Item.software.MULTITYPES.track"
                 }
             },
         },

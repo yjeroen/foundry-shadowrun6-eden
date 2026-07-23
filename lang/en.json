@@ -2780,12 +2780,15 @@
           },
           "embeddedInUuid": {
             "label": "Installed In"
+          },
+          "multiTypes": {
+            "label": "IC Program"
           }
         },
         "TYPES": {
           "IC": "IC"
         },
-        "SUBTYPES": {
+        "MULTITYPES": {
           "acid": "Acid",
           "binder": "Binder",
           "black": "Black IC",

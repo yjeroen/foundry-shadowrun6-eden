@@ -75,17 +75,13 @@
             {{/if}}
           </div>
 
-          <div class="section-column item-controls"> 
-            <a
-              class="item-control draggable"
-              data-tooltip="{{skillHint actor item.system.skill 'resonance'}}"
-              data-action="roll"
-              data-roll-type="item"
-              data-item-id="{{item.id}}"
-              data-uuid="{{item.uuid}}"
-            >
-              <i class="fas fa-dice-six"></i>
-            </a>
+          <div class="section-column item-controls">
+
+            {{#if item.isDeployedItem}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
+            {{else}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
+            {{/if}}
 
             <a
               class="item-control item-edit"
@@ -104,6 +100,9 @@
                 <i class="fas fa-trash"></i>
               </a>
             {{/if}}
+
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+            
           </div>
         </div>
 
@@ -215,6 +214,11 @@
                 <i class="fas fa-trash"></i>
               </a>
             {{/if}}
+
+            {{#if item.system.skill}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+            {{/if}}
+
           </div>
         </div>
 

@@ -41,7 +41,7 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
      * @type {string[]}
      */
     static get TYPES() {
-        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].types ?? {};
+        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].TYPES ?? {};
     }
 
     /**
@@ -51,9 +51,17 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
      */
     static get SUBTYPES() {
         return Object.fromEntries(
-            Object.values(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].subtypes)
-                  .flatMap((subtypes) => Object.entries(subtypes))
+            Object.values(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].SUBTYPES)
+                  .flatMap((SUBTYPES) => Object.entries(SUBTYPES))
         );
+    }
+
+    /**
+     * The allowed multi types which may exist for SR6 ItemData.
+     * @type {string[]}
+     */
+    static get MULTITYPES() {
+        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].MULTITYPES ?? {};
     }
 
     get actor() {

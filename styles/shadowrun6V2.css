@@ -2974,3 +2974,25 @@ body.game .app a:hover .sr6-icon {
 .sr6.host .stat-block .hostName {
     text-transform: uppercase;
 }
+
+.sr6.host .section-header,
+.sr6.host .section-row {
+    grid-template-columns: 1.25rem 1fr 4em 5em;
+}
+.sr6.host .section-row {
+    padding-right: 0;
+}
+.sr6.host .section-column.item-controls {
+    justify-content: flex-start;
+}
+
+.item .software .ic-types {
+    flex-direction: row-reverse;
+}
+.item .software .ic-types .tags.input-element-tags {
+    width: 50%;
+    justify-content: flex-start;
+}
+.item .software .ic-types .tags.input-element-tags .tag {
+    font-size: var(--font-size-14);
+}
