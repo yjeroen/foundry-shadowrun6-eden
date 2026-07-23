@@ -147,7 +147,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         const matrixItems = [];
 
         for (let i of this.document.items) {
-            if (i.type === "ic") {
+            if (i.system.isIC) {
                 ic.push(i);
             }
         }
@@ -267,7 +267,11 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
 
         if (document.documentName === "Item") {
             console.log("SR6E | _onDropDocument() | Validating if this item is allowed to be dropped:", document.type, document.system.isElectronicMatrixDevice);
-            if (!document.system.isElectronicMatrixDevice) {
+            if (
+                !document.system.isElectronicMatrixDevice &&
+                !document.system.isIC
+
+            ) {
                 ui.notifications.error("shadowrun6.ui.notifications.item_not_allowed_to_be_dropped", { localize: true });
                 return null;
             }

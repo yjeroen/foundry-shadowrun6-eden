@@ -54,4 +54,12 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
         return this.actor.items.get(parsed.id);
     }
 
+    get isIC() {
+        return Boolean(this.type === "IC");
+    }
+    
+    get isElectronicMatrixDevice() {
+        return Boolean(this.actor?.type === "host");
+    }
+
 }
