@@ -7,7 +7,7 @@
             <table>
                 <tr>
                     <th>{{localize 'shadowrun6.item.type'}}</th>
-                    {{#if item.system.subtypeSelectOptions}}
+                    {{#if (lookup config.NEW.ITEM_TYPES.software.subtypes item.system.type)}}
                     <th>{{localize 'shadowrun6.item.subtype'}}</th>
                     {{/if}}
                     <th>{{localize systemFields.embeddedInUuid.label}}</th>
@@ -48,8 +48,8 @@
                     <td style="text-align: center"><span class="input-symbol-nuyen"><input type="number" value="{{item.system.price}}" data-field="system.price" min="0" class="box centered" style="width: 5em" /></span></td>
                 </tr>
             </table>
-            {{#if installedInHost}}
-            <h3>{{localize 'SR6.Actor.sprite.FIELDS.description.label'}}</h3>
+            {{#if (eq item.system.type "IC")}}
+            <h3>{{localize 'SR6.Actor.matrixBase.FIELDS.description.label'}}</h3>
             {{else}}
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{/if}}

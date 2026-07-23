@@ -2625,9 +2625,6 @@
           },
           "registered": {
             "label": "Registered"
-          },
-          "description": {
-            "label": "Icon Description"
           }
         },
         "notes": {
