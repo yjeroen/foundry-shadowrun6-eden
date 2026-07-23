@@ -1,0 +1,31 @@
+.sr6-enricher-roll {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 1px 4px;
+    color: inherit;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sr6-enricher-roll:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sr6-enricher-roll i {
+    margin-right: 3px;
+    color: var(--highlight-color);
+}
+
+.sr6-enricher-condition {
+    border-bottom: 1px dotted #999;
+    cursor: help;
+    font-weight: bold;
+    color: inherit;
+}
+
+.sr6-enricher-condition:hover {
+    border-bottom-color: var(--highlight-color);
+}

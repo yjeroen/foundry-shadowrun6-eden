@@ -32,6 +32,9 @@ import * as datamodels from "./datamodels/_module.mjs";
 import * as documents from "./documents/_module.mjs";
 import * as applications from "./applications/_module.mjs";
 import * as rollTypes from "./dice/RollTypes.js";
+// Import Enrichers
+import { SR6Enrichers } from "./enrichers/SR6Enrichers.js";
+import { onSR6EnricherClick } from "./enrichers/SR6EnricherEvents.js";
 
 /**
  * Init hook. Called from Foundry when initializing the world
@@ -354,7 +357,9 @@ Hooks.once("init", async function () {
         releaseNoteLink.addEventListener("click", (e) => {
             game.sr6.releaseNotes({force: true});
         });
-        
+        // Delegate click events for all SR6 enrichers
+        document.addEventListener("click", onSR6EnricherClick);
+
         document.body.addEventListener("dragstart", event => {
             if ( event.target?.closest?.("a[data-sr6-link]") ) utils.onDragSR6Link(event);
         });
@@ -977,6 +982,8 @@ Hooks.once("init", async function () {
         systemInfo?.after(document.createElement("hr"));
     });
 
+    // Register custom text enrichers
+    SR6Enrichers.register();
 });
 
 /**
