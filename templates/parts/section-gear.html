@@ -46,5 +46,42 @@
 			</td>
 		</tr>
 		{{/each}}
+
+		{{#if (eq geartype "SOFTWARE")}}
+		{{!-- TODO Rework once Software is migrated from gear item.type to software --}}
+		{{#each actor.itemTypes.software as |item id|}}
+		<tr class="item list-item" data-item-id="{{item.id}}">
+			<td style="margin-right: 1rem; width: 0.7em;">
+				<button type="button" name="collapseGear{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>
+			</td>
+			<td style="height:20px;"> {{item.name}}</td>
+			<td style="width: 2em" class="centered">
+			{{#if item.system.needsRating}}
+			<input name= "gearRating{{id}}" style="padding:0px" type="text" value="{{item.system.rating}}" data-field="system.rating" title="{{item.system.rating}}"/>
+			{{else}}
+			-
+			{{/if}}
+			</td>
+			<td style="width: 2em" class="centered">
+			{{#if item.system.countable}}
+			<input name="gearCount{{id}}" type="text" value="{{item.system.count}}" data-field="system.count" title="{{item.system.count}}"/>
+			{{else}}
+			1
+			{{/if}}
+			</td>
+			<td class="centered">
+				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
+				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5">
+			{{> "systems/shadowrun6-eden/templates/sheets/common/collapsible-content-item.hbs" item=item actor=actor}}
+			</td>
+		</tr>
+		{{/each}}
+		{{/if}}
+
+
 	</table>
 </div>
