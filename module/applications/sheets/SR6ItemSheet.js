@@ -19,7 +19,8 @@ export default class SR6ItemSheet extends ItemSheet {
             classes: ["shadowrun6", "sheet", "item"],
             dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}],
             width: null,
-            submitOnChange: false,  // Implemented manually via v10 listeners
+            // submitOnChange: false,  // Implemented manually via v10 listeners
+            submitOnChange: true,
         });
     }
     get template() {
@@ -181,16 +182,21 @@ export default class SR6ItemSheet extends ItemSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
+        // TODO JEROEN watch this change as `super.activateListeners` is enabled in 4.0.0, 
+        super.activateListeners(html);
+
         /*
         * Drag & Drop
         */
         html.find(".draggable").on("dragstart", async (event) => {
+            event.stopPropagation();
             const item = await fromUuidSync(event.currentTarget.dataset.uuid);
             console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
             event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
         }).attr("draggable", "true");
 
         html.find(".pdf-link a").click((event) => {
+            event.stopPropagation();
             const pdfUuid = event.currentTarget.dataset.pdfUuid;
             const pdfPage = event.currentTarget.dataset.pdfPage;
             game.sr6.utils.openPdfPage(pdfUuid, pdfPage);
@@ -234,8 +240,6 @@ export default class SR6ItemSheet extends ItemSheet {
             );
         }
 
-        // Unclear why super is called; TODO rework whole itemsheet so it uses Foundry listeners instead
-        // super.activateListeners(html);
         if (this.actor && this.actor.isOwner) {
             console.log("SR6E | is owner of actor");
         } else {
@@ -245,6 +249,7 @@ export default class SR6ItemSheet extends ItemSheet {
         // Owner Only Listeners
         if (this.actor && this.actor.isOwner) {
             html.find("[data-field]").change(async (event) => {
+                event.stopPropagation();
                 const element = event.currentTarget;
                 let value;
                 if (element.type == "checkbox") {
@@ -292,6 +297,7 @@ export default class SR6ItemSheet extends ItemSheet {
             );
         } else if (this.isEditable) {
             html.find("[data-field]").change(async (event) => {
+                event.stopPropagation();
                 const element = event.currentTarget;
                 let value;
                 if (element.type == "checkbox") {
@@ -323,6 +329,7 @@ export default class SR6ItemSheet extends ItemSheet {
         }
         // Attack Rating fields
         html.find("[data-array-field]").change(async (event) => {
+            event.stopPropagation();
             const element = event.currentTarget;
             const idx = parseInt(
                 $(event.currentTarget).closestData("index", "0")
@@ -370,6 +377,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @protected
      */
     _viewEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         const effect = this._getEffect(target);
         effect.sheet.render(true);
@@ -383,6 +391,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _createEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         // Retrieve the configured document class for ActiveEffect
         const aeCls = getDocumentClass("ActiveEffect");
@@ -419,6 +428,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @protected
      */
     async _deleteEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         console.log("SR6E | SR6ItemSheet | ActiveEffect _deleteEffect");
         const confirm = await foundry.applications.api.DialogV2.confirm({
@@ -450,6 +460,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _toggleEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         const effect = this._getEffect(target);
         await effect.update({ disabled: !effect.disabled });
@@ -485,6 +496,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _weaponReload(event) {
+        event.stopPropagation();
         console.log("SR6E | _onWeaponAmmoReload");
         event.preventDefault();
         const weapon = this.item;
@@ -502,6 +514,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _onTrackClick(event) {
+        event.stopPropagation();
         const target = event.target;       // div.slot
         const html = event.currentTarget;  // div.track
 
@@ -561,6 +574,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _selectInputText(event) {
+        event.stopPropagation();
         const target = event.target;
         const input = target.querySelector("input");;
         if (!input || input.readOnly || input.disabled) return;
@@ -641,6 +655,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @protected
      */
     async _onDrop(event) {
+        event.stopPropagation();
         const data = TextEditor.getDragEventData(event);
         const actor = this.actor;
         console.log("SR6E | SR6ItemSheet | _onDrop", event, data);
@@ -707,6 +722,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
 
     async _editItem(event) {
+        event.stopPropagation();
         const item = this._getItem(event);
         console.log("SR6E | Editing Item ", item);
         if (!item) throw new Error("Item is null");
@@ -715,6 +731,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
 
     async _deleteItem(event) {
+        event.stopPropagation();
         const confirm = await foundry.applications.api.DialogV2.confirm({
             window: { title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize("DOCUMENT.Item") }) },
             content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.localize("DOCUMENT.Item") })}</p>`,
@@ -736,6 +753,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
     
     async _uninstallMod(event) {
+        event.stopPropagation();
         const item = this._getItem(event);
         console.log("SR6E | Uninstalling Mod ", item);
         if (!item) throw new Error("Item is null");
@@ -747,6 +765,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
 
     async _collapsibleItems(event) {
+        event.stopPropagation();
         const element = event.currentTarget;
         // const itemId = this._getClosestData($(event.currentTarget), "item-id");
         const item = this._getItem(event);
