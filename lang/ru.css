@@ -16,6 +16,18 @@ body.game.foundry-modern .app {
   width: 745px;
 }
 
+/* .sr6.sheet.matrix-operations { */
+  /* width: 675px; */
+/* } */
+
 .shadowrun6.sheet.actor {
-  width: 945px;
+  width: 995px;
+}
+.sr6 .pan .section-header,
+.sr6 .pan .section-row {
+    grid-template-columns: minmax(0, 1fr) 8.75em 5em;
+}
+.sr6 .pan .pan-children .section-row,
+.sr6 .pan li[data-document-class="Item"] .section-row {
+    grid-template-columns: minmax(0, 1fr) max-content 8.75em 5em;
 }
