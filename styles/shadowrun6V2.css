@@ -2966,9 +2966,9 @@ body.game .app a:hover .sr6-icon {
     color: #333;
 }
 .sr6.host .deployed {
-    text-decoration: double;
-    text-decoration-line: line-through;
-    text-decoration-color: var(--bg);
+    text-shadow: 0 0 3px black;
+    color: grey;
+    opacity: 0.6;
 }
 
 .sr6.host .stat-block .hostName {
