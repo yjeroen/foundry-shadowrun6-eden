@@ -1,10 +1,3 @@
-
-/**
- * @import { DragDrop } from "@client/applications/ux/_module.mjs";
- * @import { Document } from "@common/abstract/_module.mjs";
- * @import { DrawSteelActiveEffect, DrawSteelActor, DrawSteelItem } from "../../documents/_module.mjs";
- */
-
 const { api, ux } = foundry.applications;
 
 /**
