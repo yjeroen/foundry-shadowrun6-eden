@@ -23,6 +23,9 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
             ...super.defineSchema(),
             subtype: new fields.StringField({required: false, choices: this.SUBTYPES}),
             multiTypes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: this.MULTITYPES})),
+            matrix: new fields.SchemaField({
+                matrixCM: new srFields.SR6ConditionMonitorField(),
+            }),
         };
     }
 
@@ -61,6 +64,18 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
     
     get isElectronicMatrixDevice() {
         return Boolean(this.actor?.type === "host");
+    }
+
+    /**
+     * Apply transformations of derivations to the values of the source data object.
+     * Compute data fields whose values are not stored to the database.
+     *
+     * Called before {@link ClientDocument#prepareDerivedData} in {@link ClientDocument#prepareData}.
+     */
+    prepareDerivedData() {
+        super.prepareDerivedData();
+
+        if (!this.isIC) this.matrix = undefined;
     }
 
 }

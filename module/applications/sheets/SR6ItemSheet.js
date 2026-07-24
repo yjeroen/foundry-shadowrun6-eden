@@ -98,17 +98,16 @@ export default class SR6ItemSheet extends ItemSheet {
             }
         }
 
-        if (this.item.type === "gear") {
-            const system = this.item.system;
+        const system = this.item.system;
+        if (system.isElectronicMatrixDevice) {
             data.gearConfig = this._getGearConfig();
             data.hud = {};
-
-            if (system.isElectronicMatrixDevice) {
-                data.hud.matrixCM = this._prepareConditionMonitors(system.matrix.matrixCM);
-                if (system.matrix.hasWirelessInterface) {
-                    data.hud.showWifi = true;
-                }
+            data.hud.matrixCM = this._prepareConditionMonitors(system.matrix.matrixCM);
+            
+            if (system.matrix.hasWirelessInterface) {
+                data.hud.showWifi = true;
             }
+
             if (CONFIG.SR6.GEAR.TYPES_WITH_AMMO.has(system.type) && system.subtype) {
                 data.hud.showAmmo = true;
             }
