@@ -2234,7 +2234,8 @@
         "notificationOnce": "This message will only show once during this browser session.",
         "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT.",
         "item_not_allowed_to_be_dropped": "This Item could not be added to this Actor as they aren't compatible.",
-        "needs_token_on_canvas": "This action requires a Token already on the canvas before it can be used."
+        "needs_token_on_canvas": "This action requires a Token already on the canvas before it can be used.",
+        "docName_docType": "{name} {type}"
       }
     },
     "EFFECT": {

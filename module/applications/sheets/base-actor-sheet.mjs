@@ -819,6 +819,17 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      */
     static async _deleteDoc(event, target) {
         const doc = this._getEmbeddedDocument(target);
+        const docType = game.i18n.localize(`DOCUMENT.${doc.documentName}`);
+        const docName = `<em>${doc.name}</em>`
+
+        const confirm = await foundry.applications.api.DialogV2.confirm({
+            window: { title: game.i18n.format("DOCUMENT.Delete", { type: docType }) },
+            content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.format("shadowrun6.ui.notifications.docName_docType", { name: docName, type: docType }) })}</p>`,
+            rejectClose: false,
+            modal: true
+        });
+        if(!confirm) return;
+
         await doc.delete();
         this.render();
     }
