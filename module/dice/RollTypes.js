@@ -567,7 +567,7 @@ export class MatrixActionRoll extends SkillRoll {
         if (actor.system instanceof foundry.abstract.DataModel) {
             action.attrib = CONFIG.SR6.ATTRIBUTE_TO_V2[action.attrib];
         }
-        this.attrib = actor.system.skills?.[skillId] ? `system.attributes.${action.attrib}.pool` : `system.rating`;
+        this.attrib = actor.system.skills?.[action.skill] ? `system.attributes.${action.attrib}.pool` : `system.rating`;
         this.skillId = action.skill;
         this.skillSpec = action.specialization;
         this.threshold = action.threshold;
