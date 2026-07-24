@@ -507,8 +507,9 @@ export class MatrixActionRoll extends SkillRoll {
     specialOption; // Can be set in the CONFIG.SR6.MATRIX_ACTIONS to pass things in chat messages
 
     constructor(actor, action, options={}) {
+        if (!action) throw console.error("SR6E | MatrixActionRoll | No proper action configured", action);
         super(actor.system, action.skill);
-        console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
+        console.log("SR6E | Constructing MatrixActionRoll", action.id, options);
         const {target, fromReferenceSection, limitedViewOverride} = options;
         
         this.actor = actor;
@@ -566,7 +567,7 @@ export class MatrixActionRoll extends SkillRoll {
         if (actor.system instanceof foundry.abstract.DataModel) {
             action.attrib = CONFIG.SR6.ATTRIBUTE_TO_V2[action.attrib];
         }
-        this.attrib = `system.attributes.${action.attrib}.pool`;
+        this.attrib = actor.system.skills?.[skillId] ? `system.attributes.${action.attrib}.pool` : `system.rating`;
         this.skillId = action.skill;
         this.skillSpec = action.specialization;
         this.threshold = action.threshold;
