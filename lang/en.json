@@ -1230,13 +1230,15 @@
         },
         "black": {
           "name": "Black IC",
-          "hint": "On a successful cybercombat attack, deal Matrix damage and biofeedback damage equal to the host rating plus net hits.",
+          "hint": "On a successful cybercombat attack, deal Matrix damage and Biofeedback damage equal to the host rating plus net hits.",
           "onFailedDefense.span": "incoming matrix and biofeedback",
           "onFailedDefense.button": "Roll Biofeedback"
         },
         "blaster": {
           "name": "Blaster",
-          "hint": "On a successful cybercombat attack, deal Matrix damage equal to the host rating and link-lock the target."
+          "hint": "On a successful cybercombat attack, deal Matrix damage equal to the host rating and link-lock the target.",
+          "onFailedDefense.span": "incoming matrix damage",
+          "onFailedDefense.button": "Soak damage (3M)"
         },
         "crash": {
           "name": "Crash",
@@ -1264,7 +1266,9 @@
         },
         "sparky": {
           "name": "Sparky",
-          "hint": "On a successful cybercombat attack, deal biofeedback damage equal to the host rating plus net hits."
+          "hint": "On a successful cybercombat attack, deal biofeedback damage equal to the host rating plus net hits.",
+          "onFailedDefense.span": "incoming biofeedback",
+          "onFailedDefense.button": "Roll Biofeedback"
         },
         "tarbaby": {
           "name": "Tar Baby",

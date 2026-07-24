@@ -3314,7 +3314,8 @@ export class SR6Config {
                 console.log("SR6 | black | onFailedDefense");
                 const { initiator, defender, hits, netHits } = resultData;
 
-                await defender.rollBiofeedbackDamage({
+                const actor = defender.actor ?? defender;
+                await actor.rollBiofeedbackDamage({
                     damage: this.getDamage(initiator) + netHits
                 });
                 return true;
@@ -3341,7 +3342,26 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
-            IC: true
+            IC: true,
+            
+            // This does Matrix Damage but no Net Hits so not using getDamage
+            async onFailedDefense(resultData) {
+                console.log("SR6 | black | onFailedDefense");
+                const { initiator, defender, hits, netHits } = resultData;
+
+                const damage = initiator.system.rating;
+                const target = defender;
+                const targetUuid = target.uuid;
+                const actor = defender.actor ?? defender;
+
+                await actor.rollSoak({
+                    soak: SoakType.DAMAGE_MATRIX,
+                    matrixTargetUuid: targetUuid,
+                    damage: damage
+                });
+                return true;
+            }
+
         },
         crash: {
             id: "crash",
@@ -3389,7 +3409,14 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
-            IC: true
+            IC: true,
+            
+            // This does Matrix Damage + Net Hits
+            getDamage: function (actor) {
+                const damage = actor.system.rating;
+                return damage;
+            }
+
         },
         marker: {
             id: "marker",
@@ -3453,7 +3480,19 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
-            IC: true
+            IC: true,
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | sparky | onFailedDefense");
+                const { initiator, defender, hits, netHits } = resultData;
+
+                const actor = defender.actor ?? defender;
+                await actor.rollBiofeedbackDamage({
+                    damage: initiator.system.rating + netHits
+                });
+                return true;
+            },
+
         },
         tarbaby: {
             id: "tarbaby",
