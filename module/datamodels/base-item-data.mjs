@@ -68,6 +68,10 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
         return this.parent.actor;
     }
 
+    get item() {
+        return this.parent;
+    }
+
     /**
      * Migrate candidate source data for this DataModel which may require initial cleaning or transformations.
      * The source parameter is either original data retrieved from disk or provided by an update operation.
