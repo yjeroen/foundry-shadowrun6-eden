@@ -520,12 +520,14 @@ table.spell-table td {
     justify-self: stretch;
     align-self: stretch;
     height: 100%;
-    min-height: 160px;
+    min-height: 2em;
     margin-bottom: 5px;
 }
+.read-only .editor,
 .locked .editor {
   min-height: max-content;
 }
+
 .shadowrun6.item .editor {
   min-height: 50px;
   max-width: 580px;

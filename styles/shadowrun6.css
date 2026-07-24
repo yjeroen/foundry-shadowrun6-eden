@@ -711,6 +711,9 @@
   text-align: right;
   min-width: 70px;
 }
+.matrix-section .skill-pool .fas {
+  margin-bottom: 2px;
+}
 
 .matrix-offline {
   color: darkred;
