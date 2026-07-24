@@ -59,7 +59,7 @@ export default class SR6HostActorData extends SR6BaseActorData {
     }
 
     get isDeployedIC() {
-        return Boolean(this.deployedItem?.isIC)
+        return Boolean(this.deployedItem?.system.isIC)
     }
 
     /**

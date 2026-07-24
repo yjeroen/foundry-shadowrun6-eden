@@ -3262,8 +3262,9 @@ export class SR6Config {
             threshold: 0,
             targets: ["persona", "device", "physical"]
         },
-        ic_acid: {
-            id: "ic_acid",
+        
+        acid: {
+            id: "acid",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3278,8 +3279,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_binder: {
-            id: "ic_binder",
+        binder: {
+            id: "binder",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3294,8 +3295,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_black: {
-            id: "ic_black",
+        black: {
+            id: "black",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3310,8 +3311,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_blaster: {
-            id: "ic_blaster",
+        blaster: {
+            id: "blaster",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3326,8 +3327,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_crash: {
-            id: "ic_crash",
+        crash: {
+            id: "crash",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3342,8 +3343,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_jammer: {
-            id: "ic_jammer",
+        jammer: {
+            id: "jammer",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3358,8 +3359,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_killer: {
-            id: "ic_killer",
+        killer: {
+            id: "killer",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3374,8 +3375,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_marker: {
-            id: "ic_marker",
+        marker: {
+            id: "marker",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3390,8 +3391,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_patrol: {
-            id: "ic_patrol",
+        patrol: {
+            id: "patrol",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3406,8 +3407,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_scramble: {
-            id: "ic_scramble",
+        scramble: {
+            id: "scramble",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3422,8 +3423,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_sparky: {
-            id: "ic_sparky",
+        sparky: {
+            id: "sparky",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3438,8 +3439,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_tarbaby: {
-            id: "ic_tarbaby",
+        tarbaby: {
+            id: "tarbaby",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
@@ -3454,8 +3455,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_track: {
-            id: "ic_track",
+        track: {
+            id: "track",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",

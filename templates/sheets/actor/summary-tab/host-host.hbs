@@ -2,7 +2,7 @@
     <span class="label">{{localize "SR6.Actor.host.ic.label"}}:</span>
     <p>
         {{#each ic as |item|}}
-            <label class="item-name" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            <label class="item-name {{#if item.isDeployedItem}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
@@ -15,8 +15,8 @@
             {{/if}}
             
             {{#each item.system.multiTypes as |matrixActionId|}}
-            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="ic_{{matrixActionId}}"
-                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name"))}}"
+            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="{{matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction." matrixActionId ".name"))}}"
             >
                 <i class="fas fa-dice-six"></i>
             </a>
@@ -32,8 +32,8 @@
             <div class="ic-programs">
                 {{#each item.system.multiTypes as |matrixActionId|}}
                 <div class="ic-program">
-                    <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</div>
-                    <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".hint")}}</div>
+                    <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}}</div>
+                    <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".hint")}}</div>
                 </div>
                 {{/each}}
             </div>

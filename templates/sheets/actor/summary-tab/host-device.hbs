@@ -13,10 +13,10 @@
     <span class="label">{{localize "SR6.Item.software.FIELDS.multiTypes.label"}}:</span>
     <p>
         {{#each deployedItem.system.multiTypes as |matrixActionId|}}
-            <label class="item-name" data-item-id="{{matrixActionId}}" data-action='itemDescToggle'>{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</label>            
+            <label class="item-name" data-item-id="{{matrixActionId}}" data-action='itemDescToggle'>{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}}</label>            
             
-            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="ic_{{matrixActionId}}"
-                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name"))}}"
+            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="{{matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction." matrixActionId ".name"))}}"
             >
                 <i class="fas fa-dice-six"></i>
             </a>
@@ -26,8 +26,8 @@
     </p>
     {{#each deployedItem.system.multiTypes as |matrixActionId|}}
         <div class="collapsible-content closed" data-item-id="{{matrixActionId}}">
-            <div><strong>{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}} {{ localize 'shadowrun6.item.description' }}</strong></div>
-            <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".hint")}}</div>
+            <div><strong>{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}} {{ localize 'shadowrun6.item.description' }}</strong></div>
+            <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".hint")}}</div>
         </div>
     {{/each}}
 </div>

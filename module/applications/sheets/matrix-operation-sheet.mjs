@@ -141,7 +141,10 @@ export class SR6MatrixOperationSheet extends MatrixSheetMixin( HandlebarsApplica
 
         const matrixActions = actions
             .filter((action) => {
+                if (action.IC && this.initiator.system.deployedItem?.system.multiTypes?.has(action.id)) return true;
                 if (action.IC && !this.initiator.system.isDeployedIC) return false;
+                if (this.initiator.system.isDeployedIC) return false;
+
                 if (action.skill === "cracking" && !crackingPool) return false;
                 if (action.linkedAttr === null || action.linkedAttr === undefined) return true;
                 if (action.linkedAttr === "a" && persona?.used?.a > 0) return true;

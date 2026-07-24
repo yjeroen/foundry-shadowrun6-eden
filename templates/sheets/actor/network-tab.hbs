@@ -99,8 +99,8 @@
             <a
                 class="item-control matrix-roll"
                 data-action="matrixRoll"
-                data-matrix-id="ic_{{item.matrixActionId}}"
-                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction.ic_" item.matrixActionId ".name"))}}"
+                data-matrix-id="{{item.matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction." item.matrixActionId ".name"))}}"
             >
                 <i class="fas fa-dice-six"></i>
             </a>
@@ -115,8 +115,8 @@
           <div class="ic-programs">
               {{#each item.system.multiTypes as |matrixActionId|}}
               <div class="ic-program">
-                  <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</div>
-                  <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".hint")}}</div>
+                  <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}}</div>
+                  <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".hint")}}</div>
               </div>
               {{/each}}
           </div>

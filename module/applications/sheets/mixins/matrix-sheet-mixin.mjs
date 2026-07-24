@@ -21,7 +21,9 @@ export const MatrixSheetMixin = Base => class extends Base {
         const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
             .filter(([actionId, action]) => {
+                if (action.IC && this.initiator.system.deployedItem?.system.multiTypes?.has(action.id)) return true;
                 if (action.IC && !this.initiator.system.isDeployedIC) return false;
+                if (this.initiator.system.isDeployedIC) return false;
 
                 if (this.document.limited || this.options.limited) {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
@@ -40,12 +42,13 @@ export const MatrixSheetMixin = Base => class extends Base {
                 return false;
             })
             .map(([actionId, action]) => {
+                const defaultTestPool = system.isDeployedIC ? system.rating * 2 : system.skills?.[action.skill].defaultTestPool;
                 return {
                     id: actionId,
                     ...action,
                     name: game.i18n.localize(`shadowrun6.matrixaction.${actionId}.name`),
                     //TODO JEROEN: Add specialization support
-                    testPool: action.skill ? system.skills?.[action.skill].defaultTestPool : null,
+                    testPool: action.skill ? defaultTestPool : null,
                     skillName: action.skill ? game.i18n.localize(`skill.${action.skill}`) + ` (${game.i18n.localize(`shadowrun6.special.${action.skill}.${action.specialization}`)})` : null,
                 };
             })
