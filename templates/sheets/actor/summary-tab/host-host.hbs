@@ -100,3 +100,12 @@
     {{else}}{{span system.convergenceThreshold systemFields.convergenceThreshold}}{{/if}}
     <span>{{localize "SR6.Actor.base.FIELDS.matrix.overwatchScore.label_short"}}</span>
 </div>
+
+{{#if enriched.notes}}
+<div class="row rich-html">
+    <div class="label">{{systemFields.notes.label}}:</div>
+    <div>
+        {{{enriched.notes}}}
+    </div>
+</div>
+{{/if}}

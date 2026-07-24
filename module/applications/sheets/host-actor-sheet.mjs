@@ -82,6 +82,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
                 if (this.deployedItem) {
                     context.enriched.description = await this._prepareEnrichedHTML(this.actor.system.description);
                 } else {
+                    context.enriched.notes = await this._prepareEnrichedHTML(this.actor.system.notes);
                     this._prepareHostItems(context);
                 }
                 break;
