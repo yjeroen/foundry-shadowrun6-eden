@@ -8,6 +8,11 @@
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
             </a>
             {{/if}}
+            {{#if item.isDeployedItem}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
+            {{else}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
+            {{/if}}
             {{#if item.system.skill}}<a class="item-control" data-tooltip="{{skillHint actor item.system.skill 'resonance'}}" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
             {{#unless @last}}, {{/unless}}
         {{/each}}
@@ -24,6 +29,7 @@
     <span class="label">{{localize "SR6.Actor.host.matrixItems.label"}}:</span>
     <p>
         {{#each matrixItems as |item|}}
+        {{#if item.system.isElectronicMatrixDevice}}
             <label class="item-name {{#if item.isDeployedItem}}deployed{{/if}}" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
@@ -37,6 +43,7 @@
             {{/if}}
             {{#if item.system.skill}}<a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
             {{#unless @last}}, {{/unless}}
+        {{/if}}
         {{/each}}
     </p>
     {{#each matrixItems as |item|}}
