@@ -111,7 +111,7 @@
 
         <section class="collapsible-content closed" data-item-id="{{item.id}}">
           {{#if item.system.isIC}}
-          <strong>{{localize 'SR6.Item.software.FIELDS.multiTypes.label'}}</strong>
+          <strong>{{item.system.schema.fields.multiTypes.label}}</strong>
           <div class="ic-programs">
               {{#each item.system.multiTypes as |matrixActionId|}}
               <div class="ic-program">
@@ -120,6 +120,8 @@
               </div>
               {{/each}}
           </div>
+          {{/if}}
+          {{#if (and item.system.isIC item.system.description)}}
           <hr>
           {{/if}}
           {{#if item.system.description}}

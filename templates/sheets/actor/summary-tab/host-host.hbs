@@ -2,7 +2,7 @@
     <span class="label">{{localize "SR6.Actor.host.ic.label"}}:</span>
     <p>
         {{#each ic as |item|}}
-            <label class="item-name" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            <label class="item-name" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
@@ -28,7 +28,7 @@
     {{#each ic as |item|}}
         <div class="collapsible-content closed" data-item-id="{{item.id}}">
             {{#if item.system.isIC}}
-            <strong>{{localize 'SR6.Item.software.FIELDS.multiTypes.label'}}</strong>
+            <div><strong>{{item.system.schema.fields.multiTypes.label}}</strong></div>
             <div class="ic-programs">
                 {{#each item.system.multiTypes as |matrixActionId|}}
                 <div class="ic-program">
@@ -37,6 +37,8 @@
                 </div>
                 {{/each}}
             </div>
+            {{/if}}
+            {{#if (and item.system.isIC item.system.description)}}
             <hr>
             {{/if}}
             {{#if item.system.description}}
@@ -52,7 +54,7 @@
     <p>
         {{#each matrixItems as |item|}}
         {{#if item.system.isElectronicMatrixDevice}}
-            <label class="item-name {{#if item.isDeployedItem}}deployed{{/if}}" data-skill="{{id}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            <label class="item-name {{#if item.isDeployedItem}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>

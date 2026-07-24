@@ -1833,6 +1833,14 @@
     width: 2em;
 }
 
+.sr6 .stat-block .row.rich-html div:not(:first-child) {
+    padding: 0 8px;
+}
+
+.sr6 .stat-block .item-control {
+    font-size: unset;
+}
+
 .sr6 .collapsible-content {
     font-size: 0.8em;
     display: flow-root;
@@ -3020,18 +3028,18 @@ body.game .app a:hover .sr6-icon {
     }
 }
 
-.sr6 section .ic-programs {
+.shadowrun6 section .ic-programs {
     display: grid;
     grid-template-columns: minmax(6em, max-content) minmax(0, 1fr);
     gap: 5px;
     padding-left: 5px;
 }
 
-.sr6 section .ic-program {
+.shadowrun6 section .ic-program {
     display: contents;
 }
 
-.sr6 section .ic-program-name {
+.shadowrun6 section .ic-program-name {
     font-weight: bold;
     align-self: center;
 }
