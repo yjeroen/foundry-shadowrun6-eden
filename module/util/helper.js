@@ -140,6 +140,8 @@ export const defineHandlebarHelper = async function () {
         return deHTML(name);
     });
 
+    Handlebars.registerHelper("defined", value => value !== undefined);
+
     Handlebars.registerHelper('subString', function(passedString, startstring, endstring) {
         var theString = passedString.substring( startstring, endstring );
         return theString; //new Handlebars.SafeString(theString)
