@@ -259,13 +259,21 @@ Hooks.once("init", async function () {
      * Change default icon
      */
     function onPreCreateItem(itemDoc, options, userId) {
-        let item = getActorData(itemDoc);
-        let system = getSystemData(itemDoc);
-        console.log("SR6E | onCreateItem  " + item.type);
-        if (item.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[item.type]) {
-            item.img = CONFIG.SR6.icons[item.type].default;
-            item.updateSource({ ["img"]: item.img });
+        const item = getActorData(itemDoc);
+        const system = getSystemData(itemDoc);
+        console.log("SR6E | onPreCreateItem", item);
+
+        const itemConfig = CONFIG.SR6.ITEM[item.type];
+        const icon = itemConfig?.[item.system.type]?.icon ?? itemConfig?.icon;
+        console.log("JEROEN", itemConfig);
+        console.log("JEROEN", item.type, item.system.type, icon);
+        if (
+            icon
+            && item.img === "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg"
+        ) {
+            item.updateSource({ img: icon });
         }
+
         // If it is a compendium item, copy over text description
         let key = item.type + "." + system.genesisID;
         console.log("SR6E | Item with genesisID - check for " + key);
@@ -274,7 +282,7 @@ Hooks.once("init", async function () {
             item.name = game.i18n.localize(key + ".name");
             item.updateSource({ ["description"]: system.description });
         }
-        console.log("SR6E | onCreateItem: " + item.img);
+        console.log("SR6E | onPreCreateItem: " + item.img);
     }
     Hooks.on("preCreateItem", (doc, options, userId) => onPreCreateItem(doc, options, userId));
     

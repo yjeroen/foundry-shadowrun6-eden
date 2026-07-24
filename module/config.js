@@ -44,76 +44,159 @@ export class SR6Config {
             "essence",
         ],
 
-        ACTOR_TYPES: {
-            sprite: {
-                types: {
-                    courier: "SR6.Actor.sprite.TYPES.courier",
-                    crack: "SR6.Actor.sprite.TYPES.crack",
-                    data: "SR6.Actor.sprite.TYPES.data",
-                    fault: "SR6.Actor.sprite.TYPES.fault",
-                    machine: "SR6.Actor.sprite.TYPES.machine",
-                    assassin: "SR6.Actor.sprite.TYPES.assassin",
-                    defender: "SR6.Actor.sprite.TYPES.defender",
-                    modular: "SR6.Actor.sprite.TYPES.modular",
-                    music: "SR6.Actor.sprite.TYPES.music",
-                    primal: "SR6.Actor.sprite.TYPES.primal",
-                },
-            },
-            host: {
-                types: {
-                    foundation: "SR6.Actor.host.TYPES.foundation",
-                    framework: "SR6.Actor.host.TYPES.framework",
-                },
+        
+    };
+
+    ACTOR = {
+        sprite: {
+            types: {
+                courier: "SR6.Actor.sprite.TYPES.courier",
+                crack: "SR6.Actor.sprite.TYPES.crack",
+                data: "SR6.Actor.sprite.TYPES.data",
+                fault: "SR6.Actor.sprite.TYPES.fault",
+                machine: "SR6.Actor.sprite.TYPES.machine",
+                assassin: "SR6.Actor.sprite.TYPES.assassin",
+                defender: "SR6.Actor.sprite.TYPES.defender",
+                modular: "SR6.Actor.sprite.TYPES.modular",
+                music: "SR6.Actor.sprite.TYPES.music",
+                primal: "SR6.Actor.sprite.TYPES.primal",
             },
         },
-        ITEM_TYPES: {
-            mod: {
-                TYPES: {
-                    accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
-                    weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
-                    armor_mod: "SR6.Item.mod.TYPES.armor_mod",
-                    accessory_electronics: "SR6.Item.mod.TYPES.accessory_electronics",
-                    visual_enhancement: "SR6.Item.mod.TYPES.visual_enhancement",
-                    audio_enhancement: "SR6.Item.mod.TYPES.audio_enhancement",
+        host: {
+            types: {
+                foundation: "SR6.Actor.host.TYPES.foundation",
+                framework: "SR6.Actor.host.TYPES.framework",
+            },
+        },
+    };
+
+    ITEM = {
+        adeptpower: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/explosion.svg",
+        },
+
+        complexform: {
+            icon: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg",
+        },
+
+        spritepower: {
+            icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+        },
+
+        contact: {
+            icon: "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg",
+        },
+
+        critterpower: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg",
+        },
+
+        echo: {
+            icon: "systems/shadowrun6-eden/icons/compendium/gear/bug_detector.svg",
+        },
+
+        focus: {
+            icon: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jewelry.svg",
+        },
+
+        gear: {
+            icon: "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg",
+        },
+
+        skill: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+        },
+
+        lifestyle: {
+            icon: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jacket.svg",
+        },
+
+        martialartstyle: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg",
+        },
+
+        martialarttech: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg",
+        },
+
+        metamagic: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/daze.svg",
+        },
+
+        quality: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+        },
+
+        ritual: {
+            icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+        },
+
+        sin: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Role.svg",
+        },
+
+        spell: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/acid.svg",
+        },
+
+        mod: {
+            TYPES: {
+                accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
+                weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
+                armor_mod: "SR6.Item.mod.TYPES.armor_mod",
+                accessory_electronics: "SR6.Item.mod.TYPES.accessory_electronics",
+                visual_enhancement: "SR6.Item.mod.TYPES.visual_enhancement",
+                audio_enhancement: "SR6.Item.mod.TYPES.audio_enhancement",
+            },
+
+            icon: "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+        },
+
+        software: {
+            TYPES: {
+                AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
+                DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
+                HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
+                MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
+                SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
+                STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
+                TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
+                TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
+                IC: "SR6.Item.software.TYPES.IC",
+            },
+
+            SUBTYPES: {
+                AUTOSOFT: {
+                    CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
+                    ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
+                    EVASION: "shadowrun6.autosoft_types.evasion",
+                    MANEUVER: "shadowrun6.autosoft_types.maneuver",
+                    STEALTH: "shadowrun6.autosoft_types.stealth",
+                    TARGETING: "shadowrun6.autosoft_types.targeting",
                 },
             },
-            software: {
-                TYPES: {
-                    AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
-                    DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
-                    HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
-                    MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
-                    SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
-                    STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
-                    TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
-                    TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
-                    IC: "SR6.Item.software.TYPES.IC",
-                },
-                SUBTYPES: {
-                    AUTOSOFT: {
-                        CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
-                        ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
-                        EVASION: "shadowrun6.autosoft_types.evasion",
-                        MANEUVER: "shadowrun6.autosoft_types.maneuver",
-                        STEALTH: "shadowrun6.autosoft_types.stealth",
-                        TARGETING: "shadowrun6.autosoft_types.targeting",
-                    }
-                },
-                MULTITYPES: {
-                    acid: "SR6.Item.software.MULTITYPES.acid",
-                    binder: "SR6.Item.software.MULTITYPES.binder",
-                    black: "SR6.Item.software.MULTITYPES.black",
-                    blaster: "SR6.Item.software.MULTITYPES.blaster",
-                    crash: "SR6.Item.software.MULTITYPES.crash",
-                    jammer: "SR6.Item.software.MULTITYPES.jammer",
-                    killer: "SR6.Item.software.MULTITYPES.killer",
-                    marker: "SR6.Item.software.MULTITYPES.marker",
-                    patrol: "SR6.Item.software.MULTITYPES.patrol",
-                    scramble: "SR6.Item.software.MULTITYPES.scramble",
-                    sparky: "SR6.Item.software.MULTITYPES.sparky",
-                    tarbaby: "SR6.Item.software.MULTITYPES.tarbaby",
-                    track: "SR6.Item.software.MULTITYPES.track"
-                }
+
+            MULTITYPES: {
+                acid: "SR6.Item.software.MULTITYPES.acid",
+                binder: "SR6.Item.software.MULTITYPES.binder",
+                black: "SR6.Item.software.MULTITYPES.black",
+                blaster: "SR6.Item.software.MULTITYPES.blaster",
+                crash: "SR6.Item.software.MULTITYPES.crash",
+                jammer: "SR6.Item.software.MULTITYPES.jammer",
+                killer: "SR6.Item.software.MULTITYPES.killer",
+                marker: "SR6.Item.software.MULTITYPES.marker",
+                patrol: "SR6.Item.software.MULTITYPES.patrol",
+                scramble: "SR6.Item.software.MULTITYPES.scramble",
+                sparky: "SR6.Item.software.MULTITYPES.sparky",
+                tarbaby: "SR6.Item.software.MULTITYPES.tarbaby",
+                track: "SR6.Item.software.MULTITYPES.track",
+            },
+
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Program.svg",
+
+            // system.type configurations
+            IC: {
+                icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
             },
         },
     };
