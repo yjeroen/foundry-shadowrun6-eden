@@ -2990,10 +2990,14 @@ body.game .app a:hover .sr6-icon {
 }
 .item .software .ic-types .tags.input-element-tags {
     width: 50%;
+    min-width: 6em;
     justify-content: flex-start;
 }
 .item .software .ic-types .tags.input-element-tags .tag {
     font-size: var(--font-size-14);
+}
+.item .software .ic-types .tags:empty {
+    display: flex;
 }
 
 @container (max-width: 460px) {
