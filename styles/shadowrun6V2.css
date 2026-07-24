@@ -713,7 +713,7 @@
 .sr6 .traits {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     align-content: center;
     min-width: 0;
@@ -736,7 +736,6 @@
 
 .sr6 .traits label {
     white-space: nowrap;
-    margin-right: 5px;
 }
 .sr6 .traits span  {
     white-space: nowrap;

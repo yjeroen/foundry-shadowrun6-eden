@@ -111,6 +111,13 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
 
         if (this.deployedItem) {
             const itemSystem = this.deployedItem.system;
+            const subType = game.i18n.localize(`shadowrun6.gear.subtype.${itemSystem.subtype}`)
+
+            const field = itemSystem.schema?.getField("multiTypes");
+            const icTypes = Array.from(itemSystem.multiTypes ?? [])
+                .map(value => game.i18n.localize(field.element.choices[value]))
+                .join(", ");
+
             context.traits = [
                 {
                     field: { label: game.i18n.localize("shadowrun6.item.type") },
@@ -118,7 +125,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
                 },
                 {
                     field: { label: game.i18n.localize("shadowrun6.item.subtype") },
-                    value: game.i18n.localize(`shadowrun6.gear.subtype.${itemSystem.subtype}`)
+                    value: this.deployedItem.type === "gear" ? subType : icTypes
                 },
             ];
             return;

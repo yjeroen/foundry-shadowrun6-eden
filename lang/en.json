@@ -676,7 +676,8 @@
       "WEAPON_CLOSE_COMBAT": "Weapon, Close Combat",
       "WEAPON_FIREARMS": "Weapon, Firearms",
       "WEAPON_RANGED": "Weapon, Projectiles",
-      "WEAPON_SPECIAL": "Weapon, Special"
+      "WEAPON_SPECIAL": "Weapon, Special",
+      "IC": "IC"
     },
     "label": {
       "accessories": "Accessories",
