@@ -63,7 +63,7 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
     }
     
     get isElectronicMatrixDevice() {
-        return Boolean(this.actor?.type === "host");
+        return Boolean(this.isIC && this.actor?.type === "host");
     }
 
     /**
@@ -75,7 +75,11 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
     prepareDerivedData() {
         super.prepareDerivedData();
 
-        if (!this.isIC) this.matrix = undefined;
+        if (this.isIC) {
+            delete this.rating;
+        } else {
+            delete this.matrix;
+        }
     }
 
     /**
