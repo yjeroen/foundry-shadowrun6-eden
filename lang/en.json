@@ -1263,7 +1263,7 @@
           "name": "Sparky",
           "hint": "On a successful cybercombat attack, deal biofeedback damage equal to the host rating plus net hits."
         },
-        "ic_tar_baby": {
+        "ic_tarbaby": {
           "name": "Tar Baby",
           "hint": "On a successful cybercombat attack, link-lock the target."
         },

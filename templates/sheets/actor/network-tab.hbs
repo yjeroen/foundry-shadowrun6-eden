@@ -49,7 +49,7 @@
             <button
               type="button"
               class="item-desc-toggle {{#if (and (not item.system.description) (not item.matrixActionId) )}}collapsible closed empty{{else}}collapsible closed{{/if}}"
-              {{#if item.system.description}}
+              {{#if (or item.system.description item.matrixActionId)}}
                 data-action="itemDescToggle"
                 data-item-id="{{item.id}}"
                 data-tooltip="SR6.title.clickItemName"

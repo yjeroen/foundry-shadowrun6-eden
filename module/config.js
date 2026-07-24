@@ -3438,8 +3438,8 @@ export class SR6Config {
             threshold: 0,
             IC: true
         },
-        ic_tar_baby: {
-            id: "ic_tar_baby",
+        ic_tarbaby: {
+            id: "ic_tarbaby",
             skill: "electronics",
             specialization: "software",
             attrib: "rating",
