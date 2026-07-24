@@ -20,9 +20,9 @@
           data-tooltip="{{localize 'DOCUMENT.New' type=(localize 'SR6.Item.software.TYPES.IC')}}"
           data-action="createDoc"
           data-document-class="Item"
-          data-type="gear"
-          data-system-type="SOFTWARE"
-          data-system-subtype="IC"
+          data-type="software"
+          data-system.type="IC"
+          data-name="{{localize "SR6.Item.software.TYPES.IC"}}"
         >
           <i class="fas fa-plus"></i>
         </a>
@@ -102,7 +102,7 @@
             {{/if}}
 
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
-            
+
           </div>
         </div>
 
@@ -134,8 +134,8 @@
           data-action="createDoc"
           data-document-class="Item"
           data-type="gear"
-          data-system-type="SOFTWARE"
-          data-system-subtype="IC"
+          data-system.type="ELECTRONICS"
+          data-name="{{localize "shadowrun6.itemtype.ELECTRONICS"}}"
         >
           <i class="fas fa-plus"></i>
         </a>

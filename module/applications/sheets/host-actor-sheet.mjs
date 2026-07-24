@@ -155,8 +155,8 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         context.ic = ic.sort((a, b) => (b.sort || 0) - (a.sort || 0));
 
         for (let i of this.document.items) {
-            if (i.system.isElectronicMatrixDevice && !i.system.isIC) {
-                i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
+            if (!i.system.isIC) {
+                if (i.system.isElectronicMatrixDevice) i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
                 matrixItems.push(i);
             }
         }

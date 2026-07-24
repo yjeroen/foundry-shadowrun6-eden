@@ -861,10 +861,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // Loop through the dataset and add it to our docData
         for (const [dataKey, value] of Object.entries(target.dataset)) {
             // These data attributes are reserved for the action handling
-            if (["action", "documentClass"].includes(dataKey)) continue;
-            // Nested properties require dot notation in the HTML, e.g. anything with `system`
-            // An example exists in spells.hbs, with `data-system.spell-level`
-            // which turns into the dataKey 'system.spellLevel'
+            if (["action", "documentClass", "renderSheet"].includes(dataKey)) continue;
+            // Nested properties use dot notation like `data-system.prop`
             foundry.utils.setProperty(docData, dataKey, value);
         }
 
