@@ -21,6 +21,8 @@ export const MatrixSheetMixin = Base => class extends Base {
         const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
             .filter(([actionId, action]) => {
+                if (action.IC && !this.initiator.system.isDeployedIC) return false;
+
                 if (this.document.limited || this.options.limited) {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
                     if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;

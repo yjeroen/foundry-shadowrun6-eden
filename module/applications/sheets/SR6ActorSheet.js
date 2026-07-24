@@ -1198,6 +1198,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .filter(([actionId, action]) => {
                 action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name');
 
+                if (action.IC && !this.initiator.system.isDeployedIC) return false;
+                
                 if (this.document.limited || this.options.limited) {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
                     if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;
