@@ -601,6 +601,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const tracks = event.target.closest(".tracks");
         if (!slotClicked || !track || track.classList.contains('inactive')) return; // clicked outside a slot or track is inactive
 
+        const document = target.dataset.itemId ? this.actor.items.get(target.dataset.itemId) : this.actor;
+
         const allSlots = [...track.querySelector(".slots").children];
         const index = allSlots.indexOf(slotClicked);
         console.log(`SR6E | _onTrackClick | Condition Monitor: ${conditionMonitor} | Slot clicked: ${index}`);
@@ -614,7 +616,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Pulsating track
 		track.classList.add('is-pulsing'); // animation
-		tracks.classList.add('inactive');
+		if (tracks) tracks.classList.add('inactive');
 		
         // Track Config
         let trackColor, attr, deltaTrack;
@@ -622,23 +624,23 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         if (conditionMonitor === "physical") {
             trackColor = "red";
             attr = "system.health.physicalCM.value";
-            deltaTrack = newValue - this.document.system.health.physicalCM.value;
+            deltaTrack = newValue - document.system.health.physicalCM.value;
         }
         else if (conditionMonitor === "stun") {
             trackColor = "blue"
             attr = "system.health.stunCM.value";
-            deltaTrack = newValue - this.document.system.health.stunCM.value;
+            deltaTrack = newValue - document.system.health.stunCM.value;
         }
         else if (conditionMonitor === "matrix") {
             trackColor = "green"
             attr = "system.matrix.matrixCM.value";
-            deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
+            deltaTrack = newValue - document.system.matrix.matrixCM.value;
         }
         else if (conditionMonitor === "overflow") {
             trackColor = "red";
             attr = "system.health.physicalCM.value";
-            deltaTrack = newValue - this.document.system.health.overflow.value;
-            newValue = 0 - (this.document.system.health.overflow.max - newValue );
+            deltaTrack = newValue - document.system.health.overflow.value;
+            newValue = 0 - (document.system.health.overflow.max - newValue );
         }
 
         // Showing delta within portrait
@@ -652,12 +654,10 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 combatText.classList.add('disabled'); // animation
                 setTimeout(() => {
                     // Update actor and re-render sheet
-                    console.log(`SR6E | _onTrackClick | Updating`, this.document.documentName, attr, newValue);
-                    this.document.update({ [attr]: newValue });
+                    console.log(`SR6E | _onTrackClick | Updating`, document.documentName, attr, newValue);
+                    document.update({ [attr]: newValue });
                 }, 200);
             }, 200);
-
-
         };
         
     }

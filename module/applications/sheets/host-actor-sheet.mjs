@@ -149,6 +149,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         for (let i of this.document.items) {
             if (i.system.isIC) {
                 i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
+                i.matrixCM = this._prepareConditionMonitors(i.system.matrix.matrixCM);
                 ic.push(i);
             }
         }
@@ -156,7 +157,10 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
 
         for (let i of this.document.items) {
             if (!i.system.isIC) {
-                if (i.system.isElectronicMatrixDevice) i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
+                if (i.system.isElectronicMatrixDevice) {
+                    i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
+                    i.matrixCM = this._prepareConditionMonitors(i.system.matrix.matrixCM);
+                }
                 matrixItems.push(i);
             }
         }
@@ -252,6 +256,31 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         }
 
         return statBlock;
+    }
+
+    _prepareConditionMonitors(conditionMonitor) {
+        const boxes = conditionMonitor.max;
+        const dmg = conditionMonitor.dmg;
+        const slots = [];
+
+        let i = 0;
+        while (i < boxes) {
+            i++;
+            const slot = { active: true, penalty: null };
+            if (i === boxes && (i % 3) === (boxes % 3) ) {
+                slot.penalty = -1 * Math.ceil(i / 3);
+            } else if (i % 3 == 0) {
+                slot.penalty = -1 * (i / 3);
+            }
+            if (i <= dmg) {
+                slot.active = false;
+            }
+            if (i === boxes) slot.first = true;
+            if (i === 1) slot.last = true;
+            slots.unshift(slot);
+        }
+
+        return slots;
     }
 
     /**

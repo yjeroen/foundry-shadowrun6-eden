@@ -2429,18 +2429,18 @@ body.game .app a:hover .sr6-icon {
     --text-green: #00b939;
     --slot-off: rgba(45, 52, 60, 0.78);
 }
-.sr6 .persona .matrixCM {
+.sr6 .section .matrixCM {
     padding: 0.15rem 0 0.15rem 0.5rem;
     min-height: 1.7rem;
     display: flex;
     align-items: center;
 }
 
-.sr6 .pan .track {
+.sr6 .section .track {
     grid-template-columns: minmax(200px, 1fr) max-content;
     transition: grid-template-columns 0.5s ease;
 }
-.sr6 .pan .slot span {
+.sr6 .section .slot span {
     font-size: 8px;
     transition: font-size 0.5s ease;
 }
@@ -2458,7 +2458,7 @@ body.game .app a:hover .sr6-icon {
     }
 }
 
-.sr6 .persona .matrixCM .matrix-track {
+.sr6 .section .matrixCM .matrix-track {
     flex: 1;
 }
 
@@ -2977,7 +2977,7 @@ body.game .app a:hover .sr6-icon {
 
 .sr6.host .section-header,
 .sr6.host .section-row {
-    grid-template-columns: 1.25rem 1fr 4em 5em;
+    grid-template-columns: 1.25rem minmax(0, 1fr) max-content 5em;
 }
 .sr6.host .section-row {
     padding-right: 0;
@@ -2995,4 +2995,13 @@ body.game .app a:hover .sr6-icon {
 }
 .item .software .ic-types .tags.input-element-tags .tag {
     font-size: var(--font-size-14);
+}
+
+@container (max-width: 460px) {
+    .sr6.host .section .track {
+        grid-template-columns: minmax(100px, 1fr) max-content;
+    }
+    .sr6.host .section .slot span {
+        font-size: 0px;
+    }
 }

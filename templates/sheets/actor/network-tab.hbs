@@ -33,7 +33,7 @@
   <div class="section-header">
     <div></div>
     <div>{{ localize 'shadowrun6.label.column.name' }}</div>
-    <div>{{ localize 'shadowrun6.section.spells.column.sustained' }}</div>
+    <div></div>
     <div>{{ localize 'shadowrun6.label.column.action' }}</div>
   </div>
 
@@ -62,17 +62,11 @@
           <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
             {{item.name}}
           </div>
-
+          
           <div class="section-column">
-            {{#if (eq item.system.duration 'sustained')}}
-              <a 
-                class="item-control item-toggle"
-                data-action='itemSustainToggle'
-                data-tooltip="shadowrun6.section.sustained.toggle"
-              >
-                <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
-              </a>
-            {{/if}}
+              <div class="matrixCM">
+                  {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=item.matrixCM item=item }}
+              </div>
           </div>
 
           <div class="section-column item-controls">
@@ -146,7 +140,7 @@
   <div class="section-header">
     <div></div>
     <div>{{ localize 'shadowrun6.label.column.name' }}</div>
-    <div>{{ localize 'shadowrun6.section.spells.column.sustained' }}</div>
+    <div></div>
     <div>{{ localize 'shadowrun6.label.column.action' }}</div>
   </div>
 
@@ -178,15 +172,11 @@
           </div>
 
           <div class="section-column">
-            {{#if (eq item.system.duration 'sustained')}}
-              <a 
-                class="item-control item-toggle"
-                data-action='itemSustainToggle'
-                data-tooltip="shadowrun6.section.sustained.toggle"
-              >
-                <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
-              </a>
-            {{/if}}
+              {{#if item.system.matrix.matrixCM}}
+              <div class="matrixCM">
+                  {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=item.matrixCM item=item }}
+              </div>
+              {{/if}}
           </div>
 
           <div class="section-column item-controls"> 
