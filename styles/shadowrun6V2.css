@@ -1835,6 +1835,17 @@
 
 .sr6 .collapsible-content {
     font-size: 0.8em;
+    display: flow-root;
+}
+.sr6 .collapsible-content.open {
+    padding: 8px 12px;
+}
+.sr6 .collapsible-content div {
+    padding: 0;
+    margin: 0;
+}
+.sr6 .collapsible-content ol {
+    margin: 0;
 }
 .sr6 .item-name {
     cursor: var(--cursor-pointer);
@@ -3009,17 +3020,18 @@ body.game .app a:hover .sr6-icon {
     }
 }
 
-.item .ic-programs {
+.sr6 section .ic-programs {
     display: grid;
     grid-template-columns: minmax(6em, max-content) minmax(0, 1fr);
     gap: 5px;
+    padding-left: 5px;
 }
 
-.item .ic-program {
+.sr6 section .ic-program {
     display: contents;
 }
 
-.item .ic-program-name {
+.sr6 section .ic-program-name {
     font-weight: bold;
     align-self: center;
 }

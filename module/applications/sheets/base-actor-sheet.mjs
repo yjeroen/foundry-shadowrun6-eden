@@ -917,9 +917,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const isOpen = !target.classList.contains("open");
         target.classList.toggle("open", isOpen);
         target.classList.toggle("closed", !isOpen);
-        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
         content.classList.toggle("open", isOpen);
         content.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
     }
 
     /**
