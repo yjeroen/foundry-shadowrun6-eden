@@ -30,7 +30,7 @@
                         </select>
                     </td>
                     {{/if}}
-                    {{#if (eq item.system.type "IC")}}
+                    {{#if item.system.isIC}}
                     <td>
                         {{formInput systemFields.multiTypes value=item.system.multiTypes choices=config.ITEM.software.MULTITYPES rootId=document.sheet.id classes="ic-types" localize=true}}
                     </td>
@@ -72,12 +72,26 @@
                     {{/if}}
                 </tr>
             </table>
+
+            {{#if item.system.isIC}}
+            <h3>{{localize 'SR6.Item.software.FIELDS.multiTypes.label'}}</h3>
+            <div class="ic-programs">
+                {{#each item.system.multiTypes as |matrixActionId|}}
+                <div class="ic-program">
+                    <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</div>
+                    <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".hint")}}</div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+
             {{#if (eq item.system.type "IC")}}
             <h3>{{localize 'SR6.Actor.matrixBase.FIELDS.description.label'}}</h3>
             {{else}}
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
             {{/if}}
             {{editor item.enriched.description target="system.description" fieldName=item.system.description button=true owner=owner editable=editable engine="prosemirror"}}
+
         </div>
     </section>
 </form>

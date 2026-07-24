@@ -3008,3 +3008,18 @@ body.game .app a:hover .sr6-icon {
         font-size: 0px;
     }
 }
+
+.item .ic-programs {
+    display: grid;
+    grid-template-columns: minmax(6em, max-content) minmax(0, 1fr);
+    gap: 5px;
+}
+
+.item .ic-program {
+    display: contents;
+}
+
+.item .ic-program-name {
+    font-weight: bold;
+    align-self: center;
+}
