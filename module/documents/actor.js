@@ -4,7 +4,7 @@ import { Defense, MonitorType } from "../config.js";
 import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "../ItemTypes.js";
 //import { doRoll } from "./dice/CommonRoll.js";
 import { doRoll } from "../Rolls.js";
-import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType } from "../dice/RollTypes.js";
+import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType, DirectDamage } from "../dice/RollTypes.js";
 import { getActor } from "../util/helper.js";
 import { SR6MatrixPanField } from "../datamodels/fields/fields.mjs";
 const { DOCUMENT_OWNERSHIP_LEVELS } = foundry.CONST;
@@ -2743,9 +2743,26 @@ export default class Shadowrun6Actor extends Actor {
     performMatrixAction(roll) {
         console.log("SR6E | performMatrixAction:", roll);
         
-
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
+    }
+
+    async rollBiofeedbackDamage(config) {
+        console.log("SR6E | Actor | BiofeedbackDamage to Chat", config);
+        const { damage, description, ...options } = config;
+        const defender = this;
+
+        const matrixIni = defender.system.matrixIni;
+        if (!matrixIni || matrixIni === "ar") return;
+
+        const damageData = {
+            soakType: SoakType.BIO_FEEDBACK,
+            monitor: matrixIni === "vrcold" ? MonitorType.STUN : MonitorType.PHYSICAL,
+            damage: damage,
+            description: description
+        }
+        const directDamage = new DirectDamage(defender, damageData);
+        await directDamage.toChat();
     }
     //-------------------------------------------------------------
     /**

@@ -2586,7 +2586,11 @@ export class SR6Config {
                 return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
             },
 
-           
+            // Damage on a failed defense
+            // getDamage: function (actor) {
+            //     const damage = Math.ceil(actor.getMatrixPool("a") / 2);
+            //     return damage;
+            // }
 
         },
         brute_force: {
@@ -2938,17 +2942,12 @@ export class SR6Config {
                 console.log("SR6 | jack_out | onSuccess", resultData);
                 const { initiator, defender, hits, netHits } = resultData;
                 await game.sr6.utils.resetAccessLevels( initiator.uuid );
-                const matrixIni = initiator.system.matrixIni;
-                if (matrixIni !== "ar") {
-                    // Dumpshock
-                    const damageData = {
-                        soakType: SoakType.BIO_FEEDBACK,
-                        monitor: matrixIni === "vrcold" ? MonitorType.STUN : MonitorType.PHYSICAL,
-                        damage: 3
-                    }
-                    const directDamage = new DirectDamage(initiator, damageData);
-                    await directDamage.toChat();
-                }
+
+                // Dumpshock
+                await initiator.rollBiofeedbackDamage({
+                    damage: 3,
+                    description: game.i18n.localize("shadowrun6.roll.bio_feedback.description")
+                });
                 return true;
             },
             
@@ -3309,7 +3308,24 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
-            IC: true
+            IC: true,
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | black | onFailedDefense");
+                const { initiator, defender, hits, netHits } = resultData;
+
+                await defender.rollBiofeedbackDamage({
+                    damage: this.getDamage(initiator) + netHits
+                });
+                return true;
+            },
+
+            // This does Matrix Damage
+            getDamage: function (actor) {
+                const damage = actor.system.rating;
+                return damage;
+            }
+
         },
         blaster: {
             id: "blaster",

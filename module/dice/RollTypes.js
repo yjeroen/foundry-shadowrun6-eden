@@ -766,7 +766,7 @@ export class ConfiguredRoll extends CommonRollData {
 export class DirectDamage extends ConfiguredRoll {
     constructor(actor, damageData) {
         super();
-        const {soakType, monitor, damage} = damageData;
+        const {soakType, monitor, damage, description} = damageData;
 
         this.rollType = RollType.Defense;
         this.defendedWith = Defense.DIRECT_DAMAGE;
@@ -782,7 +782,7 @@ export class DirectDamage extends ConfiguredRoll {
         switch (soakType) {
             case SoakType.BIO_FEEDBACK:
                 this.actionText = game.i18n.localize("shadowrun6.roll.actionText.bio_feedback");
-                this.chatDescription = game.i18n.localize("shadowrun6.roll.bio_feedback.description");
+                if (description) this.chatDescription = description;
                 break;
             default:
                 console.error("SR6E | DirectDamage | Unknown how to handle soakType:", soakType)

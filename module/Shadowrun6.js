@@ -707,6 +707,7 @@ Hooks.once("init", async function () {
                         matrixActionOption: matrixActionOption
                     };
                     console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender?.name} | Result: ${resultType}`);
+                    console.log(`SR6E | Processing Matrix Result Button | resultData:`, resultData);
 
                     switch (resultType) {
                         case "onSuccess":

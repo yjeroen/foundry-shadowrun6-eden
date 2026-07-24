@@ -1229,8 +1229,10 @@
           "hint": "On a successful cybercombat attack, reduce the target’s Data Processing by 1 per net hit. At Data Processing 0, the target cannot perform Matrix actions. Lost points recover after leaving the host at a rate of 1 point per minute."
         },
         "black": {
-          "name": "Black",
-          "hint": "On a successful cybercombat attack, deal Matrix damage and biofeedback damage equal to the host rating plus net hits."
+          "name": "Black IC",
+          "hint": "On a successful cybercombat attack, deal Matrix damage and biofeedback damage equal to the host rating plus net hits.",
+          "onFailedDefense.span": "incoming matrix and biofeedback",
+          "onFailedDefense.button": "Roll Biofeedback"
         },
         "blaster": {
           "name": "Blaster",
