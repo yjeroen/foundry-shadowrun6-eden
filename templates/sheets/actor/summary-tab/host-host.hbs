@@ -27,8 +27,22 @@
     </p>
     {{#each ic as |item|}}
         <div class="collapsible-content closed" data-item-id="{{item.id}}">
+            {{#if item.system.isIC}}
+            <strong>{{localize 'SR6.Item.software.FIELDS.multiTypes.label'}}</strong>
+            <div class="ic-programs">
+                {{#each item.system.multiTypes as |matrixActionId|}}
+                <div class="ic-program">
+                    <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</div>
+                    <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".hint")}}</div>
+                </div>
+                {{/each}}
+            </div>
+            <hr>
+            {{/if}}
+            {{#if item.system.description}}
             <div><strong>{{item.name}} {{ localize 'shadowrun6.item.description' }}</strong></div>
             <div>{{{item.system.description}}}</div>
+            {{/if}}
         </div>
     {{/each}}
 </div>
