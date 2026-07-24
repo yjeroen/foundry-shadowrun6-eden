@@ -1837,7 +1837,7 @@
     padding: 0 8px;
 }
 
-.sr6 .stat-block .item-control {
+.sr6 .stat-block .item-control:not(.item-edit) {
     font-size: unset;
 }
 

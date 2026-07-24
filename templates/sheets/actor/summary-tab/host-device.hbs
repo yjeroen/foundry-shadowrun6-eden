@@ -13,7 +13,7 @@
     <span class="label">{{localize "SR6.Item.software.FIELDS.multiTypes.label"}}:</span>
     <p>
         {{#each deployedItem.system.multiTypes as |matrixActionId|}}
-            <label class="item-name" data-item-id="{{matrixActionId}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</label>            
+            <label class="item-name" data-item-id="{{matrixActionId}}" data-action='itemDescToggle'>{{localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name")}}</label>            
             
             <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="ic_{{matrixActionId}}"
                 data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name"))}}"
