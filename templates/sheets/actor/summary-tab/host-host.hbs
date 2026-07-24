@@ -13,7 +13,15 @@
             {{else}}
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
             {{/if}}
-            {{#if item.system.skill}}<a class="item-control" data-tooltip="{{skillHint actor item.system.skill 'resonance'}}" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
+            
+            {{#each item.system.multiTypes as |matrixActionId|}}
+            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="ic_{{matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction.ic_" matrixActionId ".name"))}}"
+            >
+                <i class="fas fa-dice-six"></i>
+            </a>
+            {{/each}}
+            
             {{#unless @last}}, {{/unless}}
         {{/each}}
     </p>
@@ -41,7 +49,11 @@
             {{else}}
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
             {{/if}}
-            {{#if item.system.skill}}<a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>{{/if}}
+            {{#if item.system.skill}}
+            <a class="item-control" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}" data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=item.name}}">
+                <i class="fas fa-dice-six"></i>
+                </a>
+            {{/if}}
             {{#unless @last}}, {{/unless}}
         {{/if}}
         {{/each}}

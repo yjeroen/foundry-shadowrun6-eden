@@ -95,7 +95,16 @@
               </a>
             {{/if}}
 
-            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+            {{#if item.matrixActionId}}
+            <a
+                class="item-control matrix-roll"
+                data-action="matrixRoll"
+                data-matrix-id="ic_{{item.matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction.ic_" item.matrixActionId ".name"))}}"
+            >
+                <i class="fas fa-dice-six"></i>
+            </a>
+            {{/if}}
 
           </div>
         </div>
@@ -208,7 +217,11 @@
             {{/if}}
 
             {{#if item.system.skill}}
-            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.rollTitle" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"><i class="fas fa-dice-six"></i></a>
+            <a class="item-control" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"
+              data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=item.name}}"
+            >
+              <i class="fas fa-dice-six"></i>
+            </a>
             {{/if}}
 
           </div>

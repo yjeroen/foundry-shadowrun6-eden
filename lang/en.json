@@ -1218,6 +1218,58 @@
         "watchdog": {
           "name": "Watchdog",
           "hint": "Watch a persona or device for combat rounds equal to your net hits. You see its Matrix Actions before it uses them, may try to intervene, and can use Threat Analysis as a Minor Action against attacks from that target."
+        },
+        "ic_acid": {
+          "name": "Acid",
+          "hint": "On a successful cybercombat attack, reduce the target’s Firewall by 1 per net hit. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "ic_binder": {
+          "name": "Binder",
+          "hint": "On a successful cybercombat attack, reduce the target’s Data Processing by 1 per net hit. At Data Processing 0, the target cannot perform Matrix actions. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "ic_black": {
+          "name": "Black",
+          "hint": "On a successful cybercombat attack, deal Matrix damage and biofeedback damage equal to the host rating plus net hits."
+        },
+        "ic_blaster": {
+          "name": "Blaster",
+          "hint": "On a successful cybercombat attack, deal Matrix damage equal to the host rating and link-lock the target."
+        },
+        "ic_crash": {
+          "name": "Crash",
+          "hint": "On a successful cybercombat attack, deal no Matrix damage and crash one random program. The program cannot be run again until its device reboots."
+        },
+        "ic_jammer": {
+          "name": "Jammer",
+          "hint": "On a successful cybercombat attack, reduce the target’s Attack by 1 per net hit. At Attack 0, the target cannot perform actions that use Attack. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "ic_killer": {
+          "name": "Killer",
+          "hint": "On a successful cybercombat attack, deal Matrix damage equal to the host rating plus net hits."
+        },
+        "ic_marker": {
+          "name": "Marker",
+          "hint": "On a successful cybercombat attack, reduce the target’s Sleaze by 1 per net hit. At Sleaze 0, the target cannot perform actions that use Sleaze. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "ic_patrol": {
+          "name": "Patrol",
+          "hint": "When activated, make a Matrix Perception test and use its hits for Patrol’s Matrix Perception actions. Patrol spends one Minor Action on Matrix Perception every in-game minute and rerolls the test once per minute."
+        },
+        "ic_scramble": {
+          "name": "Scramble",
+          "hint": "On a successful cybercombat attack, the target must reboot on its next turn unless it is link-locked."
+        },
+        "ic_sparky": {
+          "name": "Sparky",
+          "hint": "On a successful cybercombat attack, deal biofeedback damage equal to the host rating plus net hits."
+        },
+        "ic_tar_baby": {
+          "name": "Tar Baby",
+          "hint": "On a successful cybercombat attack, link-lock the target."
+        },
+        "ic_track": {
+          "name": "Track",
+          "hint": "On a successful cybercombat attack, discover the target’s physical location."
         }
     },
     "matrixini": {
@@ -2689,7 +2741,7 @@
           "editTitle": "Edit this Networked Icon",
           "deployTitle": "Deploy this Matrix Icon",
           "retrieveTitle": "Retrieve this Matrix Icon",
-          "rollTitle": "Roll using Host Attributes",
+          "rollTitle": "Roll {name} using Host Attributes",
           "deployed": "Deployed",
           "installedIn": "Installed In",
           "deviceAction": "Control Device"
