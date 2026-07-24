@@ -197,6 +197,30 @@ export class SR6Config {
             // system.type configurations
             IC: {
                 icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+                acid: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/poison_flatline.svg"
+                },
+                binder: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/superglue.svg"
+                },
+                blaster: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/hellbolt.svg"
+                },
+                killer: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/sword.svg"
+                },
+                patrol: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/critical_injuries/damaged_eye.svg"
+                },
+                sparky: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/vrizzbolt.svg"
+                },
+                tarbaby: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/worm.svg"
+                },
+                track: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/see_ya.svg"
+                }
             },
         },
     };

@@ -78,4 +78,45 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
         if (!this.isIC) this.matrix = undefined;
     }
 
+    /**
+     * Called by {@link ClientDocument#_preUpdate}.
+     *
+     * @param {object} changes            The candidate changes to the Document
+     * @param {object} options            Additional options which modify the update request
+     * @param {documents.BaseUser} user   The User requesting the document update
+     * @returns {Promise<boolean|void>}   A return value of false indicates the update operation should be cancelled.
+     * @protected
+     * @internal
+     */
+    async _preUpdate(changes, options, user) {
+        await super._preUpdate(changes, options, user);
+
+        this._updateIcIcon(changes);
+    }
+
+    _updateIcIcon(changes) {
+        if (!this.isIC) return;
+
+        const updatedTypes = changes.system?.multiTypes;
+        if (!updatedTypes) return;
+
+        const iconConfig = CONFIG.SR6.ITEM.software.IC;
+        const configuredIcons = new Set(
+            Object.values(iconConfig)
+                .map((config) => config?.icon ?? config)
+                .filter(Boolean)
+        );
+
+        if (!configuredIcons.has(this.parent.img)) return;
+
+        const addedType = updatedTypes.find((type) => !this.multiTypes.has(type));
+        if (!addedType) return;
+
+        const icon = iconConfig[addedType]?.icon ?? iconConfig.icon;
+        if (icon && icon !== this.parent.img) {
+            console.log(`SR6E | SR6SoftwareItemData._preUpdate | updating IC img from "${this.parent.img}" to "${icon}"`);
+            changes.img = icon;
+        }
+    }
+
 }
