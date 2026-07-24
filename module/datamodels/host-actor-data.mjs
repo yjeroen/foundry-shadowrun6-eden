@@ -58,6 +58,10 @@ export default class SR6HostActorData extends SR6BaseActorData {
         return deployedItem;
     }
 
+    get isDeployedIC() {
+        return Boolean(this.deployedItem?.isIC)
+    }
+
     /**
      * Apply transformations of derivations to the values of the source data object.
      * Compute data fields whose values are not stored to the database.
