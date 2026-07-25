@@ -3041,7 +3041,9 @@ body.game .app a:hover .sr6-icon {
 
 .shadowrun6 section .ic-program-name {
     font-weight: bold;
-    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .sr6 .spider-assign {

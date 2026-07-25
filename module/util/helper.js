@@ -187,10 +187,13 @@ export const defineHandlebarHelper = async function () {
     });
 
     Handlebars.registerHelper('matrixAction', function (matrixAction) {
+        matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixAction] ?? matrixAction;
+
         const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
         const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');
         const actionTypeIcon = matrixAction.major ? '&#10687;' : '&#10686;';
         const accessLevel = [];
+        
         if (matrixAction.outsider) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.outsider') );
         if (matrixAction.user) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.user') );
         if (matrixAction.admin) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.admin') );
@@ -198,6 +201,7 @@ export const defineHandlebarHelper = async function () {
         const actionIcon = `<span data-tooltip="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
         return new Handlebars.SafeString(actionIcon);
     });
+
     Handlebars.registerHelper("matrixAccessLevel", function (currentAccess, matrixAction) {
         let actionAllowed = false;
         if (matrixAction.outsider && matrixAction.outsider === currentAccess.outsider) actionAllowed = true;

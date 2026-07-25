@@ -719,6 +719,11 @@
   color: darkred;
 }
 
+.matrix-section .illegal-true,
+.matrix-section .illegal-false {
+  font-size: 13px;
+  font-weight: normal;
+}
 .matrix-section .illegal-true {
   color: darkred;
 }
