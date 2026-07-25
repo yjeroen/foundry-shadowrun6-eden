@@ -42,7 +42,7 @@ export const MatrixSheetMixin = Base => class extends Base {
                 return false;
             })
             .map(([actionId, action]) => {
-                const defaultTestPool = system.isDeployedIC ? system.rating * 2 : system.skills?.[action.skill].defaultTestPool;
+                const defaultTestPool = system.isDeployedIC ? system.rating * 2 : system.skills?.[action.skill]?.defaultTestPool;
                 return {
                     id: actionId,
                     ...action,
