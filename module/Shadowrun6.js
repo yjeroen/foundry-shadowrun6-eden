@@ -395,8 +395,10 @@ Hooks.once("init", async function () {
      */
     Hooks.on("dropCanvasData", (canvas, data) => {
         console.log("SR6E | dropCanvasData hook called", canvas, data);
-        if (!(data.type === "Item" || data.type === "ActiveEffect" || data.type === "PAN")) {
-            return true;
+
+        const supportedTypes = new Set(["Item", "ActiveEffect", "PAN", "host"]);
+        if (!supportedTypes.has(data.type)) {
+            return false;
         }
 
         // TODO FoundryVTT - Will be a core feature in V14

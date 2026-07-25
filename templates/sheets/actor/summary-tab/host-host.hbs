@@ -83,6 +83,22 @@
 </div>
 
 <div class="row">
+    <span class="label">{{localize "SR6.Actor.host.spider.assigned"}}:</span>
+    {{#if @root.editMode}}
+    <div class="spider-assign">
+        <a 
+            class="content-link" draggable="true" data-sr6-link
+            data-host-uuid="{{actor.uuid}}" data-host-name="{{actor.name}}"
+            data-type="host" data-tooltip="SR6.Actor.host.spider.assign_tooltip"
+        >
+            <i class="fa-brands fa-buffer"></i>
+            <span>{{localize "SR6.Actor.host.spider.assign"}}</span>
+        </a>
+    </div>
+    {{else}}{{span system.assignedSpiders}}{{/if}}
+</div>
+
+<div class="row">
     <span class="label">{{systemFields.resolutionGrade.label}}:</span>
     {{#if @root.editMode}}{{formInput systemFields.resolutionGrade value=source.resolutionGrade localize=true actor=actor}}
     {{else}}{{span system.resolutionGrade systemFields.resolutionGrade}}{{/if}}

@@ -2752,6 +2752,12 @@
           "deployed": "Deployed",
           "installedIn": "Installed In",
           "deviceAction": "Control Device"
+        },
+        "spider": {
+          "assigned": "Assigned Spiders",
+          "assign": "Assign to Spider Duty",
+          "assign_tooltip": "Dragging this onto a character sheet or token creates an Effect to assign that character as a spider to this host.",
+          "assigned_to_host": "Assigned to Spider Duty of {host}"
         }
       }
     },

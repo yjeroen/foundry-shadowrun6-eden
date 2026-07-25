@@ -3043,3 +3043,11 @@ body.game .app a:hover .sr6-icon {
     font-weight: bold;
     align-self: center;
 }
+
+.sr6 .spider-assign {
+    display: inline-flex;
+}
+.sr6 .spider-assign .content-link {
+    line-height: 1;
+    padding: 1px 6px 0;
+}

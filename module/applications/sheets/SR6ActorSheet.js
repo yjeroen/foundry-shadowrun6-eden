@@ -1617,6 +1617,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         switch ( data.type ) {
             case "PAN":
                 return this._onDropPan(event, data);
+            case "host":
+                return this._onDropHost(event, data);
             default:
                 return super._onDrop(event);
         }
@@ -1634,6 +1636,11 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (!this.actor.isOwner) return false;
         if (this.actor.uuid === data.administratorUuid) return false;
 
+        const supportedTypes = new Set(["Player", "NPC"]);
+        if (!supportedTypes.has(this.actor.type)) {
+            return false;
+        }
+
         const aeCls = getDocumentClass("ActiveEffect");
         const effectData = {
             name: game.i18n.format("shadowrun6.section.pan.share_pan_joined", { name: data.administratorName }),
@@ -1649,6 +1656,45 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         const currentPanEffects = this.actor.effects.filter(effect =>
             effect.changes.some(change => change.key === "system.pan.administratorUuid")
+        );
+        await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
+
+        return await aeCls.create(effectData, { parent: this.actor });
+    }
+
+    /**
+     * Handle the dropping of Host data onto an Actor Sheet, which will create a custom Active Effect
+     * Result will be that this character will become a spider in the Host
+     * @param {DragEvent} event                  The concluding DragEvent which contains drop data
+     * @param {object} data                      The data transfer extracted from the event
+     * @returns {Promise<ActiveEffect|boolean>}  The created ActiveEffect object or false if it couldn't be created.
+     * @protected
+     */
+    async _onDropHost(event, data) {
+        console.log("SR6E | Shadowrun6ActorSheet | _onDropHost", data);
+        if (!this.actor.isOwner) return false;
+        if (this.actor.uuid === data.hostUuid) return false;
+
+        const supportedTypes = new Set(["Player", "NPC"]);
+        if (!supportedTypes.has(this.actor.type)) {
+            return false;
+        }
+
+        const aeCls = getDocumentClass("ActiveEffect");
+        const effectData = {
+            name: game.i18n.format("SR6.Actor.host.spider.assigned_to_host", { host: data.hostName }),
+            img: "systems/shadowrun6-eden/icons/fa-buffer-brands-solid-full.svg",
+            origin: data.hostUuid,
+            system: { advanced: true },
+            changes: [{
+                key: "traits.assignedToHost",
+                mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                value: data.hostUuid
+            }]
+        };
+
+        const currentPanEffects = this.actor.effects.filter(effect =>
+            effect.changes.some(change => change.key === "traits.assignedToHost")
         );
         await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
 
