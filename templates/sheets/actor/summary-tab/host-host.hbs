@@ -9,9 +9,9 @@
             </a>
             {{/if}}
             {{#if item.isDeployedItem}}
-            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
+            <a class="item-control" data-action="retrieveToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle"><i class="fas fa-right-to-bracket"></i></a>
             {{else}}
-            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
+            <a class="item-control" data-action="deployToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.deployTitle"><i class="fas fa-right-from-bracket"></i></a>
             {{/if}}
             
             {{#each item.system.multiTypes as |matrixActionId|}}
@@ -61,9 +61,9 @@
             </a>
             {{/if}}
             {{#if item.isDeployedItem}}
-            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
+            <a class="item-control" data-action="retrieveToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle"><i class="fas fa-right-to-bracket"></i></a>
             {{else}}
-            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
+            <a class="item-control" data-action="deployToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.deployTitle"><i class="fas fa-right-from-bracket"></i></a>
             {{/if}}
             {{#if item.system.skill}}
             <a class="item-control" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}" data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=item.name}}">
@@ -82,8 +82,17 @@
     {{/each}}
 </div>
 
-<div class="row">
+<div class="row spiders">
     <span class="label">{{localize "SR6.Actor.host.spider.assigned"}}:</span>
+    {{#each system.assignedSpiders as |spider|}}
+        <span class="spider">
+            <a data-action="viewDoc" data-document-class="Actor" data-actor-uuid="{{spider.uuid}}" data-tooltip="{{localize "SR6.Actor.host.spider.open_sheet" name=spider.name}}"
+            >{{spider.name}}</a>{{#if (and @root.editMode spider.isOwner)}}<a 
+                class="unassign fa-solid fa-square-xmark" data-action="unassignSpiderDuty" data-spider-uuid="{{spider.uuid}}" data-tooltip="SR6.Actor.host.spider.unassign_tooltip"
+            ></a>{{/if}}{{#unless @last}}, {{/unless}}
+        </span>
+    {{/each}}
+
     {{#if @root.editMode}}
     <div class="spider-assign">
         <a 
@@ -95,7 +104,7 @@
             <span>{{localize "SR6.Actor.host.spider.assign"}}</span>
         </a>
     </div>
-    {{else}}{{span system.assignedSpiders}}{{/if}}
+    {{/if}}
 </div>
 
 <div class="row">

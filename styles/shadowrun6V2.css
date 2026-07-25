@@ -3050,4 +3050,8 @@ body.game .app a:hover .sr6-icon {
 .sr6 .spider-assign .content-link {
     line-height: 1;
     padding: 1px 6px 0;
+    margin-left: 4px;
+}
+.sr6 .spider .unassign {
+    margin-left: 2px;
 }

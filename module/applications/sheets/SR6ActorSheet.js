@@ -1647,16 +1647,19 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             return false;
         }
 
+        const panAdmin = foundry.utils.fromUuidSync(data.administratorUuid);
+        if (!panAdmin) return;
+
         const aeCls = getDocumentClass("ActiveEffect");
         const effectData = {
             name: game.i18n.format("shadowrun6.section.pan.share_pan_joined", { name: data.administratorName }),
             img: "systems/shadowrun6-eden/icons/fa-network-wired-solid.svg",
-            origin: data.administratorUuid,
+            origin: panAdmin.uuid,
             system: { advanced: true },
             changes: [{
                 key: "system.pan.administratorUuid",
                 mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: data.administratorUuid
+                value: panAdmin.uuid
             }]
         };
 
@@ -1665,7 +1668,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         );
         await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
 
-        return await aeCls.create(effectData, { parent: this.actor });
+        await aeCls.create(effectData, { parent: this.actor });
+        panAdmin.render();
     }
 
     /**
@@ -1731,7 +1735,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         );
         await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
 
-        return await aeCls.create(effectData, { parent: this.actor });
+        await aeCls.create(effectData, { parent: this.actor });
+        host.render();
     }
 
     /**

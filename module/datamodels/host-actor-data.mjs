@@ -62,6 +62,22 @@ export default class SR6HostActorData extends SR6BaseActorData {
         return Boolean(this.deployedItem?.system.isIC)
     }
 
+    get assignedSpiders() {
+        const hasSpiderDuty = actor => actor?.effects.some(effect =>
+            !effect.disabled &&
+            effect.changes.some(change =>
+                change.key === "traits.assignedToHost" &&
+                change.value === this.actor.uuid
+            )
+        );
+        const worldActors = game.actors.filter(actor => actor.prototypeToken.actorLink);
+        const tokenActors = Object.values(game.actors.tokens);
+        const spiders = [...worldActors, ...tokenActors]
+            .filter(hasSpiderDuty);
+
+        return spiders;
+    }
+
     /**
      * Apply transformations of derivations to the values of the source data object.
      * Compute data fields whose values are not stored to the database.

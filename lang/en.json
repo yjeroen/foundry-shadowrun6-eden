@@ -2757,7 +2757,9 @@
           "assigned": "Assigned Spiders",
           "assign": "Assign to Spider Duty",
           "assign_tooltip": "Dragging this onto a character sheet or token creates an Effect to assign that character as a spider to this host.",
-          "assigned_to_host": "Assigned to Spider Duty of {host}"
+          "assigned_to_host": "Assigned to Spider Duty of {host}",
+          "open_sheet": "Click to open spider {name}'s sheet",
+          "unassign_tooltip": "Remove from Spider Duty"
         }
       }
     },

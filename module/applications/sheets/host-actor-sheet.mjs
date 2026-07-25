@@ -19,7 +19,8 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         actions: {
             deployToken: this._onDeployToken,
             retrieveToken: this._onRetrieveToken,
-            viewAnyDoc: this._viewAnyDoc
+            viewAnyDoc: this._viewAnyDoc,   //TODO rework to base-actor-sheet
+            unassignSpiderDuty: this._unassignSpiderDuty
         },
     };
 
@@ -397,6 +398,22 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         const docUuid = target.dataset.docUuid;
         const doc = await foundry.utils.fromUuid(docUuid);
         doc.sheet.render(true);
+    }
+
+    /**
+     * Removes the assignedToHost ActiveEffect from the Spider Actor
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @protected
+     */
+    static async _unassignSpiderDuty(event, target) {
+        const spiderUuid = target.dataset.spiderUuid;
+        const actor = await foundry.utils.fromUuidSync(spiderUuid);
+        const currentSpiderEffects = actor.effects.filter(effect =>
+            effect.changes.some(change => change.key === "traits.assignedToHost")
+        );
+        await actor.deleteEmbeddedDocuments( "ActiveEffect", currentSpiderEffects.map(effect => effect.id) );
+        this.render();
     }
 
 }
