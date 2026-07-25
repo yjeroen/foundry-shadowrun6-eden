@@ -398,7 +398,7 @@ Hooks.once("init", async function () {
 
         const supportedTypes = new Set(["Item", "ActiveEffect", "PAN", "host"]);
         if (!supportedTypes.has(data.type)) {
-            return false;
+            return true;
         }
 
         // TODO FoundryVTT - Will be a core feature in V14
@@ -867,6 +867,7 @@ Hooks.once("init", async function () {
             });
         } else if (actor.type === "host") {
             actor.prototypeToken.updateSource({
+                name: actor.name,
                 actorLink: true,
                 lockRotation: true,
             });
