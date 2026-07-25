@@ -64,11 +64,7 @@ export default class SR6HostActorData extends SR6BaseActorData {
 
     get assignedSpiders() {
         const hasSpiderDuty = actor => actor?.effects.some(effect =>
-            !effect.disabled &&
-            effect.changes.some(change =>
-                change.key === "traits.assignedToHost" &&
-                change.value === this.actor.uuid
-            )
+            effect.origin === this.actor.uuid
         );
         const worldActors = game.actors.filter(actor => actor.prototypeToken.actorLink);
         const tokenActors = Object.values(game.actors.tokens);
@@ -130,13 +126,13 @@ export default class SR6HostActorData extends SR6BaseActorData {
         await super._preUpdate(changes, options, user);
         if (!this.deployedItem || !this.parent.token) return;
 
-        this._updateDeployedItem(changes, options, user);
+        this._updateDeployedItem(changes);
     }
 
     /**
      * Sending matrixCM changes to the Deployed Item
      */
-    async _updateDeployedItem(changes, options, user) {
+    async _updateDeployedItem(changes) {
         if (!changes.system?.matrix?.matrixCM) return;
         console.log("SR6E | SR6HostActorData._updateDeployedItem");
 
@@ -146,5 +142,80 @@ export default class SR6HostActorData extends SR6BaseActorData {
         });
     }
 
+    /**
+     * Called by {@link ClientDocument#_onUpdate}.
+     *
+     * @param {object} changed            The differential data that was changed relative to the documents prior values
+     * @param {object} options            Additional options which modify the update request
+     * @param {string} userId             The id of the User requesting the document update
+     * @protected
+     * @internal
+     */
+    async _onUpdate(changed, options, userId) {
+        await super._onUpdate(changed, options, userId);
+
+        await this._updateSpiderAEs(changed);
+    }
+
+    /**
+     * Updating ASDF of all the Hosts Spiders
+     */
+    async _updateSpiderAEs(changed) {
+        if (!changed.system?.matrix?.attributes || !this.assignedSpiders.length) return;
+        console.log("SR6E | SR6HostActorData._updateSpiderAEs", this.assignedSpiders);
+
+        const hostAttributes = this.matrix.attributes;
+
+        const attributesByEffectKey = {
+            "system.persona.used.a": "attack",
+            "system.persona.used.s": "sleaze",
+            "system.persona.used.d": "dataProcessing",
+            "system.persona.used.f": "firewall"
+        };
+
+        for (const spider of this.assignedSpiders) {
+            const effect = spider.effects.find(effect => effect.origin === this.actor.uuid);
+
+            const changes = effect.changes.map(change => {
+                const attribute = attributesByEffectKey[change.key];
+                if (!attribute) return change;
+
+                return {
+                    ...change,
+                    value: hostAttributes[attribute]
+                };
+            });
+
+            await effect.update({ changes });
+        }
+    }
+    
+    /**
+     * Called by {@link ClientDocument#_onDelete}.
+     *
+     * @param {object} options            Additional options which modify the deletion request
+     * @param {string} userId             The id of the User requesting the document update
+     * @protected
+     * @internal
+     */
+    async _onDelete(options, userId) {
+        await this._deleteSpiderAEs();
+        
+        super._onDelete(options, userId);
+    }
+
+    /**
+     * Delete the Active Effects assigned to this Host from all its spiders.
+     */
+    async _deleteSpiderAEs() {
+        console.log("SR6E | SR6HostActorData._deleteSpiderAEs", this.assignedSpiders);
+        for (const spider of this.assignedSpiders) {
+            const effect = spider.effects.find(effect =>
+                effect.origin === this.actor.uuid
+            );
+
+            await effect.delete();
+        }
+    }
 
 }
