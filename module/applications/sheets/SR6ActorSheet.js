@@ -1630,6 +1630,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
 
     /**
+     * TODO evaluate if this should be moved to Actor
      * Handle the dropping of PAN data onto an Actor Sheet, which will create a custom Active Effect
      * @param {DragEvent} event                  The concluding DragEvent which contains drop data
      * @param {object} data                      The data transfer extracted from the event
@@ -1668,6 +1669,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
 
     /**
+     * TODO evaluate if this should be moved to Actor
      * Handle the dropping of Host data onto an Actor Sheet, which will create a custom Active Effect
      * Result will be that this character will become a spider in the Host
      * @param {DragEvent} event                  The concluding DragEvent which contains drop data
@@ -1685,17 +1687,43 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             return false;
         }
 
+        const host = foundry.utils.fromUuidSync(data.hostUuid);
+        if (!host) return;
+        const hostAttributes = host.system.matrix.attributes;
+
         const aeCls = getDocumentClass("ActiveEffect");
         const effectData = {
             name: game.i18n.format("SR6.Actor.host.spider.assigned_to_host", { host: data.hostName }),
             img: "systems/shadowrun6-eden/icons/fa-buffer-brands-solid-full.svg",
-            origin: data.hostUuid,
+            origin: host.uuid,
             system: { advanced: true },
-            changes: [{
-                key: "traits.assignedToHost",
-                mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: data.hostUuid
-            }]
+            changes: [
+                {
+                    key: "traits.assignedToHost",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                    value: host.uuid
+                },
+                {
+                    key: "system.persona.used.a",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.attack
+                },
+                {
+                    key: "system.persona.used.s",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.sleaze
+                },
+                {
+                    key: "system.persona.used.d",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.dataProcessing
+                },
+                {
+                    key: "system.persona.used.f",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.firewall
+                }
+            ]
         };
 
         const currentPanEffects = this.actor.effects.filter(effect =>
