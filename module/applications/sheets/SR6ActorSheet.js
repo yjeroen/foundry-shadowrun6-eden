@@ -1521,7 +1521,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     data-administrator-uuid="${this.actor.uuid}" data-administrator-name="${this.actor.name}"
                     data-type="PAN" data-tooltip="shadowrun6.section.pan.share_tooltip"
                 >
-                    ${game.i18n.format("shadowrun6.section.pan.share_join_pan", { name: this.actor.name })}
+                    <i class="fas fa-network-wired pan-node-icon"></i>
+                    <span>${game.i18n.format("shadowrun6.section.pan.share_join_pan", { name: this.actor.name })}</span>
                 </a>
             </p>
         </div>

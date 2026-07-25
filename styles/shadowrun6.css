@@ -1391,6 +1391,10 @@ body.game .application.shadowrun6 .window-content {
   margin-top: 0.5rem;
 }
 
+.chat-message .system-message .content-link {
+  padding-bottom: 2px;
+}
+
 .chat-message .chat-tooltip {
   font-style: italic;
   padding: 0.5rem 0.5rem 0 0.5rem;
