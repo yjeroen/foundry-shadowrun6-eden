@@ -1703,7 +1703,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             system: { advanced: true },
             changes: [
                 {
-                    key: "traits.assignedToHost",
+                    key: "traits.assignedToHost",   // Using traits.assignedToHost only so we can keep this type of AE unique via the deleteEmbeddedDocuments below
                     mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
                     value: host.uuid
                 },
@@ -1730,10 +1730,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             ]
         };
 
-        const currentPanEffects = this.actor.effects.filter(effect =>
+        const currentSpiderEffects = this.actor.effects.filter(effect =>
             effect.changes.some(change => change.key === "traits.assignedToHost")
         );
-        await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
+        await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentSpiderEffects.map(effect => effect.id) );
 
         await aeCls.create(effectData, { parent: this.actor });
         host.render();

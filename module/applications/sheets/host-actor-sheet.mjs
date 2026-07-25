@@ -408,11 +408,11 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
      */
     static async _unassignSpiderDuty(event, target) {
         const spiderUuid = target.dataset.spiderUuid;
-        const actor = await foundry.utils.fromUuidSync(spiderUuid);
-        const currentSpiderEffects = actor.effects.filter(effect =>
-            effect.changes.some(change => change.key === "traits.assignedToHost")
+        const spider = await foundry.utils.fromUuidSync(spiderUuid);
+        const currentSpiderEffects = spider.effects.filter(effect =>
+            effect.origin === this.actor.uuid
         );
-        await actor.deleteEmbeddedDocuments( "ActiveEffect", currentSpiderEffects.map(effect => effect.id) );
+        await spider.deleteEmbeddedDocuments( "ActiveEffect", currentSpiderEffects.map(effect => effect.id) );
         this.render();
     }
 
