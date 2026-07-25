@@ -35,6 +35,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         let data = await super.getData();
         data.config = CONFIG.SR6;
         data.sheet = this;
+        data.source = this.actor._source.system;
         if (game.release.generation >= 10) {
             data.system = data.data.system;
         }
@@ -1139,26 +1140,28 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
     async _onMatrixAttributesSwitch(event, html) {
         const clickedAttribute = event.currentTarget.firstChild;
-        if (parseInt(clickedAttribute.value) === 0) return;
+        const value = parseInt(clickedAttribute.dataset.source);
+
+        if (value === 0) return;
         const matrixAttributes = event.currentTarget.parentElement.childNodes;
-        console.log("SR6E | _onMatrixAttributesSwitch attribute clicked:", clickedAttribute.dataset.field);
+        console.log("SR6E | _onMatrixAttributesSwitch attribute clicked:", clickedAttribute.dataset.field, "current source value: ", value);
         clickedAttribute.classList.toggle('clicked');
         const matrixPersona = {};
         let clickedAttributes = 0;
-        let activeBox1, activeBox2;
         
         matrixAttributes.forEach(attribute => {
             const attributeInput = attribute.firstChild;
             if (attributeInput?.nodeName === "INPUT"){
                 const clicked = attributeInput.classList.contains('clicked');
-                matrixPersona[attributeInput.dataset.field] = { value: parseInt(attributeInput.value), clicked: clicked };
+                const attrValue = parseInt(attributeInput.dataset.source);
+
+                matrixPersona[attributeInput.dataset.field] = { value: attrValue, clicked: clicked };
                 if (clicked) {
-                    if (activeBox1) activeBox2 = attribute;
-                    else activeBox1 = attribute;
                     clickedAttributes++;
                 }
             }
         });
+
         if (clickedAttribute.classList.contains('clicked') && clickedAttributes === 2) {
             const updatePersona = {};
             let swappedField;
@@ -1172,13 +1175,15 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     }
                 }
             });
-            const swappedCss = activeBox1.getAttribute('style');
-            activeBox1.setAttribute('style', activeBox2.getAttribute('style'));
-            activeBox2.setAttribute('style', swappedCss);
-            //TODO add Matrix Attribute swap animation
-            // await new Promise(resolve => setTimeout(resolve, 500)); // wait until CSS effect is ready
 
-            await this.actor.update( updatePersona );
+            const success = await this.actor.update( updatePersona );
+            if (success) return;
+
+            await new Promise(resolve => setTimeout(resolve, 250));
+            matrixAttributes.forEach(attribute => {
+                const attributeInput = attribute.firstChild;
+                attributeInput?.classList?.remove('clicked');
+            });
         }
     }
 
