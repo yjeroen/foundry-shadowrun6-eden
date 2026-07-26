@@ -891,7 +891,17 @@ a.item-control.disabled-roll:hover {
 .matrix-persona-attributes .collapsible {
   color: gray;
 }
-
+.shadowrun6 .matrix-section .matrix-action label {
+  cursor: var(--cursor-default);
+}
+.shadowrun6 .matrix-section .matrix-action label.collapsible label {
+  cursor: var(--cursor-pointer);
+}
+.shadowrun6 .matrix-section .matrix-action label.collapsible:hover {
+  color: black;
+  text-shadow: 0 0 8px var(--color-shadow-primary);
+  cursor: var(--cursor-pointer);
+}
 
 .chat-message .edgeable.edge-own-roll .die.miss,
 .chat-message .edgeable.edge-opponent-roll .die.hit {

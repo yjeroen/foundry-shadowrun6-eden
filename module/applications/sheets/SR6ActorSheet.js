@@ -122,8 +122,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .on("click", this._onClickImage.bind(this))
             .on("contextmenu", this._onClickImage.bind(this));
 
+        html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
+
         if (this.document.limited || this.options.limited) {
-            html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
             html.find(".matrix-roll").click(this._onMatrixRollByInitiator.bind(this));
         }
         // Owner Only Listeners
@@ -345,7 +346,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     await item.update({ [property]: !foundry.utils.getProperty(item, property) });
             });
             //Collapsible
-            html.find(".collapsible:not(.empty)").click(async (event) => {
+            html.find(".section:not(.matrix-section) .collapsible:not(.empty)").click(async (event) => {
+                console.log("SR6E | click .collapsible:not(.empty)");
                 const element = event.currentTarget;
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
                 const item = this.actor.items.get(itemId);
@@ -1023,15 +1025,16 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
     //-----------------------------------------------------
     _onMatrixActionDescription(event, html) { //.matrix-section.persona .collapsible
+        console.log("SR6E | click _onMatrixActionDescription ");
         const element = event.currentTarget;
 
         element.classList.toggle("closed");
         element.classList.toggle("open");
 
         const content = element.parentElement.nextElementSibling;
-        content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
         content.classList.toggle("closed");
         content.classList.toggle("open");
+        content.style.maxHeight =  element.classList.contains("open") ? content.scrollHeight + "px" : null;
         if (element.parentElement.classList.contains("matrix-persona-attributes")) {
             this.options.flags.collapseMatrixAttr = content.classList.contains("open") ? "open" : "closed";
         }
@@ -1885,6 +1888,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * @private
      */
     async _toggleCombatActionDesc(event, target) {
+        console.log("SR6E | click _toggleCombatActionDesc ");
         const row = target.closest("li.combat-action");
         const actionId = row.dataset.combatActionId;
         const action = CONFIG.SR6.COMBAT_ACTIONS[actionId];
@@ -1910,9 +1914,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         target.classList.toggle("open", isOpen);
         target.classList.toggle("closed", !isOpen);
-        content.style.maxHeight = isOpen ? `${content.scrollHeight+2}px` : null;
         content.classList.toggle("open", isOpen);
         content.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight+2}px` : null;
     }
 
 }

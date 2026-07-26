@@ -57,6 +57,9 @@
     pointer-events: none;
 }
 
+.sr6 .description .section-content {
+    min-height: 1em;
+}
 .sr6 .section .prosemirror button.toggle {
     right: 5px;
 }

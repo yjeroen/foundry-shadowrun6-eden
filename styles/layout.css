@@ -516,12 +516,14 @@ table.spell-table td {
 }
 
 .editor {
-    flex: 1;
-    justify-self: stretch;
-    align-self: stretch;
-    height: 100%;
-    min-height: 2em;
-    margin-bottom: 5px;
+  flex: 1;
+  justify-self: stretch;
+  align-self: stretch;
+  height: 100%;
+  margin-bottom: 5px;
+}
+.editor:not(.prosemirror) {
+  min-height: 2em;
 }
 .read-only .editor,
 .locked .editor {
