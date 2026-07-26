@@ -1566,6 +1566,11 @@ export default class Shadowrun6Actor extends Actor {
                 if (rigRating > 0) {
                     modRig = " + " + game.i18n.localize("shadowrun6.item.vehicle.rigRating.long") + " (" + rigRating + ")";
                 }
+                console.log('JEROEN', this.name, tmpItem.name)
+                console.log('JEROEN', system.skills)
+                console.log('JEROEN', specialization)
+                console.log('JEROEN', rigRating)
+                console.log('JEROEN', this._getSkillPool("piloting", specialization, "rea"))
                 switch (opMode) {
                     case "manual":
                         rigRating = 0;
@@ -1593,7 +1598,7 @@ export default class Shadowrun6Actor extends Actor {
                                 vehicleData.arm +
                                 ")" +
                                 modRig;
-                        current.handling.pool = this._getSkillPool("piloting", specialization, "rea") + +rigRating;
+                        current.handling.pool = this._getSkillPool("piloting", specialization, "rea") + rigRating;
                         current.handling.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1607,7 +1612,7 @@ export default class Shadowrun6Actor extends Actor {
                         break;
                     case "riggedVR":
                         //item.data.vehicle.attrib="int";
-                        current.ar.pool = system.skills.piloting.points + vehicleData.sen + +rigRating;
+                        current.ar.pool = system.skills.piloting.points + vehicleData.sen + rigRating;
                         current.ar.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1618,7 +1623,7 @@ export default class Shadowrun6Actor extends Actor {
                                 vehicleData.sen +
                                 ")" +
                                 modRig;
-                        current.dr.pool = system.skills.piloting.points + vehicleData.arm + +rigRating;
+                        current.dr.pool = system.skills.piloting.points + vehicleData.arm + rigRating;
                         current.dr.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1629,7 +1634,7 @@ export default class Shadowrun6Actor extends Actor {
                                 vehicleData.arm +
                                 ")" +
                                 modRig;
-                        current.handling.pool = this._getSkillPool("piloting", specialization, "int") + +rigRating;
+                        current.handling.pool = this._getSkillPool("piloting", specialization, "int") + rigRating;
                         current.handling.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -2189,13 +2194,18 @@ export default class Shadowrun6Actor extends Actor {
      */
     _getSkillPool(skillId, spec, attributePath = undefined) {
         if (!skillId) return undefined;
+
         const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
+        // console.log(`SR6E | _getSkillPool | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}'`);
         
-        // console.log(`SR6E | _getSkillPool | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}' `);
         if (!attributePath) {
             attributePath = `system.attributes.${skillDef.attrib}.pool`;
-            if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = `system.rating`;
-            // console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}' `);
+            if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = "system.rating";
+            // console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}'`);
+        }
+
+        if (attributePath.length === 3) {
+            attributePath = `system.attributes.${attributePath}.pool`;
         }
 
         if (this.system instanceof foundry.abstract.DataModel) {

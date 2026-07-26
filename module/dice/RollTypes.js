@@ -174,34 +174,37 @@ export class ActorAttributeRoll extends PreparedRoll {
 export class DefenseRoll extends PreparedRoll {
     damage;
     soakType;
-    allowSoak;
+    allowSoak = true;
+
     constructor(threshold, monitor) {
-        console.log("SR6E | Constructing DefenseRoll", threshold, monitor)
         super();
-        this.allowSoak = true;
+        console.log("SR6E | Constructing DefenseRoll", threshold, monitor);
+
         this.rollType = RollType.Defense;
         this.threshold = threshold;
-        if (monitor) this.monitor = monitor;
+
+        if (monitor === MonitorType.STUN_SPECIAL || monitor === MonitorType.PHYSICAL_SPECIAL) {
+            this.chatDescription = game.i18n.localize("shadowrun6.defense.special");
+            monitor = monitor === MonitorType.STUN_SPECIAL ? MonitorType.STUN : MonitorType.PHYSICAL;
+        }
+
+        this.monitor = monitor;
 
         switch (monitor) {
             case MonitorType.STUN:
                 this.soakType = SoakType.DAMAGE_STUN;
                 this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
                 break;
-
             case MonitorType.PHYSICAL:
                 this.soakType = SoakType.DAMAGE_PHYSICAL;
                 this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
                 break;
-
             case MonitorType.MATRIX:
                 this.soakType = SoakType.DAMAGE_MATRIX;
                 this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
                 break;
-
             default:
-                console.log("SR6E | DefenseRoll | No monitor set - no soakType applied")
-                break;
+                console.error("SR6E | DefenseRoll | No monitor set - no soakType applied");
         }
     }
 }
