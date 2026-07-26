@@ -20,7 +20,9 @@ export var Defense;
 export var MonitorType;
 (function (MonitorType) {
     MonitorType["PHYSICAL"] = "physical";
+    MonitorType["PHYSICAL_SPECIAL"] = "physical_special";
     MonitorType["STUN"] = "stun";
+    MonitorType["STUN_SPECIAL"] = "stun_special";
     MonitorType["SOCIAL"] = "social";
     MonitorType["MATRIX"] = "matrix";
 })(MonitorType || (MonitorType = {}));
