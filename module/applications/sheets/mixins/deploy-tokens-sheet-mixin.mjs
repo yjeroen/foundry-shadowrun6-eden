@@ -69,22 +69,38 @@ export const DeployTokensSheetMixin = Base => class extends Base {
      */
     async retrieveTokens(tokenDocuments) {
         if (!tokenDocuments) return;
-        const originToken = this.actor.token ?? this.actor.getActiveTokens(true, true).shift();
+
         const tokens = Array.isArray(tokenDocuments) ? tokenDocuments : [tokenDocuments];
+        const originToken = this.actor.token ?? this.actor.getActiveTokens(true, true).shift();
+        const scene = game.canvas.scene;
+
+        console.log("SR6E | DeployTokensSheetMixin.retrieveTokens | originToken:", originToken);
         console.log("SR6E | DeployTokensSheetMixin.retrieveTokens | tokens:", tokens);
 
-        const updates = tokens.map(token => ({
-            _id: token.id,
-            x: originToken.x,
-            y: originToken.y,
-            elevation: originToken.elevation
-        }));
+        const animatedTokens = originToken?.parent?.uuid === scene?.uuid
+            ? tokens.filter(token => token.parent?.uuid === scene.uuid)
+            : [];
 
-        await originToken.parent.updateEmbeddedDocuments("Token", updates);
+        if (animatedTokens.length) {
+            const updates = animatedTokens.map(token => ({
+                _id: token.id,
+                x: originToken.x,
+                y: originToken.y,
+                elevation: originToken.elevation
+            }));
+
+            console.log("SR6E | DeployTokensSheetMixin.retrieveTokens | updates:", updates);
+            await scene.updateEmbeddedDocuments("Token", updates);
+        }
 
         await Promise.all(tokens.map(async token => {
-            const animation = token.object?.animationContexts.get(token.object.movementAnimationName);
-            await animation?.promise;
+            console.log("SR6E | DeployTokensSheetMixin.retrieveTokens | token:", token.uuid);
+
+            if (animatedTokens.includes(token)) {
+                const animation = token.object?.animationContexts.get(token.object.movementAnimationName);
+                await animation?.promise;
+            }
+
             await token.delete();
         }));
     }

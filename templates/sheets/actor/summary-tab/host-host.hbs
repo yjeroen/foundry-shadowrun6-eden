@@ -2,13 +2,13 @@
     <span class="label">{{localize "SR6.Actor.host.ic.label"}}:</span>
     <p>
         {{#each ic as |item|}}
-            <label class="item-name {{#if item.isDeployedItem}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            <label class="item-name {{#if item.isDeployedToken}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
             </a>
             {{/if}}
-            {{#if item.isDeployedItem}}
+            {{#if item.isDeployedToken}}
             <a class="item-control" data-action="retrieveToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle"><i class="fas fa-right-to-bracket"></i></a>
             {{else}}
             <a class="item-control" data-action="deployToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.deployTitle"><i class="fas fa-right-from-bracket"></i></a>
@@ -54,13 +54,13 @@
     <p>
         {{#each matrixItems as |item|}}
         {{#if item.system.isElectronicMatrixDevice}}
-            <label class="item-name {{#if item.isDeployedItem}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            <label class="item-name {{#if item.isDeployedToken}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
             {{#if (eq item.system.duration 'sustained')}}
             <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
                 <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
             </a>
             {{/if}}
-            {{#if item.isDeployedItem}}
+            {{#if item.isDeployedToken}}
             <a class="item-control" data-action="retrieveToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle"><i class="fas fa-right-to-bracket"></i></a>
             {{else}}
             <a class="item-control" data-action="deployToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.deployTitle"><i class="fas fa-right-from-bracket"></i></a>

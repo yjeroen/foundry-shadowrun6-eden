@@ -122,8 +122,8 @@ export default class SR6ItemSheet extends ItemSheet {
             if (this.item.actor?.type === "host") {
                 data.installedInHost = this.item.actor;
             }
-            if (this.item.getFlag("shadowrun6-eden", "isDeployedItem")) {
-                data.isDeployedItem = true;
+            if (this.item.getFlag("shadowrun6-eden", "isDeployedToken")) {
+                data.isDeployedToken = true;
             }
         }
 

@@ -39,7 +39,7 @@ export default class SR6TokenDocument extends foundry.documents.TokenDocument {
 
         const item = foundry.utils.fromUuidSync(deployedItemUuid);
         console.log("SR6E | SR6TokenDocument | This is a deployedItem from a Host Actor | cancelling deployment of", item.name, item.uuid);
-        item.unsetFlag("shadowrun6-eden", "isDeployedItem");
+        item.unsetFlag("shadowrun6-eden", "isDeployedToken");
     }
 
 }

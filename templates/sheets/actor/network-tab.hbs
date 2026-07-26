@@ -71,7 +71,7 @@
 
           <div class="section-column item-controls">
 
-            {{#if item.isDeployedItem}}
+            {{#if item.isDeployedToken}}
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
             {{else}}
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
@@ -193,7 +193,7 @@
 
           <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
             <span>{{item.name}}</span>
-            <span class="item-traits">{{#if item.isDeployedItem}}{{localize "SR6.Actor.host.matrixItems.deployed"}}{{/if}}</span>
+            <span class="item-traits">{{#if item.isDeployedToken}}{{localize "SR6.Actor.host.matrixItems.deployed"}}{{/if}}</span>
           </div>
 
           <div class="section-column">
@@ -207,7 +207,7 @@
           <div class="section-column item-controls"> 
             
             {{#if item.system.isElectronicMatrixDevice}}
-            {{#if item.isDeployedItem}}
+            {{#if item.isDeployedToken}}
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
             {{else}}
             <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>

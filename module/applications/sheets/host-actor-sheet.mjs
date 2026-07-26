@@ -162,7 +162,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
 
         for (let i of this.document.items) {
             if (i.system.isIC) {
-                i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
+                i.isDeployedToken = i.getFlag("shadowrun6-eden", "isDeployedToken");
                 i.matrixCM = this._prepareConditionMonitors(i.system.matrix.matrixCM);
                 i.matrixActionId = i.system.multiTypes.values().next().value;
                 ic.push(i);
@@ -173,7 +173,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         for (let i of this.document.items) {
             if (!i.system.isIC) {
                 if (i.system.isElectronicMatrixDevice) {
-                    i.isDeployedItem = i.getFlag("shadowrun6-eden", "isDeployedItem");
+                    i.isDeployedToken = i.getFlag("shadowrun6-eden", "isDeployedToken");
                     i.matrixCM = this._prepareConditionMonitors(i.system.matrix.matrixCM);
                 }
                 matrixItems.push(i);
@@ -335,7 +335,6 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
     static async _onDeployToken(event, target) {
         const deployedItemUuid = target.dataset.itemUuid;
         const item = foundry.utils.fromUuidSync(deployedItemUuid);
-        await item.setFlag("shadowrun6-eden", 'isDeployedItem', true);
 
         const tokenDocument = await this.actor.getTokenDocument({
             name: item.name,
@@ -349,8 +348,9 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
             }
         });
 
-        // Calls DeployTokensSheetMixin.deployTokens()
-        return this.deployTokens(tokenDocument);
+        // Calls DeployTokensSheetMixin.deployTokens() - returns only 1 doc in this situation, so destructuring it
+        const [deployedToken] = await this.deployTokens(tokenDocument);
+        await item.setFlag("shadowrun6-eden", 'isDeployedToken', deployedToken.uuid);
     }
 
     /**
@@ -363,13 +363,12 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
     static async _onRetrieveToken(event, target) {
         const deployedItemUuid = target.dataset.itemUuid;
         const item = foundry.utils.fromUuidSync(deployedItemUuid);
+        const uuid = item.getFlag("shadowrun6-eden", "isDeployedToken");
 
-        const deployedToken = canvas.scene.tokens.find(token =>
-            token.getFlag("shadowrun6-eden", "deployedItemUuid") === deployedItemUuid
-        );
+        const deployedToken = foundry.utils.fromUuidSync (uuid)
 
         await this.retrieveTokens(deployedToken);
-        await item.unsetFlag("shadowrun6-eden", "isDeployedItem");
+        await item.unsetFlag("shadowrun6-eden", "isDeployedToken");
     }
 
     /**
