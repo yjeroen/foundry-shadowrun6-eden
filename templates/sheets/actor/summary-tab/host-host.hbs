@@ -92,6 +92,9 @@
             ></a>{{/if}}{{#unless @last}}, {{/unless}}
         </span>
     {{/each}}
+    {{#unless system.assignedSpiders.length}}
+        <span>-</span>
+    {{/unless}}
 
     {{#if @root.editMode}}
     <div class="spider-assign">
