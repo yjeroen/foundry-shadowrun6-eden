@@ -313,7 +313,8 @@
       "spells_direct": "Direct Spells",
       "spells_indirect": "Indirect Spells",
       "spells_other": "Other Spells",
-      "toxin": "Resist Toxin"
+      "toxin": "Resist Toxin",
+      "special": "This also applies a status effect equal to net hits."
     },
     "defense_rating": {
 	   "label":  "Defense Rating",
@@ -958,7 +959,7 @@
       "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "targetActor.title": "Initiate Target",
       "targetActor.macro": "Open Targets Matrix Persona",
-      "targetActor.tooltip": "<p>Open your target's Limited View sheet. This shows their Matrix Persona if they are present in the Matrix via AR or VR.</p><p>You can (un)target a token by hovering your mouse over it and pressing T on your keyboard.",
+      "targetActor.tooltip": "<p>Open your target's Limited View sheet. This shows their Matrix Persona if they are present in the Matrix via AR or VR.</p><p>You can (un)target a token by hovering your mouse over it and pressing T on your keyboard.</p><p>You can drag this button to your Macro Hotbar.</p>",
       "target_persona.title": "Targetting Persona",
       "target_persona.tooltip": "<p>This section shows Matrix Actions that can target the Persona directly.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "accessLevel": {
