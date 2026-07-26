@@ -269,6 +269,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 case "network":
                     tab.id = "network";
                     break;
+                case "matrixTarget":
+                    tab.id = "matrixTarget";
+                    break;
                 // case "gear":
                 //     tab.id = "gear";
                 //     break;
@@ -278,6 +281,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 case "effects":
                     tab.id = "effects";
                     break;
+                default:
+                    console.error(`SR6E | Tab id '${partId}' is not configured in SR6BaseActorSheet._getTabs`);
             }
             if (tab.id) tab.label = game.i18n.localize( tab.label + tab.id );
             if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = "active";

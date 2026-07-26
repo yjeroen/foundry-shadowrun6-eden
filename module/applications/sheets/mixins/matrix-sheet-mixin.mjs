@@ -17,6 +17,31 @@ export const MatrixSheetMixin = Base => class extends Base {
         },
     };
 
+    /** @inheritdoc */
+    static PARTS = {
+        ...super.PARTS,
+        matrixTarget: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/matrix-target-tab.hbs",
+            scrollable: [""],
+            templates: [
+                "systems/shadowrun6-eden/templates/sheets/actor/matrix-section.hbs"
+            ]
+        }
+    };
+
+    async _preparePartContext(partId, context) {
+        context = await super._preparePartContext(partId, context);
+
+        switch (partId) {
+            case "matrixTarget":
+                context.tab = context.tabs[partId];
+                context.matrixAccess = this._matrixAccess();
+                context.matrixActions = this._matrixActions();
+                break;
+        }
+        return context;
+    }
+
     _matrixActions(actor = this.actor) {
         const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)

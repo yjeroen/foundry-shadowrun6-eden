@@ -2520,7 +2520,8 @@
         "features": "Features",
         "network": "Network",
         "description": "Description",
-        "effects": "Effects"
+        "effects": "Effects",
+        "matrixTarget": "Matrix"
       },
       "base": {
         "FIELDS": {

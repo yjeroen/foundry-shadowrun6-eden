@@ -54,8 +54,15 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         
         // Don't show the other tabs if only limited view
         if (this.document.limited || this.options.limited) {
-            options.parts.push("summary", "description");
-            return;
+            if (this.deployedItem) {
+                this._defaultTab = "matrixTarget"
+                options.parts.push("matrixTarget", "description");
+                return;
+            } else {
+                this._defaultTab = "description"
+                options.parts.push("description");
+                return;
+            }
         }
 
         if (this.deployedItem) {
@@ -63,7 +70,7 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
             return;
         }
 
-        // Control which parts show based on document subtype
+        // Default for Host
         options.parts.push("summary", "network", "description", "effects");
     }
 
@@ -89,8 +96,6 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
                 break;
             case "network":
                 context.tab = context.tabs[partId];
-                context.matrixAccess = this._matrixAccess();
-                context.matrixActions = this._matrixActions();
                 this._prepareHostItems(context);
                 break;
             case "description":
