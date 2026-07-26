@@ -49,7 +49,7 @@
 
 		{{#if (eq geartype "SOFTWARE")}}
 		{{!-- TODO Rework once Software is migrated from gear item.type to software --}}
-		{{#each actor.itemTypes.software as |item id|}}
+		{{#each (sort actor.itemTypes.software) as |item id|}}
 		<tr class="item list-item" data-item-id="{{item.id}}">
 			<td style="margin-right: 1rem; width: 0.7em;">
 				<button type="button" name="collapseGear{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>
