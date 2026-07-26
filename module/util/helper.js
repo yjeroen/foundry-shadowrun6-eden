@@ -531,7 +531,7 @@ function getSpellFeatures(spell) {
 }
 export function getMatrixActionPool(actionName, actor) {
     const action = CONFIG.SR6.MATRIX_ACTIONS[actionName];
-    return action.skill ? actor._getSkillPool(action.skill) : 0;
+    return action.skill ? actor._getSkillPool(action.skill, action.specialization) : 0;
 
     // const skill = getSystemData(actor).skills[action.skill];
     // let pool = 0;

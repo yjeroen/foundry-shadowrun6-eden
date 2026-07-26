@@ -42,7 +42,7 @@ export const MatrixSheetMixin = Base => class extends Base {
         return context;
     }
 
-    _matrixActions(actor = this.actor) {
+    _matrixActions(actor = this.initiator) {
         const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
             .filter(([actionId, action]) => {
@@ -67,7 +67,7 @@ export const MatrixSheetMixin = Base => class extends Base {
                 return false;
             })
             .map(([actionId, action]) => {
-                const defaultTestPool = system.isDeployedIC ? system.rating * 2 : system.skills?.[action.skill]?.defaultTestPool;
+                const defaultTestPool = system.isDeployedIC ? system.rating * 2 : actor._getSkillPool(action.skill, action.specialization);
                 return {
                     id: actionId,
                     ...action,

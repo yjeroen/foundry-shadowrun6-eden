@@ -512,7 +512,7 @@ export class MatrixActionRoll extends SkillRoll {
     constructor(actor, action, options={}) {
         if (!action) throw console.error("SR6E | MatrixActionRoll | No proper action configured", action);
         super(actor.system, action.skill);
-        console.log("SR6E | Constructing MatrixActionRoll", action.id, options);
+        console.log("SR6E | Constructing MatrixActionRoll |", action.id, action, options);
         const {target, fromReferenceSection, limitedViewOverride} = options;
         
         this.actor = actor;
@@ -567,10 +567,13 @@ export class MatrixActionRoll extends SkillRoll {
 
         this.matrixActionId = action.id;
         this.action = action;
+
+        let attrib = action.attrib;
         if (actor.system instanceof foundry.abstract.DataModel) {
-            action.attrib = CONFIG.SR6.ATTRIBUTE_TO_V2[action.attrib];
+            attrib = CONFIG.SR6.ATTRIBUTE_TO_V2[action.attrib];
         }
-        this.attrib = actor.system.skills?.[action.skill] ? `system.attributes.${action.attrib}.pool` : `system.rating`;
+        this.attrib = actor.system.skills?.[action.skill] ? `system.attributes.${attrib}.pool` : `system.rating`;
+
         this.skillId = action.skill;
         this.skillSpec = action.specialization;
         this.threshold = action.threshold;
@@ -580,6 +583,7 @@ export class MatrixActionRoll extends SkillRoll {
         this.chatDescription = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
 
         this.pool = actor._getSkillPool(action.skill, action.specialization, this.attrib);
+        console.log("JEROEN MATRIX pool", this.pool)
         
         const matrixCmModifier = actor.getMatrixCmModifier();
         if (matrixCmModifier) {

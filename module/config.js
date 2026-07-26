@@ -290,7 +290,6 @@ export class SR6Config {
         "attributes.bod.pool": "attributes.body.pool",
         "attributes.agi.pool": "attributes.agility.pool",
         "attributes.rea.pool": "attributes.reaction.pool",
-        "attributes.agi.pool": "attributes.agility.pool",
         "attributes.str.pool": "attributes.strength.pool",
         "attributes.wil.pool": "attributes.willpower.pool",
         "attributes.log.pool": "attributes.logic.pool",

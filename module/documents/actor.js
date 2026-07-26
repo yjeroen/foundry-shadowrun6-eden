@@ -1566,11 +1566,6 @@ export default class Shadowrun6Actor extends Actor {
                 if (rigRating > 0) {
                     modRig = " + " + game.i18n.localize("shadowrun6.item.vehicle.rigRating.long") + " (" + rigRating + ")";
                 }
-                console.log('JEROEN', this.name, tmpItem.name)
-                console.log('JEROEN', system.skills)
-                console.log('JEROEN', specialization)
-                console.log('JEROEN', rigRating)
-                console.log('JEROEN', this._getSkillPool("piloting", specialization, "rea"))
                 switch (opMode) {
                     case "manual":
                         rigRating = 0;
@@ -2168,7 +2163,7 @@ export default class Shadowrun6Actor extends Actor {
         // Attribute
         const useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
         const attrName = game.i18n.localize( game.sr6.config.ATTRIBUTE_SELECT_OPTIONS[useAttrib] ) ?? "";
-        console.log(`SR6E | _getSkillCheckText | rollName '${rollName}' `, useAttrib, attrName);
+        console.log(`SR6E | _getSkillCheckText | using attribute '${useAttrib}' | rollName: ${rollName}${attrName}`);
 
         rollName += attrName;
         if (roll.threshold && roll.threshold > 0) {
@@ -2196,7 +2191,7 @@ export default class Shadowrun6Actor extends Actor {
         if (!skillId) return undefined;
 
         const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        // console.log(`SR6E | _getSkillPool | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}'`);
+        // console.log(`SR6E | _getSkillPool | ${this.name} | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}'`);
         
         if (!attributePath) {
             attributePath = `system.attributes.${skillDef.attrib}.pool`;
@@ -2209,12 +2204,12 @@ export default class Shadowrun6Actor extends Actor {
         }
 
         if (this.system instanceof foundry.abstract.DataModel) {
-            // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
+            // TODO JEROEN Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
             // TODO currently doesnt use skill-data testPool, would need rework
             const skillPool = this.system.skills?.[skillId]?.pool ?? (this.type === "host" ? this.system.rating : 0);
-            const attributePool = foundry.utils.getProperty(this, attributePath) ?? 0;
+            const attributePool = this.getSystemProperty(attributePath) ?? 0;
             
-            console.log("SR6E | _getSkillPool() DataModel ActorV2 |", skillId, skillPool, attributePath, attributePool);
+            // console.log("SR6E | _getSkillPool() DataModel ActorV2 |", skillId, skillPool, attributePath, attributePool);
             return skillPool + attributePool;
         }
 
@@ -2242,7 +2237,7 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
         // Add attribute
-        value += parseInt(foundry.utils.getProperty(this, attributePath));
+        value += parseInt(this.getSystemProperty(attributePath));
         // console.log("SR6E | _getSkillPool | value", value);
         if (skillId === 'exotic_weapons') {
             if (
@@ -3353,10 +3348,11 @@ export default class Shadowrun6Actor extends Actor {
      * @returns 
      */
     getSystemProperty(path) {
+        if (path.startsWith("system.")) path = path.slice(7);
+
         const convertedToV2 = game.sr6.config.SYSTEMPATH_TO_V2[path];
-        if (this.isActorV2 && convertedToV2) {
-            path = convertedToV2;
-        }
+        if (this.isActorV2 && convertedToV2) path = convertedToV2;
+
         return foundry.utils.getProperty(this.system, path);
     }
 
