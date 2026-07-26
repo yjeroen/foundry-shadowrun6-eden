@@ -27,7 +27,10 @@
 		 (eq item.system.subtype "DATATERM"))
 		}}
        <tr class="item" data-item-id="{{this.id}}">
-       	<td style="margin-right: 1rem"><button type="button" name="collapseMatrixDevice{{id}}" class="collapsible persistent {{item.collapsedStateOnSheet}}" data-item-id="{{this.id}}">+</button><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
+       	 <td style="margin-right: 1rem">
+			<button type="button" name="collapseMatrixDevice{{id}}" class="collapsible persistent {{item.collapsedStateOnSheet}} {{#unless (eq item.system.subtype "COMMLINK")}}empty{{/unless}}" data-item-id="{{this.id}}">+</button>
+			<label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label>
+		</td>
          <td><label class="middle-column" >-</label></td>
          <td><label class="middle-column" >-</label></td>
          <td><label class="middle-column" >{{item.system.d}}</label></td>
@@ -67,10 +70,11 @@
        </tr>
        <tr>
          <td colspan="9">
-         	<div class="collapsible-content {{item.collapsedStateOnSheet}}">
-				{{# if (eq item.system.subtype "COMMLINK")}}
-			   {{> "systems/shadowrun6-eden/templates/parts/programs.html" config=../config item=this }}
-			   {{/if}}
+         	<div class="collapsible-content {{#if (eq item.system.subtype "COMMLINK")}}{{item.collapsedStateOnSheet}}{{/if}}">
+				{{!-- TODO Also include Rigger Console Programs --}}
+				{{#if (eq item.system.subtype "COMMLINK")}}
+				{{> "systems/shadowrun6-eden/templates/parts/programs.html" config=../config item=this }}
+				{{/if}}
 			</div>
          </td>
        </tr>

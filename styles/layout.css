@@ -424,12 +424,12 @@ button.collapsible.empty {
   visibility: visible;
   font-size: 13px;
 }
+.shadowrun6 button.collapsible.open:before {
+	content: "\25BC"; /* 2796 Unicode character for "minus" sign (-) */
+}
 .shadowrun6 button.collapsible.empty:before {
   content: '\025B7'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
-}
-.shadowrun6 button.collapsible.open:before {
-	content: "\25BC"; /* 2796 Unicode character for "minus" sign (-) */
 }
 
 .game .sheet input[type=checkbox], .game .dialog input[type=checkbox] {
