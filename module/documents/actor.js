@@ -2191,11 +2191,11 @@ export default class Shadowrun6Actor extends Actor {
         if (!skillId) return undefined;
         const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
         
-        console.log(`SR6E | _getSkillPool | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}' `);
+        // console.log(`SR6E | _getSkillPool | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}' `);
         if (!attributePath) {
             attributePath = `system.attributes.${skillDef.attrib}.pool`;
             if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = `system.rating`;
-            console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}' `);
+            // console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}' `);
         }
 
         if (this.system instanceof foundry.abstract.DataModel) {
