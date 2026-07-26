@@ -45,8 +45,9 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
         if (this.actor?.type !== "host" || this.type !== "IC") return price;
 
         const hostSystem = this.actor.system;
+        const hybridPrice = Math.max(0, this.multiTypes.size - 1) * 1500;
 
-        return Math.round( price * hostSystem.rating * hostSystem.scale );
+        return Math.round( (price + hybridPrice) * hostSystem.rating * hostSystem.scale );
     }
 
     get installedIn() {
