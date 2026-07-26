@@ -35,16 +35,17 @@ export default class SR6HostActorData extends SR6BaseActorData {
             outsiderAccess: new fields.HTMLField(),
             // notes is renamed to "Security Response"
 
-            matrix: new fields.SchemaField({
-                attributes: new fields.SchemaField({
-                    attack: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
-                    sleaze: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
-                    dataProcessing: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
-                    firewall: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
-                }),
-                // Adding matrixCM here in prepareDerivedData() in case the Token represents an Item ??
-                matrixCM: new srFields.SR6ConditionMonitorField(),
-            }),
+            // matrix: new fields.SchemaField({
+            //     attributes: new fields.SchemaField({
+            //         attack: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
+            //         sleaze: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
+            //         dataProcessing: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
+            //         firewall: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0})
+            //     }),
+            //     // Adding matrixCM here in prepareDerivedData() in case the Token represents an Item ??
+            //     matrixCM: new srFields.SR6ConditionMonitorField(),
+            // }),
+            matrix: new srFields.SR6MatrixField(),
            
             initiative: new fields.SchemaField({
                 matrix: new srFields.SR6InitiativeField(),
