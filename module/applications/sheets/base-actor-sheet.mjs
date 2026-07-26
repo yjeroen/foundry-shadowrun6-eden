@@ -946,7 +946,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // TODO Cleanup after complete rework of Dice Rolls (low priority)
         switch (dataset.rollType) {
             case "item":
-                const item = this.actor.items.get(dataset.itemId);
+                const item = dataset.itemUuid ? foundry.utils.fromUuidSync(dataset.itemUuid) : this.actor.items.get(dataset.itemId);
                 if (item) return item.roll();
             case "skill":
                 rollConfig = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);

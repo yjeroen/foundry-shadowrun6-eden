@@ -448,6 +448,7 @@ export class WeaponRoll extends SkillRoll {
         this.chatDescription = item.system.description;
         this.gear = item.system;
         this.skillSpec = item.system.skillSpec;
+        
         if (item.isWeapon) {
             this.useWildDie = item.system.wild ? 1 : 0;
             this.weapon = item.system;
@@ -456,10 +457,11 @@ export class WeaponRoll extends SkillRoll {
             this.monitor = (item.calculatedStun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
             // this.fireMode = 'SS';
         }
-        this.pool = item.system.pool;
+
+        this.pool = actor._getSkillPool(item.system.skill, item.system.skillSpec); //This used to be item.system.pool before 4.0.0 - which is set in Actor._prepareItemPools();
         if (item.system.isElectronicMatrixDevice) {
             const matrixCmModifier = item.system.matrix.matrixCM.penalty;
-            this.matrixCmPenalty = matrixCmModifier;            
+            this.matrixCmPenalty = matrixCmModifier;
             this.pool = Math.max(0, this.pool - matrixCmModifier);
         }
     }

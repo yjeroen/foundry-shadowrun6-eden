@@ -1470,6 +1470,7 @@ export default class Shadowrun6Actor extends Actor {
     }
     //---------------------------------------------------------
     /*
+     * TODO needs to be reworked, either to Item.roll() or on a Actor.rollItem() method
      * Calculate the pool when using items with assigned skills
      */
     _prepareItemPools() {
@@ -2072,14 +2073,11 @@ export default class Shadowrun6Actor extends Actor {
     //---------------------------------------------------------
     getWoundModifier(includeMatrix=false) {
         const isDataModel = this.system instanceof foundry.abstract.DataModel;
-        let physicalCM, stunCM;
+        let physicalCM=0, stunCM=0;
         if (isDataModel) {
             physicalCM = this.system.health?.physicalCM?.penalty ?? 0;
             if (this.system.health?.stunCM) {
                 stunCM     = this.system.health?.stunCM?.penalty ?? 0;
-            } 
-            else { // Matrix actor without stun monitor like Sprites
-                stunCM     = this.system.matrix?.matrixCM?.penalty ?? 0;
             }
         } 
         else {
@@ -2110,10 +2108,8 @@ export default class Shadowrun6Actor extends Actor {
     getMatrixCmModifier() {
         if (this.isTechno) return 0; // Stun modifier is already used in roll dialog
 
-        // TODO possible rework for DataModel actors
-        // Not needed for Sprites as their Matrix CM modifier is counted as stunCM in getWoundModifier()
         const isDataModel = this.system instanceof foundry.abstract.DataModel;
-        if (isDataModel) return 0 //this.system.matrix?.matrixCM?.penalty ?? 0;
+        if (isDataModel) return this.system.matrix?.matrixCM?.penalty ?? 0;
 
         const primaryAccessDevice = this.system.persona?.accessDevice;
         return primaryAccessDevice.system.matrix?.matrixCM?.penalty ?? 0;
