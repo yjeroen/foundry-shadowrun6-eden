@@ -2524,7 +2524,7 @@ body.game .app a:hover .sr6-icon {
 
 .sr6 .pan .pan-summary-columns {
     display: grid;
-    grid-template-columns: minmax(max-content, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
     --portrait-size: 76px;
 }
