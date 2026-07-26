@@ -103,6 +103,27 @@ export class SR6Config {
 
         gear: {
             icon: "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg",
+            ARMOR: {
+                icon: "systems/shadowrun6-eden/icons/compendium/armor/kevlar_body.svg"
+            },
+            ELECTRONICS: {
+                icon: "systems/shadowrun6-eden/icons/compendium/gear/tech_scanner.svg",
+                FILE_STORAGE: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/cyberware/plastic_covering.svg"
+                },
+                OPTICAL: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/cyberware/image_enhance.svg"
+                }
+            },
+            WEAPON_FIREARMS: {
+                icon: "systems/shadowrun6-eden/icons/compendium/gear/grapple_gun.svg"
+            },
+            WEAPON_RANGED: {
+                icon: "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg"
+            },
+            WEAPON_SPECIAL: {
+                icon: "systems/shadowrun6-eden/icons/compendium/weapons/microwaver.svg"
+            }
         },
 
         skill: {
@@ -1034,6 +1055,12 @@ export class SR6Config {
                     showCountable: true,
                     showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
                 },
+                FILE_STORAGE: {
+                    label: "shadowrun6.gear.subtype.FILE_STORAGE",
+                    showRating: true,
+                    showCountable: false,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
+                }
             },
         },
         GENETICS: {
@@ -1711,6 +1738,7 @@ export class SR6Config {
             CYBERTERM: "shadowrun6.gear.subtype.CYBERTERM",
             INSTRUMENT: "shadowrun6.gear.subtype.INSTRUMENT",
             BTLS: "shadowrun6.gear.subtype.BTLS",
+            FILE_STORAGE: "shadowrun6.gear.subtype.FILE_STORAGE",
         },
 
         // /** Hack&Slash custom cyberdecks */
@@ -1821,131 +1849,6 @@ export class SR6Config {
             DART: "shadowrun6.gear.subtype.DART",
             OTHER_SPECIAL: "shadowrun6.gear.subtype.OTHER_SPECIAL",
         },
-    };
-    GEAR_SUBTYPES_OLD = new Map([
-        ["ACCESSORY", []],
-        [
-            "AMMUNITION",
-            ["AMMUNITION", "ROCKETS", "MISSILES", "EXPLOSIVES", "GRENADES"],
-        ],
-        ["ARMOR", ["ARMOR_BODY", "ARMOR_HELMET", "ARMOR_SHIELD"]],
-        ["ARMOR_ADDITION", []],
-        ["BIOLOGY", ["BIOTECH", "SLAP_PATCHES"]],
-        [
-            "BIOWARE",
-            ["BIOWARE_STANDARD", "BIOWARE_CULTURED", "BIOWARE_IMPLANT_WEAPON"],
-        ],
-        ["CHEMICALS", ["INDUSTRIAL_CHEMICALS", "TOXINS", "DRUGS", "BTL"]],
-        [
-            "CYBERWARE",
-            [
-                "CYBER_HEADWARE",
-                "CYBERJACK",
-                "CYBER_BODYWARE",
-                "CYBER_EYEWARE",
-                "CYBER_EARWARE",
-                "CYBER_IMPLANT_WEAPON",
-                "CYBER_LIMBS",
-                "COMMLINK",
-                "CYBERDECK",
-            ],
-        ],
-        [
-            "DRONES",
-            [
-                "MICRODRONES",
-                "MINIDRONES",
-                "SMALL_DRONES",
-                "MEDIUM_DRONES",
-                "LARGE_DRONES",
-            ],
-        ],
-        [
-            "ELECTRONICS",
-            [
-                "COMMLINK",
-                "DATATERM",
-                "CYBERTERM",
-                "CYBERDECK",
-                "ELECTRONIC_ACCESSORIES",
-                "RIGGER_CONSOLE",
-                "RFID",
-                "COMMUNICATION",
-                "ID_CREDIT",
-                "IMAGING",
-                "OPTICAL",
-                "AUDIO",
-                "SENSOR_HOUSING",
-                "SECURITY",
-                "BREAKING",
-                "TAC_NET",
-            ],
-        ],
-        ["GENETICS", []],
-        ["MAGICAL", ["MAGIC_SUPPLIES"]],
-        ["NANOWARE", []],
-        ["SOFTWARE", ["AUTOSOFT"]],
-        ["SURVIVAL", ["SURVIVAL_GEAR", "GRAPPLE_GUN"]],
-        ["TOOLS", ["TOOLS"]],
-        [
-            "VEHICLES",
-            [
-                "BIKES",
-                "CARS",
-                "TRUCKS",
-                "BOATS",
-                "SUBMARINES",
-                "FIXED_WING",
-                "ROTORCRAFT",
-                "VTOL",
-                "WALKER",
-            ],
-        ],
-        [
-            "WEAPON_CLOSE_COMBAT",
-            ["BLADES", "CLUBS", "WHIPS", "UNARMED", "OTHER_CLOSE"],
-        ],
-        [
-            "WEAPON_FIREARMS",
-            [
-                "TASERS",
-                "HOLDOUTS",
-                "PISTOLS_LIGHT",
-                "MACHINE_PISTOLS",
-                "PISTOLS_HEAVY",
-                "SUBMACHINE_GUNS",
-                "SHOTGUNS",
-                "RIFLE_ASSAULT",
-                "RIFLE_HUNTING",
-                "RIFLE_SNIPER",
-                "LMG",
-                "MMG",
-                "HMG",
-                "ASSAULT_CANNON",
-            ],
-        ],
-        ["WEAPON_RANGED", ["BOWS", "CROSSBOWS", "THROWING"]],
-        ["WEAPON_SPECIAL", ["LAUNCHERS", "THROWERS", "OTHER_SPECIAL"]],
-    ]);
-    GEAR_SUBTYPES2 = {
-        ELECTRONICS: [
-            "COMMLINK",
-            "DATATERM",
-            "CYBERTERM",
-            "CYBERDECK",
-            "ELECTRONIC_ACCESSORIES",
-            "RIGGER_CONSOLE",
-            "RFID",
-            "COMMUNICATION",
-            "ID_CREDIT",
-            "IMAGING",
-            "OPTICAL",
-            "AUDIO",
-            "SENSOR_HOUSING",
-            "SECURITY",
-            "BREAKING",
-            "TAC_NET",
-        ],
     };
     SKILLS_WEAPON = {
         firearms: "skill.firearms",
