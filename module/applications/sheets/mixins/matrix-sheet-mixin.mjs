@@ -67,7 +67,7 @@ export const MatrixSheetMixin = Base => class extends Base {
                 return false;
             })
             .map(([actionId, action]) => {
-                const defaultTestPool = system.isDeployedIC ? system.rating * 2 : actor._getSkillPool(action.skill, action.specialization);
+                const defaultTestPool = actor.type === "host" ? system.rating * 2 : actor._getSkillPool(action.skill, action.specialization, action.attrib);
                 return {
                     id: actionId,
                     ...action,

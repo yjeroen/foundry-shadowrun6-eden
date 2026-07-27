@@ -531,7 +531,8 @@ function getSpellFeatures(spell) {
 }
 export function getMatrixActionPool(actionName, actor) {
     const action = CONFIG.SR6.MATRIX_ACTIONS[actionName];
-    return action.skill ? actor._getSkillPool(action.skill, action.specialization) : 0;
+    const defaultTestPool = actor.type === "host" ? actor.system.rating * 2 : actor._getSkillPool(action.skill, action.specialization, action.attrib);
+    return action.skill ? defaultTestPool : 0;
 
     // const skill = getSystemData(actor).skills[action.skill];
     // let pool = 0;
