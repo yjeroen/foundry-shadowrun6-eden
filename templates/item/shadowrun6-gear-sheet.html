@@ -10,13 +10,21 @@
                     <th>{{localize 'shadowrun6.item.type'}}</th>
                     <th>{{localize 'shadowrun6.item.subtype'}}</th>
                     {{#if gearConfig.showRating}}
-                    <th>{{localize 'shadowrun6.label.column.rating'}}</th>
+                    <th>
+                        {{#if (eq item.system.subtype "FILE_STORAGE")}}
+                        <span>{{localize 'SR6.Item.base.label.encryption_rating'}}</span>
+                        {{else}}
+                        <span>{{localize 'shadowrun6.label.column.rating'}}</span>
+                        {{/if}}
+                    </th>
                     {{/if}}
                     {{#if gearConfig.showCountable}}
                     <th>{{localize 'shadowrun6.label.column.count'}}</th>
                     {{/if}}
+                    {{#unless (eq item.system.subtype "FILE_STORAGE")}}
                     <th>{{localize 'shadowrun6.item.availability'}}</th>
                     <th>{{localize 'shadowrun6.item.price'}}</th>
+                    {{/unless}}
                 </tr>
                 <tr>
                     <td>
@@ -42,12 +50,14 @@
                         <input name="system.countable" style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}} data-field="system.countable" />
                     </td>
                     {{/if}}
+                    {{#unless (eq item.system.subtype "FILE_STORAGE")}}
                     <td>
                         <input name="system.availDef" type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" />
                     </td>
                     <td>
                         <span class="input-symbol-nuyen"><input name="system.priceDef" type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered" style="width: 5em" /></span>
                     </td>
+                    {{/unless}}
                 </tr>
             </table>
             <!-- Matrix Gear Config -->

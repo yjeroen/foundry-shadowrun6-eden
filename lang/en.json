@@ -2816,6 +2816,9 @@
             "label": "Ammo Loaded",
             "hint": "Select which type of ammo is currently loaded in your ranged weapon."
           }
+        },
+        "label": {
+          "encryption_rating": "Encryption Rating"
         }
       },
       "mod": {
