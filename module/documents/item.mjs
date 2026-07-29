@@ -289,16 +289,21 @@ export default class SR6Item extends Item {
 
   }
 
+  get onlineOnMatrixWirelessly() {
+    return this.system.isElectronicMatrixDevice
+        && this.system.matrix.hasWirelessInterface
+        && this.system.matrix.wirelessActive
+        && this.system.matrix.matrixCM.value > 0;
+  }
+
+  get onlineOnMatrixByDataCable() {
+    return this.system.isElectronicMatrixDevice
+        && this.system.matrix.hasDataCableInterface
+        && this.system.matrix.matrixCM.value > 0;
+  }
+
   get onlineOnMatrix() {
-    return this.system.isElectronicMatrixDevice 
-            && 
-           (
-            ( this.system.matrix.hasWirelessInterface && this.system.matrix.wirelessActive )
-            ||
-            ( this.system.matrix.hasDataCableInterface )
-           )
-           &&
-           this.system.matrix.matrixCM.value > 0
+    return this.onlineOnMatrixWirelessly || this.onlineOnMatrixByDataCable;
   }
 
   get isBricked() {

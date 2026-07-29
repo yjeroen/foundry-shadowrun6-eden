@@ -1320,7 +1320,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 : [makeItemNode(primaryAccessDevice)];
 
             const childItems = targetActor.items
-                .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice)
+                .filter(item =>
+                    !item.isPrimaryAccessDevice
+                    && (
+                        item.onlineOnMatrixWirelessly
+                        || (item.onlineOnMatrixByDataCable && item.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }) !== "outsider")
+                    )
+                )
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map(makeItemNode);
 
