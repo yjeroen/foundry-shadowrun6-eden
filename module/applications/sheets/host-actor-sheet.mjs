@@ -54,15 +54,9 @@ export default class SR6HostActorSheet extends DeployTokensSheetMixin ( MatrixSh
         
         // Don't show the other tabs if only limited view
         if (this.document.limited || this.options.limited) {
-            if (this.deployedItem) {
-                this._defaultTab = "matrixTarget"
-                options.parts.push("matrixTarget", "description");
-                return;
-            } else {
-                this._defaultTab = "description"
-                options.parts.push("description");
-                return;
-            }
+            this._defaultTab = "matrixTarget"
+            options.parts.push("matrixTarget", "description");
+            return;
         }
 
         if (this.deployedItem) {

@@ -54,8 +54,27 @@ export const MatrixSheetMixin = Base => class extends Base {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
                     if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;
                     if (action.linkedAttr === "s" && !this.initiator.getSystemProperty("persona.used.s")) return false;
+
                      // TODO JEROEN evaluate if this should not be only OUTSIDER actions
                     if (this.actor.isActorV2 && action.targets?.includes("physical")) return false;  // ActorV2 DataModel actors are currently only used for Matrix Icons
+
+                    if (this.actor.isTechno && action.targets?.includes("living_network")) return true;
+
+                    if (this.actor.type === "host") {
+                        if (this.actor.system.deployedItem) {   //IC, Devices or Files
+                            if (this.actor.system.deployedItem.system.subtype === "FILE_STORAGE" && action.targets?.includes("file")) return true;
+                            else if (this.actor.system.deployedItem.system.subtype === "FILE_STORAGE") return false;
+
+                            if (!this.actor.system.isDeployedIC && action.targets?.includes("device") && !action.targets?.includes("host")) return true;
+                            else if (!this.actor.system.isDeployedIC) return false;
+                            // Currently not filtering anything on IC; 
+                            // Currently they are represented as personas
+                        } else {   //Host
+                            if (action.targets?.includes("host")) return true;
+                            else return false;
+                        }
+                    }
+                    
                     if (action.targets?.includes("persona") && action.outsider) return true;
                     return false;
                 }

@@ -50,6 +50,8 @@ export default class SR6HostActorData extends SR6BaseActorData {
             initiative: new fields.SchemaField({
                 matrix: new srFields.SR6InitiativeField(),
             }),
+            // TODO add integration with Spider
+            edge: new srFields.SR6EdgeAttributeField(),
         };
     }
 
@@ -85,6 +87,7 @@ export default class SR6HostActorData extends SR6BaseActorData {
         super.prepareDerivedData();
 
         this._prepareMatrixInitiative();
+        this._prepareSpider();
 
         this.parent.name = `//${this.parent._source.name}`;
         this.matrix.matrixCM = undefined;
@@ -111,6 +114,14 @@ export default class SR6HostActorData extends SR6BaseActorData {
             this.initiative.formula = "@initiative.matrix.rank";
         }
 
+    }
+
+    _prepareSpider() {
+        if (this.assignedSpiders.length) {
+            // TODO
+        } else {
+            this.edge.current = 0;
+        }
     }
 
     /**

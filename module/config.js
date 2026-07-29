@@ -2575,7 +2575,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device"]
+            targets: ["persona", "device", "file"]
         },
         check_os: {
             id: "check_os",
@@ -2624,7 +2624,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         crash_program: {
             id: "crash_program",
@@ -2658,7 +2658,7 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             _onSuccess: { damage: "Math.ceil({a}/2)" },
-            targets: ["persona", "device"],
+            targets: ["persona", "device", "file"],
 
             getDamage: function (actor) {
                 const damage = Math.ceil(actor.getMatrixPool("a") / 2);
@@ -2680,7 +2680,7 @@ export class SR6Config {
             attr2: "deviceRating",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         edit_file: {
             id: "edit_file",
@@ -2696,7 +2696,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         encrypt_file: {
             id: "encrypt_file",
@@ -2712,7 +2712,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         enter_host: {
             id: "enter_host",
@@ -2794,7 +2794,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         hide: {
             id: "hide",
@@ -2810,7 +2810,7 @@ export class SR6Config {
             attr2: "d",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona"]
+            targets: ["persona", "ic"]
         },
         jack_out: {
             id: "jack_out",
@@ -2893,7 +2893,7 @@ export class SR6Config {
             attr2: "f",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device"]
+            targets: ["vehicle"]
         },
         matrix_perception: {
             id: "matrix_perception",
@@ -2909,7 +2909,7 @@ export class SR6Config {
             attr2: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device", "host", "file", "sprite"]
+            targets: ["persona", "device", "host", "sprite"]
         },
         matrix_search: {
             id: "matrix_search",
@@ -3141,7 +3141,7 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             _onSuccess: { tarpit: true, damage: 1 },
-            targets: ["persona", "device", "ic", "sprite"],
+            targets: ["persona", "device", "ic", "sprite", "file"],
             
             getDamage: function (actor) {
                 const damage = 1;
@@ -3163,7 +3163,7 @@ export class SR6Config {
             attr2: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device", "physical"]
+            targets: ["persona", "device", "physical", "file"]
         },
         
         acid: {
