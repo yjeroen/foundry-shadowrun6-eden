@@ -1898,8 +1898,8 @@
         "name": "Hack & Slash Matrix Actions"
       },
       "dosPopupMatrix": {
-        "hint": "Change Denial of Service and Popup to be OUTSIDER/USER/ADMIN instead of OUTSIDER only, just like Data Spike and Tarpit. This is likely an oversight in H&S. (Recommended to be enabled within FoundryVTT due to the PAN<>Persona implementation.)",
-        "name": "Denial of Service & Popup"
+        "hint": "Change Denial of Service, Popup and Squelch to be OUTSIDER/USER/ADMIN instead of OUTSIDER only, just like Data Spike and Tarpit. This is likely an oversight in H&S. (Recommended to be enabled within FoundryVTT due to the PAN<>Persona implementation.)",
+        "name": "Matrix Actions FoundryVTT Errata"
       },
       "bleeding": {
         "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
