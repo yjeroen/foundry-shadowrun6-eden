@@ -2620,8 +2620,8 @@ export class SR6Config {
             outsider: false,
             user: true,
             admin: true,
-            attr1: "deviceRating",
-            attr2: null,
+            attr1: "encryptionRating",
+            attr2: "encryptionRating",
             linkedAttr: null,
             threshold: 0,
             targets: ["file"]
@@ -2694,6 +2694,8 @@ export class SR6Config {
             admin: true,
             attr1: "int",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["file"]
@@ -2742,9 +2744,11 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
-            targets: ["techno", "sprite"]
+            targets: ["techno", "sprite", "host"]
         },
         format_device: {
             id: "format_device",
@@ -2758,6 +2762,8 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -2808,6 +2814,8 @@ export class SR6Config {
             admin: true,
             attr1: "int",
             attr2: "d",
+            attr1_alt: "d",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["persona", "ic"]
@@ -2824,6 +2832,8 @@ export class SR6Config {
             admin: true,
             attr1: "cha",
             attr2: "d",
+            attr1_alt: "a",
+            attr2_alt: "d",
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { jackOut: true },
@@ -2891,6 +2901,8 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["vehicle"]
@@ -2939,6 +2951,8 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: "s",
             threshold: 0,
             _onSuccess: { action: "backdoor_entry" },
@@ -2956,6 +2970,8 @@ export class SR6Config {
             admin: true,
             attr1: "log",
             attr2: "wil",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { rebootDevice: true },
@@ -3090,6 +3106,8 @@ export class SR6Config {
             admin: true,
             attr1: "d",
             attr2: "f",
+            attr1_alt: "d",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device", "persona"]
@@ -3104,8 +3122,10 @@ export class SR6Config {
             outsider: true,
             user: true,
             admin: true,
-            attr1: "d",
-            attr2: "f",
+            attr1: "log",
+            attr2: "d",
+            attr1_alt: "piloting",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -3161,6 +3181,8 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "s",
+            attr1_alt: "f",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["persona", "device", "physical", "file"]
@@ -3462,6 +3484,8 @@ export class SR6Config {
             admin: true,
             attr1: "d",
             attr2: "f",
+            attr1_alt: "piloting",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -3528,6 +3552,8 @@ export class SR6Config {
             admin: false,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: "s",
             threshold: 0,
             targets: ["host", "device", "living_network"],
@@ -3596,6 +3622,8 @@ export class SR6Config {
             admin: true,
             attr1: "int",
             attr2: "d",
+            attr1_alt: "d",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -3629,6 +3657,8 @@ export class SR6Config {
             admin: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
             attr1: "int",
             attr2: "s",
+            attr1_alt: "s",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]

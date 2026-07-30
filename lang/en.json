@@ -194,7 +194,10 @@
     "a": "Attack",
     "s": "Sleaze",
     "d": "Dataprocessing",
-    "f": "Firewall"
+    "f": "Firewall",
+    "deviceRating": "Device Rating",
+    "encryptionRating": "Encryption Rating"
+
   },
   "skill": {
     "astral": "Astral",
@@ -1076,7 +1079,7 @@
           "hint": "Enter or leave a host. Entering requires the appropriate access level; leaving requires no special access."
         },
         "erase_matrix_signature": {
-          "name": "Erase Matrix Sign",
+          "name": "Erase Matrix Signature",
           "hint": "Remove a Matrix signature left by a Resonance being, such as a technomancer or sprite. You must have a Resonance rating, and this illegal Matrix Action can still increase your Overwatch Score."
         },
         "format_device": {

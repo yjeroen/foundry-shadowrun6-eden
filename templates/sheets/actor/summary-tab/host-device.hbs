@@ -42,6 +42,13 @@
 </div>
 {{/if}}
 
+{{#if (and (eq deployedItem.system.subtype "FILE_STORAGE") deployedItem.system.needsRating)}}
+<div class="row skill">
+    <span class="label">{{localize "SR6.Item.base.label.encryption_rating"}}:</span>
+    <span class="encryptionRating">{{deployedItem.system.rating}}</span>
+</div>
+{{/if}}
+
 {{#if enriched.description}}
 <div class="row rich-html">
     <div class="label">{{localize "SR6.Actor.Tabs.description"}}:</div>

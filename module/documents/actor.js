@@ -2150,11 +2150,11 @@ export default class Shadowrun6Actor extends Actor {
         if (roll.skillSpec) {
             rollName += "/" + game.i18n.localize("shadowrun6.special." + roll.skillId + "." + roll.skillSpec);
         }
+        
         if (this.system instanceof foundry.abstract.DataModel) {
-            if (!this.system.skills?.[roll.skillId]) {
-                rollName = this.system.schema.fields.rating?.label;
-            }
+            if (!this.system.skills?.[roll.skillId]) rollName = this.system.schema.fields.rating?.label;
         }
+
         rollName += " + ";
         // Attribute
         const useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
@@ -2189,7 +2189,7 @@ export default class Shadowrun6Actor extends Actor {
         const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
         // console.log(`SR6E | _getSkillPool | ${this.name} | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}'`);
         
-        if (!attributePath) {
+        if (attributePath !== undefined) {
             attributePath = `system.attributes.${skillDef.attrib}.pool`;
             if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = "system.rating";
             // console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}'`);
@@ -2597,17 +2597,29 @@ export default class Shadowrun6Actor extends Actor {
                 }
 
                 const deviceRatingCount = Number(matrixAction.attr1 === "deviceRating") + Number(matrixAction.attr2 === "deviceRating");
-                defensePool = { pool: this.getMatrixPool(matrixAction.attr1, matrixAction.attr2) };
+                const encryptionRatingCount = Number(matrixAction.attr1 === "encryptionRating") + Number(matrixAction.attr2 === "encryptionRating");
+                
+                const primaryPool = this.getMatrixPool(matrixAction.attr1, matrixAction.attr2);
+                const altPool = this.getMatrixPool(matrixAction.attr1_alt, matrixAction.attr2_alt);
+                const attr1 = primaryPool>=altPool ? matrixAction.attr1 : matrixAction.attr1_alt;
+                const attr2 = primaryPool>=altPool ? matrixAction.attr2 : matrixAction.attr2_alt;
+
+                defensePool = { pool: Math.max( primaryPool, altPool ) };
 
                 if (deviceRatingCount) {
-                    if (target.documentName !== "Item") throw new Error("Matrix Actions using Device Rating can only target an Item");
+                    if (target.documentName !== "Item" && !target.system.deployedItem) throw new Error("Matrix Actions using Device Rating can only target an Item");
                     defensePool.pool += target.system.matrix.deviceRating * deviceRatingCount;
                 }
+                if (encryptionRatingCount) {
+                    if (target.documentName === "Item") defensePool.pool += target.system.rating * encryptionRatingCount;
+                    else if (target.system.deployedItem) defensePool.pool += target.system.deployedItem.system.rating * encryptionRatingCount;
+                    else throw new Error("Matrix Actions using Encryption Rating can only target an Item");
+                }
 
-                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
+                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${attr1}", "${attr2}"`);
 
                 rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
-                rollData.checkText = game.i18n.localize(`attrib.${matrixAction.attr1}`) + " + " + game.i18n.localize(`attrib.${matrixAction.attr2}`) + " (" + threshold + ")";
+                rollData.checkText = game.i18n.localize(`attrib.${attr1}`) + " + " + game.i18n.localize(`attrib.${attr2}`) + " (" + threshold + ")";
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle defense rolls for " + defendWith);
@@ -2849,7 +2861,6 @@ export default class Shadowrun6Actor extends Actor {
      * @return {number}             Number of dice
      */
     getMatrixPool(matrixAttr, physAttr) {
-        // TODO JEROEN HOSTS/IC Add way to convert attribute to rating
         if (this.system instanceof foundry.abstract.DataModel) {
             matrixAttr = game.sr6.config.ATTRIBUTE_TO_V2[matrixAttr];
             physAttr = game.sr6.config.ATTRIBUTE_TO_V2[physAttr];

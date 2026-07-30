@@ -204,7 +204,7 @@ export class DefenseRoll extends PreparedRoll {
                 this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
                 break;
             default:
-                console.error("SR6E | DefenseRoll | No monitor set - no soakType applied");
+                console.warn("SR6E | DefenseRoll | No monitor set - no soakType applied");
         }
     }
 }
@@ -584,8 +584,8 @@ export class MatrixActionRoll extends SkillRoll {
         this.checkText = actor._getSkillCheckText(this);
         this.chatDescription = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
 
-        this.pool = actor._getSkillPool(action.skill, action.specialization, this.attrib);
-        console.log("JEROEN MATRIX pool", this.pool)
+        const minPool = (actor.type === "host") ? actor.system.rating * 2 : 0;
+        this.pool = Math.max( minPool, actor._getSkillPool(action.skill, action.specialization, this.attrib) );
         
         const matrixCmModifier = actor.getMatrixCmModifier();
         if (matrixCmModifier) {
