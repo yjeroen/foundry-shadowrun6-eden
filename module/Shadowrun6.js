@@ -265,8 +265,6 @@ Hooks.once("init", async function () {
 
         const itemConfig = CONFIG.SR6.ITEM[item.type];
         const icon = itemConfig?.[item.system.type]?.icon ?? itemConfig?.icon;
-        console.log("JEROEN", itemConfig);
-        console.log("JEROEN", item.type, item.system.type, icon);
         if (
             icon
             && item.img === "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg"
