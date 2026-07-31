@@ -128,7 +128,7 @@ export class RollDialog extends Dialog {
         const form = this.html[0];
         let configured = this.dialogResult;
         let prepared = this.prepared;
-        if (configured.actor.system.edge === undefined) return;
+        if (configured.actor?.system.edge === undefined) return;
         console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
         
         if (!configured.actor)

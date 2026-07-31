@@ -143,7 +143,7 @@ async function _showRollDialog(data) {
         data.calcPool = (data.calcPool < 0 ) ? 0 : data.calcPool;
         data.checkHardDiceCap();
 
-        const attribSelectOptions = data.actor.getAttributeOptions();
+        const attribSelectOptions = data.actor?.getAttributeOptions();
 
         // Render modal dialog
         let template = "systems/shadowrun6-eden/templates/dialog/configurable-roll-dialog.html";
