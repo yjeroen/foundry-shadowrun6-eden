@@ -11,6 +11,7 @@ export { default as SR6SoftwareItemData } from './software-item-data.mjs';
 
 // Export Active Effect
 export { default as SR6ActiveEffectData } from './active-effect-data.mjs';
+export { default as SR6ActiveEffectDataV14 } from './active-effect-data-v14.mjs';
 
 // Export Proxies
 export { default as SR6MatrixProxy } from './matrix-proxy.mjs';

@@ -177,7 +177,11 @@ Hooks.once("init", async function () {
      * Register Active Effects
      * legacyTransferral (false): Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
      */
-    CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
+    if (game.release.generation === 14) { //TODO JEROEN V14
+        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectDataV14;
+    } else {
+        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
+    }
     CONFIG.ActiveEffect.legacyTransferral = false;
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
     DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
