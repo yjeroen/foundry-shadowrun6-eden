@@ -2,7 +2,7 @@
   "id": "shadowrun6-eden",
   "title": "Shadowrun 6th Edition",
   "description": "Shadowrun Sixth World RPG system",
-  "version": "3.3.9",
+  "version": "4.0.0",
   "authors": [
     {
       "name": "Yeroon",
@@ -17,8 +17,8 @@
   ],
   "compatibility": {
     "minimum": "13",
-    "verified": "13.351",
-    "maximum": "13"
+    "verified": "14.365",
+    "maximum": "14"
   },
   "socket": true,
   "esmodules": [
@@ -170,7 +170,7 @@
   "url": "https://github.com/yjeroen/foundry-shadowrun6-eden",
   "bugs": "https://github.com/yjeroen/foundry-shadowrun6-eden/issues",
   "manifest": "https://github.com/yjeroen/foundry-shadowrun6-eden/releases/latest/download/system.json",
-  "download": "https://github.com/yjeroen/foundry-shadowrun6-eden/releases/download/release-3.3.9/shadowrun6-eden-release-3.3.9.zip",
+  "download": "https://github.com/yjeroen/foundry-shadowrun6-eden/releases/download/release-4.0.0/shadowrun6-eden-release-4.0.0.zip",
   "flags": {
     "hotReload": {
       "extensions": ["css", "hbs", "json"],
