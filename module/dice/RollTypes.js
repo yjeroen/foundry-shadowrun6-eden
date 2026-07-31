@@ -378,13 +378,18 @@ export class ComplexFormRoll extends SkillRoll {
         this.itemUuid = item.uuid;
         this.chatDescription = item.system.description;
         this.form = complexFormSystem;
-        if(item.system.skill === 'electronics') {
+
+        this.skillId = item.system.skill;
+        if(this.skillId === 'electronics') {
             this.skillSpec = "complex_forms";
         } else {    //cracking
             this.skillSpec = "cybercombat";
         }
-        this.attrib = "res";
-        this.defendWith = Defense.ITEM_DEFINED;
+        this.attrib = "system.attributes.res.pool";
+        
+        if (item.system.oppAttr1 || item.system.oppAttr2) {
+            this.defendWith = Defense.ITEM_DEFINED;
+        }
         this.calcFade = complexFormSystem.fading;
     }
 }

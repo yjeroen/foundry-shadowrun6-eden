@@ -499,6 +499,14 @@ export default class SR6Roll extends Roll {
                         // Defender must have more hits than the attacker for success, not the same
                         this.finished.threshold = this.finished.total + 1;
 
+                    } else if (this.finished.rollType === RollType.ComplexForm) {
+                        console.log("SR6E | rollType", RollType.ComplexForm);
+                        if (this.finished.isOpposed) {    
+                            // this.finished.total = Attacker hits in this roll
+                            // Defender must have more hits than the attacker for success, not the same
+                            this.finished.threshold = this.finished.total + 1;
+                        }
+
                     } else if (this.finished.rollType === RollType.Defense) {
                         console.log("SR6E | rollType", RollType.Defense);
                         // this.finished.thresholds = Attacker hits +1 
@@ -542,10 +550,7 @@ export default class SR6Roll extends Roll {
                         if (this.configured.spell.withEssence) {
                             this.finished.netHits = this.finished.total - this.configured.threshold;
                         }
-                    } else if (
-                        this.finished.rollType === RollType.MatrixAction
-                        || this.finished.rollType === RollType.Item
-                    ) {
+                    } else if (this.finished.rollType === RollType.MatrixAction || this.finished.rollType === RollType.Item) {
                         if (this.configured.threshold && this.finished.total) {
                             // Show Net Hits in the chat message
                             this.finished.netHits = this.finished.total - this.configured.threshold;
