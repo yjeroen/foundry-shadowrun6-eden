@@ -155,7 +155,7 @@ async function _showRollDialog(data) {
             ATTRIBUTE_SELECT_OPTIONS: attribSelectOptions
         };
 
-        const html = await renderTemplate(template, dialogData);
+        const html = await foundry.applications.handlebars.renderTemplate(template, dialogData);
         const rollTitle = data.title ? data.title : 'Roll Dialog';
         const title = data.actor ? data.actor.name + ': ' + rollTitle : rollTitle;
         // Also prepare a ConfiguredRoll

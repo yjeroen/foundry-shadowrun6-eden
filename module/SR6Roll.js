@@ -422,7 +422,7 @@ export default class SR6Roll extends Roll {
     async getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return await renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
+        return await foundry.applications.handlebars.renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
             {
                 parts,
                 finished: this.finished,
@@ -582,7 +582,7 @@ export default class SR6Roll extends Roll {
 
             this.finished.isGM = game.user.isGM;
             
-            return await renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
+            return await foundry.applications.handlebars.renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
         }
         finally {
             console.log("SR6E | LEAVE render");

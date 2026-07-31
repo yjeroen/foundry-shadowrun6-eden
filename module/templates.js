@@ -103,5 +103,5 @@ export const preloadHandlebarsTemplates = async function () {
         "systems/shadowrun6-eden/templates/parts/vehicle-weapons.html"
     ];
     console.log(`SR6E | Load templates`);
-    return loadTemplates(templatePaths);
+    return foundry.applications.handlebars.loadTemplates(templatePaths);
 };

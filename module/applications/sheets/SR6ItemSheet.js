@@ -12,7 +12,7 @@ function getActorData(obj) {
         return obj;
     return obj.data;
 }
-export default class SR6ItemSheet extends ItemSheet {
+export default class SR6ItemSheet extends foundry.appv1.sheets.ItemSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -610,7 +610,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * Get Editor Safe Description
      */
     async enrichedHTML(htmlString) {
-        return await TextEditor.enrichHTML(
+        return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             htmlString,
             {
                 // Whether to show secret blocks in the finished html
@@ -655,7 +655,7 @@ export default class SR6ItemSheet extends ItemSheet {
      */
     async _onDrop(event) {
         event.stopPropagation();
-        const data = TextEditor.getDragEventData(event);
+        const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
         const actor = this.actor;
         console.log("SR6E | SR6ItemSheet | _onDrop", event, data);
         const allowed = Hooks.call("dropItemSheetData", actor, this, data);

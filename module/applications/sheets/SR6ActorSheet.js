@@ -29,7 +29,7 @@ function getActorData(obj) {
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export default class Shadowrun6ActorSheet extends ActorSheet {
+export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorSheet {
     /** @overrride */
     async getData() {
         let data = await super.getData();
@@ -1621,7 +1621,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
 
     async _onDrop(event) {
-        const data = TextEditor.implementation.getDragEventData(event);
+        const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
         console.log("SR6E | Shadowrun6ActorSheet | _onDrop", data);
         const actor = this.actor;
         const allowed = Hooks.call("dropActorSheetData", actor, this, data);
@@ -1845,7 +1845,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * Get Editor Safe Description
      */
     async enrichedHTML(htmlString) {
-        return await TextEditor.enrichHTML(
+        return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             htmlString,
             {
             // Whether to show secret blocks in the finished html

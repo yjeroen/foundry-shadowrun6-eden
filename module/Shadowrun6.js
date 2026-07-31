@@ -17,7 +17,7 @@ import EdgeRoll from "./dice/EdgeRoll.js";
 import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
-import SR6TokenHUD from "./SR6TokenHUD.js";
+import SR6TokenHUD from "./placeables/SR6TokenHUD.js";
 import SR6Token from "./placeables/SR6Token.js";
 // import SR6ActiveEffectData from "./datamodels/active-effect-model.mjs";
 import * as utils from "./util/helper.js";
@@ -129,7 +129,8 @@ Hooks.once("init", async function () {
 
     CONFIG.Actor.defaultType = "Player";
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
-    Actors.unregisterSheet("core", ActorSheet);
+    const Actors = foundry.documents.collections.Actors;
+    Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
@@ -148,6 +149,7 @@ Hooks.once("init", async function () {
     });
     CONFIG.Item.defaultType = "gear";
     CONFIG.Item.documentClass = documents.SR6Item;
+    const Items = foundry.documents.collections.Items;
     Items.registerSheet("shadowrun6-eden", applications.SR6ItemSheet, {
         types: [
             "gear",
@@ -183,7 +185,8 @@ Hooks.once("init", async function () {
         CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
     }
     CONFIG.ActiveEffect.legacyTransferral = false;
-    DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
+    const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
+    DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', foundry.applications.sheets.ActiveEffectConfig);
     DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
 
     // Change Canvas Placeables Font to Shadowrun
