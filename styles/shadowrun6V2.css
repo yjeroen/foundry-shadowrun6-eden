@@ -44,6 +44,10 @@
     -webkit-backdrop-filter: none;
 }
 
+.application.sr6.sheet .window-content button {
+    --button-text-color: black;
+}
+
 .sr6 div[data-action] {
     cursor: var(--cursor-pointer);
 }
