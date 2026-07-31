@@ -538,13 +538,11 @@
 }
 
 #token-hud .status-effects {
-  width: 222px;
-  grid-template-columns: repeat(5, 20%);
+  --effect-columns: 7;
+  --effect-size: 42px;
+  --effect-gap: 3px;
 }
 #token-hud .status-effects .effect-control {
-  width: 42px;
-  height: 42px;
-  padding: 2px;
   opacity: 0.4;
 }
 #token-hud .status-effects .effect-control:hover {
@@ -554,6 +552,7 @@
 }
 #token-hud .status-effects .effect-control.active {
   border: 1px solid white;
+  opacity: 0.9;
 }
 #token-hud .status-effects .effect-control-wrapper {
   display: grid;
