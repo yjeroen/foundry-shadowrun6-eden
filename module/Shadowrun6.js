@@ -937,13 +937,7 @@ Hooks.once("init", async function () {
         // @ts-ignore
         dragRuler.registerSystem("shadowrun6-eden", FictionalGameSystemSpeedProvider);
     });
-    // Shadowrun Pause button for V12
-    Hooks.on("renderPause", async function (Pause, html, paused) {
-        $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
-        $('#pause img').attr('class', 'fa-beat-fade');
-        $('#pause figcaption').attr('class', 'glitch'); 
-    });
-    // Shadowrun Pause button for V13
+    // Shadowrun Pause button for V13+
     Hooks.on("renderGamePause", async function (GamePause, html, options, renderOptions) {
         $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
         $('#pause img').attr('class', 'fa-beat-fade');
