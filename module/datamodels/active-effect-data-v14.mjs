@@ -1,4 +1,4 @@
-export default class SR6ActiveEffectDataV14 extends foundry.abstract.TypeDataModel {
+export default class SR6ActiveEffectDataV14 extends foundry.data.ActiveEffectTypeDataModel {
   
   static defineSchema() {
     const fields = foundry.data.fields;
