@@ -149,7 +149,7 @@
       <div class="item-controls">
         <a
           class="item-control item-create"
-          data-tooltip="{{localize 'DOCUMENT.New' type=(localize 'shadowrun6.section.matrix_devices.label')}}"
+          data-tooltip="SR6.Actor.host.matrixItems.tipTitle"
           data-action="createDoc"
           data-document-class="Item"
           data-type="gear"
@@ -253,5 +253,14 @@
 </section>
 <!-- /Networked Icons -->
 {{/unless}}
+
+{{#if @root.editMode}}
+{{#unless matrixItems.length}}
+<section class="section error">
+    <i class="fas fa-circle-info"></i>
+    <span>{{{localize "SR6.Actor.host.matrixItems.tipTitle"}}}</span>
+</section>
+{{/unless}}
+{{/if}}
 
 </section>

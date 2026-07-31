@@ -2757,7 +2757,8 @@
           "rollTitle": "Roll {name} using Host Attributes",
           "deployed": "Deployed",
           "installedIn": "Installed In",
-          "deviceAction": "Control Device"
+          "deviceAction": "Control Device",
+          "tipTitle": "<p>You can add Matrix Devices to this host.</p><p>Examples:</p><ul><li>Add a <strong>Weapon</strong> if you want to create Host-controlled turrents.</li><li>Add <em>electronic</em> devices like the <strong>Optical</strong> subtype for a camera sensor.</li><li>Add <em>electronic</em> <strong>File Storage</strong> to create hackable file systems.</li></ul>"
         },
         "spider": {
           "assigned": "Assigned Spiders",
