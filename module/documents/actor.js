@@ -2189,13 +2189,13 @@ export default class Shadowrun6Actor extends Actor {
         const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
         // console.log(`SR6E | _getSkillPool | ${this.name} | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}'`);
         
-        if (attributePath !== undefined) {
+        if (attributePath === undefined) {
             attributePath = `system.attributes.${skillDef.attrib}.pool`;
             if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = "system.rating";
             // console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}'`);
         }
 
-        if (attributePath.length === 3) {
+        if (attributePath?.length === 3) {
             attributePath = `system.attributes.${attributePath}.pool`;
         }
 
@@ -2233,7 +2233,7 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
         // Add attribute
-        value += parseInt(this.getSystemProperty(attributePath));
+        value += parseInt(this.getSystemProperty(attributePath) ?? 0);
         // console.log("SR6E | _getSkillPool | value", value);
         if (skillId === 'exotic_weapons') {
             if (
@@ -2244,6 +2244,7 @@ export default class Shadowrun6Actor extends Actor {
                 value = 0;
             }
         }
+        // console.log(`SR6E | _getSkillPool | ${this.name}`, skl, this.getSystemProperty(attributePath)??0, value);
         return value;
     }
     //---------------------------------------------------------
@@ -3355,7 +3356,7 @@ export default class Shadowrun6Actor extends Actor {
      * @returns 
      */
     getSystemProperty(path) {
-        if (path.startsWith("system.")) path = path.slice(7);
+        if (path?.startsWith("system.")) path = path.slice(7);
 
         const convertedToV2 = game.sr6.config.SYSTEMPATH_TO_V2[path];
         if (this.isActorV2 && convertedToV2) path = convertedToV2;

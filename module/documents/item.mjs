@@ -163,10 +163,10 @@ export default class SR6Item extends Item {
     if (!this.isOwner || this.type!=="gear") return false;
 
     if (changes.system?.usedForPool === true || changes.system?.usedForPool === false) {
-      setProperty(changes, "system.matrix.wirelessActive", changes.system.usedForPool);
+      foundry.utils.setProperty(changes, "system.matrix.wirelessActive", changes.system.usedForPool);
     }
     if (changes.system?.matrix?.wirelessActive === true || changes.system?.matrix?.wirelessActive === false) {
-      setProperty(changes, "system.usedForPool", changes.system.matrix.wirelessActive);
+      foundry.utils.setProperty(changes, "system.usedForPool", changes.system.matrix.wirelessActive);
     }
   }
 
