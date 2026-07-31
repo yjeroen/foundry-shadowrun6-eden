@@ -8,7 +8,13 @@
 <table>
 		{{#each (sort actor.itemTypes.echo) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
-      		<td style="width:1rem"><button type="button" name="collapseSpell{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
+			<td style="width: 1rem">
+				{{#if item.system.description }}
+				<button type="button" name="collapseEcho{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
+				{{else}}
+				<button type="button" name="collapseEcho{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
+				{{/if}}
+			</td>
 			<td>{{item.name}}</td>
 			<td style="width: 2.5em">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
