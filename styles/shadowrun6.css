@@ -740,6 +740,7 @@ a.item-control.disabled-roll:hover {
 .matrix-section .reference-label .fa-circle-info,
 .matrix-section .reference-label span {
   font-size: 12px;
+  --fa-width: 12px;
   opacity: 0.4;
   transition: font-size 0.5s ease;
 }
@@ -752,6 +753,7 @@ a.item-control.disabled-roll:hover {
     .matrix-section .reference-label .fa-circle-info,
     .matrix-section .reference-label span {
       font-size: 0px;
+      --fa-width: 0px;
     }
 }
 @container (max-width: 484px) {

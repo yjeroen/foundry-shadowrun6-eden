@@ -2005,6 +2005,7 @@
 
 .item-control .fa-square {
     font-size: 20px;
+    --fa-width: 20px;
 }
 
 

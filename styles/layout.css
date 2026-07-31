@@ -310,6 +310,7 @@ dd::after {
 	color: var(--highlight-color);
   font-size: 13px;
   vertical-align: middle;
+  --fa-width: 13px;
 }
 .item-control[data-action="uninstallMod"] {
   vertical-align: bottom;
@@ -319,6 +320,7 @@ dd::after {
 }
 .item-control .fa-dice-six {
   font-size: 20px;
+  --fa-width: 20px;
 }
 .middle-column {
 	margin: 0 5px 0;
