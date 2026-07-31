@@ -15,7 +15,55 @@
     "oppAttr1": "int",
     "oppAttr2": "f"
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Electron Storm DV",
+      "origin": "Compendium.shadowrun6-eden.sprite_powers.Item.NVCrfwsAg3Wzv511",
+      "img": "systems/shadowrun6-eden/icons/compendium/cyberware/memory_chip.svg",
+      "_id": "jcwEu85U1zE24POn",
+      "type": "base",
+      "system": {
+        "level": 1,
+        "advanced": true
+      },
+      "changes": [
+        {
+          "key": "system.dmg",
+          "mode": 5,
+          "value": "@actor.system.attributes.resonance.pool",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "shadowrun6-eden",
+        "systemVersion": "3.3.9",
+        "createdTime": 1783624532186,
+        "modifiedTime": 1783624552183,
+        "lastModifiedBy": "S4L5UokAp998askq"
+      },
+      "_key": "!items.effects!NVCrfwsAg3Wzv511.jcwEu85U1zE24POn"
+    }
+  ],
   "ownership": {
     "default": 0,
     "S4L5UokAp998askq": 3
