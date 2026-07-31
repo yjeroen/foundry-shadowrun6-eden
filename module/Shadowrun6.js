@@ -1025,7 +1025,7 @@ function _onClickDiceRoll (ev) {
     console.log("SR6E | sr6-dice-roll clicked  ");
     let roll = new PreparedRoll();
     roll.pool = 0;
-    roll.speaker = ChatMessage.getSpeaker({ actor: this });
+    roll.speaker = ChatMessage.getSpeaker();
     roll.rollType = RollType.Common;
     doRoll(roll);
 }
