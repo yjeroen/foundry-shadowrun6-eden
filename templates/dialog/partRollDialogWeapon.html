@@ -57,15 +57,11 @@
     	  	<td>{{localize "shadowrun6.roll.range"}}</td>
     	  	<td>
     	  		<select name="distance" id="distance">
-
-				<!-- TODO rework #select -->
-            	{{#select attackRating}}
             	{{#each data.calcAttackRating as |rating id|}}
 					{{#iff rating '>' -1}}
             		<option value="{{rating}}" data-item-ar="{{rating}}" data-distance="{{id}}" name="{{id}}">{{localize (concat "shadowrun6.roll.ar_" id)}} - ({{rating}})</option>
 					{{/iff}}
             	{{/each}}
-            	{{/select}}
         		</select> 
     	  	</td>
 			{{#if (or (or (eq data.item.system.type "WEAPON_FIREARMS")(eq data.item.system.type "WEAPON_RANGED"))(eq data.item.system.type "WEAPON_SPECIAL"))}}

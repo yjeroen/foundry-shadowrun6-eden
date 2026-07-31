@@ -1,5 +1,4 @@
 <!-- TODO Shadowrun6ActorSheetCritter is not in use  -->
-<!-- TODO rework #select -->
 
 <form class="{{cssClass}}" autocomplete="off">
   <div class="npc-firstline">
@@ -11,11 +10,12 @@
       </label>
     {{#if system.editmode}}
     <select name="critterSubtype" data-field="system.subtype" style="background: rgba(255,255,255,0.25); border: 0px">
-				{{#select system.subtype}}
+      <!-- #select no longer supported -->
+				{{!-- {{#select system.subtype}}
 					{{#each config.NPC_SUBTYPES as |type id|}}
 						<option value="{{@type}}" name=system.subtype>{{localize (concat "shadowrun6.npc.subtype." type)}}</option>
 					{{/each}}
-				{{/select}}
+				{{/select}} --}}
 			</select>
       {{/if}}
     </span>
