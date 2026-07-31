@@ -1426,15 +1426,11 @@ body.game .application.shadowrun6 .window-content {
 }
 
 /* Read Only Sheets */
+/* Remember: Set unusable links to .inactive class in hbs */
 
-.sheet .read-only .track,
-.sheet .read-only a:not([data-action="matrixOperations"]) {
+.sheet .read-only .track {
   pointer-events: none;
   cursor: var(--cursor-default);
-}
-.sheet .read-only .matrix-section.persona a {
-  pointer-events: auto;
-  cursor: var(--cursor-pointer);
 }
 
 .app.actor .editable {
