@@ -895,10 +895,7 @@ Hooks.once("init", async function () {
         const tokensLimitedOwnership = game.settings.get(SYSTEM_NAME, "tokensLimitedOwnership");
         if (!tokensLimitedOwnership) return;
 
-        if (
-            !token.actorLink 
-            && token.actor.ownership.default === CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE
-        ) {
+        if ( token.actor.ownership.default === CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE ) {
             token.actor.update({ 
                 "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED
             });
