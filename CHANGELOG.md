@@ -1,3 +1,156 @@
+## 4.0.0
+
+### System Improvements
+- Drop FoundryVTT v12 support
+- Add FoundryVTT v14 support
+- Various layout improvements 
+- Change sheet avatars so their can be viewed via a popup
+- Add Defense Roll chat description for special phys/stun damage by spells
+- Improve support rolling different attributes on a attribute/skill roll
+- Add Shadowrun Neon-Glow style mouse cursor icons (can be changed via a System Setting)
+- Add Spirit types from Deus Ex Arcana and That Old Voodoo books (#221)
+- Improve SR6 Game Settings layout
+- Add Rating to GearMods so the rating value can be used in Effects (#288)
+- Add Blood and Insect spirit types from Street Wyrd (#221)
+- Allow gearmod effects to optionally apply to the actor (#228)
+- Import Initiation & Submersion grades from Commlink6 import
+- Add Magic Tradition field (#252)
+- Add Augmentations section to Critters
+- Add a Combat Actions reference section (#247)
+- Add default Shadowrun Combat Turn Marker (#133)
+- Add Tracking specialization to Outdoors skill (#277)
+- (Change) PDF Statblocks can now only be imported from within the Create Actor dialog
+- Add chat descriptions for Weapon, Spell, Ritual, Complexform rolls
+- Add support for tempEdge and noEdgeGain in Roll Dialog
+- Add SR6 System setting so unlinked Tokens get a minimum Ownership of Limited so players can see enemy ready only sheets
+- Migrate Software Item from template to DataModel and add IC type (#279)
+- Add tooltips to various buttons of the various sheets
+- New: Genesis/Commlink imported characters with Attribute Modifiers, will have them automatically added as Effects (#270)
+- New: Genesis/Commlink imported characters with Skill Modifiers, will have them automatically added as Effects (#270)
+- Add localization to imported Attribute/Skill Modifier names (#270)
+- Add FoundryVTT DataModel and ApplicationV2 support to new actor types and sheets (old ones need to be migrated before FoundryVTT v16)
+- Show Gear Mods on the Actorsheet in the collapsible description behind the clickable arrow
+- Weapon Items with CloseCombat/Unarmed skill configuration now use the SR6 Unarmed AR formula if the base Close AR is 0 (#209)
+- Add Magical Formula and Magic Lodge subtypes as options for Magical Gear items  (#254)
+- Change Gear type 'Magical' to 'Magical Goods' (#254)
+- Add Edge Reset button for GMs (#246)
+- Add Metatype field for NPC/Critter/Spirits (#248)
+- Add @actor support for ActiveEffects that apply to an Actor
+
+- PAN: New Persona and PAN sections in Matrix tab of actorsheet
+- PAN: New Persona section shows your matrix attributes, Persona icon and description 
+- PAN: New PAN section shows all your online matrix devices.
+- PAN: Matrix Devices in the PAN section can be targetted specifically via a Matrix Action via a "Matrix Operation" button.
+- PAN: Default Access Level is OUTSIDER. You need to target someones Primary Access Device (or a Technomancers Persona) using ACL changing Matrix Actions like Backdoor Entry or Brute Force to change access levels so other actions become available.
+- PAN: Add a Share PAN button that sends a chat message so players can join someones PAN by drag&dropping an effect onto their character sheet
+- PAN: Matrix Devices & PanAdmins need to have positive Matrix CM to be online on the matrix, and to be able to create a persona/PAN
+- PAN: Dont show matrixitems in the PAN if you have outsider access and the device is onlineOnMatrixByDataCable
+- PAN: Add Persona Description and Image
+- PAN: Turn of all Matrix Access Devices if one of them is turned off or goes to a 0 MatrixCM
+- PAN: Technomancers go offline with their persona if their Stun CM is 0
+- PAN: Add support to hack into a Technomancers Living Network/Persona
+- PAN: Add an optional houserule setting so Matrix Damage is soaked by the PAN Leader
+
+- MATRIX: Support Access Levels (OUTSIDER/USER/ADMIN) as relationships for both Actors and Items, and Actor<>Item
+- MATRIX: Add Matrix Condition Monitor and Matrix Attributes to Items
+- MATRIX: Dice Rolls for Gear have a Matrix Damage penalty when damaged through the matrix
+- MATRIX: Support Matrix Defense rolls vs Device Rating
+- MATRIX: Add Game Setting that changes DoS, Squelch and Popup Matrix Actions to be allowed in USER/ADMIN ACL (default enabled)
+- MATRIX: Inactive Matrix Access Devices have wireless disabled
+- MATRIX: Add a check so you cant enable Matrix Access Devices if you already have an active one generating the same Attributes or Cyberdeck<>RCC
+- MATRIX: Add Anytime action symbol to Matrix Actions section
+- MATRIX: Configure certain Items to always be (wireless or direct connection) Matrix Devices
+- MATRIX: Allow users to manually configure the Device Rating of a Gear item, due to the Sixth World FAQ clarification. In case of Cyberware, this field shows the augmentation implant grade.
+- MATRIX: Migrate all gear items so they have proper Device Rating and Matrix Device attributes
+- MATRIX: Show net hits on failed matrix defense rolls
+- MATRIX: Updated Matrix Action descriptions
+- MATRIX: Add the Relinquish Access matrix action that was added by the Offical FAQ
+- MATRIX: Matrix Actions that are rollable now have Matrix AR/DR and Edge support
+- MATRIX: Matrix Actions without skills can now be "rolled", their description will be send to chat
+- MATRIX: Add Matrix Action Linked Attribute pool penalty if your Attack/Sleaze is higher than the other
+- MATRIX: Add automation to Matrix Actions that interact with Access Levels (OUTSIDER/USER/ADMIN)
+- MATRIX: Add automation to Matrix Actions that do damage 
+- MATRIX: Add GM button to reset all Access Levels in the game
+- MATRIX: Support Matrix Damage Defense and Damage Soak Rolls from chat
+- MATRIX: Add Limited View sheets to all actor types that can be active in the Matrix, so they are used as "target sheets" for Actors/Players to attack others using Matrix Actions
+- MATRIX: Add button on Actorsheet to open a target's Matrix sheet (mainly for GM). This button can be dragged onto your Macro Hotbar for easy access.
+- MATRIX: Add the ability to roll Matrix Attributes from character sheet
+- MATRIX: Add Active Effect example for Fading Resist Pool Modifier
+- MATRIX: Add Defense Rolls for Complex Forms
+- MATRIX: Add Data Terminal and Cyber Terminal gear items (#258) (miglib)
+
+- SPRITES: Add Sprite as a new Actor Type
+- SPRITES: Automate Sprite Attributes depending on Level and Type
+- SPRITES: Add Sprite Powers as a new Item Type
+- SPRITES: Add a Sprite Power compendium with powers that are automatically added to an Actor when you choose the Sprite Type
+
+- HOST: Add Host as a new Actor Type (#279)
+- HOST: Add a button to deploy/retrieve IC and electronic matrix gear as seperate Tokens on the canvas via an animation
+- HOST: Add File Storage subtype for Gear Items
+- HOST: Add Encryption Rating field to File Storage eletronic items
+- HOST: Allow assigning spider job via drag&drop to a PC/NPC charactert sheet
+- HOST: Special initiative of host and its deployed Items
+- HOST: Show error message if ASDF isn't properly configured according to the Host Type
+- IC: Add IC as a new Software Item subtype 
+- IC: Support adding multiple IC subtypes to a single IC 
+- IC: Add automated damage chatbuttons for the IC actions (#279)
+- IC: Add automated actions and biodfeedback damage 
+- IC: Add default IC icons (#279)
+
+### Bug Fixes
+- Fix roll success not shown correctly on a "flash" Chat Message.
+- Fix Software section to be sorteable
+- Fix Dont show damage button in Chat Message on edgecase if damage is 0 even though roll is failed
+- Fix Defense Rolls of special phys/stun damage by spells
+- Fix some sections on character sheet incorrectly showing a fold-open dark arrow while theres no description of the item
+- Fix Software Items not showing on Character sheet
+- Fix RollDialog so no Edge section is shown if an Actor doesnt have Edge
+- Fix integer typing of controlRig actor attribute
+- Fix to only show MAG and RES on NPC read only sheet when applicable (#273)
+- Fix for Spirit Actors changing defense attribute Mod fields and Derived Mod fields causing an error of all the other attributes in the category (#278)
+- Fix ro sheets for spirits and critters
+- Fix incorrect calculation of Edge in Roll Dialog  if you chose a boost and then changed Situation Edge again
+- Show a mouse pointer on the chatmessage dice results so its clearer you can click on it to spend Edge
+- Fix all Initiative Dicepools to be limited between 1 and 5
+- Fix Matrix Access Devices to show an error when not online on matrix
+- Fix that vehicle tokens have a proper width and height of 2
+- Change Biography tab name to Description
+- Fix Prosemirror button
+- Fix Bad Luck Quality
+- Fix so Edge Mod is limited to max of 4
+- Fix old bug on Drag jQuery hooks on ActorSheet and ItemSheet
+- Fix buying hits (0) if dicepool < 4
+- Improved collapsible sections on ActorSheet for Gear with mods and/or descriptions (#269) (miglib/yeroon)
+- Fix default Active Effect icon
+- Fix Augmented Maximum of Skills
+- Fix so only GM can edit overflow physical input field when dead
+- Bugfix: Condition Monitor Penalties are now correctly calculated if the number of boxes are not a multiple of 3
+- Improve Token Physical and Stun values so they properly overflow
+- Dead status makes you blind and prone as well
+- Improve clarity Wild Die label (Patreon feedback from Olivier)
+- Fix: Wide Burst is now properly calculated with a split dicepool attack
+- Fix FullAuto firing to show an AR of "-" if reduced to 0
+- Rework Weapon Item Ammo/AR/Dmg/Stun calculations (#209)
+- Include DicePoolMod's from weapon GearMods (like Smartgun) in the dicepool # shown on the Actor Sheet (#211)
+- Update Barrel Extension gear mod effects so that the extra range added can be increased by other gear mods (#212)
+- Allow Health spells to target yourself by default if no token is selected (#215)
+- Fix unclear chat message dice results when using manual /r commands (#217)
+- Fix Persona Attributes not updating when switching an actor to or from Technomancer type (#237)
+- Change Lifestyle Paid field to mean #months instead of Nuyen (#240)
+- Add plural localization helper for templates (#240)
+- Fix minimum height of Item sheet window
+- Fix special weapons showing a dicepool on the actorsheet if not specialized (#242)
+- Add migration to Actors with wrong default Astral Initiatice Dicepool of 1 instead of 2 (#243)
+- Add Magical Goods and Uninstalled Gearmods to NPC sheets
+- Add migration for NPC/Critter/Spirit Actors so they have a metatype other than "human" (#248)
+- Fix correct values in Edge message of roll dialogue when Character would 2 Edge, but cannot gain more than 2
+- Fix english message for gaining Edge in combat roll dialog (#260)
+- Fix defenders in combat gaining Edge when triggered by GM (#259)
+
+### Data Updates
+- French translation updates (Zakarik)
+- Russian translation updates (TheFokin)
+
 ## 3.3.7
 
 ### System Improvements

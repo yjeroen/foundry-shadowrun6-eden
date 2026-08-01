@@ -5,6 +5,11 @@
 
 export default [
     {
+        version: "4.0.0",
+        name: "Matrix Online",
+        url: "https://www.patreon.com/DeepResonanceWare/posts/sixth-world-4-0-165457383?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link"
+    },
+    {
         version: "3.3.7",
         name: "Holiday Times",
         url: "https://www.patreon.com/posts/sixth-world-3-3-144323831?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link"
