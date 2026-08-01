@@ -144,8 +144,7 @@ export default class SR6ItemSheet extends foundry.appv1.sheets.ItemSheet {
             isElectronicMatrixDevice: this.item.system.isElectronicMatrixDevice || this.item.system.matrix.hasWirelessInterface || this.item.system.matrix.hasDataCableInterface,
             disableElectronicMatrixDevice: subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS || this.item.system.matrix.hasWirelessInterface || this.item.system.matrix.hasDataCableInterface,
             disableWirelessInterface: GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.item.system.type) || GEAR.SUBTYPES_MATRIX_ACCESS.has(this.item.system.subtype),
-            disableDataCableInterface: this.item.system.type === "CYBERWARE",
-            deviceRatingTooltip: game.i18n.translations.SR6.Item.base.FIELDS.deviceRating.tooltip
+            disableDataCableInterface: this.item.system.type === "CYBERWARE"
         }
 
         return config;

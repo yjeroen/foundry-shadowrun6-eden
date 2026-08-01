@@ -2797,16 +2797,8 @@
           },
           "deviceRating": {
             "label": "Device Rating",
-            "tooltip": [
-              "The rating of the Electronic Matrix Device. Device Rating determines the devices Matrix Condition Monitor.",
-              "Most relevant devices are given a Device Rating in their rulebook, but if not provided use the following as a guideline:",
-              "<strong>1: Simple devices</strong>, like General appliances, public terminals, entertainment systems.",
-              "<strong>2: Average devices</strong>, like Personal electronics, basic cyberware, weapons, residential security devices, basic vehicles.",
-              "<strong>3: Smart devices</strong>, like Security vehicles, alphaware, corporate security devices.",
-              "<strong>4: Advanced devices</strong>, like High-end devices, betaware, military vehicles and security devices.",
-              "<strong>5: Cutting-edge devices</strong>, like credsticks, black-ops vehicles and security devices.",
-              "<strong>6+: Bleeding Edge devices</strong>, like Deltaware, Gammaware, Billion-nuyen experimental devices, space craft."
-            ]
+            "tooltip": 
+              "<p>The rating of the Electronic Matrix Device. Device Rating determines the devices Matrix Condition Monitor.</p><p>Most relevant devices are given a Device Rating in their rulebook, but if not provided use the following as a guideline:</p><p><strong>1: Simple devices</strong>, like General appliances, public terminals, entertainment systems.</p><p><strong>2: Average devices</strong>, like Personal electronics, basic cyberware, weapons, residential security devices, basic vehicles.</p><p><strong>3: Smart devices</strong>, like Security vehicles, alphaware, corporate security devices.</p><p><strong>4: Advanced devices</strong>, like High-end devices, betaware, military vehicles and security devices.</p><p><strong>5: Cutting-edge devices</strong>, like credsticks, black-ops vehicles and security devices.</p><p><strong>6+: Bleeding Edge devices</strong>, like Deltaware, Gammaware, Billion-nuyen experimental devices, space craft.</p>"
           },
           "wirelessActive": {
             "label": "Wireless",

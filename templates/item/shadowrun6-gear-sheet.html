@@ -69,9 +69,9 @@
                     <th><span data-tooltip="SR6.Item.base.FIELDS.hasDataCableInterface.hint">{{localize 'SR6.Item.base.FIELDS.hasDataCableInterface.label'}}</span></th>
                     {{#if gearConfig.isElectronicMatrixDevice}}
                     {{#if (eq item.system.type "CYBERWARE")}}
-                    <th><span data-tooltip-html="{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.hint'}}">{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.label'}}</span></th>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.cyberwareGrade.hint">{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.label'}}</span></th>
                     {{else}}
-                    <th><span data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}">{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</span></th>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.deviceRating.tooltip">{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</span></th>
                     {{/if}}
                     {{/if}}
                 </tr>
@@ -107,7 +107,7 @@
                     <td>
                         <select 
                             name="system.matrix.deviceRating" data-field="system.matrix.deviceRating"
-                            data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}"
+                            data-tooltip="SR6.Item.base.FIELDS.deviceRating.tooltip"
                         >
                         {{#if (eq item.system.type "CYBERWARE")}}
                             {{selectOptions config.GEAR.CYBERWARE.GRADES selected=item.system.matrix.deviceRating localize=true}}
