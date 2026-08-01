@@ -18,6 +18,7 @@ export {default as SR6ItemSheet} from "./sheets/SR6ItemSheet.js"
 
 // Active Effect Applications
 export {default as SR6ActiveEffectConfig} from "./config/SR6ActiveEffectConfig.js"
+export {default as SR6ActiveEffectConfigV14} from "./config/SR6ActiveEffectConfig-v14.js"
 
 import * as mixins from "./sheets/mixins/_module.mjs";
 export { mixins };

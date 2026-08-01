@@ -179,15 +179,16 @@ Hooks.once("init", async function () {
      * Register Active Effects
      * legacyTransferral (false): Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
      */
-    if (game.release.generation === 14) { //TODO JEROEN V14
-        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectDataV14;
-    } else {
-        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
-    }
     CONFIG.ActiveEffect.legacyTransferral = false;
     const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
     DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', foundry.applications.sheets.ActiveEffectConfig);
-    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
+    if (game.release.generation === 14) { //TODO JEROEN V14
+        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectDataV14;
+        DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfigV14, { makeDefault: true });
+    } else {
+        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
+        DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
+    }
 
     // Change Canvas Placeables Font to Shadowrun
     CONFIG.defaultFontFamily = 'Play';
