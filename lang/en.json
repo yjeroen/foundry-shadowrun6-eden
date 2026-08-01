@@ -2272,7 +2272,7 @@
           "in_progress": "Migrating system documents..",
           "completed": "System migration has completed!"
         },
-        "wrong_import_file": "Cannot import a GENESIS or COMMLINK save file! Use the FoundryVTT JSON Export instead.",
+        "wrong_import_file": "Cannot import a Generic/Roll20 json file! Use the FoundryVTT JSON Export in GENESIS or COMMLINK6 instead.",
         "statblock_import": {
           "error": "Something went wrong importing the NPC Statblock. Use a different PDF reader or your statblock might not be supported.",
           "success": "Your `{actor}` statblock was imported into the ",
