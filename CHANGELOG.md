@@ -1,3 +1,11 @@
+## 4.0.1
+
+### Bug Fixes
+- Fix Sprite/Host edit button in FoundryVTT v14 (#304)
+- Fix Itemsheets not openable on other languages than English (#305)
+- Fix PAN going down if the Wireless is turned off from a matrix device on the same Actor (#307)
+- Fix linked actor tokens (like Hosts) not have a Limited ownership when deployed (#308)
+
 ## 4.0.0
 
 ### System Improvements
