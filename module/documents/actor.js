@@ -263,6 +263,11 @@ export default class Shadowrun6Actor extends Actor {
         for ( const change of changes ) {
             if ( !change.key ) continue;
 
+            // shadowrun6-eden adds @actor support:
+            if ( typeof change.value === "string" && change.value?.startsWith('@actor')) {
+                const key = change.value.substring(7);
+                change.value = foundry.utils.getProperty(this, key);
+            }
             // shadowrun6-eden adds @item support:
             if ( typeof change.value === "string" && change.value?.startsWith('@item') && change.effect.parent?.documentName === 'Item') {
                 const key = change.value.substring(6);
