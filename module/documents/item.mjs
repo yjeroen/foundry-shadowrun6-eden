@@ -140,7 +140,7 @@ export default class SR6Item extends Item {
         changed.system?.usedForPool === false ||
         changed.system?.matrix?.matrixCM?.value === 0;
 
-    if (shouldTurnOffPools) {
+    if (this.isAccessDevice && shouldTurnOffPools) {
         const updates = this.actor.items
             .filter(item => item.system.usedForPool === true)
             .map(item => ({
