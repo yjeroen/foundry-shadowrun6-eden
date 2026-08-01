@@ -513,7 +513,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const action = target.dataset.action;
         switch ( action ) {
             case "toggleEditActor":
-                this.toggleControls(false);
                 this._onToggleEditActor(event);
                 break;
         }
