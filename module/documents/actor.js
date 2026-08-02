@@ -2604,7 +2604,6 @@ export default class Shadowrun6Actor extends Actor {
 
                 const deviceRatingCount = Number(matrixAction.attr1 === "deviceRating") + Number(matrixAction.attr2 === "deviceRating");
                 const encryptionRatingCount = Number(matrixAction.attr1 === "encryptionRating") + Number(matrixAction.attr2 === "encryptionRating");
-                
                 const primaryPool = this.getMatrixPool(matrixAction.attr1, matrixAction.attr2);
                 const altPool = this.getMatrixPool(matrixAction.attr1_alt, matrixAction.attr2_alt);
                 const attr1 = primaryPool>=altPool ? matrixAction.attr1 : matrixAction.attr1_alt;
@@ -2862,15 +2861,15 @@ export default class Shadowrun6Actor extends Actor {
     
     /**
      * Returns a Matrix Test Pool
-     * @param {number} matrixAttr   Matrix Attribute
-     * @param {number} physAttr     Physical Attribute
-     * @return {number}             Number of dice
+     * @param {number} attr1     Matrix or Physical Attribute
+     * @param {number} attr2     Matrix or Physical Attribute
+     * @return {number}          Number of dice
      */
-    getMatrixPool(matrixAttr, physAttr) {
+    getMatrixPool(attr1, attr2) {
         if (this.system instanceof foundry.abstract.DataModel) {
-            matrixAttr = game.sr6.config.ATTRIBUTE_TO_V2[matrixAttr];
-            physAttr = game.sr6.config.ATTRIBUTE_TO_V2[physAttr];
-            return this.system.matrix.testPool(matrixAttr, physAttr);
+            attr1 = game.sr6.config.ATTRIBUTE_TO_V2[attr1];
+            attr2 = game.sr6.config.ATTRIBUTE_TO_V2[attr2];
+            return this.system.matrix.testPool(attr1, attr2);
         }
 
         const getPool = (attr) => {
@@ -2878,8 +2877,8 @@ export default class Shadowrun6Actor extends Actor {
                 this.system.attributes[attr]?.pool ??
                 0;
         };
-        const oppAttr1 = getPool(matrixAttr);
-        const oppAttr2 = getPool(physAttr);
+        const oppAttr1 = getPool(attr1);
+        const oppAttr2 = getPool(attr2);
 
         return oppAttr1 + oppAttr2;
     }

@@ -49,21 +49,19 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
 
     /**
      * Returns a Matrix Test Pool 
-     * (compensates in case attributes are swapped)
-     * @param {number} matrixAttr   Matrix Attribute
-     * @param {number} physAttr     Physical Attribute
-     * @return {number}             Number of dice
+     * TODO review if this method should move to a different class
+     * @param {number} attr1     Matrix or Physical Attribute
+     * @param {number} attr2     Matrix or Physical Attribute
+     * @return {number}          Number of dice
      */
-    testPool(matrixAttr, physAttr) {
+    testPool(attr1, attr2) {
         const getPool = (attr) => {
             return this.attributes[attr] ??
             foundry.utils.getProperty(this.actor, `system.attributes.${attr}.pool`) ??
             0;
         };
 
-        const attr1 = getPool(matrixAttr);
-        const attr2 = getPool(physAttr);
-        return attr1 + attr2;
+        return getPool(attr1) + getPool(attr2);
     }
 
     /**

@@ -65,16 +65,46 @@ export default class SR6HostActorData extends SR6BaseActorData {
         return Boolean(this.deployedItem?.system.isIC)
     }
 
-    get assignedSpiders() {
+    #getAssignedSpiders(onlyActiveDuty = false) {
+        const host = this.parent.token?.baseActor ?? this.actor;
+
         const hasSpiderDuty = actor => actor?.effects.some(effect =>
-            effect.origin === this.actor.uuid
+            effect.origin === host.uuid
+            && (!onlyActiveDuty || effect.active)
         );
+
         const worldActors = game.actors.filter(actor => actor.prototypeToken.actorLink);
         const tokenActors = Object.values(game.actors.tokens);
-        const spiders = [...worldActors, ...tokenActors]
-            .filter(hasSpiderDuty);
 
-        return spiders;
+        return [...worldActors, ...tokenActors].filter(hasSpiderDuty);
+    }
+
+    get assignedSpiders() {
+        return this.#getAssignedSpiders();
+    }
+
+    get activeDutySpiders() {
+        return this.#getAssignedSpiders(true);
+    }
+
+    get attributes() {
+        if (!this.activeDutySpiders.length) return {};
+
+        const spider = this.activeDutySpiders.reduce((best, current) => {
+            const bestWil = best.system.attributes.wil.pool;
+            const currentWil = current.system.attributes.wil.pool;
+            const bestInt = best.system.attributes.int.pool;
+            const currentInt = current.system.attributes.int.pool;
+
+            if (currentWil > bestWil) return current;
+            if (currentWil === bestWil && currentInt > bestInt) return current;
+            return best;
+        });
+
+        return {
+            willpower: { pool: spider.system.attributes.wil.pool },
+            intuition: { pool: spider.system.attributes.int.pool }
+        };
     }
 
     /**
@@ -117,11 +147,9 @@ export default class SR6HostActorData extends SR6BaseActorData {
     }
 
     _prepareSpider() {
-        if (this.assignedSpiders.length) {
-            // TODO
-        } else {
-            this.edge.current = 0;
-        }
+        if (!this.assignedSpiders.length) return this.edge.current = 0;
+        
+        // TODO spider Edge
     }
 
     /**
