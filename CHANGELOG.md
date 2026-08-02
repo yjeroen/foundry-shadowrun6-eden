@@ -1,3 +1,11 @@
+## 4.0.2
+
+### Bug Fixes
+- Fix item.migrateData() of pre-4.0.0 Access Devices devRating migration to matrix.deviceRating (#312)
+- Fix Hosts using spiders mental attributes [WIL/INT] on Defense Rolls if those are higher than the ASDF (If there are multiple Spiders, the Spider with highest WIL is used with INT as tiebreaker) (#313)
+- Fix Roll Dialog showing a negative dicepool if the modifier was higher than the original pool (now minimum is 0)
+- Fix error message of importing a wrong json file from Genesis/Commlink6
+
 ## 4.0.1
 
 ### Bug Fixes
