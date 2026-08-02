@@ -441,6 +441,7 @@ export class RollDialog extends Dialog {
         }
         this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0) 
                                     + (useGruntGroup && this.options.prepared.rollType == RollType.Weapon ? gruntGroup.diceMod : 0);
+        this.prepared.calcPool = Math.max(0, this.prepared.calcPool);
         this.prepared.checkHardDiceCap();
         $("label[name='dicePool']")[0].innerText = this.prepared.calcPool.toString();
     }
