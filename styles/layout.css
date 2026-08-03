@@ -517,19 +517,35 @@ table.spell-table td {
 	text-align: center;
 }
 
-.editor {
+.sheet .editor:not(.prosemirror) {
+  min-height: 2.5em;
+}
+.sheet .section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet .section > .editor {
+  display: flex;
   flex: 1;
-  justify-self: stretch;
-  align-self: stretch;
-  height: 100%;
   margin-bottom: 5px;
 }
-.editor:not(.prosemirror) {
-  min-height: 2em;
+
+.sheet .section .prosemirror menu, 
+.sheet .section prose-mirror menu {
+  position: static;
+  flex-wrap: wrap;
 }
-.read-only .editor,
-.locked .editor {
-  min-height: max-content;
+
+.sheet .section .prosemirror:not(.inactive), 
+.sheet .section prose-mirror:not(.inactive) {
+  --min-height: 200px;
+}
+
+.sheet .section .prosemirror:not(.inactive) .editor-content, 
+.sheet .section prose-mirror:not(.inactive) .editor-content {
+  padding: 0 1ch;
 }
 
 .shadowrun6.item .editor {
@@ -548,7 +564,6 @@ table.spell-table td {
 }
 .shadowrun6.item .editor-container .editor-content {
   min-height: 150px;
-  padding: 0;
 }
 
 .shadowrun6.item .item-list .collapsible-content {

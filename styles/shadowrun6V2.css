@@ -2602,13 +2602,12 @@ body.game .app a:hover .sr6-icon {
     margin-bottom: 0;
     border: solid 1px black;
     border-radius: 5px;
+    height: stretch;
+    height: -webkit-fill-available;
 }
 .sr6 .pan .persona-description .prosemirror menu,
 .sr6 .pan .persona-description prose-mirror menu {
     border-radius: 0;
-}
-.sr6 .pan .persona-description .editor .editor-container {
-    margin: 0 1rem;
 }
 
 .sr6 .pan .persona-description.inactive {

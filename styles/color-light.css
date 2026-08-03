@@ -144,12 +144,6 @@ body.game .app table tr th:first-child {
 .foundry-modern #hotbar #action-bar .slot {
 	border-radius: 5px;
 }
-.foundry-modern #chat-notifications .chat-input {
-	height: 46px;	
-}
-.foundry-modern #chat-notifications .chat-input:focus {
-    height: var(--chat-input-height);
-}
 .foundry-modern .chat-log table {
 	--color-border-light-tertiary: #7a7971;
     width: 100%;
