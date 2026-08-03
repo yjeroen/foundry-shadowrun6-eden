@@ -1090,10 +1090,10 @@ export default class Shadowrun6Actor extends Actor {
         }
         if (system.tradition) {
             let traditionAttr = system.attributes[system.tradition.attribute];
-            system.attackrating.astral.base = system.attributes["mag"].pool + traditionAttr.pool;
+            system.attackrating.astral.base = system.attributes["mag"]?.pool + traditionAttr?.pool;
             system.attackrating.astral.modString = game.i18n.localize("attrib.mag_short") + " " + system.attributes["mag"].pool + " ";
             system.attackrating.astral.modString +=
-                game.i18n.localize("attrib." + system.tradition.attribute + "_short") + " " + system.attributes[system.tradition.attribute].pool;
+                game.i18n.localize("attrib." + system.tradition.attribute + "_short") + " " + system.attributes[system.tradition.attribute]?.pool;
             system.attackrating.astral.pool = system.attackrating.astral.base;
         }
         if (system.attackrating.astral.mod) {
@@ -1427,10 +1427,10 @@ export default class Shadowrun6Actor extends Actor {
         // Resist drain
         if (data.tradition) {
             let traditionAttr = data.attributes[data.tradition.attribute];
-            data.defensepool.drain.base = traditionAttr.pool + data.attributes["wil"].pool;
+            data.defensepool.drain.base = traditionAttr?.pool + data.attributes["wil"]?.pool;
             data.defensepool.drain.modString =
-                " " + game.i18n.localize("attrib." + data.tradition.attribute + "_short") + " " + traditionAttr.pool;
-            data.defensepool.drain.modString += " " + game.i18n.localize("attrib.wil_short") + " " + data.attributes["wil"].pool;
+                " " + game.i18n.localize("attrib." + data.tradition.attribute + "_short") + " " + traditionAttr?.pool;
+            data.defensepool.drain.modString += " " + game.i18n.localize("attrib.wil_short") + " " + data.attributes["wil"]?.pool;
             data.defensepool.drain.pool = data.defensepool.drain.base;
             if (data.defensepool.drain.mod) {
                 data.defensepool.drain.pool += data.defensepool.drain.mod;
