@@ -3141,7 +3141,9 @@ export default class Shadowrun6Actor extends Actor {
             return;
         }
         // GENESIS uses Actor.data in its export, while COMMLINK uses Actor.system as the actors sourceData
+        if (sourceData.data) { sourceData.system = sourceData.data; delete sourceData.data; }
         const actorSystem = sourceData.data ?? sourceData.system;
+
         // Modify imported GENESIS/COMMLINK items
         const GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
 
@@ -3156,15 +3158,17 @@ export default class Shadowrun6Actor extends Actor {
         // Both GENESIS and COMMLINK use Item.data as its sourceData
         for (const index in sourceData.items) {
             const item = sourceData.items[index];
+            item.system = item.data;
+            delete item.data;
             
-            if (item.data?.genesisID) {
-                if (item.data.type === "WEAPON_CLOSE_COMBAT") {
-                    item.data.attackRating[0] -= actorSystem.attributes.str.pool;
+            if (item.system?.genesisID) {
+                if (item.system.type === "WEAPON_CLOSE_COMBAT") {
+                    item.system.attackRating[0] -= actorSystem.attributes.str.pool;
                 }
                 // GENESIS fills in the Close AR, but this is auto calculated by shadowrun6-eden
                 if (item.name === "Unarmed") {
                     item.name = game.i18n.localize("shadowrun6.gear.subtype.UNARMED");
-                    item.data.attackRating[0] = 0;
+                    item.system.attackRating[0] = 0;
                 }
 
                 // Fix empty knowledge skill names
@@ -3173,20 +3177,20 @@ export default class Shadowrun6Actor extends Actor {
                 // Search if this genesisID exists in Compendia
                 let result;
                 game.packs.filter(p => p.documentName === "Item").some((p) => { 
-                    result = p.index.find(i => i.system.genesisID === item.data.genesisID);
+                    result = p.index.find(i => i.system.genesisID === item.system.genesisID);
                     return (result instanceof Object)
                 })
 
                 if (result instanceof Object) {
                     let importedItem = await fromUuid(result.uuid);
                     importedItem = game.items.fromCompendium( importedItem, { clearFolder: true, clearOwnership: true } );
-                    if (item.data.customName) {
+                    if (item.system.customName) {
                         importedItem.system.description = `<h3>${item.name}</h3>${importedItem.system.description}`;
-                        importedItem.name = item.data.customName;
+                        importedItem.name = item.system.customName;
                     } else {
                         importedItem.name = item.name;
                     }
-                    if (item.data.notes) importedItem.system.description += `<hr><p>${item.data.notes}</p>`;
+                    if (item.system.notes) importedItem.system.description += `<hr><p>${item.system.notes}</p>`;
                     sourceData.items[index] = importedItem;
                 }
             }
@@ -3241,7 +3245,7 @@ export default class Shadowrun6Actor extends Actor {
             const unarmedItemData = {
                 name: game.i18n.localize("shadowrun6.gear.subtype.UNARMED"),
                 type: 'gear',
-                data: {
+                system: {
                     dmg: 2,
                     stun: true,
                     type: "WEAPON_CLOSE_COMBAT",
@@ -3255,8 +3259,9 @@ export default class Shadowrun6Actor extends Actor {
         }
         
         if (GenesisCommlink) {
-            // Overwrite default GENESIS/Commlink token settings
+            // Overwrite token data so it wont be changed on a re-import
             const tokenData = {
+                ...this.prototypeToken,
                 name: sourceData.token?.name || sourceData.name,
                 actorLink: true,
                 sight: { enabled: true },
@@ -3264,11 +3269,21 @@ export default class Shadowrun6Actor extends Actor {
                 displayBars: CONST.TOKEN_DISPLAY_MODES.NONE,
                 disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
                 texture: { src: this.prototypeToken.texture.src },
-                lockRotation: this.prototypeToken.lockRotation
+                lockRotation: this.prototypeToken.lockRotation,
+                depth: 1
             };
-            sourceData.token = tokenData;
+            sourceData.prototypeToken = tokenData;
             sourceData.img = this.img;
+            
+            // Deleting incorrect token data
+            delete sourceData.token
         }
+
+        // Clean up unnecessary json attributes
+        delete sourceData.sort;
+        delete sourceData.exportVersion;
+        delete sourceData.generatorName;
+        delete sourceData.generatorVersion;
 
         await super.importFromJSON(JSON.stringify(sourceData));
 
