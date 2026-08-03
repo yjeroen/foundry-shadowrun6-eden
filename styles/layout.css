@@ -520,11 +520,6 @@ table.spell-table td {
 .sheet .editor:not(.prosemirror) {
   min-height: 2.5em;
 }
-.sheet .section {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
 
 .sheet .section > .editor {
   display: flex;
