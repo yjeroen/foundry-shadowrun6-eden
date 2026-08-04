@@ -1,10 +1,13 @@
 <section>
-	<div style="margin-right: 5px;">
-		<div style="display: inline-block; width:100%;">
-		{{> "systems/shadowrun6-eden/templates/parts/section-vehicles.html"}}
-		{{> "systems/shadowrun6-eden/templates/parts/section-riggingbase.html"}}
-		{{> "systems/shadowrun6-eden/templates/parts/section-drones.html"}}
-		{{> "systems/shadowrun6-eden/templates/parts/section-autosoft.html"}}
+	<div style="display: flex; flex-direction: column; margin-right: 5px;">
+
+		<div style="display: flex; flex-direction: row;">
+			{{> "systems/shadowrun6-eden/templates/parts/section-riggingbase.html"}}
+			{{> "systems/shadowrun6-eden/templates/parts/section-autosoft.html"}}
 		</div>
+
+		{{> "systems/shadowrun6-eden/templates/parts/section-vehicles.html"}}
+		{{> "systems/shadowrun6-eden/templates/parts/section-drones.html"}}
+
 	</div>
 </section>

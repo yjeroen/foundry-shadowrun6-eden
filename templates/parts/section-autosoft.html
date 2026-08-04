@@ -1,4 +1,4 @@
-<div class="section" style="display: inline-block; width: 100%; min-width: 500px;">
+<div class="section" style="display: inline-block; min-width: 300px;">
 	<!-- Header -->
 	<div class="section-head">
 		<h2 class="section-title">{{ localize 'shadowrun6.gear.subtype.AUTOSOFT' }}</h2>
@@ -11,7 +11,8 @@
 	<table>
 		<tr>
 			<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.name' }}</th>
-			<th style="padding: 0 0px 0 5px;">{{ localize 'shadowrun6.item.category' }}</th>
+			{{!-- <th style="padding: 0 0px 0 5px;">{{ localize 'shadowrun6.item.category' }}</th> --}}
+			{{!-- TODO add Installed In column? --}}
 			<th style="padding: 0 0px 0 5px; width: 1em">{{ localize 'shadowrun6.label.column.rating' }}</th>
 			<th style="padding: 0 5px 0 5px; width: 3em"> </th>
 			<th style="padding: 0 5px 0 5px; width: 4rem"> </th>
@@ -19,7 +20,7 @@
 		{{#each (itemsOfSystemType actor.itemTypes.software 'AUTOSOFT') as |item id|}}
 		<tr class="item" data-item-id="{{this.id}}" title="{{item.system.description}}">
 			<td title="{{item.system.description}}"><label class="item-name draggable" data-uuid="{{item.uuid}}" data-skill="{{id}}">{{item.name}}</label></td>
-			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{localize (lookup ../config.ITEM.software.subtypes.AUTOSOFT item.system.subtype)}}</label></td>
+			{{!-- <td title="{{item.system.description}}" class="centered"><label class="middle-column">{{localize (lookup ../config.ITEM.software.subtypes.AUTOSOFT item.system.subtype)}}</label></td> --}}
 			<td title="{{item.system.description}}" class="centered"><label class="middle-column">{{item.system.rating}}</label></td>
 			<td class="item-controls">
 			    <td class="centered"><a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'>

@@ -1744,6 +1744,9 @@
         "title": "Matrix Access Devices",
         "title_rcc": "RCC"
       },
+      "rigger": {
+        "title": "Rigging"
+      },
       "persona": {
         "title": "Persona",
         "accessDevice": "Matrix Access Device",
