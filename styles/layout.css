@@ -17,11 +17,12 @@
 }
 
 .game .system-links {
-  display: inline;
+  display: inline-flex;
+  padding: 0 15px;
 }
 .game .system-links a {
-  margin-right: 10px;
   color: var(--sr6-bright-pink);
+  text-decoration: underline;
 }
 
 line {

@@ -366,6 +366,7 @@ Hooks.once("init", async function () {
         // make Release Note link in sidebar clickable
         const releaseNoteLink = document.querySelector("#system-releasenotes");
         releaseNoteLink.addEventListener("click", (e) => {
+            e.preventDefault();
             game.sr6.releaseNotes({force: true});
         });
         
@@ -968,17 +969,16 @@ Hooks.once("init", async function () {
             },
             {
                 id: "system-releasenotes",
-                url: "javascript:void(0);",
                 label: "SYSTEM.Sidebar.release_notes"
             }
         ].map((data) => {
             const anchor = document.createElement("a");
             anchor.innerText = game.i18n.localize(data.label);
-            anchor.href = data.url ?? "";
-            if (data.id) 
-                anchor.id = data.id;
-            else
+            if (data.id) anchor.id = data.id;
+            if (data.url) {
+                anchor.href = data.url;
                 anchor.target = "_blank";
+            }
             return anchor;
         });
         systemInfo.append(...links);
