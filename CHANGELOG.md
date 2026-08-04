@@ -1,3 +1,17 @@
+## 4.0.3
+
+### System Improvements
+- Improve Vehicles tab layout on character sheet
+
+### Bug Fixes
+- Fix chatbox not working in FoundryVTT v14 due to wrong text editor layout settings (#315)
+- Fix Genesis/Commlink6 json imports into FoundryVTT V14 (#306)
+- Migrate Imaging subtype to Optical for electronic Gear (#309)
+- Fix Release Notes button in Settings tab to open a new browser window (#303)
+
+### Data Updates
+- Czech translation updates (Lethrendis)
+
 ## 4.0.2
 
 ### Bug Fixes
