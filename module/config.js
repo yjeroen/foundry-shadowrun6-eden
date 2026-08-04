@@ -988,12 +988,6 @@ export class SR6Config {
                     showCountable: false,
                     showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
-                IMAGING: {
-                    label: "shadowrun6.gear.subtype.IMAGING",
-                    showRating: false,
-                    showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
-                },
                 OPTICAL: {
                     label: "shadowrun6.gear.subtype.OPTICAL",
                     showRating: false,
@@ -1726,7 +1720,6 @@ export class SR6Config {
             RFID: "shadowrun6.gear.subtype.RFID",
             COMMUNICATION: "shadowrun6.gear.subtype.COMMUNICATION",
             ID_CREDIT: "shadowrun6.gear.subtype.ID_CREDIT",
-            IMAGING: "shadowrun6.gear.subtype.IMAGING",
             OPTICAL: "shadowrun6.gear.subtype.OPTICAL",
             AUDIO: "shadowrun6.gear.subtype.AUDIO",
             SENSOR_HOUSING: "shadowrun6.gear.subtype.SENSOR_HOUSING",
