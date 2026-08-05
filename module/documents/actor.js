@@ -1869,8 +1869,6 @@ export default class Shadowrun6Actor extends Actor {
                             // TODO currently vehicle.belongs only works for Linked Actor, not for unlinked token actors, so this will not work for vehicles that are not linked to an actor
                             let ownerActor = game.actors.get(this.system.vehicle.belongs);
                             if (ownerActor) {
-                                vehicleSystem.attributes ??= {};
-                                vehicleSystem.attributes.log = ownerActor.system.attributes.log;
                                 const rigRating = opMode === "riggedVR" ? ownerActor.system.controlRig : 0;
                                 gear.pool = ownerActor._getSkillPool("engineering", "gunnery", "log")
                                     + gear.modifier
