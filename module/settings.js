@@ -111,6 +111,19 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "dosPopupMatrix", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "controlRigPerception", {
+        name: "shadowrun6.settings.controlRigPerception.name",
+        hint: "shadowrun6.settings.controlRigPerception.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting controlRigPerception changed to " + toggle);
+            game.settings.set(SYSTEM_NAME, "controlRigPerception", toggle);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "bleeding", {
         name: "shadowrun6.settings.bleeding.name",
         hint: "shadowrun6.settings.bleeding.hint",

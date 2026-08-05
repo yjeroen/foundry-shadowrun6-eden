@@ -317,7 +317,8 @@
       "spells_indirect": "Indirect Spells",
       "spells_other": "Other Spells",
       "toxin": "Resist Toxin",
-      "special": "This also applies a status effect equal to net hits."
+      "special": "This also applies a status effect equal to net hits.",
+      "vehicle": "Defense against attacks and ramming"
     },
     "defense_rating": {
 	   "label":  "Defense Rating",
@@ -1906,6 +1907,10 @@
         "hint": "Change Denial of Service, Popup and Squelch to be OUTSIDER/USER/ADMIN instead of OUTSIDER only, just like Data Spike and Tarpit. This is likely an oversight in H&S. (Recommended to be enabled within FoundryVTT due to the PAN<>Persona implementation.)",
         "name": "Matrix Actions FoundryVTT Errata"
       },
+      "controlRigPerception": {
+        "hint": "Use this rule if you allow the Control Rig rating to add to Perception tests of jumped-in vehicles.",
+        "name": "Control Rig Perception"
+      },
       "bleeding": {
         "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
         "name": "Bleeding"
@@ -2203,6 +2208,8 @@
       "has_no_owner": "Vehicle/Drone has no owner assigned",
       "initiative": "Vehicle initiative",
       "mode_label": "Mode",
+      "perception_vr_norig": "<p>Control Rig is not added to Perception pools by default.</p><p>Your GM can use the 'Control Rig Perception' setting to enable this rule.</p>",
+      "perception_vr_rig": "Your Control Rig rating of {rating} is added to the Perception pool.",
       "mode": {
         "manual": "Manual",
         "riggedAR": "Jumped in (AR)",
