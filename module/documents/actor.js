@@ -2148,8 +2148,8 @@ export default class Shadowrun6Actor extends Actor {
     }
     //---------------------------------------------------------
     /**
-     * Convert skill, optional skill specialization and optional threshold
-     * into a roll name for display
+     * Convert skill, optional skill specialization and optional threshold into a roll name for display
+     * TODO This isnt taking into account in case a Vehicle is using Sensor + Targeting
      * @param {string} skillId      The skill id (e.g. "con")
      * @param {string} spec         The skill specialization
      * @param {int}    threshold    Optional threshold
@@ -2166,13 +2166,14 @@ export default class Shadowrun6Actor extends Actor {
             if (!this.system.skills?.[roll.skillId]) rollName = this.system.schema.fields.rating?.label;
         }
 
-        rollName += " + ";
         // Attribute
         const useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
-        const attrName = game.i18n.localize( game.sr6.config.ATTRIBUTE_SELECT_OPTIONS[useAttrib] ) ?? "";
-        console.log(`SR6E | _getSkillCheckText | using attribute '${useAttrib}' | rollName: ${rollName}${attrName}`);
+        const attrName = game.i18n.localize( game.sr6.config.ATTRIBUTE_SELECT_OPTIONS[useAttrib] );
 
-        rollName += attrName;
+        if (attrName) {
+            rollName += ` + ${attrName}`;
+        }
+        console.log(`SR6E | _getSkillCheckText | using attribute '${useAttrib}' | rollName: ${rollName}${attrName}`);
         if (roll.threshold && roll.threshold > 0) {
             rollName += " (" + roll.threshold + ")";
         }

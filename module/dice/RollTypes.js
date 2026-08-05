@@ -251,7 +251,7 @@ export class SkillRoll extends PreparedRoll {
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
         this.skillValue = actorSystem.skills?.[skillId]?.pool ?? (this.type === "host" ? this.system.rating : 0);
-        this.attrib = actorSystem.skills?.[skillId] ? `system.attributes.${this.skillDef?.attrib}.pool` : `system.rating`;
+        this.attrib = actorSystem.skills?.[skillId] ? `system.attributes.${this.skillDef?.attrib}.pool` : (this.type === "host" ? `system.rating` : undefined);
         this.performer = actorSystem;
         this.actionText = game.i18n.localize(`skill.${skillId}`);
     }
