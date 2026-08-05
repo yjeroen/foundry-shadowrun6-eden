@@ -1,3 +1,18 @@
+## 4.0.4
+
+### System Improvements
+- Add Control Rig modifier to Weapon pools
+- Improve operating vehicle/drone Pools to be compliant with CRB
+- Add a system Game Setting to allow Control Rig to also add to Perception pools when jumped-in
+- Add automation to Probe so it is automatically an (Extended, 1 minute) test
+
+### Bug Fixes
+- Fix vehicles/drones ranged weapon-roll not working (#319)
+- Fix Autosofts not showing Subtype in their Itemsheet and properly use their ratings in Vehicles/Drones
+
+### Data Updates
+- Russian translation updates (TheFokin)
+
 ## 4.0.3
 
 ### System Improvements
