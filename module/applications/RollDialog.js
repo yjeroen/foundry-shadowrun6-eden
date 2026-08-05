@@ -712,7 +712,7 @@ export class RollDialog extends Dialog {
             return;
         }
         if (isSkillRoll(prepared)) {
-            console.log("SR6E | isSkillRoll ", prepared.skillId, skillSpec);
+            console.log("SR6E | isSkillRoll ", prepared.skillId, prepared.skillSpec);
 
             const attribSelect = event.currentTarget;
             let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
