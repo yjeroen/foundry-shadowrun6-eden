@@ -57,7 +57,6 @@ export default class SR6Item extends Item {
       }
       else if (this.type === "software") {
         this.system.type = "AUTOSOFT";
-        this.name = game.i18n.localize(CONFIG.SR6.ITEM.software.SUBTYPES.AUTOSOFT[this.system.subtype]);
       }
     }
   }
