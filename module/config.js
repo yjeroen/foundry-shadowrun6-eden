@@ -2949,7 +2949,19 @@ export class SR6Config {
             linkedAttr: "s",
             threshold: 0,
             _onSuccess: { action: "backdoor_entry" },
-            targets: ["host", "device", "living_network"]
+            targets: ["host", "device", "living_network"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.extended = true;
+                matrixActionRoll.interval = 1;
+                matrixActionRoll.intervalScale = "minute";
+             },
+
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixActionDescription = "shadowrun6.matrixaction.probe.defense_test";
+                defenseRoll.noMatrixResultButton = true;
+            },
+
         },
         reboot_device: {
             id: "reboot_device",

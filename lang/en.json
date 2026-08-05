@@ -1149,7 +1149,8 @@
         },
         "probe": {
           "name": "Probe",
-          "hint": "Search for weaknesses without automatically alerting the target, unless you glitch. A successful Probe creates a backdoor for Backdoor Entry, adds net hits to that later test, and usually lasts for 10 minus Host or Device Rating hours or until you go offline."
+          "hint": "Search for weaknesses without automatically alerting the target, unless you glitch. A successful Probe creates a backdoor for Backdoor Entry, adds net hits to that later test, and usually lasts for 10 minus Host or Device Rating hours or until you go offline.",
+          "defense_test": "You need to roll Defense for each Probe roll of the attacker. The probing attacker must manually subtract hits from their Probe test (to a minimum of 0 net hits gained “this” minute). They also increase their OS per hit on this Defense test."
         },
         "pop_up": {
           "name": "Popup",
