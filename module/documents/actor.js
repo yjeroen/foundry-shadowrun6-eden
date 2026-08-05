@@ -1667,7 +1667,8 @@ export default class Shadowrun6Actor extends Actor {
      */
     _prepareDerivedVehicleAttributes() {
         const system = getSystemData(this);
-        // Monitors
+
+        // Setting up Monitors
         if (system.physical) {
             if (!system.physical.mod)
                 system.physical.mod = 0;
@@ -1684,14 +1685,16 @@ export default class Shadowrun6Actor extends Actor {
             system.stun.max = +base + system.stun.mod;
             system.stun.value = system.stun.max - system.stun.dmg;
         }
+
+        const damageModifier = this.getWoundModifier();
+
         // Test modifier depending on speed
         let interval = system.vehicle.offRoad ? system.spdiOff : system.spdiOn;
         if (interval <= 1)
             interval = 1;
-        let modifier = Math.floor(system.vehicle.speed / interval);
-        // Modify with physical monitor
-        modifier += Math.floor(system.physical.dmg / 3);
-        system.vehicle.modifier = modifier;
+        let modifier = Math.floor(system.vehicle.speed / interval) + damageModifier;
+
+        system.vehicle.modifier = modifier; // Positive number that will be substracted from dice pools
         system.vehicle.kmh = Math.round(system.vehicle.speed * 1.2);
     }
     //---------------------------------------------------------
@@ -1765,6 +1768,7 @@ export default class Shadowrun6Actor extends Actor {
             case VehicleOpMode.MANUAL:
             case VehicleOpMode.RIGGED_AR:
             case VehicleOpMode.RIGGED_VR:
+                const isRiggedInVR = vehicleSystem.vehicle.opMode === VehicleOpMode.RIGGED_VR;
                 vehicleSystem.initiative.default = InitiativeType.MATRIX;
                 // Get owner actor
                 let owner = undefined;
@@ -1778,33 +1782,44 @@ export default class Shadowrun6Actor extends Actor {
                 }        
             
                 let ownerSystem = owner.system;
-                const controlRigRating = ownerSystem.controlRig ? parseInt(ownerSystem.controlRig) : 0;
+                const controlRigRating = ownerSystem.controlRig && isRiggedInVR ? parseInt(ownerSystem.controlRig) : 0;
 
-                const speedAndDamageModifier = vehicleSystem.vehicle.modifier; 
+                const speedAndDamageModifier = vehicleSystem.vehicle.modifier;
+                const damageModifier = this.getWoundModifier();
 
-                let ownerPilotingMod = 0;
-                if(ownerSystem.skills.piloting.specialization == vehicleSystem.vtype)
-                    ownerPilotingMod = 2;
-                else if(ownerSystem.skills.piloting.expertise == vehicleSystem.vtype)
-                    ownerPilotingMod = 3;    
+                const vehicleType = vehicleSystem.vtype;
+                const specializationMod = (skill) => {
+                    return skill.expertise === vehicleType ? 3
+                           : skill.specialization === vehicleType ? 2
+                           : 0;
+                };
 
-                const ownerPilotingPointsSpecialized = ownerSystem.skills.piloting.points + ownerPilotingMod;
-                const physicalAttribute = vehicleSystem.vehicle.opMode !== VehicleOpMode.RIGGED_VR ? "rea" : "int";
+                const ownerPilotingPointsSpecialized = ownerSystem.skills.piloting.points + specializationMod(ownerSystem.skills.piloting);
+                const ownerStealthPointsSpecialized = ownerSystem.skills.stealth.points + specializationMod(ownerSystem.skills.stealth);
+
+                const physicalAttribute = isRiggedInVR ? "int" : "rea";
+                const stealthAttribute = isRiggedInVR ? "log" : "agi";
+
                 const opModeDependingValues = { 
                     initiativeBase: {
                         manual: ownerSystem.attributes["int"].pool, 
-                        riggedAR: ownerSystem.attributes["int"].base, 
+                        riggedAR: ownerSystem.attributes["int"].pool, 
                         riggedVR: ownerSystem.attributes["int"].pool 
                     },
                     initiativeDicePool: { 
                         manual: ownerSystem.initiative.physical.dicePool, 
-                        riggedAR: 1, 
+                        riggedAR: ownerSystem.initiative.physical.dicePool, 
                         riggedVR: ownerSystem.initiative.matrix.dicePool 
                     },
                     physicalAttributeValue: {
                         manual: ownerSystem.attributes[physicalAttribute].pool,
-                        riggedAR: ownerSystem.attributes[physicalAttribute].base,
+                        riggedAR: ownerSystem.attributes[physicalAttribute].pool,
                         riggedVR: ownerSystem.attributes[physicalAttribute].pool
+                    },
+                    stealthAttributeValue: {
+                        manual: ownerSystem.attributes[stealthAttribute].pool,
+                        riggedAR: ownerSystem.attributes[stealthAttribute].pool,
+                        riggedVR: ownerSystem.attributes[stealthAttribute].pool
                     }
                 };
 
@@ -1826,20 +1841,27 @@ export default class Shadowrun6Actor extends Actor {
                     dr.mod = 0;
                 dr.pool = dr.base + dr.mod;
 
-                vehicleSystem.skills.piloting.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
-                vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier;
+                vehicleSystem.skills.piloting.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode];
+                vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier - speedAndDamageModifier;
 
-                vehicleSystem.skills.evasion.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
-                vehicleSystem.skills.evasion.pool = vehicleSystem.skills.evasion.points + vehicleSystem.skills.evasion.modifier;
+                vehicleSystem.skills.evasion.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode];
+                vehicleSystem.skills.evasion.pool = vehicleSystem.skills.evasion.points + vehicleSystem.skills.evasion.modifier - speedAndDamageModifier;
 
                 vehicleSystem.skills.perception.points = ownerSystem.skills.perception.pool;
-                vehicleSystem.skills.perception.pool = vehicleSystem.skills.perception.points + vehicleSystem.skills.perception.modifier;
+                const controlRigPerception = game.settings.get(SYSTEM_NAME, "controlRigPerception")
+                if (isRiggedInVR && controlRigPerception) {
+                    vehicleSystem.skills.perception.points += controlRigRating;
+                    vehicleSystem.skills.perception.modString = game.i18n.format("shadowrun6.vehicle.perception_vr_rig", { rating: controlRigRating });
+                } else if (isRiggedInVR) {
+                    vehicleSystem.skills.perception.modString = game.i18n.localize("shadowrun6.vehicle.perception_vr_norig");
+                }
+                vehicleSystem.skills.perception.pool = vehicleSystem.skills.perception.points + vehicleSystem.skills.perception.modifier - damageModifier;
 
                 vehicleSystem.skills.cracking.points = ownerSystem.skills.cracking.pool;
-                vehicleSystem.skills.cracking.pool = vehicleSystem.skills.cracking.points + vehicleSystem.skills.cracking.modifier;
+                vehicleSystem.skills.cracking.pool = vehicleSystem.skills.cracking.points + vehicleSystem.skills.cracking.modifier - damageModifier;
                 
-                vehicleSystem.skills.stealth.points = ownerSystem.skills.stealth.pool;
-                vehicleSystem.skills.stealth.pool = vehicleSystem.skills.stealth.points + vehicleSystem.skills.stealth.modifier;
+                vehicleSystem.skills.stealth.points = opModeDependingValues.stealthAttributeValue[vehicleSystem.vehicle.opMode] + ownerStealthPointsSpecialized + controlRigRating;
+                vehicleSystem.skills.stealth.pool = vehicleSystem.skills.stealth.points + vehicleSystem.skills.stealth.modifier - speedAndDamageModifier;
                 break;
 
             default:
