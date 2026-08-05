@@ -50,9 +50,15 @@ export default class SR6Item extends Item {
             break;
       }
     }
-    else if (this.type === "gear" && this.actor?.type === "Vehicle") {
-      this.system.skill = "engineering";
-      this.system.skillSpec = "gunnery";
+    else if (this.actor?.type === "Vehicle") {
+      if (this.type === "gear") {
+        this.system.skill = "engineering";
+        this.system.skillSpec = "gunnery";
+      }
+      else if (this.type === "software") {
+        this.system.type = "AUTOSOFT";
+        this.name = game.i18n.localize(CONFIG.SR6.ITEM.software.SUBTYPES.AUTOSOFT[this.system.subtype]);
+      }
     }
   }
 

@@ -21,7 +21,7 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
 
         return {
             ...super.defineSchema(),
-            subtype: new fields.StringField({required: false, choices: this.SUBTYPES}),
+            subtype: new fields.StringField({required: false, choices: this.SUBTYPES}), // Used for Autosofts
             multiTypes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: this.MULTITYPES})),
             matrix: new fields.SchemaField({
                 matrixCM: new srFields.SR6ConditionMonitorField(),
