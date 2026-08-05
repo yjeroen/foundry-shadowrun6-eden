@@ -50,6 +50,10 @@ export default class SR6Item extends Item {
             break;
       }
     }
+    else if (this.type === "gear" && this.actor?.type === "Vehicle") {
+      this.system.skill = "engineering";
+      this.system.skillSpec = "gunnery";
+    }
   }
 
   /**

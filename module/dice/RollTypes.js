@@ -463,7 +463,7 @@ export class WeaponRoll extends SkillRoll {
             // this.fireMode = 'SS';
         }
 
-        this.pool = actor._getSkillPool(item.system.skill, item.system.skillSpec); //This used to be item.system.pool before 4.0.0 - which is set in Actor._prepareItemPools();
+        this.pool = item.system.pool;   // this needs to be item.system.pool, as the pool gets prepared in Actor._prepareItemPools() and in _prepareVehicleActorItems()
         if (item.system.isElectronicMatrixDevice) {
             const matrixCmModifier = item.system.matrix.matrixCM.penalty;
             this.matrixCmPenalty = matrixCmModifier;
