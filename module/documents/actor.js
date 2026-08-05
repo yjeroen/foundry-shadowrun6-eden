@@ -1856,7 +1856,8 @@ export default class Shadowrun6Actor extends Actor {
             let system = item.system;
             let gear = system;
             if (gear.skill && gear.skill != "") {
-                switch (vehicleSystem.vehicle.opMode) {
+                const opMode = vehicleSystem.vehicle.opMode;
+                switch (opMode) {
                     case "autonomous":
                         const targetingRating = this.getHighestAutosoftRating(this.items, "TARGETING");
                         gear.pool = targetingRating + vehicleSystem.sen + gear.modifier;
@@ -1865,18 +1866,23 @@ export default class Shadowrun6Actor extends Actor {
                     case "riggedAR":
                     case "riggedVR":
                         if (this.system.vehicle.belongs) {
+                            // TODO currently vehicle.belongs only works for Linked Actor, not for unlinked token actors, so this will not work for vehicles that are not linked to an actor
                             let ownerActor = game.actors.get(this.system.vehicle.belongs);
                             if (ownerActor) {
+                                vehicleSystem.attributes ??= {};
+                                vehicleSystem.attributes.log = ownerActor.system.attributes.log;
+                                const rigRating = opMode === "riggedVR" ? ownerActor.system.controlRig : 0;
                                 gear.pool = ownerActor._getSkillPool("engineering", "gunnery", "log")
                                     + gear.modifier
-                                    - this.system.vehicle.modifier;
+                                    - this.system.vehicle.modifier
+                                    + rigRating;
                             } else {
                                 console.log("SR6E | Vehicle owner not found", this, vehicleSystem.vehicle.belongs);
                             }
                         }
                         break;
                     default:
-                        console.log("SR6E | Undefined VehicleOpMode", vehicleSystem.vehicle.opMode);
+                        console.log("SR6E | Undefined VehicleOpMode", opMode);
                         break;
                 }
                     
