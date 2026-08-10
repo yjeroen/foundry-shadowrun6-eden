@@ -47,6 +47,10 @@ export default class SR6MatrixPersonaData extends SR6MatrixIcon {
         return this.attributes.dataProcessing + this.attributes.firewall;
     }
 
+    get isOnline() {
+        return Boolean(this.actor.type === "host" || this.matrixCM?.value > 0);
+    }
+
     /**
      * Returns a Matrix Test Pool 
      * TODO review if this method should move to a different class
