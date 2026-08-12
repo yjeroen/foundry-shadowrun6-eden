@@ -98,9 +98,10 @@ export default class SR6ItemSheet extends foundry.appv1.sheets.ItemSheet {
             }
         }
 
+        data.gearConfig = this._getGearConfig();
         const system = this.item.system;
+
         if (system.isElectronicMatrixDevice) {
-            data.gearConfig = this._getGearConfig();
             data.hud = {};
             data.hud.matrixCM = this._prepareConditionMonitors(system.matrix.matrixCM);
             
