@@ -962,7 +962,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.ELECTRONIC_ACCESSORIES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 RIGGER_CONSOLE: {
                     label: "shadowrun6.gear.subtype.RIGGER_CONSOLE",
@@ -1010,13 +1010,13 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.SECURITY",
                     showRating: true,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 BREAKING: {
                     label: "shadowrun6.gear.subtype.BREAKING",
                     showRating: true,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 TAC_NET: {
                     label: "shadowrun6.gear.subtype.TAC_NET",
@@ -1221,13 +1221,13 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.SURVIVAL_GEAR",
                     showRating: true,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 WINTER_GEAR: {
                     label: "shadowrun6.gear.subtype.WINTER_GEAR",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 GRAPPLE_GUN: {
                     label: "shadowrun6.gear.subtype.GRAPPLE_GUN",
