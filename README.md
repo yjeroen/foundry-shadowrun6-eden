@@ -11,7 +11,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 ![GitHub contributors](https://img.shields.io/github/contributors/yjeroen/foundry-shadowrun6-eden)
 
-![FoundryVTT Installs Latest](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/shadowrun6-eden-release-4.0.4.zip?label=FoundryVTT%20Installs%20Latest)
+![FoundryVTT Installs Latest](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/shadowrun6-eden-release-4.0.5.zip?label=FoundryVTT%20Installs%20Latest)
 ![FoundryVTT Installs Previous](https://img.shields.io/github/downloads/yjeroen/foundry-shadowrun6-eden/shadowrun6-eden-release-3.3.9.zip?label=FoundryVTT%20Installs%20Previous)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https://forge-vtt.com/api/bazaar/package/shadowrun6-eden)
 

@@ -1,3 +1,12 @@
+## 4.0.5
+_Updated the system readme_
+
+### Bug Fixes
+- Fix Gear (Sub)Categories that are defined as optional Matrix Devices not showing that on the ItemSheet
+- Change multiple sub categories to be able to be a Matrix Device
+- Fix bug where Actors PAN wasn't properly set-up in case of ACL changes to your Pan Admin's PAN
+- Fix Rating column in the Equipment tabs Gear sections (#322)
+
 ## 4.0.4
 
 ### System Improvements

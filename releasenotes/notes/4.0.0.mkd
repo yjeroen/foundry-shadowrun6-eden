@@ -15,6 +15,25 @@ AND! We now have FoundryVTT v14 compatibility. In one of the next feature releas
 
 ---
 
+
+## 4.0.1 ~ 4.0.5
+
+### System Improvements
+- Improve Vehicles tab layout on character sheet
+- Add Control Rig modifier to Weapon pools
+- Improve operating vehicle/drone Pools to be compliant with CRB
+- Add a system Game Setting to allow Control Rig to also add to Perception pools when jumped-in
+- Add automation to Probe so it is automatically an (Extended, 1 minute) test
+
+### Bug Fixes
+- Various regression fixes of features introduced in 4.0.0
+- Fix error message of importing a wrong json file from Genesis/Commlink6
+- Fix Roll Dialog showing a negative dicepool if the modifier was higher than the original pool (now minimum is 0)
+- Migrate Imaging subtype to Optical for electronic Gear (#309)
+- Fix Release Notes button in Settings tab to open a new browser window (#303)
+
+---
+
 ## 4.0.0
 
 ### System Improvements
@@ -167,3 +186,4 @@ AND! We now have FoundryVTT v14 compatibility. In one of the next feature releas
 ### Data Updates
 - French translation updates (Zakarik)
 - Russian translation updates (TheFokin)
+- Czech translation updates (Lethrendis)
