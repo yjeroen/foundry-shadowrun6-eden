@@ -568,7 +568,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.BIOTECH",
                     showRating: true,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 SLAP_PATCHES: {
                     label: "shadowrun6.gear.subtype.SLAP_PATCHES",
