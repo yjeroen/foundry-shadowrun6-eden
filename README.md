@@ -97,6 +97,10 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 OverWatch](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-overwatch-clicks.gif?raw=true)
 
+> In the Combat Tab on your character sheet, you can find a Combat Actions section, with a handy overview of the different types of actions you can use.
+
+![FoundryVTT Shadowrun6 Combat Actions](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-combat-actions.png?raw=true)
+
 > In the Matrix Tab on your character sheet, you can find your Persona and PAN section. Your Persona and PAN are only online if you have Matrix Access Device(s) enabled that isn't bricked, or if you are a Technomancer that isn't unconcious due to an empty Stun Monitor.
 
 ![FoundryVTT Shadowrun6 PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-pan.png?raw=true)
@@ -104,6 +108,31 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 > There is a Share PAN button in your `Personal Area Network` section, which sends a message to the chat. Others can drag an Active Effect to their own character sheet, or Token, to be able to join your PAN. They can leave your PAN by deleting or disabling the Effect on their own character sheet.
 
 ![FoundryVTT Shadowrun6 Join PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-join-pan.gif?raw=true)
+
+> Players can open enemy Read-Only sheets on the canvas, which they can see the PAN of from their target. Access Levels are automatically taken into account. They can use Matrix Actions like `Backdoor Entry` and `Brute Force` to change their Access Level relation to their enemy so they can use Matrix Actions that are only usable with `USER` or `ADMIN` access. 
+> Don't forget to target your opponents Primary Access Device specifically! As your access level to that device determines your access level to the whole PAN.
+
+![FoundryVTT Shadowrun6 PAN ACLs](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-matrix-pan-acls.gif?raw=true)
+
+> Players can reset their own Access Levels with the `Jack Out`, `Reboot Device` and `Relinquish Access` Matrix Actions.
+> GM's can reset Access Levels globally via a new button in the top left.
+> Also, since GM's have access to all Actors, they wouldn't be able to open "Read-Only" sheets. To facilitate Matrix interactivity for GM's (or Players that like hotbar Macro's), there's an `Initiate Target` button that you can find in the Matrix Actions reference section. You can drag this to your Macro hotbar. Target (T) the target token, while you have the initiators token selected. Then press the macro to initiate Matrix operations from the selected token to the target.
+
+![FoundryVTT Shadowrun6 PAN GM Tips](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-matrix-pan-GM-tips.gif?raw=true)
+
+> Electronic devices now have Matrix statistics! And if they are online on the Matrix, they will be represented in your PAN and attached by enemy deckers and spiders. And if your gun's Matrix Condition Monitor has a penalty, this is substracted from your pool when shooting with it.
+> Deckers! Have fun targeting your enemies guns with `Data Spike`! You can always use this as you don't need any access but `OUTSIDER`.
+
+![FoundryVTT Shadowrun6 Matrix Devices](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-matrix-devices.gif?raw=true)
+
+> Hosts and IC are their own Actor types you can drag on the canvas. They are of course targetable by Matrix Actions. Your Access Level towards the Host determines your access level to all its IC and devices.
+
+![FoundryVTT Shadowrun6 Hosts](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-hosts-and-ic.png?raw=true)
+
+> Hosts have handy helpers for their ASDF stats depending on what type they are. And they can also ***deploy*** their Matrix Devices onto the canvas! And don't forget to assign a Spider using the `Assign to Spider Duty` effect that you can drag onto a characters Sheet or Token.
+
+![FoundryVTT Shadowrun6 Hosts and IC](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-hosts-and-ic.gif?raw=true)
+
 
 ## Patch Notes
 
