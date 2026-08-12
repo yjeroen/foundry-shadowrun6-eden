@@ -1986,7 +1986,7 @@ export default class Shadowrun6Actor extends Actor {
         system.persona.device.base.s = 0;
         system.persona.device.base.d = 0;
         system.persona.device.base.f = 0;
-        system.persona.onlineOnMatrix = false;
+        system.persona.isOnlineOnMatrix = false;
 
         this.items.forEach((tmpItem) => {
             const item = tmpItem;
@@ -1994,11 +1994,11 @@ export default class Shadowrun6Actor extends Actor {
             const GEAR = CONFIG.SR6.GEAR;
             if (item.type == "gear" && GEAR.SUBTYPES_MATRIX_ACCESS.has(itemSystem.subtype) ) {
                 
-                if (!item.onlineOnMatrix) return;
+                if (!item.isOnlineOnMatrix) return;
 
                 if (itemSystem.subtype == "COMMLINK" || itemSystem.subtype == "CYBERJACK" || itemSystem.subtype == "RIGGER_CONSOLE" || itemSystem.subtype == "DATATERM" ) {
                     if (itemSystem.usedForPool) {
-                        system.persona.onlineOnMatrix = true;
+                        system.persona.isOnlineOnMatrix = true;
                         system.persona.accessDevice = item;
                         system.persona.device.base.d = parseInt(itemSystem.d);
                         system.persona.device.base.f = parseInt(itemSystem.f);
@@ -2009,7 +2009,7 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 if (itemSystem.subtype == "CYBERDECK") {
                     if (itemSystem.usedForPool) {
-                        system.persona.onlineOnMatrix = true;
+                        system.persona.isOnlineOnMatrix = true;
                         system.persona.accessDevice = item;
                         system.persona.device.base.a = parseInt(itemSystem.a);
                         system.persona.device.base.s = parseInt(itemSystem.s);
@@ -2018,7 +2018,7 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 if (itemSystem.subtype == "CYBERTERM") {
                     if (itemSystem.usedForPool) {
-                        system.persona.onlineOnMatrix = true;
+                        system.persona.isOnlineOnMatrix = true;
                         system.persona.accessDevice = item;
                         system.persona.device.base.a = parseInt(itemSystem.a);
                         system.persona.device.base.s = parseInt(itemSystem.s);
@@ -2039,7 +2039,7 @@ export default class Shadowrun6Actor extends Actor {
                 system.persona.living.base = new MatrixDevice();
             if (!system.persona.living.mod)
                 system.persona.living.mod = new MatrixDevice();
-            system.persona.onlineOnMatrix = Boolean(this.system.stun.value);
+            system.persona.isOnlineOnMatrix = Boolean(this.system.stun.value);
             system.persona.accessDevice = false;
             system.persona.living.base.a = parseInt(system.attributes["cha"].pool);
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);

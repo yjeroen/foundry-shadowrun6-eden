@@ -300,27 +300,31 @@ export default class SR6Item extends Item {
 
   }
 
-  get onlineOnMatrixWirelessly() {
-    return this.system.isElectronicMatrixDevice
+  get isOnlineOnMatrixWirelessly() {
+    return Boolean(
+        this.system.isElectronicMatrixDevice
         && this.system.matrix.hasWirelessInterface
         && this.system.matrix.wirelessActive
-        && this.system.matrix.matrixCM.value > 0;
+        && this.system.matrix.matrixCM.value > 0
+    );
   }
 
-  get onlineOnMatrixByDataCable() {
-    return this.system.isElectronicMatrixDevice
+  get isOnlineOnMatrixByDataCable() {
+    return Boolean(
+        this.system.isElectronicMatrixDevice
         && this.system.matrix.hasDataCableInterface
-        && this.system.matrix.matrixCM.value > 0;
+        && this.system.matrix.matrixCM.value > 0
+    );
   }
 
-  get onlineOnMatrix() {
-    return this.onlineOnMatrixWirelessly || this.onlineOnMatrixByDataCable;
+  get isOnlineOnMatrix() {
+    return Boolean( this.isOnlineOnMatrixWirelessly || this.isOnlineOnMatrixByDataCable );
   }
 
   get isBricked() {
     if (this.type !== 'gear' || !this.system.isElectronicMatrixDevice) return;
 
-    return Boolean(this.system.matrix.matrixCM.value === 0);
+    return Boolean( this.system.matrix.matrixCM.value === 0 );
   }
 
   _addDefaultFireModePenalties() {

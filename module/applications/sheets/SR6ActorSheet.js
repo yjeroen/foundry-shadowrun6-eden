@@ -1323,8 +1323,8 @@ export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorShee
                 .filter(item =>
                     !item.isPrimaryAccessDevice
                     && (
-                        item.onlineOnMatrixWirelessly
-                        || (item.onlineOnMatrixByDataCable && item.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }) !== "outsider")
+                        item.isOnlineOnMatrixWirelessly
+                        || (item.isOnlineOnMatrixByDataCable && item.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }) !== "outsider")
                     )
                 )
                 .sort((a, b) => a.name.localeCompare(b.name))

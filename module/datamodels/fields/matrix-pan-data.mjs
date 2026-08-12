@@ -14,7 +14,7 @@ export default class SR6MatrixPAN extends SR6DataModel {
 
     get administrator() {
         const panAdmin = foundry.utils.fromUuidSync(this.administratorUuid);
-        return panAdmin?.system.persona.onlineOnMatrix ? panAdmin : this.actor;
+        return panAdmin?.system.persona.isOnlineOnMatrix ? panAdmin : this.actor;
     }
 
     get name() {
