@@ -23,9 +23,13 @@
 			<td style="height:20px;"> {{item.name}}</td>
 			<td style="width: 2em" class="centered">
 			{{#if item.system.needsRating}}
-			<input name= "gearRating{{id}}" style="padding:0px" type="text" value="{{item.system.rating}}" data-field="system.rating" title="{{item.system.rating}}"/>
+			<span>{{item.system.rating}}</span>
 			{{else}}
-			-
+				{{#if item.system.isElectronicMatrixDevice}}
+				<span>{{item.system.matrix.deviceRating}}</span>
+				{{else}}
+				-
+				{{/if}}
 			{{/if}}
 			</td>
 			<td style="width: 2em" class="centered">
@@ -57,9 +61,13 @@
 			<td style="height:20px;"> {{item.name}}</td>
 			<td style="width: 2em" class="centered">
 			{{#if item.system.needsRating}}
-			<input name= "gearRating{{id}}" style="padding:0px" type="text" value="{{item.system.rating}}" data-field="system.rating" title="{{item.system.rating}}"/>
+			<span>{{item.system.rating}}</span>
 			{{else}}
-			-
+				{{#if item.system.isElectronicMatrixDevice}}
+				<span>{{item.system.matrix.deviceRating}}</span>
+				{{else}}
+				-
+				{{/if}}
 			{{/if}}
 			</td>
 			<td style="width: 2em" class="centered">
