@@ -97,6 +97,14 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 OverWatch](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-overwatch-clicks.gif?raw=true)
 
+> In the Matrix Tab on your character sheet, you can find your Persona and PAN section. Your Persona and PAN are only online if you have Matrix Access Device(s) enabled that isn't bricked, or if you are a Technomancer that isn't unconcious due to an empty Stun Monitor.
+
+![FoundryVTT Shadowrun6 PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-pan.png?raw=true)
+
+> There is a Share PAN button in your `Personal Area Network` section, which sends a message to the chat. Others can drag an Active Effect to their own character sheet, or Token, to be able to join your PAN. They can leave your PAN by deleting or disabling the Effect on their own character sheet.
+
+![FoundryVTT Shadowrun6 Join PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-join-pan.webm?raw=true)
+
 ## Patch Notes
 
 See [CHANGELOG](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/CHANGELOG.md)
