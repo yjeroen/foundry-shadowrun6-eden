@@ -103,7 +103,7 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 > There is a Share PAN button in your `Personal Area Network` section, which sends a message to the chat. Others can drag an Active Effect to their own character sheet, or Token, to be able to join your PAN. They can leave your PAN by deleting or disabling the Effect on their own character sheet.
 
-![FoundryVTT Shadowrun6 Join PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-join-pan.webm?raw=true)
+![FoundryVTT Shadowrun6 Join PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-join-pan.gif?raw=true)
 
 ## Patch Notes
 
