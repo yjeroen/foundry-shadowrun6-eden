@@ -1,4 +1,4 @@
-![REPLACE WITH RAW GITHUB LINK](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/images/sr6-system.webp?raw=true)
+![REPLACE WITH RAW GITHUB LINK](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/images/sr6-system.webp)
 
 # Foundry VTT - Shadowrun Sixth World Game System
 
@@ -39,99 +39,99 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 ## System Screenshots
 > The character sheet has a clickable monitor experience! If you click on the coloured boxes, you get that much damage, and when you click on a white box you get healed unto that box. Stun overflow goes to Physical, and Physical into your Overflow. _In simple terms, don't get fragged._
 
-![FoundryVTT Shadowrun6 Monitor](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-monitors.gif?raw=true)
+![FoundryVTT Shadowrun6 Monitor](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-monitors.gif)
 
 > Edge coin flips?! Left ⇑ and right ⇓ click.
 
-![FoundryVTT Shadowrun6 Edge](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-edge-click.gif?raw=true)
+![FoundryVTT Shadowrun6 Edge](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-edge-click.gif)
 
 > Edge Boosts can be used to manipulate your dice results after rolling. Click on the dice result row in the chat to open the diceroll window. You can even manipulate your opponents results via the ***Reroll One Die*** edge boost!
 
-![FoundryVTT Shadowrun6 Edge Boosts](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-edge-boosts.gif?raw=true)
+![FoundryVTT Shadowrun6 Edge Boosts](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-edge-boosts.gif)
 
 > You can **still import** your RPGFramework [GENESIS](https://www.rpgframework.de/en/roleplaying/shadowrun-6/) and [Commlink6](https://www.rpgframework.de/en/2022/10/07/commlink-6/) characters! Print to `Shadowrun 6 Foundry Export`, and in FoundryVTT right click on your actor and choose `Import Data`. 
 
-![FoundryVTT Shadowrun6 Sheet](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-v3-screenshot-sheet.webp?raw=true)
+![FoundryVTT Shadowrun6 Sheet](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-v3-screenshot-sheet.webp)
 
 > Chummer, you're gonna like this! We've got automated Attack Rating & Edge calculation, attack rolls with firemode and range, defense rolls, drain rolls, soak rolls!
 
-![FoundryVTT Shadowrun6 Scene](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-v3-screenshot-scene.webp?raw=true)
+![FoundryVTT Shadowrun6 Scene](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-v3-screenshot-scene.webp)
 
 > The system includes all possible Sixth World status effects. Including an optional rule (in Settings) for Bleeding. Normal-left-click to increase a status effect, and right click to decrease it. You can ctrl-left-click to add an effect as an overlay on the token.
 
-![FoundryVTT Shadowrun6 StatusEffects](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-status-effects.gif?raw=true)
+![FoundryVTT Shadowrun6 StatusEffects](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-status-effects.gif)
 
 > You can drag any diceroll link from your sheet to your hotbar.
 
-![FoundryVTT Shadowrun6 macros](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-drag-roll-macros.gif?raw=true)
+![FoundryVTT Shadowrun6 macros](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-drag-roll-macros.gif)
 
 > Only your available Matrix Actions are shown depending on your Matrix Attributes. (enable H&S Actions in the Foundry Game Settings) Furthermore, they are greyed out depending on your Matrix Access Level. And you can Reconfigure your Persona's Matrix Attributes by clicking on two of them, switching them.
 
-![FoundryVTT Shadowrun6 matrix](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-matrix.gif?raw=true)
+![FoundryVTT Shadowrun6 matrix](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-matrix.gif)
 
 > Legwork Tests (Core Book page 50-51) can be performed via your Contacts, found in the Biography section of your character sheet.
 
-![FoundryVTT Shadowrun6 Legwork](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-legwork.webp?raw=true)
+![FoundryVTT Shadowrun6 Legwork](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-legwork.webp)
 
 > Most of the favorite optional rules can be enabled in the FoundryVTT Game Settings.
 
-![FoundryVTT Shadowrun6 settings](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-game-settings.webp?raw=true)
+![FoundryVTT Shadowrun6 settings](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-game-settings.webp)
 
 > You can add Active Effects for Actors and Items which can be configured to modify the Actor's traits, skills & attributes.
 
-![FoundryVTT Shadowrun6 Active Effects](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-active-effect.gif?raw=true)
+![FoundryVTT Shadowrun6 Active Effects](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-active-effect.gif)
 
 > There are Gear Mods, which can modify the traits & attributes of an Item the Gear Mod is dragged on.
 
-![FoundryVTT Shadowrun6 Gear Mods](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-gear-mods.gif?raw=true)
+![FoundryVTT Shadowrun6 Gear Mods](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-gear-mods.gif)
 
 > Grunt Group support for NPC's, Critters and Spirits! Just select their tokens and press SHIFT-G to form or decommission a grunt group.
 
-![FoundryVTT Shadowrun6 Grunt Group](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-grunt-groups.gif?raw=true)
+![FoundryVTT Shadowrun6 Grunt Group](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-grunt-groups.gif)
 
 > In the top left within the Controls, there's a control button to create a custom dice pool.
 
-![FoundryVTT Shadowrun6 Custom Dice Pool](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-eden-custom-dicepool.webp?raw=true)
+![FoundryVTT Shadowrun6 Custom Dice Pool](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-eden-custom-dicepool.webp)
 
 > You can Left Click and Right Click on the OverWatch icon to increase and decrease your overwatch.
 
-![FoundryVTT Shadowrun6 OverWatch](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-overwatch-clicks.gif?raw=true)
+![FoundryVTT Shadowrun6 OverWatch](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-overwatch-clicks.gif)
 
 > In the Combat Tab on your character sheet, you can find a Combat Actions section, with a handy overview of the different types of actions you can use.
 
-![FoundryVTT Shadowrun6 Combat Actions](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-combat-actions.png?raw=true)
+![FoundryVTT Shadowrun6 Combat Actions](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-combat-actions.png)
 
 > In the Matrix Tab on your character sheet, you can find your Persona and PAN section. Your Persona and PAN are only online if you have Matrix Access Device(s) enabled that isn't bricked, or if you are a Technomancer that isn't unconcious due to an empty Stun Monitor.
 
-![FoundryVTT Shadowrun6 PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-pan.png?raw=true)
+![FoundryVTT Shadowrun6 PAN](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-pan.png)
 
 > There is a Share PAN button in your `Personal Area Network` section, which sends a message to the chat. Others can drag an Active Effect to their own character sheet, or Token, to be able to join your PAN. They can leave your PAN by deleting or disabling the Effect on their own character sheet.
 
-![FoundryVTT Shadowrun6 Join PAN](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-join-pan.gif?raw=true)
+![FoundryVTT Shadowrun6 Join PAN](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-join-pan.gif)
 
 > Players can open enemy Read-Only sheets on the canvas, which they can see the PAN of from their target. Access Levels are automatically taken into account. They can use Matrix Actions like `Backdoor Entry` and `Brute Force` to change their Access Level relation to their enemy so they can use Matrix Actions that are only usable with `USER` or `ADMIN` access. 
 > Don't forget to target your opponents Primary Access Device specifically! As your access level to that device determines your access level to the whole PAN.
 
-![FoundryVTT Shadowrun6 PAN ACLs](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-matrix-pan-acls.gif?raw=true)
+![FoundryVTT Shadowrun6 PAN ACLs](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-matrix-pan-acls.gif)
 
 > Players can reset their own Access Levels with the `Jack Out`, `Reboot Device` and `Relinquish Access` Matrix Actions.
 > GM's can reset Access Levels globally via a new button in the top left.
 > Also, since GM's have access to all Actors, they wouldn't be able to open "Read-Only" sheets. To facilitate Matrix interactivity for GM's (or Players that like hotbar Macro's), there's an `Initiate Target` button that you can find in the Matrix Actions reference section. You can drag this to your Macro hotbar. Target (T) the target token, while you have the initiators token selected. Then press the macro to initiate Matrix operations from the selected token to the target.
 
-![FoundryVTT Shadowrun6 PAN GM Tips](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-matrix-pan-GM-tips.gif?raw=true)
+![FoundryVTT Shadowrun6 PAN GM Tips](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-matrix-pan-GM-tips.gif)
 
 > Electronic devices now have Matrix statistics! And if they are online on the Matrix, they will be represented in your PAN and attached by enemy deckers and spiders. And if your gun's Matrix Condition Monitor has a penalty, this is substracted from your pool when shooting with it.
 > Deckers! Have fun targeting your enemies guns with `Data Spike`! You can always use this as you don't need any access but `OUTSIDER`.
 
-![FoundryVTT Shadowrun6 Matrix Devices](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-matrix-devices.gif?raw=true)
+![FoundryVTT Shadowrun6 Matrix Devices](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-matrix-devices.gif)
 
 > Hosts and IC are their own Actor types you can drag on the canvas. They are of course targetable by Matrix Actions. Your Access Level towards the Host determines your access level to all its IC and devices.
 
-![FoundryVTT Shadowrun6 Hosts](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-hosts-and-ic.png?raw=true)
+![FoundryVTT Shadowrun6 Hosts](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-hosts-and-ic.png)
 
 > Hosts have handy helpers for their ASDF stats depending on what type they are. And they can also ***deploy*** their Matrix Devices onto the canvas! And don't forget to assign a Spider using the `Assign to Spider Duty` effect that you can drag onto a characters Sheet or Token.
 
-![FoundryVTT Shadowrun6 Hosts and IC](https://github.com/yjeroen/foundry-shadowrun6-eden/blob/main/.github/images/sr6-hosts-and-ic.gif?raw=true)
+![FoundryVTT Shadowrun6 Hosts and IC](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-hosts-and-ic.gif)
 
 
 ## Patch Notes
