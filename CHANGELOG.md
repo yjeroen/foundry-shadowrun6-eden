@@ -6,6 +6,7 @@ _Updated the system readme_
 - Change multiple sub categories to be able to be a Matrix Device
 - Fix bug where Actors PAN wasn't properly set-up in case of ACL changes to your Pan Admin's PAN
 - Fix Rating column in the Equipment tabs Gear sections (#322)
+- Migrate items with needsRating enabled and a value of 0 to a needsRating of disabled (#322)
 
 ## 4.0.4
 
