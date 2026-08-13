@@ -101,6 +101,11 @@ _Are you a dataslave or deckhead?_ If you have JavaScript, HTML and/or CSS skill
 
 ![FoundryVTT Shadowrun6 Combat Actions](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-combat-actions.png)
 
+> You can create Effects that modify your attributes. You can even customize Qualities, your Gear and "Gear Mods" with these Effects that can adjust attributes of your character or the Gear. Gear Mods are Items you can drag onto another Gear Item (i.e. SR Accessories and Modifications) to adjust the Gear.
+> And there's a system Compendium with examples of Qualities and Gear from the CRB with Effects premade for you.
+
+![FoundryVTT Shadowrun6 Effects](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-items-and-effects.png)
+
 > In the Matrix Tab on your character sheet, you can find your Persona and PAN section. Your Persona and PAN are only online if you have Matrix Access Device(s) enabled that isn't bricked, or if you are a Technomancer that isn't unconcious due to an empty Stun Monitor.
 
 ![FoundryVTT Shadowrun6 PAN](https://raw.githubusercontent.com/yjeroen/foundry-shadowrun6-eden/refs/heads/main/.github/images/sr6-pan.png)
