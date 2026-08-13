@@ -124,7 +124,7 @@ export default class SR6HostActorData extends SR6BaseActorData {
 
         if (!this.deployedItem || !this.parent.token) return;
         // Override Token Actor from Deployed Item
-        this.parent.name += `//:${this.deployedItem.name}`;
+        this.parent.name = `//${this.parent.token.baseActor._source.name}//:${this.deployedItem.name}`;
         this.parent.img = this.deployedItem.img;
         this.description = this.deployedItem.system.description;
         this.matrix.matrixCM = this.deployedItem.system.matrix.matrixCM;
