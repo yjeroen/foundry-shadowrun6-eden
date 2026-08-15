@@ -23,7 +23,9 @@
               {{#if (eq section.type "inactive")}}
                 data-disabled="true"
               {{else if (eq section.type "temporary")}}
-                data-duration.rounds="1"
+                data-duration.rounds="1"  {{!-- TODO JEROEN FoundryVTT v13 - Remove when upgrading to v14 only --}}
+                data-duration.value="1"
+                data-duration.units="minutes"
               {{/if}}
               title='{{localize 'shadowrun6.effect.Create' }}'
             >
