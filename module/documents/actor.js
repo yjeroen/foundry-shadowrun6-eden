@@ -243,7 +243,7 @@ export default class Shadowrun6Actor extends Actor {
      * Apply any transformations to the Actor data which are caused by ActiveEffects.
      */
     applyActiveEffects(phase) {
-        if (game.release.generation === 14) return this.applyActiveEffectsV14(phase);    //TODO JEROEN remove later
+        if (game.release.generation >= 14 && game.release.build >= 366) return this.applyActiveEffectsV14(phase);    //TODO JEROEN remove later
         
         const overrides = {};
         this.statuses.clear();
