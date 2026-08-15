@@ -3503,6 +3503,7 @@ export default class Shadowrun6Actor extends Actor {
     yourMatrixAccessLevel(config={}) {
         const {initiator, fromReferenceSection, limitedViewOverride} = config;
         console.log(`SR6E | Actor.yourMatrixAccessLevel | ${this.name} | config:`, config);
+        const primaryAccessDevice = this.system.persona?.accessDevice;
 
         if (this.isOwner && !limitedViewOverride) {
             console.log("SR6E | Actor.yourMatrixAccessLevel | this.isOwner | view ACL from perspective of this actor");
