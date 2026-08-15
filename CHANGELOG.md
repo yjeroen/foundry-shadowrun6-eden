@@ -1,3 +1,15 @@
+## 4.0.6
+
+### System Improvements
+- Update FoundryVTT compatibility to 14.366
+
+### Bug Fixes
+- Change more gear subtypes to have Wireless Matrix capability
+- Fix Active Effect values are doubled in FoundryVTT v14 (#325)
+- Fix not able to create Temporary Effects using the + button in FoundryVTT v14 (#324)
+- Fix unnecessary newlines in the description sections in V14
+- Fix by Host deployed tokens's their name displayed on character sheet in V14
+
 ## 4.0.5
 _Updated the system readme_
 
