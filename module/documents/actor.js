@@ -3309,7 +3309,7 @@ export default class Shadowrun6Actor extends Actor {
         const effects = [];
         // Change added Attribute Modifiers to ActiveEffects
         for (const attribute in actorSystem.attributes) {
-            if (actorSystem.attributes[attribute].mod !== 0) {
+            if (Number.isFinite(actorSystem.attributes[attribute].mod) && actorSystem.attributes[attribute].mod !== 0) {
                 const positive = actorSystem.attributes[attribute].mod > 0 ? "+" : "";
                 const effectData = {
                     name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`attrib.${attribute}`)} ${positive}${actorSystem.attributes[attribute].mod}`,
@@ -3331,7 +3331,7 @@ export default class Shadowrun6Actor extends Actor {
         }
         // Change added Skill Modifiers to ActiveEffects
         for (const skill in actorSystem.skills) {
-            if (actorSystem.skills[skill].modifier !== 0) {
+            if (Number.isFinite(actorSystem.skills[skill].modifier) && actorSystem.skills[skill].modifier !== 0) {
                 const positive = actorSystem.skills[skill].modifier > 0 ? "+" : "";
                 const effectData = {
                     name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`skill.${skill}`)} ${positive}${actorSystem.skills[skill].modifier}`,
