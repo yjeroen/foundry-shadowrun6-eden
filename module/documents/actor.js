@@ -114,9 +114,6 @@ export default class Shadowrun6Actor extends Actor {
         // }
         // prepareEmbeddedDocuments() calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
 
-        
-        this._preparePAN();
-
         // TODO rework vehicles completely to not be dependent on Actor.prepareData()
         if (callSuper) super.prepareData();
 
@@ -203,7 +200,11 @@ export default class Shadowrun6Actor extends Actor {
      * @memberof ClientDocumentMixin#
      */
     prepareBaseData() {
+        super.prepareBaseData();    // calls this._clearData() in v14
         console.log("SR6E | Shadowrun6Actor.prepareBaseData()", this.name, this.uuid);
+        
+        this._preparePAN();
+
         //TODO JEROEN move these to traits - needs migration as well due to Qualities
         this.system.painTolerance = null;
         this.traits = {};
@@ -242,7 +243,7 @@ export default class Shadowrun6Actor extends Actor {
      * Apply any transformations to the Actor data which are caused by ActiveEffects.
      */
     applyActiveEffects(phase) {
-        if (game.release.generation === 14 && phase !== "initial") return;    //TODO JEROEN complete rework of ActiveEffects (#325)
+        if (game.release.generation === 14) return this.applyActiveEffectsV14(phase);    //TODO JEROEN remove later
         
         const overrides = {};
         this.statuses.clear();
@@ -282,6 +283,86 @@ export default class Shadowrun6Actor extends Actor {
 
         // Expand the set of final overrides
         this.overrides = foundry.utils.expandObject(overrides);
+    }
+
+    /**
+     * Apply any transformations to the Actor data which are caused by ActiveEffects.
+     * @param {string} phase The application phase under which changes are to be applied.
+     */
+    applyActiveEffectsV14(phase) {
+        /** @type {typeof foundry.documents.ActiveEffect} */
+        const ActiveEffect = foundry.documents.ActiveEffect.implementation;
+        if ( typeof phase !== "string" ) {
+            phase = this._completedActiveEffectPhases.has("initial") ? "final" : "initial";
+            const message = 'Actor#applyActiveEffects must be called with a string phase identifier, with "initial"'
+                + " as the first phase.";
+            foundry.utils.logCompatibilityWarning(message, {since: 14, until: 16, once: true});
+        }
+        else if ( !(phase in ActiveEffect.CHANGE_PHASES) ) {
+            const error = new Error(`"${phase}" is not a registered ActiveEffect application phase.`);
+            Hooks.onError("Actor#applyActiveEffects", error, {log: "error"});
+        }
+        if ( this._completedActiveEffectPhases.has(phase) ) {
+            const error = new Error(`ActiveEffect application phase "${phase}" has already completed and cannot be run again`
+                + " in this Actor's data-preparation cycle.");
+            Hooks.onError("Actor#applyActiveEffects", error, {log: "error"});
+            return;
+        }
+        this._completedActiveEffectPhases.add(phase);
+
+        // Organize non-disabled effects by their application priority
+        /** @type {ActiveEffectChangeData[]} */
+        const changes = [];
+        /** @type {ActiveEffectChangeData[]} */
+        const tokenChanges = [];
+        const rollData = this.getRollData();
+        const dataByEffect = new Map();
+        for ( const effect of this.allApplicableEffects() ) {
+            if ( !effect.active ) continue;
+            const replacementData = effect.getReplacementData(rollData);
+            dataByEffect.set(effect, replacementData);
+
+            for ( const change of effect.system.changes ) {
+                if ( (change.key === "") || !effect.shouldApplyChange(change, {phase, replacementData}) ) continue;
+                const copy = foundry.utils.deepClone(change);
+                copy.effect = effect;
+
+                // shadowrun6-eden adds @actor support:
+                if ( typeof copy.value === "string" && copy.value?.startsWith('@actor.') ) {
+                    const key = copy.value.substring('@actor.'.length);
+                    copy.value = foundry.utils.getProperty(this, key);
+                }
+                // shadowrun6-eden adds @item support:
+                if ( typeof copy.value === "string" && copy.value?.startsWith('@item.') && effect.parent?.documentName === 'Item' ) {
+                    const key = copy.value.substring('@item.'.length);
+                    copy.value = foundry.utils.getProperty(effect.parent, key);
+                }
+
+                if ( copy.key?.startsWith("token.") ) { // Keep Token changes separate for later application
+                    copy.key = copy.key.slice(6);
+                    tokenChanges.push(copy);
+                }
+                else changes.push(copy);
+            }
+
+            if ( phase === "initial" ) {
+                for ( const statusId of effect.statuses ) this.statuses.add(statusId);
+            }
+        }
+        changes.sort((a, b) => a.priority - b.priority);
+        ActiveEffect._shimChanges(changes);
+        this.tokenActiveEffectChanges[phase] = tokenChanges;
+
+        // Apply all changes
+        const overrides = {};
+        for ( const change of changes ) {
+            const replacementData = dataByEffect.get(change.effect) ?? rollData;
+            const result = ActiveEffect.applyChange(this, change, {replacementData});
+            if ( foundry.utils.isPlainObject(result) ) Object.assign(overrides, result);
+        }
+
+        // Expand the set of final overrides
+        foundry.utils.mergeObject(this.overrides, foundry.utils.expandObject(overrides));
     }
 
     /**
@@ -3422,7 +3503,6 @@ export default class Shadowrun6Actor extends Actor {
     yourMatrixAccessLevel(config={}) {
         const {initiator, fromReferenceSection, limitedViewOverride} = config;
         console.log(`SR6E | Actor.yourMatrixAccessLevel | ${this.name} | config:`, config);
-        const primaryAccessDevice = this.system.persona?.accessDevice;
 
         if (this.isOwner && !limitedViewOverride) {
             console.log("SR6E | Actor.yourMatrixAccessLevel | this.isOwner | view ACL from perspective of this actor");

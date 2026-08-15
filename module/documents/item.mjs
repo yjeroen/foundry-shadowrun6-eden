@@ -710,9 +710,6 @@ export default class SR6Item extends Item {
    */
   yourMatrixAccessLevel(config={}) {
     console.log(`SR6E | Item.yourMatrixAccessLevel | ${this.name} | config:`, config);
-    // Making sure the Actor of this Item is fully prepared, so that the PAN is properly set up
-    this.actor?.prepareEmbeddedDocuments("initial"); //TODO JEROEN complete rework of ActiveEffects (#325)
-
     const {initiator} = config;
     const safeUuid = initiator.uuid.replaceAll(".", "_");
     const myPanAdmin = this.actor.system.pan?.administrator;
