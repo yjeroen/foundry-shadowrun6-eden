@@ -1,3 +1,8 @@
+## 4.0.7
+
+### Bug Fixes
+- Regression fix of 4.0.6 (deleted a line on accident in commit a6062eb when removing a logline)
+
 ## 4.0.6
 
 ### System Improvements
