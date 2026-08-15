@@ -1,3 +1,11 @@
+## 4.0.8
+
+### Bug Fixes
+- Fix importing FoundryVTT actor exported jsons
+- Only add a + in the Active Effect imported modifier text if the modifier is positive
+- Fix actor json importer to not create AEs if a attribute/skill mod is undefined
+- The Fix for ActiveEffect doubling 4.0.5 was causing errors in FoundryVTT v14.365 but not v14.366 // Disabled patch for 14.365 >> UPDATE TO 14.366
+
 ## 4.0.7
 
 ### Bug Fixes
