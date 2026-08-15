@@ -3268,8 +3268,8 @@ export default class Shadowrun6Actor extends Actor {
         // Both GENESIS and COMMLINK use Item.data as its sourceData
         for (const index in sourceData.items) {
             const item = sourceData.items[index];
-            item.system = item.data;
-            delete item.data;
+            
+            if (item.data) { item.system = item.data; delete item.data; }
             
             if (item.system?.genesisID) {
                 if (item.system.type === "WEAPON_CLOSE_COMBAT") {
