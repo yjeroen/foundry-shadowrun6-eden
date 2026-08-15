@@ -241,7 +241,9 @@ export default class Shadowrun6Actor extends Actor {
      * Copies FoundryV13 method to add in `@item` support in the value field
      * Apply any transformations to the Actor data which are caused by ActiveEffects.
      */
-    applyActiveEffects() {
+    applyActiveEffects(phase) {
+        if (game.release.generation === 14 && phase !== "initial") return;    //TODO JEROEN complete rework of ActiveEffects (#325)
+        
         const overrides = {};
         this.statuses.clear();
 
