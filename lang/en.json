@@ -2815,8 +2815,8 @@
             "hint": "If on, this gear is currently being used through a wireless interface. Some items, like a credstick can only be used if their Wireless interface are active. The gear's Wireless Bonus can be used if this is active."
           },
           "cyberwareGrade": {
-            "label": "Cyberware Grade",
-            "hint": "<p>The grade of your cyberware does not just determine its essence and nuyen costs, but also it's Device Rating.<p>Device Rating determines its Matrix Condition Monitor.</p>"
+            "label": "Implant Grade",
+            "hint": "<p>The grade of your implant does not just determine its essence and nuyen costs, but also it's Device Rating.<p>Device Rating determines its Matrix Condition Monitor. All accessories and add-ons must be of the same grade as the implant to which they are added.</p><p><strong>Omega/Used (DR 0):</strong> Used or poorly made, cheaply made. They are more difficult to establish and can be dangerous to use..</p><p><strong>Exo (DR 1):</strong> Only cyberware. Typically, they have exposed pistons and actuators, bulky housings, and external sections containing access ports.</p><p><strong>Standard (DR 2):</strong> Standard grade of implants, available in both official clinics and many illegal clinics.</p><p><strong>Alpha (DR 3):</strong> Higher quality implants, which are harder to find and more expensive, have good compatibility with the body.</p><p><strong>Beta (DR 4):</strong> Premium implants, custom-made for maximum compatibility, making them affordable for only a select few.</p><p><strong>Delta (DR 6):</strong> This is the pinnacle of implant technology, and it's not sold openly. Corporations equip elite special forces units and senior management with them. And they can only be purchased through influential individuals.</p><p><strong>Gamma (DR 7):</strong> Prototypes or unique implants that are not available for purchase. They have a lower Essence loss than the Delta determined by the game master.</p>"
           },
           "ammoLoaded": {
             "label": "Ammo Loaded",
