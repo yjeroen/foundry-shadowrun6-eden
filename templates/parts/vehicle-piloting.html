@@ -3,7 +3,7 @@
      <h2 class="section-title">{{ localize 'shadowrun6.section.vehicleskills.operations' }}</h2>
 	</div>
 	  <table>
-	  	{{log "vehicle-driving" this }}
+	  	{{log "vehicle-piloting.html" this }}
 
       <!-- Initiative -->
       <tr>
@@ -57,7 +57,7 @@
       <!-- Evasion -->
       <tr>
        <td style="margin-right: 1rem">
-         <label class="skill-value skill-key rollable skill-name skill-roll">{{localize 'shadowrun6.label.defense'}} ({{localize 'shadowrun6.defense.physical'}})</label>
+         <label class="skill-value skill-key rollable skill-name skill-roll">{{localize 'shadowrun6.defense.vehicle'}}</label>
        </td>
        <td style="text-align: center">
          <input name="{{id}}Evasion" class="centered" type="number" data-field="system.skills.evasion.modifier" data-dtype="Number" value="{{system.skills.evasion.modifier}}"  style="width: 2em" />
@@ -104,7 +104,7 @@
         <td style="text-align: center">
           <input name="{{id}}Perception" class="centered" type="number" data-field="system.skills.perception.modifier" data-dtype="Number" value="{{system.skills.perception.modifier}}"  style="width: 2em" />
         </td>
-        <td class="skill-pool">
+        <td class="skill-pool" {{#if (eq system.vehicle.opMode "riggedVR")}}data-tooltip="{{system.skills.perception.modString}}"{{/if}}>
           {{system.skills.perception.pool}}
         </td>
         <td class="item-controls" style="width: 3em; flex-grow:2">

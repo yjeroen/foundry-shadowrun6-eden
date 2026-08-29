@@ -1,0 +1,35 @@
+  {{#unless deployedItem}}
+
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">{{systemFields.sculpting.label}}</h2>
+    </div>
+    <div class="section-content">
+      {{#if editMode}} 
+        <prose-mirror name="system.sculpting" data-document-uuid="{{actor.uuid}}" value="{{system.sculpting}}" collaborate="true" toggled="true">
+          {{{enriched.sculpting}}}
+        </prose-mirror>
+      {{else}}
+        {{{enriched.sculpting}}}
+      {{/if}}
+    </div>
+  </div>
+
+{{#unless limited}}
+<div class="section">
+    <div class="section-head" data-tooltip="SR6.title.ownerOnlySection">
+      <h2 class="section-title">{{systemFields.outsiderAccess.label}}</h2>
+    </div>
+    <div class="section-content">
+      {{#if editMode}} 
+        <prose-mirror name="system.outsiderAccess" data-document-uuid="{{actor.uuid}}" value="{{system.outsiderAccess}}" collaborate="true" toggled="true">
+          {{{enriched.outsiderAccess}}}
+        </prose-mirror>
+      {{else}}
+        {{{enriched.outsiderAccess}}}
+      {{/if}}
+    </div>
+</div>
+{{/unless}} {{!-- /limited --}}
+
+{{/unless}} {{!-- /deployedItem --}}

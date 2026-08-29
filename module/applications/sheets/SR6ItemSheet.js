@@ -12,14 +12,15 @@ function getActorData(obj) {
         return obj;
     return obj.data;
 }
-export default class SR6ItemSheet extends ItemSheet {
+export default class SR6ItemSheet extends foundry.appv1.sheets.ItemSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["shadowrun6", "sheet", "item"],
             dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}],
             width: null,
-            submitOnChange: false,  // Implemented manually via v10 listeners
+            // submitOnChange: false,  // Implemented manually via v10 listeners
+            submitOnChange: true,
         });
     }
     get template() {
@@ -97,17 +98,17 @@ export default class SR6ItemSheet extends ItemSheet {
             }
         }
 
-        if (this.item.type === "gear") {
-            const system = this.item.system;
-            data.gearConfig = this._getGearConfig();
-            data.hud = {};
+        data.gearConfig = this._getGearConfig();
+        const system = this.item.system;
 
-            if (system.isElectronicMatrixDevice) {
-                data.hud.matrixCM = this._prepareConditionMonitors(system.matrix.matrixCM);
-                if (system.matrix.hasWirelessInterface) {
-                    data.hud.showWifi = true;
-                }
+        if (system.isElectronicMatrixDevice) {
+            data.hud = {};
+            data.hud.matrixCM = this._prepareConditionMonitors(system.matrix.matrixCM);
+            
+            if (system.matrix.hasWirelessInterface) {
+                data.hud.showWifi = true;
             }
+
             if (CONFIG.SR6.GEAR.TYPES_WITH_AMMO.has(system.type) && system.subtype) {
                 data.hud.showAmmo = true;
             }
@@ -118,6 +119,13 @@ export default class SR6ItemSheet extends ItemSheet {
 
             const hasHud = Object.keys(data.hud).length > 0;
             data.hud.show = hasHud;
+
+            if (this.item.actor?.type === "host") {
+                data.installedInHost = this.item.actor;
+            }
+            if (this.item.getFlag("shadowrun6-eden", "isDeployedToken")) {
+                data.isDeployedToken = true;
+            }
         }
 
         return data;
@@ -137,8 +145,7 @@ export default class SR6ItemSheet extends ItemSheet {
             isElectronicMatrixDevice: this.item.system.isElectronicMatrixDevice || this.item.system.matrix.hasWirelessInterface || this.item.system.matrix.hasDataCableInterface,
             disableElectronicMatrixDevice: subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS || this.item.system.matrix.hasWirelessInterface || this.item.system.matrix.hasDataCableInterface,
             disableWirelessInterface: GEAR.TYPES_WITH_ALWAYS_WIFI.has(this.item.system.type) || GEAR.SUBTYPES_MATRIX_ACCESS.has(this.item.system.subtype),
-            disableDataCableInterface: this.item.system.type === "CYBERWARE",
-            deviceRatingTooltip: game.i18n.translations.SR6.Item.base.FIELDS.deviceRating.tooltip
+            disableDataCableInterface: this.item.system.type === "CYBERWARE"
         }
 
         return config;
@@ -174,16 +181,21 @@ export default class SR6ItemSheet extends ItemSheet {
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
     activateListeners(html) {
+        // TODO JEROEN watch this change as `super.activateListeners` is enabled in 4.0.0, 
+        super.activateListeners(html);
+
         /*
         * Drag & Drop
         */
         html.find(".draggable").on("dragstart", async (event) => {
+            event.stopPropagation();
             const item = await fromUuidSync(event.currentTarget.dataset.uuid);
             console.log("SR6E | DRAG Item Start", event.currentTarget.dataset.uuid);
             event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(item.toDragData()))
         }).attr("draggable", "true");
 
         html.find(".pdf-link a").click((event) => {
+            event.stopPropagation();
             const pdfUuid = event.currentTarget.dataset.pdfUuid;
             const pdfPage = event.currentTarget.dataset.pdfPage;
             game.sr6.utils.openPdfPage(pdfUuid, pdfPage);
@@ -227,8 +239,6 @@ export default class SR6ItemSheet extends ItemSheet {
             );
         }
 
-        // Unclear why super is called; TODO rework whole itemsheet so it uses Foundry listeners instead
-        // super.activateListeners(html);
         if (this.actor && this.actor.isOwner) {
             console.log("SR6E | is owner of actor");
         } else {
@@ -238,6 +248,7 @@ export default class SR6ItemSheet extends ItemSheet {
         // Owner Only Listeners
         if (this.actor && this.actor.isOwner) {
             html.find("[data-field]").change(async (event) => {
+                event.stopPropagation();
                 const element = event.currentTarget;
                 let value;
                 if (element.type == "checkbox") {
@@ -285,6 +296,7 @@ export default class SR6ItemSheet extends ItemSheet {
             );
         } else if (this.isEditable) {
             html.find("[data-field]").change(async (event) => {
+                event.stopPropagation();
                 const element = event.currentTarget;
                 let value;
                 if (element.type == "checkbox") {
@@ -316,6 +328,7 @@ export default class SR6ItemSheet extends ItemSheet {
         }
         // Attack Rating fields
         html.find("[data-array-field]").change(async (event) => {
+            event.stopPropagation();
             const element = event.currentTarget;
             const idx = parseInt(
                 $(event.currentTarget).closestData("index", "0")
@@ -363,6 +376,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @protected
      */
     _viewEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         const effect = this._getEffect(target);
         effect.sheet.render(true);
@@ -376,6 +390,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _createEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         // Retrieve the configured document class for ActiveEffect
         const aeCls = getDocumentClass("ActiveEffect");
@@ -412,6 +427,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @protected
      */
     async _deleteEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         console.log("SR6E | SR6ItemSheet | ActiveEffect _deleteEffect");
         const confirm = await foundry.applications.api.DialogV2.confirm({
@@ -443,6 +459,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _toggleEffect(event, target) {
+        event.stopPropagation();
         if (target === undefined) target = event.target;
         const effect = this._getEffect(target);
         await effect.update({ disabled: !effect.disabled });
@@ -478,6 +495,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _weaponReload(event) {
+        event.stopPropagation();
         console.log("SR6E | _onWeaponAmmoReload");
         event.preventDefault();
         const weapon = this.item;
@@ -495,6 +513,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _onTrackClick(event) {
+        event.stopPropagation();
         const target = event.target;       // div.slot
         const html = event.currentTarget;  // div.track
 
@@ -554,6 +573,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * @private
      */
     async _selectInputText(event) {
+        event.stopPropagation();
         const target = event.target;
         const input = target.querySelector("input");;
         if (!input || input.readOnly || input.disabled) return;
@@ -590,7 +610,7 @@ export default class SR6ItemSheet extends ItemSheet {
      * Get Editor Safe Description
      */
     async enrichedHTML(htmlString) {
-        return await TextEditor.enrichHTML(
+        return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             htmlString,
             {
                 // Whether to show secret blocks in the finished html
@@ -634,7 +654,8 @@ export default class SR6ItemSheet extends ItemSheet {
      * @protected
      */
     async _onDrop(event) {
-        const data = TextEditor.getDragEventData(event);
+        event.stopPropagation();
+        const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
         const actor = this.actor;
         console.log("SR6E | SR6ItemSheet | _onDrop", event, data);
         const allowed = Hooks.call("dropItemSheetData", actor, this, data);
@@ -700,6 +721,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
 
     async _editItem(event) {
+        event.stopPropagation();
         const item = this._getItem(event);
         console.log("SR6E | Editing Item ", item);
         if (!item) throw new Error("Item is null");
@@ -708,6 +730,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
 
     async _deleteItem(event) {
+        event.stopPropagation();
         const confirm = await foundry.applications.api.DialogV2.confirm({
             window: { title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize("DOCUMENT.Item") }) },
             content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.localize("DOCUMENT.Item") })}</p>`,
@@ -729,6 +752,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
     
     async _uninstallMod(event) {
+        event.stopPropagation();
         const item = this._getItem(event);
         console.log("SR6E | Uninstalling Mod ", item);
         if (!item) throw new Error("Item is null");
@@ -740,6 +764,7 @@ export default class SR6ItemSheet extends ItemSheet {
     }
 
     async _collapsibleItems(event) {
+        event.stopPropagation();
         const element = event.currentTarget;
         // const itemId = this._getClosestData($(event.currentTarget), "item-id");
         const item = this._getItem(event);

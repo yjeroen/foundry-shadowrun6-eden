@@ -29,12 +29,13 @@ function getActorData(obj) {
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export default class Shadowrun6ActorSheet extends ActorSheet {
+export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorSheet {
     /** @overrride */
     async getData() {
         let data = await super.getData();
         data.config = CONFIG.SR6;
         data.sheet = this;
+        data.source = this.actor._source.system;
         if (game.release.generation >= 10) {
             data.system = data.data.system;
         }
@@ -121,8 +122,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .on("click", this._onClickImage.bind(this))
             .on("contextmenu", this._onClickImage.bind(this));
 
+        html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
+
         if (this.document.limited || this.options.limited) {
-            html.find(".matrix-section.persona .collapsible").click(this._onMatrixActionDescription.bind(this));
             html.find(".matrix-roll").click(this._onMatrixRollByInitiator.bind(this));
         }
         // Owner Only Listeners
@@ -344,7 +346,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     await item.update({ [property]: !foundry.utils.getProperty(item, property) });
             });
             //Collapsible
-            html.find(".collapsible:not(.empty)").click(async (event) => {
+            html.find(".section:not(.matrix-section) .collapsible:not(.empty)").click(async (event) => {
+                console.log("SR6E | click .collapsible:not(.empty)");
                 const element = event.currentTarget;
                 const itemId = this._getClosestData($(event.currentTarget), "item-id");
                 const item = this.actor.items.get(itemId);
@@ -937,17 +940,16 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         roll.skillSpec = dataset.skillspec;
         if (dataset.threshold)
             roll.threshold = dataset.threshold;
-        roll.attrib = dataset.attrib;
-        console.log("SR6E | onRollSkillCheck before ", roll);
+        console.log("SR6E | onRollSkillCheck | Initial SkillRoll:", JSON.parse(JSON.stringify(roll)));
         this.actor.rollSkill(roll);
     }
     //-----------------------------------------------------
     _onRollWeaponCheck(event, html) {
         console.log("SR6E | _onRollWeaponCheck");
         event.preventDefault();
-        const attacker = getSystemData(this.actor);
+        const attacker = this.actor;
         const itemId = event.currentTarget.dataset.itemId;
-        let item = this.actor.items.get(itemId);
+        const item = this.actor.items.get(itemId);
         if (!item) {
             throw new Error("_onRollWeaponCheck for non-existing item");
         }
@@ -957,9 +959,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (isWeapon(getSystemData(item))) {
             console.log("SR6E | is weapon", item);
         }
-        const gear = getSystemData(item);
-        let roll = new WeaponRoll(attacker, item, itemId, gear);
-        roll.useWildDie = gear.wild ? 1 : 0;
+        let roll = new WeaponRoll(attacker, item);
         console.log("SR6E | _onRollWeaponCheck before ", roll);
         this.actor.rollItem(roll);
     }
@@ -1025,15 +1025,16 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
     //-----------------------------------------------------
     _onMatrixActionDescription(event, html) { //.matrix-section.persona .collapsible
+        console.log("SR6E | click _onMatrixActionDescription ");
         const element = event.currentTarget;
 
         element.classList.toggle("closed");
         element.classList.toggle("open");
 
         const content = element.parentElement.nextElementSibling;
-        content.style.maxHeight =  content.classList.contains("open") ? null : content.scrollHeight + "px";
         content.classList.toggle("closed");
         content.classList.toggle("open");
+        content.style.maxHeight =  element.classList.contains("open") ? content.scrollHeight + "px" : null;
         if (element.parentElement.classList.contains("matrix-persona-attributes")) {
             this.options.flags.collapseMatrixAttr = content.classList.contains("open") ? "open" : "closed";
         }
@@ -1142,26 +1143,28 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
     async _onMatrixAttributesSwitch(event, html) {
         const clickedAttribute = event.currentTarget.firstChild;
-        if (parseInt(clickedAttribute.value) === 0) return;
+        const value = parseInt(clickedAttribute.dataset.source);
+
+        if (value === 0) return;
         const matrixAttributes = event.currentTarget.parentElement.childNodes;
-        console.log("SR6E | _onMatrixAttributesSwitch attribute clicked:", clickedAttribute.dataset.field);
+        console.log("SR6E | _onMatrixAttributesSwitch attribute clicked:", clickedAttribute.dataset.field, "current source value: ", value);
         clickedAttribute.classList.toggle('clicked');
         const matrixPersona = {};
         let clickedAttributes = 0;
-        let activeBox1, activeBox2;
         
         matrixAttributes.forEach(attribute => {
             const attributeInput = attribute.firstChild;
             if (attributeInput?.nodeName === "INPUT"){
                 const clicked = attributeInput.classList.contains('clicked');
-                matrixPersona[attributeInput.dataset.field] = { value: parseInt(attributeInput.value), clicked: clicked };
+                const attrValue = parseInt(attributeInput.dataset.source);
+
+                matrixPersona[attributeInput.dataset.field] = { value: attrValue, clicked: clicked };
                 if (clicked) {
-                    if (activeBox1) activeBox2 = attribute;
-                    else activeBox1 = attribute;
                     clickedAttributes++;
                 }
             }
         });
+
         if (clickedAttribute.classList.contains('clicked') && clickedAttributes === 2) {
             const updatePersona = {};
             let swappedField;
@@ -1175,13 +1178,15 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     }
                 }
             });
-            const swappedCss = activeBox1.getAttribute('style');
-            activeBox1.setAttribute('style', activeBox2.getAttribute('style'));
-            activeBox2.setAttribute('style', swappedCss);
-            //TODO add Matrix Attribute swap animation
-            // await new Promise(resolve => setTimeout(resolve, 500)); // wait until CSS effect is ready
 
-            await this.actor.update( updatePersona );
+            const success = await this.actor.update( updatePersona );
+            if (success) return;
+
+            await new Promise(resolve => setTimeout(resolve, 250));
+            matrixAttributes.forEach(attribute => {
+                const attributeInput = attribute.firstChild;
+                attributeInput?.classList?.remove('clicked');
+            });
         }
     }
 
@@ -1201,6 +1206,10 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .filter(([actionId, action]) => {
                 action.name = game.i18n.localize('shadowrun6.matrixaction.'+actionId+'.name');
 
+                if (action.IC && this.initiator.system.deployedItem?.system.multiTypes?.has(action.id)) return true;
+                if (action.IC && !this.initiator.system.isDeployedIC) return false;
+                if (this.initiator.system.isDeployedIC) return false;
+                
                 if (this.document.limited || this.options.limited) {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
                     if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;
@@ -1311,7 +1320,13 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                 : [makeItemNode(primaryAccessDevice)];
 
             const childItems = targetActor.items
-                .filter(item => item.onlineOnMatrix && !item.isPrimaryAccessDevice)
+                .filter(item =>
+                    !item.isPrimaryAccessDevice
+                    && (
+                        item.isOnlineOnMatrixWirelessly
+                        || (item.isOnlineOnMatrixByDataCable && item.yourMatrixAccessLevel({ initiator: initiator, limitedViewOverride: this.options.limited }) !== "outsider")
+                    )
+                )
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map(makeItemNode);
 
@@ -1520,7 +1535,8 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
                     data-administrator-uuid="${this.actor.uuid}" data-administrator-name="${this.actor.name}"
                     data-type="PAN" data-tooltip="shadowrun6.section.pan.share_tooltip"
                 >
-                    ${game.i18n.format("shadowrun6.section.pan.share_join_pan", { name: this.actor.name })}
+                    <i class="fas fa-network-wired pan-node-icon"></i>
+                    <span>${game.i18n.format("shadowrun6.section.pan.share_join_pan", { name: this.actor.name })}</span>
                 </a>
             </p>
         </div>
@@ -1605,7 +1621,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
     }
 
     async _onDrop(event) {
-        const data = TextEditor.implementation.getDragEventData(event);
+        const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
         console.log("SR6E | Shadowrun6ActorSheet | _onDrop", data);
         const actor = this.actor;
         const allowed = Hooks.call("dropActorSheetData", actor, this, data);
@@ -1615,12 +1631,15 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         switch ( data.type ) {
             case "PAN":
                 return this._onDropPan(event, data);
+            case "host":
+                return this._onDropHost(event, data);
             default:
                 return super._onDrop(event);
         }
     }
 
     /**
+     * TODO evaluate if this should be moved to Actor
      * Handle the dropping of PAN data onto an Actor Sheet, which will create a custom Active Effect
      * @param {DragEvent} event                  The concluding DragEvent which contains drop data
      * @param {object} data                      The data transfer extracted from the event
@@ -1632,16 +1651,24 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         if (!this.actor.isOwner) return false;
         if (this.actor.uuid === data.administratorUuid) return false;
 
+        const supportedTypes = new Set(["Player", "NPC"]);
+        if (!supportedTypes.has(this.actor.type)) {
+            return false;
+        }
+
+        const panAdmin = foundry.utils.fromUuidSync(data.administratorUuid);
+        if (!panAdmin) return;
+
         const aeCls = getDocumentClass("ActiveEffect");
         const effectData = {
             name: game.i18n.format("shadowrun6.section.pan.share_pan_joined", { name: data.administratorName }),
             img: "systems/shadowrun6-eden/icons/fa-network-wired-solid.svg",
-            origin: data.administratorUuid,
+            origin: panAdmin.uuid,
             system: { advanced: true },
             changes: [{
                 key: "system.pan.administratorUuid",
                 mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-                value: data.administratorUuid
+                value: panAdmin.uuid
             }]
         };
 
@@ -1650,7 +1677,75 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
         );
         await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentPanEffects.map(effect => effect.id) );
 
-        return await aeCls.create(effectData, { parent: this.actor });
+        await aeCls.create(effectData, { parent: this.actor });
+        panAdmin.render();
+    }
+
+    /**
+     * TODO evaluate if this should be moved to Actor
+     * Handle the dropping of Host data onto an Actor Sheet, which will create a custom Active Effect
+     * Result will be that this character will become a spider in the Host
+     * @param {DragEvent} event                  The concluding DragEvent which contains drop data
+     * @param {object} data                      The data transfer extracted from the event
+     * @returns {Promise<ActiveEffect|boolean>}  The created ActiveEffect object or false if it couldn't be created.
+     * @protected
+     */
+    async _onDropHost(event, data) {
+        console.log("SR6E | Shadowrun6ActorSheet | _onDropHost", data);
+        if (!this.actor.isOwner) return false;
+        if (this.actor.uuid === data.hostUuid) return false;
+
+        const supportedTypes = new Set(["Player", "NPC"]);
+        if (!supportedTypes.has(this.actor.type)) {
+            return false;
+        }
+
+        const host = foundry.utils.fromUuidSync(data.hostUuid);
+        if (!host) return;
+        const hostAttributes = host.system.matrix.attributes;
+
+        const aeCls = getDocumentClass("ActiveEffect");
+        const effectData = {
+            name: game.i18n.format("SR6.Actor.host.spider.assigned_to_host", { host: data.hostName }),
+            img: "systems/shadowrun6-eden/icons/fa-buffer-brands-solid-full.svg",
+            origin: host.uuid,
+            system: { advanced: true },
+            changes: [
+                {
+                    key: "traits.assignedToHost",   // Using traits.assignedToHost only so we can keep this type of AE unique via the deleteEmbeddedDocuments below
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                    value: host.uuid
+                },
+                {
+                    key: "system.persona.used.a",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.attack
+                },
+                {
+                    key: "system.persona.used.s",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.sleaze
+                },
+                {
+                    key: "system.persona.used.d",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.dataProcessing
+                },
+                {
+                    key: "system.persona.used.f",
+                    mode: foundry.CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+                    value: hostAttributes.firewall
+                }
+            ]
+        };
+
+        const currentSpiderEffects = this.actor.effects.filter(effect =>
+            effect.changes.some(change => change.key === "traits.assignedToHost")
+        );
+        await this.actor.deleteEmbeddedDocuments( "ActiveEffect", currentSpiderEffects.map(effect => effect.id) );
+
+        await aeCls.create(effectData, { parent: this.actor });
+        host.render();
     }
 
     /**
@@ -1750,7 +1845,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * Get Editor Safe Description
      */
     async enrichedHTML(htmlString) {
-        return await TextEditor.enrichHTML(
+        return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
             htmlString,
             {
             // Whether to show secret blocks in the finished html
@@ -1775,7 +1870,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
             .filter(([, action]) => {
                 if (action.isAwakened && !actor.isAwakened) return false;
                 if (action.isTechno && !actor.isTechno) return false;
-                if (action.hasSkill && !actor.system.skills[action.hasSkill].pool) return false;
+                if (action.hasSkill && !actor.system.skills?.[action.hasSkill]?.pool) return false;
                 return true;
             })
             .map(([actionId, action]) => ({
@@ -1799,6 +1894,7 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
      * @private
      */
     async _toggleCombatActionDesc(event, target) {
+        console.log("SR6E | click _toggleCombatActionDesc ");
         const row = target.closest("li.combat-action");
         const actionId = row.dataset.combatActionId;
         const action = CONFIG.SR6.COMBAT_ACTIONS[actionId];
@@ -1824,9 +1920,9 @@ export default class Shadowrun6ActorSheet extends ActorSheet {
 
         target.classList.toggle("open", isOpen);
         target.classList.toggle("closed", !isOpen);
-        content.style.maxHeight = isOpen ? `${content.scrollHeight+2}px` : null;
         content.classList.toggle("open", isOpen);
         content.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight+2}px` : null;
     }
 
 }

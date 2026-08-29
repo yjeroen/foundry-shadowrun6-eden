@@ -1,4 +1,4 @@
-<div class="section" style="width:58%; min-width: 500px;" >
+<div class="section" style="min-width: 500px;" >
 	<div class="section-head">
      <h2 class="section-title">{{ localize 'shadowrun6.section.drones.title' }}</h2>
 	 <a class="item-control drone-create" title="{{localize 'shadowrun6.section.drones.add' }}"><h2 class="fas fa-plus"></h2></a>
@@ -42,25 +42,24 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="9">
-				<div class="collapsible-content {{item.collapsedStateOnSheet}}">
-					{{ localize 'shadowrun6.label.modifications' }}
-					<textarea class="box" type="text"     data-item-id="{{this.id}}" data-field="system.accessories" type="text" data-dtype="Text" style="width: 25em">{{item.system.accessories}}</textarea>
-					<table>
+			<td colspan="10">
+				<div class="collapsible-content {{item.collapsedStateOnSheet}}" style="margin: 0 4px;">
+				<div>{{ localize 'shadowrun6.label.modifications' }}</div>
+				<textarea class="box" type="text" data-item-id="{{this.id}}" data-field="system.accessories" type="text" data-dtype="Text" style="width: 100%">{{item.system.accessories}}</textarea>
+				<table>
 						<tr>
-							<td>{{ localize 'shadowrun6.vehicle.mode_label' }}:</td>
-							<td>
-								<select name="vehicleOpMode{{id}}" data-field="system.vehicle.opMode" data-item-id="{{this.id}}">
-								{{selectOptions ../config.VEHICLE_MODE selected=system.vehicle.opMode localize=true}}
+							<td style="width: 40%;">{{ localize 'shadowrun6.vehicle.mode_label' }}:</td>
+							<td style="width: 30%;">
+								<select name="system_vehicle_opMode" data-field="system.vehicle.opMode" data-item-id="{{this.id}}">
+									{{selectOptions ../config.VEHICLE_MODE selected=system.vehicle.opMode localize=true}}
 								</select>
 							</td>
-							<td></td>
 							<td>{{ localize 'shadowrun6.label.attack_rating' }}:</td>
 							<td class="important-column" title="{{item.system.vehicle.ar.modString}}">{{item.system.vehicle.ar.pool}}</td>
 						</tr>
 						<tr>
-							<td colspan="2">{{ localize 'shadowrun6.vehicle.action_label' }}:</td>
-							<td class="skill-pool" style="width: 5em">
+							<td>{{ localize 'shadowrun6.vehicle.action_label' }}:</td>
+							<td class="skill-pool" style="text-align: left;">
 								<label data-skill="piloting" title="{{item.system.vehicle.handling.modString}}">{{item.system.vehicle.handling.pool}}</label>
 								<a class="item-control skill-roll" data-item-id="{{this.id}}" data-attrib="{{item.system.vehicle.attrib}}" data-threshold="{{item.system.handlOn}}" data-skill="piloting" data-skillspec="{{item.system.vehicle.spec}}" title="{{localize "shadowrun6.label.onroad" }} {{item.system.handlOn}}"><i class="fas fa-dice-six"></i></a>
 								/
@@ -69,7 +68,7 @@
 							<td>{{ localize 'shadowrun6.label.defense_rating' }}:</td>
 							<td class="important-column" title="{{item.system.vehicle.dr.modString}}">{{item.system.vehicle.dr.pool}}</td>
 						</tr>
-					</table>
+				</table>
 				</div>
 			</td>
 		</tr>

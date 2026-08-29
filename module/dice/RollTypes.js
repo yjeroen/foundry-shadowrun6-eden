@@ -160,7 +160,7 @@ export class ActorAttributeRoll extends PreparedRoll {
         
         this.rollType = RollType.Common;
         this.pool = attr?.pool ?? attr ?? 0;
-        this.attributeTested = attributePath;
+        this.attributeTested = attr?.pool ? `${attributePath}.pool` : attributePath;
         this.allowBuyHits = true;
         this.useAttributeMod = true;
 
@@ -174,34 +174,37 @@ export class ActorAttributeRoll extends PreparedRoll {
 export class DefenseRoll extends PreparedRoll {
     damage;
     soakType;
-    allowSoak;
+    allowSoak = true;
+
     constructor(threshold, monitor) {
-        console.log("SR6E | Constructing DefenseRoll", threshold, monitor)
         super();
-        this.allowSoak = true;
+        console.log("SR6E | Constructing DefenseRoll", threshold, monitor);
+
         this.rollType = RollType.Defense;
         this.threshold = threshold;
-        if (monitor) this.monitor = monitor;
+
+        if (monitor === MonitorType.STUN_SPECIAL || monitor === MonitorType.PHYSICAL_SPECIAL) {
+            this.chatDescription = game.i18n.localize("shadowrun6.defense.special");
+            monitor = monitor === MonitorType.STUN_SPECIAL ? MonitorType.STUN : MonitorType.PHYSICAL;
+        }
+
+        this.monitor = monitor;
 
         switch (monitor) {
             case MonitorType.STUN:
                 this.soakType = SoakType.DAMAGE_STUN;
                 this.damageLabel = game.i18n.localize("shadowrun6.item.stun_damage");
                 break;
-
             case MonitorType.PHYSICAL:
                 this.soakType = SoakType.DAMAGE_PHYSICAL;
                 this.damageLabel = game.i18n.localize("shadowrun6.item.physical_damage");
                 break;
-
             case MonitorType.MATRIX:
                 this.soakType = SoakType.DAMAGE_MATRIX;
                 this.damageLabel = game.i18n.localize("shadowrun6.matrix.matrix_damage.short");
                 break;
-
             default:
-                console.log("SR6E | DefenseRoll | No monitor set - no soakType applied")
-                break;
+                console.warn("SR6E | DefenseRoll | No monitor set - no soakType applied");
         }
     }
 }
@@ -247,9 +250,10 @@ export class SkillRoll extends PreparedRoll {
         super();
         this.skillId = skillId;
         this.skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        this.skillValue = actorSystem.skills[skillId];
-        this.attrib = this.skillDef?.attrib;
+        this.skillValue = actorSystem.skills?.[skillId]?.pool ?? (this.type === "host" ? this.system.rating : 0);
+        this.attrib = actorSystem.skills?.[skillId] ? `system.attributes.${this.skillDef?.attrib}.pool` : (this.type === "host" ? `system.rating` : undefined);
         this.performer = actorSystem;
+        this.actionText = game.i18n.localize(`skill.${skillId}`);
     }
     copyFrom(copy) {
         super.copyFrom(copy);
@@ -374,13 +378,18 @@ export class ComplexFormRoll extends SkillRoll {
         this.itemUuid = item.uuid;
         this.chatDescription = item.system.description;
         this.form = complexFormSystem;
-        if(item.system.skill === 'electronics') {
+
+        this.skillId = item.system.skill;
+        if(this.skillId === 'electronics') {
             this.skillSpec = "complex_forms";
         } else {    //cracking
             this.skillSpec = "cybercombat";
         }
-        this.attrib = "res";
-        this.defendWith = Defense.ITEM_DEFINED;
+        this.attrib = "system.attributes.res.pool";
+        
+        if (item.system.oppAttr1 || item.system.oppAttr2) {
+            this.defendWith = Defense.ITEM_DEFINED;
+        }
         this.calcFade = complexFormSystem.fading;
     }
 }
@@ -397,7 +406,7 @@ export class SpritePowerRoll extends SkillRoll {
         this.itemUuid = item.uuid;
         this.chatDescription = item.system.description;
         this.skillSpec = item.system.skillSpec;
-        this.attrib = "res";
+        this.attrib = "system.attributes.resonance.pool";
         this.defendWith = Defense.ITEM_DEFINED;
         // TODO Add Sprite Power Damage for e.g. Electron Storm - needs also Item system support
         if (item.system.dmg) {
@@ -436,25 +445,28 @@ export class WeaponRoll extends SkillRoll {
     fireMode;
     burstMode;
     faArea;
-    constructor(actor, item, itemId, gear) {
-        if ( ! getSystemData(item).skill ) ui.notifications.error("shadowrun6.ui.notifications.no_weapon_skill_set", { localize: true });
-        super(actor, getSystemData(item).skill);
+    constructor(actor, item) {
+        if ( ! item.system.skill ) ui.notifications.error("shadowrun6.ui.notifications.no_weapon_skill_set", { localize: true });
+        super(actor.system, item.system.skill);
         this.item = item;
-        this.itemId = itemId;
+        this.itemId = item.id;
         this.chatDescription = item.system.description;
-        this.gear = gear;
-        this.skillSpec = this.gear.skillSpec;
-        if (isWeapon(gear)) {
-            this.weapon = gear;
+        this.gear = item.system;
+        this.skillSpec = item.system.skillSpec;
+        
+        if (item.isWeapon) {
+            this.useWildDie = item.system.wild ? 1 : 0;
+            this.weapon = item.system;
             this.rollType = RollType.Weapon;
             this.defendWith = Defense.PHYSICAL;
             this.monitor = (item.calculatedStun ?? item.system.stun) ? MonitorType.STUN : MonitorType.PHYSICAL;
             // this.fireMode = 'SS';
         }
-        this.pool = gear.pool;
+
+        this.pool = item.system.pool;   // this needs to be item.system.pool, as the pool gets prepared in Actor._prepareItemPools() and in _prepareVehicleActorItems()
         if (item.system.isElectronicMatrixDevice) {
             const matrixCmModifier = item.system.matrix.matrixCM.penalty;
-            this.matrixCmPenalty = matrixCmModifier;            
+            this.matrixCmPenalty = matrixCmModifier;
             this.pool = Math.max(0, this.pool - matrixCmModifier);
         }
     }
@@ -505,8 +517,9 @@ export class MatrixActionRoll extends SkillRoll {
     specialOption; // Can be set in the CONFIG.SR6.MATRIX_ACTIONS to pass things in chat messages
 
     constructor(actor, action, options={}) {
+        if (!action) throw console.error("SR6E | MatrixActionRoll | No proper action configured", action);
         super(actor.system, action.skill);
-        console.log("SR6E | Constructing MatrixActionRoll", action.id, options)
+        console.log("SR6E | Constructing MatrixActionRoll |", action.id, action, options);
         const {target, fromReferenceSection, limitedViewOverride} = options;
         
         this.actor = actor;
@@ -561,7 +574,13 @@ export class MatrixActionRoll extends SkillRoll {
 
         this.matrixActionId = action.id;
         this.action = action;
-        this.attrib = action.attrib;
+
+        let attrib = action.attrib;
+        if (actor.system instanceof foundry.abstract.DataModel) {
+            attrib = CONFIG.SR6.ATTRIBUTE_TO_V2[action.attrib];
+        }
+        this.attrib = actor.system.skills?.[action.skill] ? `system.attributes.${attrib}.pool` : `system.rating`;
+
         this.skillId = action.skill;
         this.skillSpec = action.specialization;
         this.threshold = action.threshold;
@@ -570,7 +589,8 @@ export class MatrixActionRoll extends SkillRoll {
         this.checkText = actor._getSkillCheckText(this);
         this.chatDescription = game.i18n.localize("shadowrun6.matrixaction." + action.id + ".hint");
 
-        this.pool = actor._getSkillPool(action.skill, action.specialization, action.attrib);
+        const minPool = (actor.type === "host") ? actor.system.rating * 2 : 0;
+        this.pool = Math.max( minPool, actor._getSkillPool(action.skill, action.specialization, this.attrib) );
         
         const matrixCmModifier = actor.getMatrixCmModifier();
         if (matrixCmModifier) {
@@ -760,7 +780,7 @@ export class ConfiguredRoll extends CommonRollData {
 export class DirectDamage extends ConfiguredRoll {
     constructor(actor, damageData) {
         super();
-        const {soakType, monitor, damage} = damageData;
+        const {soakType, monitor, damage, description} = damageData;
 
         this.rollType = RollType.Defense;
         this.defendedWith = Defense.DIRECT_DAMAGE;
@@ -776,7 +796,7 @@ export class DirectDamage extends ConfiguredRoll {
         switch (soakType) {
             case SoakType.BIO_FEEDBACK:
                 this.actionText = game.i18n.localize("shadowrun6.roll.actionText.bio_feedback");
-                this.chatDescription = game.i18n.localize("shadowrun6.roll.bio_feedback.description");
+                if (description) this.chatDescription = description;
                 break;
             default:
                 console.error("SR6E | DirectDamage | Unknown how to handle soakType:", soakType)

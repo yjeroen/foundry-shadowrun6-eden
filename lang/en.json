@@ -1,5 +1,69 @@
 {
-	"Shadowrun6ActorSheetNPC": "Grunty",
+  "TYPES":{
+  		"Actor": {
+    		"Critter": "Critter",
+    		"NPC": "Grunt/NPC",
+    		"Player": "Player Character",
+    		"Spirit": "Spirit",
+    		"Vehicle": "Vehicle/Drone",
+        "sprite": "Sprite",
+        "host": "Host"
+  		},
+  		"Item": {
+    		"adeptpower": "Adept Power",
+    		"critterpower": "Critter Power",
+    		"complexform": "Complex Form",
+    		"spritepower": "Sprite Power",
+    		"contact" : "Contact",
+    		"echo": "Echo",
+        "focus": "Focus",
+    		"gear": "Gear",
+    		"lifestyle" : "Lifestyle",
+    		"martialartstyle": "Martial Art Style",
+    		"martialarttech": "Martial Art Technique",
+    		"metamagic": "Metamagic",
+    		"quality": "Quality",
+    		"ritual": "Ritual",
+    		"sin" : "SIN",
+    		"skill": "Language/Knowledge Skill",
+        "software": "Software",
+    		"spell": "Spell",
+    		"weapon": "Weapon",
+    		"mod": "Gear Mod"
+  	}
+  },
+  "ACTOR": {
+    "TypeCritter": "Critter",
+    "TypeNpc": "Grunt/NPC",
+    "TypePlayer": "Player Character",
+    "TypeSpirit": "Spirit",
+    "TypeVehicle": "Vehicle/Drone"
+  },
+  "ITEM": {
+    "TypeAdeptpower": "Adept Power",
+    "TypeCritterpower": "Critter Power",
+    "TypeComplexform": "Complex Form",
+    "TypeContact" : "Contact",
+    "TypeEcho": "Echo",
+    "TypeGear": "Gear",
+    "TypeLifestyle" : "Lifestyle",
+    "TypeMartialartstyle": "Martial Art Style",
+    "TypeMartialarttech": "Martial Art Technique",
+    "TypeMetamagic": "Metamagic",
+    "TypeQuality": "Quality",
+    "TypeRitual": "Ritual",
+    "TypeSin" : "SIN",
+    "TypeSkill": "Language/Knowledge Skill",
+    "TypeSpell": "Spell",
+    "TypeWeapon": "Weapon"
+  },
+  "SYSTEM": {
+    "Sidebar": {
+      "readme": "Patreon",
+      "bugs": "Report Bug",
+      "release_notes": "Release Notes"
+    }
+  },
 	"shadowrun6-eden": {
     "Shadowrun6ActorSheetPC": "SR6 PC Sheet",
     "Shadowrun6ActorSheetNPC": "SR6 NPC Sheet",
@@ -9,13 +73,6 @@
     "PDFSheet": "Read Only PDF Sheet"
   },
   "PDFSheet.no_src": "First Change the Sheet configuration to the Default PDF Page Sheet, configure the PDF url, and then switch it back to the Read Only PDF Sheet configuration.",
-  "SYSTEM": {
-    "Sidebar": {
-      "readme": "Patreon",
-      "bugs": "Report Bug",
-      "release_notes": "Release Notes"
-    }
-  },
   "PDF": {
     "folder": "Shadowrun 6e Rules",
     "page_abbr": "p.",
@@ -92,66 +149,10 @@
       "tarnished_star": "TS"
     }
   },
-  "ACTOR": {
-    "TypeCritter": "Critter",
-    "TypeNpc": "Grunt/NPC",
-    "TypePlayer": "Player Character",
-    "TypeSpirit": "Spirit",
-    "TypeVehicle": "Vehicle/Drone"
-  },
-  "ITEM": {
-    "TypeAdeptpower": "Adept Power",
-    "TypeCritterpower": "Critter Power",
-    "TypeComplexform": "Complex Form",
-    "TypeContact" : "Contact",
-    "TypeEcho": "Echo",
-    "TypeGear": "Gear",
-    "TypeLifestyle" : "Lifestyle",
-    "TypeMartialartstyle": "Martial Art Style",
-    "TypeMartialarttech": "Martial Art Technique",
-    "TypeMetamagic": "Metamagic",
-    "TypeQuality": "Quality",
-    "TypeRitual": "Ritual",
-    "TypeSin" : "SIN",
-    "TypeSkill": "Language/Knowledge Skill",
-    "TypeSpell": "Spell",
-    "TypeWeapon": "Weapon"
-  },
+	"Shadowrun6ActorSheetNPC": "Grunty",
   "QUALITY_CATEGORIES": {
     "ADVANTAGE": "Positive Quality",
     "DISADVANTAGE": "Negative Quality"
-  },
-  "TYPES":{
-  		"Actor": {
-    		"Critter": "Critter",
-    		"NPC": "Grunt/NPC",
-    		"Player": "Player Character",
-    		"Spirit": "Spirit",
-    		"Vehicle": "Vehicle/Drone",
-        "sprite": "Sprite"
-  		},
-  		"Item": {
-    		"adeptpower": "Adept Power",
-    		"critterpower": "Critter Power",
-    		"complexform": "Complex Form",
-    		"spritepower": "Sprite Power",
-    		"contact" : "Contact",
-    		"echo": "Echo",
-        "focus": "Focus",
-    		"gear": "Gear",
-    		"lifestyle" : "Lifestyle",
-    		"martialartstyle": "Martial Art Style",
-    		"martialarttech": "Martial Art Technique",
-    		"metamagic": "Metamagic",
-    		"quality": "Quality",
-    		"ritual": "Ritual",
-    		"sin" : "SIN",
-    		"skill": "Language/Knowledge Skill",
-        "software": "Software",
-    		"spell": "Spell",
-    		"weapon": "Weapon",
-    		"mod": "Gear Mod"
-  	}
   },
   "attrib": {
     "agi": "Agility",
@@ -193,7 +194,10 @@
     "a": "Attack",
     "s": "Sleaze",
     "d": "Dataprocessing",
-    "f": "Firewall"
+    "f": "Firewall",
+    "deviceRating": "Device Rating",
+    "encryptionRating": "Encryption Rating"
+
   },
   "skill": {
     "astral": "Astral",
@@ -312,7 +316,9 @@
       "spells_direct": "Direct Spells",
       "spells_indirect": "Indirect Spells",
       "spells_other": "Other Spells",
-      "toxin": "Resist Toxin"
+      "toxin": "Resist Toxin",
+      "special": "This also applies a status effect equal to net hits.",
+      "vehicle": "Defense against attacks and ramming"
     },
     "defense_rating": {
 	   "label":  "Defense Rating",
@@ -444,7 +450,6 @@
         "HOLDOUTS": "Holdout",
         "HOVERCRAFT": "Hovercraft",
         "ID_CREDIT": "ID or Credstick",
-        "IMAGING": "Imaging",
         "INDUSTRIAL_CHEMICALS": "Industrial Chemical",
         "INSTRUMENT": "Mustical Instrument",
         "INSTRUMENT_ACCESSORY": "Instrument Accessory",
@@ -521,7 +526,7 @@
         "SHOTGUNS": "Shotgun",
         "SKILLSOFT": "Skillsoft",
         "SLAP_PATCHES": "Slap-Patch",
-			"SMALL_DRONES": "Small Drone",
+			  "SMALL_DRONES": "Small Drone",
         "SNIPER_RIFLES": "Sniper Rifle",
         "SOFTWARE": "Software",
         "SPACECRAFT": "Spacecraft",
@@ -535,6 +540,7 @@
         "DATATERM": "Data Terminal",
         "CYBERTERM": "Cyber Terminal",
         "BTLS": "BTL",
+        "FILE_STORAGE": "File Storage",
         "TASERS": "Taser",
         "THROWERS": "Thrower",
         "THROWING": "Throwing weapon",
@@ -675,7 +681,8 @@
       "WEAPON_CLOSE_COMBAT": "Weapon, Close Combat",
       "WEAPON_FIREARMS": "Weapon, Firearms",
       "WEAPON_RANGED": "Weapon, Projectiles",
-      "WEAPON_SPECIAL": "Weapon, Special"
+      "WEAPON_SPECIAL": "Weapon, Special",
+      "IC": "IC"
     },
     "label": {
       "accessories": "Accessories",
@@ -956,7 +963,7 @@
       "reference.tooltip": "<p>This section is mainly for referencing which Matrix abilities are possible at which Access Levels, for use with free roleplay.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "targetActor.title": "Initiate Target",
       "targetActor.macro": "Open Targets Matrix Persona",
-      "targetActor.tooltip": "<p>Open your target's Limited View sheet. This shows their Matrix Persona if they are present in the Matrix via AR or VR.</p><p>You can (un)target a token by hovering your mouse over it and pressing T on your keyboard.",
+      "targetActor.tooltip": "<p>Open your target's Limited View sheet. This shows their Matrix Persona if they are present in the Matrix via AR or VR.</p><p>You can (un)target a token by hovering your mouse over it and pressing T on your keyboard.</p><p>You can drag this button to your Macro Hotbar.</p>",
       "target_persona.title": "Targetting Persona",
       "target_persona.tooltip": "<p>This section shows Matrix Actions that can target the Persona directly.</p><p>Refer to the Matrix Operations button in the PAN section of target characters for Matrix Actions done to devices.</p>",
       "accessLevel": {
@@ -973,7 +980,11 @@
       "device": {
         "enable": "Click to use this device to access the Matrix.",
         "disable": "Click to not use this device to access the Matrix.",
-        "offline": "Device is not online on the Matrix due to being bricked or wrong configuration."
+        "isOffline": "Device is not online on the Matrix due to being bricked or disabled.",
+        "unable": "<p>Cannot enable this device because:</p><ul><li>Another device is already generating these Matrix Attributes.</li><li>This is a Cyberdeck and you already have a RCC enabled.</li><li>This is a RCC and you already have a Cyberdeck enabled.</li></ul>",
+        "online": "ONLINE",
+        "offline": "OFFLINE",
+        "isAccessDevice": "<p>This is an Matrix Access Device.</p><p>Enable or Disable this on your Character sheet (Matrix tab).</p>"
       },
       "open_operations": "Start Matrix Operations on {item}.",
       "icon": "Icon",
@@ -1068,7 +1079,7 @@
           "hint": "Enter or leave a host. Entering requires the appropriate access level; leaving requires no special access."
         },
         "erase_matrix_signature": {
-          "name": "Erase Matrix Sign",
+          "name": "Erase Matrix Signature",
           "hint": "Remove a Matrix signature left by a Resonance being, such as a technomancer or sprite. You must have a Resonance rating, and this illegal Matrix Action can still increase your Overwatch Score."
         },
         "format_device": {
@@ -1138,7 +1149,8 @@
         },
         "probe": {
           "name": "Probe",
-          "hint": "Search for weaknesses without automatically alerting the target, unless you glitch. A successful Probe creates a backdoor for Backdoor Entry, adds net hits to that later test, and usually lasts for 10 minus Host or Device Rating hours or until you go offline."
+          "hint": "Search for weaknesses without automatically alerting the target, unless you glitch. A successful Probe creates a backdoor for Backdoor Entry, adds net hits to that later test, and usually lasts for 10 minus Host or Device Rating hours or until you go offline.",
+          "defense_test": "You need to roll Defense for each Probe roll of the attacker. The probing attacker must manually subtract hits from their Probe test (to a minimum of 0 net hits gained “this” minute). They also increase their OS per hit on this Defense test."
         },
         "pop_up": {
           "name": "Popup",
@@ -1212,6 +1224,65 @@
         "watchdog": {
           "name": "Watchdog",
           "hint": "Watch a persona or device for combat rounds equal to your net hits. You see its Matrix Actions before it uses them, may try to intervene, and can use Threat Analysis as a Minor Action against attacks from that target."
+        },
+
+        "acid": {
+          "name": "Acid",
+          "hint": "On a successful cybercombat attack, reduce the target’s Firewall by 1 per net hit. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "binder": {
+          "name": "Binder",
+          "hint": "On a successful cybercombat attack, reduce the target’s Data Processing by 1 per net hit. At Data Processing 0, the target cannot perform Matrix actions. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "black": {
+          "name": "Black IC",
+          "hint": "On a successful cybercombat attack, deal Matrix damage and Biofeedback damage equal to the host rating plus net hits.",
+          "onFailedDefense.span": "incoming matrix and biofeedback",
+          "onFailedDefense.button": "Roll Biofeedback"
+        },
+        "blaster": {
+          "name": "Blaster",
+          "hint": "On a successful cybercombat attack, deal Matrix damage equal to the host rating and link-lock the target.",
+          "onFailedDefense.span": "incoming matrix damage",
+          "onFailedDefense.button": "Soak damage (3M)"
+        },
+        "crash": {
+          "name": "Crash",
+          "hint": "On a successful cybercombat attack, deal no Matrix damage and crash one random program. The program cannot be run again until its device reboots."
+        },
+        "jammer": {
+          "name": "Jammer",
+          "hint": "On a successful cybercombat attack, reduce the target’s Attack by 1 per net hit. At Attack 0, the target cannot perform actions that use Attack. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "killer": {
+          "name": "Killer",
+          "hint": "On a successful cybercombat attack, deal Matrix damage equal to the host rating plus net hits."
+        },
+        "marker": {
+          "name": "Marker",
+          "hint": "On a successful cybercombat attack, reduce the target’s Sleaze by 1 per net hit. At Sleaze 0, the target cannot perform actions that use Sleaze. Lost points recover after leaving the host at a rate of 1 point per minute."
+        },
+        "patrol": {
+          "name": "Patrol",
+          "hint": "When activated, make a Matrix Perception test and use its hits for Patrol’s Matrix Perception actions. Patrol spends one Minor Action on Matrix Perception every in-game minute and rerolls the test once per minute."
+        },
+        "scramble": {
+          "name": "Scramble",
+          "hint": "On a successful cybercombat attack, the target must reboot on its next turn unless it is link-locked."
+        },
+        "sparky": {
+          "name": "Sparky",
+          "hint": "On a successful cybercombat attack, deal biofeedback damage equal to the host rating plus net hits.",
+          "onFailedDefense.span": "incoming biofeedback",
+          "onFailedDefense.button": "Roll Biofeedback"
+        },
+        "tarbaby": {
+          "name": "Tar Baby",
+          "hint": "On a successful cybercombat attack, link-lock the target."
+        },
+        "track": {
+          "name": "Track",
+          "hint": "On a successful cybercombat attack, discover the target’s physical location."
         }
     },
     "matrixini": {
@@ -1664,6 +1735,7 @@
         "title": "Matrixcombat"
       },
       "matrix_devices": {
+        "label": "Matrix Device",
         "add": "Add new matrix device",
         "add_rcc": "Add new Rigger Command Console",
         "column": {
@@ -1673,6 +1745,9 @@
         },
         "title": "Matrix Access Devices",
         "title_rcc": "RCC"
+      },
+      "rigger": {
+        "title": "Rigging"
       },
       "persona": {
         "title": "Persona",
@@ -1830,8 +1905,12 @@
         "name": "Hack & Slash Matrix Actions"
       },
       "dosPopupMatrix": {
-        "hint": "Change Denial of Service and Popup to be OUTSIDER/USER/ADMIN instead of OUTSIDER only, just like Data Spike and Tarpit. This is likely an oversight in H&S. (Recommended to be enabled within FoundryVTT due to the PAN<>Persona implementation.)",
-        "name": "Denial of Service & Popup"
+        "hint": "Change Denial of Service, Popup and Squelch to be OUTSIDER/USER/ADMIN instead of OUTSIDER only, just like Data Spike and Tarpit. This is likely an oversight in H&S. (Recommended to be enabled within FoundryVTT due to the PAN<>Persona implementation.)",
+        "name": "Matrix Actions FoundryVTT Errata"
+      },
+      "controlRigPerception": {
+        "hint": "Use this rule if you allow the Control Rig rating to add to Perception tests of jumped-in vehicles.",
+        "name": "Control Rig Perception"
       },
       "bleeding": {
         "hint": "Use this rule to represent ongoing damage stemming from serious injuries. (SWC p.145)",
@@ -2130,6 +2209,8 @@
       "has_no_owner": "Vehicle/Drone has no owner assigned",
       "initiative": "Vehicle initiative",
       "mode_label": "Mode",
+      "perception_vr_norig": "<p>Control Rig is not added to Perception pools by default.</p><p>Your GM can use the 'Control Rig Perception' setting to enable this rule.</p>",
+      "perception_vr_rig": "Your Control Rig rating of {rating} is added to the Perception pool.",
       "mode": {
         "manual": "Manual",
         "riggedAR": "Jumped in (AR)",
@@ -2201,7 +2282,7 @@
           "in_progress": "Migrating system documents..",
           "completed": "System migration has completed!"
         },
-        "wrong_import_file": "Cannot import a GENESIS or COMMLINK save file! Use the FoundryVTT JSON Export instead.",
+        "wrong_import_file": "Cannot import a Generic/Roll20 json file! Use the FoundryVTT JSON Export in GENESIS or COMMLINK6 instead.",
         "statblock_import": {
           "error": "Something went wrong importing the NPC Statblock. Use a different PDF reader or your statblock might not be supported.",
           "success": "Your `{actor}` statblock was imported into the ",
@@ -2223,10 +2304,13 @@
         "accessLevels_have_been_reset": "All Access Levels have been reset by G.O.D.",
         "one_accessLevel_has_been_reset": "Access Levels of one character have been reset by G.O.D.",
         "effect_migration_to_v2": "Migrated the Active Effect Key(s) to be usable by ActorV2",
-        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>All electronic gear have Wireless enabled.</p><p>Inform all players they need to adjust their Gear and Cyberware to the right rating.<p><p>Everyone also need to review if they have any Gear (e.g. certain armors) that need to be edited as 'Matrix Device' if they have ingame interactive features like Electrochromic Feature.",
+        "deviceRatingMigration": "<p>Migrated all Gear to the default Device Rating of 2, and Cyberware to Standard Grade.</p><p>All electronic gear have Wireless enabled.</p><p>Inform all players they need to adjust their Gear and Cyberware to the right rating.<p><p>Everyone also need to review if they have any Gear (e.g. certain armors) that need to be edited as a 'Matrix Device' in their Item configuration if they have ingame interactive features like Electrochromic Feature.",
         "tokensLimitedOwnership": "Dropped unlinked tokens get a minimum of Limited Ownership. If you want to change this, you will need to delete the token and drop it again onto the canvas. ",
         "notificationOnce": "This message will only show once during this browser session.",
-        "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT."
+        "importStatblock": "You can paste whole PDF statblocks in this field to import them into FoundryVTT.",
+        "item_not_allowed_to_be_dropped": "This Item could not be added to this Actor as they aren't compatible.",
+        "needs_token_on_canvas": "This action requires a Token already on the canvas before it can be used.",
+        "docName_docType": "{name} {type}"
       }
     },
     "EFFECT": {
@@ -2438,10 +2522,21 @@
         },
         "type": {
           "label": "Type"
+        },
+        "subtype": {
+          "label": "Subtype"
         }
       }
     },
     "Actor": {
+      "Tabs": {
+        "summary": "Summary",
+        "features": "Features",
+        "network": "Network",
+        "description": "Description",
+        "effects": "Effects",
+        "matrixTarget": "Matrix"
+      },
       "base": {
         "FIELDS": {
           "notes": {
@@ -2575,30 +2670,14 @@
           }
         }
       },
-      "Tabs": {
-        "Summary": "Summary",
-        "Features": "Features",
-        "Description": "Description",
-        "Effects": "Effects"
-      },
-      "sprite": {
+      "matrixBase": {
         "FIELDS": {
-          "level": {
-            "label": "Level"
-          },
-          "tasksOwned": {
-            "label": "Tasks Owned"
-          },
-          "compiledBy": {
-            "label": "Compiled By"
-          },
-          "registered": {
-            "label": "Registered"
-          },
           "description": {
             "label": "Icon Description"
           }
-        },
+        }
+      },
+      "sprite": {
         "TYPES": {
           "courier": "//COURIER//",
           "crack": "//CRACK//",
@@ -2611,18 +2690,97 @@
           "music": "//MUSIC//",
           "primal": "//PRIMAL//"
         },
+        "FIELDS": {
+          "level": {
+            "label": "Level"
+          },
+          "tasksOwned": {
+            "label": "Tasks Owned"
+          },
+          "compiledBy": {
+            "label": "Compiled By"
+          },
+          "registered": {
+            "label": "Registered"
+          }
+        },
         "notes": {
           "music": "Skill Con: Performance only"
         }
       },
       "host": {
+        "TYPES": {
+          "foundation": "Foundation",
+          "framework": "Framework"
+        },
         "FIELDS": {
           "rating": {
-            "label": "Host Rating"
+            "label": "Host Rating",
+            "error.foundation": "Foundation Host attributes must use Rating, Rating +1, Rating +2, and Rating +3 exactly once each.",
+            "error.framework": "<div>A Framework host has 6 points in total to improve its attributes, with one attribute allowed to reach Rating +4 and all others up to Rating +3.</div><div>Optionally, one attribute may be set to Rating −1, increasing the available points to 7.</div>",
+            "error.undefined": "Select a Host Type. Configure the Hosts Matrix Attributes afterwards."
+          },
+          "resolutionGrade": {
+            "label": "Resolution Grade",
+            "choices": {
+              "1": "Grade 1 Minimal",
+              "2": "Grade 2 Default",
+              "3": "Grade 3 Standard",
+              "4": "Grade 4 Custom",
+              "5": "Grade 5 Sculpted",
+              "6": "Grade 6 Ultra-Violet"
+            }
+          },
+          "scale": {
+            "label": "Scale",
+            "choices": {
+              "1": "Scale 1 Micro (Personal)",
+              "2": "Scale 2 Base (Facility)",
+              "3": "Scale 3 Net (Local)",
+              "4": "Scale 4 Macro (Sprawl)",
+              "5": "Scale 5 Mega (National)",
+              "6": "Scale 6 Exa (Global)"
+            }
+          },
+          "convergenceThreshold": {
+            "label": "Convergence Threshold"
+          },
+          "sculpting": {
+            "label": "Sculpting"
+          },
+          "outsiderAccess": {
+            "label": "Outsider Access"
+          },
+          "notes": {
+            "label": "Security Response"
           }
+        },
+        "ic": {
+          "label": "Installed IC",
+          "icAction": "Intrusion Countermeasure"
+        },
+        "matrixItems": {
+          "label": "Networked Icons",
+          "editTitle": "Edit this Networked Icon",
+          "deployTitle": "Deploy this Matrix Icon",
+          "retrieveTitle": "Retrieve this Matrix Icon",
+          "rollTitle": "Roll {name} using Host Attributes",
+          "deployed": "Deployed",
+          "installedIn": "Installed In",
+          "deviceAction": "Control Device",
+          "tipTitle": "<p>You can add Matrix Devices to this host.</p><p>Examples:</p><ul><li>Add a <strong>Weapon</strong> if you want to create Host-controlled turrents.</li><li>Add <em>electronic</em> devices like the <strong>Optical</strong> subtype for a camera sensor.</li><li>Add <em>electronic</em> <strong>File Storage</strong> to create hackable file systems.</li></ul>"
+        },
+        "spider": {
+          "assigned": "Assigned Spiders",
+          "assign": "Assign to Spider Duty",
+          "assign_tooltip": "Dragging this onto a character sheet or token creates an Effect to assign that character as a spider to this host.",
+          "assigned_to_host": "Assigned to Spider Duty of {host}",
+          "open_sheet": "Click to open spider {name}'s sheet",
+          "unassign_tooltip": "Remove from Spider Duty"
         }
       }
     },
+
     "Item": {
       "base": {
         "FIELDS": {
@@ -2649,16 +2807,8 @@
           },
           "deviceRating": {
             "label": "Device Rating",
-            "tooltip": [
-              "The rating of the Electronic Matrix Device. Device Rating determines the devices Matrix Condition Monitor.",
-              "Most relevant devices are given a Device Rating in their rulebook, but if not provided use the following as a guideline:",
-              "<strong>1: Simple devices</strong>, like General appliances, public terminals, entertainment systems.",
-              "<strong>2: Average devices</strong>, like Personal electronics, basic cyberware, weapons, residential security devices, basic vehicles.",
-              "<strong>3: Smart devices</strong>, like Security vehicles, alphaware, corporate security devices.",
-              "<strong>4: Advanced devices</strong>, like High-end devices, betaware, military vehicles and security devices.",
-              "<strong>5: Cutting-edge devices</strong>, like credsticks, black-ops vehicles and security devices.",
-              "<strong>6+: Bleeding Edge devices</strong>, like Deltaware, Gammaware, Billion-nuyen experimental devices, space craft."
-            ]
+            "tooltip": 
+              "<p>The rating of the Electronic Matrix Device. Device Rating determines the devices Matrix Condition Monitor.</p><p>Most relevant devices are given a Device Rating in their rulebook, but if not provided use the following as a guideline:</p><p><strong>1: Simple devices</strong>, like General appliances, public terminals, entertainment systems.</p><p><strong>2: Average devices</strong>, like Personal electronics, basic cyberware, weapons, residential security devices, basic vehicles.</p><p><strong>3: Smart devices</strong>, like Security vehicles, alphaware, corporate security devices.</p><p><strong>4: Advanced devices</strong>, like High-end devices, betaware, military vehicles and security devices.</p><p><strong>5: Cutting-edge devices</strong>, like credsticks, black-ops vehicles and security devices.</p><p><strong>6+: Bleeding Edge devices</strong>, like Deltaware, Gammaware, Billion-nuyen experimental devices, space craft.</p>"
           },
           "wirelessActive": {
             "label": "Wireless",
@@ -2672,6 +2822,9 @@
             "label": "Ammo Loaded",
             "hint": "Select which type of ammo is currently loaded in your ranged weapon."
           }
+        },
+        "label": {
+          "encryption_rating": "Encryption Rating"
         }
       },
       "mod": {
@@ -2697,8 +2850,43 @@
           "not_installed": "(not installed)",
           "uninstall": "Uninstall this Gear Mod"
         }
+      },
+      "software": {
+        "FIELDS": {
+          "price": {
+            "label": "Base Price"
+          },
+          "installedCost": {
+            "label": "Installed Cost"
+          },
+          "embeddedInUuid": {
+            "label": "Installed In"
+          },
+          "multiTypes": {
+            "label": "IC Program"
+          }
+        },
+        "TYPES": {
+          "IC": "IC"
+        },
+        "MULTITYPES": {
+          "acid": "Acid",
+          "binder": "Binder",
+          "black": "Black IC",
+          "blaster": "Blaster",
+          "crash": "Crash",
+          "jammer": "Jammer",
+          "killer": "Killer",
+          "marker": "Marker",
+          "patrol": "Patrol",
+          "scramble": "Scramble",
+          "sparky": "Sparky",
+          "tarbaby": "Tarbaby",
+          "track": "Track"
+        }
       }
     },
+
     "label": {
       "name": "Name",
       "template": "TEMPLATE",
@@ -2755,9 +2943,11 @@
       "living_network": "<p>Your living persona can create and participate in a PAN.</p><p>A Personal Area Network (PAN) is a network of any number of Matrix devices all owned by the same person and together are all worn, implanted, carried, or otherwise on your person.</p><p>In SR6e FoundryVTT, all Technomancers are assumed to already have taken the Living Network echo.</p>",
       "pan_admin": "The PAN Leader, it's Administrator, serves as the controlelr of the entire network. This persona’s Matrix stats and mental stats will form the defense pool for Matrix Actions against the entire team network",
       "deviceLimit": "<p>A PAN can incorporate a limited number of remotely operated devices; this mechanic is called the device limit.</p><p>Devices such as vehicles, drones, data taps, smart firing platforms, and sensor tags are common examples of devices that will consume a PAN’s limited device limit, if they are used at a meaningful distance away from the user.</p><p>This device limit remains reserved for your own sub-PAN.</p>",
-      "notGM": "Only the GM can use this."
+      "notGM": "Only the GM can use this.",
+      "ownerOnlySection": "This section is only shown to the owner and GM of this character."
     },
     "statblock": {
+      "system.rating": "RATING",
       "system.matrix.attributes.attack": "ATTACK",
       "system.matrix.attributes.sleaze": "SLEAZE",
       "system.matrix.attributes.dataProcessing": "DATA PROC",

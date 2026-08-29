@@ -1,0 +1,13 @@
+{{#if host.attributeError}}
+<div class="error">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>{{{host.attributeError}}}</span>
+</div>
+{{/if}}
+
+
+{{#if deployedItem}}
+{{> "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host-device.hbs"}}
+{{else}}
+{{> "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/host-host.hbs"}}
+{{/if}}

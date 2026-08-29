@@ -1,0 +1,266 @@
+{{! Network Tab }}
+<section
+  class='tab network scrollable {{tab.cssClass}}'
+  data-group='primary'
+  data-tab='network'
+>
+
+{{#unless limited}}
+<!-- Installed IC: -->
+<section class="section ic">
+  <header class="section-head">
+    <h2 class="section-title">
+      {{ localize 'SR6.Actor.host.ic.label' }}
+    </h2>
+
+    {{#if @root.editMode}}
+      <div class="item-controls">
+        <a
+          class="item-control item-create"
+          data-tooltip="{{localize 'DOCUMENT.New' type=(localize 'SR6.Item.software.TYPES.IC')}}"
+          data-action="createDoc"
+          data-document-class="Item"
+          data-type="software"
+          data-system.type="IC"
+          data-name="{{localize "SR6.Item.software.TYPES.IC"}}"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    {{/if}}
+  </header>
+
+  <div class="section-header">
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.name' }}</div>
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.action' }}</div>
+  </div>
+
+  <ol class="section-list">
+    {{#each ic as |item id|}}
+      <li
+        class="section-item"
+        data-item-id="{{item.id}}"
+        data-document-class="Item"
+      >
+        <div class="section-row">
+          <div class="section-column">
+            <button
+              type="button"
+              class="item-desc-toggle {{#if (and (not item.system.description) (not item.matrixActionId) )}}collapsible closed empty{{else}}collapsible closed{{/if}}"
+              {{#if (or item.system.description item.matrixActionId)}}
+                data-action="itemDescToggle"
+                data-item-id="{{item.id}}"
+                data-tooltip="SR6.title.clickItemName"
+              {{/if}}
+            >
+              +
+            </button>
+          </div>
+
+          <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
+            {{item.name}}
+          </div>
+          
+          <div class="section-column">
+              <div class="matrixCM">
+                  {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=item.matrixCM item=item }}
+              </div>
+          </div>
+
+          <div class="section-column item-controls">
+
+            {{#if item.isDeployedToken}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
+            {{else}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
+            {{/if}}
+
+            <a
+              class="item-control item-edit"
+              data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'SR6.Item.software.TYPES.IC')}}"
+              data-action="viewDoc"
+            >
+              <i class="fas fa-edit"></i>
+            </a>
+
+            {{#if @root.editMode}}
+              <a
+                class="item-control item-delete"
+                data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'SR6.Item.software.TYPES.IC')}}"
+                data-action="deleteDoc"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            {{/if}}
+
+            {{#if item.matrixActionId}}
+            <a
+                class="item-control matrix-roll"
+                data-action="matrixRoll"
+                data-matrix-id="{{item.matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction." item.matrixActionId ".name"))}}"
+            >
+                <i class="fas fa-dice-six"></i>
+            </a>
+            {{/if}}
+
+          </div>
+        </div>
+
+        <section class="collapsible-content closed" data-item-id="{{item.id}}">
+          {{#if item.system.isIC}}
+          <strong>{{item.system.schema.fields.multiTypes.label}}</strong>
+          <div class="ic-programs">
+              {{#each item.system.multiTypes as |matrixActionId|}}
+              <div class="ic-program matrix-section">
+                  <div class="ic-program-name">{{matrixAction matrixActionId}}<span>{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}}</span></div>
+                  <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".hint")}}</div>
+              </div>
+              {{/each}}
+          </div>
+          {{/if}}
+          {{#if (and item.system.isIC item.system.description)}}
+          <hr>
+          {{/if}}
+          {{#if item.system.description}}
+          <strong>{{ localize 'shadowrun6.item.description' }}</strong>
+          <div>{{{item.system.description}}}</div>
+          {{/if}}
+        </section>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+<!-- /Installed IC -->
+{{/unless}}
+
+
+{{#unless limited}}
+<!-- Networked Icons: -->
+<section class="section matrixItems">
+  <header class="section-head">
+    <h2 class="section-title">
+      {{ localize 'SR6.Actor.host.matrixItems.label' }}
+    </h2>
+
+    {{#if @root.editMode}}
+      <div class="item-controls">
+        <a
+          class="item-control item-create"
+          data-tooltip="SR6.Actor.host.matrixItems.tipTitle"
+          data-action="createDoc"
+          data-document-class="Item"
+          data-type="gear"
+          data-system.type="ELECTRONICS"
+          data-name="{{localize "shadowrun6.itemtype.ELECTRONICS"}}"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    {{/if}}
+  </header>
+
+  <div class="section-header">
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.name' }}</div>
+    <div></div>
+    <div>{{ localize 'shadowrun6.label.column.action' }}</div>
+  </div>
+
+  <ol class="section-list">
+    {{#each matrixItems as |item id|}}
+      <li
+        class="section-item"
+        data-item-id="{{item.id}}"
+        data-document-class="Item"
+      >
+        <div class="section-row">
+          <div class="section-column">
+            <button
+              type="button"
+              class="item-desc-toggle {{#if (not item.system.description)}}collapsible closed empty{{else}}collapsible closed{{/if}}"
+              {{#if item.system.description}}
+                data-action="itemDescToggle"
+                data-item-id="{{item.id}}"
+                data-tooltip="SR6.title.clickItemName"
+              {{/if}}
+            >
+              +
+            </button>
+          </div>
+
+          <div class="section-name draggable" data-item-id="{{item.id}}" draggable="true">
+            <span>{{item.name}}</span>
+            <span class="item-traits">{{#if item.isDeployedToken}}{{localize "SR6.Actor.host.matrixItems.deployed"}}{{/if}}</span>
+          </div>
+
+          <div class="section-column">
+              {{#if item.system.matrix.matrixCM}}
+              <div class="matrixCM">
+                  {{> "systems/shadowrun6-eden/templates/sheets/common/matrix-cm.hbs" matrixCM=item.matrixCM item=item }}
+              </div>
+              {{/if}}
+          </div>
+
+          <div class="section-column item-controls"> 
+            
+            {{#if item.system.isElectronicMatrixDevice}}
+            {{#if item.isDeployedToken}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle" data-action="retrieveToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-to-bracket"></i></a>
+            {{else}}
+            <a class="item-control" data-tooltip="SR6.Actor.host.matrixItems.deployTitle" data-action="deployToken" data-item-uuid="{{item.uuid}}"><i class="fas fa-right-from-bracket"></i></a>
+            {{/if}}
+            {{/if}}
+
+            <a
+              class="item-control item-edit"
+              data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'shadowrun6.section.matrix_devices.label')}}"
+              data-action="viewDoc"
+            >
+              <i class="fas fa-edit"></i>
+            </a>
+
+            {{#if @root.editMode}}
+              <a
+                class="item-control item-delete"
+                data-tooltip="{{localize 'DOCUMENT.Delete' type=(localize 'shadowrun6.section.matrix_devices.label')}}"
+                data-action="deleteDoc"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            {{/if}}
+
+            {{#if item.system.skill}}
+            <a class="item-control" data-action="roll" data-roll-type="item" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}"
+              data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=item.name}}"
+            >
+              <i class="fas fa-dice-six"></i>
+            </a>
+            {{/if}}
+
+          </div>
+        </div>
+
+        <section class="collapsible-content closed" data-item-id="{{item.id}}">
+          <strong>{{ localize 'shadowrun6.item.description' }}</strong>
+          <div>{{{item.system.description}}}</div>
+        </section>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+<!-- /Networked Icons -->
+{{/unless}}
+
+{{#if @root.editMode}}
+{{#unless matrixItems.length}}
+<section class="section error">
+    <i class="fas fa-circle-info"></i>
+    <span>{{{localize "SR6.Actor.host.matrixItems.tipTitle"}}}</span>
+</section>
+{{/unless}}
+{{/if}}
+
+</section>

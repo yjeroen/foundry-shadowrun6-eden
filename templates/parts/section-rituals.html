@@ -16,7 +16,13 @@
 	    </thead>
 		{{#each (sort actor.itemTypes.ritual) as |item id|}}
 		<tr class="item list-item draggable" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
-       		<td style="width:1rem"><button type="button" name="collapseRitual{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button></td>
+			<td style="margin-right: 1rem; width: 0.7em;">
+				{{#if (or (or (or (or (or item.system.description item.system.features.anchored) item.system.features.material_link) item.system.features.minion) item.system.features.spell) item.system.features.spotter)}}
+				<button type="button" name="collapseRitual{{id}}" class="collapsible closed" data-item-id="{{this.id}}">+</button>
+				{{else}}
+				<button type="button" name="collapseRitual{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
+				{{/if}}
+			</td>
        		<td>{{item.name}}</td>
 			<td class="centered" style="width: 2em">{{item.system.threshold}}</td>
 			<td class="centered">
@@ -28,7 +34,14 @@
        <tr>
          <td colspan="6">
          	<div class="collapsible-content closed">
-        	   {{ localize 'shadowrun6.label.features' }}: <b>{{ritualFeat item.system}}</b>
+			   {{#if (or (or (or (or item.system.features.anchored item.system.features.material_link) item.system.features.minion) item.system.features.spell) item.system.features.spotter)}}
+        	   <div style="font-weight: bold;">{{ localize 'shadowrun6.label.features' }}</div>
+			   <div>{{ritualFeat item.system}}</div>
+				{{/if}}
+			   {{#if item.system.description}}
+				<div style="font-weight: bold;">{{ localize 'shadowrun6.item.description' }}</div>
+				<div>{{{item.enriched.description}}}</div>
+				{{/if}}
          	</div>
          </td>
        </tr>

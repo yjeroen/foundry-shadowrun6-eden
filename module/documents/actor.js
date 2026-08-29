@@ -4,7 +4,7 @@ import { Defense, MonitorType } from "../config.js";
 import { DevicePersona, LivingPersona, MatrixDevice, Persona } from "../ItemTypes.js";
 //import { doRoll } from "./dice/CommonRoll.js";
 import { doRoll } from "../Rolls.js";
-import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType } from "../dice/RollTypes.js";
+import { RollType, DefenseRoll, SoakType, SoakRoll, TokenData, InitiativeType, DirectDamage } from "../dice/RollTypes.js";
 import { getActor } from "../util/helper.js";
 import { SR6MatrixPanField } from "../datamodels/fields/fields.mjs";
 const { DOCUMENT_OWNERSHIP_LEVELS } = foundry.CONST;
@@ -63,6 +63,7 @@ export default class Shadowrun6Actor extends Actor {
 
     /** 
      * Set default artwork for newly created Actors
+     * TODO Rework move to DataModel after all actors are migrated
      */
     static getDefaultArtwork(actorData) {
         const src = {
@@ -72,6 +73,7 @@ export default class Shadowrun6Actor extends Actor {
             Spirit: "systems/shadowrun6-eden/icons/compendium/all-about-drones/savannah-panther.svg",
             Vehicle: "systems/shadowrun6-eden/icons/compendium/black-chrome/badger-corporate-bus.svg",
             sprite: "systems/shadowrun6-eden/icons/compendium/programs/imp.svg",
+            host: "systems/shadowrun6-eden/icons/compendium/black-chrome/ziggurat-city-database.svg",
         }[actorData.type] ?? this.DEFAULT_ICON;
 
         return { img: src, texture: { src } };
@@ -83,6 +85,7 @@ export default class Shadowrun6Actor extends Actor {
             if (source.system?.vtype === "") source.system.vtype = "ground_craft";
         }
         if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
+        if (typeof source.system?.controlRig === 'string') source.system.controlRig = parseInt(source.system.controlRig) || 0;
 
         return super.migrateData(source);
     }
@@ -110,9 +113,6 @@ export default class Shadowrun6Actor extends Actor {
         //     this.prepareDerivedData();
         // }
         // prepareEmbeddedDocuments() calls Item Active Effects > Don't call it on vehiclePrep as it will trigger double prepareEmbeddedDocuments
-
-        
-        this._preparePAN();
 
         // TODO rework vehicles completely to not be dependent on Actor.prepareData()
         if (callSuper) super.prepareData();
@@ -200,7 +200,11 @@ export default class Shadowrun6Actor extends Actor {
      * @memberof ClientDocumentMixin#
      */
     prepareBaseData() {
+        super.prepareBaseData();    // calls this._clearData() in v14
         console.log("SR6E | Shadowrun6Actor.prepareBaseData()", this.name, this.uuid);
+        
+        this._preparePAN();
+
         //TODO JEROEN move these to traits - needs migration as well due to Qualities
         this.system.painTolerance = null;
         this.traits = {};
@@ -238,7 +242,9 @@ export default class Shadowrun6Actor extends Actor {
      * Copies FoundryV13 method to add in `@item` support in the value field
      * Apply any transformations to the Actor data which are caused by ActiveEffects.
      */
-    applyActiveEffects() {
+    applyActiveEffects(phase) {
+        if (game.release.generation >= 14 && game.release.build >= 366) return this.applyActiveEffectsV14(phase);    //TODO JEROEN remove later
+        
         const overrides = {};
         this.statuses.clear();
 
@@ -260,6 +266,11 @@ export default class Shadowrun6Actor extends Actor {
         for ( const change of changes ) {
             if ( !change.key ) continue;
 
+            // shadowrun6-eden adds @actor support:
+            if ( typeof change.value === "string" && change.value?.startsWith('@actor')) {
+                const key = change.value.substring(7);
+                change.value = foundry.utils.getProperty(this, key);
+            }
             // shadowrun6-eden adds @item support:
             if ( typeof change.value === "string" && change.value?.startsWith('@item') && change.effect.parent?.documentName === 'Item') {
                 const key = change.value.substring(6);
@@ -272,6 +283,86 @@ export default class Shadowrun6Actor extends Actor {
 
         // Expand the set of final overrides
         this.overrides = foundry.utils.expandObject(overrides);
+    }
+
+    /**
+     * Apply any transformations to the Actor data which are caused by ActiveEffects.
+     * @param {string} phase The application phase under which changes are to be applied.
+     */
+    applyActiveEffectsV14(phase) {
+        /** @type {typeof foundry.documents.ActiveEffect} */
+        const ActiveEffect = foundry.documents.ActiveEffect.implementation;
+        if ( typeof phase !== "string" ) {
+            phase = this._completedActiveEffectPhases.has("initial") ? "final" : "initial";
+            const message = 'Actor#applyActiveEffects must be called with a string phase identifier, with "initial"'
+                + " as the first phase.";
+            foundry.utils.logCompatibilityWarning(message, {since: 14, until: 16, once: true});
+        }
+        else if ( !(phase in ActiveEffect.CHANGE_PHASES) ) {
+            const error = new Error(`"${phase}" is not a registered ActiveEffect application phase.`);
+            Hooks.onError("Actor#applyActiveEffects", error, {log: "error"});
+        }
+        if ( this._completedActiveEffectPhases.has(phase) ) {
+            const error = new Error(`ActiveEffect application phase "${phase}" has already completed and cannot be run again`
+                + " in this Actor's data-preparation cycle.");
+            Hooks.onError("Actor#applyActiveEffects", error, {log: "error"});
+            return;
+        }
+        this._completedActiveEffectPhases.add(phase);
+
+        // Organize non-disabled effects by their application priority
+        /** @type {ActiveEffectChangeData[]} */
+        const changes = [];
+        /** @type {ActiveEffectChangeData[]} */
+        const tokenChanges = [];
+        const rollData = this.getRollData();
+        const dataByEffect = new Map();
+        for ( const effect of this.allApplicableEffects() ) {
+            if ( !effect.active ) continue;
+            const replacementData = effect.getReplacementData(rollData);
+            dataByEffect.set(effect, replacementData);
+
+            for ( const change of effect.system.changes ) {
+                if ( (change.key === "") || !effect.shouldApplyChange(change, {phase, replacementData}) ) continue;
+                const copy = foundry.utils.deepClone(change);
+                copy.effect = effect;
+
+                // shadowrun6-eden adds @actor support:
+                if ( typeof copy.value === "string" && copy.value?.startsWith('@actor.') ) {
+                    const key = copy.value.substring('@actor.'.length);
+                    copy.value = foundry.utils.getProperty(this, key);
+                }
+                // shadowrun6-eden adds @item support:
+                if ( typeof copy.value === "string" && copy.value?.startsWith('@item.') && effect.parent?.documentName === 'Item' ) {
+                    const key = copy.value.substring('@item.'.length);
+                    copy.value = foundry.utils.getProperty(effect.parent, key);
+                }
+
+                if ( copy.key?.startsWith("token.") ) { // Keep Token changes separate for later application
+                    copy.key = copy.key.slice(6);
+                    tokenChanges.push(copy);
+                }
+                else changes.push(copy);
+            }
+
+            if ( phase === "initial" ) {
+                for ( const statusId of effect.statuses ) this.statuses.add(statusId);
+            }
+        }
+        changes.sort((a, b) => a.priority - b.priority);
+        ActiveEffect._shimChanges(changes);
+        this.tokenActiveEffectChanges[phase] = tokenChanges;
+
+        // Apply all changes
+        const overrides = {};
+        for ( const change of changes ) {
+            const replacementData = dataByEffect.get(change.effect) ?? rollData;
+            const result = ActiveEffect.applyChange(this, change, {replacementData});
+            if ( foundry.utils.isPlainObject(result) ) Object.assign(overrides, result);
+        }
+
+        // Expand the set of final overrides
+        foundry.utils.mergeObject(this.overrides, foundry.utils.expandObject(overrides));
     }
 
     /**
@@ -948,6 +1039,10 @@ export default class Shadowrun6Actor extends Actor {
             CONFIG.SR6.ATTRIBUTES.forEach((attr) => {
                 if (!(system.attributes[attr].base) || parseInt(system.attributes[attr].base) < 1)
                     system.attributes[attr].base = 1;
+                if (attr === "mag" && !this.isAwakened)
+                    system.attributes["mag"].base = 0;
+                if (attr === "res" && !this.isTechno)
+                    system.attributes["res"].base = 0;
                 if (!(system.attributes[attr].mod)) //Allow negative mods OLD: //  || (system.attributes[attr].mod < 0 && !isSpiritOrSprite(system))
                     system.attributes[attr].mod = 0;
 
@@ -1078,10 +1173,10 @@ export default class Shadowrun6Actor extends Actor {
         }
         if (system.tradition) {
             let traditionAttr = system.attributes[system.tradition.attribute];
-            system.attackrating.astral.base = system.attributes["mag"].pool + traditionAttr.pool;
+            system.attackrating.astral.base = system.attributes["mag"]?.pool + traditionAttr?.pool;
             system.attackrating.astral.modString = game.i18n.localize("attrib.mag_short") + " " + system.attributes["mag"].pool + " ";
             system.attackrating.astral.modString +=
-                game.i18n.localize("attrib." + system.tradition.attribute + "_short") + " " + system.attributes[system.tradition.attribute].pool;
+                game.i18n.localize("attrib." + system.tradition.attribute + "_short") + " " + system.attributes[system.tradition.attribute]?.pool;
             system.attackrating.astral.pool = system.attackrating.astral.base;
         }
         if (system.attackrating.astral.mod) {
@@ -1415,10 +1510,10 @@ export default class Shadowrun6Actor extends Actor {
         // Resist drain
         if (data.tradition) {
             let traditionAttr = data.attributes[data.tradition.attribute];
-            data.defensepool.drain.base = traditionAttr.pool + data.attributes["wil"].pool;
+            data.defensepool.drain.base = traditionAttr?.pool + data.attributes["wil"]?.pool;
             data.defensepool.drain.modString =
-                " " + game.i18n.localize("attrib." + data.tradition.attribute + "_short") + " " + traditionAttr.pool;
-            data.defensepool.drain.modString += " " + game.i18n.localize("attrib.wil_short") + " " + data.attributes["wil"].pool;
+                " " + game.i18n.localize("attrib." + data.tradition.attribute + "_short") + " " + traditionAttr?.pool;
+            data.defensepool.drain.modString += " " + game.i18n.localize("attrib.wil_short") + " " + data.attributes["wil"]?.pool;
             data.defensepool.drain.pool = data.defensepool.drain.base;
             if (data.defensepool.drain.mod) {
                 data.defensepool.drain.pool += data.defensepool.drain.mod;
@@ -1463,6 +1558,7 @@ export default class Shadowrun6Actor extends Actor {
     }
     //---------------------------------------------------------
     /*
+     * TODO needs to be reworked, either to Item.roll() or on a Actor.rollItem() method
      * Calculate the pool when using items with assigned skills
      */
     _prepareItemPools() {
@@ -1586,7 +1682,7 @@ export default class Shadowrun6Actor extends Actor {
                                 vehicleData.arm +
                                 ")" +
                                 modRig;
-                        current.handling.pool = this._getSkillPool("piloting", specialization, "rea") + +rigRating;
+                        current.handling.pool = this._getSkillPool("piloting", specialization, "rea") + rigRating;
                         current.handling.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1600,7 +1696,7 @@ export default class Shadowrun6Actor extends Actor {
                         break;
                     case "riggedVR":
                         //item.data.vehicle.attrib="int";
-                        current.ar.pool = system.skills.piloting.points + vehicleData.sen + +rigRating;
+                        current.ar.pool = system.skills.piloting.points + vehicleData.sen + rigRating;
                         current.ar.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1611,7 +1707,7 @@ export default class Shadowrun6Actor extends Actor {
                                 vehicleData.sen +
                                 ")" +
                                 modRig;
-                        current.dr.pool = system.skills.piloting.points + vehicleData.arm + +rigRating;
+                        current.dr.pool = system.skills.piloting.points + vehicleData.arm + rigRating;
                         current.dr.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1622,7 +1718,7 @@ export default class Shadowrun6Actor extends Actor {
                                 vehicleData.arm +
                                 ")" +
                                 modRig;
-                        current.handling.pool = this._getSkillPool("piloting", specialization, "int") + +rigRating;
+                        current.handling.pool = this._getSkillPool("piloting", specialization, "int") + rigRating;
                         current.handling.modString =
                             game.i18n.localize("skill.piloting") +
                                 "(" +
@@ -1654,7 +1750,8 @@ export default class Shadowrun6Actor extends Actor {
      */
     _prepareDerivedVehicleAttributes() {
         const system = getSystemData(this);
-        // Monitors
+
+        // Setting up Monitors
         if (system.physical) {
             if (!system.physical.mod)
                 system.physical.mod = 0;
@@ -1671,14 +1768,16 @@ export default class Shadowrun6Actor extends Actor {
             system.stun.max = +base + system.stun.mod;
             system.stun.value = system.stun.max - system.stun.dmg;
         }
+
+        const damageModifier = this.getWoundModifier();
+
         // Test modifier depending on speed
         let interval = system.vehicle.offRoad ? system.spdiOff : system.spdiOn;
         if (interval <= 1)
             interval = 1;
-        let modifier = Math.floor(system.vehicle.speed / interval);
-        // Modify with physical monitor
-        modifier += Math.floor(system.physical.dmg / 3);
-        system.vehicle.modifier = modifier;
+        let modifier = Math.floor(system.vehicle.speed / interval) + damageModifier;
+
+        system.vehicle.modifier = modifier; // Positive number that will be substracted from dice pools
         system.vehicle.kmh = Math.round(system.vehicle.speed * 1.2);
     }
     //---------------------------------------------------------
@@ -1752,6 +1851,7 @@ export default class Shadowrun6Actor extends Actor {
             case VehicleOpMode.MANUAL:
             case VehicleOpMode.RIGGED_AR:
             case VehicleOpMode.RIGGED_VR:
+                const isRiggedInVR = vehicleSystem.vehicle.opMode === VehicleOpMode.RIGGED_VR;
                 vehicleSystem.initiative.default = InitiativeType.MATRIX;
                 // Get owner actor
                 let owner = undefined;
@@ -1765,33 +1865,44 @@ export default class Shadowrun6Actor extends Actor {
                 }        
             
                 let ownerSystem = owner.system;
-                const controlRigRating = ownerSystem.controlRig ? parseInt(ownerSystem.controlRig) : 0;
+                const controlRigRating = ownerSystem.controlRig && isRiggedInVR ? parseInt(ownerSystem.controlRig) : 0;
 
-                const speedAndDamageModifier = vehicleSystem.vehicle.modifier; 
+                const speedAndDamageModifier = vehicleSystem.vehicle.modifier;
+                const damageModifier = this.getWoundModifier();
 
-                let ownerPilotingMod = 0;
-                if(ownerSystem.skills.piloting.specialization == vehicleSystem.vtype)
-                    ownerPilotingMod = 2;
-                else if(ownerSystem.skills.piloting.expertise == vehicleSystem.vtype)
-                    ownerPilotingMod = 3;    
+                const vehicleType = vehicleSystem.vtype;
+                const specializationMod = (skill) => {
+                    return skill.expertise === vehicleType ? 3
+                           : skill.specialization === vehicleType ? 2
+                           : 0;
+                };
 
-                const ownerPilotingPointsSpecialized = ownerSystem.skills.piloting.points + ownerPilotingMod;
-                const physicalAttribute = vehicleSystem.vehicle.opMode !== VehicleOpMode.RIGGED_VR ? "rea" : "int";
+                const ownerPilotingPointsSpecialized = ownerSystem.skills.piloting.points + specializationMod(ownerSystem.skills.piloting);
+                const ownerStealthPointsSpecialized = ownerSystem.skills.stealth.points + specializationMod(ownerSystem.skills.stealth);
+
+                const physicalAttribute = isRiggedInVR ? "int" : "rea";
+                const stealthAttribute = isRiggedInVR ? "log" : "agi";
+
                 const opModeDependingValues = { 
                     initiativeBase: {
                         manual: ownerSystem.attributes["int"].pool, 
-                        riggedAR: ownerSystem.attributes["int"].base, 
+                        riggedAR: ownerSystem.attributes["int"].pool, 
                         riggedVR: ownerSystem.attributes["int"].pool 
                     },
                     initiativeDicePool: { 
                         manual: ownerSystem.initiative.physical.dicePool, 
-                        riggedAR: 1, 
+                        riggedAR: ownerSystem.initiative.physical.dicePool, 
                         riggedVR: ownerSystem.initiative.matrix.dicePool 
                     },
                     physicalAttributeValue: {
                         manual: ownerSystem.attributes[physicalAttribute].pool,
-                        riggedAR: ownerSystem.attributes[physicalAttribute].base,
+                        riggedAR: ownerSystem.attributes[physicalAttribute].pool,
                         riggedVR: ownerSystem.attributes[physicalAttribute].pool
+                    },
+                    stealthAttributeValue: {
+                        manual: ownerSystem.attributes[stealthAttribute].pool,
+                        riggedAR: ownerSystem.attributes[stealthAttribute].pool,
+                        riggedVR: ownerSystem.attributes[stealthAttribute].pool
                     }
                 };
 
@@ -1813,20 +1924,27 @@ export default class Shadowrun6Actor extends Actor {
                     dr.mod = 0;
                 dr.pool = dr.base + dr.mod;
 
-                vehicleSystem.skills.piloting.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
-                vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier;
+                vehicleSystem.skills.piloting.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode];
+                vehicleSystem.skills.piloting.pool = vehicleSystem.skills.piloting.points + vehicleSystem.skills.piloting.modifier - speedAndDamageModifier;
 
-                vehicleSystem.skills.evasion.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode] - speedAndDamageModifier;
-                vehicleSystem.skills.evasion.pool = vehicleSystem.skills.evasion.points + vehicleSystem.skills.evasion.modifier;
+                vehicleSystem.skills.evasion.points = ownerPilotingPointsSpecialized + controlRigRating + opModeDependingValues.physicalAttributeValue[vehicleSystem.vehicle.opMode];
+                vehicleSystem.skills.evasion.pool = vehicleSystem.skills.evasion.points + vehicleSystem.skills.evasion.modifier - speedAndDamageModifier;
 
                 vehicleSystem.skills.perception.points = ownerSystem.skills.perception.pool;
-                vehicleSystem.skills.perception.pool = vehicleSystem.skills.perception.points + vehicleSystem.skills.perception.modifier;
+                const controlRigPerception = game.settings.get(SYSTEM_NAME, "controlRigPerception")
+                if (isRiggedInVR && controlRigPerception) {
+                    vehicleSystem.skills.perception.points += controlRigRating;
+                    vehicleSystem.skills.perception.modString = game.i18n.format("shadowrun6.vehicle.perception_vr_rig", { rating: controlRigRating });
+                } else if (isRiggedInVR) {
+                    vehicleSystem.skills.perception.modString = game.i18n.localize("shadowrun6.vehicle.perception_vr_norig");
+                }
+                vehicleSystem.skills.perception.pool = vehicleSystem.skills.perception.points + vehicleSystem.skills.perception.modifier - damageModifier;
 
                 vehicleSystem.skills.cracking.points = ownerSystem.skills.cracking.pool;
-                vehicleSystem.skills.cracking.pool = vehicleSystem.skills.cracking.points + vehicleSystem.skills.cracking.modifier;
+                vehicleSystem.skills.cracking.pool = vehicleSystem.skills.cracking.points + vehicleSystem.skills.cracking.modifier - damageModifier;
                 
-                vehicleSystem.skills.stealth.points = ownerSystem.skills.stealth.pool;
-                vehicleSystem.skills.stealth.pool = vehicleSystem.skills.stealth.points + vehicleSystem.skills.stealth.modifier;
+                vehicleSystem.skills.stealth.points = opModeDependingValues.stealthAttributeValue[vehicleSystem.vehicle.opMode] + ownerStealthPointsSpecialized + controlRigRating;
+                vehicleSystem.skills.stealth.pool = vehicleSystem.skills.stealth.points + vehicleSystem.skills.stealth.modifier - speedAndDamageModifier;
                 break;
 
             default:
@@ -1843,7 +1961,8 @@ export default class Shadowrun6Actor extends Actor {
             let system = item.system;
             let gear = system;
             if (gear.skill && gear.skill != "") {
-                switch (vehicleSystem.vehicle.opMode) {
+                const opMode = vehicleSystem.vehicle.opMode;
+                switch (opMode) {
                     case "autonomous":
                         const targetingRating = this.getHighestAutosoftRating(this.items, "TARGETING");
                         gear.pool = targetingRating + vehicleSystem.sen + gear.modifier;
@@ -1852,18 +1971,21 @@ export default class Shadowrun6Actor extends Actor {
                     case "riggedAR":
                     case "riggedVR":
                         if (this.system.vehicle.belongs) {
+                            // TODO currently vehicle.belongs only works for Linked Actor, not for unlinked token actors, so this will not work for vehicles that are not linked to an actor
                             let ownerActor = game.actors.get(this.system.vehicle.belongs);
                             if (ownerActor) {
+                                const rigRating = opMode === "riggedVR" ? ownerActor.system.controlRig : 0;
                                 gear.pool = ownerActor._getSkillPool("engineering", "gunnery", "log")
                                     + gear.modifier
-                                    - this.system.vehicle.modifier;
+                                    - this.system.vehicle.modifier
+                                    + rigRating;
                             } else {
                                 console.log("SR6E | Vehicle owner not found", this, vehicleSystem.vehicle.belongs);
                             }
                         }
                         break;
                     default:
-                        console.log("SR6E | Undefined VehicleOpMode", vehicleSystem.vehicle.opMode);
+                        console.log("SR6E | Undefined VehicleOpMode", opMode);
                         break;
                 }
                     
@@ -1947,7 +2069,7 @@ export default class Shadowrun6Actor extends Actor {
         system.persona.device.base.s = 0;
         system.persona.device.base.d = 0;
         system.persona.device.base.f = 0;
-        system.persona.onlineOnMatrix = false;
+        system.persona.isOnlineOnMatrix = false;
 
         this.items.forEach((tmpItem) => {
             const item = tmpItem;
@@ -1955,11 +2077,11 @@ export default class Shadowrun6Actor extends Actor {
             const GEAR = CONFIG.SR6.GEAR;
             if (item.type == "gear" && GEAR.SUBTYPES_MATRIX_ACCESS.has(itemSystem.subtype) ) {
                 
-                if (!item.onlineOnMatrix) return;
+                if (!item.isOnlineOnMatrix) return;
 
                 if (itemSystem.subtype == "COMMLINK" || itemSystem.subtype == "CYBERJACK" || itemSystem.subtype == "RIGGER_CONSOLE" || itemSystem.subtype == "DATATERM" ) {
                     if (itemSystem.usedForPool) {
-                        system.persona.onlineOnMatrix = true;
+                        system.persona.isOnlineOnMatrix = true;
                         system.persona.accessDevice = item;
                         system.persona.device.base.d = parseInt(itemSystem.d);
                         system.persona.device.base.f = parseInt(itemSystem.f);
@@ -1970,7 +2092,7 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 if (itemSystem.subtype == "CYBERDECK") {
                     if (itemSystem.usedForPool) {
-                        system.persona.onlineOnMatrix = true;
+                        system.persona.isOnlineOnMatrix = true;
                         system.persona.accessDevice = item;
                         system.persona.device.base.a = parseInt(itemSystem.a);
                         system.persona.device.base.s = parseInt(itemSystem.s);
@@ -1979,7 +2101,7 @@ export default class Shadowrun6Actor extends Actor {
                 }
                 if (itemSystem.subtype == "CYBERTERM") {
                     if (itemSystem.usedForPool) {
-                        system.persona.onlineOnMatrix = true;
+                        system.persona.isOnlineOnMatrix = true;
                         system.persona.accessDevice = item;
                         system.persona.device.base.a = parseInt(itemSystem.a);
                         system.persona.device.base.s = parseInt(itemSystem.s);
@@ -2000,7 +2122,7 @@ export default class Shadowrun6Actor extends Actor {
                 system.persona.living.base = new MatrixDevice();
             if (!system.persona.living.mod)
                 system.persona.living.mod = new MatrixDevice();
-            system.persona.onlineOnMatrix = Boolean(this.system.stun.value);
+            system.persona.isOnlineOnMatrix = Boolean(this.system.stun.value);
             system.persona.accessDevice = false;
             system.persona.living.base.a = parseInt(system.attributes["cha"].pool);
             system.persona.living.base.s = parseInt(system.attributes["int"].pool);
@@ -2065,14 +2187,11 @@ export default class Shadowrun6Actor extends Actor {
     //---------------------------------------------------------
     getWoundModifier(includeMatrix=false) {
         const isDataModel = this.system instanceof foundry.abstract.DataModel;
-        let physicalCM, stunCM;
+        let physicalCM=0, stunCM=0;
         if (isDataModel) {
             physicalCM = this.system.health?.physicalCM?.penalty ?? 0;
             if (this.system.health?.stunCM) {
                 stunCM     = this.system.health?.stunCM?.penalty ?? 0;
-            } 
-            else { // Matrix actor without stun monitor like Sprites
-                stunCM     = this.system.matrix?.matrixCM?.penalty ?? 0;
             }
         } 
         else {
@@ -2103,10 +2222,8 @@ export default class Shadowrun6Actor extends Actor {
     getMatrixCmModifier() {
         if (this.isTechno) return 0; // Stun modifier is already used in roll dialog
 
-        // TODO possible rework for DataModel actors
-        // Not needed for Sprites as their Matrix CM modifier is counted as stunCM in getWoundModifier()
         const isDataModel = this.system instanceof foundry.abstract.DataModel;
-        if (isDataModel) return 0 //this.system.matrix?.matrixCM?.penalty ?? 0;
+        if (isDataModel) return this.system.matrix?.matrixCM?.penalty ?? 0;
 
         const primaryAccessDevice = this.system.persona?.accessDevice;
         return primaryAccessDevice.system.matrix?.matrixCM?.penalty ?? 0;
@@ -2134,8 +2251,8 @@ export default class Shadowrun6Actor extends Actor {
     }
     //---------------------------------------------------------
     /**
-     * Convert skill, optional skill specialization and optional threshold
-     * into a roll name for display
+     * Convert skill, optional skill specialization and optional threshold into a roll name for display
+     * TODO This isnt taking into account in case a Vehicle is using Sensor + Targeting
      * @param {string} skillId      The skill id (e.g. "con")
      * @param {string} spec         The skill specialization
      * @param {int}    threshold    Optional threshold
@@ -2147,11 +2264,19 @@ export default class Shadowrun6Actor extends Actor {
         if (roll.skillSpec) {
             rollName += "/" + game.i18n.localize("shadowrun6.special." + roll.skillId + "." + roll.skillSpec);
         }
-        rollName += " + ";
+        
+        if (this.system instanceof foundry.abstract.DataModel) {
+            if (!this.system.skills?.[roll.skillId]) rollName = this.system.schema.fields.rating?.label;
+        }
+
         // Attribute
-        let useAttrib = roll.attrib != undefined ? roll.attrib : CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
-        let attrName = game.i18n.localize("attrib." + useAttrib);
-        rollName += attrName;
+        const useAttrib = roll.attrib ?? CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId)?.attrib;
+        const attrName = game.i18n.localize( game.sr6.config.ATTRIBUTE_SELECT_OPTIONS[useAttrib] );
+
+        if (attrName) {
+            rollName += ` + ${attrName}`;
+        }
+        console.log(`SR6E | _getSkillCheckText | using attribute '${useAttrib}' | rollName: ${rollName}${attrName}`);
         if (roll.threshold && roll.threshold > 0) {
             rollName += " (" + roll.threshold + ")";
         }
@@ -2173,26 +2298,40 @@ export default class Shadowrun6Actor extends Actor {
      * @param {string} spec         Optional: The skill specialization
      * @return Roll name
      */
-    _getSkillPool(skillId, spec, attrib = undefined) {
-        if (this.system instanceof foundry.abstract.DataModel) {
-            // TODO Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
-            const attribute = game.sr6.config.ATTRIBUTE_TO_V2[attrib];
-            return this.system.skills[skillId]?.testPool(attribute);
+    _getSkillPool(skillId, spec, attributePath = undefined) {
+        if (!skillId) return undefined;
+
+        const skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
+        // console.log(`SR6E | _getSkillPool | ${this.name} | skillId '${skillId}', spec '${spec}', attributePath '${attributePath}'`);
+        
+        if (attributePath === undefined) {
+            attributePath = `system.attributes.${skillDef.attrib}.pool`;
+            if (foundry.utils.getProperty(this, attributePath) === undefined && this.type === "host") attributePath = "system.rating";
+            // console.log(`SR6E | _getSkillPool | attributePath defaulted to '${attributePath}'`);
         }
+
+        if (attributePath?.length === 3) {
+            attributePath = `system.attributes.${attributePath}.pool`;
+        }
+
+        if (this.system instanceof foundry.abstract.DataModel) {
+            // TODO JEROEN Actor.rollSkill needs further reworking for DataModel Actors to support specializations and expertise properly
+            // TODO currently doesnt use skill-data testPool, would need rework
+            const skillPool = this.system.skills?.[skillId]?.pool ?? (this.type === "host" ? this.system.rating : 0);
+            const attributePool = this.getSystemProperty(attributePath) ?? 0;
+            
+            // console.log("SR6E | _getSkillPool() DataModel ActorV2 |", skillId, skillPool, attributePath, attributePool);
+            return skillPool + attributePool;
+        }
+
         const system = getSystemData(this);
-        if (!skillId)
-            return undefined;
         const skl = system.skills[skillId];
-        // console.log("SR6E | _getSkillPool", skl);
-        if (!skillId) {
+        if (!skl) {
             throw "Unknown skill '" + skillId + "'";
         }
-        let skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(skillId);
-        if (!attrib) {
-            attrib = skillDef.attrib;
-        }
+        
         // Calculate pool
-        let value = skl.points + skl.modifier;
+        let value = parseInt(skl.points) + parseInt(skl.modifier);
         if (skl.points == 0) {
             if (skillDef.useUntrained) {
                 value -= 1;
@@ -2209,10 +2348,7 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
         // Add attribute
-        // console.log("SR6E | _getSkillPool | value", value);
-        // console.log("SR6E | _getSkillPool | attrib", parseInt(system.attributes[attrib].pool));
-        value = parseInt("" + value);
-        value += parseInt(system.attributes[attrib].pool);
+        value += parseInt(this.getSystemProperty(attributePath) ?? 0);
         // console.log("SR6E | _getSkillPool | value", value);
         if (skillId === 'exotic_weapons') {
             if (
@@ -2223,6 +2359,7 @@ export default class Shadowrun6Actor extends Actor {
                 value = 0;
             }
         }
+        // console.log(`SR6E | _getSkillPool | ${this.name}`, skl, this.getSystemProperty(attributePath)??0, value);
         return value;
     }
     //---------------------------------------------------------
@@ -2324,7 +2461,6 @@ export default class Shadowrun6Actor extends Actor {
         let skillDef = CONFIG.SR6.ATTRIB_BY_SKILL.get(roll.skillId);
         if (!roll.attrib)
             roll.attrib = skillDef.attrib;
-        roll.actionText = roll.checkText; // (game as Game).i18n.format("shadowrun6.roll.actionText.skill");
         // Calculate pool
         roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec);
         console.log("SR6E | rollSkill(", roll, ")");
@@ -2337,7 +2473,6 @@ export default class Shadowrun6Actor extends Actor {
      *
      */
     async rollItem(roll) {
-        console.log("SR6E | rollItem(", roll, ")");
         roll.actor = this;
         // Prepare check text
         roll.checkText = this._getSkillCheckText(roll);
@@ -2345,7 +2480,7 @@ export default class Shadowrun6Actor extends Actor {
         if (roll.pool == 0) {
             roll.pool = this._getSkillPool(roll.skillId, roll.skillSpec);
         }
-        console.log("SR6E | rollItem(", roll, ")");
+        console.log("SR6E | rollItem()", roll);
         let item = roll.gear;
         roll.allowBuyHits = true;
         // If present, replace item name, description and source references from compendium
@@ -2577,11 +2712,29 @@ export default class Shadowrun6Actor extends Actor {
                     }
                 }
 
-                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${matrixAction.attr1}", "${matrixAction.attr2}"`);
-                defensePool = { pool: this.getMatrixPool(matrixAction.attr1, matrixAction.attr2) };
-                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
+                const deviceRatingCount = Number(matrixAction.attr1 === "deviceRating") + Number(matrixAction.attr2 === "deviceRating");
+                const encryptionRatingCount = Number(matrixAction.attr1 === "encryptionRating") + Number(matrixAction.attr2 === "encryptionRating");
+                const primaryPool = this.getMatrixPool(matrixAction.attr1, matrixAction.attr2);
+                const altPool = this.getMatrixPool(matrixAction.attr1_alt, matrixAction.attr2_alt);
+                const attr1 = primaryPool>=altPool ? matrixAction.attr1 : matrixAction.attr1_alt;
+                const attr2 = primaryPool>=altPool ? matrixAction.attr2 : matrixAction.attr2_alt;
 
-                rollData.checkText = game.i18n.localize(`attrib.${matrixAction.attr1}`) + " + " + game.i18n.localize(`attrib.${matrixAction.attr2}`) + " (" + threshold + ")";
+                defensePool = { pool: Math.max( primaryPool, altPool ) };
+
+                if (deviceRatingCount) {
+                    if (target.documentName !== "Item" && !target.system.deployedItem) throw new Error("Matrix Actions using Device Rating can only target an Item");
+                    defensePool.pool += target.system.matrix.deviceRating * deviceRatingCount;
+                }
+                if (encryptionRatingCount) {
+                    if (target.documentName === "Item") defensePool.pool += target.system.rating * encryptionRatingCount;
+                    else if (target.system.deployedItem) defensePool.pool += target.system.deployedItem.system.rating * encryptionRatingCount;
+                    else throw new Error("Matrix Actions using Encryption Rating can only target an Item");
+                }
+
+                console.log(`SR6E | Defense vs "${options.matrixActionId}", with two Matrix Action defined attributes: "${attr1}", "${attr2}"`);
+
+                rollData.actionText = game.i18n.localize("shadowrun6.roll.actionText.defense.matrix");
+                rollData.checkText = game.i18n.localize(`attrib.${attr1}`) + " + " + game.i18n.localize(`attrib.${attr2}`) + " (" + threshold + ")";
                 break;
             default:
                 console.log("SR6E | Error! Don't know how to handle defense rolls for " + defendWith);
@@ -2704,7 +2857,7 @@ export default class Shadowrun6Actor extends Actor {
         
         if(roll.skillValue) {
             roll.checkText = this._getVehicleCheckText(roll);
-            roll.pool = roll.skillValue.pool;
+            roll.pool = roll.skillValue;
         }
         roll.actionText = roll.checkText;
         roll.allowBuyHits = true;
@@ -2718,9 +2871,26 @@ export default class Shadowrun6Actor extends Actor {
     performMatrixAction(roll) {
         console.log("SR6E | performMatrixAction:", roll);
         
-
         roll.speaker = ChatMessage.getSpeaker({ actor: this });
         return doRoll(roll);
+    }
+
+    async rollBiofeedbackDamage(config) {
+        console.log("SR6E | Actor | BiofeedbackDamage to Chat", config);
+        const { damage, description, ...options } = config;
+        const defender = this;
+
+        const matrixIni = defender.system.matrixIni;
+        if (!matrixIni || matrixIni === "ar") return;
+
+        const damageData = {
+            soakType: SoakType.BIO_FEEDBACK,
+            monitor: matrixIni === "vrcold" ? MonitorType.STUN : MonitorType.PHYSICAL,
+            damage: damage,
+            description: description
+        }
+        const directDamage = new DirectDamage(defender, damageData);
+        await directDamage.toChat();
     }
     //-------------------------------------------------------------
     /**
@@ -2801,15 +2971,15 @@ export default class Shadowrun6Actor extends Actor {
     
     /**
      * Returns a Matrix Test Pool
-     * @param {number} matrixAttr   Matrix Attribute
-     * @param {number} physAttr     Physical Attribute
-     * @return {number}             Number of dice
+     * @param {number} attr1     Matrix or Physical Attribute
+     * @param {number} attr2     Matrix or Physical Attribute
+     * @return {number}          Number of dice
      */
-    getMatrixPool(matrixAttr, physAttr) {
+    getMatrixPool(attr1, attr2) {
         if (this.system instanceof foundry.abstract.DataModel) {
-            matrixAttr = game.sr6.config.ATTRIBUTE_TO_V2[matrixAttr];
-            physAttr = game.sr6.config.ATTRIBUTE_TO_V2[physAttr];
-            return this.system.matrix.testPool(matrixAttr, physAttr);
+            attr1 = game.sr6.config.ATTRIBUTE_TO_V2[attr1];
+            attr2 = game.sr6.config.ATTRIBUTE_TO_V2[attr2];
+            return this.system.matrix.testPool(attr1, attr2);
         }
 
         const getPool = (attr) => {
@@ -2817,11 +2987,25 @@ export default class Shadowrun6Actor extends Actor {
                 this.system.attributes[attr]?.pool ??
                 0;
         };
-        const oppAttr1 = getPool(matrixAttr);
-        const oppAttr2 = getPool(physAttr);
+        const oppAttr1 = getPool(attr1);
+        const oppAttr2 = getPool(attr2);
 
         return oppAttr1 + oppAttr2;
     }
+
+    /**
+     * Returns all possible Attribute Options to use in a Select
+     * @return {object} attribute: Attribute pairs
+     */
+    getAttributeOptions() {
+        const actor = this;
+        const options = Object.fromEntries(
+                Object.entries(game.sr6.config.ATTRIBUTE_SELECT_OPTIONS)
+                    .filter(([attribute]) => foundry.utils.getProperty(actor, attribute))
+            );
+        return options;
+    }
+
     //-------------------------------------------------------------
     // TODO doesnt support health/stun damage on ActorV2 yet but not necessary for Matrix Icon Actors
     async applyDamage(damageData) { 
@@ -3067,7 +3251,9 @@ export default class Shadowrun6Actor extends Actor {
             return;
         }
         // GENESIS uses Actor.data in its export, while COMMLINK uses Actor.system as the actors sourceData
+        if (sourceData.data) { sourceData.system = sourceData.data; delete sourceData.data; }
         const actorSystem = sourceData.data ?? sourceData.system;
+
         // Modify imported GENESIS/COMMLINK items
         const GenesisCommlink = (sourceData.generatorName === "Commlink6") || !(sourceData.prototypeToken);
 
@@ -3083,14 +3269,16 @@ export default class Shadowrun6Actor extends Actor {
         for (const index in sourceData.items) {
             const item = sourceData.items[index];
             
-            if (item.data?.genesisID) {
-                if (item.data.type === "WEAPON_CLOSE_COMBAT") {
-                    item.data.attackRating[0] -= actorSystem.attributes.str.pool;
+            if (item.data) { item.system = item.data; delete item.data; }
+            
+            if (item.system?.genesisID) {
+                if (item.system.type === "WEAPON_CLOSE_COMBAT") {
+                    item.system.attackRating[0] -= actorSystem.attributes.str.pool;
                 }
                 // GENESIS fills in the Close AR, but this is auto calculated by shadowrun6-eden
                 if (item.name === "Unarmed") {
                     item.name = game.i18n.localize("shadowrun6.gear.subtype.UNARMED");
-                    item.data.attackRating[0] = 0;
+                    item.system.attackRating[0] = 0;
                 }
 
                 // Fix empty knowledge skill names
@@ -3099,20 +3287,20 @@ export default class Shadowrun6Actor extends Actor {
                 // Search if this genesisID exists in Compendia
                 let result;
                 game.packs.filter(p => p.documentName === "Item").some((p) => { 
-                    result = p.index.find(i => i.system.genesisID === item.data.genesisID);
+                    result = p.index.find(i => i.system.genesisID === item.system.genesisID);
                     return (result instanceof Object)
                 })
 
                 if (result instanceof Object) {
                     let importedItem = await fromUuid(result.uuid);
                     importedItem = game.items.fromCompendium( importedItem, { clearFolder: true, clearOwnership: true } );
-                    if (item.data.customName) {
+                    if (item.system.customName) {
                         importedItem.system.description = `<h3>${item.name}</h3>${importedItem.system.description}`;
-                        importedItem.name = item.data.customName;
+                        importedItem.name = item.system.customName;
                     } else {
                         importedItem.name = item.name;
                     }
-                    if (item.data.notes) importedItem.system.description += `<hr><p>${item.data.notes}</p>`;
+                    if (item.system.notes) importedItem.system.description += `<hr><p>${item.system.notes}</p>`;
                     sourceData.items[index] = importedItem;
                 }
             }
@@ -3121,9 +3309,10 @@ export default class Shadowrun6Actor extends Actor {
         const effects = [];
         // Change added Attribute Modifiers to ActiveEffects
         for (const attribute in actorSystem.attributes) {
-            if (actorSystem.attributes[attribute].mod !== 0) {
+            if (Number.isFinite(actorSystem.attributes[attribute].mod) && actorSystem.attributes[attribute].mod !== 0) {
+                const positive = actorSystem.attributes[attribute].mod > 0 ? "+" : "";
                 const effectData = {
-                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`attrib.${attribute}`)} +${actorSystem.attributes[attribute].mod}`,
+                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`attrib.${attribute}`)} ${positive}${actorSystem.attributes[attribute].mod}`,
                     system: {
                         importedSource: sourceData.generatorName ?? "GENESIS"
                     },
@@ -3142,9 +3331,10 @@ export default class Shadowrun6Actor extends Actor {
         }
         // Change added Skill Modifiers to ActiveEffects
         for (const skill in actorSystem.skills) {
-            if (actorSystem.skills[skill].modifier !== 0) {
+            if (Number.isFinite(actorSystem.skills[skill].modifier) && actorSystem.skills[skill].modifier !== 0) {
+                const positive = actorSystem.skills[skill].modifier > 0 ? "+" : "";
                 const effectData = {
-                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`skill.${skill}`)} +${actorSystem.skills[skill].modifier}`,
+                    name: `${game.i18n.localize("shadowrun6.active_effect.importedModifier")}: ${game.i18n.localize(`skill.${skill}`)} ${positive}${actorSystem.skills[skill].modifier}`,
                     system: {
                         importedSource: sourceData.generatorName ?? "GENESIS"
                     },
@@ -3167,7 +3357,7 @@ export default class Shadowrun6Actor extends Actor {
             const unarmedItemData = {
                 name: game.i18n.localize("shadowrun6.gear.subtype.UNARMED"),
                 type: 'gear',
-                data: {
+                system: {
                     dmg: 2,
                     stun: true,
                     type: "WEAPON_CLOSE_COMBAT",
@@ -3181,8 +3371,9 @@ export default class Shadowrun6Actor extends Actor {
         }
         
         if (GenesisCommlink) {
-            // Overwrite default GENESIS/Commlink token settings
+            // Overwrite token data so it wont be changed on a re-import
             const tokenData = {
+                ...this.prototypeToken,
                 name: sourceData.token?.name || sourceData.name,
                 actorLink: true,
                 sight: { enabled: true },
@@ -3190,11 +3381,21 @@ export default class Shadowrun6Actor extends Actor {
                 displayBars: CONST.TOKEN_DISPLAY_MODES.NONE,
                 disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
                 texture: { src: this.prototypeToken.texture.src },
-                lockRotation: this.prototypeToken.lockRotation
+                lockRotation: this.prototypeToken.lockRotation,
+                depth: 1
             };
-            sourceData.token = tokenData;
+            sourceData.prototypeToken = tokenData;
             sourceData.img = this.img;
+            
+            // Deleting incorrect token data
+            delete sourceData.token
         }
+
+        // Clean up unnecessary json attributes
+        delete sourceData.sort;
+        delete sourceData.exportVersion;
+        delete sourceData.generatorName;
+        delete sourceData.generatorVersion;
 
         await super.importFromJSON(JSON.stringify(sourceData));
 
@@ -3276,16 +3477,21 @@ export default class Shadowrun6Actor extends Actor {
         return Boolean( this.system instanceof foundry.abstract.DataModel );
     }
 
+    get matrixDeviceItems() {
+        return this.items.filter(i => i.system.isElectronicMatrixDevice);
+    }
+
     /**
      * Safely returns a system property no matter if its an old Actor or an ActorV2 with a DataModel
      * @param {*} path 
      * @returns 
      */
     getSystemProperty(path) {
+        if (path?.startsWith("system.")) path = path.slice(7);
+
         const convertedToV2 = game.sr6.config.SYSTEMPATH_TO_V2[path];
-        if (this.isActorV2 && convertedToV2) {
-            path = convertedToV2;
-        }
+        if (this.isActorV2 && convertedToV2) path = convertedToV2;
+
         return foundry.utils.getProperty(this.system, path);
     }
 

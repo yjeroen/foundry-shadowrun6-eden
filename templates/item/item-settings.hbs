@@ -14,7 +14,7 @@
                     {{localize 'SR6.Item.base.FIELDS.wirelessActive.label'}}
                 </label>
 
-                <div class="item-field-control matrix-checkbox" data-tooltip="SR6.Item.base.FIELDS.wirelessActive.hint">
+                <div class="item-field-control matrix-checkbox" data-tooltip={{#if item.isAccessDevice}}"shadowrun6.matrix.device.isAccessDevice"{{else}}"SR6.Item.base.FIELDS.wirelessActive.hint"{{/if}}>
                     <input
                         id="wireless-active"
                         class="matrix-checkbox-input"
@@ -22,13 +22,13 @@
                         data-field="system.matrix.wirelessActive"
                         type="checkbox"
                         {{checked item.system.matrix.wirelessActive}}
-                        {{#if hud.bricked}}disabled{{/if}}
+                        {{#if (or item.isAccessDevice hud.bricked)}}disabled{{/if}}
                     />
 
                     <label class="matrix-checkbox-label" for="wireless-active">
                         <span class="matrix-checkbox-light"></span>
                         <span class="matrix-checkbox-text">
-                            {{#if item.system.matrix.wirelessActive}}ONLINE{{else}}OFFLINE{{/if}}
+                            {{#if item.system.matrix.wirelessActive}}{{localize "shadowrun6.matrix.device.online"}}{{else}}{{localize "shadowrun6.matrix.device.offline"}}{{/if}}
                         </span>
                     </label>
                 </div>

@@ -20,7 +20,9 @@ export var Defense;
 export var MonitorType;
 (function (MonitorType) {
     MonitorType["PHYSICAL"] = "physical";
+    MonitorType["PHYSICAL_SPECIAL"] = "physical_special";
     MonitorType["STUN"] = "stun";
+    MonitorType["STUN_SPECIAL"] = "stun_special";
     MonitorType["SOCIAL"] = "social";
     MonitorType["MATRIX"] = "matrix";
 })(MonitorType || (MonitorType = {}));
@@ -43,35 +45,226 @@ export class SR6Config {
             "resonance",
             "essence",
         ],
-        ACTOR_TYPES: {
-            sprite: {
-                types: {
-                    courier: "SR6.Actor.sprite.TYPES.courier",
-                    crack: "SR6.Actor.sprite.TYPES.crack",
-                    data: "SR6.Actor.sprite.TYPES.data",
-                    fault: "SR6.Actor.sprite.TYPES.fault",
-                    machine: "SR6.Actor.sprite.TYPES.machine",
-                    assassin: "SR6.Actor.sprite.TYPES.assassin",
-                    defender: "SR6.Actor.sprite.TYPES.defender",
-                    modular: "SR6.Actor.sprite.TYPES.modular",
-                    music: "SR6.Actor.sprite.TYPES.music",
-                    primal: "SR6.Actor.sprite.TYPES.primal",
-                },
+
+        
+    };
+
+    ACTOR = {
+        sprite: {
+            types: {
+                courier: "SR6.Actor.sprite.TYPES.courier",
+                crack: "SR6.Actor.sprite.TYPES.crack",
+                data: "SR6.Actor.sprite.TYPES.data",
+                fault: "SR6.Actor.sprite.TYPES.fault",
+                machine: "SR6.Actor.sprite.TYPES.machine",
+                assassin: "SR6.Actor.sprite.TYPES.assassin",
+                defender: "SR6.Actor.sprite.TYPES.defender",
+                modular: "SR6.Actor.sprite.TYPES.modular",
+                music: "SR6.Actor.sprite.TYPES.music",
+                primal: "SR6.Actor.sprite.TYPES.primal",
             },
         },
-        ITEM_TYPES: {
-            mod: {
-                types: {
-                    accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
-                    weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
-                    armor_mod: "SR6.Item.mod.TYPES.armor_mod",
-                    accessory_electronics:
-                        "SR6.Item.mod.TYPES.accessory_electronics",
-                    visual_enhancement: "SR6.Item.mod.TYPES.visual_enhancement",
-                    audio_enhancement: "SR6.Item.mod.TYPES.audio_enhancement",
-                },
+        host: {
+            types: {
+                foundation: "SR6.Actor.host.TYPES.foundation",
+                framework: "SR6.Actor.host.TYPES.framework",
             },
         },
+    };
+
+    ITEM = {
+        adeptpower: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/explosion.svg",
+        },
+
+        complexform: {
+            icon: "systems/shadowrun6-eden/icons/compendium/the_12_days_of_cybermas/sycust_fleshweave.svg",
+        },
+
+        spritepower: {
+            icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+        },
+
+        contact: {
+            icon: "systems/shadowrun6-eden/icons/compendium/status/human_shield.svg",
+        },
+
+        critterpower: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/default-demon.svg",
+        },
+
+        echo: {
+            icon: "systems/shadowrun6-eden/icons/compendium/gear/bug_detector.svg",
+        },
+
+        focus: {
+            icon: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jewelry.svg",
+        },
+
+        gear: {
+            icon: "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg",
+            ARMOR: {
+                icon: "systems/shadowrun6-eden/icons/compendium/armor/kevlar_body.svg"
+            },
+            ELECTRONICS: {
+                icon: "systems/shadowrun6-eden/icons/compendium/gear/tech_scanner.svg",
+                FILE_STORAGE: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/cyberware/plastic_covering.svg"
+                },
+                OPTICAL: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/cyberware/image_enhance.svg"
+                }
+            },
+            WEAPON_FIREARMS: {
+                icon: "systems/shadowrun6-eden/icons/compendium/gear/grapple_gun.svg"
+            },
+            WEAPON_RANGED: {
+                icon: "systems/shadowrun6-eden/icons/compendium/weapons/air_pistol.svg"
+            },
+            WEAPON_SPECIAL: {
+                icon: "systems/shadowrun6-eden/icons/compendium/weapons/microwaver.svg"
+            }
+        },
+
+        skill: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+        },
+
+        lifestyle: {
+            icon: "systems/shadowrun6-eden/icons/compendium/clothing/generic_jacket.svg",
+        },
+
+        martialartstyle: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg",
+        },
+
+        martialarttech: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Melee.svg",
+        },
+
+        metamagic: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/daze.svg",
+        },
+
+        quality: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Skill.svg",
+        },
+
+        ritual: {
+            icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+        },
+
+        sin: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Role.svg",
+        },
+
+        spell: {
+            icon: "systems/shadowrun6-eden/icons/compendium/default/acid.svg",
+        },
+
+        mod: {
+            TYPES: {
+                accessory_weapon: "SR6.Item.mod.TYPES.accessory_weapon",
+                weapon_mod: "SR6.Item.mod.TYPES.weapon_mod",
+                armor_mod: "SR6.Item.mod.TYPES.armor_mod",
+                accessory_electronics: "SR6.Item.mod.TYPES.accessory_electronics",
+                visual_enhancement: "SR6.Item.mod.TYPES.visual_enhancement",
+                audio_enhancement: "SR6.Item.mod.TYPES.audio_enhancement",
+            },
+
+            icon: "systems/shadowrun6-eden/icons/compendium/black-chrome/explicit-memory-stimulator.svg",
+        },
+
+        software: {
+            TYPES: {
+                AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
+                DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
+                HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
+                MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
+                SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
+                STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
+                TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
+                TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
+                IC: "SR6.Item.software.TYPES.IC",
+            },
+
+            SUBTYPES: {
+                AUTOSOFT: {
+                    CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
+                    ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
+                    EVASION: "shadowrun6.autosoft_types.evasion",
+                    MANEUVER: "shadowrun6.autosoft_types.maneuver",
+                    STEALTH: "shadowrun6.autosoft_types.stealth",
+                    TARGETING: "shadowrun6.autosoft_types.targeting",
+                },
+            },
+
+            MULTITYPES: {
+                acid: "SR6.Item.software.MULTITYPES.acid",
+                binder: "SR6.Item.software.MULTITYPES.binder",
+                black: "SR6.Item.software.MULTITYPES.black",
+                blaster: "SR6.Item.software.MULTITYPES.blaster",
+                crash: "SR6.Item.software.MULTITYPES.crash",
+                jammer: "SR6.Item.software.MULTITYPES.jammer",
+                killer: "SR6.Item.software.MULTITYPES.killer",
+                marker: "SR6.Item.software.MULTITYPES.marker",
+                patrol: "SR6.Item.software.MULTITYPES.patrol",
+                scramble: "SR6.Item.software.MULTITYPES.scramble",
+                sparky: "SR6.Item.software.MULTITYPES.sparky",
+                tarbaby: "SR6.Item.software.MULTITYPES.tarbaby",
+                track: "SR6.Item.software.MULTITYPES.track",
+            },
+
+            icon: "systems/shadowrun6-eden/icons/compendium/default/Default_Program.svg",
+
+            // system.type configurations
+            IC: {
+                icon: "systems/shadowrun6-eden/icons/compendium/programs/nervescrub.svg",
+                acid: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/poison_flatline.svg"
+                },
+                binder: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/superglue.svg"
+                },
+                blaster: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/hellbolt.svg"
+                },
+                killer: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/sword.svg"
+                },
+                patrol: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/critical_injuries/damaged_eye.svg"
+                },
+                sparky: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/vrizzbolt.svg"
+                },
+                tarbaby: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/worm.svg"
+                },
+                track: {
+                    icon: "systems/shadowrun6-eden/icons/compendium/programs/see_ya.svg"
+                }
+            },
+        },
+    };
+
+    HOSTS = {
+        resolutionGrades: {
+            1: "SR6.Actor.host.FIELDS.resolutionGrade.choices.1",
+            2: "SR6.Actor.host.FIELDS.resolutionGrade.choices.2",
+            3: "SR6.Actor.host.FIELDS.resolutionGrade.choices.3",
+            4: "SR6.Actor.host.FIELDS.resolutionGrade.choices.4",
+            5: "SR6.Actor.host.FIELDS.resolutionGrade.choices.5",
+            6: "SR6.Actor.host.FIELDS.resolutionGrade.choices.6"
+        },
+        scales: {
+            1: "SR6.Actor.host.FIELDS.scale.choices.1",
+            2: "SR6.Actor.host.FIELDS.scale.choices.2",
+            3: "SR6.Actor.host.FIELDS.scale.choices.3",
+            4: "SR6.Actor.host.FIELDS.scale.choices.4",
+            5: "SR6.Actor.host.FIELDS.scale.choices.5",
+            6: "SR6.Actor.host.FIELDS.scale.choices.6"
+        }
     };
 
     ATTRIBUTE_TO_V2 = {
@@ -97,7 +290,6 @@ export class SR6Config {
         "attributes.bod.pool": "attributes.body.pool",
         "attributes.agi.pool": "attributes.agility.pool",
         "attributes.rea.pool": "attributes.reaction.pool",
-        "attributes.agi.pool": "attributes.agility.pool",
         "attributes.str.pool": "attributes.strength.pool",
         "attributes.wil.pool": "attributes.willpower.pool",
         "attributes.log.pool": "attributes.logic.pool",
@@ -153,17 +345,40 @@ export class SR6Config {
         "mag",
         "res",
     ];
-    ATTRIBUTES_SELECTOPTIONS = {
-        bod: "attrib.bod",
-        agi: "attrib.agi",
-        rea: "attrib.rea",
-        str: "attrib.str",
-        wil: "attrib.wil",
-        log: "attrib.log",
-        int: "attrib.int",
-        cha: "attrib.cha",
-        mag: "attrib.mag",
-        res: "attrib.res",
+    ATTRIBUTE_SELECT_OPTIONS = {
+        "system.attributes.bod.pool": "attrib.bod",
+        "system.attributes.agi.pool": "attrib.agi",
+        "system.attributes.rea.pool": "attrib.rea",
+        "system.attributes.str.pool": "attrib.str",
+        "system.attributes.wil.pool": "attrib.wil",
+        "system.attributes.log.pool": "attrib.log",
+        "system.attributes.int.pool": "attrib.int",
+        "system.attributes.cha.pool": "attrib.cha",
+        "system.attributes.mag.pool": "attrib.mag",
+        "system.attributes.res.pool": "attrib.res",
+
+        "system.persona.used.a": "attrib.a",
+        "system.persona.used.s": "attrib.s",
+        "system.persona.used.d": "attrib.d",
+        "system.persona.used.f": "attrib.f",
+        
+        "system.rating": "shadowrun6.label.rating",
+
+        "system.attributes.body.pool": "attrib.bod",
+        "system.attributes.agility.pool": "attrib.agi",
+        "system.attributes.reaction.pool": "attrib.rea",
+        "system.attributes.strength.pool": "attrib.str",
+        "system.attributes.willpower.pool": "attrib.wil",
+        "system.attributes.logic.pool": "attrib.log",
+        "system.attributes.intuition.pool": "attrib.int",
+        "system.attributes.charisma.pool": "attrib.cha",
+        "system.attributes.magic.pool": "attrib.mag",
+        "system.attributes.resonance.pool": "attrib.res",
+
+        "system.matrix.attributes.attack": "attrib.a",
+        "system.matrix.attributes.sleaze": "attrib.s",
+        "system.matrix.attributes.dataProcessing": "attrib.d",
+        "system.matrix.attributes.firewall": "attrib.f",
     };
     NPC_ATTRIBUTES = [
         "bod",
@@ -267,37 +482,37 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.ROCKETS",
                     showRating: false,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 MISSILES: {
                     label: "shadowrun6.gear.subtype.MISSILES",
                     showRating: false,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 EXPLOSIVES: {
                     label: "shadowrun6.gear.subtype.EXPLOSIVES",
                     showRating: true,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 GRENADES: {
                     label: "shadowrun6.gear.subtype.GRENADES",
                     showRating: false,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 BOWS: {
                     label: "shadowrun6.gear.subtype.BOWS",
                     showRating: true,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 CROSSBOWS: {
                     label: "shadowrun6.gear.subtype.CROSSBOWS",
                     showRating: true,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 BALLISTAS: {
                     label: "shadowrun6.gear.subtype.BALLISTAS",
@@ -353,13 +568,13 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.BIOTECH",
                     showRating: true,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 SLAP_PATCHES: {
                     label: "shadowrun6.gear.subtype.SLAP_PATCHES",
                     showRating: true,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
             },
         },
@@ -411,7 +626,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.INDUSTRIAL_CHEMICALS",
                     showRating: false,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 TOXINS: {
                     label: "shadowrun6.gear.subtype.TOXINS",
@@ -747,7 +962,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.ELECTRONIC_ACCESSORIES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 RIGGER_CONSOLE: {
                     label: "shadowrun6.gear.subtype.RIGGER_CONSOLE",
@@ -769,12 +984,6 @@ export class SR6Config {
                 },
                 ID_CREDIT: {
                     label: "shadowrun6.gear.subtype.ID_CREDIT",
-                    showRating: false,
-                    showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
-                },
-                IMAGING: {
-                    label: "shadowrun6.gear.subtype.IMAGING",
                     showRating: false,
                     showCountable: false,
                     showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
@@ -801,13 +1010,13 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.SECURITY",
                     showRating: true,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 BREAKING: {
                     label: "shadowrun6.gear.subtype.BREAKING",
                     showRating: true,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 TAC_NET: {
                     label: "shadowrun6.gear.subtype.TAC_NET",
@@ -839,6 +1048,12 @@ export class SR6Config {
                     showCountable: true,
                     showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
                 },
+                FILE_STORAGE: {
+                    label: "shadowrun6.gear.subtype.FILE_STORAGE",
+                    showRating: true,
+                    showCountable: false,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
+                }
             },
         },
         GENETICS: {
@@ -936,7 +1151,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.NANO_CYBERWARE",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 NANOTECH_KIT: {
                     label: "shadowrun6.gear.subtype.NANOTECH_KIT",
@@ -1006,13 +1221,13 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.SURVIVAL_GEAR",
                     showRating: true,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 WINTER_GEAR: {
                     label: "shadowrun6.gear.subtype.WINTER_GEAR",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
                 GRAPPLE_GUN: {
                     label: "shadowrun6.gear.subtype.GRAPPLE_GUN",
@@ -1046,139 +1261,139 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.AIRSHIP",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 ATVS: {
                     label: "shadowrun6.gear.subtype.ATVS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 BIKES: {
                     label: "shadowrun6.gear.subtype.BIKES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 BOATS: {
                     label: "shadowrun6.gear.subtype.BOATS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 BUS: {
                     label: "shadowrun6.gear.subtype.BUS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 CARS: {
                     label: "shadowrun6.gear.subtype.CARS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 HOVERCRAFT: {
                     label: "shadowrun6.gear.subtype.HOVERCRAFT",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 LAV: {
                     label: "shadowrun6.gear.subtype.LAV",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 LTAV: {
                     label: "shadowrun6.gear.subtype.LTAV",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 GRAV: {
                     label: "shadowrun6.gear.subtype.GRAV",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 TRACKED: {
                     label: "shadowrun6.gear.subtype.TRACKED",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 MOD_TRAILER: {
                     label: "shadowrun6.gear.subtype.MOD_TRAILER",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 TRUCKS: {
                     label: "shadowrun6.gear.subtype.TRUCKS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 SHIPS: {
                     label: "shadowrun6.gear.subtype.SHIPS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 SUBMARINES: {
                     label: "shadowrun6.gear.subtype.SUBMARINES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 PWC: {
                     label: "shadowrun6.gear.subtype.PWC",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 FIXED_WING: {
                     label: "shadowrun6.gear.subtype.FIXED_WING",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 ROTORCRAFT: {
                     label: "shadowrun6.gear.subtype.ROTORCRAFT",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 VANS: {
                     label: "shadowrun6.gear.subtype.VANS",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 VTOL: {
                     label: "shadowrun6.gear.subtype.VTOL",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 WALKER: {
                     label: "shadowrun6.gear.subtype.WALKER",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 SPACECRAFT: {
                     label: "shadowrun6.gear.subtype.SPACECRAFT",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
                 SPECIAL_VEHICLES: {
                     label: "shadowrun6.gear.subtype.SPECIAL_VEHICLES",
                     showRating: false,
                     showCountable: false,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.ALWAYS,
                 },
             },
         },
@@ -1325,7 +1540,7 @@ export class SR6Config {
                     label: "shadowrun6.gear.subtype.THROWING",
                     showRating: false,
                     showCountable: true,
-                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.NEVER,
+                    showMatrixDeviceConfig: this.MATRIX_DEVICE_CONFIG.OPTIONAL,
                 },
             },
         },
@@ -1505,7 +1720,6 @@ export class SR6Config {
             RFID: "shadowrun6.gear.subtype.RFID",
             COMMUNICATION: "shadowrun6.gear.subtype.COMMUNICATION",
             ID_CREDIT: "shadowrun6.gear.subtype.ID_CREDIT",
-            IMAGING: "shadowrun6.gear.subtype.IMAGING",
             OPTICAL: "shadowrun6.gear.subtype.OPTICAL",
             AUDIO: "shadowrun6.gear.subtype.AUDIO",
             SENSOR_HOUSING: "shadowrun6.gear.subtype.SENSOR_HOUSING",
@@ -1516,6 +1730,7 @@ export class SR6Config {
             CYBERTERM: "shadowrun6.gear.subtype.CYBERTERM",
             INSTRUMENT: "shadowrun6.gear.subtype.INSTRUMENT",
             BTLS: "shadowrun6.gear.subtype.BTLS",
+            FILE_STORAGE: "shadowrun6.gear.subtype.FILE_STORAGE",
         },
 
         // /** Hack&Slash custom cyberdecks */
@@ -1627,155 +1842,12 @@ export class SR6Config {
             OTHER_SPECIAL: "shadowrun6.gear.subtype.OTHER_SPECIAL",
         },
     };
-    GEAR_SUBTYPES_OLD = new Map([
-        ["ACCESSORY", []],
-        [
-            "AMMUNITION",
-            ["AMMUNITION", "ROCKETS", "MISSILES", "EXPLOSIVES", "GRENADES"],
-        ],
-        ["ARMOR", ["ARMOR_BODY", "ARMOR_HELMET", "ARMOR_SHIELD"]],
-        ["ARMOR_ADDITION", []],
-        ["BIOLOGY", ["BIOTECH", "SLAP_PATCHES"]],
-        [
-            "BIOWARE",
-            ["BIOWARE_STANDARD", "BIOWARE_CULTURED", "BIOWARE_IMPLANT_WEAPON"],
-        ],
-        ["CHEMICALS", ["INDUSTRIAL_CHEMICALS", "TOXINS", "DRUGS", "BTL"]],
-        [
-            "CYBERWARE",
-            [
-                "CYBER_HEADWARE",
-                "CYBERJACK",
-                "CYBER_BODYWARE",
-                "CYBER_EYEWARE",
-                "CYBER_EARWARE",
-                "CYBER_IMPLANT_WEAPON",
-                "CYBER_LIMBS",
-                "COMMLINK",
-                "CYBERDECK",
-            ],
-        ],
-        [
-            "DRONES",
-            [
-                "MICRODRONES",
-                "MINIDRONES",
-                "SMALL_DRONES",
-                "MEDIUM_DRONES",
-                "LARGE_DRONES",
-            ],
-        ],
-        [
-            "ELECTRONICS",
-            [
-                "COMMLINK",
-                "DATATERM",
-                "CYBERTERM",
-                "CYBERDECK",
-                "ELECTRONIC_ACCESSORIES",
-                "RIGGER_CONSOLE",
-                "RFID",
-                "COMMUNICATION",
-                "ID_CREDIT",
-                "IMAGING",
-                "OPTICAL",
-                "AUDIO",
-                "SENSOR_HOUSING",
-                "SECURITY",
-                "BREAKING",
-                "TAC_NET",
-            ],
-        ],
-        ["GENETICS", []],
-        ["MAGICAL", ["MAGIC_SUPPLIES"]],
-        ["NANOWARE", []],
-        ["SOFTWARE", ["AUTOSOFT"]],
-        ["SURVIVAL", ["SURVIVAL_GEAR", "GRAPPLE_GUN"]],
-        ["TOOLS", ["TOOLS"]],
-        [
-            "VEHICLES",
-            [
-                "BIKES",
-                "CARS",
-                "TRUCKS",
-                "BOATS",
-                "SUBMARINES",
-                "FIXED_WING",
-                "ROTORCRAFT",
-                "VTOL",
-                "WALKER",
-            ],
-        ],
-        [
-            "WEAPON_CLOSE_COMBAT",
-            ["BLADES", "CLUBS", "WHIPS", "UNARMED", "OTHER_CLOSE"],
-        ],
-        [
-            "WEAPON_FIREARMS",
-            [
-                "TASERS",
-                "HOLDOUTS",
-                "PISTOLS_LIGHT",
-                "MACHINE_PISTOLS",
-                "PISTOLS_HEAVY",
-                "SUBMACHINE_GUNS",
-                "SHOTGUNS",
-                "RIFLE_ASSAULT",
-                "RIFLE_HUNTING",
-                "RIFLE_SNIPER",
-                "LMG",
-                "MMG",
-                "HMG",
-                "ASSAULT_CANNON",
-            ],
-        ],
-        ["WEAPON_RANGED", ["BOWS", "CROSSBOWS", "THROWING"]],
-        ["WEAPON_SPECIAL", ["LAUNCHERS", "THROWERS", "OTHER_SPECIAL"]],
-    ]);
-    GEAR_SUBTYPES2 = {
-        ELECTRONICS: [
-            "COMMLINK",
-            "DATATERM",
-            "CYBERTERM",
-            "CYBERDECK",
-            "ELECTRONIC_ACCESSORIES",
-            "RIGGER_CONSOLE",
-            "RFID",
-            "COMMUNICATION",
-            "ID_CREDIT",
-            "IMAGING",
-            "OPTICAL",
-            "AUDIO",
-            "SENSOR_HOUSING",
-            "SECURITY",
-            "BREAKING",
-            "TAC_NET",
-        ],
-    };
     SKILLS_WEAPON = {
         firearms: "skill.firearms",
         close_combat: "skill.close_combat",
         exotic_weapons: "skill.exotic_weapons",
         athletics: "skill.athletics",
         engineering: "skill.engineering",
-    };
-    SOFTWARE_TYPES = {
-        AUTOSOFT: "shadowrun6.gear.subtype.AUTOSOFT",
-        DATASOFT: "shadowrun6.gear.subtype.DATASOFT",
-        HACKING: "shadowrun6.gear.subtype.HACKING_PROGRAM",
-        MAPSOFT: "shadowrun6.gear.subtype.MAPSOFT",
-        SHOPSOFT: "shadowrun6.gear.subtype.SHOPSOFT",
-        STANDARD: "shadowrun6.gear.subtype.BASIC_PROGRAM",
-        TALENTSOFT: "shadowrun6.gear.subtype.TALENTSOFT",
-        TEACHSOFT: "shadowrun6.gear.subtype.TEACHSOFT",
-    };
-    AUTOSOFT_TYPES = {
-        CLEARSIGHT: "shadowrun6.autosoft_types.clearsight",
-        ELECTRONIC_WARFARE: "shadowrun6.autosoft_types.electronic_warfare",
-        EVASION: "shadowrun6.autosoft_types.evasion",
-        MANEUVER: "shadowrun6.autosoft_types.maneuver",
-        STEALTH: "shadowrun6.autosoft_types.stealth",
-        TARGETING: "shadowrun6.autosoft_types.targeting",
     };
     MATRIX_INITIATIVE_TYPES = {
         ar: "shadowrun6.matrixini.ar",
@@ -2411,7 +2483,11 @@ export class SR6Config {
                 return await defender.setFlag("shadowrun6-eden", `matrix-access.${safeUuid}`, "admin")
             },
 
-           
+            // Damage on a failed defense
+            // getDamage: function (actor) {
+            //     const damage = Math.ceil(actor.getMatrixPool("a") / 2);
+            //     return damage;
+            // }
 
         },
         brute_force: {
@@ -2492,7 +2568,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device"]
+            targets: ["persona", "device", "file"]
         },
         check_os: {
             id: "check_os",
@@ -2537,11 +2613,11 @@ export class SR6Config {
             outsider: false,
             user: true,
             admin: true,
-            attr1: null,
-            attr2: null,
+            attr1: "encryptionRating",
+            attr2: "encryptionRating",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         crash_program: {
             id: "crash_program",
@@ -2554,7 +2630,7 @@ export class SR6Config {
             user: false,
             admin: true,
             attr1: "d",
-            attr2: "dr",
+            attr2: "deviceRating",
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { crashProgram: true },
@@ -2575,7 +2651,7 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             _onSuccess: { damage: "Math.ceil({a}/2)" },
-            targets: ["persona", "device"],
+            targets: ["persona", "device", "file"],
 
             getDamage: function (actor) {
                 const damage = Math.ceil(actor.getMatrixPool("a") / 2);
@@ -2593,11 +2669,11 @@ export class SR6Config {
             outsider: false,
             user: true,
             admin: true,
-            attr1: "dr",
-            attr2: "dr",
+            attr1: "deviceRating",
+            attr2: "deviceRating",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         edit_file: {
             id: "edit_file",
@@ -2611,9 +2687,11 @@ export class SR6Config {
             admin: true,
             attr1: "int",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         encrypt_file: {
             id: "encrypt_file",
@@ -2629,7 +2707,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         enter_host: {
             id: "enter_host",
@@ -2659,9 +2737,11 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
-            targets: ["techno", "sprite"]
+            targets: ["techno", "sprite", "host"]
         },
         format_device: {
             id: "format_device",
@@ -2675,6 +2755,8 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -2711,7 +2793,7 @@ export class SR6Config {
             attr2: null,
             linkedAttr: null,
             threshold: 0,
-            targets: ["device", "file"]
+            targets: ["file"]
         },
         hide: {
             id: "hide",
@@ -2725,9 +2807,11 @@ export class SR6Config {
             admin: true,
             attr1: "int",
             attr2: "d",
+            attr1_alt: "d",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona"]
+            targets: ["persona", "ic"]
         },
         jack_out: {
             id: "jack_out",
@@ -2741,6 +2825,8 @@ export class SR6Config {
             admin: true,
             attr1: "cha",
             attr2: "d",
+            attr1_alt: "a",
+            attr2_alt: "d",
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { jackOut: true },
@@ -2763,17 +2849,12 @@ export class SR6Config {
                 console.log("SR6 | jack_out | onSuccess", resultData);
                 const { initiator, defender, hits, netHits } = resultData;
                 await game.sr6.utils.resetAccessLevels( initiator.uuid );
-                const matrixIni = initiator.system.matrixIni;
-                if (matrixIni !== "ar") {
-                    // Dumpshock
-                    const damageData = {
-                        soakType: SoakType.BIO_FEEDBACK,
-                        monitor: matrixIni === "vrcold" ? MonitorType.STUN : MonitorType.PHYSICAL,
-                        damage: 3
-                    }
-                    const directDamage = new DirectDamage(initiator, damageData);
-                    await directDamage.toChat();
-                }
+
+                // Dumpshock
+                await initiator.rollBiofeedbackDamage({
+                    damage: 3,
+                    description: game.i18n.localize("shadowrun6.roll.bio_feedback.description")
+                });
                 return true;
             },
             
@@ -2813,9 +2894,11 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
-            targets: ["device"]
+            targets: ["vehicle"]
         },
         matrix_perception: {
             id: "matrix_perception",
@@ -2831,7 +2914,7 @@ export class SR6Config {
             attr2: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device", "host", "file", "sprite"]
+            targets: ["persona", "device", "host", "sprite"]
         },
         matrix_search: {
             id: "matrix_search",
@@ -2861,10 +2944,24 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: "s",
             threshold: 0,
             _onSuccess: { action: "backdoor_entry" },
-            targets: ["host", "device", "living_network"]
+            targets: ["host", "device", "living_network"],
+
+            async onMatrixActionRoll(matrixActionRoll) {
+                matrixActionRoll.extended = true;
+                matrixActionRoll.interval = 1;
+                matrixActionRoll.intervalScale = "minute";
+             },
+
+            async onDefenseRoll(defenseRoll) {
+                defenseRoll.matrixActionDescription = "shadowrun6.matrixaction.probe.defense_test";
+                defenseRoll.noMatrixResultButton = true;
+            },
+
         },
         reboot_device: {
             id: "reboot_device",
@@ -2878,6 +2975,8 @@ export class SR6Config {
             admin: true,
             attr1: "log",
             attr2: "wil",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             _onSuccess: { rebootDevice: true },
@@ -2994,8 +3093,8 @@ export class SR6Config {
             outsider: false,
             user: false,
             admin: true,
-            attr1: "dr",
-            attr2: "dr",
+            attr1: "deviceRating",
+            attr2: "deviceRating",
             linkedAttr: null,
             threshold: 0,
             targets: ["file"]
@@ -3012,6 +3111,8 @@ export class SR6Config {
             admin: true,
             attr1: "d",
             attr2: "f",
+            attr1_alt: "d",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device", "persona"]
@@ -3026,8 +3127,10 @@ export class SR6Config {
             outsider: true,
             user: true,
             admin: true,
-            attr1: "d",
-            attr2: "f",
+            attr1: "log",
+            attr2: "d",
+            attr1_alt: "piloting",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -3063,7 +3166,7 @@ export class SR6Config {
             linkedAttr: "a",
             threshold: 0,
             _onSuccess: { tarpit: true, damage: 1 },
-            targets: ["persona", "device", "ic", "sprite"],
+            targets: ["persona", "device", "ic", "sprite", "file"],
             
             getDamage: function (actor) {
                 const damage = 1;
@@ -3083,10 +3186,277 @@ export class SR6Config {
             admin: true,
             attr1: "wil",
             attr2: "s",
+            attr1_alt: "f",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
-            targets: ["persona", "device", "physical"]
-        }
+            targets: ["persona", "device", "physical", "file"]
+        },
+        
+        acid: {
+            id: "acid",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        binder: {
+            id: "binder",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "d",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        black: {
+            id: "black",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "int",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true,
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | black | onFailedDefense");
+                const { initiator, defender, hits, netHits } = resultData;
+
+                const actor = defender.actor ?? defender;
+                await actor.rollBiofeedbackDamage({
+                    damage: this.getDamage(initiator) + netHits
+                });
+                return true;
+            },
+
+            // This does Matrix Damage
+            getDamage: function (actor) {
+                const damage = actor.system.rating;
+                return damage;
+            }
+
+        },
+        blaster: {
+            id: "blaster",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "log",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true,
+            
+            // This does Matrix Damage but no Net Hits so not using getDamage
+            async onFailedDefense(resultData) {
+                console.log("SR6 | black | onFailedDefense");
+                const { initiator, defender, hits, netHits } = resultData;
+
+                const damage = initiator.system.rating;
+                const target = defender;
+                const targetUuid = target.uuid;
+                const actor = defender.actor ?? defender;
+
+                await actor.rollSoak({
+                    soak: SoakType.DAMAGE_MATRIX,
+                    matrixTargetUuid: targetUuid,
+                    damage: damage
+                });
+                return true;
+            }
+
+        },
+        crash: {
+            id: "crash",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "int",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        jammer: {
+            id: "jammer",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "a",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        killer: {
+            id: "killer",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "int",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true,
+            
+            // This does Matrix Damage + Net Hits
+            getDamage: function (actor) {
+                const damage = actor.system.rating;
+                return damage;
+            }
+
+        },
+        marker: {
+            id: "marker",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "s",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        patrol: {
+            id: "patrol",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: false,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "s",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        scramble: {
+            id: "scramble",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        sparky: {
+            id: "sparky",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "int",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true,
+            
+            async onFailedDefense(resultData) {
+                console.log("SR6 | sparky | onFailedDefense");
+                const { initiator, defender, hits, netHits } = resultData;
+
+                const actor = defender.actor ?? defender;
+                await actor.rollBiofeedbackDamage({
+                    damage: initiator.system.rating + netHits
+                });
+                return true;
+            },
+
+        },
+        tarbaby: {
+            id: "tarbaby",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "log",
+            attr2: "f",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
+        track: {
+            id: "track",
+            skill: "electronics",
+            specialization: "software",
+            attrib: "rating",
+            illegal: false,
+            major: true,
+            outsider: true,
+            user: true,
+            admin: true,
+            attr1: "wil",
+            attr2: "s",
+            linkedAttr: null,
+            threshold: 0,
+            IC: true
+        },
     };
     // TODO add Matrix Edge Actions (HS p.31)
     MATRIX_ACTIONS_HS = {
@@ -3119,6 +3489,8 @@ export class SR6Config {
             admin: true,
             attr1: "d",
             attr2: "f",
+            attr1_alt: "piloting",
+            attr2_alt: "f",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -3185,6 +3557,8 @@ export class SR6Config {
             admin: false,
             attr1: "wil",
             attr2: "f",
+            attr1_alt: "f",
+            attr2_alt: "f",
             linkedAttr: "s",
             threshold: 0,
             targets: ["host", "device", "living_network"],
@@ -3253,6 +3627,8 @@ export class SR6Config {
             admin: true,
             attr1: "int",
             attr2: "d",
+            attr1_alt: "d",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]
@@ -3282,10 +3658,12 @@ export class SR6Config {
             illegal: true,
             major: false,
             outsider: true,
-            user: false,
-            admin: false,
+            user: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
+            admin: game.settings.get(SYSTEM_NAME, "dosPopupMatrix"),
             attr1: "int",
             attr2: "s",
+            attr1_alt: "s",
+            attr2_alt: "s",
             linkedAttr: null,
             threshold: 0,
             targets: ["device"]

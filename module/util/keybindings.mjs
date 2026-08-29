@@ -1,11 +1,12 @@
 import Importer from "./Importer.js";
 
 export default class SR6Keybindings {
+    static KeyboardManager = foundry.helpers.interaction.KeyboardManager;
 
     static initialize() {
-        const {SHIFT, CONTROL, ALT} = KeyboardManager.MODIFIER_KEYS;
+        const {SHIFT, CONTROL, ALT} = this.KeyboardManager.MODIFIER_KEYS;
         if ( game.view !== "game" ) {
-            console.warning(`SR6E | Cannot initialize keybindings due to not being in the game.`);
+            console.warn(`SR6E | Cannot initialize keybindings due to not being in the game.`);
             return;
         }
 
@@ -116,7 +117,7 @@ export default class SR6Keybindings {
      * @private
      */
     static _onSelectTokenControlGroup(context) {
-        const key = KeyboardManager.getKeycodeDisplayString(context.key);
+        const key = this.KeyboardManager.getKeycodeDisplayString(context.key);
         if (!canvas.ready) return false;
         console.log(`SR6E | Keybind SHIFT-${key} | Select Token Control Group ${key}.`);
         ui.notifications.info(game.i18n.format("shadowrun6.ui.notifications.select_control_group", { controlGroup: key }), { console: false });
@@ -135,7 +136,7 @@ export default class SR6Keybindings {
 
         // TODO: rework and save in Tokens instead
         const controlGroups = game.user.getFlag(game.system.id, 'TokenControlGroups') ?? {};
-        const key = KeyboardManager.getKeycodeDisplayString(context.key);
+        const key = this.KeyboardManager.getKeycodeDisplayString(context.key);
         console.log(`SR6E | Keybind CTRL-${key} | Bind Tokens Control Group ${key}.`, tokens);
         ui.notifications.info(game.i18n.format("shadowrun6.ui.notifications.bind_control_group", { controlGroup: key }), { console: false });
 

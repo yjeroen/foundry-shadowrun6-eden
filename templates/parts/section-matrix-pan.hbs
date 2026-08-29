@@ -35,7 +35,7 @@
                 <i class="fas fa-user-secret"></i>
                 <span class="pan-summary-label">{{ localize 'shadowrun6.section.persona.silent' }}</span>
                 <span>
-                    <a class="toggle-control" data-action='toggleRunningSilent' data-tooltip="SR6.title.running_silent">
+                    <a class="toggle-control {{#if limited}}inactive{{/if}}" data-action='toggleRunningSilent' data-tooltip="SR6.title.running_silent">
                         <i class='fas {{#if actor.system.persona.runningSilent}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
                     </a>
                 </span>
@@ -173,6 +173,7 @@
             <strong><input class="box" type="text" value="{{system.pan.name}}" data-field="system.pan._name" disabled/></strong>
             <span class="item-controls">
                 {{#if actor.isOwner}}
+                {{#unless limited}}
                 <a class="item-control"
                     data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'shadowrun6.section.pan.name')}}"
                     data-action="editField">
@@ -183,6 +184,7 @@
                     data-action="sharePAN">
                 <i class="fa-solid fa-share"></i>
                 </a>
+                {{/unless}}
                 {{/if}}
             </span>
         </div>
@@ -302,6 +304,7 @@
                             {{/if}}
 
                             {{#if (and child.item.id child.isOwner)}}
+                            {{#unless @root.limited}}
                             <a class="item-control item-edit"
                                 data-action="viewDoc"
                                 data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
@@ -329,6 +332,7 @@
                             </a>
                             {{/if}} --}}
 
+                            {{/unless}}
                             {{/if}}
                         </div>
                     </div>
@@ -383,6 +387,7 @@
                                     {{/if}}
 
                                     {{#if (and device.item.id device.isOwner)}}
+                                    {{#unless @root.limited}}
                                     <a class="item-control item-edit"
                                         data-action="viewDoc"
                                         data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.gear')}}"
@@ -408,6 +413,7 @@
                                     </a>
                                     {{/if}} --}}
 
+                                    {{/unless}}
                                     {{/if}}
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ export default class SR6SpriteActorData extends SR6BaseActorData {
     
     static LOCALIZATION_PREFIXES = [
         ...super.LOCALIZATION_PREFIXES,
+        'SR6.Actor.matrixBase',
         'SR6.Actor.sprite'
     ];
 

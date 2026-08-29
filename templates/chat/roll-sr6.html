@@ -519,6 +519,7 @@
 
             {{/switch}}
 
+          {{#if (or damage damageConvertedStun)}}
             <hr>
 
             {{#if (eq monitor "matrix")}}
@@ -530,7 +531,6 @@
                   {{/if}}
                 </button>
             {{else}}
-            
                 {{#if (or (eq actor.type "Spirit") (eq actor.type "Vehicle"))}}
                     {{!-- TODO Spirit and vehicle damage not yet automated with chat buttons --}}
                     <!-- Spirit and vehicle damage not yet automated; Spirits have astral form and no stun, while vehicle stun is matrix damage -->
@@ -553,8 +553,9 @@
                     </button>
                     {{/if}}
                 {{/if}}
-
             {{/if}}
+
+          {{/if}}
 
 
         {{/if}}

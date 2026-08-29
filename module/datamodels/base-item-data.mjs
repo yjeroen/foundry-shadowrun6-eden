@@ -41,12 +41,35 @@ export default class SR6BaseItemData extends foundry.abstract.TypeDataModel {
      * @type {string[]}
      */
     static get TYPES() {
-        return CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type].types ?? [];
-        return Object.keys(CONFIG.SR6.NEW.ITEM_TYPES[this.metadata?.type]?.types ?? {});
+        return CONFIG.SR6.ITEM[this.metadata?.type].TYPES ?? {};
+    }
+
+    /**
+     * The allowed sub types which may exist for SR6 ItemData.
+     * Only usable for datamodel validation, not for formInput/selectOptions
+     * @type {string[]}
+     */
+    static get SUBTYPES() {
+        return Object.fromEntries(
+            Object.values(CONFIG.SR6.ITEM[this.metadata?.type].SUBTYPES)
+                  .flatMap((SUBTYPES) => Object.entries(SUBTYPES))
+        );
+    }
+
+    /**
+     * The allowed multi types which may exist for SR6 ItemData.
+     * @type {string[]}
+     */
+    static get MULTITYPES() {
+        return CONFIG.SR6.ITEM[this.metadata?.type].MULTITYPES ?? {};
     }
 
     get actor() {
         return this.parent.actor;
+    }
+
+    get item() {
+        return this.parent;
     }
 
     /**

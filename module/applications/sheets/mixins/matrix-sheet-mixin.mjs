@@ -17,33 +17,82 @@ export const MatrixSheetMixin = Base => class extends Base {
         },
     };
 
-    _matrixActions(actor = this.actor) {
+    /** @inheritdoc */
+    static PARTS = {
+        ...super.PARTS,
+        matrixTarget: {
+            template: "systems/shadowrun6-eden/templates/sheets/actor/matrix-target-tab.hbs",
+            scrollable: [""],
+            templates: [
+                "systems/shadowrun6-eden/templates/sheets/actor/matrix-section.hbs"
+            ]
+        }
+    };
+
+    async _preparePartContext(partId, context) {
+        context = await super._preparePartContext(partId, context);
+
+        switch (partId) {
+            case "matrixTarget":
+                context.tab = context.tabs[partId];
+                context.matrixAccess = this._matrixAccess();
+                context.matrixActions = this._matrixActions();
+                break;
+        }
+        return context;
+    }
+
+    _matrixActions(actor = this.initiator) {
         const system = actor.system;
         const matrixActions = Object.entries(CONFIG.SR6.MATRIX_ACTIONS)
             .filter(([actionId, action]) => {
+                if (action.IC && this.initiator.system.deployedItem?.system.multiTypes?.has(action.id)) return true;
+                if (action.IC && !this.initiator.system.isDeployedIC) return false;
+                if (this.initiator.system.isDeployedIC) return false;
+
                 if (this.document.limited || this.options.limited) {
                     if (action.skill === "cracking" && !this.initiator.getSystemProperty("skills.cracking.pool")) return false
                     if (action.linkedAttr === "a" && !this.initiator.getSystemProperty("persona.used.a")) return false;
                     if (action.linkedAttr === "s" && !this.initiator.getSystemProperty("persona.used.s")) return false;
+
                      // TODO JEROEN evaluate if this should not be only OUTSIDER actions
                     if (this.actor.isActorV2 && action.targets?.includes("physical")) return false;  // ActorV2 DataModel actors are currently only used for Matrix Icons
+
+                    if (this.actor.isTechno && action.targets?.includes("living_network")) return true;
+
+                    if (this.actor.type === "host") {
+                        if (this.actor.system.deployedItem) {   //IC, Devices or Files
+                            if (this.actor.system.deployedItem.system.subtype === "FILE_STORAGE" && action.targets?.includes("file")) return true;
+                            else if (this.actor.system.deployedItem.system.subtype === "FILE_STORAGE") return false;
+
+                            if (!this.actor.system.isDeployedIC && action.targets?.includes("device") && !action.targets?.includes("host")) return true;
+                            else if (!this.actor.system.isDeployedIC) return false;
+                            // Currently not filtering anything on IC; 
+                            // Currently they are represented as personas
+                        } else {   //Host
+                            if (action.targets?.includes("host")) return true;
+                            else return false;
+                        }
+                    }
+                    
                     if (action.targets?.includes("persona") && action.outsider) return true;
                     return false;
                 }
                 
-                if (action.skill === "cracking" && !system.skills.cracking.defaultTestPool) return false;
+                if (action.skill === "cracking" && !system.skills?.cracking.defaultTestPool) return false;
                 if (action.linkedAttr == null) return true;
                 if (action.linkedAttr === "a" && system.matrix.attributes.attack > 0) return true;
                 if (action.linkedAttr === "s" && system.matrix.attributes.sleaze > 0) return true;
                 return false;
             })
             .map(([actionId, action]) => {
+                const defaultTestPool = actor.type === "host" ? system.rating * 2 : actor._getSkillPool(action.skill, action.specialization, action.attrib);
                 return {
                     id: actionId,
                     ...action,
                     name: game.i18n.localize(`shadowrun6.matrixaction.${actionId}.name`),
                     //TODO JEROEN: Add specialization support
-                    testPool: action.skill ? system.skills[action.skill].defaultTestPool : null,
+                    testPool: action.skill ? defaultTestPool : null,
                     skillName: action.skill ? game.i18n.localize(`skill.${action.skill}`) + ` (${game.i18n.localize(`shadowrun6.special.${action.skill}.${action.specialization}`)})` : null,
                 };
             })
@@ -149,9 +198,9 @@ export const MatrixSheetMixin = Base => class extends Base {
         const isOpen = !target.classList.contains("open");
         target.classList.toggle("open", isOpen);
         target.classList.toggle("closed", !isOpen);
-        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
         content.classList.toggle("open", isOpen);
         content.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
     }
 
     static async _onMatrixRoll(event, target) {

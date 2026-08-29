@@ -276,6 +276,20 @@
     text-align: center;
     font-weight: 900;
 }
+
+.sr6-roll-dialog h3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content max-content;
+  gap: 0.5em;
+  align-items: end;
+}
+
+.sr6-roll-dialog .plus-attribute {
+  font-size: 0.8em;
+  font-weight: normal;
+  align-self: center;
+}
+
 .edge-roll .edge-value {
 		z-index: 1;
 		position:relative;
@@ -524,13 +538,11 @@
 }
 
 #token-hud .status-effects {
-  width: 222px;
-  grid-template-columns: repeat(5, 20%);
+  --effect-columns: 7;
+  --effect-size: 42px;
+  --effect-gap: 3px;
 }
 #token-hud .status-effects .effect-control {
-  width: 42px;
-  height: 42px;
-  padding: 2px;
   opacity: 0.4;
 }
 #token-hud .status-effects .effect-control:hover {
@@ -540,6 +552,7 @@
 }
 #token-hud .status-effects .effect-control.active {
   border: 1px solid white;
+  opacity: 0.9;
 }
 #token-hud .status-effects .effect-control-wrapper {
   display: grid;
@@ -697,11 +710,19 @@
   text-align: right;
   min-width: 70px;
 }
+.matrix-section .skill-pool .fas {
+  margin-bottom: 2px;
+}
 
 .matrix-offline {
   color: darkred;
 }
 
+.matrix-section .illegal-true,
+.matrix-section .illegal-false {
+  font-size: 13px;
+  font-weight: normal;
+}
 .matrix-section .illegal-true {
   color: darkred;
 }
@@ -719,6 +740,7 @@ a.item-control.disabled-roll:hover {
 .matrix-section .reference-label .fa-circle-info,
 .matrix-section .reference-label span {
   font-size: 12px;
+  --fa-width: 12px;
   opacity: 0.4;
   transition: font-size 0.5s ease;
 }
@@ -731,6 +753,7 @@ a.item-control.disabled-roll:hover {
     .matrix-section .reference-label .fa-circle-info,
     .matrix-section .reference-label span {
       font-size: 0px;
+      --fa-width: 0px;
     }
 }
 @container (max-width: 484px) {
@@ -869,7 +892,17 @@ a.item-control.disabled-roll:hover {
 .matrix-persona-attributes .collapsible {
   color: gray;
 }
-
+.shadowrun6 .matrix-section .matrix-action label {
+  cursor: var(--cursor-default);
+}
+.shadowrun6 .matrix-section .matrix-action label.collapsible label {
+  cursor: var(--cursor-pointer);
+}
+.shadowrun6 .matrix-section .matrix-action label.collapsible:hover {
+  color: black;
+  text-shadow: 0 0 8px var(--color-shadow-primary);
+  cursor: var(--cursor-pointer);
+}
 
 .chat-message .edgeable.edge-own-roll .die.miss,
 .chat-message .edgeable.edge-opponent-roll .die.hit {
@@ -1344,7 +1377,7 @@ body.game .application.shadowrun6 .window-content {
   font-weight: 800;
 }
 
-.stat-block .row p {
+.stat-block .row:not(.rich-html) p {
   display: inline;
   margin: 0;
 }
@@ -1374,6 +1407,10 @@ body.game .application.shadowrun6 .window-content {
   margin-top: 0.5rem;
 }
 
+.chat-message .system-message .content-link {
+  padding-bottom: 2px;
+}
+
 .chat-message .chat-tooltip {
   font-style: italic;
   padding: 0.5rem 0.5rem 0 0.5rem;
@@ -1389,15 +1426,11 @@ body.game .application.shadowrun6 .window-content {
 }
 
 /* Read Only Sheets */
+/* Remember: Set unusable links to .inactive class in hbs */
 
-.sheet .read-only .track,
-.sheet .read-only a:not([data-action="matrixOperations"]) {
+.sheet .read-only .track {
   pointer-events: none;
   cursor: var(--cursor-default);
-}
-.sheet .read-only .matrix-section.persona a {
-  pointer-events: auto;
-  cursor: var(--cursor-pointer);
 }
 
 .app.actor .editable {

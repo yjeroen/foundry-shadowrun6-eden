@@ -1,0 +1,51 @@
+{{!-- FoundryVTT v14+ --}}
+
+<section class="tab changes{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+
+    <fieldset>
+        <div class="form-group stacked">
+            <p>{{{localize "shadowrun6.active_effect.explanation"}}}</p>
+            <ul>
+                {{#each tab.usage_tips as |tip i|}}
+                    <li>{{{localize (concat "shadowrun6.active_effect.usage_tips." i) }}}</li>
+                {{/each}}
+                {{#if isItemEffect}}
+                    {{#iff document.parent.type '==' "mod"}}
+                    <li>{{{localize "shadowrun6.active_effect.gear_mod_tip"}}}</li>
+                    {{else}}
+                    <li>{{{localize "shadowrun6.active_effect.item_tip"}}}</li>
+                    {{/iff}}
+                {{/if}}
+            </ul>
+            <p>{{localize "shadowrun6.active_effect.more_info"}} <a href="https://foundryvtt.com/article/active-effects/">FoundryVTT.com Active Effects</a></p>
+        </div>
+        <div class="form-group">
+            <label>{{localize "shadowrun6.active_effect.advanced"}}</label>
+            <div class="form-fields"><input type="checkbox" name="system.advanced" class="advanced-active-effects" {{#if source.system.advanced}}checked{{/if}} /></div>
+            <p class="hint">{{localize "shadowrun6.active_effect.advanced_hint"}}</p>
+        </div>
+    </fieldset>
+
+    <header>
+        <div class="key">{{localize "EFFECT.FIELDS.changes.element.key.label"}}</div>
+        <div class="type">{{localize "EFFECT.FIELDS.changes.element.type.label"}}</div>
+        <div class="value">{{localize "EFFECT.FIELDS.changes.element.value.label"}}</div>
+        <div class="priority">{{localize "EFFECT.FIELDS.changes.element.priority.label"}}</div>
+        <div class="controls">
+            <button type="button" class="inline-control icon fa-regular fa-square-plus" data-action="addChange"></button>
+        </div>
+    </header>
+    
+    <ol class="scrollable" data-changes>
+        {{#each changes as |change|}}
+        {{{change}}}
+        {{/each}}
+    </ol>
+
+    {{#if source.system.advanced}}
+    <datalist id="effect-option-list">
+        {{datalistOptions ACTIVE_EFFECT_OPTIONS localize=true}}
+    </datalist>
+    {{/if}}
+
+</section>

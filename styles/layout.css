@@ -17,11 +17,12 @@
 }
 
 .game .system-links {
-  display: inline;
+  display: inline-flex;
+  padding: 0 15px;
 }
 .game .system-links a {
-  margin-right: 10px;
   color: var(--sr6-bright-pink);
+  text-decoration: underline;
 }
 
 line {
@@ -310,6 +311,7 @@ dd::after {
 	color: var(--highlight-color);
   font-size: 13px;
   vertical-align: middle;
+  --fa-width: 13px;
 }
 .item-control[data-action="uninstallMod"] {
   vertical-align: bottom;
@@ -319,6 +321,7 @@ dd::after {
 }
 .item-control .fa-dice-six {
   font-size: 20px;
+  --fa-width: 20px;
 }
 .middle-column {
 	margin: 0 5px 0;
@@ -424,12 +427,12 @@ button.collapsible.empty {
   visibility: visible;
   font-size: 13px;
 }
+.shadowrun6 button.collapsible.open:before {
+	content: "\25BC"; /* 2796 Unicode character for "minus" sign (-) */
+}
 .shadowrun6 button.collapsible.empty:before {
   content: '\025B7'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
-}
-.shadowrun6 button.collapsible.open:before {
-	content: "\25BC"; /* 2796 Unicode character for "minus" sign (-) */
 }
 
 .game .sheet input[type=checkbox], .game .dialog input[type=checkbox] {
@@ -462,7 +465,7 @@ button.collapsible.empty {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #a5a5a5;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -502,6 +505,11 @@ button.collapsible.empty {
   border-radius: 50%;
 }
 
+.shadowrun6-slider.inactive {
+  opacity: 0.2;
+  cursor: var(--cursor-default);
+}
+
 h3.highlight, h4.highlight {
 	color: var(--highlight-color)
 }
@@ -510,17 +518,32 @@ table.spell-table td {
 	text-align: center;
 }
 
-.editor {
-    flex: 1;
-    justify-self: stretch;
-    align-self: stretch;
-    height: 100%;
-    min-height: 160px;
-    margin-bottom: 5px;
+.sheet .editor:not(.prosemirror) {
+  min-height: 2.5em;
 }
-.locked .editor {
-  min-height: max-content;
+
+.sheet .section > .editor {
+  display: flex;
+  flex: 1;
+  margin-bottom: 5px;
 }
+
+.sheet .section .prosemirror menu, 
+.sheet .section prose-mirror menu {
+  position: static;
+  flex-wrap: wrap;
+}
+
+.sheet .section .prosemirror:not(.inactive), 
+.sheet .section prose-mirror:not(.inactive) {
+  --min-height: 200px;
+}
+
+.sheet .section .prosemirror:not(.inactive) .editor-content, 
+.sheet .section prose-mirror:not(.inactive) .editor-content {
+  padding: 0 1ch;
+}
+
 .shadowrun6.item .editor {
   min-height: 50px;
   max-width: 580px;
@@ -537,7 +560,6 @@ table.spell-table td {
 }
 .shadowrun6.item .editor-container .editor-content {
   min-height: 150px;
-  padding: 0;
 }
 
 .shadowrun6.item .item-list .collapsible-content {

@@ -128,7 +128,8 @@ export class RollDialog extends Dialog {
         const form = this.html[0];
         let configured = this.dialogResult;
         let prepared = this.prepared;
-        console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        if (configured.actor?.system.edge === undefined) return;
+        console.log("SR6E | RollDialog._onCalcEdge START", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
         
         if (!configured.actor)
             return;
@@ -203,11 +204,11 @@ export class RollDialog extends Dialog {
                 capped = true;
             }
             // Check if new Edge value would be >7
-            if ((actor.edge.value + configured.edgePlayer) > maxEdge) {
+            if ((actor.edge?.value + configured.edgePlayer) > maxEdge) {
                 configured.edgePlayer = Math.max(0, maxEdge - actor.edge.value);
                 capped = true;
             }
-            this.edge = Math.min(maxEdge, actor.edge.value + configured.edgePlayer);
+            this.edge = Math.min(maxEdge, actor.edge?.value + configured.edgePlayer) ?? 0;
             // Update in dialog
             let edgeValue = this._element[0].getElementsByClassName("edge-value")[0];
             if (edgeValue) {
@@ -260,7 +261,7 @@ export class RollDialog extends Dialog {
         catch (err) {
             console.log("SR6E | Exception: " + err.message , err);
         }
-        console.log("SR6E | RollDialog._onCalcEdge END", this.edge, this.edgeSpending, configured.actor.system.edge.value, configured.edgePlayer);
+        console.log("SR6E | RollDialog._onCalcEdge END", this.edge, this.edgeSpending, configured.actor.system.edge?.value, configured.edgePlayer);
     }
     //-------------------------------------------------------------
     _updateEdgeBoosts(elem, available) {
@@ -440,6 +441,7 @@ export class RollDialog extends Dialog {
         }
         this.prepared.calcPool = this.prepared.pool + this.modifier - (useWoundModifier?woundMod:0) - (useSustainModifier?sustainedMod:0) 
                                     + (useGruntGroup && this.options.prepared.rollType == RollType.Weapon ? gruntGroup.diceMod : 0);
+        this.prepared.calcPool = Math.max(0, this.prepared.calcPool);
         this.prepared.checkHardDiceCap();
         $("label[name='dicePool']")[0].innerText = this.prepared.calcPool.toString();
     }
@@ -710,46 +712,35 @@ export class RollDialog extends Dialog {
             return;
         }
         if (isSkillRoll(prepared)) {
-            console.log("SR6E | isSkillRoll ", prepared.skillId);
+            console.log("SR6E | isSkillRoll ", prepared.skillId, prepared.skillSpec);
+
             const attribSelect = event.currentTarget;
             let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
             console.log("SR6E |  use attribute = " + newAttrib);
             prepared.attrib = newAttrib;
-            actor.updateSkillRoll(prepared, newAttrib);
-            prepared.actionText = prepared.checkText;
-        } else if (prepared.useAttributeMod) {
-            console.log("SR6E | is Attribute Roll ", prepared.actionText);
-            const attribSelect = event.currentTarget;
-            let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
-            console.log("SR6E |  use attribute = " + newAttrib);
-            if (this.actor.system instanceof foundry.abstract.DataModel) {
-                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
-                
-                prepared.pool = attr?.pool ?? attr ?? 0;
-                // TODO JEROEN rework in V14 to DataModel.html#getfieldforproperty
-                const fieldPath = prepared.attributeTested.replace("system.", "");
-                prepared.checkText =  this.actor.system.schema.getField(fieldPath)?.label;
-            } else if (prepared.attributeTested.startsWith("system.")) {
-                // ActorSheet V1 with dataset.attributePath
-                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
-                
-                prepared.pool = attr?.pool ?? attr ?? 0;
-                const fieldPath = prepared.attributeTested.replace("system.", "");
-                prepared.checkText =  prepared.rollLabel;
 
+            actor.updateSkillRoll(prepared, newAttrib);
+
+        } else if (prepared.useAttributeMod) {
+            console.log("SR6E | is Attribute Roll ", prepared.attributeTested);
+            if (prepared.attributeTested.startsWith("system.")) {
+                const attr = foundry.utils.getProperty(this.actor, prepared.attributeTested);
+                prepared.pool = attr ?? 0;
+                prepared.checkText =  game.i18n.localize(CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS[prepared.attributeTested])
             } else {
                 prepared.pool = this.actor.system.attributes[prepared.attributeTested].pool;
-                prepared.checkText = game.i18n.localize("attrib." + prepared.attributeTested);
+                prepared.checkText =  game.i18n.localize(`attrib.${prepared.attributeTested}`)
             }
+
+            const attribSelect = event.currentTarget;
+            let newAttrib = attribSelect.children[attribSelect.selectedIndex].value;
+
             if (newAttrib) {
-                prepared.checkText += ' + ' + game.i18n.localize("attrib." + newAttrib);
-                if (this.actor.system instanceof foundry.abstract.DataModel) {
-                    newAttrib = game.sr6.config.ATTRIBUTE_TO_V2[newAttrib];
-                }
-                prepared.pool += this.actor.system.attributes[newAttrib]?.pool || 0;
+                console.log("SR6E |  + attribute", newAttrib);
+                prepared.checkText += ' + ' + game.i18n.localize(CONFIG.SR6.ATTRIBUTE_SELECT_OPTIONS[newAttrib]);
+                prepared.pool += foundry.utils.getProperty(this.actor, newAttrib) || 0;
             }
             prepared.calcPool = prepared.pool;
-            prepared.actionText = prepared.checkText;
         }
         console.log("SR6E | new check: " + prepared.checkText);
         console.log("SR6E | new pool: " + prepared.pool);

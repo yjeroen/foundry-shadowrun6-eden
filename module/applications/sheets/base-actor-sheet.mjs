@@ -80,14 +80,14 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             template: "systems/shadowrun6-eden/templates/sheets/actor/description-tab.hbs",
             scrollable: [""],
         },
-        gear: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/gear-tab.hbs",
-            scrollable: [""],
-        },
-        magic: {
-            template: "systems/shadowrun6-eden/templates/sheets/actor/magic-tab.hbs",
-            scrollable: [""],
-        },
+        // gear: {
+        //     template: "systems/shadowrun6-eden/templates/sheets/actor/gear-tab.hbs",
+        //     scrollable: [""],
+        // },
+        // magic: {
+        //     template: "systems/shadowrun6-eden/templates/sheets/actor/magic-tab.hbs",
+        //     scrollable: [""],
+        // },
         effects: {
             template: "systems/shadowrun6-eden/templates/sheets/common/effects-tab.hbs",
             scrollable: [""],
@@ -131,7 +131,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
     /** @override */
     async _prepareContext(options) {
-        const overwatchScore = this.document.system.matrix.overwatchScore;
 
         // Output initialization
         const context = {
@@ -157,6 +156,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
             fields: this.document.schema.fields,
             systemFields: this.document.system.schema.fields,
             tracks: {},
+            enriched: {},
         };
 
         if (this.actor.system.skills) {
@@ -187,33 +187,14 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         switch (partId) {
             case "summary":
             case "features":
-            case "magic":
+            // case "magic":
             case "gear":
                 context.tab = context.tabs[partId];
                 break;
             case "description":
                 context.tab = context.tabs[partId];
-                // Enrich description info for display
-                // Enrichment turns text like `[[/r 1d20]]` into buttons
-                context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.description,
-                    {
-                        // Whether to show secret blocks in the finished html
-                        secrets: this.document.isOwner,
-                        // Data to fill in for inline rolls
-                        rollData: this.actor.getRollData(),
-                        // Relative UUID resolution
-                        relativeTo: this.actor,
-                    }
-                );
-                context.enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-                    this.actor.system.notes,
-                    {
-                        secrets: this.document.isOwner,
-                        rollData: this.actor.getRollData(),
-                        relativeTo: this.actor,
-                    }
-                );
+                context.enriched.description = await this._prepareEnrichedHTML(this.actor.system.description);
+                context.enriched.notes = await this._prepareEnrichedHTML(this.actor.system.notes);
                 break;
             case "effects":
                 context.tab = context.tabs[partId];
@@ -229,7 +210,29 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     /**
+     * Prepare a richHTML attribute for enriched TextEditor output
+     * Enrich description info for display
+     * Enrichment turns text like `[[/r 1d20]]` into buttons
+     * @param {*} attribute 
+     * @returns TextEditor.implementation.enrichHTML
+     */
+    async _prepareEnrichedHTML(attribute) {
+        return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+                    attribute,
+                    {
+                        // Whether to show secret blocks in the finished html
+                        secrets: this.document.isOwner,
+                        // Data to fill in for inline rolls
+                        rollData: this.actor.getRollData(),
+                        // Relative UUID resolution
+                        relativeTo: this.actor,
+                    }
+                );
+    }
+
+    /**
      * Generates the data for the generic tab navigation template
+     * TODO JEROEN REWORK TABS
      * @param {string[]} parts An array of named template parts to render
      * @returns {Record<string, Partial<ApplicationTab>>}
      * @protected
@@ -256,29 +259,32 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                     return tabs;
                 case "summary":
                     tab.id = "summary";
-                    tab.label += "Summary";
                     break;
                 case "description":
                     tab.id = "description";
-                    tab.label += "Description";
                     break;
                 case "features":
                     tab.id = "features";
-                    tab.label += "Features";
                     break;
-                case "gear":
-                    tab.id = "gear";
-                    tab.label += "gear";
+                case "network":
+                    tab.id = "network";
                     break;
-                case "magic":
-                    tab.id = "magic";
-                    tab.label += "Magic";
+                case "matrixTarget":
+                    tab.id = "matrixTarget";
                     break;
+                // case "gear":
+                //     tab.id = "gear";
+                //     break;
+                // case "magic":
+                //     tab.id = "magic";
+                //     break;
                 case "effects":
                     tab.id = "effects";
-                    tab.label += "Effects";
                     break;
+                default:
+                    console.error(`SR6E | Tab id '${partId}' is not configured in SR6BaseActorSheet._getTabs`);
             }
+            if (tab.id) tab.label = game.i18n.localize( tab.label + tab.id );
             if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = "active";
             tabs[partId] = tab;
             return tabs;
@@ -359,6 +365,13 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Unselect any CM fields after a rerender
         this.element.querySelectorAll(".tracks input").forEach(input => input.blur());
+
+        // Select Stat Block input text on focus
+        if (context.editMode) {
+            this.element.querySelector(".stat-block").addEventListener("focusin", event =>
+                this.constructor._selectInputText(event, event.target)
+            );
+        }
         
         // Tabs
         const nav = this.element.querySelector(".sheet-tabs.tabs");
@@ -435,6 +448,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     _prepareSubmitData(event, form, formData, updateData) {
+        console.log("SR6E | _prepareSubmitData | form data:", formData.object);
         this.#changeCmDamageToValues(formData.object);
         
         return super._prepareSubmitData(event, form, formData, updateData);
@@ -499,7 +513,6 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const action = target.dataset.action;
         switch ( action ) {
             case "toggleEditActor":
-                this.toggleControls(false);
                 this._onToggleEditActor(event);
                 break;
         }
@@ -592,6 +605,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const tracks = event.target.closest(".tracks");
         if (!slotClicked || !track || track.classList.contains('inactive')) return; // clicked outside a slot or track is inactive
 
+        const document = target.dataset.itemId ? this.actor.items.get(target.dataset.itemId) : this.actor;
+
         const allSlots = [...track.querySelector(".slots").children];
         const index = allSlots.indexOf(slotClicked);
         console.log(`SR6E | _onTrackClick | Condition Monitor: ${conditionMonitor} | Slot clicked: ${index}`);
@@ -605,7 +620,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
 
         // Pulsating track
 		track.classList.add('is-pulsing'); // animation
-		tracks.classList.add('inactive');
+		if (tracks) tracks.classList.add('inactive');
 		
         // Track Config
         let trackColor, attr, deltaTrack;
@@ -613,23 +628,23 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         if (conditionMonitor === "physical") {
             trackColor = "red";
             attr = "system.health.physicalCM.value";
-            deltaTrack = newValue - this.document.system.health.physicalCM.value;
+            deltaTrack = newValue - document.system.health.physicalCM.value;
         }
         else if (conditionMonitor === "stun") {
             trackColor = "blue"
             attr = "system.health.stunCM.value";
-            deltaTrack = newValue - this.document.system.health.stunCM.value;
+            deltaTrack = newValue - document.system.health.stunCM.value;
         }
         else if (conditionMonitor === "matrix") {
             trackColor = "green"
             attr = "system.matrix.matrixCM.value";
-            deltaTrack = newValue - this.document.system.matrix.matrixCM.value;
+            deltaTrack = newValue - document.system.matrix.matrixCM.value;
         }
         else if (conditionMonitor === "overflow") {
             trackColor = "red";
             attr = "system.health.physicalCM.value";
-            deltaTrack = newValue - this.document.system.health.overflow.value;
-            newValue = 0 - (this.document.system.health.overflow.max - newValue );
+            deltaTrack = newValue - document.system.health.overflow.value;
+            newValue = 0 - (document.system.health.overflow.max - newValue );
         }
 
         // Showing delta within portrait
@@ -643,12 +658,10 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                 combatText.classList.add('disabled'); // animation
                 setTimeout(() => {
                     // Update actor and re-render sheet
-                    console.log(`SR6E | _onTrackClick | Updating`, this.document.documentName, attr, newValue);
-                    this.document.update({ [attr]: newValue });
+                    console.log(`SR6E | _onTrackClick | Updating`, document.documentName, attr, newValue);
+                    document.update({ [attr]: newValue });
                 }, 200);
             }, 200);
-
-
         };
         
     }
@@ -777,8 +790,11 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         console.log("SR6E | Edge coin flipped", newEdge, rotateY);
     }
 
-    static async _selectInputText(event, target) {
-        const input = target.querySelector("input");;
+    static _selectInputText(event, target) {
+        const input = target.matches("input")
+            ? target
+            : target.querySelector("input");
+
         if (!input || input.readOnly || input.disabled) return;
         input.select();
     }
@@ -807,6 +823,17 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      */
     static async _deleteDoc(event, target) {
         const doc = this._getEmbeddedDocument(target);
+        const docType = game.i18n.localize(`DOCUMENT.${doc.documentName}`);
+        const docName = `<em>${doc.name}</em>`
+
+        const confirm = await foundry.applications.api.DialogV2.confirm({
+            window: { title: game.i18n.format("DOCUMENT.Delete", { type: docType }) },
+            content: `<strong>${game.i18n.localize("AreYouSure")}</strong><p>${game.i18n.format("SIDEBAR.DeleteWarning", { type: game.i18n.format("shadowrun6.ui.notifications.docName_docType", { name: docName, type: docType }) })}</p>`,
+            rejectClose: false,
+            modal: true
+        });
+        if(!confirm) return;
+
         await doc.delete();
         this.render();
     }
@@ -838,10 +865,8 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // Loop through the dataset and add it to our docData
         for (const [dataKey, value] of Object.entries(target.dataset)) {
             // These data attributes are reserved for the action handling
-            if (["action", "documentClass"].includes(dataKey)) continue;
-            // Nested properties require dot notation in the HTML, e.g. anything with `system`
-            // An example exists in spells.hbs, with `data-system.spell-level`
-            // which turns into the dataKey 'system.spellLevel'
+            if (["action", "documentClass", "renderSheet"].includes(dataKey)) continue;
+            // Nested properties use dot notation like `data-system.prop`
             foundry.utils.setProperty(docData, dataKey, value);
         }
 
@@ -896,9 +921,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         const isOpen = !target.classList.contains("open");
         target.classList.toggle("open", isOpen);
         target.classList.toggle("closed", !isOpen);
-        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
         content.classList.toggle("open", isOpen);
         content.classList.toggle("closed", !isOpen);
+        content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : null;
     }
 
     /**
@@ -920,7 +945,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
         // TODO Cleanup after complete rework of Dice Rolls (low priority)
         switch (dataset.rollType) {
             case "item":
-                const item = this.actor.items.get(dataset.itemId);
+                const item = dataset.itemUuid ? foundry.utils.fromUuidSync(dataset.itemUuid) : this.actor.items.get(dataset.itemId);
                 if (item) return item.roll();
             case "skill":
                 rollConfig = new game.sr6.rollTypes.SkillRoll(this.actor.system, dataset.skill);
@@ -977,7 +1002,7 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
      * @returns {Item | ActiveEffect} The embedded Item or ActiveEffect
      */
     _getEmbeddedDocument(target) {
-        const docRow = target.dataset.itemId ? target : target.closest("li[data-document-class]");
+        const docRow = (target.dataset.itemId || target.dataset.documentClass) ? target : target.closest("li[data-document-class]");
         if (docRow.dataset.documentClass === "Item" || ( !docRow.dataset.documentClass && docRow.dataset.itemId )) {
             return this.actor.items.get(docRow.dataset.itemId);
         } else if (docRow.dataset.documentClass === "ActiveEffect") {
@@ -986,6 +1011,9 @@ export default class SR6BaseActorSheet extends api.HandlebarsApplicationMixin(
                     ? this.actor
                     : this.actor.items.get(docRow?.dataset.parentId);
             return parent.effects.get(docRow?.dataset.effectId);
+        } else if (docRow.dataset.documentClass === "Actor") {
+            const actor = foundry.utils.fromUuidSync(docRow.dataset.actorUuid)
+            return actor;
         } else return console.warn("Could not find document class");
     }
 

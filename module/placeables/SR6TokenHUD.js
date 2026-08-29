@@ -1,5 +1,5 @@
-import * as utils from "./util/helper.js";
-export default class SR6TokenHUD extends TokenHUD {
+import * as utils from "../util/helper.js";
+export default class SR6TokenHUD extends foundry.applications.hud.TokenHUD {
 
   /** @inheritDoc */
   getData(options={}) {

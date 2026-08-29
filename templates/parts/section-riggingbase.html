@@ -1,24 +1,25 @@
-<div class="section" style="display: inline-block; width:39%; min-width: 310px;">
+<div class="section" style="display: inline-block; min-width: 310px;">
+
 	<div class="section-head">
-     <h2 class="section-title">{{ localize 'shadowrun6.section.matrix_devices.title_rcc' }}</h2>
-	 <a class="item-control rcc-create" title="{{localize 'shadowrun6.section.matrix_devices.add_rcc' }}"><h2 class="fas fa-plus"></h2></a>
+		<h2 class="section-title">{{ localize 'shadowrun6.section.rigger.title' }}</h2>
+		<a class="item-control rcc-create" title="{{localize 'shadowrun6.section.matrix_devices.add_rcc' }}"><h2 class="fas fa-plus"></h2></a>
 	</div>
+
+	<div style="display: flex; flex-direction: row; align-items: center; padding: 0 4px;">
+		<div style="flex: 1; font-weight: bold;">
+			{{localize 'shadowrun6.item.vehicle.rigRating.long'}}
+		</div>
+		<div>
+			<select name="system_controlRig" data-field="system.controlRig">
+				{{selectOptions config.CONTROL_RIG_RATING selected=system.controlRig localize=true}}
+			</select>
+		</div>
+	</div>
+
 	<table>
 		<tbody>
 			<tr>
-				<td>{{localize 'shadowrun6.item.vehicle.rigRating.long'}}</td>
-				<td>
-					<select name="system_controlRig" data-field="system.controlRig">
-                     {{selectOptions config.CONTROL_RIG_RATING selected=system.controlRig localize=true}}
-         		</select>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table>
-		<tbody>
-			<tr>
-				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.label.name' }}</th>
+				<th style="padding: 0 5px 0 5px;">{{ localize 'shadowrun6.section.matrix_devices.title_rcc' }}</th>
 				<th style="padding: 0 0px 0 5px; width: 2em">{{ localize 'shadowrun6.label.devicerating.short' }}</th>
 				<th style="padding: 0 0px 0 0px; width: 2em">{{ localize 'shadowrun6.label.dataproc.short' }}</th>
 				<th style="padding: 0 5px 0 0px; width: 2em">{{ localize 'shadowrun6.label.firewall.short' }}</th>
@@ -49,4 +50,5 @@
 		{{/each}}
 		</tbody>
 	</table>
+
 </div>

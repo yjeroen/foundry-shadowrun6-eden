@@ -140,6 +140,8 @@ export const defineHandlebarHelper = async function () {
         return deHTML(name);
     });
 
+    Handlebars.registerHelper("defined", value => value !== undefined);
+
     Handlebars.registerHelper('subString', function(passedString, startstring, endstring) {
         var theString = passedString.substring( startstring, endstring );
         return theString; //new Handlebars.SafeString(theString)
@@ -169,11 +171,29 @@ export const defineHandlebarHelper = async function () {
         }
     });
 
+    Handlebars.registerHelper("dynamicFieldWidth", function(field, options) {
+        const content = options.fn(this);
+
+        if (!field.choices) return content;
+
+        const width = Math.max(
+            ...Object.values(field.choices)
+                .map(choice => game.i18n.localize(choice).length)
+        );
+
+        return new Handlebars.SafeString(
+            `<div class="dynamic-field-width" style="--width: ${width + 4}ch;">${content}</div>`
+        );
+    });
+
     Handlebars.registerHelper('matrixAction', function (matrixAction) {
+        matrixAction = CONFIG.SR6.MATRIX_ACTIONS[matrixAction] ?? matrixAction;
+
         const legality = matrixAction.illegal ? game.i18n.localize('shadowrun6.label.legality.illegal.long') : game.i18n.localize('shadowrun6.label.legality.legal.long');
         const actionTypeLabel = matrixAction.major ? game.i18n.localize('shadowrun6.adeptpower.activation_major') : game.i18n.localize('shadowrun6.adeptpower.activation_minor');
         const actionTypeIcon = matrixAction.major ? '&#10687;' : '&#10686;';
         const accessLevel = [];
+        
         if (matrixAction.outsider) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.outsider') );
         if (matrixAction.user) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.user') );
         if (matrixAction.admin) accessLevel.push( game.i18n.localize('shadowrun6.matrix.accessLevel.admin') );
@@ -181,6 +201,7 @@ export const defineHandlebarHelper = async function () {
         const actionIcon = `<span data-tooltip="${actionTypeLabel} (${legality}) [${accessLevel.join("/")}]" class="illegal-${matrixAction.illegal}"">${actionTypeIcon}</span>`;
         return new Handlebars.SafeString(actionIcon);
     });
+
     Handlebars.registerHelper("matrixAccessLevel", function (currentAccess, matrixAction) {
         let actionAllowed = false;
         if (matrixAction.outsider && matrixAction.outsider === currentAccess.outsider) actionAllowed = true;
@@ -510,7 +531,8 @@ function getSpellFeatures(spell) {
 }
 export function getMatrixActionPool(actionName, actor) {
     const action = CONFIG.SR6.MATRIX_ACTIONS[actionName];
-    return action.skill ? actor._getSkillPool(action.skill) : 0;
+    const defaultTestPool = actor.type === "host" ? actor.system.rating * 2 : actor._getSkillPool(action.skill, action.specialization, action.attrib);
+    return action.skill ? defaultTestPool : 0;
 
     // const skill = getSystemData(actor).skills[action.skill];
     // let pool = 0;

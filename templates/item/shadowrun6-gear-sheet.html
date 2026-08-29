@@ -10,13 +10,21 @@
                     <th>{{localize 'shadowrun6.item.type'}}</th>
                     <th>{{localize 'shadowrun6.item.subtype'}}</th>
                     {{#if gearConfig.showRating}}
-                    <th>{{localize 'shadowrun6.label.column.rating'}}</th>
+                    <th>
+                        {{#if (eq item.system.subtype "FILE_STORAGE")}}
+                        <span>{{localize 'SR6.Item.base.label.encryption_rating'}}</span>
+                        {{else}}
+                        <span>{{localize 'shadowrun6.label.column.rating'}}</span>
+                        {{/if}}
+                    </th>
                     {{/if}}
                     {{#if gearConfig.showCountable}}
                     <th>{{localize 'shadowrun6.label.column.count'}}</th>
                     {{/if}}
+                    {{#unless (eq item.system.subtype "FILE_STORAGE")}}
                     <th>{{localize 'shadowrun6.item.availability'}}</th>
                     <th>{{localize 'shadowrun6.item.price'}}</th>
+                    {{/unless}}
                 </tr>
                 <tr>
                     <td>
@@ -42,12 +50,14 @@
                         <input name="system.countable" style="vertical-align: middle;" type="checkbox" {{checked item.system.countable}} data-field="system.countable" />
                     </td>
                     {{/if}}
+                    {{#unless (eq item.system.subtype "FILE_STORAGE")}}
                     <td>
                         <input name="system.availDef" type="text" value="{{item.system.availDef}}" data-field="system.availDef" class="box centered" />
                     </td>
                     <td>
                         <span class="input-symbol-nuyen"><input name="system.priceDef" type="text" value="{{item.system.priceDef}}" data-field="system.priceDef" class="box centered" style="width: 5em" /></span>
                     </td>
+                    {{/unless}}
                 </tr>
             </table>
             <!-- Matrix Gear Config -->
@@ -59,9 +69,9 @@
                     <th><span data-tooltip="SR6.Item.base.FIELDS.hasDataCableInterface.hint">{{localize 'SR6.Item.base.FIELDS.hasDataCableInterface.label'}}</span></th>
                     {{#if gearConfig.isElectronicMatrixDevice}}
                     {{#if (eq item.system.type "CYBERWARE")}}
-                    <th><span data-tooltip-html="{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.hint'}}">{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.label'}}</span></th>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.cyberwareGrade.hint">{{localize 'SR6.Item.base.FIELDS.cyberwareGrade.label'}}</span></th>
                     {{else}}
-                    <th><span data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}">{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</span></th>
+                    <th><span data-tooltip="SR6.Item.base.FIELDS.deviceRating.tooltip">{{localize 'SR6.Item.base.FIELDS.deviceRating.label'}}</span></th>
                     {{/if}}
                     {{/if}}
                 </tr>
@@ -97,7 +107,7 @@
                     <td>
                         <select 
                             name="system.matrix.deviceRating" data-field="system.matrix.deviceRating"
-                            data-tooltip-html="{{#each gearConfig.deviceRatingTooltip as |line|}}<p>{{{line}}}</p>{{/each}}"
+                            data-tooltip="SR6.Item.base.FIELDS.deviceRating.tooltip"
                         >
                         {{#if (eq item.system.type "CYBERWARE")}}
                             {{selectOptions config.GEAR.CYBERWARE.GRADES selected=item.system.matrix.deviceRating localize=true}}
@@ -400,12 +410,19 @@
                 </tr>
             </table>
             {{/if}}
+
             {{#if (ne item.system.type "MAGICAL")}}
             <h3>{{localize 'shadowrun6.item.accessories'}}</h3>
             {{editor item.enriched.accessories target="system.accessories" button=true owner=owner fieldName=item.system.accessories editable=editable engine="prosemirror"}}
             {{/if}}
+
+            {{#if installedInHost}}
+            <h3>{{localize 'SR6.Actor.matrixBase.FIELDS.description.label'}}</h3>
+            {{else}}
             <h3>{{localize 'shadowrun6.item.description'}}</h3>
+            {{/if}}
             {{editor item.enriched.description target="system.description" button=true owner=owner fieldName=item.system.description editable=editable engine="prosemirror"}}
+
     </section>
 </form>
 

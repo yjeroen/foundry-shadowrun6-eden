@@ -5,7 +5,7 @@
  * @param {SR6ActiveEffectConfig} object             The target active effect being configured
  * @param {DocumentSheetOptions} [options]  Additional options which modify this application instance
  */
-export default class SR6ActiveEffectConfig extends ActiveEffectConfig {
+export default class SR6ActiveEffectConfig extends foundry.applications.sheets.ActiveEffectConfig {
 
     /**
      * Foundry V12

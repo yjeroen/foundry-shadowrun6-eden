@@ -1,5 +1,5 @@
 import { InitiativeType } from "./dice/RollTypes.js";
-export default class Shadowrun6CombatTracker extends CombatTracker {
+export default class Shadowrun6CombatTracker extends foundry.applications.sidebar.tabs.CombatTracker {
 
     /** Foundry V13 */
     get template() {

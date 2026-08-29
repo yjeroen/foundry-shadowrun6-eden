@@ -422,7 +422,7 @@ export default class SR6Roll extends Roll {
     async getTooltip() {
         //console.log("SR6E | getTooltip = ",this);
         let parts = {};
-        return await renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
+        return await foundry.applications.handlebars.renderTemplate(SR6Roll.TOOLTIP_TEMPLATE,
             {
                 parts,
                 finished: this.finished,
@@ -499,6 +499,14 @@ export default class SR6Roll extends Roll {
                         // Defender must have more hits than the attacker for success, not the same
                         this.finished.threshold = this.finished.total + 1;
 
+                    } else if (this.finished.rollType === RollType.ComplexForm) {
+                        console.log("SR6E | rollType", RollType.ComplexForm);
+                        if (this.finished.isOpposed) {    
+                            // this.finished.total = Attacker hits in this roll
+                            // Defender must have more hits than the attacker for success, not the same
+                            this.finished.threshold = this.finished.total + 1;
+                        }
+
                     } else if (this.finished.rollType === RollType.Defense) {
                         console.log("SR6E | rollType", RollType.Defense);
                         // this.finished.thresholds = Attacker hits +1 
@@ -508,9 +516,9 @@ export default class SR6Roll extends Roll {
 
                             // Hardened Armor
                             if (this.finished.rollType === RollType.Defense && this.finished.soakType === SoakType.DAMAGE_PHYSICAL ) {
-                                if (!(this.finished.actorTraits.immunityNormalWeapons && this.configured.defendedWith === Defense.SPELL_INDIRECT)) {
-                                    console.log("SR6E | Applying Hardened Armor", this.finished.actorTraits.hardenedArmor);
-                                    this.finished.damage = Math.max(0, this.finished.damage- this.finished.actorTraits.hardenedArmor);
+                                if (!(this.finished.actorTraits?.immunityNormalWeapons && this.configured.defendedWith === Defense.SPELL_INDIRECT)) {
+                                    console.log("SR6E | Applying Hardened Armor", this.finished.actorTraits?.hardenedArmor);
+                                    this.finished.damage = Math.max(0, this.finished.damage - (this.finished.actorTraits?.hardenedArmor??0) );
                                 }
                             }
                         }
@@ -542,10 +550,7 @@ export default class SR6Roll extends Roll {
                         if (this.configured.spell.withEssence) {
                             this.finished.netHits = this.finished.total - this.configured.threshold;
                         }
-                    } else if (
-                        this.finished.rollType === RollType.MatrixAction
-                        || this.finished.rollType === RollType.Item
-                    ) {
+                    } else if (this.finished.rollType === RollType.MatrixAction || this.finished.rollType === RollType.Item) {
                         if (this.configured.threshold && this.finished.total) {
                             // Show Net Hits in the chat message
                             this.finished.netHits = this.finished.total - this.configured.threshold;
@@ -582,7 +587,7 @@ export default class SR6Roll extends Roll {
 
             this.finished.isGM = game.user.isGM;
             
-            return await renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
+            return await foundry.applications.handlebars.renderTemplate(SR6Roll.CHAT_TEMPLATE, this.finished);
         }
         finally {
             console.log("SR6E | LEAVE render");

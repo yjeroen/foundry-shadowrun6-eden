@@ -44,6 +44,10 @@
     -webkit-backdrop-filter: none;
 }
 
+.application.sr6.sheet .window-content button {
+    --button-text-color: black;
+}
+
 .sr6 div[data-action] {
     cursor: var(--cursor-pointer);
 }
@@ -57,6 +61,9 @@
     pointer-events: none;
 }
 
+.sr6 .description .section-content {
+    min-height: 1em;
+}
 .sr6 .section .prosemirror button.toggle {
     right: 5px;
 }
@@ -713,7 +720,7 @@
 .sr6 .traits {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     align-content: center;
     min-width: 0;
@@ -734,8 +741,13 @@
     min-height: 100%;
 }
 
-.sr6 .traits label { margin-right: 5px; }
-.sr6 .traits span  { padding-left: 5px; }
+.sr6 .traits label {
+    white-space: nowrap;
+}
+.sr6 .traits span  {
+    white-space: nowrap;
+    padding-left: 4px;
+}
 
 .sr6 .traits select,
 .sr6 .traits span {
@@ -746,13 +758,13 @@
 .sr6 .traits select {
     font-size: 12px;
 }
-.sr6 .traits select[name="system.level"],
-.sr6 .traits span[data-field="system.level"] {
-  width: 40px;
+
+.dynamic-field-width {
+    display: inline-block;
 }
-.sr6 .traits select[name="system.type"],
-.sr6 .traits span[data-field="system.type"] {
-  width: 100px;
+.dynamic-field-width > * {
+    display: inline-block;
+    width: var(--width);
 }
 
 .sr6 .hud-overwatch {
@@ -1784,16 +1796,34 @@
     --input-box-shadow: inset 0 0 4px var(--input-background-color);
     color: gray;
 }
-.sr6 .stat-block .stat[data-for="system.matrix.initiative"] {
+.sr6 .stat-block .stat[data-for="system.initiative.matrix"] {
     min-width: 94px;
 }
-.sr6 .stat-block .stat[data-for="system.matrix.initiative"] input {
+.sr6 .stat-block .stat[data-for="system.initiative.matrix"] input {
     width: 1.4rem;
 }
-.sr6 .stat-block select {
-    width: 1.8rem;
-    box-shadow: var(--input-box-shadow);
+.sr6 .stat-block .row {
+    line-height: 1.3;
+}
+.sr6 .stat-block .stat-row select {
     font-size: 12px;
+    width: 1.8rem;
+}
+.sr6 .stat-block .content {
+    font-size: 14.7px;
+}
+.sr6 .stat-block select {
+    box-shadow: var(--input-box-shadow);
+    width: auto;
+}
+.sr6 .stat-block .row span[data-field] {
+    padding-left: 0.25rem;
+}
+.sr6 .stat-block .row span[data-field="system.convergenceThreshold"] {
+    display: inline-block;
+    padding-left: 0;
+    width: 2em;
+    text-align: center;
 }
 .sr6 .stat-block input[type="checkbox"], 
 .sr6 .stat-block input[type="radio"] {
@@ -1810,8 +1840,27 @@
     width: 2em;
 }
 
+.sr6 .stat-block .row.rich-html div:not(:first-child) {
+    padding: 0 8px;
+}
+
+.sr6 .stat-block .item-control:not(.item-edit) {
+    font-size: unset;
+}
+
 .sr6 .collapsible-content {
     font-size: 0.8em;
+    display: flow-root;
+}
+.sr6 .collapsible-content.open {
+    padding: 8px 12px;
+}
+.sr6 .collapsible-content div {
+    padding: 0;
+    margin: 0;
+}
+.sr6 .collapsible-content ol {
+    margin: 0;
 }
 .sr6 .item-name {
     cursor: var(--cursor-pointer);
@@ -1890,6 +1939,15 @@
     white-space: nowrap;
 }
 
+.sr6 .section .item-traits {
+    flex: 0 0 auto;
+    opacity: 0.6;
+    font-size: 0.8em;
+    padding-top: 0.1em;
+    margin-left: 0.35rem;
+    white-space: nowrap;
+}
+
 .sr6 .section .item-controls {
     gap: 5px;
 }
@@ -1951,6 +2009,7 @@
 
 .item-control .fa-square {
     font-size: 20px;
+    --fa-width: 20px;
 }
 
 
@@ -2396,18 +2455,18 @@ body.game .app a:hover .sr6-icon {
     --text-green: #00b939;
     --slot-off: rgba(45, 52, 60, 0.78);
 }
-.sr6 .persona .matrixCM {
+.sr6 .section .matrixCM {
     padding: 0.15rem 0 0.15rem 0.5rem;
     min-height: 1.7rem;
     display: flex;
     align-items: center;
 }
 
-.sr6 .pan .track {
+.sr6 .section .track {
     grid-template-columns: minmax(200px, 1fr) max-content;
     transition: grid-template-columns 0.5s ease;
 }
-.sr6 .pan .slot span {
+.sr6 .section .slot span {
     font-size: 8px;
     transition: font-size 0.5s ease;
 }
@@ -2425,7 +2484,7 @@ body.game .app a:hover .sr6-icon {
     }
 }
 
-.sr6 .persona .matrixCM .matrix-track {
+.sr6 .section .matrixCM .matrix-track {
     flex: 1;
 }
 
@@ -2470,7 +2529,7 @@ body.game .app a:hover .sr6-icon {
 
 .sr6 .pan .pan-summary-columns {
     display: grid;
-    grid-template-columns: minmax(max-content, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
     --portrait-size: 76px;
 }
@@ -2543,13 +2602,12 @@ body.game .app a:hover .sr6-icon {
     margin-bottom: 0;
     border: solid 1px black;
     border-radius: 5px;
+    height: stretch;
+    height: -webkit-fill-available;
 }
 .sr6 .pan .persona-description .prosemirror menu,
 .sr6 .pan .persona-description prose-mirror menu {
     border-radius: 0;
-}
-.sr6 .pan .persona-description .editor .editor-container {
-    margin: 0 1rem;
 }
 
 .sr6 .pan .persona-description.inactive {
@@ -2880,10 +2938,12 @@ body.game .app a:hover .sr6-icon {
     opacity: 0.7;
 }
 
+.sr6 .error,
 .dialog .roll-dialog-message {
     display: flex;
     align-items: center;
 }
+.sr6 .error i,
 .dialog .roll-dialog-message i {
     margin: 0 8px;
     color: var(--color-underline-header);
@@ -2892,4 +2952,115 @@ body.game .app a:hover .sr6-icon {
 /* Import Statblock Message in the Create Actor Dialog*/
 .import-statblock-info {
     font-style: italic;
+}
+
+
+/* ======================================================================== */
+/* ========================== HOST ACTOR SHEET ============================ */
+/* ======================================================================== */
+
+.sr6.host .hud {
+    background: linear-gradient(180deg, rgb(255 0 188 / 20%), rgb(46 0 182 / 58%)), 
+                radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--color-shadow-primary) 40%, transparent), var(--hud-glow-right-color) var(--hud-glow-right-size));
+    border: 2px solid rgb(255 134 247 / 85%);
+    filter: drop-shadow(0 0 4px rgba(251, 124, 255, 0.85)) drop-shadow(0 0 18px rgba(98, 114, 255, 0.55)) drop-shadow(0 0 55px rgba(124, 255, 227, 0.15));
+}
+
+.sr6.host .track-value {
+    text-shadow: none;
+}
+
+.sr6 .error {
+  font-weight: bold;
+  border: 1px rgba(128, 0, 128, 1) dashed;
+  background-color: rgba(128, 0, 128, 0.17);
+  padding: 0.3rem;
+}
+
+.sr6.host .status-panel-header input, 
+.sr6.host .status-panel-header select {
+    color: white;
+}
+
+.sr6.host select option, 
+.sr6.host select optgroup {
+    background: rgb(143 101 223);
+}
+
+.sr6.host .fa-right-to-bracket {
+    color: #333;
+}
+.sr6.host .deployed {
+    text-shadow: 0 0 3px black;
+    color: grey;
+    opacity: 0.6;
+}
+
+.sr6.host .stat-block .hostName {
+    text-transform: uppercase;
+}
+
+.sr6.host .section-header,
+.sr6.host .section-row {
+    grid-template-columns: 1.25rem minmax(0, 1fr) max-content 5em;
+}
+.sr6.host .section-row {
+    padding-right: 0;
+}
+.sr6.host .section-column.item-controls {
+    justify-content: flex-start;
+}
+
+.item .software .ic-types {
+    flex-direction: row-reverse;
+}
+.item .software .ic-types .tags.input-element-tags {
+    width: 50%;
+    min-width: 6em;
+    justify-content: flex-start;
+}
+.item .software .ic-types .tags.input-element-tags .tag {
+    font-size: var(--font-size-14);
+}
+.item .software .ic-types .tags:empty {
+    display: flex;
+}
+
+@container (max-width: 460px) {
+    .sr6.host .section .track {
+        grid-template-columns: minmax(100px, 1fr) max-content;
+    }
+    .sr6.host .section .slot span {
+        font-size: 0px;
+    }
+}
+
+.shadowrun6 section .ic-programs {
+    display: grid;
+    grid-template-columns: minmax(6em, max-content) minmax(0, 1fr);
+    gap: 5px;
+    padding-left: 5px;
+}
+
+.shadowrun6 section .ic-program {
+    display: contents;
+}
+
+.shadowrun6 section .ic-program-name {
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.sr6 .spider-assign {
+    display: inline-flex;
+}
+.sr6 .spider-assign .content-link {
+    line-height: 1;
+    padding: 1px 6px 0;
+    margin-left: 4px;
+}
+.sr6 .spider .unassign {
+    margin-left: 2px;
 }

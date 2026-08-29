@@ -20,6 +20,12 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
     /** @inheritdoc */
     static PARTS = {
         ...super.PARTS,
+        summary: {
+             ...super.PARTS.summary,
+            templates: [
+                "systems/shadowrun6-eden/templates/sheets/actor/summary-tab/sprite.hbs"
+            ]
+        },
         features: {
             template: "systems/shadowrun6-eden/templates/sheets/actor/features-tab.hbs",
             templates: [
@@ -35,8 +41,8 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
         
         // Don't show the other tabs if only limited view
         if (this.document.limited || this.options.limited) {
-            options.parts.push("features", "description");
-            this._defaultTab = "features";
+            options.parts.push("matrixTarget", "description");
+            this._defaultTab = "matrixTarget";
             return;
         }
 
@@ -46,6 +52,8 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
 
     async _preparePartContext(partId, context) {
         context = await super._preparePartContext(partId, context);
+        this._prepareHeader(context);
+
         switch (partId) {
             case "summary":
                 context.statblock = this._statBlock();
@@ -62,6 +70,28 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
         return context;
     }
 
+    /**
+     * Prepare traits below the name on the header of the sheet
+     * @param {object} context The context object to mutate
+     */
+    _prepareHeader(context) {
+        const systemFields = context.systemFields;
+        const system = context.system;
+        const limited = context.limited;
+
+        context.traits = [
+            {
+                dontShowOnLimited: limited,
+                field: systemFields.level,
+                value: system.level
+            },
+            {
+                field: systemFields.type,
+                value: system.type
+            },
+        ];
+
+    }
     
     /**
      * Organize and classify Items for Sprite sheets.
@@ -151,6 +181,29 @@ export default class SR6SpriteActorSheet extends MatrixSheetMixin( SR6BaseActorS
         };
 
         return sprite;
+    }
+
+    /**
+     * Handle a dropped document on the ActorSheet
+     * TODO Move this validation to Item's datamodel's _preCreate once migrated from template to datamodel
+     * @template {Document} TDocument
+     * @param {DragEvent} event         The initiating drop event
+     * @param {TDocument} document       The resolved Document class
+     * @returns {Promise<TDocument|null>} A Document of the same type as the dropped one in case of a successful result,
+     *                                    or null in case of failure or no action being taken
+     * @protected
+     */
+    async _onDropDocument(event, document) {
+
+        if (document.documentName === "Item") {
+            console.log("SR6E | _onDropDocument() | Validating if this item is allowed to be dropped:", document.type);
+            if (document.type !== "spritepower") {
+                ui.notifications.error("shadowrun6.ui.notifications.item_not_allowed_to_be_dropped", { localize: true });
+                return null;
+            }
+        }
+        
+        return super._onDropDocument(event, document);
     }
 
 }

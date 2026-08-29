@@ -1,0 +1,59 @@
+<div class="row">
+    <span class="label">{{localize "SR6.Actor.host.matrixItems.installedIn"}}:</span>
+    <span class="hostName">{{installedIn.name}}</span>
+    {{#if owner}}
+    <a class="item-control item-edit" data-tooltip="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Actor.host')}}" data-action="viewAnyDoc" data-doc-uuid="{{installedIn.uuid}}">
+        <i class="fas fa-edit"></i>
+    </a>
+    {{/if}}
+</div>
+
+{{#if deployedItem.system.isIC}}
+<div class="row matrix-actions">
+    <span class="label">{{localize "SR6.Item.software.FIELDS.multiTypes.label"}}:</span>
+    <p>
+        {{#each deployedItem.system.multiTypes as |matrixActionId|}}
+            <label class="item-name" data-item-id="{{matrixActionId}}" data-action='itemDescToggle'>{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}}</label>            
+            
+            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="{{matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction." matrixActionId ".name"))}}"
+            >
+                <i class="fas fa-dice-six"></i>
+            </a>
+            
+            {{#unless @last}}, {{/unless}}
+        {{/each}}
+    </p>
+    {{#each deployedItem.system.multiTypes as |matrixActionId|}}
+        <div class="collapsible-content closed" data-item-id="{{matrixActionId}}">
+            <div><strong>{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}} {{ localize 'shadowrun6.item.description' }}</strong></div>
+            <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".hint")}}</div>
+        </div>
+    {{/each}}
+</div>
+{{/if}}
+
+{{#if deployedItem.system.skill}}
+<div class="row skill">
+    <span class="label">{{localize "SR6.Actor.host.matrixItems.deviceAction"}}:</span>
+    <a class="item-control" data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=deployedItem.name}}" data-action="roll" data-roll-type="item" data-item-uuid="{{deployedItem.uuid}}">
+        <i class="fas fa-dice-six"></i>
+    </a>
+</div>
+{{/if}}
+
+{{#if (and (eq deployedItem.system.subtype "FILE_STORAGE") deployedItem.system.needsRating)}}
+<div class="row skill">
+    <span class="label">{{localize "SR6.Item.base.label.encryption_rating"}}:</span>
+    <span class="encryptionRating">{{deployedItem.system.rating}}</span>
+</div>
+{{/if}}
+
+{{#if enriched.description}}
+<div class="row rich-html">
+    <div class="label">{{localize "SR6.Actor.Tabs.description"}}:</div>
+    <div>
+        {{{enriched.description}}}
+    </div>
+</div>
+{{/if}}

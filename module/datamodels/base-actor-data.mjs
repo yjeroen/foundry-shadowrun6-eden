@@ -39,11 +39,11 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @type {string[]}
      */
     static get TYPES() {
-        return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type].types ?? [];
-        if (CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type].constructor === Array) 
-            return CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type];
+        return CONFIG.SR6.ACTOR[this.metadata?.type].types ?? [];
+        if (CONFIG.SR6.ACTOR[this.metadata?.type].constructor === Array) 
+            return CONFIG.SR6.ACTOR[this.metadata?.type];
         else
-            return Object.keys(CONFIG.SR6.NEW.ACTOR_TYPES[this.metadata?.type]);
+            return Object.keys(CONFIG.SR6.ACTOR[this.metadata?.type]);
     }
 
     /**
@@ -86,6 +86,10 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
         return this.health.overflow.dmg >= this.health.overflow.max;
     }
 
+    get actor() {
+        return this.parent;
+    }
+
     /**
      * Prepare data related to this DataModel itself, before any derived data is computed.
      *
@@ -111,7 +115,9 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
             attribute.mod = Math.min(4, attribute.mod);
         }
         // Augmented Edge Attribute can never be higher than +4
-        this.edge.mod = Math.min(4, this.edge.mod);
+        if (this.edge) {
+            this.edge.mod = Math.min(4, this.edge.mod);
+        }
         // Augmented Skill can never be higher than +4
         for (const key in this.skills) {
             const skill = this.skills[key];

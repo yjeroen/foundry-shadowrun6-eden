@@ -1,0 +1,139 @@
+<div class="row ic">
+    <span class="label">{{localize "SR6.Actor.host.ic.label"}}:</span>
+    <p>
+        {{#each ic as |item|}}
+            <label class="item-name {{#if item.isDeployedToken}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            {{#if (eq item.system.duration 'sustained')}}
+            <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
+                <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+            </a>
+            {{/if}}
+            {{#if item.isDeployedToken}}
+            <a class="item-control" data-action="retrieveToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle"><i class="fas fa-right-to-bracket"></i></a>
+            {{else}}
+            <a class="item-control" data-action="deployToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.deployTitle"><i class="fas fa-right-from-bracket"></i></a>
+            {{/if}}
+            
+            {{#each item.system.multiTypes as |matrixActionId|}}
+            <a class="item-control matrix-roll" data-action="matrixRoll" data-matrix-id="{{matrixActionId}}"
+                data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=(localize (concat "shadowrun6.matrixaction." matrixActionId ".name"))}}"
+            >
+                <i class="fas fa-dice-six"></i>
+            </a>
+            {{/each}}
+            
+            {{#unless @last}}, {{/unless}}
+        {{/each}}
+    </p>
+    {{#each ic as |item|}}
+        <div class="collapsible-content closed" data-item-id="{{item.id}}">
+            {{#if item.system.isIC}}
+            <div><strong>{{item.system.schema.fields.multiTypes.label}}</strong></div>
+            <div class="ic-programs">
+                {{#each item.system.multiTypes as |matrixActionId|}}
+                <div class="ic-program">
+                    <div class="ic-program-name">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".name")}}</div>
+                    <div class="ic-program-hint">{{localize (concat "shadowrun6.matrixaction." matrixActionId ".hint")}}</div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if (and item.system.isIC item.system.description)}}
+            <hr>
+            {{/if}}
+            {{#if item.system.description}}
+            <div><strong>{{item.name}} {{ localize 'shadowrun6.item.description' }}</strong></div>
+            <div>{{{item.system.description}}}</div>
+            {{/if}}
+        </div>
+    {{/each}}
+</div>
+
+<div class="row matrixItems">
+    <span class="label">{{localize "SR6.Actor.host.matrixItems.label"}}:</span>
+    <p>
+        {{#each matrixItems as |item|}}
+        {{#if item.system.isElectronicMatrixDevice}}
+            <label class="item-name {{#if item.isDeployedToken}}deployed{{/if}}" data-item-id="{{item.id}}" data-action='itemDescToggle' data-tooltip="SR6.title.clickItemName">{{item.name}}</label>            
+            {{#if (eq item.system.duration 'sustained')}}
+            <a class="toggle-control" data-action='itemSustainToggle' data-item-id="{{item.id}}" data-tooltip="shadowrun6.section.sustained.toggle">
+                <i class='fas {{#if item.system.isSustained}}fa-toggle-on{{else}}fa-toggle-off{{/if}}'></i>
+            </a>
+            {{/if}}
+            {{#if item.isDeployedToken}}
+            <a class="item-control" data-action="retrieveToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.retrieveTitle"><i class="fas fa-right-to-bracket"></i></a>
+            {{else}}
+            <a class="item-control" data-action="deployToken" data-item-uuid="{{item.uuid}}" data-tooltip="SR6.Actor.host.matrixItems.deployTitle"><i class="fas fa-right-from-bracket"></i></a>
+            {{/if}}
+            {{#if item.system.skill}}
+            <a class="item-control" data-action="roll" data-roll-type="item" data-item-uuid="{{item.uuid}}" data-tooltip="{{localize "SR6.Actor.host.matrixItems.rollTitle" name=item.name}}">
+                <i class="fas fa-dice-six"></i>
+                </a>
+            {{/if}}
+            {{#unless @last}}, {{/unless}}
+        {{/if}}
+        {{/each}}
+    </p>
+    {{#each matrixItems as |item|}}
+        <div class="collapsible-content closed" data-item-id="{{item.id}}">
+            <div><strong>{{item.name}} {{ localize 'shadowrun6.item.description' }}</strong></div>
+            <div>{{{item.system.description}}}</div>
+        </div>
+    {{/each}}
+</div>
+
+<div class="row spiders">
+    <span class="label">{{localize "SR6.Actor.host.spider.assigned"}}:</span>
+    {{#each system.assignedSpiders as |spider|}}
+        <span class="spider">
+            <a data-action="viewDoc" data-document-class="Actor" data-actor-uuid="{{spider.uuid}}" data-tooltip="{{localize "SR6.Actor.host.spider.open_sheet" name=spider.name}}"
+            >{{spider.name}}</a>{{#if (and @root.editMode spider.isOwner)}}<a 
+                class="unassign fa-solid fa-square-xmark" data-action="unassignSpiderDuty" data-spider-uuid="{{spider.uuid}}" data-tooltip="SR6.Actor.host.spider.unassign_tooltip"
+            ></a>{{/if}}{{#unless @last}}, {{/unless}}
+        </span>
+    {{/each}}
+    {{#unless system.assignedSpiders.length}}
+        <span>-</span>
+    {{/unless}}
+
+    {{#if @root.editMode}}
+    <div class="spider-assign">
+        <a 
+            class="content-link" draggable="true" data-sr6-link
+            data-host-uuid="{{actor.uuid}}" data-host-name="{{actor.name}}"
+            data-type="host" data-tooltip="SR6.Actor.host.spider.assign_tooltip"
+        >
+            <i class="fa-brands fa-buffer"></i>
+            <span>{{localize "SR6.Actor.host.spider.assign"}}</span>
+        </a>
+    </div>
+    {{/if}}
+</div>
+
+<div class="row">
+    <span class="label">{{systemFields.resolutionGrade.label}}:</span>
+    {{#if @root.editMode}}{{formInput systemFields.resolutionGrade value=source.resolutionGrade localize=true actor=actor}}
+    {{else}}{{span system.resolutionGrade systemFields.resolutionGrade}}{{/if}}
+</div>
+
+<div class="row">
+    <span class="label">{{systemFields.scale.label}}:</span>
+    {{#if @root.editMode}}{{formInput systemFields.scale value=source.scale localize=true actor=actor}}
+    {{else}}{{span system.scale systemFields.scale}}{{/if}}
+</div>
+
+<div class="row">
+    <span class="label">{{systemFields.convergenceThreshold.label}}:</span>
+    {{#if @root.editMode}}{{formInput systemFields.convergenceThreshold value=source.convergenceThreshold localize=true actor=actor}}
+    {{else}}{{span system.convergenceThreshold systemFields.convergenceThreshold}}{{/if}}
+    <span>{{localize "SR6.Actor.base.FIELDS.matrix.overwatchScore.label_short"}}</span>
+</div>
+
+{{#if enriched.notes}}
+<div class="row rich-html">
+    <div class="label">{{systemFields.notes.label}}:</div>
+    <div>
+        {{{enriched.notes}}}
+    </div>
+</div>
+{{/if}}

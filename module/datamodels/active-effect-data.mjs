@@ -155,4 +155,24 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
     }
   }
 
+  async _onUpdate(changed, options, userId) {
+    await super._onUpdate(changed, options, userId);
+
+    this.renderHostSheet();
+  }
+
+  _onDelete(options, userId) {
+    this.renderHostSheet();
+
+    super._onDelete(options, userId);
+  }
+
+  renderHostSheet() {
+    const host = foundry.utils.fromUuidSync(this.parent.origin);
+    if (!host || !(host.system instanceof game.sr6.datamodels.SR6HostActorData)) return;
+
+    host.render();
+  }
+
+
 }

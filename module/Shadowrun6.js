@@ -17,7 +17,7 @@ import EdgeRoll from "./dice/EdgeRoll.js";
 import Shadowrun6Combatant from "./Shadowrun6Combatant.js";
 import Shadowrun6CombatTracker from "./Shadowrun6CombatTracker.js";
 import statusEffects from "./statusEffects.js";
-import SR6TokenHUD from "./SR6TokenHUD.js";
+import SR6TokenHUD from "./placeables/SR6TokenHUD.js";
 import SR6Token from "./placeables/SR6Token.js";
 // import SR6ActiveEffectData from "./datamodels/active-effect-model.mjs";
 import * as utils from "./util/helper.js";
@@ -70,6 +70,7 @@ Hooks.once("init", async function () {
     CONFIG.Dice.rolls = [SR6Roll];
     CONFIG.Token.hudClass = SR6TokenHUD;
     CONFIG.Token.objectClass = SR6Token;
+    CONFIG.Token.documentClass = documents.SR6TokenDocument;
     CONFIG.Combat.fallbackTurnMarker = 'systems/shadowrun6-eden/images/turn-marker-frame.webp'
 
     
@@ -85,8 +86,8 @@ Hooks.once("init", async function () {
     if (cursorSetting !== 'disabled') {
         const cursorType = cursorSetting === 'black' ? 'cursor-black' : 'cursor';
 
-        CONFIG.cursors.default = `systems/shadowrun6-eden/images/${cursorType}-default.png`;
-        CONFIG.cursors["default-down"] = `systems/shadowrun6-eden/images/${cursorType}-default.png`
+        CONFIG.cursors.default = { url: `systems/shadowrun6-eden/images/${cursorType}-default.png`, x: 3, y: 0 };
+        CONFIG.cursors["default-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-default.png`, x: 3, y: 0 };
         CONFIG.cursors.text = { url: `systems/shadowrun6-eden/images/${cursorType}-text.png`, x: 12, y: 12 };
         CONFIG.cursors["text-down"] = { url: `systems/shadowrun6-eden/images/${cursorType}-text.png`, x: 12, y: 12 };
         CONFIG.cursors.pointer = { url: `systems/shadowrun6-eden/images/${cursorType}-pointer.png`, x: 8, y: 0 };
@@ -118,17 +119,23 @@ Hooks.once("init", async function () {
      * @see sheets.Shadowrun6ActorSheetPC
      * @see sheets.Shadowrun6ActorSheetNPC
      * @see sheets.Shadowrun6ActorSheetVehicle
+     * @see sheets.SR6SpriteActorSheet
+     * @see sheets.SR6HostActorSheet
      */
     Object.assign(CONFIG.Actor.dataModels, {
-        sprite: datamodels.SR6SpriteActorData
+        sprite: datamodels.SR6SpriteActorData,
+        host: datamodels.SR6HostActorData
     });
+
     CONFIG.Actor.defaultType = "Player";
     CONFIG.Actor.documentClass = documents.Shadowrun6Actor;
-    Actors.unregisterSheet("core", ActorSheet);
+    const Actors = foundry.documents.collections.Actors;
+    Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetPC, { types: ["Player"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetNPC, { types: ["NPC", "Critter", "Spirit"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.Shadowrun6ActorSheetVehicle, { types: ["Vehicle"], makeDefault: true });
     Actors.registerSheet("shadowrun6-eden", applications.SR6SpriteActorSheet, { types: ["sprite"], makeDefault: true });
+    Actors.registerSheet("shadowrun6-eden", applications.SR6HostActorSheet, { types: ["host"], makeDefault: true });
 
     /**
      * Item document configuration (Datamodel > Document > Sheet)
@@ -137,10 +144,12 @@ Hooks.once("init", async function () {
      * @see sheets.SR6ItemSheet
      */
     Object.assign(CONFIG.Item.dataModels, {
-        mod: datamodels.SR6ModItemData
+        mod: datamodels.SR6ModItemData,
+        software: datamodels.SR6SoftwareItemData
     });
     CONFIG.Item.defaultType = "gear";
     CONFIG.Item.documentClass = documents.SR6Item;
+    const Items = foundry.documents.collections.Items;
     Items.registerSheet("shadowrun6-eden", applications.SR6ItemSheet, {
         types: [
             "gear",
@@ -170,10 +179,16 @@ Hooks.once("init", async function () {
      * Register Active Effects
      * legacyTransferral (false): Active Effects are never copied to the Actor, but will still apply to the Actor from within the Item if the transfer property on the Active Effect is true.
      */
-    CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
     CONFIG.ActiveEffect.legacyTransferral = false;
-    DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', ActiveEffectConfig);
-    DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
+    const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
+    DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', foundry.applications.sheets.ActiveEffectConfig);
+    if (game.release.generation === 14) { //TODO JEROEN V14
+        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectDataV14;
+        DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfigV14, { makeDefault: true });
+    } else {
+        CONFIG.ActiveEffect.dataModels.base = datamodels.SR6ActiveEffectData;
+        DocumentSheetConfig.registerSheet(ActiveEffect, 'shadowrun6-eden', applications.SR6ActiveEffectConfig, { makeDefault: true });
+    }
 
     // Change Canvas Placeables Font to Shadowrun
     CONFIG.defaultFontFamily = 'Play';
@@ -252,13 +267,19 @@ Hooks.once("init", async function () {
      * Change default icon
      */
     function onPreCreateItem(itemDoc, options, userId) {
-        let item = getActorData(itemDoc);
-        let system = getSystemData(itemDoc);
-        console.log("SR6E | onCreateItem  " + item.type);
-        if (item.img == "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg" && CONFIG.SR6.icons[item.type]) {
-            item.img = CONFIG.SR6.icons[item.type].default;
-            item.updateSource({ ["img"]: item.img });
+        const item = getActorData(itemDoc);
+        const system = getSystemData(itemDoc);
+        console.log("SR6E | onPreCreateItem", item);
+
+        const itemConfig = CONFIG.SR6.ITEM[item.type];
+        const icon = itemConfig?.[item.system.type]?.icon ?? itemConfig?.icon;
+        if (
+            icon
+            && item.img === "systems/shadowrun6-eden/icons/compendium/gear/tech_bag.svg"
+        ) {
+            item.updateSource({ img: icon });
         }
+
         // If it is a compendium item, copy over text description
         let key = item.type + "." + system.genesisID;
         console.log("SR6E | Item with genesisID - check for " + key);
@@ -267,7 +288,7 @@ Hooks.once("init", async function () {
             item.name = game.i18n.localize(key + ".name");
             item.updateSource({ ["description"]: system.description });
         }
-        console.log("SR6E | onCreateItem: " + item.img);
+        console.log("SR6E | onPreCreateItem: " + item.img);
     }
     Hooks.on("preCreateItem", (doc, options, userId) => onPreCreateItem(doc, options, userId));
     
@@ -345,6 +366,7 @@ Hooks.once("init", async function () {
         // make Release Note link in sidebar clickable
         const releaseNoteLink = document.querySelector("#system-releasenotes");
         releaseNoteLink.addEventListener("click", (e) => {
+            e.preventDefault();
             game.sr6.releaseNotes({force: true});
         });
         
@@ -380,7 +402,9 @@ Hooks.once("init", async function () {
      */
     Hooks.on("dropCanvasData", (canvas, data) => {
         console.log("SR6E | dropCanvasData hook called", canvas, data);
-        if (!(data.type === "Item" || data.type === "ActiveEffect" || data.type === "PAN")) {
+
+        const supportedTypes = new Set(["Item", "ActiveEffect", "PAN", "host"]);
+        if (!supportedTypes.has(data.type)) {
             return true;
         }
 
@@ -692,6 +716,7 @@ Hooks.once("init", async function () {
                         matrixActionOption: matrixActionOption
                     };
                     console.log(`SR6E | Processing Matrix Result Button | Action: ${matrixActionId} | Initiator: ${resultData.initiator.name} | Target Defender: ${resultData.defender?.name} | Result: ${resultType}`);
+                    console.log(`SR6E | Processing Matrix Result Button | resultData:`, resultData);
 
                     switch (resultType) {
                         case "onSuccess":
@@ -829,7 +854,7 @@ Hooks.once("init", async function () {
         actor.prototypeToken.updateSource({ 
             'sight.enabled': true,
             displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-            displayBars: CONST.TOKEN_DISPLAY_MODES.NONE
+            displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
         });
         if (actor.type === "Player") {
             actor.prototypeToken.updateSource({
@@ -846,6 +871,12 @@ Hooks.once("init", async function () {
                 disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
                 width: 2,
                 height: 2
+            });
+        } else if (actor.type === "host") {
+            actor.prototypeToken.updateSource({
+                name: actor.name,
+                actorLink: true,
+                lockRotation: true,
             });
         }
 
@@ -865,10 +896,7 @@ Hooks.once("init", async function () {
         const tokensLimitedOwnership = game.settings.get(SYSTEM_NAME, "tokensLimitedOwnership");
         if (!tokensLimitedOwnership) return;
 
-        if (
-            !token.actorLink 
-            && token.actor.ownership.default === CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE
-        ) {
+        if ( token.actor.ownership.default === CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE ) {
             token.actor.update({ 
                 "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED
             });
@@ -908,13 +936,7 @@ Hooks.once("init", async function () {
         // @ts-ignore
         dragRuler.registerSystem("shadowrun6-eden", FictionalGameSystemSpeedProvider);
     });
-    // Shadowrun Pause button for V12
-    Hooks.on("renderPause", async function (Pause, html, paused) {
-        $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
-        $('#pause img').attr('class', 'fa-beat-fade');
-        $('#pause figcaption').attr('class', 'glitch'); 
-    });
-    // Shadowrun Pause button for V13
+    // Shadowrun Pause button for V13+
     Hooks.on("renderGamePause", async function (GamePause, html, options, renderOptions) {
         $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
         $('#pause img').attr('class', 'fa-beat-fade');
@@ -947,17 +969,16 @@ Hooks.once("init", async function () {
             },
             {
                 id: "system-releasenotes",
-                url: "javascript:void(0);",
                 label: "SYSTEM.Sidebar.release_notes"
             }
         ].map((data) => {
             const anchor = document.createElement("a");
             anchor.innerText = game.i18n.localize(data.label);
-            anchor.href = data.url ?? "";
-            if (data.id) 
-                anchor.id = data.id;
-            else
+            if (data.id) anchor.id = data.id;
+            if (data.url) {
+                anchor.href = data.url;
                 anchor.target = "_blank";
+            }
             return anchor;
         });
         systemInfo.append(...links);
@@ -996,7 +1017,7 @@ function _onClickDiceRoll (ev) {
     console.log("SR6E | sr6-dice-roll clicked  ");
     let roll = new PreparedRoll();
     roll.pool = 0;
-    roll.speaker = ChatMessage.getSpeaker({ actor: this });
+    roll.speaker = ChatMessage.getSpeaker();
     roll.rollType = RollType.Common;
     doRoll(roll);
 }

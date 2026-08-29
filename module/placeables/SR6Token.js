@@ -4,7 +4,7 @@
  * @see {TokenDocument}
  * @see {TokenLayer}
  */
-export default class SR6Token extends Token {
+export default class SR6Token extends foundry.canvas.placeables.Token {
 
     /** @override */
     static RENDER_FLAGS = {
@@ -54,7 +54,7 @@ export default class SR6Token extends Token {
         const pct = Math.clamp(val, 0, data.max) / data.max;
 
         // Determine sizing
-        const { width, height } = this.getSize();
+        const { width, height } = this.document.getSize();
         const bw = width;
         const bh =
             Math.max(canvas.dimensions.size / 12, 8) *
@@ -111,13 +111,13 @@ export default class SR6Token extends Token {
 
     /**
      * Draw the token's Grunt Group as a text object
-     * @returns {PreciseText}    The Text object for the Token nameplate
+     * @returns {foundry.canvas.containers.PreciseText}    The Text object for the Token nameplate
      */
     #drawGruntGroupName() {
         if (CONFIG.debug.tokens) console.log("SR6E | Token.#drawGruntGroupName");
         const groupId = this.document.getFlag(game.system.id, 'GruntGroupId');
         const group = groupId ? game.i18n.format('shadowrun6.npc.grunt_group_id', {groupId}) : '';
-        const groupName = new PreciseText(group, this._getGruntGroupTextStyle());
+        const groupName = new foundry.canvas.containers.PreciseText(group, this._getGruntGroupTextStyle());
         groupName.anchor.set(0, 1.1);
         return groupName;
     }

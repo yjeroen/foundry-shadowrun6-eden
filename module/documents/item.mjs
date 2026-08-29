@@ -1,6 +1,6 @@
 import { SYSTEM_NAME } from "../constants.js";
 import * as ItemTypes from "../ItemTypes.js";
-import { SpritePowerRoll } from "../dice/RollTypes.js";
+import { SpritePowerRoll, WeaponRoll } from "../dice/RollTypes.js";
 import { SR6ConditionMonitorField } from "../datamodels/fields/fields.mjs";
 
 /**
@@ -50,6 +50,15 @@ export default class SR6Item extends Item {
             break;
       }
     }
+    else if (this.actor?.type === "Vehicle") {
+      if (this.type === "gear") {
+        this.system.skill = "engineering";
+        this.system.skillSpec = "gunnery";
+      }
+      else if (this.type === "software") {
+        this.system.type = "AUTOSOFT";
+      }
+    }
   }
 
   /**
@@ -66,6 +75,8 @@ export default class SR6Item extends Item {
     const allowed = await super._preUpdate(changes, options, user);
     console.log("SR6E | SR6Item._preUpdate()", changes);
     if ( allowed === false ) return false;
+
+    this._checkAccessDeviceEnabledStatus(changes);
 
     // Forward to type data model
     if ( this.system instanceof foundry.abstract.TypeDataModel ) {
@@ -138,7 +149,7 @@ export default class SR6Item extends Item {
         changed.system?.usedForPool === false ||
         changed.system?.matrix?.matrixCM?.value === 0;
 
-    if (shouldTurnOffPools) {
+    if (this.isAccessDevice && shouldTurnOffPools) {
         const updates = this.actor.items
             .filter(item => item.system.usedForPool === true)
             .map(item => ({
@@ -154,6 +165,17 @@ export default class SR6Item extends Item {
     const GEAR = CONFIG.SR6.GEAR;
     if ( this.parent && GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype) ) {
       await this.parent.updatePersona();
+    }
+  }
+
+  _checkAccessDeviceEnabledStatus(changes) {
+    if (!this.isOwner || this.type!=="gear") return false;
+
+    if (changes.system?.usedForPool === true || changes.system?.usedForPool === false) {
+      foundry.utils.setProperty(changes, "system.matrix.wirelessActive", changes.system.usedForPool);
+    }
+    if (changes.system?.matrix?.wirelessActive === true || changes.system?.matrix?.wirelessActive === false) {
+      foundry.utils.setProperty(changes, "system.usedForPool", changes.system.matrix.wirelessActive);
     }
   }
 
@@ -194,11 +216,14 @@ export default class SR6Item extends Item {
     if (typeof source.system?.rating === 'string') source.system.rating = parseInt(source.system.rating) || 0;
     if (typeof source.system?.matrix?.deviceRating === 'string') source.system.matrix.deviceRating = parseInt(source.system.matrix.deviceRating) || 0;
 
+    if (source.system?.needsRating === true && !source.system.rating) source.system.needsRating = false;
+    if (source.system?.subtype === "IMAGING") source.system.subtype = "OPTICAL";
+
     // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
     if (source.type === "gear" && source.system?.devRating !== undefined) {
       source.system.matrix ??= {};
       source.system.matrix.deviceRating = parseInt(source.system.devRating) || 2;
-      source.system.devRating = null;
+      delete source.system.devRating
     }
 
     if (source.type === "gear" && source.system?.isElectronicMatrixDevice) {
@@ -276,16 +301,31 @@ export default class SR6Item extends Item {
 
   }
 
-  get onlineOnMatrix() {
-    return this.system.isElectronicMatrixDevice 
-            && 
-           (
-            ( this.system.matrix.hasWirelessInterface && this.system.matrix.wirelessActive )
-            ||
-            ( this.system.matrix.hasDataCableInterface )
-           )
-           &&
-           this.system.matrix.matrixCM.value > 0
+  get isOnlineOnMatrixWirelessly() {
+    return Boolean(
+        this.system.isElectronicMatrixDevice
+        && this.system.matrix.hasWirelessInterface
+        && this.system.matrix.wirelessActive
+        && this.system.matrix.matrixCM.value > 0
+    );
+  }
+
+  get isOnlineOnMatrixByDataCable() {
+    return Boolean(
+        this.system.isElectronicMatrixDevice
+        && this.system.matrix.hasDataCableInterface
+        && this.system.matrix.matrixCM.value > 0
+    );
+  }
+
+  get isOnlineOnMatrix() {
+    return Boolean( this.isOnlineOnMatrixWirelessly || this.isOnlineOnMatrixByDataCable );
+  }
+
+  get isBricked() {
+    if (this.type !== 'gear' || !this.system.isElectronicMatrixDevice) return;
+
+    return Boolean( this.system.matrix.matrixCM.value === 0 );
   }
 
   _addDefaultFireModePenalties() {
@@ -426,6 +466,11 @@ export default class SR6Item extends Item {
     if (this.type === "spritepower" && this.system.skill) {
       const rollConfig = new SpritePowerRoll(item);
       return this.actor.rollResonanceAbility(rollConfig);
+    }
+    // If its a weapon roll
+    else if (this.isWeapon) {
+      let rollConfig = new WeaponRoll(this.actor, item);
+      return this.actor.rollItem(rollConfig);
     }
     // If there's no roll data, send a chat message.
     else if (!this.system.formula) {
@@ -651,6 +696,10 @@ export default class SR6Item extends Item {
   get isAccessDevice() {
     if (this.type !== "gear") return false;
     return CONFIG.SR6.GEAR.SUBTYPES_MATRIX_ACCESS.has(this.system.subtype);
+  }
+
+  get isWeapon() {
+    return Boolean(this.system.attackRating !== undefined);
   }
 
   /**
