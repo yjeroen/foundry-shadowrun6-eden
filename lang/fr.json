@@ -1,5 +1,5 @@
 {
-	"Shadowrun6ActorSheetNPC": "Grunty",
+	"Shadowrun6ActorSheetNPC": "Hommes de main",
 	"shadowrun6-eden": {
     "Shadowrun6ActorSheetPC": "Fiche PJ SR6",
     "Shadowrun6ActorSheetNPC": "Fiche PNJ SR6",
@@ -960,7 +960,7 @@
       "accessLevel": {
         "outsider": "INVITÉ",
         "user": "UTILISATEUR",
-        "admin": "ADMINISTRATEUR",
+        "admin": "ADMIN",
         "tooltip_sheetOwner_true": "Niveau d'accès de {name} à l'appareil {device}",
         "tooltip_sheetOwner_false": "Votre niveau d'accès à l'appareil cible {device}",
         "switch": "Cliquer pour changer de niveau d'accès et voir quelles actions matricielles sont disponibles.",
@@ -2758,7 +2758,7 @@
       "system.matrix.attributes.firewall": "FIREWALL",
       "system.initiative.astral": "INIT",
       "system.initiative.physical": "INIT",
-      "system.matrix.initiative": "INIT",
+      "system.initiative.matrix": "INIT",
       "system.attributes.willpower": "V",
       "system.attributes.logic": "L",
       "system.attributes.intuition": "I",
