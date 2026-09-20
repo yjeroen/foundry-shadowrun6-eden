@@ -100,6 +100,7 @@ export default class SR6Item extends Item {
     this._checkPersonaChanges(changed);
     this._informInCombatChanges(changed);
     this._updateItemModSheet(changed, options);
+    this._updatePanSheets(changed, options);
   }
 
  /**
@@ -670,6 +671,25 @@ export default class SR6Item extends Item {
         }
       }
     }
+  }
+
+  _updatePanSheets(changed, options) {
+    if (!this.system.isElectronicMatrixDevice) return;
+
+    if (
+      changed.system?.matrix?.matrixCM?.value === undefined
+      && changed.system?.usedForPool === undefined
+      && changed.system?.matrix?.wirelessActive === undefined
+    ) return;
+
+    const panAdmin = this.actor?.system.pan?.administrator;
+
+    const worldActors = game.actors.filter(actor => actor.prototypeToken.actorLink);
+    const tokenActors = Object.values(game.actors.tokens);
+    const panActors = [...worldActors, ...tokenActors]
+      .filter(actor => actor.system.pan?.administrator.uuid === panAdmin.uuid);
+
+    panActors.forEach(actor => actor.sheet?.render(false));
   }
 
   async _updateInstalledItemMods() {
