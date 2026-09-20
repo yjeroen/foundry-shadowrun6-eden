@@ -258,7 +258,7 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
         if (this.isDead) {
             await this.parent.toggleStatusEffect('dead', {active:true, overlay:true});
             await this.parent.toggleStatusEffect('unconscious', {active:false});
-        } else if (this.health.physicalCM.dmg >= this.health.physicalCM.max || this.health.stunCM.dmg === this.health.stunCM.max) {
+        } else if (this.health.physicalCM.dmg >= this.health.physicalCM.max || (this.health.stunCM.dmg === this.health.stunCM.max && this.health.stunCM.max > 0)) {
             await this.parent.toggleStatusEffect('dead', {active:false});
             await this.parent.toggleStatusEffect('unconscious', {active:true});
         } else {
