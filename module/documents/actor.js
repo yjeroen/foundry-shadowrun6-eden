@@ -25,7 +25,7 @@ function isGear(obj) {
     return obj.skill != undefined;
 }
 function isVehicle(obj) {
-    return obj.skill != undefined && (obj.type === "VEHICLES" || obj.type === "DRONES");
+    return obj.skill != undefined && obj.isVehicle;
 }
 function isSpell(obj) {
     return obj.category != undefined;

@@ -1302,7 +1302,7 @@ export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorShee
                     ? "primary-access-device"
                     : isAccessDevice
                         ? "secondary-access-device"
-                        : "slaved-device",
+                        : item.isVehicle ? "slaved-device" : "device",
                 subtype: item.system.subtype,
                 isOwner: item.isOwner && isActorsNode,
                 isActorsNode: isActorsNode,

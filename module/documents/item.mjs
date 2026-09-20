@@ -722,6 +722,11 @@ export default class SR6Item extends Item {
     return Boolean(this.system.attackRating !== undefined);
   }
 
+  get isVehicle() {
+    if (this.type !== "gear") return false;
+    return CONFIG.SR6.GEAR.VEHICLE_TYPES.has(this.system.type);
+  }
+
   /**
    * 
    * @param {object}   [config]                        Options provided to determine a Matrix Access Level from initiator to this Actor

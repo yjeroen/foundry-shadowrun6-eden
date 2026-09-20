@@ -1783,7 +1783,8 @@
           "slaved-pan": "Slaved PAN",
           "primary-access-device": "Primary Access Device",
           "secondary-access-device": "Secondary Access Device",
-          "slaved-device": "Slaved Device"
+          "slaved-device": "Slaved Device",
+          "device": "Device"
         }
       },
       "metamagic": {

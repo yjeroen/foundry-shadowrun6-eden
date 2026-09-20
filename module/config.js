@@ -433,6 +433,15 @@ export class SR6Config {
     };
 
     GEAR = {
+        VEHICLE_TYPES: new Set([
+            "DRONES",
+            "DRONE_LARGE",
+            "DRONE_MEDIUM",
+            "DRONE_MICRO",
+            "DRONE_MINI",
+            "DRONE_SMALL",
+            "VEHICLES"
+        ]),
         TYPES_WITH_AMMO: new Set([
             "WEAPON_FIREARMS",
             "WEAPON_RANGED",
