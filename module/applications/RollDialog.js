@@ -453,6 +453,8 @@ export class RollDialog extends Dialog {
         // Get the value of the user entered modifier ..
         let userModifier = parseInt(document.getElementById("modifier").value);
         this.modifier = userModifier ? userModifier : 0;
+        prepared.edgePoolIgnoringCap = 0;
+        configured.edgePoolIgnoringCap = 0;
         
         // Get edge info
         const boostSelected = CONFIG.SR6.EDGE_BOOSTS.find((boost) => boost.id == boostOrActionId);

@@ -92,14 +92,14 @@ export default class EdgeRoll {
     //-------------------------------------------------------------
     _performEdgeBoostOrAction(data, boostOrActionId) {
         console.log("ToDo: performEgdeBoostOrAction " + boostOrActionId);
-        if (boostOrActionId == "edge_action") {
-            return;
-        }
         data.explode = false;
         data.modifier = 0;
+
         switch (boostOrActionId) {
             case "add_edge_pool":
                 data.explode = true;
+                break;
+            case "edge_action":
                 break;
         }
         // Update content on dialog
