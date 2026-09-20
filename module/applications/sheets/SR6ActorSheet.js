@@ -1364,10 +1364,13 @@ export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorShee
                 change.value === panAdmin.uuid
             )
         );
+        const hasOnlinePan = actor => actor.system.persona.accessDevice?.isOnlineOnMatrixWirelessly;
+
         const worldActors = game.actors.filter(actor => actor.prototypeToken.actorLink);
         const tokenActors = Object.values(game.actors.tokens);
         const slavedActors = [...worldActors, ...tokenActors]
-            .filter(hasJoinedMyPan);
+            .filter(hasJoinedMyPan)
+            .filter(hasOnlinePan);
 
         const slavedPans = slavedActors
             .sort((a, b) => a.name.localeCompare(b.name))
