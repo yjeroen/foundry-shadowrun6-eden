@@ -27,7 +27,6 @@
 	--font-h4-size: var(--font-size-14);
 	--chat-input-height: 124px;
 	--contrast-color: #ffffff;
-
     --sr6-pink: #b00078;
     --sr6-darker-pink: #960570;
     --sr6-bright-pink: #d92ba2;
@@ -45,10 +44,10 @@ body.game input[type=checkbox]{
 	--control-hover-border-color: #892378;
 }
 .themed.theme-light {
-	--sidebar-background: url("/systems/shadowrun6-eden/images/background.webp");
+	--sidebar-background: url("../systems/shadowrun6-eden/images/background.webp");
 }
 body.theme-light .application {
-	--background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
+	--background: url("../systems/shadowrun6-eden/images/background.webp") repeat;
 }
 .foundry-modern hr {
 	background-image: linear-gradient(90deg, transparent 0%, #892378 50%, transparent 100%);
@@ -82,12 +81,12 @@ body.theme-light .application {
 .themed.theme-light .application .window-content,
 body.game .app.window-app .window-content,
 .chat-message  {
-	background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
+	background: url("../images/background.webp") repeat;
 	background-position: left top;
 }
 
 body.game .app.shadowrun6.actor .window-content {
-	background-image: url("/systems/shadowrun6-eden/images/borderRight.webp"), url("/systems/shadowrun6-eden/images/background.webp");
+	background-image: url("../images/borderRight.webp"), url("../images/background.webp");
 	background-position: right top, left top;
 	background-repeat: no-repeat, repeat;
 }
