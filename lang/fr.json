@@ -1,5 +1,69 @@
 {
-	"Shadowrun6ActorSheetNPC": "Grunty",
+  "TYPES":{
+  		"Actor": {
+    		"Critter": "Créature",
+    		"NPC": "Homme de main/PNJ",
+    		"Player": "Personnage Joueur",
+    		"Spirit": "Esprit",
+    		"Vehicle": "Véhicule/Drone",
+        "sprite": "Sprite",
+        "host": "Serveur"
+  		},
+  		"Item": {
+    		"adeptpower": "Pouvoir d'adepte",
+    		"critterpower": "Pouvoir de créature",
+    		"complexform": "Forme complexe",
+    		"spritepower": "Pouvoir d'esprit",
+    		"contact" : "Contact",
+    		"echo": "Écho",
+        "focus": "Focus",
+    		"gear": "Équipement",
+    		"lifestyle" : "Style de vie",
+    		"martialartstyle": "Style d'arts martiaux",
+    		"martialarttech": "Technique d'arts martiaux",
+    		"metamagic": "Métamagie",
+    		"quality": "Trait",
+    		"ritual": "Rituel",
+    		"sin" : "SIN",
+    		"skill": "Langue/Connaissance",
+        "software": "Logiciel",
+    		"spell": "Sort",
+    		"weapon": "Arme",
+    		"mod": "Mod. d'équipement"
+  	}
+  },
+  "ACTOR": {
+    "TypeCritter": "Créature",
+    "TypeNpc": "PNJ",
+    "TypePlayer": "Personnage Joueur",
+    "TypeSpirit": "Esprit",
+    "TypeVehicle": "Véhicule/Drone"
+  },
+  "ITEM": {
+    "TypeAdeptpower": "Pouvoir d'adepte",
+    "TypeCritterpower": "Pouvoir de créature",
+    "TypeComplexform" : "Forme complexe",
+    "TypeContact" : "Contact",
+    "TypeEcho": "Écho",
+    "TypeGear": "Équipement",
+    "TypeLifestyle" : "Style de vie",
+    "TypeMartialartstyle": "Style d'arts martiaux",
+    "TypeMartialarttech": "Technique d'arts martiaux",
+    "TypeMetamagic": "Métamagie",
+    "TypeQuality": "Trait",
+    "TypeRitual": "Rituel",
+    "TypeSin" : "SIN",
+    "TypeSkill": "Langue/Connaissance",
+    "TypeSpell": "Sort",
+    "TypeWeapon": "Arme"
+  },
+  "SYSTEM": {
+    "Sidebar": {
+      "readme": "Patreon",
+      "bugs": "Rapport de bug",
+      "release_notes": "Changelog"
+    }
+  },
 	"shadowrun6-eden": {
     "Shadowrun6ActorSheetPC": "Fiche PJ SR6",
     "Shadowrun6ActorSheetNPC": "Fiche PNJ SR6",
@@ -9,13 +73,6 @@
     "PDFSheet": "Fiche PDF en lecture seule"
   },
   "PDFSheet.no_src": "Commencez par modifier la configuration de la fiche pour la fiche PDF par défaut, configurez l'URL PDF, puis repassez à la configuration de la fiche PDF en lecture seule.",
-  "SYSTEM": {
-    "Sidebar": {
-      "readme": "Patreon",
-      "bugs": "Rapport de bug",
-      "release_notes": "Changelog"
-    }
-  },
   "PDF": {
     "folder": "Règles Shadowrun 6e",
     "page_abbr": "p.",
@@ -92,66 +149,10 @@
       "tarnished_star": "ET"
     }
   },
-  "ACTOR": {
-    "TypeCritter": "Créature",
-    "TypeNpc": "PNJ",
-    "TypePlayer": "Personnage Joueur",
-    "TypeSpirit": "Esprit",
-    "TypeVehicle": "Véhicule/Drone"
-  },
-  "ITEM": {
-    "TypeAdeptpower": "Pouvoir d'adepte",
-    "TypeCritterpower": "Pouvoir de créature",
-    "TypeComplexform" : "Forme complexe",
-    "TypeContact" : "Contact",
-    "TypeEcho": "Écho",
-    "TypeGear": "Équipement",
-    "TypeLifestyle" : "Style de vie",
-    "TypeMartialartstyle": "Style d'arts martiaux",
-    "TypeMartialarttech": "Technique d'arts martiaux",
-    "TypeMetamagic": "Métamagie",
-    "TypeQuality": "Trait",
-    "TypeRitual": "Rituel",
-    "TypeSin" : "SIN",
-    "TypeSkill": "Langue/Connaissance",
-    "TypeSpell": "Sort",
-    "TypeWeapon": "Arme"
-  },
+	"Shadowrun6ActorSheetNPC": "Hommes de main",
   "QUALITY_CATEGORIES":{
     "ADVANTAGE": "Avantage",
     "DISADVANTAGE": "Désavantage"
-  },
-  "TYPES":{
-  		"Actor": {
-    		"Critter": "Créature",
-    		"NPC": "PNJ",
-    		"Player": "Personnage Joueur",
-    		"Spirit": "Esprit",
-    		"Vehicle": "Véhicule/Drone",
-        "sprite": "Sprite"
-  		},
-  		"Item": {
-    		"adeptpower": "Pouvoir d'adepte",
-    		"critterpower": "Pouvoir de créature",
-    		"complexform": "Forme complexe",
-    		"spritepower": "Pouvoir d'esprit",
-    		"contact" : "Contact",
-    		"echo": "Écho",
-        "focus": "Focus",
-    		"gear": "Équipement",
-    		"lifestyle" : "Style de vie",
-    		"martialartstyle": "Style d'arts martiaux",
-    		"martialarttech": "Technique d'arts martiaux",
-    		"metamagic": "Métamagie",
-    		"quality": "Trait",
-    		"ritual": "Rituel",
-    		"sin" : "SIN",
-    		"skill": "Langue/Connaissance",
-        "software": "Logiciel",
-    		"spell": "Sort",
-    		"weapon": "Arme",
-    		"mod": "Mod. d'équipement"
-  	}
   },
   "attrib": {
     "agi": "Agilité",
@@ -193,7 +194,10 @@
     "a": "Attaque",
     "s": "Corruption",
     "d": "Traitement de données",
-    "f": "Firewall"
+    "f": "Firewall",
+    "deviceRating": "Indice d'Appareil",
+    "encryptionRating": "Indice de Chiffrement"
+
   },
   "skill": {
     "astral": "Astral",
@@ -229,7 +233,7 @@
       "metatype": "Métatype",
       "name": "Nom",
       "nav": {
-        "basics": "Bases",
+        "basics": "Général",
         "biography": "Biographie",
         "combat": "Combat",
         "description": "Description",
@@ -239,7 +243,8 @@
         "matrix": "Matrice",
         "overview": "Aperçu",
         "skills": "Compétences",
-        "vehicles": "Véhicules"
+        "vehicles": "Véhicules",
+        "main": "Principal"
       },
       "skills": "Compétences",
       "spells": "Sorts"
@@ -311,7 +316,9 @@
       "spells_direct": "Défense : Sorts direct",
       "spells_indirect": "Défense : Sorts indirects",
       "spells_other": "Défense : Autres sorts",
-      "toxin": "Résistance aux toxines"
+      "toxin": "Résistance aux toxines",
+      "special": "Applique également un état à un niveau égal aux succès nets.",
+      "vehicle": "Défense contre les attaques et les collisions"
     },
     "defense_rating": {
       "label":  "Score défensif",
@@ -534,6 +541,7 @@
         "DATATERM": "Terminal de donnée",
         "CYBERTERM": "Terminal cyber",
         "BTLS": "BTL",
+        "FILE_STORAGE": "Stockage de fichiers",
         "TASERS": "Tasers",
         "THROWERS": "Lance-grenades",
         "THROWING": "Armes de jet",
@@ -674,7 +682,8 @@
       "WEAPON_CLOSE_COMBAT": "Arme de mêlée",
       "WEAPON_FIREARMS": "Arme à Feu",
       "WEAPON_RANGED": "Arme de jet/trait",
-      "WEAPON_SPECIAL": "Arme spéciale"
+      "WEAPON_SPECIAL": "Arme spéciale",
+      "IC": "CI"
     },
     "label": {
       "accessories": "Accessoires",
@@ -960,7 +969,7 @@
       "accessLevel": {
         "outsider": "INVITÉ",
         "user": "UTILISATEUR",
-        "admin": "ADMINISTRATEUR",
+        "admin": "ADMIN",
         "tooltip_sheetOwner_true": "Niveau d'accès de {name} à l'appareil {device}",
         "tooltip_sheetOwner_false": "Votre niveau d'accès à l'appareil cible {device}",
         "switch": "Cliquer pour changer de niveau d'accès et voir quelles actions matricielles sont disponibles.",
@@ -969,9 +978,13 @@
         "access_level_device_admin": "<p>Ceci est votre niveau d'accès actuel à cet appareil.</p><p>"
       },
       "device": {
-        "enable": "Cliquer pour utiliser cet appareil afin d'accéder à la Matrice.",
-      "disable": "Cliquer pour ne plus utiliser cet appareil pour accéder à la Matrice.",
-      "offline": "L'appareil est hors ligne sur la Matrice car il est brické ou sa configuration est incorrecte."
+        "enable": "Cliquez pour utiliser cet appareil pour accéder à la Matrice.",
+        "disable": "Cliquez pour ne pas utiliser cet appareil pour accéder à la Matrice.",
+        "isOffline": "L'appareil n'est pas en ligne sur la Matrice car il est brické ou désactivé.",
+        "unable": "<p>Impossible d'activer cet appareil car :</p><ul><li>Un autre appareil génère déjà ces attributs matriciels.</li><li>C'est un cyberdeck et vous avez déjà activé une CCR.</li><li>C'est une CCR et vous avez déjà activé un cyberdeck.</li></ul>",
+        "online": "EN LIGNE",
+        "offline": "HORS LIGNE",
+        "isAccessDevice": "<p>Ceci est un appareil d'accès à la Matrice.</p><p>Activez ou désactivez cet appareil sur votre fiche de personnage (onglet Matrice).</p>"
     },
     "open_operations": "Démarrer les opérations matricielles sur {item}.",
     "icon": "Icône",
@@ -991,225 +1004,285 @@
     "matrixaction": {
       "backdoor_entry": {
         "name": "Utiliser une backdoor",
-        "hint": "Utilisez une backdoor créée par une action Sonder l’accès réussie pour obtenir un accès Administrateur à un serveur, un appareil ou une zone de la Matrice [1-3]. Les succès nets de Sonder l’accès s’ajoutent à ce test ; une réussite n’est pas considérée comme un accès Administrateur illégal, tandis qu’un échec supprime la backdoor mais ne déclenche pas d’alerte, bien que votre Score de Surveillance augmente normalement [1, 3].",
-        "onSuccess.span": "vous vous introduisez via la backdoor que vous avez trouvée.",
+        "hint": "Utilisez une backdoor créée par une action de Sonder l'accès réussie pour obtenir un accès Administrateur à un serveur, un appareil ou une zone de la Matrice. Les succès nets de Sonder l'accès s'ajoutent à ce test ; la réussite n'est pas considérée comme un accès Administrateur illégal, tandis qu'un échec supprime la backdoor sans déclencher d'alarme, bien que votre Score de Surveillance augmente tout de même.",
+        "onSuccess.span": "vous vous infiltrez par la backdoor que vous avez trouvée.",
         "onSuccess.button": "Encourager le decker",
-        "onFailure.span": "l’intrusion est trop difficile pour vous.",
-        "onFailure.button": "Dire au decker de s’améliorer",
-        "onSuccesfulDefense.span": "antivirus lancé.",
+        "onFailure.span": "le piratage est trop difficile pour vous",
+        "onFailure.button": "Dire au decker de faire mieux",
+        "onSuccesfulDefense.span": "antivirus lancé",
         "onSuccesfulDefense.button": "Féliciter le défenseur",
-        "onFailedDefense.span": "entré via la backdoor.",
-        "onFailedDefense.button": "Appliquer le niveau d’accès ADMIN"
+        "onFailedDefense.span": "entré via la backdoor",
+        "onFailedDefense.button": "Appliquer le niveau d'accès ADMIN"
       },
       "brute_force": {
-        "name": "Forcer l'accès",
-        "hint": "Attaquez un appareil directement pour obtenir un accès illicite rapide, mais la cible est toujours alertée et le Score de Surveillance augmente à chaque test. Passer directement à un accès Administrateur utilise Volonté + (Firewall + 2) en défense et donne à la cible +4 à son Score Défensif.",
-        "onClick": "<p>Voulez-vous obtenir un accès ADMINISTRATEUR sans obtenir au préalable un accès UTILISATEUR ?</p><p>Passer directement à l'accès ADMINISTRATEUR utilise Volonté + (Firewall + 2) en défense et donne à la cible +4 à son Score Défensif.</p>",
-        "to_admin": "L'initiateur a choisi de Forcer l'accès directement au niveau d'accès ADMINISTRATEUR.",
-        "onFailedDefense.span": "en train de forcer l'accès",
+        "name": "Forcer l’accès",
+        "hint": "Attaquez directement un appareil pour obtenir un accès illicite rapide, mais la cible est toujours alertée et le score de DIEU s'accumule à chaque test. Aller directement à un accès Administrateur utilise la Volonté + (Firewall + 2) en défense et donne à la cible un bonus de +4 à son Score Défensif.",
+        "onClick": "<p>Voulez-vous obtenir un accès ADMINISTRATEUR sans obtenir d'abord un accès UTILISATEUR ?</p><p>Aller directement à un accès ADMINISTRATEUR utilise la Volonté + (Firewall + 2) en défense et donne à la cible un bonus de +4 à son Score Défensif.</p>",
+        "to_admin": "L'initiateur a choisi de Forcer l'accès directement vers le niveau d'accès ADMINISTRATEUR.",
+        "onFailedDefense.span": "forçage d'accès",
         "onFailedDefense.button": "Appliquer le niveau d'accès"
       },
       "calibration": {
         "name": "Calibrage",
-        "hint": "Ajoutez 1 à l'initiative matricielle de vous et de vos coéquipiers (partageant un flux RA avec votre PAN) pour chaque 2 succès reçus. L'augmentation totale d'un Persona ne peut pas être supérieure à votre Traitement des données."
+        "hint": "Augmentez le score d’Initiative de vous-même et des membres de votre équipe partageant votre flux RA de 1 par tranche de 2 succès. Ce bonus ne peut pas dépasser votre Traitement de données, un seul Calibrage peut être actif à la fois, il diminue de 1 à chaque tour de combat, et vous pouvez le partager with un nombre d'utilisateurs allant jusqu'à votre indice d'appareil."
       },
       "change_icon": {
-        "name": "Changer son icône",
-        "hint": "Sélectionnez une icône et remplacez-la par une autre. Cela ne vous empêchera pas d'être retrouvé si quelqu'un tente de le faire."
+        "name": "Modifier une icône",
+        "hint": "Remplacez l’icône d’une cible par une icône que vous avez conçue ou copiée. Cela peut tromper les observateurs occasionnels, mais cela ne change pas ce que révèle la Perception matricielle."
       },
       "check_os": {
-        "name": "Vérifier son SS",
-        "hint": "Consultez votre score de surveillance. Ironiquement, cette action augmente également votre SS."
+        "name": "Vérifier son Score de Surveillance",
+        "hint": "Découvrez votre Score de Surveillance actuel en cas de test réussi."
       },
       "control_device": {
         "name": "Contrôler un appareil",
-        "hint": "Prenez le contrôle d'un appareil comme si vous en étiez le propriétaire, jusqu'à ce que vous quittiez l'appareil de votre plein gré, que vous l'éteigniez ou que quelqu'un d'autre vous fasse perdre le contrôle."
+        "hint": "Prenez le contrôle à distance prolongé d’un appareil et utilisez-le comme si vous en étiez le propriétaire, dans la limite de votre niveau d’accès actuel. Le contrôle dure jusqu’à ce que vous y renonziez ou que vous soyez éjecté, et échoue automatiquement contre un appareil dans lequel un rigger est actuellement plongé."
       },
       "crack_file": {
         "name": "Décrypter un fichier",
-        "hint": "Cette action permet de rendre lisible un fichier crypté."
+        "hint": "Supprimez la protection d'un fichier pour le rendre lisible."
       },
       "crash_program": {
         "name": "Planter un programme",
-        "hint": "Vérifiez quels sont les programmes exécutés par l'appareil de votre adversaire avec Percevoir de la Matrice, puis prenez cette action pour l'arrêter."
+        "hint": "Faites planter un programme en cours d’exécution sur l’appareil cible. Vous devez savoir quel programme cibler, généralement via la Perception matricielle ou en l’observant en action ; le programme ne peut pas être relancé tant que l’appareil n'a pas été rebooté."
       },
       "data_spike": {
         "name": "Pic de données",
-        "hint": "Il s'agit de l'attaque standard pour infliger des dommages de matrice à un appareil ou à un personnage."
+        "hint": "Envoyez du code nuisible à un persona ou à un appareil afin de lui infliger des dommages matriciels égaux à la moitié de votre attribut d’Attaque (arrondie au supérieur) plus une case de dommages supplémentaire par succès net."
       },
       "disarm_data_bomb": {
         "name": "Désamorcer une bombe matricielle",
-        "hint": "Vous pouvez ainsi désarmer les bombes matricielles que vous avez détectées avec Perception Matricielle. Si vous ne réussissez pas à obtenir un résultat net, la bombe de matricielle explose."
+        "hint": "Désamorcez une bombe matricielle que vous avez détectée, généralement via l'action Percevoir la Matrice. Tout succès net permet de la neutraliser et de l'effacer ; sans succès net, la bombe matricielle s'active."
       },
       "device_lock": {
-        "name": "Verrouillage d'appareil",
-        "hint": "Empêche le propriétaire d'un appareil de couper la connexion d'un appareil à la matrice pendant succès nets rounds de combat. Peut être prolongé une fois en dépensant une action mineure."
+        "name": "Verrouillage d’appareil",
+        "hint": "Empêchez un appareil de se déconnecter ou de rebooter pendant un nombre de tours égal à vos succès nets. Une fois ce délai expiré, vous pouvez dépenser une action mineure pour prolonger le verrouillage d’un tour, mais une seule fois."
       },
       "denial_of_service": {
         "name": "Déni de service",
-        "hint": "Créez une pénalité pour tous les tests utilisant ce dispositif wifi en multipliant le nombre de succès net par deux."
+        "hint": "Polluez un appareil ou un persona actif sans fil avec du bruit, en appliquant un malus à la réserve de dés égal à vos succès nets x 2 à tous les tests effectués avec cet appareil jusqu'à la fin du prochain tour de combat."
       },
       "delayed_command": {
         "name": "Commande retardée",
-        "hint": "Envoyer une commande à un appareil avec un délai. En cas de succès, l'appareil reconnaîtra que la commande a été envoyée par son propriétaire. Une fois le délai écoulé, la commande sera exécutée, même si l'appareil a été coupé de la matrice. Un redémarrage avant l'exécution de la commande effacera celle-ci."
+        "hint": "Envoyez à un appareil une commande avec un délai d'exécution différé qu'il interprète comme provenant de son propriétaire. En cas de réussite, elle s'exécute après ce délai même si le mode sans fil est désactivé, mais un reboot avant l'exécution la supprime."
       },
       "edit_file": {
         "name": "Éditer un fichier",
-        "hint": "Cette action permet d'ajouter, d'éditer, de copier ou de supprimer un fichier. Lors d'un combat, l'ajout ou la modification d'un fichier nécessite une action pour chaque détail. Les fichiers cryptés ne peuvent pas être copiés."
+        "hint": "Créez, modifiez, copiez, supprimez ou protégez un fichier. Chaque action modifie un seul détail, les éditions en continu nécessitant une action par tour de combat. Les fichiers copiés deviennent les vôtres, les fichiers protégés ne peuvent pas être copiés, et une bombe matricielle se déclenche si elle n'est pas désamorcée en premier."
       },
       "encrypt_file": {
         "name": "Crypter un fichier",
-        "hint": "Cela rend un fichier illisible sans le décrypter au préalable. La valeur de cryptage est égale au résultat de ce jet."
+        "hint": "Protégez un fichier avec un indice de cryptage égal à vos succès à ce test, s'opposant aux futures tentatives de Décrypter un fichier."
       },
       "enter_host": {
-        "name": "Entrer/Sortir d'un serveur",
-        "hint": "Entrer dans un hôte ou le quitter."
+        "name": "Entrer/Sortir d’un serveur",
+        "hint": "Entrez dans un serveur ou quittez-le. Y entrer nécessite le niveau d'accès approprié ; en sortir ne requiert aucun accès particulier."
       },
       "erase_matrix_signature": {
         "name": "Effacer une signature matricielle",
-        "hint": "Si vous avez une valeur de Résonance, cette action vous permet de supprimer une signature matricielle laissée par un technomancien ou un sprite."
+        "hint": "Effacez une signature matricielle laissée par une entité de la Résonance, comme un technomancien ou un sprite. Vous devez posséder un attribut Résonance pour ce test, et cette action matricielle illégale peut augmenter votre Score de Surveillance."
       },
       "format_device": {
         "name": "Formater un appareil",
-        "hint": "Vous remplacez le secteur de démarrage de cet appareil par votre propre code, de sorte qu'il ne démarre plus lorsqu'on lui demande de redémarrer."
+        "hint": "Réécrivez le code de démarrage d'un appareil afin que son prochain reboot le désactive jusqu'à ce qu'il soit réparé. Il perd ses modificateurs sans fil et son accès à la Matrice, mais peut toujours fonctionner comme un mécanisme normal lorsque c'est possible."
       },
       "full_matrix_defense": {
-        "name": "Défense Mat. totale",
-        "hint": "Ajoutez votre pare-feu à tous les tests de défense liés à la matrice."
+        "name": "Défense matricielle totale",
+        "hint": "Jusqu'à la fin du tour de combat, ajoutez votre Firewall à tous les tests de défense matricielle. Il s'agit d'une action Libre."
       },
       "garbage_in_out": {
         "name": "Inversion des entrées/sorties",
-        "hint": "Jouer avec les signaux d'entrée et de sortie d'un appareil. Par exemple, chaque fois que le propriétaire veut lancer un programme, la dernière photo prise est effacée."
+        "hint": "Échangez les instructions d'un unique appareil pour détourner une commande et en exécuter une différente. Cela ne peut pas outrepasser les fonctions basiques de sécurité, et le maître de jeu décide de ce qui est possible."
       },
       "hash_check": {
-        "name": "Rech. une empreinte numérique",
-        "hint": "Recherche de fichiers cryptés avec un contenu spécifique dans un hôte ou un appareil. Les chances augmentent considérablement si l'on dispose d'une valeur de hachage."
+        "name": "Rechercher une empreinte numérique",
+        "hint": "Recherchez sur un serveur ou un appareil des fichiers cryptés correspondant à un contenu spécifique. Le seuil est de 1 avec l'empreinte numérique (hachage) ou de 4 si vous essayez de la deviner, et les succès nets réduisent le nombre de correspondances possibles."
       },
       "hide": {
         "name": "Se cacher",
-        "hint": "Essayez de faire en sorte qu'une cible vous perde de vue dans la Matrice. Ne fonctionne pas si l'icône a un accès utilisateur ou administrateur à un appareil de votre réseau."
+        "hint": "Faites en sorte qu'une cible perde votre trace dans la Matrice, l'obligeant à vous repérer à nouveau avec l'action Percevoir la Matrice. Vous ne pouvez pas vous cacher d’une icône qui dispose d'un accès Utilisateur ou Administrateur à n'importe quel élément de votre réseau."
       },
       "jack_out": {
         "name": "Se débrancher",
-        "hint": "Débranchez-vous de la Matrice en rebootant votre appareil. Vous subissez un choc d’éjection si vous étiez en RV et, si votre connexion est verrouillée, vous devez battre chaque icône verrouilleuse pour vous échapper.",
-        "link_locked": "Si votre connexion est verrouillée, l'icône (ou les icônes) qui vous bloque doit effectuer un test de défense lors du test opposé.",
-        "lock_link": "Vous avez verrouillé la connexion d'un persona. Le résultat de ce jet détermine votre succès.",
+        "hint": "Débranchez-vous de la Matrice en rebootant votre appareil. Vous subissez un choc d'éjection si vous étiez en RV, et si votre connexion est verrouillée, vous devez vaincre chaque icône à l'origine du verrouillage pour vous échapper.",
+        "link_locked": "Si votre connexion est verrouillée, l'icône ou les icônes à l'origine du verrouillage doivent effectuer un jet de Défense lors du test opposé.",
+        "lock_link": "Vous avez verrouillé la connexion d'un persona. Le résultat de ce jet détermine si vous réussissez.",
         "onSuccess.span": "sortie >> déconnexion..",
-        "onSuccess.button": "Appliquer la réinitialisation des accès et le choc d’éjection si le persona était en RV",
-        "onSuccesfulDefense.span": "verrouillage de connexion.. RÉUSSI. Déconnexion interrompue.",
-        "onFailedDefense.span": "verrouillage de connexion.. ÉCHEC. Procédure de déconnexion en cours."
+        "onSuccess.button": "Appliquer la réinitialisation de la LCA et le choc d'éjection si le persona était en RV",
+        "onSuccesfulDefense.span": "verrouillage de connexion.. RÉUSSITE. déconnexion interrompue.",
+        "onFailedDefense.span": "verrouillage de connexion.. ÉCHEC. Déconnexion en cours."
       },
       "jam_signals": {
         "name": "Brouiller des signaux",
-        "hint": "Tant que vous n'utilisez pas cet appareil pour d'autres actions, cela augmentera l'indice de bruit de tous les coups que vous portez dans un rayon de 100 mètres."
+        "hint": "Transformez votre appareil sans fil en brouilleur local. Tant que vous n'effectuez aucune autre action matricielle avec lui, ajoutez vos succès à l'indice de Bruit pour les actions matricielles dans un rayon de 100 mètres."
       },
       "jump_rigged": {
-        "name": "Plonger dans un app.",
-        "hint": "Le véhicule ou le drone dans lequel vous voulez sauter nécessite une adaptation du rigger et vous avez besoin d'un rig de contrôle. Vous ne pouvez sauter que si personne d'autre ne le fait. Votre niveau de propriété et d'accès est également un facteur déterminant pour savoir si cela fonctionnera ou non et si vous avez besoin de faire un jet."
+        "name": "Plonger dans un appareil riggé",
+        "hint": "Plongez dans un véhicule ou un drone équipé d'une adaptation pour rigger tout en étant en RV et en utilisant un câblage de contrôle. Vous devez disposer du niveau d'accès ou de la permission appropriée, et vous ne pouvez pas plonger si quelqu'un d'autre y est déjà plongé."
       },
       "known_exploit": {
         "name": "Exploiter une backdoor connue",
-        "hint": "Utilisez des routines d’exploitation connues pour obtenir un accès Administrateur sans action Sonder l’accès préalable ; les serveurs ou appareils mis à jour sont plus difficiles à pirater [1, 2]. Vous ne pouvez ni gagner ni dépenser d’Atout, la cible reçoit une remise d’Atout de 1 point, une réussite n’est pas considérée comme un accès Administrateur illégal et un échec ne déclenche pas d’alerte, bien que votre Score de Surveillance augmente normalement [2, 3].",
-        "cannot_edge": "Vous ne pouvez ni gagner ni dépenser d’Atout sur ce jet [2].",
-        "onFailedDefense.span": "entré via exploitation [1].",
-        "onFailedDefense.button": "Appliquer le niveau d’accès ADMIN [2, 4]."
+        "hint": "Utilisez des exploits connus pour obtenir un accès Administrateur sans action préalable de Sonder l'accès ; les serveurs ou appareils mis à jour sont plus difficiles. Vous ne pouvez ni gagner ni dépenser d'Atout, la cible gagne 1 point d'Atout temporaire, la réussite n'est pas considérée comme un accès Administrateur illégal, et un échec n'alerte pas la cible, bien que votre Score de Surveillance augmente tout de même.",
+        "cannot_edge": "Vous ne pouvez ni gagner ni dépenser d'Atout lors de ce jet.",
+        "onFailedDefense.span": "entrée via exploit",
+        "onFailedDefense.button": "Appliquer le niveau d'accès ADMINISTRATEUR"
       },
       "masquerade": {
         "name": "Mascarade",
-        "hint": "Vous pouvez faire semblant d'être quelqu'un d'autre dans la Matrice pendant succès nets minutes. Cependant, il est difficile de tromper la Matrice et cela ne fonctionnera pas pour des choses telles que la prise de possession d'appareils ou les opérations bancaires."
+        "hint": "Imitez un persona dans la Matrice pendant 1 minute par succès net. Cela peut tromper les systèmes et observateurs occasionnels, mais ne permet pas de modifier la propriété d'un appareil, d'effectuer des transactions financières majeures, ou tout ce qui est lié au fait d'être le véritable propriétaire."
       },
       "matrix_perception": {
         "name": "Percevoir la Matrice",
-        "hint": "Trouvez une icône qui fonctionne en silence ou collectez des informations sur une cible, comme son icône et son classement de périphérique, les périphériques en cours d'exécution, les programmes et d'autres informations spécifiques."
+        "hint": "Repérez des icônes cachées ou obtenez des informations sur une cible. Plus de succès nets révèlent plus de détails, comme l'indice d'appareil, les attributs matriciels, les programmes en cours d'exécution, et d'autres informations fournies par le meneur de jeu."
       },
       "matrix_search": {
         "name": "Recherche matricielle",
-        "hint": "Rechercher dans la Matrice publique des informations sur un sujet donné."
+        "hint": "Recherchez des informations sur un sujet dans la Matrice publique. Plus de succès révèlent plus d'informations, en utilisant le tableau des résultats d'investigation comme guide."
       },
       "metahuman_middle": {
         "name": "Attaque par interception",
-        "hint": "Faites en sorte que toutes les communications et actions de Matrix passent par votre appareil pendant succès nets minutes."
+        "hint": "Insérez-vous entre un appareil et son trafic matriciel. En cas de réussite, tous les appels, communications et actions matricielles depuis ou vers la cible transitent par votre appareil pendant un nombre de minutes égal à vos succès nets."
       },
       "modify_icon": {
         "name": "Modifier une icône",
-        "hint": "Modifier une icône pour laquelle vous disposez d'un accès administrateur en quelque chose qu'elle ne représente pas, comme faire ressembler votre arme à des fleurs."
+        "hint": "Faites en sorte qu'une icône matricielle ressemble à une autre icône, comme donner à une arme l'air inoffensive. Chaque analyse peut révéler le déguisement lors d'un test opposé."
       },
       "probe": {
         "name": "Sonder l'accès",
-        "hint": "Essayez de trouver un exploit et utilisez ensuite l'action Utiliser une backdoor pour obtenir l'accès. Cela prend du temps, mais contrairement à la force brute, cela n'alarmera pas la cible."
+        "hint": "Cherchez des failles sans alerter automatiquement la cible, à moins d’obtenir une complication. Une action de Sonder l'accès réussie crée une backdoor pour l'action Utiliser une backdoor, ajoute les succès nets sous forme de dés bonus à ce test ultérieur, et dure généralement un nombre d'heures égal à 10 moins l'indice de serveur ou d'appareil, ou jusqu'à ce que vous passiez hors ligne.",
+        "defense_test": "Vous devez effectuer un jet de Défense pour chaque jet de Sonder l'accès de l'attaquant. L'attaquant effectuant le sondage doit soustraire manuellement les succès de son test de Sonder l'accès (jusqu'à un minimum de 0 succès net obtenu « cette » minute). Son SS augmente également par succès obtenu lors de ce test de Défense."
       },
       "pop_up": {
         "name": "Popup",
-        "hint": "Inondez votre adversaire avec des fenêtres RA, afin qu'il ne puisse pas dépenser de l'Atout pour succès nets rounds, car il est distrait."
+        "hint": "Inondez un appareil ou un persona ciblé d’ORA popup ou de fenêtres. En cas de réussite, la cible ne peut pas dépenser d'Atout pendant un nombre de tours de combat égal à vos succès nets."
       },
       "reboot_device": {
         "name": "Rebooter un appareil",
-        "hint": "Force un appareil, un persona ou un PAN à se mettre hors ligne jusqu’à la fin du round de combat suivant. Cela réinitialise son Score de Surveillance ainsi que ses accès, ne cause aucun choc d’éjection et ne peut pas être effectué si la connexion est verrouillée.",
-        "forced_to_reboot": "Lancez votre défense si vous êtes forcé à rebooter votre appareil.",
-        "onSuccess.span": "redémarrage en cours..",
-        "onSuccess.button": "Appliquer la réinitialisation des accès à ce persona",
-        "onFailedDefense.span": "reboot_forcé..",
-        "onFailedDefense.button": "Appliquer la réinitialisation des accès à ce persona"
+        "hint": "Forcez un appareil, un persona ou un PAN à passer hors ligne jusqu'à la fin du prochain tour de combat. Cela réinitialise son Score de Surveillance et ses accès, ne provoque aucun choc d'éjection et ne peut pas être effectué lorsque la connexion est verrouillée.",
+        "forced_to_reboot": "Faites un test de Défense si vous êtes forcé de Rebooter un appareil",
+        "onSuccess.span": "redémarrage..",
+        "onSuccess.button": "Appliquer la réinitialisation de la LCA à ce persona",
+        "onFailedDefense.span": "reboot_force..",
+        "onFailedDefense.button": "Appliquer la réinitialisation de la LCA à ce persona"
       },
       "reconfigure": {
-        "name": "Reconf. les attributs mat.",
-        "hint": "Changez deux indices de base de votre Persona matricielle qui sont supérieures à 0, quelle que soit la source (commlink, cyberjack, etc.) dont elles proviennent."
+        "name": "Reconfigurer les attributs matriciels",
+        "hint": "Échangez les valeurs de base de deux attributs matriciels non nuls de votre persona matriciel, même s’ils proviennent d’appareils différents."
       },
       "relinquish_access": {
-        "name": "Abandonner l'accès",
-        "hint": "Vous abandonnez votre accès à un serveur, un PAN ou un appareil spécifique. Si vous aviez un accès illégal, vous ne générez plus de Score de Surveillance (SS) pour cette cible.",
+        "name": "Renoncer à l'accès",
+        "hint": "Vous renoncez à votre niveau d’accès à un serveur, PAN ou appareil spécifique. Si vous disposiez d’un accès illégal, vous ne générez plus de Score de Surveillance pour cette cible.",
         "onSuccess.span": "sudoK..",
-        "onSuccess.button": "Réduire le niveau d’accès à cette icône au rang d’INVITÉ",
+        "onSuccess.button": "Réduire le niveau d'accès à cette icône à INVITÉ",
         "onFailure.span": "sudoK..",
-        "onFailure.button": "Réduire le niveau d’accès à cette icône au rang d’INVITÉ"
+        "onFailure.button": "Réduire le niveau d'accès à cette icône à INVITÉ"
       },
       "send_message": {
         "name": "Envoyer un message",
-        "hint": "Transmettez du son ou du texte à quelqu'un d'autre, ou créez un flux en direct."
+        "hint": "Envoyez un court message écrit ou audio, une image, un fichier ou un flux en direct via la Matrice. Avec une IND, vous pouvez envoyer des messages plus longs et plus complexes, même en RA."
       },
       "set_data_bomb": {
-        "name": "Poser une bombe mat.",
-        "hint": "Attachez une bombe matricielle pour faire exploser les pirates informatiques imprudents. L'indice peut aller jusqu'au nombre maximum de succès nets que vous avez obtenus. Choisissez ensuite si la bombe matricielle supprime le fichier ou non."
+        "name": "Poser une bombe matricielle",
+        "hint": "Fixez une bombe matricielle sur un fichier avec un indice allant jusqu'à vos succès nets, choisissez si elle doit détruire le fichier et configurez un mot de passe. Si elle se déclenche, elle inflige des dommages matriciels égaux à son indice x 4, peut supprimer le fichier, puis s'autodétruit."
       },
       "snoop": {
         "name": "Fureter",
-        "hint": "Mettez la main sur les données échangées entre votre cible et la matrice."
+        "hint": "Interceptez le trafic matriciel envoyé et reçu par votre cible tant que vous disposez d'un accès. Vous pouvez l’écouter, le visionner ou le lire en direct, ou le sauvegarder pour plus tard si vous disposez d’un espace de stockage."
       },
       "spoof_command": {
         "name": "Imiter un ordre",
-        "hint": "Envoyer une commande à un appareil en prétendant en être le propriétaire légitime. Comme d'habitude, l'appareil tente alors d'exécuter l'action en tant que prochaine action majeure disponible."
+        "hint": "Envoyez une commande à un appareil qu'il interprète comme provenant de son propriétaire. L'appareil tente alors de l'exécuter comme sa prochaine action majeure disponible."
       },
       "squelch": {
         "name": "En dérangement",
-        "hint": "Empêcher la cible d'envoyer des messages ou d'appeler quelqu'un pour succès nets rounds."
+        "hint": "Empêche l'appareil ciblé d'appeler ou d'envoyer des messages pendant un nombre de minutes égal à vos succès nets."
       },
       "subvert_infrastructure": {
-        "name": "Détournement d'infrastructure",
-        "hint": "Faites en sorte qu'un groupe de dispositifs simples et similaires d'un hôte fasse ce que vous voulez, comme éteindre l'éclairage public ou faire pivoter toutes les caméras de sécurité vers la gauche."
+        "name": "Détournement d’infrastructure",
+        "hint": "Altérez légèrement le fonctionnement de groupes d'appareils simples similaires asservis à un serveur, tels que des feux de circulation ou des caméras. Vous devez disposer au moins d'un accès Administrateur ; vous affectez un groupe par succès net, ne pouvez pas effectuer d'attaque par ce biais, et devez maintenir le contrôle en dépensant une action majeure à chaque tour de combat."
       },
       "switch_ifmode": {
-        "name": "Changer de mode d'interface",
-        "hint": "Basculez entre les modes AR et VR de votre interface."
+        "name": "Changer de mode d’interface",
+        "hint": "Passez votre interface du mode RA au mode RV ou inversement."
       },
       "tarpit": {
         "name": "Empêtrer",
-        "hint": "Ralentissez votre cible en lui infligeant des dommages et en réduisant sa valeur de traitement des données."
+        "hint": "Infligez 1 + succès nets dommages matriciels et réduisez le Traitement de données de la cible du même montant. Le Traitement de données se régénère de 1 à chaque tour de combat, et à 0 la cible ne peut plus effectuer d'actions matricielles."
       },
       "threat_analysis": {
         "name": "Analyse des menaces",
-        "hint": "Marquez les entités nuisibles et partagez-les par flux RA avec vos coéquipiers, afin qu'ils bénéficient de vos succès en tant que dés bonus sur leur jet de défense. Cela fonctionne aussi bien dans le monde physique que dans la Matrice."
+        "hint": "Mettez en évidence les menaces pour vos alliés partageant votre flux RA, en leur accordant un bonus de dés aux tests de défense égal à vos succès jusqu'à votre prochain tour. Cela fonctionne dans le monde physique et dans la Matrice, et vous pouvez partager ce bonus avec un nombre d'utilisateurs inférieur ou égal à votre Traitement de données."
       },
       "trace_icon": {
         "name": "Traquer une icône",
-        "hint": "Retrouver l'emplacement physique d'un appareil ou d'une personne."
+        "hint": "Trouvez la localisation physique d'un appareil ou d'un persona tant que vous pouvez encore le détecter. Cela ne fonctionne pas contre les CI ou les serveurs dépourvus de localisation physique."
       },
       "virtual_aim": {
         "name": "Visée virtuelle",
-        "hint": "Vous donne un dé de bonus pour vos actions d'attaque comme Pic de donnée ou Empêtrer. Peut être activé une fois par round, mais s'additionne à chaque round à moins que vous ne fassiez pas d'autre action ou attaque de Visée Virtuelle. Le maximum est votre Volonté."
+        "hint": "Obtenez un bonus de +1 dé à votre réserve de dés pour une attaque matricielle telle que Pic de données, Empêtrer ou Pic de Résonance. Vous pouvez utiliser ce bonus une fois par tour de combat, il se cumule jusqu'à votre Volonté, et est perdu si vous attaquez ou n'effectuez pas de Visée virtuelle durant un tour."
       },
       "watchdog": {
         "name": "Sentinelle",
-        "hint": "Permet de suivre et d'anticiper les actions d'un personnage ou d'un dispositif de la Matrice pendant succès nets rounds, afin de pouvoir intervenir. Le fait que la sentinelle soit actif vous permet d'exécuter l'analyse de menace en tant qu'action mineure."
+        "hint": "Surveillez un persona ou un appareil pendant un nombre de tours de combat égal à vos succès nets. Vous voyez ses actions matricielles avant qu'il ne les utilise, pouvez tenter de vous interposer, et pouvez utiliser l'action Analyse des menaces en tant qu'action mineure contre les attaques de cette cible."
+      },
+
+      "acid": {
+        "name": "Acide",
+        "hint": "En cas d'attaque réussie en cybercombat, réduisez le Firewall de la cible de 1 par succès net. Les points perdus se régénèrent après avoir quitté le serveur à un rythme de 1 point par minute."
+      },
+      "binder": {
+        "name": "Fragmenteuse",
+        "hint": "En cas d'attaque réussie en cybercombat, réduisez le Traitement de données de la cible de 1 par succès net. À Traitement de données 0, la cible ne peut plus effectuer d’actions matricielles. Les points perdus se régénèrent après avoir quitté le serveur à un rythme de 1 point par minute."
+      },
+      "black": {
+        "name": "CI Noire",
+        "hint": "En cas d'attaque réussie en cybercombat, infligez des dommages matriciels et des dommages de biofeedback égaux à l'indice du serveur plus les succès nets.",
+        "onFailedDefense.span": "dommages matriciels et de biofeedback entrants",
+        "onFailedDefense.button": "Résister au biofeedback"
+      },
+      "blaster": {
+        "name": "Blaster",
+        "hint": "En cas d'attaque réussie en cybercombat, infligez des dommages matriciels égaux à l'indice du serveur et verrouillez la connexion de la cible.",
+        "onFailedDefense.span": "dommages matriciels entrants",
+        "onFailedDefense.button": "Encaisser les dommages"
+      },
+      "crash": {
+        "name": "Crash",
+        "hint": "En cas d'attaque réussie en cybercombat, n'infligez aucun dommage matriciel et faites planter un programme aléatoire de la cible. Le programme ne peut pas être relancé tant que son appareil n’a pas été rebooté."
+      },
+      "jammer": {
+        "name": "Bloqueuse",
+        "hint": "En cas d'attaque réussie en cybercombat, réduisez l’attribut d’Attaque de la cible de 1 par succès net. À Attaque 0, la cible ne peut plus effectuer d'actions utilisant l'Attaque. Les points perdus se régénèrent après avoir quitté le serveur à un rythme de 1 point par minute."
+      },
+      "killer": {
+        "name": "Tueuse",
+        "hint": "En cas d'attaque réussie en cybercombat, infligez des dommages matriciels égaux à l'indice du serveur plus les succès nets."
+      },
+      "marker": {
+        "name": "Rongeuse",
+        "hint": "En cas d'attaque réussie en cybercombat, réduisez l’attribut de Corruption de la cible de 1 par succès net. À Corruption 0, la cible ne peut plus effectuer d'actions utilisant la Corruption. Les points perdus se régénèrent après avoir quitté le serveur à un rythme de 1 point par minute."
+      },
+      "patrol": {
+        "name": "Patrouilleuse",
+        "hint": "Lorsqu'elle est activée, effectuez un test de Perception matricielle et utilisez ses succès pour les actions de Perception matricielle de la Patrouilleuse. La Patrouilleuse dépense une action mineure en Perception matricielle à chaque minute de temps de jeu et relance le test une fois par minute."
+      },
+      "scramble": {
+        "name": "Brouilleuse",
+        "hint": "En cas d'attaque réussie en cybercombat, la cible doit rebooter à son prochain tour, à moins que sa connexion soit verrouillée."
+      },
+      "sparky": {
+        "name": "Furie",
+        "hint": "En cas d'attaque réussie en cybercombat, infligez des dommages de biofeedback égaux à l'indice du serveur plus les succès nets.",
+        "onFailedDefense.span": "biofeedback entrant",
+        "onFailedDefense.button": "Résister au biofeedback"
+      },
+      "tarbaby": {
+        "name": "Pot de colle",
+        "hint": "En cas d'attaque réussie en cybercombat, verrouillez la connexion de la cible."
+      },
+      "track": {
+        "name": "Traqueuse",
+        "hint": "En cas d'attaque réussie en cybercombat, découvrez la localisation physique de la cible."
       }
     },
     "matrixini": {
@@ -1243,7 +1316,7 @@
       "accessory": "Morceau verre brillant",
       "ammunition": "Munitions trop balèzes",
       "armor": "Un truc à la mode",
-      "armor_addition": "Votre armure  a besoin d'être mis à jour",
+      "armor_addition": "Votre armure a besoin d'être mise à jour",
       "biology": "Biohazard",
       "bodyware": "Une augmentation cool",
       "chemicals": "De la bonne",
@@ -1436,6 +1509,7 @@
       },
       "apply_damage": "Appliquer les dommages",
       "create": "Créer votre propre réserve de dé de Shadowrun",
+      "click_chat": "Cliquez pour afficher les dés lancés et dépenser de l’Atout",
       "damage_applied": "Dommages appliqués",
       "damage_revert": "Annuler les dommages ?",
       "ar_0": "Proche",
@@ -1661,6 +1735,7 @@
         "title": "Combat matriciel"
       },
       "matrix_devices": {
+        "label": "Appareil matriciel",
         "add": "Ajouter un appareil",
         "add_rcc": "Ajouter une console de commande de rigger",
         "column": {
@@ -1668,8 +1743,11 @@
           "devRating": "Indice",
           "name": "Nom"
         },
-        "title": "Appareils matriciels",
+        "title": "Appareil d'accès à la Matrice",
         "title_rcc": "CCR"
+      },
+      "rigger": {
+        "title": "Rigging"
       },
       "persona": {
         "title": "Persona",
@@ -1829,6 +1907,10 @@
       "dosPopupMatrix": {
         "hint": "Change le niveau d'accès requis pour Déni de service et Popup en INVITÉ/UTILISATEUR/ADMINISTRATEUR au lieu de INVITÉ seulement, tout comme pour Pic de données et Empêtrer. Il s’agit probablement d’un oubli dans Hacker Vaillant (H&S). (Option recommandée sur FoundryVTT en raison de l'implémentation du lien PAN<>Persona.)",
         "name": "Déni de service & Popup"
+      },
+      "controlRigPerception": {
+        "hint": "Utilisez cette règle si vous autorisez l’indice du câblage de contrôle à s’ajouter aux tests de Perception des véhicules en plongée.",
+        "name": "Perception du câblage de contrôle"
       },
       "bleeding": {
         "hint": "Cette règle est utilisée pour représenter les dommages permanents résultant de blessures graves. (SWC p.140)",
@@ -2127,6 +2209,8 @@
       "has_no_owner": "Le véhicule / Drone n'a pas de propriétaire assigné",
       "initiative": "Initiative du véhicule",
       "mode_label": "Mode",
+      "perception_vr_norig": "<p>Le câblage de contrôle n’est pas ajouté aux réserves de Perception par défaut.</p><p>Votre MJ peut utiliser le paramètre « Perception du câblage de contrôle » pour activer cette règle.</p>",
+      "perception_vr_rig": "Votre indice de câblage de contrôle de {rating} est ajouté à la réserve de Perception.",
       "mode": {
         "manual": "Manuel",
         "riggedAR": "Plongé (RA)",
@@ -2160,37 +2244,39 @@
     },
     "ui": {
       "notifications": {
-        "You_are_not_owner_of_the_target": "Vous n'êtes pas propriétaire de la cible.",
-        "You_are_not_owner_of_the_token": "Vous n'êtes pas propriétaire du jeton.",
-        "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "Vous ne pouvez choisir que Rafale large lorsque vous ciblez deux jetons.",
-        "Target_or_select_a_token_before_rolling": "Ciblez ou sélectionnez un jeton avant de lancer.",
-        "Select_a_token_first": "Sélectionnez d'abord un jeton, ou configurez votre acteur Personnage Joueur dans votre Configuration Utilisateur.",
-        "Target_a_token_before_rolling": "Ciblez un jeton avant de lancer.",
-        "defaulting_spell_to_self": "Aucun token ciblé, le sort vous ciblera par défaut.",
-        "Dice_roll_evaluation_failed": "Évaluation du lancer de dés échouée",
-        "two_targets_but_wrong_fire_mode": "Vous avez deux cibles, donc vous ne pouvez tirer qu'en utilisant le mode Tir en Rafale : Rafale large, ou en utilisant le mode Tir Automatique.",
-        "many_targets_but_not_autofire_fire_mode": "Vous avez plus de deux cibles, donc vous ne pouvez tirer qu'en utilisant le mode Tir Automatique.",
-        "attack_with_no_AR": "Vous essayez d'attaquer alors que votre Score Off. est de 0, par exemple en raison de la distance.",
+        "You_are_not_owner_of_the_target": "Vous ne pouvez pas utiliser ceci car vous n'êtes pas le propriétaire de la cible.",
+        "You_are_not_owner_of_the_token": "Vous n'êtes pas le propriétaire de ce jeton.",
+        "Select_a_single_token": "Vous avez sélectionné plusieurs jetons. Sélectionnez un unique jeton pour effectuer cette action.",
+        "You_can_only_choose_Wide_Burst_when_you_target_two_tokens": "Vous ne pouvez choisir Rafale large que lorsque vous ciblez (T) deux jetons.",
+        "Target_or_select_a_token_before_rolling": "Ciblez ou sélectionnez un jeton avant de lancer les dés. Vous pouvez cibler ou décibler un jeton en survolant celui-ci avec votre souris et en appuyant sur la touche T de votre clavier.",
+        "Select_a_token_first": "Sélectionnez d'abord un jeton ou configurez l'acteur de votre personnage dans votre configuration utilisateur.",
+        "Target_a_token_before_rolling": "Ciblez (T) un jeton avant de lancer les dés. Vous pouvez cibler ou décibler un jeton en survolant celui-ci avec votre souris et en appuyant sur la touche T de votre clavier.",
+        "Target_a_token_first": "Ciblez (T) d'abord un jeton avant d'utiliser ceci. Vous pouvez cibler ou décibler un jeton en survolant celui-ci avec votre souris et en appuyant sur la touche T de votre clavier.",
+        "defaulting_spell_to_self": "Aucun jeton ciblé, lancement du sort sur vous-même par défaut.",
+        "Dice_roll_evaluation_failed": "L'évaluation du jet de dés a échoué.",
+        "two_targets_but_wrong_fire_mode": "Vous avez deux cibles, vous ne pouvez donc tirer qu'en utilisant le Tir en rafale : Rafale large, ou en utilisant le mode Tir Automatique.",
+        "many_targets_but_not_autofire_fire_mode": "Vous avez plus de deux cibles, vous ne pouvez donc tirer qu'en utilisant le mode Tir Automatique.",
+        "attack_with_no_AR": "Vous essayez d'attaquer alors que votre Score Offensif est de 0, par exemple en raison de la distance.",
         "apply_manually": "Appliquez les dommages manuellement.",
         "Target_is_not_a_life_form": "La cible n'est pas une forme de vie.",
-        "do_not_revert_damage": "Débordement du le moniteur Physique. N'annulez pas ce dégât via le bouton de chat, car cela ne sera pas calculé correctement.",
-        "No_actor_or_tokens_selected": "Attribuez-vous un Personnage Joueur, ou sélectionnez des jetons avant de lancer.",
-        "You_are_not_owner_of_the_tokens": "Vous n'êtes pas propriétaire des jetons sélectionnés.",
-        "no_weapon_skill_set": "Veuillez éditer l'arme pour assigner une compétence liée avant de lancer.",
-        "vehicle_has_no_owner": "Le véhicule n'a pas de propriétaire assigné.",
-        "only_owner_is_allowed_to_spend_edge": "Seul le propriétaire du personnage est autorisé à dépenser des Atouts sur ce boost d'Atout.",
-        "owner_not_logged_in": "Le boost d'Atout n'est pas possible, par exemple parce que la personne qui a jeter le test n'est pas en ligne.",
-        "edge_boost_is_not_post_edge": "'{boostTitle}' n'est pas un boost d'Atout post-lancé",
-        "you_require_more_edge": "Il n'y a pas suffisamment d'Atout disponible. Vous avez besoin de {edge} atouts de plus pour effectuer ce boost.",
-        "no_die_with_a_1_or_4": "Votre lancer ne contient pas de 1 ou de 4, donc ce boost d'Atout n'est pas utile.",
-        "cant_increase_die": "Vous ne pouvez pas augmenter ce dé avec ce boost d'Atout, car cela serait inutile.",
+        "do_not_revert_damage": "Surplus de dommages dans le moniteur de dommages physiques. N'annulez pas ces dommages via le bouton du chat, car le calcul ne se ferait pas correctement.",
+        "No_actor_or_tokens_selected": "Assignez-vous un personnage ou sélectionnez des jetons avant de lancer les dés.",
+        "You_are_not_owner_of_the_tokens": "Vous n'êtes pas le propriétaire des jetons sélectionnés.",
+        "no_weapon_skill_set": "Veuillez éditer l'arme pour lui assigner une compétence liée avant de lancer les dés.",
+        "vehicle_has_no_owner": "Aucun propriétaire n'est assigné à ce véhicule.",
+        "only_owner_is_allowed_to_spend_edge": "Seul le propriétaire du personnage est autorisé à dépenser de l'Atout pour ce bonus d'Atout.",
+        "owner_not_logged_in": "Le bonus d'Atout n'est pas possible, par exemple parce que la personne qui a effectué le test n'est pas connectée.",
+        "edge_boost_is_not_post_edge": "'{boostTitle}' n'est pas un bonus d'Atout utilisable après le jet.",
+        "you_require_more_edge": "Atout insuffisant. Il vous faut {edge} point(s) d'Atout supplémentaire(s) pour effectuer ce bonus.",
+        "no_die_with_a_1_or_4": "Votre jet ne comporte aucun 1 ou 4, ce bonus d'Atout n'est donc pas utile.",
+        "cant_increase_die": "Vous ne pouvez pas augmenter ce dé avec ce bonus d'Atout, car ce serait inutile.",
         "all_dice_are_successes": "Tous les dés sont déjà des succès.",
-        "character_has_spent_edge": "{actor} a dépensé {edge} d'Atout sur le boost d'Atout <b>{edgeBoost}</b>.",
+        "character_has_spent_edge": "{actor} a dépensé {edge} point(s) d'Atout pour le bonus d'Atout <b>{edgeBoost}</b>.",
         "reduce_edge_from_actor": "Veuillez réduire l'Atout du personnage de {edge}.",
         "reroll_failed_requires_index": "Sélectionnez un ou plusieurs dés avant de cliquer sur le bouton `Dépenser`.",
-        "edge_boost_cannot_be_used_glitch": "Ce boost d'Atout ne peut pas être utilisé si un glitch ou un glitch critique est jeté.",
-        "reopen_dice_tooltip": "Vous avez basculé les jetons sélectionnés. Réouvrez la section des dés dans le chat pour effectuer un boost d'Atout.",
-        "extended_test_validation": "Lors d'un test étendu, le seuil et l'intervalle doivent être de 0 ou plus.",
+        "edge_boost_cannot_be_used_glitch": "Ce bonus d'Atout ne peut pas être utilisé si une complication ou un échec critique a été obtenu.",
+        "reopen_dice_tooltip": "Vous avez changé de jeton sélectionné. Rouvrez la section des dés dans le chat pour effectuer un bonus d'Atout.",
+        "extended_test_validation": "Lors de la réalisation d'un test étendu, le Seuil et l'Intervalle doivent être supérieurs ou égaux à 0.",
         "migration": {
           "start": "Migration du système en cours. Ne fermez pas ou ne rafraichissez pas la fenêtre !",
           "in_progress": "Migration des documents du système...",
@@ -2221,7 +2307,10 @@
         "deviceRatingMigration": "<p>Migration de tout l’équipement vers l’Indice d’Appareil par défaut de 2, et du cyberware vers la gamme standard.</p><p>Tout l’équipement électronique a sa fonction sans fil activée.</p><p>Informez tous les joueurs qu’ils doivent ajuster leur équipement et leur cyberware au bon indice.</p><p>Chacun doit également vérifier si certains équipements (ex : certaines armures) doivent être édités en tant qu'« Appareil matriciel » s’ils possèdent des fonctionnalités interactives en jeu comme la fonctionnalité électrochrome.</p>",
         "tokensLimitedOwnership": "Les jetons non liés déposés reçoivent un minimum de propriété limitée. Si vous souhaitez changer cela, vous devrez supprimer le jeton et le déposer à nouveau sur le canevas.",
         "notificationOnce": "Ce message ne s’affichera qu’une seule fois durant cette session de navigation.",
-        "importStatblock": "Vous pouvez coller des blocs de statistiques PDF entiers dans ce champ pour les importer dans FoundryVTT."
+        "importStatblock": "Vous pouvez coller des blocs de caractéristiques PDF entiers dans ce champ pour les importer dans FoundryVTT.",
+        "item_not_allowed_to_be_dropped": "Cet objet n'a pas pu être ajouté à cet acteur car ils ne sont pas compatibles.",
+        "needs_token_on_canvas": "Cette action nécessite qu'un jeton soit déjà présent sur la scène pour pouvoir être utilisée.",
+        "docName_docType": "{name} {type}"
       }
     },
     "EFFECT": {
@@ -2364,17 +2453,18 @@
       "CantDelete": "Vous pouvez uniquement supprimer cet effet depuis l'objet propriétaire."
     },
     "active_effect": {
-      "explanation": "Les effets actifs peuvent modifier les modificateurs d'attributs et les réserves de votre personnage ou de votre objet. Veuillez ouvrir un ticket de demande de fonctionnalité si vous ne trouvez pas l'automatisation nécessaire pour un objet Shadowrun.",
+      "explanation": "Les effets actifs peuvent modifier les modificateurs d’attribut et les réserves de votre personnage ou de votre objet. Veuillez ouvrir un ticket de demande de fonctionnalité (Feature Request) s’il vous manque une automatisation nécessaire pour un objet ou un trait de Shadowrun.",
       "usage_tips": {
-        "1": "En général, utilisez une clé pour ajuster un Attribut, une Réserve ou un Indice.",
-        "2": "N'utilisez une clé Réserve que si vous devez <em>remplacer</em> un attribut complet, comme avec les cyber-membres ou les câblages de compétence.",
-        "3": "Comme dans le Shadowrun 6E standard, les modificateurs d'Attribut sont limités à +4."
+        "1": "En général, utilisez une clé Modificateur pour ajuster un attribut, une réserve ou un indice.",
+        "2": "Utilisez uniquement une clé Réserve si vous devez <em>remplacer</em> un attribut complet, comme c’est le cas pour les cybermembres ou un câblage de compétences.",
+        "3": "Comme d’habitude dans Shadowrun 6E, les modificateurs d’attributs et de compétences sont automatiquement plafonnés à +4.",
+        "4": "Vous pouvez utiliser '<strong>@actor</strong>' et `<strong>@item</strong>` dans le champ Valeur pour faire référence à un attribut de l’Acteur ou de l’Objet auquel cet effet est lié. Par exemple, vous pouvez ajouter une clé <em>Modificateur de Réaction</em> avec la valeur `@item.system.rating`, en activant l’option <em>Appliquer l'effet à l'Acteur</em> dans l’onglet <em>Détails</em>, afin que le modificateur de Réaction du personnage soit augmenté de l’indice de cet objet."
       },
-      "item_tip": "Si vous souhaitez modifier les statistiques d'un objet, vous <strong>devez</strong> désactiver la case <em>Appliquer l'effet à l'acteur</em> dans l'onglet Détails. Un effet actif ne peut s'appliquer qu'à un acteur <em>ou</em> un objet.",
-      "gear_mod_tip": "Il s'agit d'un effet actif d'un <strong>mod d'équipement</strong>. Tous les effets s'appliquent à l'objet sur lequel il est installé.",
-      "more_info": "Pour plus d'informations, consultez le lien suivant :",
+      "item_tip": "Si vous souhaitez ajuster une statistique de l’Objet lui-même, vous <strong>devez</strong> décocher la case <em>Appliquer l'effet à l'Acteur</em> dans l’onglet Détails. Un Effet actif ne peut s’appliquer qu’à <em>soit</em> un Acteur, <em>soit</em> un Objet. N’utilisez <strong>PAS</strong> de Clés d’attribut destinées aux Mods d’équipement sur des Acteurs, et vice-versa.",
+      "gear_mod_tip": "Ceci est un Effet actif d’un <strong>Mod d’équipement</strong>. Tous les effets sont appliqués à l’Objet dans lequel il est installé. N’utilisez <strong>PAS</strong> de Clés d’attribut destinées aux Acteurs sur des Mods d’équipement, et vice-versa.",
+      "more_info": "Pour plus d’informations, consultez le lien suivant :",
       "advanced": "Avancé ?",
-      "advanced_hint": "Si cette option est cochée, vous pouvez saisir des clés d'attributs système personnalisées au lieu de vous limiter à la liste recommandée par le système Shadowrun 6E.",
+      "advanced_hint": "Si cette case est cochée, vous pouvez saisir des Clés d’attribut système personnalisées au lieu d’utiliser uniquement la liste conseillée du système Shadowrun 6E.",
       "Modifier": "Modificateur : {attribute} ",
       "Skill": "Compétence : {skill}",
       "Pool": "Réserve : {pool} (Remplacer uniquement)",
@@ -2432,10 +2522,21 @@
         },
         "type": {
           "label": "Type"
+        },
+        "subtype": {
+          "label": "Sous-type"
         }
       }
     },
     "Actor": {
+      "Tabs": {
+        "Summary": "Résumé",
+        "Features": "Caractéristiques",
+        "network": "Réseau",
+        "Description": "Description",
+        "Effects": "Effets",
+        "matrixTarget": "Matrice"
+      },
       "base": {
         "FIELDS": {
           "notes": {
@@ -2569,30 +2670,14 @@
           }
         }
       },
-      "Tabs": {
-        "Summary": "Résumé",
-        "Features": "Caractéristiques",
-        "Description": "Description",
-        "Effects": "Effets"
-      },
-      "sprite": {
+      "matrixBase": {
         "FIELDS": {
-          "level": {
-            "label": "Niveau"
-          },
-          "tasksOwned": {
-            "label": "Tâches dues"
-          },
-          "compiledBy": {
-            "label": "Compilé par"
-          },
-          "registered": {
-            "label": "Inscrit"
-          },
           "description": {
             "label": "Description de l'icône"
           }
-        },
+        }
+      },
+      "sprite": {
         "TYPES": {
           "courier": "//COURSIER//",
           "crack": "//CRACKER//",
@@ -2605,18 +2690,97 @@
           "music": "//MUSICAL//",
           "primal": "//PRIMAL//"
         },
+        "FIELDS": {
+          "level": {
+            "label": "Niveau"
+          },
+          "tasksOwned": {
+            "label": "Tâches dues"
+          },
+          "compiledBy": {
+            "label": "Compilé par"
+          },
+          "registered": {
+            "label": "Inscrit"
+          }
+        },
         "notes": {
           "music": "Compétence Escroquerie : Représentation uniquement"
         }
       },
       "host": {
+        "TYPES": {
+          "foundation": "Fondation",
+          "framework": "Physique"
+        },
         "FIELDS": {
           "rating": {
-            "label": "Indice du serveur"
+            "label": "Indice de serveur",
+            "error.foundation": "Les attributs d’un serveur basé sur les Fondations doivent utiliser l'Indice, l'Indice +1, l'Indice +2 et l'Indice +3 exactement une fois chacun.",
+            "error.framework": "<div>Un serveur physique dispose de 6 points au total pour améliorer ses attributs, un seul attribut étant autorisé à atteindre l’Indice +4 et tous les autres jusqu’à l’Indice +3.</div><div>Optionnellement, un attribut peut être configuré à l’Indice −1, augmentant le nombre de points disponibles à 7.</div>",
+            "error.undefined": "Sélectionnez un type de serveur. Configurez ensuite les attributs matriciels du serveur."
+          },
+          "resolutionGrade": {
+            "label": "Grade de résolution",
+            "choices": {
+              "1": "Grade 1 Minimal",
+              "2": "Grade 2 Par défaut",
+              "3": "Grade 3 Standard",
+              "4": "Grade 4 Sur mesure",
+              "5": "Grade 5 Sculpté",
+              "6": "Grade 6 Ultraviolet"
+            }
+          },
+          "scale": {
+            "label": "Couverture",
+            "choices": {
+              "1": "Couverture 1 Micro (Personnel)",
+              "2": "Couverture 2 Base (Établissement)",
+              "3": "Couverture 3 Maillée (Local)",
+              "4": "Couverture 4 Macro (Métroplexe)",
+              "5": "Couverture 5 Méga (National)",
+              "6": "Couverture 6 Exa (Global)"
+            }
+          },
+          "convergenceThreshold": {
+            "label": "Seuil de convergence"
+          },
+          "sculpting": {
+            "label": "Sculpture"
+          },
+          "outsiderAccess": {
+            "label": "Accès invité"
+          },
+          "notes": {
+            "label": "Réponse de sécurité"
           }
+        },
+        "ic": {
+          "label": "CI installées",
+          "icAction": "Contremesure d'intrusion"
+        },
+        "matrixItems": {
+          "label": "Icônes en réseau",
+          "editTitle": "Modifier cette icône en réseau",
+          "deployTitle": "Déployer cette icône matricielle",
+          "retrieveTitle": "Retirer cette icône matricielle",
+          "rollTitle": "Lancer {name} en utilisant les attributs du serveur",
+          "deployed": "Déployée",
+          "installedIn": "Installé dans",
+          "deviceAction": "Contrôler un appareil",
+          "tipTitle": "<p>Vous pouvez ajouter des appareils matriciels à ce serveur.</p><p>Exemples :</p><ul><li>Ajoutez une <strong>Arme</strong> si vous souhaitez créer des tourelles contrôlées par le serveur.</li><li>Ajoutez des appareils <em>électroniques</em> comme le sous-type <strong>Optique</strong> pour un capteur de caméra.</li><li>Ajoutez un <strong>Stockage de fichiers</strong> <em>électronique</em> pour créer des systèmes de fichiers piratables.</li></ul>"
+        },
+        "spider": {
+          "assigned": "Spiders assignés",
+          "assign": "Assigner au service de spider",
+          "assign_tooltip": "Glisser ceci sur une fiche de personnage ou un jeton crée un effet pour assigner ce personnage en tant que spider à ce serveur.",
+          "assigned_to_host": "Assigné au service de spider de {host}",
+          "open_sheet": "Cliquez pour ouvrir la fiche du spider {name}",
+          "unassign_tooltip": "Retirer du service de spider"
         }
       }
     },
+
     "Item": {
       "base": {
         "FIELDS": {
@@ -2642,17 +2806,9 @@
             "hint": "Si activé, cet équipement possède une interface par câble de données et peut être utilisé via une IND. Le cyberware possède toujours une interface par câble de données."
           },
           "deviceRating": {
-            "label": "Indice d'appareil",
-            "tooltip": [
-              "Le niveau de l'appareil matriciel électronique. L'indice d'appareil détermine son moniteur de condition matriciel.",
-              "La plupart des appareils importants reçoivent un indice d'appareil dans leur livre de règles, mais s'il n'est pas fourni, utilisez les directives suivantes :",
-              "<strong>1 : Appareils simples</strong>, comme les applications générales, les terminaux publics, les dispositifs de divertissement.",
-              "<strong>2 : Appareils moyens</strong>, comme les dispositifs électroniques individuels, le cyberware basique, les armes, les dispositifs de sécurité résidentiels, les véhicules basiques.",
-              "<strong>3 : Appareils intelligents</strong>, comme les véhicules de sécurité, l'alphaware, les dispositifs de sécurité corporatistes.",
-              "<strong>4 : Appareils avancés</strong>, comme les appareils haut de gamme, le betaware, les véhicules et dispositifs de sécurité militaires.",
-              "<strong>5 : Appareils d'avant-garde</strong>, comme les créditubes, les véhicules et dispositifs de sécurité d'agents spéciaux.",
-              "<strong>6+ : Appareils extraordinaires</strong>, comme le deltaware, le gammaware, les dispositifs expérimentaux à plusieurs milliards de nuyens, les navettes spatiales."
-            ]
+            "label": "Indice d’appareil",
+            "tooltip":
+              "<p>L’indice de l’appareil matriciel électronique. L’indice d’appareil détermine le moniteur d’état matriciel de l’appareil.</p><p>La plupart des appareils concernés se voient attribuer un indice d’appareil dans leur livre de règles. Si ce n’est pas le cas, utilisez les indications suivantes comme guide :</p><p><strong>1 : Appareils simples</strong>, comme les applications générales, les terminaux publics, les systèmes de divertissement.</p><p><strong>2 : Appareils moyens</strong>, comme les dispositifs électroniques individuels standards, le cyberware basique, les armes, les appareils de sécurité résidentiels, les véhicules de base.</p><p><strong>3 : Appareils intelligents</strong>, comme les véhicules de sécurité, l’alphaware, les dispositifs de sécurité corporatistes.</p><p><strong>4 : Appareils avancés</strong>, comme les appareils haut de gamme, le betaware, les véhicules et dispositifs de sécurité militaires.</p><p><strong>5 : Appareils d’avant-garde</strong>, comme les créditubes, les véhicules et dispositifs de sécurité d’agents spéciaux.</p><p><strong>6+ : Appareils extraordinaires</strong>, comme le deltaware, le gammaware, les dispositifs expérimentaux à plusieurs milliards de nuyens, les navettes spatiales.</p>"
           },
           "wirelessActive": {
             "label": "Sans fil",
@@ -2666,6 +2822,9 @@
             "label": "Munitions chargées",
             "hint": "Sélectionnez le type de munitions actuellement chargé dans votre arme à distance."
           }
+        },
+        "label": {
+          "encryption_rating": "Indice de cryptage"
         }
       },
       "mod": {
@@ -2687,12 +2846,47 @@
           "audio_enhancement": "Amélioration auditive"
         },
         "label": {
-          "section": "Mods d'équipements",
-          "not_installed": "(pas installé)",
-          "uninstall": "Désinstaller ce mode d'équipement"
+          "section": "Mods d’équipement",
+          "not_installed": "(non installé)",
+          "uninstall": "Désinstaller ce mod d’équipement"
+        }
+      },
+      "software": {
+        "FIELDS": {
+          "price": {
+            "label": "Prix de base"
+          },
+          "installedCost": {
+            "label": "Coût installé"
+          },
+          "embeddedInUuid": {
+            "label": "Installé dans"
+          },
+          "multiTypes": {
+            "label": "Programme de CI"
+          }
+        },
+        "TYPES": {
+          "IC": "CI"
+        },
+        "MULTITYPES": {
+          "acid": "Acide",
+          "binder": "Bloqueuse",
+          "black": "CI Noire",
+          "blaster": "Blaster",
+          "crash": "Crash",
+          "jammer": "Brouilleuse",
+          "killer": "Tueuse",
+          "marker": "Marqueuse",
+          "patrol": "Patrouilleuse",
+          "scramble": "Fragmenteuse",
+          "sparky": "Furie",
+          "tarbaby": "Pot de colle",
+          "track": "Traqueuse"
         }
       }
     },
+
     "label": {
       "name": "Nom",
       "template": "MODÈLE",
@@ -2749,16 +2943,18 @@
       "living_network": "<p>Votre persona incarné peut créer un PAN et y participer.</p><p>Un réseau personnel (PAN) est un réseau regroupant un nombre quelconque d'appareils matriciels appartenant à la même personne et qui sont portés, implantés, transportés ou autrement présents sur vous.</p><p>Dans SR6e FoundryVTT, tous les technomanciens sont considérés comme ayant déjà acquis l’écho Réseau vivant.</p>",
       "pan_admin": "Le leader du PAN, son administrateur, sert de contrôleur pour l'ensemble du réseau. Les attributs matriciels et mentaux de ce persona forment la réserve de défense pour les actions matricielles ciblant l'ensemble du réseau de l'équipe.",
       "deviceLimit": "<p>Un PAN peut intégrer un nombre limité d'appareils contrôlés à distance ; cette règle est appelée la limite d'appareils.</p><p>Les appareils tels que les véhicules, drones, dérivateurs de données, plateformes de tir intelligentes et marqueurs de senseurs sont des exemples courants d'appareils qui consomment la limite d'appareils du PAN s'ils sont utilisés à une distance significative de l'utilisateur.</p><p>Cette limite d'appareils reste réservée à votre propre sous-PAN.</p>",
-      "notGM": "Seul le MJ peut utiliser ceci."
+      "notGM": "Seul le MJ peut utiliser ceci.",
+      "ownerOnlySection": "Cette section n'est visible que par le propriétaire et le MJ de ce personnage."
     },
     "statblock": {
+      "system.rating": "INDICE",
       "system.matrix.attributes.attack": "ATTAQUE",
       "system.matrix.attributes.sleaze": "CORRUPTION",
       "system.matrix.attributes.dataProcessing": "TRAITEMENT",
       "system.matrix.attributes.firewall": "FIREWALL",
       "system.initiative.astral": "INIT",
       "system.initiative.physical": "INIT",
-      "system.matrix.initiative": "INIT",
+      "system.initiative.matrix": "INIT",
       "system.attributes.willpower": "V",
       "system.attributes.logic": "L",
       "system.attributes.intuition": "I",

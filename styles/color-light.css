@@ -13,8 +13,8 @@
 	--color-border-highlight-alt: #960570;
 	--color-border-highlight: #C58FB2;
 	--color-shadow-primary: #960570;
-	--color-shadow-highlight: #C58FB2;	
-	--color-border-dark-secondary: #C58FB2;	
+	--color-shadow-highlight: #C58FB2;
+	--color-border-dark-secondary: #C58FB2;
 	--color-underline-header: #892378;
 	--color-warm-1: #892378;
 	--color-warm-2: #892378;
@@ -27,7 +27,7 @@
 	--font-h4-size: var(--font-size-14);
 	--chat-input-height: 124px;
 	--contrast-color: #ffffff;
-	
+
     --sr6-pink: #b00078;
     --sr6-darker-pink: #960570;
     --sr6-bright-pink: #d92ba2;
@@ -45,10 +45,10 @@ body.game input[type=checkbox]{
 	--control-hover-border-color: #892378;
 }
 .themed.theme-light {
-	--sidebar-background: url("/systems/shadowrun6-eden/images/background.webp");
+	--sidebar-background: url("../images/background.webp");
 }
 body.theme-light .application {
-	--background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
+	--background: url("../images/background.webp") repeat;
 }
 .foundry-modern hr {
 	background-image: linear-gradient(90deg, transparent 0%, #892378 50%, transparent 100%);
@@ -76,13 +76,13 @@ body.theme-light .application {
 	cursor: var(--cursor-pointer);
 }
 
-.themed.theme-light .app.window-app.dialog .window-content, 
+.themed.theme-light .app.window-app.dialog .window-content,
 .themed.theme-light #chat-form textarea,
 .themed.theme-light .window-app .window-content,
 .themed.theme-light .application .window-content,
 body.game .app.window-app .window-content,
 .chat-message  {
-	background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
+	background: url("../images/background.webp") repeat;
 	background-position: left top;
 }
 
@@ -107,7 +107,7 @@ body.game .sheet.journal-sheet .window-content {
 
 body.game .sheet.journal-entry .journal-entry-content,
 body.game .sheet.journal-entry-page .window-content {
-	background: url("/systems/shadowrun6-eden/images/background.webp") repeat;
+	background: url("../images/background.webp") repeat;
 }
 
 button.ui-control[aria-pressed=true], a.ui-control[aria-pressed=true], li.ui-control[aria-pressed=true], .placeable-hud .control-icon[aria-pressed=true], .placeable-hud input[aria-pressed=true] {

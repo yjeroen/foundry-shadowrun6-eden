@@ -938,7 +938,7 @@ Hooks.once("init", async function () {
     });
     // Shadowrun Pause button for V13+
     Hooks.on("renderGamePause", async function (GamePause, html, options, renderOptions) {
-        $('#pause img').attr('src', '/systems/shadowrun6-eden/images/SR6Logo3.webp');
+        $('#pause img').attr('src', 'systems/shadowrun6-eden/images/SR6Logo3.webp');
         $('#pause img').attr('class', 'fa-beat-fade');
         $('#pause figcaption').attr('class', 'glitch'); 
     });
