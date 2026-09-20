@@ -1,3 +1,17 @@
+## 4.0.9
+
+### Bug Fixes
+- Fix Actors going unconcious when their Stun Monitor Max is set to 0 or not existant (e.g. Spirits) (#342)
+- Fix so any change to Matrix CM, wirelessActive and enabled MatrixAccessDevice will also update all open ActorSheets in the same PAN (#335)
+- Fix so the PAN overview only shows sub-PANs if the slaved PAN has an online MatrixAccessDevice (#335)
+- Fix Remote Device Limit so it now properly uses your Persona's DataProcessing (#332)
+- Fix "Add Edge to your dicepool" boost still appling the boost if had deselected it (#328)
+- Fix CSS to support FoundryVTT installations on a sub-path (routePrefix set) (#337)
+- Differentiate PAN Device label between "Device" and "Slaved Device" for Drones and Vehicle items (#333)
+
+### Data Updates
+- French translation updates (Zakarik)
+
 ## 4.0.8
 
 ### Bug Fixes
