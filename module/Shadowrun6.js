@@ -24,6 +24,7 @@ import * as utils from "./util/helper.js";
 import macros from "./util/macros.js";
 import { migrateWorld } from "./util/Migrations.js";
 import SR6SocketHandler from './util/SR6SocketHandler.js';
+import SR6GMBridge from './util/SR6GMBridge.mjs';
 import releaseNotes from "../releasenotes/releasenotes.js";
 import SR6Keybindings from './util/keybindings.mjs';
 
@@ -62,8 +63,11 @@ Hooks.once("init", async function () {
     game.sr6.macros = macros;
     game.sr6.roll = SR6Roll;
     game.sr6.sockets = new SR6SocketHandler();
+    game.sr6.gm = SR6GMBridge;
     game.sr6.releaseNotes = releaseNotes;
     
+    SR6GMBridge.registerQueries();
+
     CONFIG.Combat.documentClass = Shadowrun6Combat;
     CONFIG.Combatant.documentClass = Shadowrun6Combatant;
     CONFIG.ui.combat = Shadowrun6CombatTracker;
@@ -584,7 +588,10 @@ Hooks.once("init", async function () {
             }
             if (actor) {
                 console.log("SR6E | Actor targetted by roll", actor);
-                if (!actor.isOwner) {
+                // Applying damage to a target you do not own is fine - the GM bridge performs the
+                // write. Everything else still has to be rolled by somebody who owns the actor.
+                const canDelegate = (rollType === RollType.Damage) && game.sr6.gm.isAvailable;
+                if (!actor.isOwner && !canDelegate) {
                     console.log("SR6E | Current user not owner of target ", actor.name);
                     ui.notifications.warn("shadowrun6.ui.notifications.You_are_not_owner_of_the_target", { localize: true });
                     return;
@@ -684,8 +691,8 @@ Hooks.once("init", async function () {
                                 roll.finished.buttonApplied = false;
                             }
                             roll.finished.buttonApplied = false;
-                            result = await actor.applyDamage( { ...damageData, damage: damageData.damage * -1 } );
-                            if (result) chatMessage.update({ 'rolls': [roll] });
+                            result = await game.sr6.gm.applyDamage( actor, { ...damageData, damage: damageData.damage * -1 } );
+                            if (result && chatMessage.canUserModify(game.user, "update")) chatMessage.update({ 'rolls': [roll] });
                         } else {
 
                             button.classList.remove("buttonApplied");
@@ -699,8 +706,8 @@ Hooks.once("init", async function () {
                         } else {
                             roll.finished.buttonApplied = true;
                         }
-                        result = await actor.applyDamage( damageData );
-                        if (result) chatMessage.update({ 'rolls': [roll] });
+                        result = await game.sr6.gm.applyDamage( actor, damageData );
+                        if (result && chatMessage.canUserModify(game.user, "update")) chatMessage.update({ 'rolls': [roll] });
                     }
                     break;
                 case RollType.MatrixResult:

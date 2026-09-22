@@ -8,9 +8,6 @@ export default class SR6SocketHandler {
                 case "opponentEdgeUpdateRolls":
                     this.#opponentEdgeUpdateRolls(data);
                     break;
-                case "gmUpdatesEdge":
-                    this.#gmUpdatesEdge(data);
-                    break;
                 default:
                     throw new Error('unknown type');
             }
@@ -44,30 +41,4 @@ export default class SR6SocketHandler {
         });
     }
 
-    async updateTargetEdge(targetUuid, edgeModifier) {
-        if (!game.users.activeGM) return false;
-        const data = { 
-            type: 'gmUpdatesEdge', 
-            userId: game.user.id,
-            targetUuid: targetUuid,
-            edgeModifier: edgeModifier 
-        };
-        if (game.userId !== game.users.activeGM.id) {
-            console.log('SR6 | Socket send | updateTargetEdge requested by', game.user.name,', send to GM:', game.users.activeGM);
-            this.emit(data);
-        } else {
-            console.log('SR6 | No Socket emit needed | updating Edge');
-            await this.#gmUpdatesEdge(data);
-        }
-        return true;
-    };
-
-    async #gmUpdatesEdge(data) {
-        console.log('SR6 | Socket Handler | gmUpdatesEdge on request of:', game.users.get(data.userId).name);
-        if (game.userId !== game.users.activeGM.id) return;
-        console.log('SR6 | Socket processing | gmUpdatesEdge data', data);
-        const targetActor = await fromUuid(data.targetUuid);
-        const newEdge = Math.max(0, Math.min(7, targetActor.system.edge.value + data.edgeModifier ));
-        await targetActor.update({'system.edge.value': newEdge});
-    }
 }

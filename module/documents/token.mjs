@@ -1,3 +1,5 @@
+import { isFollowUpWriter } from "../util/helper.js";
+
 /**
  * The client-side Token document which extends the TokenDocument document model.
  *
@@ -29,7 +31,8 @@ export default class SR6TokenDocument extends foundry.documents.TokenDocument {
      */
     _onDelete(options, userId) {
         super._onDelete(options, userId);
-        this._checkDeployedHostItem();
+        // Runs on every connected client - only let one of them unset the flag on the Item.
+        if (isFollowUpWriter(this, userId)) this._checkDeployedHostItem();
         return true;
     }
 

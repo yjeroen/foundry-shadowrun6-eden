@@ -1,6 +1,7 @@
 import SR6BaseActorData from './base-actor-data.mjs';
 import * as srFields from "./fields/fields.mjs";
 import { InitiativeType } from "../dice/RollTypes.js";
+import { isFollowUpWriter } from "../util/helper.js";
 
 export default class SR6HostActorData extends SR6BaseActorData {
     
@@ -194,6 +195,9 @@ export default class SR6HostActorData extends SR6BaseActorData {
     async _onUpdate(changed, options, userId) {
         await super._onUpdate(changed, options, userId);
 
+        // Runs on every connected client - only let one of them write to the spiders.
+        if (!isFollowUpWriter(this.parent, userId)) return;
+
         await this._updateSpiderAEs(changed);
     }
 
@@ -239,8 +243,9 @@ export default class SR6HostActorData extends SR6BaseActorData {
      * @internal
      */
     async _onDelete(options, userId) {
-        await this._deleteSpiderAEs();
-        
+        // Runs on every connected client - only let one of them write to the spiders.
+        if (isFollowUpWriter(this.parent, userId)) await this._deleteSpiderAEs();
+
         super._onDelete(options, userId);
     }
 

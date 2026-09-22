@@ -1885,6 +1885,10 @@
         "hint": "Defines the maximum egde a player or NPC can gain per turn.",
         "name": "Maximum Edge earned per turn"
       },
+      "gmAppliesPlayerActions": {
+        "hint": "Let players act on tokens they do not own - damage, Edge and matrix access - by forwarding the change to the connected Gamemaster's client. With this off, players are told they are not the owner of the target and nothing happens.",
+        "name": "Gamemaster applies player actions on targets"
+      },
       "importToCompendium": {
         "hint": "Define if imported NPCs should be added as actors or as entries to the NPCs compendium",
         "name": "Import to compendium"
@@ -2245,6 +2249,10 @@
     },
     "ui": {
       "notifications": {
+        "gm_bridge": {
+          "no_gm_connected": "No Gamemaster is connected, so this action cannot be applied to a target you do not own.",
+          "request_failed": "The Gamemaster's client could not apply this action to the target."
+        },
         "You_are_not_owner_of_the_target": "You cannot use this, as you are not the owner of the target.",
         "You_are_not_owner_of_the_token": "You are not owner of the token.",
         "Select_a_single_token": "You have multiple tokens selected. Only select a single token to perform this action.",
