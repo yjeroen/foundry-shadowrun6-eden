@@ -42,7 +42,12 @@ export default class SR6TokenHUD extends foundry.applications.hud.TokenHUD {
   static PARTS = {
     hud: {
       root: true,
-      template: "systems/shadowrun6-eden/templates/hud/token-hud.hbs"
+      // template: "systems/shadowrun6-eden/templates/hud/token-hud.hbs"
+      get template() {
+        return game.release.generation >= 14
+          ? "systems/shadowrun6-eden/templates/hud/token-hud-v14.hbs"
+          : "systems/shadowrun6-eden/templates/hud/token-hud.hbs";
+      }
     }
   };
 
