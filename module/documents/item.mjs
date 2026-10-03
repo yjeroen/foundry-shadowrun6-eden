@@ -218,7 +218,7 @@ export default class SR6Item extends Item {
     if (typeof source.system?.matrix?.deviceRating === 'string') source.system.matrix.deviceRating = parseInt(source.system.matrix.deviceRating) || 0;
     if (typeof source.system?.level === 'boolean') source.system.level = 1;
 
-    if (source.system?.needsRating === true && !source.system.rating) source.system.needsRating = false;
+    if (source.system?.needsRating === true && source.system.rating === 0) source.system.needsRating = false;
     if (source.system?.subtype === "IMAGING") source.system.subtype = "OPTICAL";
 
     // TODO Currently all Gear items have a matrix.deviceRating; with change to DataModel this should only be for Electronic Matrix Devices
