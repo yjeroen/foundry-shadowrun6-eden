@@ -2175,6 +2175,13 @@
   min-width: 0;
 }
 
+.sr6 .item-field-control.item-control a {
+    text-shadow: 0 0 2px white, 0 0 4px white;
+}
+.sr6 .item-field-control.item-control a:hover {
+    text-shadow: 0 0 4px white, 0 0 8px var(--color-shadow-primary);
+}
+
 
 /* ======================================================================== */
 /* ============= HUD //  MATRIX STYLE CHECKBOX INPUT SELECT =============== */

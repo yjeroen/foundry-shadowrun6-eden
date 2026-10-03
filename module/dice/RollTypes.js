@@ -171,6 +171,26 @@ export class ActorAttributeRoll extends PreparedRoll {
         }
     }
 }
+export class ItemRoll extends PreparedRoll {
+    constructor(rollData) {
+        super();
+        const { item, pool, actionText, ...options } = rollData;
+        
+        this.rollType = RollType.Common;
+        this.matrixCmPenalty = item.system.matrix?.matrixCM?.penalty ?? 0,
+        this.pool = Math.max(0, (pool??0) - this.matrixCmPenalty);
+        this.actionText = actionText;
+
+        this.actor = item.actor;
+        this.speaker = ChatMessage.getSpeaker({ alias: item.name });
+        this.allowBuyHits = false;
+        this.dialogConfig = {
+            useWoundModifier: false,
+            useSustainedSpellModifier: false
+        };
+        console.log("JEROEN", this.pool)
+    }
+}
 export class DefenseRoll extends PreparedRoll {
     damage;
     soakType;

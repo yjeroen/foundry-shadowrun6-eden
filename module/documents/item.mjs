@@ -324,6 +324,10 @@ export default class SR6Item extends Item {
     return Boolean( this.isOnlineOnMatrixWirelessly || this.isOnlineOnMatrixByDataCable );
   }
 
+  get isOnlineOnPan() {
+    return Boolean( this.actor?.system.persona?.isOnlineOnMatrix );
+  }
+
   get isBricked() {
     if (this.type !== 'gear' || !this.system.isElectronicMatrixDevice) return;
 

@@ -113,10 +113,10 @@
                   <div class="resulttext" style="flex:2">{{total}} {{localize 'shadowrun6.roll.hits'}}
                   </div>
               {{else}}
-                {{#if (not configured.rollType)}}
+                {{#if (or (not configured.rollType) (eq configured.rollType "common"))}}
                   {{!-- Manual FoundryVTT /r --}}
                   <div class="resulttext" style="flex:2">                  
-                    {{localize 'shadowrun6.roll.manualResult'}}: <b>{{total}}</b>
+                    {{localize 'shadowrun6.roll.manualResult'}}: <b>{{total}}</b> {{localize 'shadowrun6.roll.hits'}}
                   </div>
                 {{else}}
                   {{#if success}}

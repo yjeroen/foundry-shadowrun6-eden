@@ -86,6 +86,22 @@
                 </div>
             </div>
             {{/if}}
+            
+            {{#unless item.isOnlineOnPan}}
+            {{#if item.isOnlineOnMatrix}}
+            <div class="item-field device-firewall" data-tooltip="shadowrun6.matrix.device.notOnPan">
+                <label class="item-field-label">
+                    {{localize 'shadowrun6.label.firewall.long'}}
+                </label>
+                <div class="item-control item-field-control">
+                    <a class="common-roll" data-roll-type="item" data-attribute-path="item.system.matrix.deviceRating" data-roll-label="{{localize 'shadowrun6.label.firewall.long'}}" data-tooltip="{{localize 'SR6.title.rollSomething' typeOfRoll=(localize 'shadowrun6.label.firewall.long')}}">
+                        <i class="fas fa-dice-six"></i>
+                    </a>
+                </div>
+            </div>
+            {{/if}}
+            {{/unless}}
+
         </div>
     </div>
 </div>

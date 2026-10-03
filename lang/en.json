@@ -984,7 +984,8 @@
         "unable": "<p>Cannot enable this device because:</p><ul><li>Another device is already generating these Matrix Attributes.</li><li>This is a Cyberdeck and you already have a RCC enabled.</li><li>This is a RCC and you already have a Cyberdeck enabled.</li></ul>",
         "online": "ONLINE",
         "offline": "OFFLINE",
-        "isAccessDevice": "<p>This is an Matrix Access Device.</p><p>Enable or Disable this on your Character sheet (Matrix tab).</p>"
+        "isAccessDevice": "<p>This is an Matrix Access Device.</p><p>Enable or Disable this on your Character sheet (Matrix tab).</p>",
+        "notOnPan": "<p>This device is online on the Matrix outside of a PAN.</p><p>It defends against Matrix Attacks with it's own Firewall, which is equal to it's Device Rating.</p>"
       },
       "open_operations": "Start Matrix Operations on {item}.",
       "icon": "Icon",

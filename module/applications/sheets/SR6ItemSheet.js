@@ -1,6 +1,8 @@
 import { selectAllTextOnElement } from "../../util/HtmlUtilities.js";
 import { prepareActiveEffectCategories } from "../../util/helper.js";
 import { SYSTEM_NAME } from "../../constants.js";
+import { ItemRoll } from "../../dice/RollTypes.js";
+import { doRoll } from "../../Rolls.js";
 
 function getSystemData(obj) {
     if (game.release.generation >= 10)
@@ -200,6 +202,8 @@ export default class SR6ItemSheet extends foundry.appv1.sheets.ItemSheet {
             const pdfPage = event.currentTarget.dataset.pdfPage;
             game.sr6.utils.openPdfPage(pdfUuid, pdfPage);
         });
+
+        html.find(".common-roll").click(this._onCommonCheck.bind(this));
 
         if (this.item.isOwner) {
             // ActiveEffect buttons
@@ -578,6 +582,87 @@ export default class SR6ItemSheet extends foundry.appv1.sheets.ItemSheet {
         const input = target.querySelector("input");;
         if (!input || input.readOnly || input.disabled) return;
         input.select();
+    }
+
+    
+    _onCommonCheck(event, html) {
+        event.preventDefault();
+        const data = event.currentTarget.dataset;
+        const attribute = foundry.utils.getProperty(this, data.attributePath);
+        console.log("SR6E | _onCommonCheck", data, attribute);
+
+        if (data.rollType === "item") {
+            const rollData = new ItemRoll({
+                item: this.item,
+                pool: attribute,
+                actionText: data.rollLabel,
+            });
+            return doRoll(rollData);
+        }
+
+
+        return;
+        if (data.attributePath) {
+            let rollConfig = new ActorAttributeRoll(this.actor, data.attributePath);
+
+            rollConfig.checkText = rollConfig.actionText =  rollConfig.rollLabel = data.rollLabel;
+            console.log("SR6E | _onCommonCheck attribute roll ", rollConfig, data.attributePath);
+            return this.actor.rollCommonCheck(rollConfig);
+        }
+        let classList = event.currentTarget.classList.value;
+        let rollId = data.rollId;
+        let roll = new PreparedRoll();
+        roll.pool = parseInt(data.pool);
+        roll.rollType = RollType.Common;
+        roll.actionText = game.sr6.utils.rollText(classList, rollId);
+
+        let dialogConfig;
+        if (classList.includes("defense-roll")) {
+            roll.allowBuyHits = false;
+            roll.threshold = 1;
+            if (rollId === 'damage_physical' || rollId === 'damage_astral') {
+                roll.rollType = RollType.Soak;
+            }
+            dialogConfig = {
+                useModifier: !(rollId === 'damage_physical' || rollId === 'damage_astral'), 
+                useThreshold: false
+            };
+        }
+        else if (classList.includes("attributeonly-roll")) {
+            roll.allowBuyHits = true;
+            roll.useAttributeMod = classList.includes("attribute-poolmod");
+            roll.attributeTested = rollId;
+            roll.checkText = roll.actionText;
+            dialogConfig = {
+                useModifier: true,
+                useThreshold: true
+            };
+        }
+        else if (rollId = "legwork") {
+            roll.rollType = RollType.Legwork;
+            roll.pool = parseInt(data.connection) * 2;
+            roll.allowBuyHits = true;
+            roll.threshold = 1;
+            roll.legwork = { loyalty: parseInt(data.loyalty), contact: data.contact };
+            if (classList.includes("legwork-roll"))
+                roll.checkText = game.i18n.format("shadowrun6.legwork.legwork_description", { name: data.contact });
+            else
+                roll.checkText = game.i18n.format("shadowrun6.legwork.loyalty_description", { name: data.contact });
+            dialogConfig = {
+                useWoundModifier: false,
+                useSustainedSpellModifier: false
+            };
+        }
+        else {
+            roll.allowBuyHits = true;
+            roll.useWildDie = 1;
+            dialogConfig = {
+                useModifier: true,
+                useThreshold: true
+            };
+        }
+        //TODO dialogConfig.useModifier and useThreshold aren't used in Rolls._showRollDialog
+        this.actor.rollCommonCheck(roll, dialogConfig);
     }
 
     /** 
