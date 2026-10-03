@@ -15,7 +15,7 @@
 				<button type="button" name="collapseGear{{id}}" class="collapsible closed empty" data-item-id="{{this.id}}">+</button>
 				{{/if}}
 			</td>
-			<td>{{item.name}}</td>
+			<td>{{item.name}} {{#if item.system.hasLevel}}({{item.system.level}}){{/if}}</td>
 			<td style="width: 3em">
 				<a class="item-control item-edit" title='{{localize 'shadowrun6.label.edit' }}'><i class="fas fa-edit"></i></a>
 				<a class="item-control item-delete" title='{{localize 'shadowrun6.label.delete' }}'><i class="fas fa-trash"></i></a>

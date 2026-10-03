@@ -7,13 +7,21 @@
             <table>
                 <tr>
                     <th>{{localize 'shadowrun6.label.level'}}</th>
+                    {{#if item.system.hasLevel}}
+                    <th>{{localize 'shadowrun6.section.adeptpowers.level'}}</th>
+                    {{/if}}
                     <th>{{localize 'shadowrun6.label.adepts'}}</th>
                     <th>{{localize 'shadowrun6.label.mages'}}</th>
                 </tr>
                 <tr style="text-align:center">
                     <td>
-                        <input name="system.level" style="vertical-align: middle;" type="checkbox" {{checked item.system.level}} data-field="system.level" />
+                        <input name="system.hasLevel" style="vertical-align: middle;" type="checkbox" {{checked item.system.hasLevel}} data-field="system.hasLevel" />
                     </td>
+                    {{#if item.system.hasLevel}}
+                    <td>
+                        <input name="system.level" data-field="system.level" value="{{item.system.level}}" type="number" class="box centered" />
+                    </td>
+                    {{/if}}
                     <td>
                         <input name="system.adepts" style="vertical-align: middle;" type="checkbox" {{checked item.system.adepts}} data-field="system.adepts" />
                     </td>

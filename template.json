@@ -623,7 +623,7 @@
 		},
 		"adeptpower": {
 			"hasLevel": false,
-			"level": 0,
+			"level": 1,
 			"choice": "",
 			"cost": 0.0,
 			"activation": "",
@@ -781,7 +781,8 @@
 			"templates": [
 				"genesis"
 			],
-			"level": false,
+			"hasLevel": false,
+			"level": 1,
 			"adepts": false,
 			"mages": false
 		},
