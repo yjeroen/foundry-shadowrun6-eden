@@ -2805,7 +2805,7 @@
           },
           "hasDataCableInterface": {
             "label": "Data Cable Interface",
-            "hint": "If enabled, this gear has a Data Cable Interface and can be used through a DNI via a Direct Connection. Cyberware always have a Data Cable Interface."
+            "hint": "If enabled, this gear has a Data Cable Interface and can be used through a DNI via a Direct Connection."
           },
           "deviceRating": {
             "label": "Device Rating",

@@ -265,9 +265,9 @@ export default class SR6Item extends Item {
     const subtypeConfig = typeConfig.subtypes[this.system.subtype];
     if (!subtypeConfig) return;
 
-    if (this.system.type === "CYBERWARE") {
-      this.system.matrix.hasDataCableInterface = true;
-    }
+    // if (this.system.type === "CYBERWARE") {
+    //   this.system.matrix.hasDataCableInterface = true;
+    // }
     if (
       subtypeConfig.showMatrixDeviceConfig === CONFIG.SR6.MATRIX_DEVICE_CONFIG.ALWAYS
       || this.system.matrix.hasWirelessInterface ===  true
