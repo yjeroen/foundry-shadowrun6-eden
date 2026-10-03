@@ -22,7 +22,7 @@
 			<td style="margin-right: 1rem; width: 0.7em;">
 				<button type="button" name="collapseGear{{id}}" class="collapsible closed {{#if (noDescOrMods item actor)}}empty{{/if}}" data-item-id="{{this.id}}">+</button>
 			</td>
-			<td style="height:20px;"> {{item.name}}</td>
+			<td style="height:20px;">{{item.name}} {{#if item.system.needsRating}}<span class="rating">({{localize "shadowrun6.label.rating_R" rating=item.system.rating}})</span>{{/if}}</td>
 			<td class="centered"style="width: 3em">{{item.system.essence}}</td>
 			{{#if (eq item.system.type "CYBERWARE") }}
 			<td class="centered" style="width: 2em">{{item.system.capacity}}</td>
@@ -44,7 +44,7 @@
 	      <tr>
 	        <th colspan="2" style="text-align: right; font-weight:normal">{{ localize 'shadowrun6.section.bodyware.footer.total_essence' }}:</th>
 	        <th style="width: 3em">{{actor.system.essence}}</th>
-	        <td colspan="2"></th>
+	        <th colspan="2"></th>
 	      </tr>
 	    </tfoot>
 </table>
