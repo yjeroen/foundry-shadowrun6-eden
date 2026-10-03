@@ -439,19 +439,14 @@ export default class SR6Item extends Item {
 
   /**
    * Prepare a data object which defines the data schema used by dice roll commands against this Item
+   * TODO: v14 check if it is still encessary to include item.system.actor in the roll data
    * @override
    */
   getRollData() {
-    // Starts off by populating the roll data with a shallow copy of `this.system`
-    const rollData = { ...this.system };
-
-    // Quit early if there's no parent actor
-    if (!this.actor) return rollData;
-
-    // If present, add the actor's roll data
-    rollData.actor = this.actor.getRollData();
-
-    return rollData;
+    return {
+        ...super.getRollData(),
+        actor: this.actor.getRollData()
+    };
   }
 
   /**
