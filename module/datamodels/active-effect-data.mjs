@@ -125,6 +125,11 @@ export default class SR6ActiveEffectData extends foundry.abstract.TypeDataModel 
    */
   async _preUpdate(changes, options, user) {
     this.#migrateV1keysToV2(changes);
+    
+    // Add invisible to statuses if invisibleImproved is present and invisible is not
+    if (changes.statuses?.includes("invisibleImproved") && !changes.statuses.includes("invisible")) {
+      changes.statuses.push("invisible");
+    }
   }
 
   async #migrateV1keysToV2(data) {
