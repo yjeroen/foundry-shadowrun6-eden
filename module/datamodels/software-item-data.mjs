@@ -40,6 +40,10 @@ export default class SR6SoftwareItemData extends SR6ModItemData {
         return super.migrateData(source);
     }
 
+    get needsRating() {
+        return true;
+    }
+
     get installedCost() {
         const price = this.price ?? 0;
         if (this.actor?.type !== "host" || this.type !== "IC") return price;
