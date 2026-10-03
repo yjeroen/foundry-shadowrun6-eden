@@ -129,6 +129,10 @@
 .shadowrun6 input.box:disabled {
   background: lightgrey;
 }
+.shadowrun6 section input[type="text"].wide,
+.shadowrun6 section input[type="number"].wide {
+  width: 8em;
+}
 
 .dice-tooltip .dice-rolls .die{
   position: relative;
