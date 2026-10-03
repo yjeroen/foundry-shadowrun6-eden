@@ -1,6 +1,6 @@
 {{!-- FoundryVTT v14+ --}}
 
-<section class="tab changes{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+<section class="tab scrollable changes{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
 
     <fieldset>
         <div class="form-group stacked">
@@ -36,7 +36,7 @@
         </div>
     </header>
     
-    <ol class="scrollable" data-changes>
+    <ol data-changes>
         {{#each changes as |change|}}
         {{{change}}}
         {{/each}}
