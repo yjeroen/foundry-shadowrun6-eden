@@ -9,6 +9,9 @@
                     <th>{{localize 'shadowrun6.adeptpower.activation'}}</th>
                     <th>{{localize 'shadowrun6.adeptpower.cost'}}</th>
                     <th>{{localize 'shadowrun6.adeptpower.haslevel'}}</th>
+                    {{#if item.system.hasLevel}}
+                    <th>{{localize 'shadowrun6.section.adeptpowers.level'}}</th>
+                    {{/if}}
                 </tr>
                 <tr>
                     <td>
@@ -17,12 +20,17 @@
                         </select>
                     </td>
                     <td>
-                        <input name="system.cost" data-field="system.cost" value="{{item.system.cost}}" type="number" class="box centered" />
+                        <input name="system.cost" data-field="system.cost" value="{{item.system.cost}}" type="number" class="box centered wide" />
                     </td>
                     <td>
                         <input name="system.hasLevel" style="vertical-align: middle;" type="checkbox" {{checked item.system.hasLevel}}
                             data-field="system.hasLevel" />
                     </td>
+                    {{#if item.system.hasLevel}}
+                    <td>
+                        <input name="system.level" data-field="system.level" value="{{item.system.level}}" type="number" class="box centered" />
+                    </td>
+                    {{/if}}
                 </tr>
             </table>
             <h3>{{localize 'shadowrun6.item.description'}}</h3>

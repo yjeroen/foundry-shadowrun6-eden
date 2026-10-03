@@ -254,7 +254,7 @@
       "activation_major": "Major Action",
       "activation_minor": "Minor Action",
       "activation_passive": "Passive",
-      "cost": "Cost",
+      "cost": "PP Cost",
       "haslevel": "Has level",
       "pp": "PP",
       "perLevel": "per level"
@@ -1634,7 +1634,8 @@
       "adeptpowers": {
         "add": "Add new power",
         "column.points": "PP",
-        "title": "Adept Powers"
+        "title": "Adept Powers",
+        "level": "Level"
       },
       "ammo": "Ammunition",
       "ammo_add": "Add ammunition",
