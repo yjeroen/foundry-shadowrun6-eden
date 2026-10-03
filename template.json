@@ -612,7 +612,7 @@
 				"isElectronicMatrixDevice": false,
 				"matrix": {
 					"deviceRating": 2,
-					"hasWirelessInterface": false,
+					"hasWirelessInterface": true,
 					"hasDataCableInterface": false,
 					"wirelessActive": true,
 					"matrixCM": {
