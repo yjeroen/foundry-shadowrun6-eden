@@ -1,3 +1,8 @@
+## 4.0.11
+
+### Bug Fixes
+- Fix Item.getRollData() so Items that arent on Actors can be opened
+
 ## 4.0.10
 
 ### System Improvements
