@@ -443,6 +443,8 @@ export default class SR6Item extends Item {
    * @override
    */
   getRollData() {
+    if (!this.actor) return super.getRollData();
+    
     return {
         ...super.getRollData(),
         actor: this.actor.getRollData()
