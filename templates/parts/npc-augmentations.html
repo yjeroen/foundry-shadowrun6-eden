@@ -5,7 +5,7 @@
       <dt>{{ localize 'shadowrun6.section.bodyware.title' }}</dt>
       <dd>
       {{/if}}
-      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}}</label>
+      <label class="item-desc" data-item-id="{{item.id}}">{{item.name}} {{#if item.system.needsRating}}<span class="rating">({{localize "shadowrun6.label.rating_R" rating=item.system.rating}})</span>{{/if}}</label>
       {{#unless @last}}<span>,&nbsp;</span>{{/unless}}
       {{#if @last}}
       </dd>
