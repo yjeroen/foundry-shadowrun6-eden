@@ -1,3 +1,25 @@
+## 4.0.10
+
+### System Improvements
+- Cyberware can now have a disabled Data Cable Interface (#334)
+- Matrix Devices now have their Wireless Interface enabled by default (#334)
+- When a PAN is down, online Matrix Devices now have a Roll Firewall button on their ItemSheet (#334)
+- Augmentations now show a Rating (R1) behind their on the Character sheet (#351)
+- Augmentations and Gear now show a Rating (R1) behind their on the NPC summary sheet (#351)
+
+### Bug Fixes
+- Fix input fields on the Contact and Lifestyle sheets that were too small (#349)
+- Fix Adept Powers not properly showing Levels (#347)
+- Fix Metamagic not properly showing Levels
+- Fix Software gear items not showing Rating on character sheet (#351)
+- Fix rating field not editable on Gear Items (#351)
+- Fix Token HUD not updated to FoundryVTT v14 (#344)
+- Fix ActiveEffects sheet so it has a scrollbar in FoundryVTT v14 (#348)
+- Add invisible specialStatus if you assigned Invisible (Improved) via an ActiveEffect (#350)
+
+### Data Updates
+- Russian translation updates (TheFokin)
+
 ## 4.0.9
 
 ### Bug Fixes
