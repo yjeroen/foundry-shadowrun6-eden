@@ -98,7 +98,7 @@ export default class SR6Item extends Item {
 
     console.log("SR6E | SR6Item._onUpdate()", changed);
     this._checkPersonaChanges(changed);
-    this._informInCombatChanges(changed);
+    this._informInCombatChanges(changed, userId);
     this._updateItemModSheet(changed, options);
     this._updatePanSheets(changed, options);
   }
@@ -180,8 +180,11 @@ export default class SR6Item extends Item {
     }
   }
 
-  async _informInCombatChanges (changed) {
+  async _informInCombatChanges (changed, userId) {
     if (game.combats.active === undefined) return;
+    // _onUpdate runs on every connected client - without this each of them would post its own
+    // copy of the message. Only the client that made the change announces it.
+    if (game.userId !== userId) return;
     console.log("SR6E | SR6Item._informInCombatChanges()");
     let msg = "";
 

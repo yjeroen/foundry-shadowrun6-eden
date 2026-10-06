@@ -563,6 +563,27 @@ export function hasMatrixResult(actionId, resultType) {
 }
 
 /**
+ * Post-operation document hooks (`_onCreate`, `_onUpdate`, `_onDelete`) are executed on *every*
+ * connected client, not just on the one that requested the operation. Any document write made
+ * from inside such a hook is therefore attempted once per client, and every client that does not
+ * own the document it writes to fails with
+ * "User <name> lacks permission to update <Document> in parent <Document>".
+ *
+ * This returns true for exactly one client: the one that should carry out such a follow-up write.
+ * That is the primary active GM - who owns every document - or, when no GM is connected, the user
+ * that requested the operation, provided they actually own the document being written to.
+ *
+ * @param {foundry.abstract.Document} [document]  The document the follow-up write targets
+ * @param {string} [userId]                       Id of the User that requested the operation
+ * @returns {boolean}                             True if this client should perform the write
+ */
+export function isFollowUpWriter(document, userId) {
+    const activeGM = game.users.activeGM;
+    if (activeGM) return activeGM.isSelf;
+    return game.userId === userId && document?.isOwner === true;
+}
+
+/**
  * Create a unique id for a status condition.
  * @param {string} status     The primary status.
  * @returns {string}          A unique 16-character id.

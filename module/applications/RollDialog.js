@@ -236,7 +236,7 @@ export class RollDialog extends Dialog {
             }
             if (configured.edgeTarget != 0) {
                 let targetName = game.i18n.localize("shadowrun6.roll.edge.add_manually_to_target");
-                if (game.user.targets.size && game.users.activeGM) {
+                if (game.user.targets.size && game.sr6.gm.isAvailable) {
                     let targetNames = [];
                     game.user.targets.forEach(token => {
                         if (token.actor.system.edge.value === maxEdge && configured.edgeTarget > 0) return;

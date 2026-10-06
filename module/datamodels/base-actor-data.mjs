@@ -1,4 +1,5 @@
 import { InitiativeType } from "../dice/RollTypes.js";
+import { isFollowUpWriter } from "../util/helper.js";
 
 /**
  * Base Actor DataModel for SR6e
@@ -195,7 +196,11 @@ export default class SR6BaseActorData extends foundry.abstract.TypeDataModel {
      * @protected
      * @internal
      */
-    async _onUpdate(changed, options, userId) {        
+    async _onUpdate(changed, options, userId) {
+        // Runs on every connected client - only let one of them write the status effects,
+        // otherwise every non-owner gets a "lacks permission to update ActorDelta" error.
+        if (!isFollowUpWriter(this.parent, userId)) return;
+
         await this.#evaluateHealth();
     }
 

@@ -216,6 +216,18 @@ export const registerSystemSettings = () => {
         }
     });
     
+    game.settings.register(SYSTEM_NAME, "gmAppliesPlayerActions", {
+        name: "shadowrun6.settings.gmAppliesPlayerActions.name",
+        hint: "shadowrun6.settings.gmAppliesPlayerActions.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+        onChange: (toggle) => {
+            console.log("SR6E | Setting gmAppliesPlayerActions changed to " + toggle);
+        }
+    });
+
     game.settings.register(SYSTEM_NAME, "importToCompendium", {
         name: "shadowrun6.settings.importToCompendium.name",
         hint: "shadowrun6.settings.importToCompendium.hint",

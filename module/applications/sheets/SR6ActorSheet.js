@@ -1113,9 +1113,8 @@ export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorShee
         this.actor.rollResonanceAbility(roll);
     }
 
-    get #matrixUserSafeUuid() {
-        const actor = this.initiator ?? this.actor;
-        return actor.uuid.replaceAll(".", "_");
+    get #matrixUser() {
+        return this.initiator ?? this.actor;
     }
     async _onSwitchMatrixAccess(event, html) {
         const target = event.currentTarget;
@@ -1133,12 +1132,10 @@ export default class Shadowrun6ActorSheet extends foundry.appv1.sheets.ActorShee
         }
 
         await new Promise(resolve => setTimeout(resolve, 500));
-         // wait until CSS effect is ready
-        await this.document.setFlag(
-            "shadowrun6-eden",
-            `matrix-access.${this.#matrixUserSafeUuid}`,
-            newAccessLevel
-        );
+        // wait until CSS effect is ready
+        // Routed through the GM bridge: the icon being hacked usually belongs to the GM, and a
+        // player writing to it directly would fail on ownership.
+        await game.sr6.gm.setMatrixAccess(this.document, this.#matrixUser, newAccessLevel);
     }
 
     async _onMatrixAttributesSwitch(event, html) {
