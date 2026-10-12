@@ -1350,6 +1350,10 @@
         "hint": "Nutze diese Regel um den körperlichen Schaden zu reduzieren, den du erleidest. Nachdem du dem Schaden wiederstanden hast (ausgenommen von Toxinen oder Status), wandelst du für jeden 8ten Punkt Verteidigungswert ein Kästchen körperlichen Schaden in Betäubungsschaden um. (Schattenkompendium S.163)",
         "name": "Panzerung senkt körperlichen Schaden"
       },
+      "armorLessensDmgDivisor": {
+        "hint": "Wird von der Regel „Panzerung senkt körperlichen Schaden“ verwendet: Für je so viele volle Punkte Verteidigungswert wird ein Kästchen körperlicher Schaden in Betäubungsschaden umgewandelt. Der Standardwert 8 entspricht der offiziellen Regel; ein niedrigerer Wert macht Panzerung wirksamer.",
+        "name": "Panzerung senkt körperlichen Schaden: Verteidigungswert pro Kästchen"
+      },
       "rollStrengthCombat": {
         "hint": "Nahkampfangriffe können mit Stärke statt Agilität gewürfelt werden, sofern die Waffe auf Masse und Wucht basiert. Nutze Agilität statt Stärke für den Angriffswert. Die Waffe muss in beiden Händen gehalten werden. (Schattenkompendium S.163)",
         "name": "Stärke statt Geschicklichkeit im Nahkampf"

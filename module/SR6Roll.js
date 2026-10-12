@@ -195,7 +195,8 @@ export default class SR6Roll extends Roll {
 
             if (this.finished.monitor === MonitorType.PHYSICAL && this.finished.damage > 0 && game.settings.get(SYSTEM_NAME, "armorLessensDmg")) {
                 // TODO for Blast Attacks, armorLessensDmg is /4 DR
-                const armorLessensDmg = Math.floor(this.finished.actor.system.defenserating.physical.pool / 8);
+                const divisor = Math.max(1, parseInt(game.settings.get(SYSTEM_NAME, "armorLessensDmgDivisor")) || 8);
+                const armorLessensDmg = Math.floor(this.finished.actor.system.defenserating.physical.pool / divisor);
                 console.log("SR6E | armorLessensDmg, reducing damage by", armorLessensDmg);
                 const newDamage = Math.max(0, this.finished.damage - armorLessensDmg);
                 const convertedToStun = this.finished.damage - newDamage;

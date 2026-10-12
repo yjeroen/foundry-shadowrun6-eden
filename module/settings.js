@@ -150,6 +150,17 @@ export const registerSystemSettings = () => {
             game.settings.set(SYSTEM_NAME, "armorLessensDmg", toggle);
         }
     });
+    game.settings.register(SYSTEM_NAME, "armorLessensDmgDivisor", {
+        name: "shadowrun6.settings.armorLessensDmgDivisor.name",
+        hint: "shadowrun6.settings.armorLessensDmgDivisor.hint",
+        scope: "world",
+        config: true,
+        type: new foundry.data.fields.NumberField({ required: true, nullable: false, integer: true, min: 1 }),
+        default: 8,
+        onChange: (divisor) => {
+            console.log("SR6E | Setting armorLessensDmgDivisor changed to " + divisor);
+        }
+    });
     game.settings.register(SYSTEM_NAME, "rollStrengthCombat", {
         name: "shadowrun6.settings.rollStrengthCombat.name",
         hint: "shadowrun6.settings.rollStrengthCombat.hint",
