@@ -12,8 +12,8 @@ const { DOCUMENT_OWNERSHIP_LEVELS } = foundry.CONST;
 function isLifeform(obj) {
     return obj.attributes != undefined;
 }
-function isSpiritOrSprite(obj) {
-    return obj.rating != undefined;
+function isSpiritOrSprite(actor) {
+    return actor.type === "Spirit" || actor.type === "sprite";
 }
 function isMatrixUser(obj) {
     return obj.persona != undefined;
@@ -137,8 +137,8 @@ export default class Shadowrun6Actor extends Actor {
         try {
             if (actorData.type === "Spirit") {
                 const force = parseInt(system.rating);
-                this._applySpiritPreset(force);
-                this._applyForce(force);
+                const typeMods = this._applySpiritPreset(force);
+                this._applyForce(force, typeMods);
             }
             this._prepareAttributes();
             this._prepareDerivedAttributes();
@@ -444,13 +444,15 @@ export default class Shadowrun6Actor extends Actor {
     //---------------------------------------------------------
     /**
      * Apply the force rating as a attribute and skill modifier
+     * @returns {object} The spirit type attribute modifiers, part of the spirit's natural attributes (not augmentations)
      */
     _applySpiritPreset(force) {
         const system = getSystemData(this);
+        const typeMods = {};
         // Only run on spirits
-        if (!isSpiritOrSprite(system))
-            return;
-        
+        if (!isSpiritOrSprite(this))
+            return typeMods;
+
         system.defenserating = foundry.utils.mergeObject(
             new Ratings(),
             system.defenserating ?? {},
@@ -461,17 +463,16 @@ export default class Shadowrun6Actor extends Actor {
         // TODO Fix Astral initiatives as they can differ from physical initiative
         switch (system.spiritType) {
             case 'air':
-                system.attributes.bod.mod = -2;
-                system.attributes.agi.mod = 3;
-                system.attributes.rea.mod = 4;
-                system.attributes.str.mod = -3;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = -2;
+                typeMods.agi = 3;
+                typeMods.rea = 4;
+                typeMods.str = -3;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+2;
-                system.initiative.physical.base = (force * 2)+4;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -479,50 +480,47 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["perception"].points = 1;
                 break;
             case 'beasts':
-                system.attributes.bod.mod = 2;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 0;
-                system.attributes.str.mod = 2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 2;
+                typeMods.agi = 1;
+                typeMods.rea = 0;
+                typeMods.str = 2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+2;
-                system.initiative.physical.base = (force * 2);
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'earth':
-                system.attributes.bod.mod = 4;
-                system.attributes.agi.mod = -2;
-                system.attributes.rea.mod = -1;
-                system.attributes.str.mod = 4;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = -1;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 4;
+                typeMods.agi = -2;
+                typeMods.rea = -1;
+                typeMods.str = 4;
+                typeMods.wil = 0;
+                typeMods.log = -1;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+4;
-                system.initiative.physical.base = (force * 2)-1;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["exotic_weapons"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'fire':
-                system.attributes.bod.mod = 1;
-                system.attributes.agi.mod = 2;
-                system.attributes.rea.mod = 3;
-                system.attributes.str.mod = -2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 1;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 1;
+                typeMods.agi = 2;
+                typeMods.rea = 3;
+                typeMods.str = -2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 1;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+1;
-                system.initiative.physical.base = (force * 2)+4;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -530,34 +528,32 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["perception"].points = 1;
                 break;
             case 'kin':
-                system.attributes.bod.mod = 1;
-                system.attributes.agi.mod = 0;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = -2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 1;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 1;
+                typeMods.agi = 0;
+                typeMods.rea = 2;
+                typeMods.str = -2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 1;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+1;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 system.skills["sorcery"].points = 1;
                 break;
             case 'water':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 0;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 1;
+                typeMods.rea = 2;
+                typeMods.str = 0;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2);
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["athletics"].specialization = "swimming";
@@ -566,17 +562,16 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["perception"].points = 1;
                 break;
             case 'plant':
-                system.attributes.bod.mod = 2;
-                system.attributes.agi.mod = -1;
-                system.attributes.rea.mod = 0;
-                system.attributes.str.mod = 1;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = -1;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 2;
+                typeMods.agi = -1;
+                typeMods.rea = 0;
+                typeMods.str = 1;
+                typeMods.wil = 0;
+                typeMods.log = -1;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+2;
-                system.initiative.physical.base = (force * 2);
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["exotic_weapons"].points = 1;
@@ -584,68 +579,64 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["sorcery"].points = 1;
                 break;
             case 'guardian':
-                system.attributes.bod.mod = 1;
-                system.attributes.agi.mod = 2;
-                system.attributes.rea.mod = 3;
-                system.attributes.str.mod = 2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 1;
+                typeMods.agi = 2;
+                typeMods.rea = 3;
+                typeMods.str = 2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = (force * 2)+1;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["exotic_weapons"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'guidance':
-                system.attributes.bod.mod = 3;
-                system.attributes.agi.mod = -1;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 1;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 3;
+                typeMods.agi = -1;
+                typeMods.rea = 2;
+                typeMods.str = 1;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+3;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 system.skills["sorcery"].points = 1;
                 break;
             case 'task':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 0;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 0;
+                typeMods.rea = 2;
+                typeMods.str = 2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
 
             case 'blood':
-                system.attributes.bod.mod = 4;
-                system.attributes.agi.mod = 2;
-                system.attributes.rea.mod = 1;
-                system.attributes.str.mod = 3;
-                system.attributes.wil.mod = 1;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = -1;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 4;
+                typeMods.agi = 2;
+                typeMods.rea = 1;
+                typeMods.str = 3;
+                typeMods.wil = 1;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = -1;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+1;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -653,34 +644,32 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["perception"].points = 1;
                 break;
             case 'caretaker':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 1;
-                system.attributes.str.mod = 0;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 1;
+                typeMods.rea = 1;
+                typeMods.str = 0;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +3;
-                system.initiative.physical.base = (force * 2)+1;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["influence"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'nymph':
-                system.attributes.bod.mod = -1;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 3;
-                system.attributes.str.mod = -1;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = -1;
+                typeMods.agi = 1;
+                typeMods.rea = 3;
+                typeMods.str = -1;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +2;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -688,68 +677,64 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["sorcery"].points = 1;
                 break;
             case 'scout':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 2;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 0;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 2;
+                typeMods.rea = 2;
+                typeMods.str = 0;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +3;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 system.skills["stealth"].points = 1;
                 break;
             case 'soldier':
-                system.attributes.bod.mod = 2;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 1;
-                system.attributes.str.mod = 3;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 1;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 2;
+                typeMods.agi = 1;
+                typeMods.rea = 1;
+                typeMods.str = 3;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 1;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +3;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 system.skills["stealth"].points = 1;
                 break;
             case 'worker':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 0;
-                system.attributes.rea.mod = 0;
-                system.attributes.str.mod = 1;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 0;
+                typeMods.rea = 0;
+                typeMods.str = 1;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +1;
-                system.initiative.physical.base = (force * 2);
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 system.skills["stealth"].points = 1;
                 break;
             case 'queen':
-                system.attributes.bod.mod = 5;
-                system.attributes.agi.mod = 3;
-                system.attributes.rea.mod = 4;
-                system.attributes.str.mod = 5;
-                system.attributes.wil.mod = 1;
-                system.attributes.log.mod = 1;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 5;
+                typeMods.agi = 3;
+                typeMods.rea = 4;
+                typeMods.str = 5;
+                typeMods.wil = 1;
+                typeMods.log = 1;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +5;
-                system.initiative.physical.base = (force * 2)+4;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -760,17 +745,16 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["sorcery"].points = 1;
                 break;
             case 'alpha':
-                system.attributes.bod.mod = 3;
-                system.attributes.agi.mod = 2;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 3;
-                system.attributes.wil.mod = 1;
-                system.attributes.log.mod = -2;
-                system.attributes.int.mod = 1;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 3;
+                typeMods.agi = 2;
+                typeMods.rea = 2;
+                typeMods.str = 3;
+                typeMods.wil = 1;
+                typeMods.log = -2;
+                typeMods.int = 1;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +4;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -782,50 +766,47 @@ export default class Shadowrun6Actor extends Actor {
                 break;
 
             case 'abomination':
-                system.attributes.bod.mod = 2;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 0;
-                system.attributes.str.mod = 2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 2;
+                typeMods.agi = 1;
+                typeMods.rea = 0;
+                typeMods.str = 2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force +2;
-                system.initiative.physical.base = (force * 2);
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'barren':
-                system.attributes.bod.mod = 4;
-                system.attributes.agi.mod = -2;
-                system.attributes.rea.mod = -1;
-                system.attributes.str.mod = 4;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 4;
+                typeMods.agi = -2;
+                typeMods.rea = -1;
+                typeMods.str = 4;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+4;
-                system.initiative.physical.base = (force * 2)-1;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["exotic_weapons"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'noxious':
-                system.attributes.bod.mod = -2;
-                system.attributes.agi.mod = 3;
-                system.attributes.rea.mod = 4;
-                system.attributes.str.mod = -3;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = -2;
+                typeMods.agi = 3;
+                typeMods.rea = 4;
+                typeMods.str = -3;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+2;
-                system.initiative.physical.base = (force * 2)+4;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -833,17 +814,16 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["perception"].points = 1;
                 break;
             case 'nuclear':
-                system.attributes.bod.mod = 1;
-                system.attributes.agi.mod = 2;
-                system.attributes.rea.mod = 3;
-                system.attributes.str.mod = -2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 1;
+                typeMods.agi = 2;
+                typeMods.rea = 3;
+                typeMods.str = -2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+1;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -851,34 +831,32 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["perception"].points = 1;
                 break;
             case 'plague':
-                system.attributes.bod.mod = 1;
-                system.attributes.agi.mod = 0;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = -2;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 1;
+                typeMods.agi = 0;
+                typeMods.rea = 2;
+                typeMods.str = -2;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force+1;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 system.skills["sorcery"].points = 1;
                 break;
             case 'sludge':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 1;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 0;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 1;
+                typeMods.rea = 2;
+                typeMods.str = 0;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["athletics"].specialization = "swimming";
@@ -888,17 +866,16 @@ export default class Shadowrun6Actor extends Actor {
                 break;
 
             case 'shadow':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 3;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 0;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 3;
+                typeMods.rea = 2;
+                typeMods.str = 0;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -907,33 +884,31 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["sorcery"].points = 1;
                 break;
             case 'shedim':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 0;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 1;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 0;
+                typeMods.rea = 2;
+                typeMods.str = 1;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+2;
                 system.skills["astral"].points = 1;
                 system.skills["close_combat"].points = 1;
                 system.skills["perception"].points = 1;
                 break;
             case 'masterShedim':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 0;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 1;
-                system.attributes.wil.mod = 1;
-                system.attributes.log.mod = 1;
-                system.attributes.int.mod = 1;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 0;
+                typeMods.rea = 2;
+                typeMods.str = 1;
+                typeMods.wil = 1;
+                typeMods.log = 1;
+                typeMods.int = 1;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -941,17 +916,16 @@ export default class Shadowrun6Actor extends Actor {
                 system.skills["sorcery"].points = 1;
                 break;
             case 'zonbi':
-                system.attributes.bod.mod = 0;
-                system.attributes.agi.mod = 3;
-                system.attributes.rea.mod = 2;
-                system.attributes.str.mod = 0;
-                system.attributes.wil.mod = 0;
-                system.attributes.log.mod = 0;
-                system.attributes.int.mod = 0;
-                system.attributes.cha.mod = 0;
-                system.attributes.mag.mod = 0;
+                typeMods.bod = 0;
+                typeMods.agi = 3;
+                typeMods.rea = 2;
+                typeMods.str = 0;
+                typeMods.wil = 0;
+                typeMods.log = 0;
+                typeMods.int = 0;
+                typeMods.cha = 0;
+                typeMods.mag = 0;
                 system.defenserating.physical.base = force;
-                system.initiative.physical.base = (force * 2)+3;
                 system.skills["astral"].points = 1;
                 system.skills["athletics"].points = 1;
                 system.skills["close_combat"].points = 1;
@@ -961,19 +935,22 @@ export default class Shadowrun6Actor extends Actor {
                 break;
 
         }
+        return typeMods;
     }
     //---------------------------------------------------------
     /**
      * Apply the force rating as a attribute and skill modifier
+     * @param {object} typeMods The spirit type attribute modifiers from _applySpiritPreset()
      */
-    _applyForce(force) {
+    _applyForce(force, typeMods = {}) {
         const system = getSystemData(this);
         // Only run on spirits
-        if (isSpiritOrSprite(system)) {
+        if (isSpiritOrSprite(this)) {
             console.log(`SR6E | _applyForce(${force})`, foundry.utils.deepClone(system));
             system.mortype = "mysticadept";
+            // The spirit type modifier is part of the natural attribute, so attributes.*.mod stays free for augmentations (max +4)
             CONFIG.SR6.PRIMARY_ATTRIBUTES.forEach((attr) => {
-                system.attributes[attr].base = force;
+                system.attributes[attr].base = force + (typeMods[attr] ?? 0);
             });
             CONFIG.SR6.ATTRIB_BY_SKILL.forEach(function (skillDef, id) {
                 let skill = system.skills[id];
@@ -988,29 +965,24 @@ export default class Shadowrun6Actor extends Actor {
             this.traits.hardenedArmor = force;
 
             // Magic rating
-            system.attributes.mag.base = force;
+            system.attributes.mag.base = force + (typeMods.mag ?? 0);
             system.essence = force;
             //Set initiative dice to 2d6 for phy and 3d6 for astral
             system.initiative.physical.dice = 2;
             system.initiative.astral.dice = 3;
             system.defenserating.astral.base = force;
-            system.initiative.physical.base = force * 2;
-            system.initiative.physical.pool = system.initiative.physical.base + system.initiative.physical.mod;
-            system.initiative.physical.dicePool = Math.max(1, Math.min(5, system.initiative.physical.dice + system.initiative.physical.diceMod) );
-            system.initiative.actions = system.initiative.physical.dicePool + 1;
             system.initiative.astral.base = force * 2;
             system.initiative.astral.pool = system.initiative.astral.base + system.initiative.astral.mod;
             system.initiative.astral.dicePool = Math.max(1, Math.min(5, system.initiative.astral.dice + system.initiative.astral.diceMod ) );
 
-            system.physical.max = 8 + Math.round(force / 2) + system.physical.mod;
-            system.physical.value = system.physical.max - system.physical.dmg;
+            // Physical monitor needs the final Body (Force + spirit type modifier), see _prepareDerivedAttributes()
             system.stun.max = 0;
             system.stun.value = 0;
             system.stun.dmg = 0;
             system.stun.mod = 0;
 
             system.tradition = {};
-            system.tradition.attribute = (system.attributes.int.mod > system.attributes.cha.mod) ? 'int' : 'cha';
+            system.tradition.attribute = ((typeMods.int ?? 0) > (typeMods.cha ?? 0)) ? 'int' : 'cha';
         }
     }
     //---------------------------------------------------------
@@ -1093,6 +1065,21 @@ export default class Shadowrun6Actor extends Actor {
                 data.initiative.matrix.base = data.attributes["rea"].pool + data.attributes["int"].pool;
                 data.initiative.matrix.pool = data.initiative.matrix.base + data.initiative.matrix.mod;
                 data.initiative.matrix.dicePool = Math.max(1, Math.min(5, data.initiative.matrix.dice + data.initiative.matrix.diceMod) );
+            }
+        } else {
+            if (data.physical) {
+                // Spirits only have a Physical monitor: 8 + (Body / 2), with Body including the spirit type modifier
+                data.physical.mod = data.physical.mod ?? 0;
+                data.physical.base = 8 + Math.round(data.attributes["bod"].pool / 2);
+                data.physical.max = data.physical.base + data.physical.mod;
+                data.physical.value = data.physical.max - data.physical.dmg;
+            }
+            if (data.initiative) {
+                // Spirits use the general rule: Reaction + Intuition, with Reaction and Intuition including the spirit type modifiers
+                data.initiative.physical.base = data.attributes["rea"].pool + data.attributes["int"].pool;
+                data.initiative.physical.pool = data.initiative.physical.base + data.initiative.physical.mod;
+                data.initiative.physical.dicePool = Math.max(1, Math.min(5, data.initiative.physical.dice + data.initiative.physical.diceMod) );
+                data.initiative.actions = data.initiative.physical.dicePool + 1;
             }
         }
 
