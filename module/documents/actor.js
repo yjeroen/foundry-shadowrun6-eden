@@ -3260,7 +3260,12 @@ export default class Shadowrun6Actor extends Actor {
             const item = sourceData.items[index];
             
             if (item.data) { item.system = item.data; delete item.data; }
-            
+
+            // COMMLINK replaces book texts it has no license for with a notice, which is no useful description
+            if (typeof item.system?.description === "string" && item.system.description.startsWith("Licensed content.")) {
+                item.system.description = "";
+            }
+
             if (item.system?.genesisID) {
                 if (item.system.type === "WEAPON_CLOSE_COMBAT") {
                     item.system.attackRating[0] -= actorSystem.attributes.str.pool;
@@ -3296,9 +3301,18 @@ export default class Shadowrun6Actor extends Actor {
             }
         }
 
+        // The Control Rig rating is used for rigging, but GENESIS/COMMLINK only export the Control Rig cyberware
+        const controlRig = sourceData.items.find(item => item.system?.genesisID === "control_rig");
+        if (controlRig && !actorSystem.controlRig) actorSystem.controlRig = Number(controlRig.system.rating) || 0;
+
         const effects = [];
         // Change added Attribute Modifiers to ActiveEffects
         for (const attribute in actorSystem.attributes) {
+            // COMMLINK exports Essence loss as negative Magic/Resonance, also for characters without Magic/Resonance
+            if (["mag", "res"].includes(attribute) && !(actorSystem.attributes[attribute].base > 0)) {
+                actorSystem.attributes[attribute].base = 0;
+                actorSystem.attributes[attribute].mod = 0;
+            }
             if (Number.isFinite(actorSystem.attributes[attribute].mod) && actorSystem.attributes[attribute].mod !== 0) {
                 const positive = actorSystem.attributes[attribute].mod > 0 ? "+" : "";
                 const effectData = {
