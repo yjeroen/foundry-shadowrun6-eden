@@ -1150,9 +1150,13 @@ export default class Shadowrun6Actor extends Actor {
         this.createAttackRatingProperties(system);
         
         /* Physical Attack Rating - used for unarmed combat */
-        system.attackrating.physical.base = system.attributes["rea"].pool + system.attributes["str"].pool;
+        // Rolling Strength instead of Agility in Close Combat: a marked Unarmed item adds Agility instead of Strength, like in Item.calculatedAttackRating
+        const unarmedRollsStrength = game.settings.get(SYSTEM_NAME, "rollStrengthCombat")
+            && this.items?.some(item => item.system.genesisID === "unarmed" && item.system.strWeapon === true);
+        const unarmedArAttribute = unarmedRollsStrength ? "agi" : "str";
+        system.attackrating.physical.base = system.attributes["rea"].pool + system.attributes[unarmedArAttribute].pool;
         system.attackrating.physical.modString = game.i18n.localize("attrib.rea_short") + " " + system.attributes["rea"].pool + " ";
-        system.attackrating.physical.modString += game.i18n.localize("attrib.str_short") + " " + system.attributes["str"].pool;
+        system.attackrating.physical.modString += game.i18n.localize(`attrib.${unarmedArAttribute}_short`) + " " + system.attributes[unarmedArAttribute].pool;
         system.attackrating.physical.pool = system.attackrating.physical.base;
         if (system.attackrating.physical.mod) {
             system.attackrating.physical.pool += system.attackrating.physical.mod;

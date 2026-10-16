@@ -484,6 +484,10 @@ export class WeaponRoll extends SkillRoll {
         }
 
         this.pool = item.system.pool;   // this needs to be item.system.pool, as the pool gets prepared in Actor._prepareItemPools() and in _prepareVehicleActorItems()
+        // Rolling Strength instead of Agility in Close Combat: the pool already uses Strength, so the check text and attribute selector must too
+        if (game.settings.get(SYSTEM_NAME, "rollStrengthCombat") && item.system.strWeapon) {
+            this.attrib = "system.attributes.str.pool";
+        }
         if (item.system.isElectronicMatrixDevice) {
             const matrixCmModifier = item.system.matrix.matrixCM.penalty;
             this.matrixCmPenalty = matrixCmModifier;
