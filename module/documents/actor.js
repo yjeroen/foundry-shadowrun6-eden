@@ -3255,12 +3255,37 @@ export default class Shadowrun6Actor extends Actor {
             foundry.utils.setProperty(sourceData, "system.attributes.res.submersion", specialTraits.submersion);
         }
 
+        // COMMLINK export version 15 nests mods, accessories, software and licenses in their parent item (itemsInItem)
+        // Flatten them into the items list and remember their parent, so they can be linked to it below
+        const parentIndexOf = new Map();
+        for (let index = 0; index < sourceData.items.length; index++) {
+            const item = sourceData.items[index];
+            if (item.data) { item.system = item.data; delete item.data; }
+            const nestedItems = item.system?.itemsInItem;
+            if (!Array.isArray(nestedItems)) continue;
+            delete item.system.itemsInItem;
+
+            const licenses = nestedItems.filter(nested => nested.type === "license").map(license => license.name);
+            if (licenses.length) {
+                item.system.description = `${item.system.description ?? ""}<p><b>${game.i18n.localize("shadowrun6.sin.licenses")}:</b> ${licenses.join(", ")}</p>`;
+            }
+            for (const nested of nestedItems.filter(nested => nested.type !== "license")) {
+                sourceData.items.push(nested);
+                parentIndexOf.set(sourceData.items.length - 1, index);
+            }
+        }
+
         // Both GENESIS and COMMLINK use Item.data as its sourceData
         for (const index in sourceData.items) {
             const item = sourceData.items[index];
             
             if (item.data) { item.system = item.data; delete item.data; }
-            
+
+            // COMMLINK replaces book texts it has no license for with a notice, which is no useful description
+            if (typeof item.system?.description === "string" && item.system.description.startsWith("Licensed content.")) {
+                item.system.description = "";
+            }
+
             if (item.system?.genesisID) {
                 if (item.system.type === "WEAPON_CLOSE_COMBAT") {
                     item.system.attackRating[0] -= actorSystem.attributes.str.pool;
@@ -3294,11 +3319,36 @@ export default class Shadowrun6Actor extends Actor {
                     sourceData.items[index] = importedItem;
                 }
             }
+
+            // COMMLINK export version 15 sends the Matrix attributes of devices in a matrix object
+            const matrix = sourceData.items[index].system?.matrix;
+            if (sourceData.items[index].type === "gear" && matrix && "d" in matrix) {
+                const { a, s, d, f } = matrix;
+                Object.assign(sourceData.items[index].system, { a, s, d, f });
+            }
         }
+
+        // Turn the flattened nested items into installed mods/software, or separate items when they work on their own
+        for (const [index, parentIndex] of parentIndexOf) {
+            const parent = sourceData.items[parentIndex];
+            parent._id ??= foundry.utils.randomID();
+            let ownerIndex = parentIndex;
+            while (parentIndexOf.has(ownerIndex)) ownerIndex = parentIndexOf.get(ownerIndex);
+            sourceData.items[index] = this._convertCommlinkNestedItem(sourceData.items[index], parent, sourceData.items[ownerIndex].name);
+        }
+
+        // The Control Rig rating is used for rigging, but GENESIS/COMMLINK only export the Control Rig cyberware
+        const controlRig = sourceData.items.find(item => item.system?.genesisID === "control_rig");
+        if (controlRig && !actorSystem.controlRig) actorSystem.controlRig = Number(controlRig.system.rating) || 0;
 
         const effects = [];
         // Change added Attribute Modifiers to ActiveEffects
         for (const attribute in actorSystem.attributes) {
+            // COMMLINK exports Essence loss as negative Magic/Resonance, also for characters without Magic/Resonance
+            if (["mag", "res"].includes(attribute) && !(actorSystem.attributes[attribute].base > 0)) {
+                actorSystem.attributes[attribute].base = 0;
+                actorSystem.attributes[attribute].mod = 0;
+            }
             if (Number.isFinite(actorSystem.attributes[attribute].mod) && actorSystem.attributes[attribute].mod !== 0) {
                 const positive = actorSystem.attributes[attribute].mod > 0 ? "+" : "";
                 const effectData = {
@@ -3392,6 +3442,53 @@ export default class Shadowrun6Actor extends Actor {
         await this.createEmbeddedDocuments("ActiveEffect", effects);
 
         return this;
+    }
+
+    /**
+     * Convert an item COMMLINK nested in a parent item (export version 15 itemsInItem)
+     * Software becomes installed software, weapons and augmentations stay separate gear (so they can be used),
+     * all other accessories and modifications become mods installed in the parent
+     * @param {object} item         Nested item source data
+     * @param {object} parent       Parent item source data, with an _id
+     * @param {string} ownerName    Name of the top level item, e.g. the drone of a weapon mount
+     * @returns {object}            Item source data to import
+     */
+    _convertCommlinkNestedItem(item, parent, ownerName) {
+        const system = item.system ?? {};
+        const embeddedInUuid = `${this.uuid}.Item.${parent._id}`;
+        // Items replaced from a compendium are already system items
+        if (["mod", "software"].includes(item.type)) {
+            item.system.embeddedInUuid = embeddedInUuid;
+            return item;
+        }
+        if (item.type !== "gear") return item;
+
+        if (/^WEAPON_|^CYBERWARE$|^BIOWARE$/.test(system.type)) {
+            return { ...item, name: `${item.name} (${ownerName})` };
+        }
+
+        const SOFTWARE_TYPES = { AUTOSOFT: "AUTOSOFT", BASIC_PROGRAM: "STANDARD", HACKING_PROGRAM: "HACKING", SKILLSOFT: "TALENTSOFT" };
+        const AUTOSOFT_SUBTYPES = { clearsight: "CLEARSIGHT", electronic_warfare: "ELECTRONIC_WARFARE", evasion: "EVASION", maneuvering: "MANEUVER", stealth_auto: "STEALTH", targeting: "TARGETING" };
+        const MOD_TYPES = { WEAPON_ACCESSORY: "accessory_weapon", ARMOR_BODY: "armor_mod", VISION_ENHANCEMENT: "visual_enhancement", AUDIO_ENHANCEMENT: "audio_enhancement" };
+        const isSoftware = system.type === "SOFTWARE";
+        const product = system.product in CONFIG.SR6.PDF_OPTIONS.BOOKS ? system.product : undefined;
+
+        return {
+            name: item.name,
+            type: isSoftware ? "software" : "mod",
+            system: {
+                type: isSoftware ? SOFTWARE_TYPES[system.subtype] : (MOD_TYPES[system.subtype] ?? (parent.system?.type === "ELECTRONICS" ? "accessory_electronics" : undefined)),
+                subtype: isSoftware ? AUTOSOFT_SUBTYPES[system.genesisID] : undefined,
+                rating: Number(system.rating) || 0,
+                embeddedInUuid,
+                genesisID: system.genesisID,
+                description: system.description ?? "",
+                availDef: system.availDef,
+                price: Number(system.price) || 0,
+                product,
+                page: system.page > 0 ? system.page : null
+            }
+        };
     }
 
     get gruntGroup() {

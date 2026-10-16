@@ -1955,6 +1955,7 @@
       }
     },
     "sin" : {
+      "licenses" : "Licenses",
       "quality" : "Quality",
       "real_sin" : "Real SIN",
       "anyone" : "(R1) Anyone",
