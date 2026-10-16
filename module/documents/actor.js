@@ -3021,6 +3021,7 @@ export default class Shadowrun6Actor extends Actor {
         console.log("SR6E | applyDamage newDamage=", newDamage, "   overflow=", overflow);
         // Ensure actual damage is not higher than pool
         newDamage = Math.min(Math.max(0, newDamage), damageObj.max);
+        const physicalDamageBefore = (data.physical?.dmg ?? 0) + overflow;
 
         result = await this.update({
             [`system.` + monitor + `.dmg`]: newDamage,
@@ -3041,6 +3042,11 @@ export default class Shadowrun6Actor extends Actor {
         }
 
         await this.checkUnconscious();
+
+        // Any healing of Physical damage stops Bleeding
+        if (monitor === MonitorType.PHYSICAL && (this.system.physical.dmg + this.system.overflow.dmg) < physicalDamageBefore) {
+            await this.stopBleeding();
+        }
 
         console.log("SR6E | Applied "+monitor+" "+damage+" damage to", this.name);
         return true;
@@ -3105,6 +3111,51 @@ export default class Shadowrun6Actor extends Actor {
             await this.toggleStatusEffect('dead', {active:false});
             await this.toggleStatusEffect('unconscious', {active:false});
         }
+    }
+
+    /**
+     * Bleeding optional rule (SWC p.145) only applies to living beings when enabled
+     */
+    get canBleed() {
+        return game.settings.get(SYSTEM_NAME, "bleeding") && ["Player", "NPC", "Critter"].includes(this.type);
+    }
+
+    /**
+     * Bleeding starts when the Physical damage suffered after the resistance test is higher than Body
+     * @param {number} physicalDamage   Physical damage boxes applied after the resistance test
+     */
+    async checkBleeding(physicalDamage) {
+        if (!this.canBleed || this.statuses.has("bleeding")) return;
+        if (physicalDamage <= this.system.attributes.bod.pool) return;
+
+        console.log(`SR6E | checkBleeding | ${this.name} suffered ${physicalDamage} Physical damage, more than Body ${this.system.attributes.bod.pool}`);
+        await this.toggleStatusEffect("bleeding", {active: true});
+        await ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+            content: game.i18n.format("shadowrun6.bleeding.started", { name: this.name })
+        });
+    }
+
+    /**
+     * A bleeding character suffers one box of unresisted Physical damage at the end of each combat round
+     */
+    async bleed() {
+        if (!this.canBleed || !this.statuses.has("bleeding") || this.statuses.has("dead")) return;
+
+        console.log(`SR6E | bleed | ${this.name} suffers 1 box of unresisted Physical damage`);
+        await this.applyDamage({ monitor: MonitorType.PHYSICAL, damage: 1 });
+        await ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+            content: game.i18n.format("shadowrun6.bleeding.damage", { name: this.name })
+        });
+    }
+
+    async stopBleeding() {
+        if (!this.statuses.has("bleeding")) return;
+
+        console.log(`SR6E | stopBleeding | ${this.name} was healed`);
+        await this.toggleStatusEffect("bleeding", {active: false});
+        ui.notifications.info(game.i18n.format("shadowrun6.bleeding.stopped", { name: this.name }));
     }
 
     /**

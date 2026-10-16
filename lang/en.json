@@ -2317,6 +2317,11 @@
         "docName_docType": "{name} {type}"
       }
     },
+    "bleeding": {
+      "started": "{name} took more Physical damage than their Body and is bleeding.",
+      "damage": "{name} is bleeding and suffers 1 box of unresisted Physical damage.",
+      "stopped": "{name} was healed and is no longer bleeding."
+    },
     "EFFECT": {
       "chilled": "Chilled",
       "confused": "Confused",

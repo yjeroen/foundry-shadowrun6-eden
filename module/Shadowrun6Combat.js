@@ -55,12 +55,17 @@ export default class Shadowrun6Combat extends Combat {
         return super.startCombat();
     }
     /** Advance the combat to the next turn */
-    nextRound() {
+    async nextRound() {
         console.log("SR6E | nextRound");
         this.combatants.forEach((comb) => {
             let c6 = comb;
             c6.edgeGained = 0;
         });
+        // Bleeding optional rule: bleeding combatants suffer damage at the end of each combat round
+        if (game.user.isGM && game.settings.get(SYSTEM_NAME, "bleeding")) {
+            const actors = new Set(this.combatants.map(comb => comb.actor).filter(actor => actor));
+            for (const actor of actors) await actor.bleed?.();
+        }
         return super.nextRound();
     }
 }

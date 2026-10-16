@@ -701,6 +701,8 @@ Hooks.once("init", async function () {
                         }
                         result = await actor.applyDamage( damageData );
                         if (result) chatMessage.update({ 'rolls': [roll] });
+                        // Bleeding optional rule: Physical damage after the resistance test higher than Body
+                        if (result && monitor === "physical") await actor.checkBleeding(damageData.damage);
                     }
                     break;
                 case RollType.MatrixResult:

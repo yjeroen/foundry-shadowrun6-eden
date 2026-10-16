@@ -1674,6 +1674,11 @@
         }
       }
     },
+    "bleeding": {
+      "started": "{name} hat mehr körperlichen Schaden erlitten als Konstitution und blutet.",
+      "damage": "{name} blutet und erleidet 1 Kästchen nicht widerstandenen körperlichen Schaden.",
+      "stopped": "{name} wurde geheilt und blutet nicht mehr."
+    },
     "EFFECT": {
       "chilled": "Unterkühlt",
       "confused": "Verwirrt",
